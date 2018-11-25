@@ -55,7 +55,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             // NOTA BENA: This method programmatically constructs the        //
             //            order form. For many use cases, it would be        //
             //            better to create the order form as a template      //
-            //            using the DocuSign web tool as WYSIWYG             //
+            //            using the DocuSign web tool as a WYSIWYG           //
             //            form designer.                                     //
             //                                                               //
             ///////////////////////////////////////////////////////////////////
