@@ -20,7 +20,7 @@ The **refresh token** is not used in this example.
    [Source.](https://github.com/docusign/eg-03-csharp-auth-code-grant-core/blob/master/eg-03-csharp-auth-code-grant-core/Controllers/Eg003ListEnvelopesController.cs)
    The envelopes' current status is included.
 1. **Get an envelope's basic information.**
-   [Source.](https://github.com/docusign/eg-03-csharp-auth-code-grant-core/blob/master/eg-03-csharp-auth-code-grant-core/Controllers/eg004EnvelopeInfoController.cs)
+   [Source.](https://github.com/docusign/eg-03-csharp-auth-code-grant-core/blob/master/eg-03-csharp-auth-code-grant-core/Controllers/Eg004EnvelopeInfoController.cs)
    The example lists the basic information about an envelope, including its overall status.
 1. **List an envelope's recipients**
    [Source.](https://github.com/docusign/eg-03-csharp-auth-code-grant-core/blob/master/eg-03-csharp-auth-code-grant-core/Controllers/Eg005EnvelopeRecipientsController.cs)
