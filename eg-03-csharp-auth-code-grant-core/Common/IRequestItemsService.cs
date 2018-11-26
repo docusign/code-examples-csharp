@@ -4,9 +4,7 @@ using eg_03_csharp_auth_code_grant_core.Models;
 namespace eg_03_csharp_auth_code_grant_core
 {
     public interface IRequestItemsService
-    {
-        //ApiClient DefaultApiClient { get; }
-        
+    {        
         string EgName { get; set; }
 
         Session Session { get; set; }

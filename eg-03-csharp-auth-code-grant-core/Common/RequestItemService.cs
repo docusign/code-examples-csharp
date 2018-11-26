@@ -29,22 +29,6 @@ namespace eg_03_csharp_auth_code_grant_core.Common
             }
         }
 
-        //public ApiClient DefaultApiClient
-        //{
-        //    get
-        //    {
-        //        var key = string.Format(API_CLIENT_KEY, _id);
-        //        ApiClient apiClient = _cache.Get<ApiClient>("apiClient");
-        //        if (apiClient == null)
-        //        {
-        //            apiClient = new ApiClient(BASE_URI);
-        //            _cache.Set(key, apiClient);
-        //        }
-
-        //        return apiClient;
-        //    }
-        //}
-
         private string GetKey(string key)
         {
             return string.Format("{0}_{1}", _id, key);
