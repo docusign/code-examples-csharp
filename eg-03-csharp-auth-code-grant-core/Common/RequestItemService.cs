@@ -10,9 +10,7 @@ namespace eg_03_csharp_auth_code_grant_core.Common
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMemoryCache _cache;
-        private readonly string _id;
-        private string API_CLIENT_KEY = "{0}_ApiClient";        
-        private string BASE_URI = "https://demo.docusign.net/restapi";
+        private readonly string _id;                 
         private string _accessToken;        
 
         public RequestItemsService(IHttpContextAccessor httpContextAccessor, IMemoryCache cache)
