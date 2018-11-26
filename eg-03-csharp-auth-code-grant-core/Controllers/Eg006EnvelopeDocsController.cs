@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DocuSign.eSign.Api;
+using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
 using eg_03_csharp_auth_code_grant_core.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,11 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName)
         {
-            EnvelopesApi envelopesApi = new EnvelopesApi(RequestItemsService.DefaultConfiguration);
+            var session = RequestItemsService.Session;
+            var user = RequestItemsService.User;
+            var config = new Configuration(new ApiClient(session.BasePath + "/restapi"));
+            config.AddDefaultHeader("Authorization", "Bearer " + user.AccessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(config);
             EnvelopeDocumentsResult result = envelopesApi.ListDocuments(RequestItemsService.Session.AccountId, 
                 RequestItemsService.EnvelopeId);
             // Save the envelopeId and its list of documents in the session so

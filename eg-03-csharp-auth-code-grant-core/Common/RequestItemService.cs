@@ -11,8 +11,7 @@ namespace eg_03_csharp_auth_code_grant_core.Common
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMemoryCache _cache;
         private readonly string _id;
-        private string API_CLIENT_KEY = "{0}_ApiClient";
-        private string CONFIG_KEY = "{0}_DocusignConfig";
+        private string API_CLIENT_KEY = "{0}_ApiClient";        
         private string BASE_URI = "https://demo.docusign.net/restapi";
         private string _accessToken;        
 
@@ -30,38 +29,22 @@ namespace eg_03_csharp_auth_code_grant_core.Common
             }
         }
 
-        public ApiClient DefaultApiClient
-        {
-            get
-            {
-                var key = string.Format(API_CLIENT_KEY, _id);
-                ApiClient apiClient = _cache.Get<ApiClient>("apiClient");
-                if (apiClient == null)
-                {
-                    apiClient = new ApiClient(BASE_URI);
-                    _cache.Set(key, apiClient);
-                }
+        //public ApiClient DefaultApiClient
+        //{
+        //    get
+        //    {
+        //        var key = string.Format(API_CLIENT_KEY, _id);
+        //        ApiClient apiClient = _cache.Get<ApiClient>("apiClient");
+        //        if (apiClient == null)
+        //        {
+        //            apiClient = new ApiClient(BASE_URI);
+        //            _cache.Set(key, apiClient);
+        //        }
 
-                return apiClient;
-            }
-        }
+        //        return apiClient;
+        //    }
+        //}
 
-        public Configuration DefaultConfiguration
-        {
-            get
-            {
-                var key = string.Format(CONFIG_KEY, _id);
-                var docuSignConfig = _cache.Get<Configuration>(key);
-
-                if (docuSignConfig == null)
-                {
-                    docuSignConfig = new Configuration(new ApiClient(BASE_URI));
-                    _cache.Set(key, docuSignConfig);
-                }
-                docuSignConfig.AddDefaultHeader("Authorization", "Bearer " + _accessToken);
-                return docuSignConfig;
-            }
-        }
         private string GetKey(string key)
         {
             return string.Format("{0}_{1}", _id, key);
@@ -70,7 +53,7 @@ namespace eg_03_csharp_auth_code_grant_core.Common
             get => _cache.Get<string>(GetKey("EgName"));
             set => _cache.Set(GetKey("EgName"), value);
         }
-
+       
         public Session Session {
             get => _cache.Get<Session>(GetKey("Session"));
             set => _cache.Set(GetKey("Session"), value);

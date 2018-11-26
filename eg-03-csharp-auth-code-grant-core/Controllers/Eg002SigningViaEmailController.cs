@@ -8,6 +8,7 @@ using eg_03_csharp_auth_code_grant_core.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Text;
+using DocuSign.eSign.Client;
 
 namespace eg_03_csharp_auth_code_grant_core.Controllers
 {
@@ -24,9 +25,13 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName)
-        {            
+        {
+            var session = RequestItemsService.Session;
+            var user = RequestItemsService.User;
             EnvelopeDefinition env = MakeEnvelope(signerEmail, signerName, ccEmail, ccName);
-            EnvelopesApi envelopesApi = new EnvelopesApi(RequestItemsService.DefaultConfiguration);
+            var config = new Configuration(new ApiClient(session.BasePath + "/restapi"));
+            config.AddDefaultHeader("Authorization", "Bearer " + user.AccessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(config);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(RequestItemsService.Session.AccountId, env);
             RequestItemsService.EnvelopeId = results.EnvelopeId;
             ViewBag.h1 = "Envelope sent";

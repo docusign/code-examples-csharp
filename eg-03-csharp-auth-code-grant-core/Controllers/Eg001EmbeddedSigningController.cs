@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DocuSign.eSign.Api;
+using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
 using eg_03_csharp_auth_code_grant_core.Common;
 using eg_03_csharp_auth_code_grant_core.Controllers;
@@ -33,9 +34,11 @@ namespace eg_03_csharp_auth_code_grant_core.Views
             // Step 1. Create the envelope definition
             EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName);
 
-            // Step 2. Call DocuSign to create the envelope
-            //EnvelopesApi envelopesApi = new EnvelopesApi((Configuration)HttpContext.Items["docuSignConfig"]);
-            EnvelopesApi envelopesApi = new EnvelopesApi(RequestItemsService.DefaultConfiguration);
+            // Step 2. Call DocuSign to create the envelope                   
+            var config = new Configuration(new ApiClient(session.BasePath+ "/restapi"));
+            config.AddDefaultHeader("Authorization", "Bearer "+ user.AccessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(config);
+
             EnvelopeSummary results = envelopesApi.CreateEnvelope(session.AccountId, envelope);
 
             string envelopeId = results.EnvelopeId;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DocuSign.eSign.Api;
+using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
 using eg_03_csharp_auth_code_grant_core.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -24,8 +25,12 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName, string startingView)
-        {            
-            EnvelopesApi envelopesApi = new EnvelopesApi(RequestItemsService.DefaultConfiguration);
+        {
+            var session = RequestItemsService.Session;
+            var user = RequestItemsService.User;
+            var config = new Configuration(new ApiClient(session.BasePath + "/restapi"));
+            config.AddDefaultHeader("Authorization", "Bearer " + user.AccessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(config);
             // Step 1. Make the envelope with "created" (draft) status            
             RequestItemsService.Status = "created";
             //EnvelopeSummary results = (EnvelopeSummary)controller2.doWork(args, model);

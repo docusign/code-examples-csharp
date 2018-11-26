@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DocuSign.eSign.Api;
+using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
 using eg_03_csharp_auth_code_grant_core.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,11 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         public IActionResult Create()
         {           
             string templateName = "Example Signer and CC template";
-            TemplatesApi templatesApi = new TemplatesApi(RequestItemsService.DefaultConfiguration);
+            var session = RequestItemsService.Session;
+            var user = RequestItemsService.User;
+            var config = new Configuration(new ApiClient(session.BasePath + "/restapi"));
+            config.AddDefaultHeader("Authorization", "Bearer " + user.AccessToken);
+            TemplatesApi templatesApi = new TemplatesApi(config);
             TemplatesApi.ListTemplatesOptions options = new TemplatesApi.ListTemplatesOptions();
             options.searchText = "Example Signer and CC template";
             EnvelopeTemplateResults results = templatesApi.ListTemplates(RequestItemsService.Session.AccountId, options);
