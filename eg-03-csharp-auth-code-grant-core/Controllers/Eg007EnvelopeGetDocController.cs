@@ -18,8 +18,19 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         public override string EgName => "eg007";
 
         [HttpPost]
-        public FileResult Create(string docSelect)
+        public ActionResult Create(string docSelect)
         {
+            bool tokenOk = CheckToken(3);
+            if (!tokenOk)
+            {
+                // We could store the parameters of the requested operation 
+                // so it could be restarted automatically.
+                // But since it should be rare to have a token issue here,
+                // we'll make the user re-enter the form data after 
+                // authentication.
+                RequestItemsService.EgName = EgName;
+                return Redirect("/ds/mustAuthenticate");
+            }
             var session = RequestItemsService.Session;
             var user = RequestItemsService.User;
             var config = new Configuration(new ApiClient(session.BasePath + "/restapi"));
