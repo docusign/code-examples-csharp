@@ -18,7 +18,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         public Eg011EmbeddedSendingController(DSConfiguration config, IRequestItemsService requestItemsService) 
             : base(config, requestItemsService)
         {
-            this.controller2 = new Eg002SigningViaEmailController(Config, requestItemsService);
+            ViewBag.title = "Embedded Sending";
         }
 
         public override string EgName => "eg011";
@@ -43,10 +43,11 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             config.AddDefaultHeader("Authorization", "Bearer " + user.AccessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(config);
             // Step 1. Make the envelope with "created" (draft) status            
+            // Using eg002 to create the envelope with "created" status
             RequestItemsService.Status = "created";
-            //EnvelopeSummary results = (EnvelopeSummary)controller2.doWork(args, model);
-            controller2.Create(signerEmail, signerName, ccEmail, ccName);
-            String envelopeId = RequestItemsService.EnvelopeId;
+            controller2 = new Eg002SigningViaEmailController(Config, RequestItemsService);
+            EnvelopeSummary results = controller2.DoWork(signerEmail, signerName, ccEmail, ccName);
+            String envelopeId = results.EnvelopeId;
 
             // Step 2. create the sender view
             // Call the CreateSenderView API

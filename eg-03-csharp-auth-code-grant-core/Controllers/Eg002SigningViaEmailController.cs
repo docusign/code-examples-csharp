@@ -37,6 +37,15 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 RequestItemsService.EgName = EgName;
                 return Redirect("/ds/mustAuthenticate");
             }
+            EnvelopeSummary results = DoWork(signerEmail, signerName, ccEmail, ccName);
+            ViewBag.h1 = "Envelope sent";
+            ViewBag.message = "The envelope has been created and sent!<br />Envelope ID " + results.EnvelopeId + ".";
+            //return results;
+            return View("example_done");
+        }
+
+        public EnvelopeSummary DoWork(string signerEmail, string signerName, string ccEmail, string ccName)
+        {
             var session = RequestItemsService.Session;
             var user = RequestItemsService.User;
             EnvelopeDefinition env = MakeEnvelope(signerEmail, signerName, ccEmail, ccName);
@@ -45,10 +54,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             EnvelopesApi envelopesApi = new EnvelopesApi(config);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(RequestItemsService.Session.AccountId, env);
             RequestItemsService.EnvelopeId = results.EnvelopeId;
-            ViewBag.h1 = "Envelope sent";
-            ViewBag.message =  "The envelope has been created and sent!<br />Envelope ID " + results.EnvelopeId + ".";
-            //return results;
-            return View("example_done");
+            return results;
         }
 
         private EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName)
