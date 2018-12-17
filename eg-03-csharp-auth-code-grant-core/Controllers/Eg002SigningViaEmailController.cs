@@ -26,6 +26,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName)
         {
+            // Check the token with minimal buffer time.
             bool tokenOk = CheckToken(3);
             if (!tokenOk)
             {
@@ -46,19 +47,36 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         public EnvelopeSummary DoWork(string signerEmail, string signerName, string ccEmail, string ccName)
         {
-            var session = RequestItemsService.Session;
-            var user = RequestItemsService.User;
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var accountId = RequestItemsService.Session.AccountId;
+
             EnvelopeDefinition env = MakeEnvelope(signerEmail, signerName, ccEmail, ccName);
-            var config = new Configuration(new ApiClient(session.BasePath + "/restapi"));
-            config.AddDefaultHeader("Authorization", "Bearer " + user.AccessToken);
+            var config = new Configuration(new ApiClient(basePath));
+            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(config);
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(RequestItemsService.Session.AccountId, env);
+            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
             RequestItemsService.EnvelopeId = results.EnvelopeId;
             return results;
         }
 
         private EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName)
         {
+            // Data for this method
+            // signerEmail
+            // signerName
+            // ccEmail
+            // ccName
+            // Config.docDocx
+            // Config.docPdf
+            // RequestItemsService.Status -- the envelope status ('created' or 'sent')
+
+
             // document 1 (html) has tag **signature_1**
             // document 2 (docx) has tag /sn1/
             // document 3 (pdf) has tag /sn1/
@@ -75,6 +93,8 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             // create the envelope definition
             EnvelopeDefinition env = new EnvelopeDefinition();
             env.EmailSubject = "Please sign this document set";
+
+            // Create document objects, one per document
             Document doc1 = new Document();
             string b64 = Convert.ToBase64String(document1(signerEmail, signerName, ccEmail, ccName));
             doc1.DocumentBase64 = b64;
@@ -87,7 +107,6 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 FileExtension = "docx",
                 DocumentId = "2"
             };
-
             Document doc3 = new Document
             {
                 DocumentBase64 = doc3PdfBytes,
@@ -95,8 +114,6 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 FileExtension = "pdf",
                 DocumentId = "3"
             };
-
-
             // The order in the docs array determines the order in the envelope
             env.Documents =  new List<Document> { doc1, doc2, doc3};
 
@@ -146,12 +163,10 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 AnchorXOffset = "20"
             };
             
-
             // Tabs are set per recipient / signer
             Tabs signer1Tabs = new Tabs {
                 SignHereTabs = new List<SignHere> { signHere1, signHere2}
             };
-            
             signer1.Tabs = signer1Tabs;
 
             // Add the recipients to the envelope object
@@ -160,9 +175,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 Signers = new List<Signer> { signer1 },
                 CarbonCopies = new List<CarbonCopy> { cc1 }
             };
-            
             env.Recipients = recipients;
-
             // Request that the envelope be sent by setting |status| to "sent".
             // To request that the envelope be created as a draft, set to "created"
             env.Status = RequestItemsService.Status;
@@ -172,6 +185,12 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         private byte[] document1(string signerEmail, string signerName, string ccEmail, string ccName)
         {
+            // Data for this method
+            // signerEmail
+            // signerName
+            // ccEmail
+            // ccName
+
             return Encoding.UTF8.GetBytes(
             " <!DOCTYPE html>\n" +
                 "    <html>\n" +

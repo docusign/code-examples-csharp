@@ -22,6 +22,13 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName)
         {
+            // Data for this method
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var accountId = RequestItemsService.Session.AccountId;
+            var envelopeId = RequestItemsService.EnvelopeId;
+
+
             bool tokenOk = CheckToken(3);
             if (!tokenOk)
             {
@@ -33,16 +40,12 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 RequestItemsService.EgName = EgName;
                 return Redirect("/ds/mustAuthenticate");
             }
-            var session = RequestItemsService.Session;
-            var user = RequestItemsService.User;
-            var config = new Configuration(new ApiClient(session.BasePath + "/restapi"));
-            config.AddDefaultHeader("Authorization", "Bearer " + user.AccessToken);
+            var config = new Configuration(new ApiClient(basePath));
+            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(config);
-            EnvelopeDocumentsResult result = envelopesApi.ListDocuments(RequestItemsService.Session.AccountId, 
-                RequestItemsService.EnvelopeId);
+            EnvelopeDocumentsResult result = envelopesApi.ListDocuments(accountId, envelopeId);
             // Save the envelopeId and its list of documents in the session so
             // they can be used in example 7 (download a document)
-
             List<EnvelopeDocItem> envelopeDocItems = new List<EnvelopeDocItem>();
             envelopeDocItems.Add(new EnvelopeDocItem { Name= "Combined", Type= "content", DocumentId = "combined" });
             envelopeDocItems.Add(new EnvelopeDocItem { Name = "Zip archive", Type = "zip", DocumentId = "archive" });
@@ -57,7 +60,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             }
 
             EnvelopeDocuments envelopeDocuments = new EnvelopeDocuments();
-            envelopeDocuments.EnvelopeId = RequestItemsService.EnvelopeId;
+            envelopeDocuments.EnvelopeId = envelopeId;
             envelopeDocuments.Documents = envelopeDocItems;
             RequestItemsService.EnvelopeDocuments = envelopeDocuments;
 

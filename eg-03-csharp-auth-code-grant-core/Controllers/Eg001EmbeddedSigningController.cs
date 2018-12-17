@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
-using eg_03_csharp_auth_code_grant_core.Common;
 using eg_03_csharp_auth_code_grant_core.Controllers;
 using eg_03_csharp_auth_code_grant_core.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eg_03_csharp_auth_code_grant_core.Views
@@ -29,6 +27,18 @@ namespace eg_03_csharp_auth_code_grant_core.Views
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName)
         {
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // dsPingUrl -- class global
+            // signerClientId -- class global
+            // dsReturnUrl -- class global
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var accountId = RequestItemsService.Session.AccountId;
+
+
+            // Check the token with minimal buffer time.
             bool tokenOk = CheckToken(3);
             if (!tokenOk)
             {                
@@ -40,18 +50,14 @@ namespace eg_03_csharp_auth_code_grant_core.Views
                 RequestItemsService.EgName = EgName;
                 return Redirect("/ds/mustAuthenticate");
             }
-            var session = RequestItemsService.Session;
-            var user = RequestItemsService.User;
             // Step 1. Create the envelope definition
             EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName);
 
             // Step 2. Call DocuSign to create the envelope                   
-            var config = new Configuration(new ApiClient(session.BasePath+ "/restapi"));
-            config.AddDefaultHeader("Authorization", "Bearer "+ user.AccessToken);
+            var config = new Configuration(new ApiClient(basePath));
+            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(config);
-
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(session.AccountId, envelope);
-
+            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
             string envelopeId = results.EnvelopeId;
 
             // Save for future use within the example launcher
@@ -60,7 +66,7 @@ namespace eg_03_csharp_auth_code_grant_core.Views
             // Step 3. create the recipient view, the Signing Ceremony
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName);
             // call the CreateRecipientView API
-            ViewUrl results1 = envelopesApi.CreateRecipientView(session.AccountId, envelopeId, viewRequest);
+            ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
 
             // Step 4. Redirect the user to the Signing Ceremony
             // Don't use an iFrame!
@@ -71,6 +77,14 @@ namespace eg_03_csharp_auth_code_grant_core.Views
 
         private RecipientViewRequest MakeRecipientViewRequest(string signerEmail, string signerName)
         {
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // dsPingUrl -- class global
+            // signerClientId -- class global
+            // dsReturnUrl -- class global
+
+
             RecipientViewRequest viewRequest = new RecipientViewRequest();
             // Set the url where you want the recipient to go once they are done signing
             // should typically be a callback route somewhere in your app.
@@ -107,8 +121,15 @@ namespace eg_03_csharp_auth_code_grant_core.Views
 
         private EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName)
         {
-            byte[] buffer = System.IO.File.ReadAllBytes(Config.docPdf);
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // signerClientId -- class global
+            // Config.docPdf
 
+
+            byte[] buffer = System.IO.File.ReadAllBytes(Config.docPdf);
+       
             EnvelopeDefinition envelopeDefinition = new EnvelopeDefinition();
             envelopeDefinition.EmailSubject = "Please sign this document";
             Document doc1 = new Document();

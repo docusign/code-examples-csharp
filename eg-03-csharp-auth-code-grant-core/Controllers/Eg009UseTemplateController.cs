@@ -23,6 +23,16 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName)
         {
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var accountId = RequestItemsService.Session.AccountId;
+            var templateId = RequestItemsService.TemplateId;
+
             bool tokenOk = CheckToken(3);
             if (!tokenOk)
             {
@@ -34,13 +44,11 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 RequestItemsService.EgName = EgName;
                 return Redirect("/ds/mustAuthenticate");
             }
-            var session = RequestItemsService.Session;
-            var user = RequestItemsService.User;
-            var config = new Configuration(new ApiClient(session.BasePath + "/restapi"));
-            config.AddDefaultHeader("Authorization", "Bearer " + user.AccessToken);
+            var config = new Configuration(new ApiClient(basePath));
+            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(config);
-            EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, RequestItemsService.TemplateId);
-            EnvelopeSummary result = envelopesApi.CreateEnvelope(RequestItemsService.Session.AccountId, envelope);            
+            EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, templateId);
+            EnvelopeSummary result = envelopesApi.CreateEnvelope(accountId, envelope);            
             RequestItemsService.EnvelopeId = result.EnvelopeId;
             ViewBag.message = "The envelope has been created and sent!<br/>Envelope ID " + result.EnvelopeId + ".";
             return View("example_done");
@@ -49,6 +57,13 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         private EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, 
             string ccEmail, string ccName, string templateId)
         {
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+            // templateId
+
             EnvelopeDefinition env = new EnvelopeDefinition();
             env.TemplateId = templateId;
 

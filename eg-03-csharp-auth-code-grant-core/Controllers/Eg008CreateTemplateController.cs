@@ -22,6 +22,12 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         [HttpPost]
         public IActionResult Create()
         {
+            // Data for this method
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var accountId = RequestItemsService.Session.AccountId;
+
+
             bool tokenOk = CheckToken(3);
             if (!tokenOk)
             {
@@ -33,15 +39,14 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 RequestItemsService.EgName = EgName;
                 return Redirect("/ds/mustAuthenticate");
             }
+            // Step 1. List templates to see if ours exists already
             string templateName = "Example Signer and CC template";
-            var session = RequestItemsService.Session;
-            var user = RequestItemsService.User;
-            var config = new Configuration(new ApiClient(session.BasePath + "/restapi"));
-            config.AddDefaultHeader("Authorization", "Bearer " + user.AccessToken);
+            var config = new Configuration(new ApiClient(basePath));
+            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
             TemplatesApi templatesApi = new TemplatesApi(config);
             TemplatesApi.ListTemplatesOptions options = new TemplatesApi.ListTemplatesOptions();
             options.searchText = "Example Signer and CC template";
-            EnvelopeTemplateResults results = templatesApi.ListTemplates(RequestItemsService.Session.AccountId, options);
+            EnvelopeTemplateResults results = templatesApi.ListTemplates(accountId, options);
 
             string templateId;
             string resultsTemplateName;
@@ -49,6 +54,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
            
             if (int.Parse(results.ResultSetSize) > 0)
             {
+                // Found the template! Record its id
                 EnvelopeTemplateResult template = results.EnvelopeTemplates[0];
                 templateId = template.TemplateId;
                 resultsTemplateName = template.Name;
@@ -56,13 +62,14 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             }
             else
             {
+                // No template! Create one!
                 EnvelopeTemplate templateReqObject = MakeTemplate(templateName);
-                TemplateSummary template = templatesApi.CreateTemplate(RequestItemsService.Session.AccountId, templateReqObject);
+                TemplateSummary template = templatesApi.CreateTemplate(accountId, templateReqObject);
                 templateId = template.TemplateId;
                 resultsTemplateName = template.Name;
                 createdNewTemplate = true;
             }
-            
+            // Save the templateId
             RequestItemsService.TemplateId = templateId;
             string msg = createdNewTemplate ?
                     "The template has been created!" :
@@ -74,6 +81,10 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         private EnvelopeTemplate MakeTemplate(string resultsTemplateName)
         {
+            // Data for this method
+            // resultsTemplateName
+
+
             // document 1 (pdf) has tag /sn1/
             //
             // The template has two recipient roles.

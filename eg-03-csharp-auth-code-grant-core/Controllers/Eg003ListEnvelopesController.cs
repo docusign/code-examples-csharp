@@ -26,6 +26,12 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName)
         {
+            // Data for this method
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var accountId = RequestItemsService.Session.AccountId;
+            
+            // Check the token with minimal buffer time.
             bool tokenOk = CheckToken(3);
             if (!tokenOk)
             {
@@ -37,16 +43,13 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 RequestItemsService.EgName = EgName;
                 return Redirect("/ds/mustAuthenticate");
             }
-            var session = RequestItemsService.Session;
-            var user = RequestItemsService.User;
-            var config = new Configuration(new ApiClient(session.BasePath + "/restapi"));
-            config.AddDefaultHeader("Authorization", "Bearer " + user.AccessToken);
+            var config = new Configuration(new ApiClient(basePath));
+            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(config);
-            ListStatusChangesOptions options = new ListStatusChangesOptions();
-                   
+            ListStatusChangesOptions options = new ListStatusChangesOptions();               
             options.fromDate = DateTime.Now.AddDays(-30).ToString("yyyy/MM/dd");
-
-            EnvelopesInformation results = envelopesApi.ListStatusChanges(RequestItemsService.Session.AccountId, options);
+            // Call the API method:
+            EnvelopesInformation results = envelopesApi.ListStatusChanges(accountId, options);
             
             ViewBag.h1 = "List envelopes results";
             ViewBag.message = "Results from the Envelopes::listStatusChanges method:";

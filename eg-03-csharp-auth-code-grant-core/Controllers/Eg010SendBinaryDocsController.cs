@@ -26,6 +26,17 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName)
         {
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+            // Config.docDocx
+            // Config.docPdf
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var accountId = RequestItemsService.Session.AccountId;
+
             bool tokenOk = CheckToken(3);
             if (!tokenOk)
             {
@@ -73,14 +84,14 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             byte[] boundary = Encoding.ASCII.GetBytes("multipartboundary_multipartboundary");
             byte[] hyphens = Encoding.ASCII.GetBytes("--");
 
-            string uri = RequestItemsService.Session.BasePath
-                    + "/restapi/v2/accounts/" + RequestItemsService.Session.AccountId + "/envelopes";
+            string uri = basePath
+                    + "/v2/accounts/" + accountId + "/envelopes";
             HttpWebRequest request = WebRequest.CreateHttp(uri);
 
             request.Method = "POST";
             request.Accept = "application/json";
             request.ContentType = "multipart/form-data; boundary=" + Encoding.ASCII.GetString(boundary);
-            request.Headers.Add("Authorization", "Bearer " + RequestItemsService.User.AccessToken);
+            request.Headers.Add("Authorization", "Bearer " + accessToken);
 
             using (var buffer = new BinaryWriter(request.GetRequestStream(), Encoding.ASCII))
             {
@@ -160,6 +171,13 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         private string document1(string signerEmail, string signerName, string ccEmail, string ccName)
         {
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+
+
             return " <!DOCTYPE html>\n" +
                     "    <html>\n" +
                     "        <head>\n" +
@@ -185,6 +203,13 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         private object MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName)
         {
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+
+
             // document 1 (html) has tag **signature_1**
             // document 2 (docx) has tag /sn1/
             // document 3 (pdf) has tag /sn1/
@@ -221,22 +246,26 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
             // create a signer recipient to sign the document, identified by name and email
             // We're setting the parameters via the object creation
-            Signer signer1 = new Signer();
-            signer1.Email = signerEmail;
-            signer1.Name = signerName;
-            signer1.RecipientId = "1";
-            signer1.RoutingOrder = "1";
+            Signer signer1 = new Signer
+            {
+                Email = signerEmail,
+                Name = signerName,
+                RecipientId = "1",
+                RoutingOrder = "1"
+            };
             // routingOrder (lower means earlier) determines the order of deliveries
             // to the recipients. Parallel routing order is supported by using the
             // same integer as the order for two or more recipients.
 
             // create a cc recipient to receive a copy of the documents, identified by name and email
             // We're setting the parameters via setters
-            CarbonCopy cc1 = new CarbonCopy();
-            cc1.Email = ccEmail;
-            cc1.Name = ccName;
-            cc1.RoutingOrder = "2";
-            cc1.RecipientId = "2";
+            CarbonCopy cc1 = new CarbonCopy
+            {
+                Email = ccEmail,
+                Name = ccName,
+                RoutingOrder = "2",
+                RecipientId = "2"
+            };
             // Create signHere fields (also known as tabs) on the documents,
             // We're using anchor (autoPlace) positioning
             //
@@ -244,26 +273,34 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             // documents for matching anchor strings. So the
             // signHere2 tab will be used in both document 2 and 3 since they
             // use the same anchor string for their "signer 1" tabs.
-            SignHere signHere1 = new SignHere();
-            signHere1.AnchorString = "**signature_1**";
-            signHere1.AnchorYOffset = "10";
-            signHere1.AnchorUnits = "pixels";
-            signHere1.AnchorXOffset = "20";
-            SignHere signHere2 = new SignHere();
-            signHere2.AnchorString = "/sn1/";
-            signHere2.AnchorYOffset = "10";
-            signHere2.AnchorUnits = "pixels";
-            signHere2.AnchorXOffset = "20";
+            SignHere signHere1 = new SignHere
+            {
+                AnchorString = "**signature_1**",
+                AnchorYOffset = "10",
+                AnchorUnits = "pixels",
+                AnchorXOffset = "20"
+            };
+            SignHere signHere2 = new SignHere
+            {
+                AnchorString = "/sn1/",
+                AnchorYOffset = "10",
+                AnchorUnits = "pixels",
+                AnchorXOffset = "20"
+            };
 
             // Tabs are set per recipient / signer
-            Tabs signer1Tabs = new Tabs();
-            signer1Tabs.SignHereTabs = new List<SignHere> { signHere1, signHere2 };
+            Tabs signer1Tabs = new Tabs
+            {
+                SignHereTabs = new List<SignHere> { signHere1, signHere2 }
+            };
             signer1.Tabs = signer1Tabs;
 
             // Add the recipients to the envelope object
-            Recipients recipients = new Recipients();
-            recipients.Signers = new List<Signer> { signer1 };
-            recipients.CarbonCopies = new List<CarbonCopy> { cc1 };
+            Recipients recipients = new Recipients
+            {
+                Signers = new List<Signer> { signer1 },
+                CarbonCopies = new List<CarbonCopy> { cc1 }
+            };
 
 
             dynamic env = new

@@ -17,6 +17,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             ViewBag.csrfToken = "";
         }
 
+        [HttpGet]
         public IActionResult Get()
         {
             // Check that the token is valid and will remain valid for awhile to enable the

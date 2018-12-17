@@ -20,6 +20,15 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         [HttpPost]
         public ActionResult Create(string docSelect)
         {
+            // Data for this method
+            // docSelect -- argument
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var accountId = RequestItemsService.Session.AccountId;
+            var envelopeId = RequestItemsService.EnvelopeId;
+            // documents data for the envelope. See example EG006
+            var documents = RequestItemsService.EnvelopeDocuments.Documents;
+
             bool tokenOk = CheckToken(3);
             if (!tokenOk)
             {
@@ -31,17 +40,14 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 RequestItemsService.EgName = EgName;
                 return Redirect("/ds/mustAuthenticate");
             }
-            var session = RequestItemsService.Session;
-            var user = RequestItemsService.User;
-            var config = new Configuration(new ApiClient(session.BasePath + "/restapi"));
-            config.AddDefaultHeader("Authorization", "Bearer " + user.AccessToken);
+            var config = new Configuration(new ApiClient(basePath));
+            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(config);
 
             // Step 1. EnvelopeDocuments::get.
             // Exceptions will be caught by the calling function
-            System.IO.Stream results = envelopesApi.GetDocument(RequestItemsService.Session.AccountId,
-                            RequestItemsService.EnvelopeId, docSelect);
-            var documents = RequestItemsService.EnvelopeDocuments.Documents;
+            System.IO.Stream results = envelopesApi.GetDocument(accountId,
+                            envelopeId, docSelect);
             EnvelopeDocItem docItem = documents.FirstOrDefault(d => docSelect.Equals(d.DocumentId));
 
             string docName = docItem.Name;
