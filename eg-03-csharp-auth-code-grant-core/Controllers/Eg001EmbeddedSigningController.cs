@@ -24,32 +24,20 @@ namespace eg_03_csharp_auth_code_grant_core.Views
             ViewBag.title = "Embedded Signing Ceremony";
         }
 
-        [HttpPost]
-        public IActionResult Create(string signerEmail, string signerName)
+        private string DoWork(string signerEmail, string signerName,
+            string accessToken, string basePath, string accountId)
         {
             // Data for this method
             // signerEmail 
             // signerName
+            // accessToken
+            // basePath
+            // accountId
+
             // dsPingUrl -- class global
             // signerClientId -- class global
             // dsReturnUrl -- class global
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = RequestItemsService.Session.BasePath + "/restapi";
-            var accountId = RequestItemsService.Session.AccountId;
 
-
-            // Check the token with minimal buffer time.
-            bool tokenOk = CheckToken(3);
-            if (!tokenOk)
-            {                
-                // We could store the parameters of the requested operation 
-                // so it could be restarted automatically.
-                // But since it should be rare to have a token issue here,
-                // we'll make the user re-enter the form data after 
-                // authentication.
-                RequestItemsService.EgName = EgName;
-                return Redirect("/ds/mustAuthenticate");
-            }
             // Step 1. Create the envelope definition
             EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName);
 
@@ -72,7 +60,8 @@ namespace eg_03_csharp_auth_code_grant_core.Views
             // Don't use an iFrame!
             // State can be stored/recovered using the framework's session or a
             // query parameter on the returnUrl (see the makeRecipientViewRequest method)
-            return Redirect(results1.Url);
+            string redirectUrl = results1.Url;
+            return redirectUrl;
         }
 
         private RecipientViewRequest MakeRecipientViewRequest(string signerEmail, string signerName)
@@ -188,5 +177,36 @@ namespace eg_03_csharp_auth_code_grant_core.Views
         }
 
         public override string EgName => "eg001";
+
+        [HttpPost]
+        public IActionResult Create(string signerEmail, string signerName)
+        {
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // dsPingUrl -- class global
+            // signerClientId -- class global
+            // dsReturnUrl -- class global
+            string accessToken = RequestItemsService.User.AccessToken;
+            string basePath = RequestItemsService.Session.BasePath + "/restapi";
+            string accountId = RequestItemsService.Session.AccountId;
+
+            // Check the token with minimal buffer time.
+            bool tokenOk = CheckToken(3);
+            if (!tokenOk)
+            {
+                // We could store the parameters of the requested operation 
+                // so it could be restarted automatically.
+                // But since it should be rare to have a token issue here,
+                // we'll make the user re-enter the form data after 
+                // authentication.
+                RequestItemsService.EgName = EgName;
+                return Redirect("/ds/mustAuthenticate");
+            }
+
+            string redirectUrl = DoWork(signerEmail, signerName, accessToken, basePath, accountId);
+            // Redirect the user to the Signing Ceremony
+            return Redirect(redirectUrl);
+        }
     }
 }

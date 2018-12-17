@@ -19,26 +19,16 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         public override string EgName => "eg008";
 
-        [HttpPost]
-        public IActionResult Create()
+        // Returns a tuple. See https://stackoverflow.com/a/36436255/64904
+        private (bool createdNewTemplate, string templateId, string resultsTemplateName) DoWork(
+            string accessToken, string basePath, string accountId)
         {
             // Data for this method
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = RequestItemsService.Session.BasePath + "/restapi";
-            var accountId = RequestItemsService.Session.AccountId;
+            // accessToken
+            // basePath
+            // accountId
 
 
-            bool tokenOk = CheckToken(3);
-            if (!tokenOk)
-            {
-                // We could store the parameters of the requested operation 
-                // so it could be restarted automatically.
-                // But since it should be rare to have a token issue here,
-                // we'll make the user re-enter the form data after 
-                // authentication.
-                RequestItemsService.EgName = EgName;
-                return Redirect("/ds/mustAuthenticate");
-            }
             // Step 1. List templates to see if ours exists already
             string templateName = "Example Signer and CC template";
             var config = new Configuration(new ApiClient(basePath));
@@ -51,7 +41,8 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             string templateId;
             string resultsTemplateName;
             bool createdNewTemplate;
-           
+
+            // Step 2. Process results
             if (int.Parse(results.ResultSetSize) > 0)
             {
                 // Found the template! Record its id
@@ -69,14 +60,9 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 resultsTemplateName = template.Name;
                 createdNewTemplate = true;
             }
-            // Save the templateId
-            RequestItemsService.TemplateId = templateId;
-            string msg = createdNewTemplate ?
-                    "The template has been created!" :
-                    "The template already exists in your account.";
-            ViewBag.message = msg + "<br/>Template name: " + resultsTemplateName + ", ID " + templateId + ".";
-            
-            return View("example_done");
+
+            return (createdNewTemplate: createdNewTemplate, 
+                templateId: templateId, resultsTemplateName: resultsTemplateName);
         }
 
         private EnvelopeTemplate MakeTemplate(string resultsTemplateName)
@@ -250,6 +236,40 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
 
             return template;
+        }
+
+        [HttpPost]
+        public IActionResult Create()
+        {
+            // Data for this method
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var accountId = RequestItemsService.Session.AccountId;
+
+            bool tokenOk = CheckToken(3);
+            if (!tokenOk)
+            {
+                // We could store the parameters of the requested operation 
+                // so it could be restarted automatically.
+                // But since it should be rare to have a token issue here,
+                // we'll make the user re-enter the form data after 
+                // authentication.
+                RequestItemsService.EgName = EgName;
+                return Redirect("/ds/mustAuthenticate");
+            }
+
+            // Call DoWork. It Returns a tuple. See https://stackoverflow.com/a/36436255/64904
+            (bool createdNewTemplate, string templateId, string resultsTemplateName) = DoWork(
+                 accessToken, basePath, accountId);
+
+            // Save the templateId
+            RequestItemsService.TemplateId = templateId;
+            string msg = createdNewTemplate ?
+                    "The template has been created!" :
+                    "The template already exists in your account.";
+            ViewBag.message = msg + "<br/>Template name: " + resultsTemplateName + ", ID " + templateId + ".";
+
+            return View("example_done");
         }
     }
 }

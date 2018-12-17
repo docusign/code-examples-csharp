@@ -23,13 +23,30 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
    
         public override string EgName => "eg003";
 
+        private EnvelopesInformation DoWork(string accessToken, string basePath, string accountId)
+        {
+            // Data for this method
+            // accessToken
+            // basePath
+            // accountId
+
+            var config = new Configuration(new ApiClient(basePath));
+            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(config);
+            ListStatusChangesOptions options = new ListStatusChangesOptions();
+            options.fromDate = DateTime.Now.AddDays(-30).ToString("yyyy/MM/dd");
+            // Call the API method:
+            EnvelopesInformation results = envelopesApi.ListStatusChanges(accountId, options);
+            return results;
+        }
+
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName)
         {
             // Data for this method
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = RequestItemsService.Session.BasePath + "/restapi";
-            var accountId = RequestItemsService.Session.AccountId;
+            string accessToken = RequestItemsService.User.AccessToken;
+            string basePath = RequestItemsService.Session.BasePath + "/restapi";
+            string accountId = RequestItemsService.Session.AccountId;
             
             // Check the token with minimal buffer time.
             bool tokenOk = CheckToken(3);
@@ -43,14 +60,10 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 RequestItemsService.EgName = EgName;
                 return Redirect("/ds/mustAuthenticate");
             }
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(config);
-            ListStatusChangesOptions options = new ListStatusChangesOptions();               
-            options.fromDate = DateTime.Now.AddDays(-30).ToString("yyyy/MM/dd");
-            // Call the API method:
-            EnvelopesInformation results = envelopesApi.ListStatusChanges(accountId, options);
-            
+
+            // Call the worker
+            EnvelopesInformation results = DoWork(accessToken, basePath, accountId);
+            // Process results
             ViewBag.h1 = "List envelopes results";
             ViewBag.message = "Results from the Envelopes::listStatusChanges method:";
             ViewBag.Locals.Json = JsonConvert.SerializeObject(results,Formatting.Indented);

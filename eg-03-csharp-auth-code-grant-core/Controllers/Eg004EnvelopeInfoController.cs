@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DocuSign.eSign.Api;
+﻿using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
+using DocuSign.eSign.Model;
 using eg_03_csharp_auth_code_grant_core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -20,6 +17,25 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         }
 
         public override string EgName => "eg004";
+
+        private Envelope DoWork(string accessToken, string basePath, string accountId,
+            string envelopeId)
+        {
+            // Data for this method
+            // accessToken
+            // basePath
+            // accountId
+            // envelopeId
+
+            var config = new Configuration(new ApiClient(basePath));
+            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(config);
+            ViewBag.h1 = "Get envelope status results";
+            ViewBag.message = "Results from the Envelopes::get method:";
+            Envelope results = envelopesApi.GetEnvelope(accountId, envelopeId);
+            return results;
+        }
+
 
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName)
@@ -42,14 +58,12 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 RequestItemsService.EgName = EgName;
                 return Redirect("/ds/mustAuthenticate");
             }
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(config);
+
+            Envelope results = DoWork(accessToken, basePath, accountId, envelopeId);
+        
             ViewBag.h1 = "Get envelope status results";
             ViewBag.message  = "Results from the Envelopes::get method:";
-            DocuSign.eSign.Model.Envelope results = envelopesApi.GetEnvelope(accountId, envelopeId);
             ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
-            
             return View("example_done");
         }
     }

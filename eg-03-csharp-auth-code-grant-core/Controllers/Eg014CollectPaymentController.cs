@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
@@ -22,30 +20,17 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         public override string EgName => "eg014";
 
-        [HttpPost]
-        public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName)
+        private string DoWork(string signerEmail, string signerName, string ccEmail,
+            string ccName, string accessToken, string basePath, string accountId)
         {
             // Data for this method
             // signerEmail 
             // signerName
             // ccEmail
             // ccName
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = RequestItemsService.Session.BasePath + "/restapi";
-            var accountId = RequestItemsService.Session.AccountId;
-            
-
-            bool tokenOk = CheckToken(3);
-            if (!tokenOk)
-            {
-                // We could store the parameters of the requested operation 
-                // so it could be restarted automatically.
-                // But since it should be rare to have a token issue here,
-                // we'll make the user re-enter the form data after 
-                // authentication.
-                RequestItemsService.EgName = EgName;
-                return Redirect("/ds/mustAuthenticate");
-            }
+            // accessToken
+            // basePath 
+            // accountId 
             var config = new Configuration(new ApiClient(basePath));
             config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(config);
@@ -56,11 +41,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             // Step 2. call Envelopes::create API method
             // Exceptions will be caught by the calling function
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
-            string envelopeId = results.EnvelopeId;
-            Console.WriteLine("Envelope was created.EnvelopeId " + envelopeId);
-            ViewBag.h1 = "Envelope sent";
-            ViewBag.message = "The envelope has been created and sent!<br/>Envelope ID " + results.EnvelopeId + ".";
-            return View("example_done");
+            return results.EnvelopeId;
         }
 
         private EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName)
@@ -97,7 +78,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             string l1Name = "Harmonica";
             int l1Price = 5;
             string l1Description = $"${l1Price} each"
-            , l2Name = "Xylophone";
+                 , l2Name = "Xylophone";
             int l2Price = 150;
             string l2Description = $"${l2Price} each";
             int currencyMultiplier = 100;
@@ -108,9 +89,9 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             // Substitute values into the HTML
             // Substitute for: {signerName}, {signerEmail}, {ccName}, {ccEmail}
             var doc1HTML2 = doc1HTML1.Replace("{signerName}", signerName)
-            .Replace("{signerEmail}", signerEmail)
-            .Replace("{ccName}", ccName)
-            .Replace("{ccEmail}", ccEmail);
+                    .Replace("{signerEmail}", signerEmail)
+                    .Replace("{ccName}", ccName)
+                    .Replace("{ccEmail}", ccEmail);
 
             // create the envelope definition
             EnvelopeDefinition env = new EnvelopeDefinition
@@ -311,6 +292,39 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             env.Status = RequestItemsService.Status;
 
             return env;
+        }
+
+
+        [HttpPost]
+        public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName)
+        {
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var accountId = RequestItemsService.Session.AccountId;
+
+            bool tokenOk = CheckToken(3);
+            if (!tokenOk)
+            {
+                // We could store the parameters of the requested operation 
+                // so it could be restarted automatically.
+                // But since it should be rare to have a token issue here,
+                // we'll make the user re-enter the form data after 
+                // authentication.
+                RequestItemsService.EgName = EgName;
+                return Redirect("/ds/mustAuthenticate");
+            }
+
+            string envelopeId = DoWork(signerEmail, signerName, ccEmail,
+                ccName, accessToken, basePath, accountId);
+            Console.WriteLine("Envelope was created.EnvelopeId " + envelopeId);
+            ViewBag.h1 = "Envelope sent";
+            ViewBag.message = "The envelope has been created and sent!<br/>Envelope ID " + envelopeId + ".";
+            return View("example_done");
         }
     }
 }

@@ -19,6 +19,49 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         public override string EgName => "eg006";
 
+        private (EnvelopeDocumentsResult results, EnvelopeDocuments envelopeDocuments) DoWork(
+            string accessToken, string basePath, string accountId, string envelopeId)
+        {
+            // Data for this method
+            // accessToken
+            // basePath
+            // accountId
+            // envelopeId
+
+            var config = new Configuration(new ApiClient(basePath));
+            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(config);
+            EnvelopeDocumentsResult results = envelopesApi.ListDocuments(accountId, envelopeId);
+
+            // Prepare and save the envelopeId and its list of documents in the session so
+            // they can be used in example 7 (download a document)
+            List<EnvelopeDocItem> envelopeDocItems = new List<EnvelopeDocItem>
+            {
+                new EnvelopeDocItem { Name = "Combined", Type = "content", DocumentId = "combined" },
+                new EnvelopeDocItem { Name = "Zip archive", Type = "zip", DocumentId = "archive" }
+            };
+
+            foreach (EnvelopeDocument doc in results.EnvelopeDocuments)
+            {
+                envelopeDocItems.Add(new EnvelopeDocItem
+                {
+                    DocumentId = doc.DocumentId,
+                    Name = doc.DocumentId == "certificate" ? "Certificate of completion" : doc.Name,
+                    Type = doc.Type
+                });
+            }
+
+            EnvelopeDocuments envelopeDocuments = new EnvelopeDocuments
+            {
+                EnvelopeId = envelopeId,
+                Documents = envelopeDocItems
+            };
+
+            return (results, envelopeDocuments);
+
+        }
+
+
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName)
         {
@@ -40,34 +83,18 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 RequestItemsService.EgName = EgName;
                 return Redirect("/ds/mustAuthenticate");
             }
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(config);
-            EnvelopeDocumentsResult result = envelopesApi.ListDocuments(accountId, envelopeId);
+
+            (EnvelopeDocumentsResult results, EnvelopeDocuments envelopeDocuments) = 
+                DoWork(accessToken, basePath, accountId, envelopeId);
+
             // Save the envelopeId and its list of documents in the session so
             // they can be used in example 7 (download a document)
-            List<EnvelopeDocItem> envelopeDocItems = new List<EnvelopeDocItem>();
-            envelopeDocItems.Add(new EnvelopeDocItem { Name= "Combined", Type= "content", DocumentId = "combined" });
-            envelopeDocItems.Add(new EnvelopeDocItem { Name = "Zip archive", Type = "zip", DocumentId = "archive" });
-            
-            foreach (EnvelopeDocument doc in result.EnvelopeDocuments)
-            {
-                envelopeDocItems.Add(new EnvelopeDocItem {
-                    DocumentId = doc.DocumentId,
-                    Name = doc.DocumentId == "certificate"? "Certificate of completion" : doc.Name,
-                    Type = doc.Type
-                });
-            }
-
-            EnvelopeDocuments envelopeDocuments = new EnvelopeDocuments();
-            envelopeDocuments.EnvelopeId = envelopeId;
-            envelopeDocuments.Documents = envelopeDocItems;
             RequestItemsService.EnvelopeDocuments = envelopeDocuments;
-
+        
             ViewBag.envelopeDocuments = envelopeDocuments;
             ViewBag.h1 = "List envelope documents result";
             ViewBag.message = "Results from the EnvelopeDocuments::list method:";
-            ViewBag.Locals.Json = JsonConvert.SerializeObject(result, Formatting.Indented);
+            ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
             return View("example_done");
         }
     }

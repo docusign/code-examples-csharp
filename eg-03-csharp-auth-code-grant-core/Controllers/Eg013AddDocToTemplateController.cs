@@ -21,8 +21,9 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         public override string EgName => "eg013";
 
-        [HttpPost]
-        public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName, string item, string quantity)
+        private string DoWork(string signerEmail, string signerName, string ccEmail,
+            string ccName, string accessToken, string basePath,
+            string accountId, string item, string quantity, string dsReturnUrl)
         {
             // Data for this method
             // signerEmail 
@@ -31,42 +32,29 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             // ccName
             // item
             // quantity
-            // signerClientId -- class global
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = RequestItemsService.Session.BasePath + "/restapi";
-            var accountId = RequestItemsService.Session.AccountId;
-            string dsReturnUrl = Config.AppUrl + "/dsReturn";
-
-            bool tokenOk = CheckToken(3);
-            if (!tokenOk)
-            {
-                // We could store the parameters of the requested operation 
-                // so it could be restarted automatically.
-                // But since it should be rare to have a token issue here,
-                // we'll make the user re-enter the form data after 
-                // authentication.
-                RequestItemsService.EgName = EgName;
-                return Redirect("/ds/mustAuthenticate");
-            }
+            // accessToken
+            // basePath 
+            // accountId 
+            // dsReturnUrl
             var config = new Configuration(new ApiClient(basePath));
             config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(config);
 
             // Step 1. Make the envelope request body
             EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, item, quantity);
+
             // Step 2. call Envelopes::create API method
             // Exceptions will be caught by the calling function
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
-
             String envelopeId = results.EnvelopeId;
-
             Console.WriteLine("Envelope was created. EnvelopeId " + envelopeId);
+
             // Step 3. create the recipient view, the Signing Ceremony
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, dsReturnUrl);
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
-            
-            return Redirect(results1.Url);
+            return results1.Url;
         }
+
 
         private RecipientViewRequest MakeRecipientViewRequest(string signerEmail, string signerName, 
             string dsReturnUrl)
@@ -101,7 +89,8 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             return viewRequest;
         }
 
-        private EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName, string item, string quantity)
+        private EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, 
+            string ccName, string item, string quantity)
         {
             // Data for this method
             // signerEmail 
@@ -261,6 +250,40 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                     "        <h3 style=\"margin-top:3em;\">Agreed: <span style=\"color:white;\">**signature_1**/</span></h3>\n" +
                     "        </body>\n" +
                     "    </html>");
+        }
+
+
+        [HttpPost]
+        public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName, string item, string quantity)
+        {
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+            // item
+            // quantity
+            // signerClientId -- class global
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var accountId = RequestItemsService.Session.AccountId;
+            string dsReturnUrl = Config.AppUrl + "/dsReturn";
+
+            bool tokenOk = CheckToken(3);
+            if (!tokenOk)
+            {
+                // We could store the parameters of the requested operation 
+                // so it could be restarted automatically.
+                // But since it should be rare to have a token issue here,
+                // we'll make the user re-enter the form data after 
+                // authentication.
+                RequestItemsService.EgName = EgName;
+                return Redirect("/ds/mustAuthenticate");
+            }
+
+            string redirectUrl = DoWork(signerEmail, signerName, ccEmail,
+                ccName, accessToken, basePath, accountId, item, quantity, dsReturnUrl);
+            return Redirect(redirectUrl);
         }
     }
 }

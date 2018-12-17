@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
@@ -23,8 +20,9 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         public override string EgName => "eg011";
 
-        [HttpPost]
-        public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName, string startingView)
+        private string DoWork(string signerEmail, string signerName, string ccEmail,
+            string ccName, string accessToken, string basePath,
+            string accountId, string startingView, string dsReturnUrl)
         {
             // Data for this method
             // signerEmail 
@@ -32,23 +30,11 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             // ccEmail
             // ccName
             // startingView
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = RequestItemsService.Session.BasePath + "/restapi";
-            var accountId = RequestItemsService.Session.AccountId;
-            string dsReturnUrl = Config.AppUrl + "/dsReturn";
+            // accessToken
+            // basePath 
+            // accountId 
+            // dsReturnUrl
 
-
-            bool tokenOk = CheckToken(3);
-            if (!tokenOk)
-            {
-                // We could store the parameters of the requested operation 
-                // so it could be restarted automatically.
-                // But since it should be rare to have a token issue here,
-                // we'll make the user re-enter the form data after 
-                // authentication.
-                RequestItemsService.EgName = EgName;
-                return Redirect("/ds/mustAuthenticate");
-            }
             var config = new Configuration(new ApiClient(basePath));
             config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(config);
@@ -69,16 +55,47 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             };
             ViewUrl result1 = envelopesApi.CreateSenderView(accountId, envelopeId, viewRequest);
             // Switch to Recipient and Documents view if requested by the user
-            String url = result1.Url;
+            String redirectUrl = result1.Url;
             Console.WriteLine("startingView: " + startingView);
             if ("recipient".Equals(startingView))
             {
-                url = url.Replace("send=1", "send=0");
+                redirectUrl = redirectUrl.Replace("send=1", "send=0");
+            }
+            return redirectUrl;
+        }
+
+        [HttpPost]
+        public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName, string startingView)
+        {
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+            // startingView
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var accountId = RequestItemsService.Session.AccountId;
+            string dsReturnUrl = Config.AppUrl + "/dsReturn";
+
+            bool tokenOk = CheckToken(3);
+            if (!tokenOk)
+            {
+                // We could store the parameters of the requested operation 
+                // so it could be restarted automatically.
+                // But since it should be rare to have a token issue here,
+                // we'll make the user re-enter the form data after 
+                // authentication.
+                RequestItemsService.EgName = EgName;
+                return Redirect("/ds/mustAuthenticate");
             }
 
-            Console.WriteLine("Sender view URL: " + url);
+            string redirectUrl = DoWork(signerEmail,  signerName,  ccEmail,
+                ccName,  accessToken,  basePath,
+                accountId,  startingView,  dsReturnUrl);
 
-            return Redirect(url);
+            Console.WriteLine("Sender view URL: " + redirectUrl);
+            return Redirect(redirectUrl);
         }
     }
 }
