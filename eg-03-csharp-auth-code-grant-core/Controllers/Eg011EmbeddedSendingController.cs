@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DocuSign.eSign.Api;
+using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
 using eg_03_csharp_auth_code_grant_core.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -17,54 +15,87 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         public Eg011EmbeddedSendingController(DSConfiguration config, IRequestItemsService requestItemsService) 
             : base(config, requestItemsService)
         {
-            this.controller2 = new Eg002SigningViaEmailController(Config, requestItemsService);
+            ViewBag.title = "Embedded Sending";
         }
 
         public override string EgName => "eg011";
 
-        [HttpPost]
-        public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName, string startingView)
-        {            
-            EnvelopesApi envelopesApi = new EnvelopesApi(RequestItemsService.DefaultConfiguration);
+        private string DoWork(string signerEmail, string signerName, string ccEmail,
+            string ccName, string accessToken, string basePath,
+            string accountId, string startingView, string dsReturnUrl)
+        {
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+            // startingView
+            // accessToken
+            // basePath 
+            // accountId 
+            // dsReturnUrl
+
+            var config = new Configuration(new ApiClient(basePath));
+            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(config);
+
             // Step 1. Make the envelope with "created" (draft) status            
+            // Using eg002 to create the envelope with "created" status
             RequestItemsService.Status = "created";
-            //EnvelopeSummary results = (EnvelopeSummary)controller2.doWork(args, model);
-            controller2.Create(signerEmail, signerName, ccEmail, ccName);
-            String envelopeId = RequestItemsService.EnvelopeId;
+            controller2 = new Eg002SigningViaEmailController(Config, RequestItemsService);
+            EnvelopeSummary results = controller2.DoWork(signerEmail, signerName, ccEmail, ccName);
+            String envelopeId = results.EnvelopeId;
 
             // Step 2. create the sender view
             // Call the CreateSenderView API
             // Exceptions will be caught by the calling function
-            string dsReturnUrl = Config.AppUrl + "/ds-return";
-            ReturnUrlRequest viewRequest = MakeSenderViewRequest(dsReturnUrl);
-
-            ViewUrl result1 = envelopesApi.CreateSenderView(RequestItemsService.Session.AccountId, envelopeId, viewRequest);
+            ReturnUrlRequest viewRequest = new ReturnUrlRequest
+            {
+                ReturnUrl = dsReturnUrl
+            };
+            ViewUrl result1 = envelopesApi.CreateSenderView(accountId, envelopeId, viewRequest);
             // Switch to Recipient and Documents view if requested by the user
-            String url = result1.Url;
+            String redirectUrl = result1.Url;
             Console.WriteLine("startingView: " + startingView);
             if ("recipient".Equals(startingView))
             {
-                url = url.Replace("send=1", "send=0");
+                redirectUrl = redirectUrl.Replace("send=1", "send=0");
             }
-
-            Console.WriteLine("Sender view URL: " + url);
-
-            return Redirect(url);
+            return redirectUrl;
         }
 
-        private ReturnUrlRequest MakeSenderViewRequest(string dsReturnUrl)
+        [HttpPost]
+        public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName, string startingView)
         {
-            ReturnUrlRequest viewRequest = new ReturnUrlRequest();
-            // Set the url where you want the recipient to go once they are done signing
-            // should typically be a callback route somewhere in your app.
-            // The query parameter is included as an example of how
-            // to save/recover state information during the redirect to
-            // the DocuSign signing ceremony. It's usually better to use
-            // the session mechanism of your web framework. Query parameters
-            // can be changed/spoofed very easily.
-            viewRequest.ReturnUrl = dsReturnUrl + "?state=123";
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+            // startingView
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var accountId = RequestItemsService.Session.AccountId;
+            string dsReturnUrl = Config.AppUrl + "/dsReturn";
 
-            return viewRequest;
+            bool tokenOk = CheckToken(3);
+            if (!tokenOk)
+            {
+                // We could store the parameters of the requested operation 
+                // so it could be restarted automatically.
+                // But since it should be rare to have a token issue here,
+                // we'll make the user re-enter the form data after 
+                // authentication.
+                RequestItemsService.EgName = EgName;
+                return Redirect("/ds/mustAuthenticate");
+            }
+
+            string redirectUrl = DoWork(signerEmail,  signerName,  ccEmail,
+                ccName,  accessToken,  basePath,
+                accountId,  startingView,  dsReturnUrl);
+
+            Console.WriteLine("Sender view URL: " + redirectUrl);
+            return Redirect(redirectUrl);
         }
     }
 }

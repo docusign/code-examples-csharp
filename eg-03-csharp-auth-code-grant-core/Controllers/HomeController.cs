@@ -21,6 +21,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             string egName = RequestItemsService.EgName;
             if (!string.IsNullOrWhiteSpace(egName))
             {
+                RequestItemsService.EgName = null;
                 return Redirect(egName);
             }
 

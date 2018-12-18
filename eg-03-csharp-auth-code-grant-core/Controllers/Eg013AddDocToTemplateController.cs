@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using DocuSign.eSign.Api;
+using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
 using eg_03_csharp_auth_code_grant_core.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -22,68 +21,87 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         public override string EgName => "eg013";
 
-        [HttpPost]
-        public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName, string item, string quantity)
+        private string DoWork(string signerEmail, string signerName, string ccEmail,
+            string ccName, string accessToken, string basePath,
+            string accountId, string item, string quantity, string dsReturnUrl)
         {
-            EnvelopesApi envelopesApi = new EnvelopesApi(RequestItemsService.DefaultConfiguration);
-            string dsReturnUrl = Config.AppUrl + "/dsReturn";
-            string dsPingUrl = Config.AppUrl + "/";
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+            // item
+            // quantity
+            // accessToken
+            // basePath 
+            // accountId 
+            // dsReturnUrl
+            var config = new Configuration(new ApiClient(basePath));
+            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(config);
+
             // Step 1. Make the envelope request body
             EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, item, quantity);
+
             // Step 2. call Envelopes::create API method
             // Exceptions will be caught by the calling function
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(RequestItemsService.Session.AccountId, envelope);
-
+            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
             String envelopeId = results.EnvelopeId;
-
             Console.WriteLine("Envelope was created. EnvelopeId " + envelopeId);
+
             // Step 3. create the recipient view, the Signing Ceremony
-            RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, dsReturnUrl, dsPingUrl);
-            ViewUrl results1 = envelopesApi.CreateRecipientView(RequestItemsService.Session.AccountId, envelopeId, viewRequest);
-            
-            return Redirect(results1.Url);
+            RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, dsReturnUrl);
+            ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
+            return results1.Url;
         }
 
+
         private RecipientViewRequest MakeRecipientViewRequest(string signerEmail, string signerName, 
-            string dsReturnUrl, string dsPingUrl)
+            string dsReturnUrl)
         {
-            RecipientViewRequest viewRequest = new RecipientViewRequest();
-            // Set the url where you want the recipient to go once they are done signing
-            // should typically be a callback route somewhere in your app.
-            // The query parameter is included as an example of how
-            // to save/recover state information during the redirect to
-            // the DocuSign signing ceremony. It's usually better to use
-            // the session mechanism of your web framework. Query parameters
-            // can be changed/spoofed very easily.
-            viewRequest.ReturnUrl = dsReturnUrl + "?state=123";
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // dsReturnUrl
+            // signerClientId -- class global
 
-            // How has your app authenticated the user? In addition to your app's
-            // authentication, you can include authenticate steps from DocuSign.
-            // Eg, SMS authentication
-            viewRequest.AuthenticationMethod = "none";
+            RecipientViewRequest viewRequest = new RecipientViewRequest
+            {
+                // Set the url where you want the recipient to go once they are done signing
+                // should typically be a callback route somewhere in your app.
+                ReturnUrl = dsReturnUrl,
 
-            // Recipient information must match embedded recipient info
-            // we used to create the envelope.
-            viewRequest.Email = signerEmail;
-            viewRequest.UserName = signerName;
-            viewRequest.ClientUserId = signerClientId;
+                // How has your app authenticated the user? In addition to your app's
+                // authentication, you can include authenticate steps from DocuSign.
+                // Eg, SMS authentication
+                AuthenticationMethod = "none",
+
+                // Recipient information must match embedded recipient info
+                // we used to create the envelope.
+                Email = signerEmail,
+                UserName = signerName,
+                ClientUserId = signerClientId
+            };
 
             // DocuSign recommends that you redirect to DocuSign for the
             // Signing Ceremony. There are multiple ways to save state.
-            // To maintain your application's session, use the pingUrl
-            // parameter. It causes the DocuSign Signing Ceremony web page
-            // (not the DocuSign server) to send pings via AJAX to your
-            // app,
-            viewRequest.PingFrequency = "600"; // seconds
-                                               // NOTE: The pings will only be sent if the pingUrl is an https address
-            viewRequest.PingUrl = dsPingUrl; // optional setting
 
             return viewRequest;
-
         }
 
-        private EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName, string item, string quantity)
+        private EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, 
+            string ccName, string item, string quantity)
         {
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+            // item
+            // quantity
+            // signerClientId -- class global
+
+
             // The envelope request object uses Composite Template to
             // include in the envelope:
             // 1. A template stored on the DocuSign service
@@ -93,60 +111,80 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             // is used, not TemplateRole
             //
             // Create a signer recipient for the signer role of the server template
-            Signer signer1 = new Signer();
-            signer1.Email = signerEmail;
-            signer1.Name = signerName;
-            signer1.RoleName = "signer";
-            signer1.RecipientId = "1";
-            // Adding clientUserId transforms the template recipient
-            // into an embedded recipient:
-            signer1.ClientUserId = signerClientId;
+            Signer signer1 = new Signer
+            {
+                Email = signerEmail,
+                Name = signerName,
+                RoleName = "signer",
+                RecipientId = "1",
+                // Adding clientUserId transforms the template recipient
+                // into an embedded recipient:
+                ClientUserId = signerClientId
+            };
             // Create the cc recipient
-            CarbonCopy cc1 = new CarbonCopy();
-            cc1.Email = ccEmail;
-            cc1.Name = ccName;
-            cc1.RoleName = "cc";
-            cc1.RecipientId = "2";
+            CarbonCopy cc1 = new CarbonCopy
+            {
+                Email = ccEmail,
+                Name = ccName,
+                RoleName = "cc",
+                RecipientId = "2"
+            };
             // Recipients object:
-            Recipients recipientsServerTemplate = new Recipients();
-            recipientsServerTemplate.CarbonCopies = new List<CarbonCopy> { cc1 };
-            recipientsServerTemplate.Signers = new List<Signer> { signer1 };
+            Recipients recipientsServerTemplate = new Recipients
+            {
+                CarbonCopies = new List<CarbonCopy> { cc1 },
+                Signers = new List<Signer> { signer1 }
+            };
 
             // create a composite template for the Server Template
-            CompositeTemplate compTemplate1 = new CompositeTemplate();
-            compTemplate1.CompositeTemplateId  = "1";
-            ServerTemplate serverTemplates = new ServerTemplate();
-            serverTemplates.Sequence = "1";
-            serverTemplates.TemplateId = RequestItemsService.TemplateId;
+            CompositeTemplate compTemplate1 = new CompositeTemplate
+            {
+                CompositeTemplateId = "1"
+            };
+            ServerTemplate serverTemplates = new ServerTemplate
+            {
+                Sequence = "1",
+                TemplateId = RequestItemsService.TemplateId
+            };
 
             compTemplate1.ServerTemplates = new List<ServerTemplate> { serverTemplates };
             // Add the roles via an inlineTemplate
-            InlineTemplate inlineTemplate = new InlineTemplate();
-            inlineTemplate.Sequence = "1";
-            inlineTemplate.Recipients = recipientsServerTemplate;
+            InlineTemplate inlineTemplate = new InlineTemplate
+            {
+                Sequence = "1",
+                Recipients = recipientsServerTemplate
+            };
             compTemplate1.InlineTemplates = new List<InlineTemplate> { inlineTemplate };
             // The signer recipient for the added document with
             // a tab definition:
-            SignHere signHere1 = new SignHere();
-            signHere1.AnchorString = "**signature_1**";
-            signHere1.AnchorYOffset = "10";
-            signHere1.AnchorUnits = "pixels";
-            signHere1.AnchorXOffset = "20";
+            SignHere signHere1 = new SignHere
+            {
+                AnchorString = "**signature_1**",
+                AnchorYOffset = "10",
+                AnchorUnits = "pixels",
+                AnchorXOffset = "20"
+            };
 
-            Tabs signer1Tabs = new Tabs();
-            signer1Tabs.SignHereTabs = new List<SignHere> { signHere1 };
+            Tabs signer1Tabs = new Tabs
+            {
+                SignHereTabs = new List<SignHere> { signHere1 }
+            };
             // Signer definition for the added document
-            Signer signer1AddedDoc = new Signer();
-            signer1AddedDoc.Email = signerEmail;
-            signer1AddedDoc.Name = signerName;
-            signer1AddedDoc.ClientUserId = signerClientId;
-            signer1AddedDoc.RoleName = "signer";
-            signer1AddedDoc.RecipientId = "1";
-            signer1AddedDoc.Tabs =   signer1Tabs;
+            Signer signer1AddedDoc = new Signer
+            {
+                Email = signerEmail,
+                Name = signerName,
+                ClientUserId = signerClientId,
+                RoleName = "signer",
+                RecipientId = "1",
+                Tabs = signer1Tabs
+            };
             // Recipients object for the added document:
-            Recipients recipientsAddedDoc = new Recipients();
-            recipientsAddedDoc.CarbonCopies = new List<CarbonCopy> { cc1 };
-            recipientsAddedDoc.Signers = new List<Signer> { signer1AddedDoc };
+            Recipients recipientsAddedDoc = new Recipients
+            {
+                CarbonCopies = new List<CarbonCopy> { cc1 },
+                Signers = new List<Signer> { signer1AddedDoc }
+            };
 
             // create the HTML document
             Document doc1 = new Document();
@@ -157,18 +195,24 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             doc1.FileExtension = "html";
             doc1.DocumentId = "1";
             // create a composite template for the added document
-            CompositeTemplate compTemplate2 = new CompositeTemplate();
-            compTemplate2.CompositeTemplateId = "2";
+            CompositeTemplate compTemplate2 = new CompositeTemplate
+            {
+                CompositeTemplateId = "2"
+            };
             // Add the recipients via an inlineTemplate
-            InlineTemplate inlineTemplate2 = new InlineTemplate();
-            inlineTemplate2.Sequence = "2";
-            inlineTemplate2.Recipients = recipientsAddedDoc;
+            InlineTemplate inlineTemplate2 = new InlineTemplate
+            {
+                Sequence = "2",
+                Recipients = recipientsAddedDoc
+            };
             compTemplate2.InlineTemplates = new List<InlineTemplate> { inlineTemplate2};
             compTemplate2.Document = doc1;
 
-            EnvelopeDefinition env = new EnvelopeDefinition();
-            env.Status = "sent";
-            env.CompositeTemplates = new List<CompositeTemplate> { compTemplate1, compTemplate2};
+            EnvelopeDefinition env = new EnvelopeDefinition
+            {
+                Status = "sent",
+                CompositeTemplates = new List<CompositeTemplate> { compTemplate1, compTemplate2 }
+            };
 
             return env;
         }
@@ -176,6 +220,14 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         private byte[] document1(string signerEmail, string signerName, string ccEmail, string ccName, 
             string item, string quantity)
         {
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+            // item
+            // quantity
+
             return Encoding.UTF8.GetBytes(" <!DOCTYPE html>\n" +
                     "    <html>\n" +
                     "        <head>\n" +
@@ -198,6 +250,40 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                     "        <h3 style=\"margin-top:3em;\">Agreed: <span style=\"color:white;\">**signature_1**/</span></h3>\n" +
                     "        </body>\n" +
                     "    </html>");
+        }
+
+
+        [HttpPost]
+        public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName, string item, string quantity)
+        {
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+            // item
+            // quantity
+            // signerClientId -- class global
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var accountId = RequestItemsService.Session.AccountId;
+            string dsReturnUrl = Config.AppUrl + "/dsReturn";
+
+            bool tokenOk = CheckToken(3);
+            if (!tokenOk)
+            {
+                // We could store the parameters of the requested operation 
+                // so it could be restarted automatically.
+                // But since it should be rare to have a token issue here,
+                // we'll make the user re-enter the form data after 
+                // authentication.
+                RequestItemsService.EgName = EgName;
+                return Redirect("/ds/mustAuthenticate");
+            }
+
+            string redirectUrl = DoWork(signerEmail, signerName, ccEmail,
+                ccName, accessToken, basePath, accountId, item, quantity, dsReturnUrl);
+            return Redirect(redirectUrl);
         }
     }
 }

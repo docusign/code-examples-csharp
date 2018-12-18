@@ -1,5 +1,6 @@
 ﻿using eg_03_csharp_auth_code_grant_core.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace eg_03_csharp_auth_code_grant_core.Controllers
 {
@@ -16,6 +17,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             ViewBag.csrfToken = "";
         }
 
+        [HttpGet]
         public IActionResult Get()
         {
             // Check that the token is valid and will remain valid for awhile to enable the
@@ -23,7 +25,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             // to have the user authenticate or re-authenticate.
             bool tokenOk = CheckToken();
 
-            ViewBag.showDoc = true;
+            
             if (tokenOk)
             {               
                 //addSpecialAttributes(model);
@@ -51,10 +53,11 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             return Config.githubExampleUrl + source + ".cs";
         }
 
-        private bool CheckToken()
-        {
-            //TODO: add token expiration time validation check like node program
-            return HttpContext.User.Identity.IsAuthenticated;
+        protected bool CheckToken(int bufferMin = 60)
+        {            
+            return HttpContext.User.Identity.IsAuthenticated 
+                && (DateTime.Now.Subtract(TimeSpan.FromMinutes(bufferMin)) <
+                RequestItemsService.User.ExpireIn.Value);
         }
     }
 }

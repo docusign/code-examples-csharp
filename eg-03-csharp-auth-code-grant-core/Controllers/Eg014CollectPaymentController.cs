@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using DocuSign.eSign.Api;
+using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
 using eg_03_csharp_auth_code_grant_core.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -21,24 +20,39 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         public override string EgName => "eg014";
 
-        [HttpPost]
-        public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName)
+        private string DoWork(string signerEmail, string signerName, string ccEmail,
+            string ccName, string accessToken, string basePath, string accountId)
         {
-            EnvelopesApi envelopesApi = new EnvelopesApi(RequestItemsService.DefaultConfiguration);
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+            // accessToken
+            // basePath 
+            // accountId 
+            var config = new Configuration(new ApiClient(basePath));
+            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(config);
+
             // Step 1. Make the envelope request body
             EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName);
+
             // Step 2. call Envelopes::create API method
             // Exceptions will be caught by the calling function
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(RequestItemsService.Session.AccountId, envelope);
-            string envelopeId = results.EnvelopeId;
-            Console.WriteLine("Envelope was created.EnvelopeId " + envelopeId);
-            ViewBag.h1 = "Envelope sent";
-            ViewBag.message = "The envelope has been created and sent!<br/>Envelope ID " + results.EnvelopeId + ".";
-            return View("example_done");
+            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
+            return results.EnvelopeId;
         }
 
         private EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName)
         {
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+            
+
             // document 1 (html) has multiple tags:
             // /l1q/ and /l2q/ -- quantities: drop down
             // /l1e/ and /l2e/ -- extended: payment lines 
@@ -64,7 +78,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             string l1Name = "Harmonica";
             int l1Price = 5;
             string l1Description = $"${l1Price} each"
-            , l2Name = "Xylophone";
+                 , l2Name = "Xylophone";
             int l2Price = 150;
             string l2Description = $"${l2Price} each";
             int currencyMultiplier = 100;
@@ -72,29 +86,28 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             // read file from a local directory
             // The read could raise an exception if the file is not available!
             string doc1HTML1 = System.IO.File.ReadAllText("order_form.html");
-            //string doc1HTML1 = fs.readFileSync(path.resolve(demoDocsPath, doc1File),
-            //        { encoding: 'utf8'});
-
             // Substitute values into the HTML
             // Substitute for: {signerName}, {signerEmail}, {ccName}, {ccEmail}
             var doc1HTML2 = doc1HTML1.Replace("{signerName}", signerName)
-            .Replace("{signerEmail}", signerEmail)
-            .Replace("{ccName}", ccName)
-            .Replace("{ccEmail}", ccEmail);
-
+                    .Replace("{signerEmail}", signerEmail)
+                    .Replace("{ccName}", ccName)
+                    .Replace("{ccEmail}", ccEmail);
 
             // create the envelope definition
-            EnvelopeDefinition env = new EnvelopeDefinition();
-            env.EmailSubject = "Please complete your order";
+            EnvelopeDefinition env = new EnvelopeDefinition
+            {
+                EmailSubject = "Please complete your order"
+            };
 
             // add the documents
-            Document doc1 = new Document();
             string doc1b64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(doc1HTML2));
-
-            doc1.DocumentBase64 = doc1b64;
-            doc1.Name = "Order form"; // can be different from actual file name
-            doc1.FileExtension = "html"; // Source data format. Signed docs are always pdf.
-            doc1.DocumentId = "1"; // a label used to reference the doc
+            Document doc1 = new Document
+            {
+                DocumentBase64 = doc1b64,
+                Name = "Order form", // can be different from actual file name
+                FileExtension = "html", // Source data format. Signed docs are always pdf.
+                DocumentId = "1" // a label used to reference the doc
+            };
             env.Documents = new List<Document> { doc1 };
 
             // create a signer recipient to sign the document, identified by name and email
@@ -112,12 +125,13 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
             // create a cc recipient to receive a copy of the documents, identified by name and email
             // We're setting the parameters via setters
-            CarbonCopy cc1 = new CarbonCopy();
-            cc1.Email = ccEmail;
-            cc1.Name = ccName;
-            cc1.RoutingOrder = "2";
-            cc1.RecipientId = "2";
-
+            CarbonCopy cc1 = new CarbonCopy
+            {
+                Email = ccEmail,
+                Name = ccName,
+                RoutingOrder = "2",
+                RecipientId = "2"
+            };
 
             // Create signHere fields (also known as tabs) on the documents,
             // We're using anchor (autoPlace) positioning
@@ -128,62 +142,18 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 AnchorUnits = "pixels",
                 AnchorXOffset = "20"
             };
-            ListItem listItem0 = new ListItem
-            {
-                Text = "none",
-                Value = "0"
-            }
-            , listItem1 = new ListItem
-            {
-                Text = "1",
-                Value = "1"
-            }
-           , listItem2 = new ListItem
-           {
-               Text = "2",
-               Value = "2"
-           }
-           , listItem3 = new ListItem
-           {
-               Text = "3",
-               Value = "3"
-           }
-           , listItem4 = new ListItem
-           {
-               Text = "4",
-               Value = "4"
-           }
-           , listItem5 = new ListItem
-           {
-               Text = "5",
-               Value = "5"
-           }
-           , listItem6 = new ListItem
-           {
-               Text = "6",
-               Value = "6"
-           }
-           , listItem7 = new ListItem
-           {
-               Text = "7",
-               Value = "7"
-           }
-           , listItem8 = new ListItem
-           {
-               Text = "8",
-               Value = "8"
-           }
-           , listItem9 = new ListItem
-           {
-               Text = "9",
-               Value = "9"
-           }
-           , listItem10 = new ListItem
-           {
-               Text = "10",
-               Value = "10"
-           };
-
+            ListItem listItem0 = new ListItem { Text = "none", Value = "0" }
+                   , listItem1 = new ListItem { Text = "1", Value = "1" }
+                   , listItem2 = new ListItem { Text = "2", Value = "2" }
+                   , listItem3 = new ListItem { Text = "3", Value = "3" }
+                   , listItem4 = new ListItem { Text = "4", Value = "4" }
+                   , listItem5 = new ListItem { Text = "5", Value = "5" }
+                   , listItem6 = new ListItem { Text = "6", Value = "6" }
+                   , listItem7 = new ListItem { Text = "7", Value = "7" }
+                   , listItem8 = new ListItem { Text = "8", Value = "8" }
+                   , listItem9 = new ListItem { Text = "9", Value = "9" }
+                   , listItem10 = new ListItem { Text = "10", Value = "10" }
+                   ;
             List listl1q = new List
             {
                 Font = "helvetica",
@@ -243,24 +213,24 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 Required = "true",
                 Locked = "true",
                 DisableAutoSize = "false",
-            }
-      // Formula for the total 
-      , formulal3t = new FormulaTab
-      {
-          Font = "helvetica",
-          Bold = "true",
-          FontSize = "size12",
-          AnchorString = "/l3t/",
-          AnchorYOffset = "-8",
-          AnchorUnits = "pixels",
-          AnchorXOffset = "50",
-          TabLabel = "l3t",
-          Formula = $"[l1e] + [l2e]",
-          RoundDecimalPlaces = "0",
-          Required = "true",
-          Locked = "true",
-          DisableAutoSize = "false",
-      };
+            },
+            // Formula for the total 
+            formulal3t = new FormulaTab
+            {
+                Font = "helvetica",
+                Bold = "true",
+                FontSize = "size12",
+                AnchorString = "/l3t/",
+                AnchorYOffset = "-8",
+                AnchorUnits = "pixels",
+                AnchorXOffset = "50",
+                TabLabel = "l3t",
+                Formula = $"[l1e] + [l2e]",
+                RoundDecimalPlaces = "0",
+                Required = "true",
+                Locked = "true",
+                DisableAutoSize = "false",
+            };
 
             // Payment line items
             PaymentLineItem paymentLineIteml1 = new PaymentLineItem
@@ -322,6 +292,39 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             env.Status = RequestItemsService.Status;
 
             return env;
+        }
+
+
+        [HttpPost]
+        public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName)
+        {
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var accountId = RequestItemsService.Session.AccountId;
+
+            bool tokenOk = CheckToken(3);
+            if (!tokenOk)
+            {
+                // We could store the parameters of the requested operation 
+                // so it could be restarted automatically.
+                // But since it should be rare to have a token issue here,
+                // we'll make the user re-enter the form data after 
+                // authentication.
+                RequestItemsService.EgName = EgName;
+                return Redirect("/ds/mustAuthenticate");
+            }
+
+            string envelopeId = DoWork(signerEmail, signerName, ccEmail,
+                ccName, accessToken, basePath, accountId);
+            Console.WriteLine("Envelope was created.EnvelopeId " + envelopeId);
+            ViewBag.h1 = "Envelope sent";
+            ViewBag.message = "The envelope has been created and sent!<br/>Envelope ID " + envelopeId + ".";
+            return View("example_done");
         }
     }
 }

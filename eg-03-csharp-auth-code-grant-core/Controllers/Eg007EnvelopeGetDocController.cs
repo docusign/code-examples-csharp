@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using DocuSign.eSign.Api;
+using DocuSign.eSign.Client;
 using eg_03_csharp_auth_code_grant_core.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,18 +18,28 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         public override string EgName => "eg007";
 
-        [HttpPost]
-        public FileResult Create(string docSelect)
+        private FileStreamResult DoWork(string accessToken, string basePath, string accountId,
+            string envelopeId, List<EnvelopeDocItem> documents, string docSelect)
         {
-            EnvelopesApi envelopesApi = new EnvelopesApi(RequestItemsService.DefaultConfiguration);
+            // Data for this method
+            // accessToken
+            // basePath
+            // accountId
+            // envelopeId
+            // docSelect -- the requested documentId 
+            // documents -- from eg 6
+            var config = new Configuration(new ApiClient(basePath));
+            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(config);
 
             // Step 1. EnvelopeDocuments::get.
             // Exceptions will be caught by the calling function
-            System.IO.Stream results = envelopesApi.GetDocument(RequestItemsService.Session.AccountId,
-                            RequestItemsService.EnvelopeId, docSelect);
-            var documents = RequestItemsService.EnvelopeDocuments.Documents;
-            EnvelopeDocItem docItem = documents.FirstOrDefault(d => docSelect.Equals(d.DocumentId));
+            System.IO.Stream results = envelopesApi.GetDocument(accountId,
+                            envelopeId, docSelect);
 
+            // Step 2. Look up the document from the list of documents 
+            EnvelopeDocItem docItem = documents.FirstOrDefault(d => docSelect.Equals(d.DocumentId));
+            // Process results. Determine the file name and mimetype
             string docName = docItem.Name;
             bool hasPDFsuffix = docName.ToUpper().EndsWith(".PDF");
             bool pdfFile = hasPDFsuffix;
@@ -60,6 +72,37 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             }
 
             return File(results, mimetype, docName);
+        }
+
+
+
+        [HttpPost]
+        public ActionResult Create(string docSelect)
+        {
+            // Data for this method
+            // docSelect -- argument
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var accountId = RequestItemsService.Session.AccountId;
+            var envelopeId = RequestItemsService.EnvelopeId;
+            // documents data for the envelope. See example EG006
+            List<EnvelopeDocItem> documents = RequestItemsService.EnvelopeDocuments.Documents;
+
+            bool tokenOk = CheckToken(3);
+            if (!tokenOk)
+            {
+                // We could store the parameters of the requested operation 
+                // so it could be restarted automatically.
+                // But since it should be rare to have a token issue here,
+                // we'll make the user re-enter the form data after 
+                // authentication.
+                RequestItemsService.EgName = EgName;
+                return Redirect("/ds/mustAuthenticate");
+            }
+
+            FileStreamResult result = DoWork(accessToken, basePath, accountId,
+                envelopeId, documents, docSelect);
+            return result;
         }
     }
 }
