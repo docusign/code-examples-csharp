@@ -20,6 +20,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         public override string EgName => "eg009";
 
+        // ***DS.snippet.0.start
         string DoWork (string signerEmail, string signerName, string ccEmail,
             string ccName, string accessToken, string basePath,
             string accountId, string templateId)
@@ -69,6 +70,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             env.Status = "sent";
             return env;
         }
+        // ***DS.snippet.0.end
 
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName)

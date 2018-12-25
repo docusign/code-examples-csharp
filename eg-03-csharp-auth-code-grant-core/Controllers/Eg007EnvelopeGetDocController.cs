@@ -18,6 +18,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         public override string EgName => "eg007";
 
+        // ***DS.snippet.0.start
         private FileStreamResult DoWork(string accessToken, string basePath, string accountId,
             string envelopeId, List<EnvelopeDocItem> documents, string docSelect)
         {
@@ -73,6 +74,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
             return File(results, mimetype, docName);
         }
+        // ***DS.snippet.0.end
 
 
 

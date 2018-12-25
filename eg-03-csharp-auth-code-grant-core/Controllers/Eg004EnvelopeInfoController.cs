@@ -18,6 +18,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         public override string EgName => "eg004";
 
+        // ***DS.snippet.0.start
         private Envelope DoWork(string accessToken, string basePath, string accountId,
             string envelopeId)
         {
@@ -35,6 +36,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             Envelope results = envelopesApi.GetEnvelope(accountId, envelopeId);
             return results;
         }
+        // ***DS.snippet.0.end
 
 
         [HttpPost]

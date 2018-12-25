@@ -23,6 +23,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
    
         public override string EgName => "eg003";
 
+        // ***DS.snippet.0.start
         private EnvelopesInformation DoWork(string accessToken, string basePath, string accountId)
         {
             // Data for this method
@@ -39,6 +40,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             EnvelopesInformation results = envelopesApi.ListStatusChanges(accountId, options);
             return results;
         }
+        // ***DS.snippet.0.end
 
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName)

@@ -24,6 +24,7 @@ namespace eg_03_csharp_auth_code_grant_core.Views
             ViewBag.title = "Embedded Signing Ceremony";
         }
 
+        // ***DS.snippet.0.start
         private string DoWork(string signerEmail, string signerName,
             string accessToken, string basePath, string accountId)
         {
@@ -175,6 +176,8 @@ namespace eg_03_csharp_auth_code_grant_core.Views
 
             return envelopeDefinition;
         }
+        // ***DS.snippet.0.end
+
 
         public override string EgName => "eg001";
 

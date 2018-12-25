@@ -20,6 +20,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         public override string EgName => "eg002";
 
+        // ***DS.snippet.0.start
         public EnvelopeSummary DoWork(string signerEmail, string signerName, string ccEmail, string ccName)
         {
             // Data for this method
@@ -190,6 +191,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 "    </html>"
                 );
         }
+        // ***DS.snippet.0.end
 
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName)

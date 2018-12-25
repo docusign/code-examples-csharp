@@ -20,6 +20,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         public override string EgName => "eg012";
 
+        // ***DS.snippet.0.start
         private string DoWork(string accessToken, string basePath,
             string accountId, string startingView, string dsReturnUrl, string envelopeId)
         {
@@ -66,6 +67,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
             return viewRequest;
         }
+        // ***DS.snippet.0.end
 
 
         [HttpPost]

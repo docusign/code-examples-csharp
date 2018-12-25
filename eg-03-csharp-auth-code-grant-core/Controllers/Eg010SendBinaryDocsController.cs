@@ -20,6 +20,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         public override string EgName => "eg010";
 
         // Returns a tuple. See https://stackoverflow.com/a/36436255/64904
+        // ***DS.snippet.0.start
         (bool statusOk, string envelopeId, string errorCode, string errorMessage) DoWork(
             string signerEmail, string signerName, string ccEmail,
             string ccName, string accessToken, string basePath,
@@ -300,6 +301,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
             return envelopeDefinition;
         }
+        // ***DS.snippet.0.end
 
 
         [HttpPost]
