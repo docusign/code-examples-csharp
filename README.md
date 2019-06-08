@@ -65,19 +65,19 @@ The **refresh token** is not used in this example.
 1. **Get the envelope custom field data (metadata).**
    Coming soon...
 1. **Requiring an Access Code for a Recipient**
-   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg011EmbeddedSendingController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg019AccessCodeAuthController.cs)
    This example sends and envelope that requires an access-code for the purpose of multi-factor authentication.   
 1. **Requiring SMS authentication for a recipient**
-   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg011EmbeddedSendingController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg020SmsAuthController.cs)
    This example sends and envelope that requires entering in a six digit code from an text message for the purpose of multi-factor authentication.   
 1. **Requiring Phone authentication for a recipient**
-   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg011EmbeddedSendingController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg021PhoneAuthController.cs)
    This example sends and envelope that requires entering in a voice-based response code for the purpose of multi-factor authentication.  
 1. **Requiring Knowledge-Based Authentication (KBA) for a Recipient**
-   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg011EmbeddedSendingController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg022KbaAuthController.cs)
    This example sends and envelope that requires passing a Public records check to validate identity for the purpose of multi-factor authentication.    
 1. **Requiring ID Verification (IDV) for a recipient**
-   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg011EmbeddedSendingController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg023IdvAuthController.cs)
    This example sends and envelope that requires submitting a photo of a government issued id for the purpose of multi-factor authentication.    
       
 
