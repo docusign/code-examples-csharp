@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
@@ -21,6 +21,8 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         // Returns a tuple. See https://stackoverflow.com/a/36436255/64904
         // ***DS.snippet.0.start
+        static string templateName = "Example Signer and CC template";
+
         private (bool createdNewTemplate, string templateId, string resultsTemplateName) DoWork(
             string accessToken, string basePath, string accountId)
         {
@@ -31,7 +33,6 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
 
             // Step 1. List templates to see if ours exists already
-            string templateName = "Example Signer and CC template";
             var config = new Configuration(new ApiClient(basePath));
             config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
             TemplatesApi templatesApi = new TemplatesApi(config);
@@ -47,19 +48,23 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             if (int.Parse(results.ResultSetSize) > 0)
             {
                 // Found the template! Record its id
-                EnvelopeTemplateResult template = results.EnvelopeTemplates[0];
-                templateId = template.TemplateId;
-                resultsTemplateName = template.Name;
+                templateId = results.EnvelopeTemplates[0].TemplateId;
+                resultsTemplateName = results.EnvelopeTemplates[0].Name;
                 createdNewTemplate = false;
             }
             else
             {
                 // No template! Create one!
                 EnvelopeTemplate templateReqObject = MakeTemplate(templateName);
+                
                 TemplateSummary template = templatesApi.CreateTemplate(accountId, templateReqObject);
-                templateId = template.TemplateId;
-                resultsTemplateName = template.Name;
+
+                // Retrieve the new template Name / TemplateId
+                EnvelopeTemplateResults templateResults = templatesApi.ListTemplates(accountId, options);
+                templateId = templateResults.EnvelopeTemplates[0].TemplateId;
+                resultsTemplateName = templateResults.EnvelopeTemplates[0].Name;
                 createdNewTemplate = true;
+
             }
 
             return (createdNewTemplate: createdNewTemplate, 
@@ -173,8 +178,8 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             textInsteadOfNumber.Font = "helvetica";
             textInsteadOfNumber.FontSize = "size14";
             textInsteadOfNumber.TabLabel = "numbersOnly";
-            textInsteadOfNumber.Height = 23;
-            textInsteadOfNumber.Width = 84;
+            textInsteadOfNumber.Height = "23";
+            textInsteadOfNumber.Width = "84";
             textInsteadOfNumber.Required = "false";
 
             RadioGroup radioGroup = new RadioGroup();
@@ -196,8 +201,8 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             text.Font = "helvetica";
             text.FontSize = "size14";
             text.TabLabel = "text";
-            text.Height = 23;
-            text.Width = 84;
+            text.Height = "23";
+            text.Width = "84";
             text.Required = "false";
 
             // Tabs are set per recipient / signer
@@ -220,18 +225,14 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             recipients.Signers = new List<Signer> { signer1 };
             recipients.CarbonCopies = new List<CarbonCopy> { cc1 };
 
-            // create the envelope template definition object
-            EnvelopeTemplateDefinition envelopeTemplateDefinition = new EnvelopeTemplateDefinition();
-            envelopeTemplateDefinition.Description = "Example template created via the API";
-            envelopeTemplateDefinition.Name = resultsTemplateName; 
-            envelopeTemplateDefinition.Shared = "false";
-
+           
             // create the overall template definition
             EnvelopeTemplate template = new EnvelopeTemplate();
             // The order in the docs array determines the order in the env
+            template.Description = "Example template created via the API";
+            template.Name = resultsTemplateName;
             template.Documents = new List<Document> { doc};
             template.EmailSubject = "Please sign this document";
-            template.EnvelopeTemplateDefinition = envelopeTemplateDefinition;
             template.Recipients = recipients;
             template.Status = "created";
 

@@ -1,18 +1,19 @@
-﻿@{ 
+﻿@{
     var locals = ViewData["locals"] as Locals;//ViewBag.Locals;
     bool showDoc;
-    Boolean.TryParse(ViewData["showDoc"].ToString(),out showDoc);//ViewBag.ShowDoc;
+    Boolean.TryParse(ViewData["showDoc"].ToString(), out showDoc);//ViewBag.ShowDoc;
 }
-@if (locals.User == null) { 
-<!-- IF not signed in -->
-<div class="jumbotron">
-    <h1 class="display-4">Welcome!</h1>
-    <p class="Xlead">
-        Welcome to the DocuSign C# examples with
-        OAuth Authorization Code Grant.
-    </p>
-</div>
-} 
+@if (locals.User == null)
+{
+    <!-- IF not signed in -->
+    <div class="jumbotron">
+        <h1 class="display-4">Welcome!</h1>
+        <p class="Xlead">
+            Welcome to the DocuSign C# examples with
+            OAuth Authorization Code Grant.
+        </p>
+    </div>
+}
 
 <div id="index-page">
     <h2>Welcome</h2>
@@ -168,8 +169,85 @@
         API method used:
         <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
     </p>
-</div>
 
+    <h2>Tabs Examples</h2>
+    <h4 id="example015">15. <a href="#">Get the tab data from an envelope</a></h4>
+    <p>Comming Soon...</p>
+    <p>
+    </p>
+
+    <h4 id="example016">16. <a href="#">Set tab values for a envelope</a></h4>
+    <p>Comming Soon...</p>
+    <p>
+    </p>
+
+    <h4 id="example017">17. <a href="#">Set template tab values</a></h4>
+    <p>Comming Soon...</p>
+    <p>
+    </p>
+
+    <h4 id="example018">18. <a href="#">List envelope custom metadata field values</a></h4>
+    <p>Comming Soon...</p>
+    <p>
+    </p>
+
+
+    <h2>Recipient Authentication</h2>
+    <h4 id="example019">19. <a href="eg019">Send an envelope with Access Code Recipient Authentication</a></h4>
+    <p>
+        Anchor text
+        (<a target='_blank' href="https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience">AutoPlace</a>)
+        is used to position the signing fields in the documents.
+    </p>
+    <p>
+        API method used:
+        <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
+    </p>
+
+    <h4 id="example020">20. <a href="eg020">Send an envelope with SMS Recipient Authentication</a></h4>
+    <p>
+        Anchor text
+        (<a target='_blank' href="https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience">AutoPlace</a>)
+        is used to position the signing fields in the documents.
+    </p>
+    <p>
+        API method used:
+        <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
+    </p>
+
+    <h4 id="example021">21. <a href="eg021">Send an envelope with Phone Recipient Authentication</a></h4>
+    <p>
+        Anchor text
+        (<a target='_blank' href="https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience">AutoPlace</a>)
+        is used to position the signing fields in the documents.
+    </p>
+    <p>
+        API method used:
+        <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
+    </p>
+
+    <h4 id="example022">22. <a href="eg022">Send an envelope with Recipient Knowledged Based Authentication</a></h4>
+    <p>
+        Anchor text
+        (<a target='_blank' href="https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience">AutoPlace</a>)
+        is used to position the signing fields in the documents.
+    </p>
+    <p>
+        API method used:
+        <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
+    </p>
+
+   <h4 id="example023">23. <a href="eg023">Send an envelope with Recipient Id Verification Authentication</a></h4>
+    <p>
+        Anchor text
+        (<a target='_blank' href="https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience">AutoPlace</a>)
+        is used to position the signing fields in the documents.
+    </p>
+    <p>
+        API method used:
+        <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
+    </p>
+</div>
 <!-- anchor-js is only for the index page -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js"></script>
 <script>anchors.options.placement = 'left'; anchors.add('h4')</script>

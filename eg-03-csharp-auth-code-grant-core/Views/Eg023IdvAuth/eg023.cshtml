@@ -1,0 +1,45 @@
+﻿
+    <h4>23. Requiring Id Verification for a Recipient</h4>
+<p>
+    The envelope includes a pdf document. Anchor text
+    (<a href="https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience">AutoPlace</a>)
+    is used to position the signing fields in the documents.
+</p>
+<p>
+    This is a general example of creating and sending an envelope (a signing request) using ID Verification for Recipient Authentication.
+</p>
+
+ @if (ViewBag.showDoc == true)
+ {
+     <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example.</p>
+ }
+
+<p>
+    API method used:
+    <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
+</p>
+
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">Eg023IdvAuthController.cs</a> on GitHub.
+</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <p>
+        <strong>Note:</strong> The Access Code for this example is the Signer Name.
+    </p>
+
+    <div class="form-group">
+        <label for="signerEmail">Signer Email</label>
+        <input type="email" class="form-control" id="signerEmail" name="signerEmail"
+               aria-describedby="emailHelp" placeholder="pat@example.com" required
+               value="@ViewBag.Locals.DsConfig.SignerEmail">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="signerName">Signer Name</label>
+        <input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
+               value="@ViewBag.Locals.DsConfig.SignerName" required>
+    </div>
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
