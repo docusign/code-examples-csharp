@@ -22,7 +22,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
 
         [HttpPost]
-        public IActionResult Create(string signerEmail, string signerName)
+        public IActionResult Create(string signerEmail, string signerName, string accessCode)
         {
             // Check the token with minimal buffer time.
             bool tokenOk = CheckToken(3);
@@ -97,7 +97,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 Status = "Created",
                 DeliveryMethod = "Email",
                 RecipientId = recipientId,
-                AccessCode = signerName,
+                AccessCode = accessCode,
                 Tabs = signer1Tabs
             };
 
