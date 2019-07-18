@@ -12,7 +12,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
     [Route("eg020")]
     public class Eg020SmsAuthController : EgController
     {
-        public Eg020SmsAuthController(DSConfiguration config, IRequestItemsService requestItemsService) 
+        public Eg020SmsAuthController(DSConfiguration config, IRequestItemsService requestItemsService)
             : base(config, requestItemsService)
         {
             ViewBag.title = "SMS Authorization";
@@ -20,13 +20,8 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         public override string EgName => "eg020";
 
-
-        // Data for this method:
-        // signerEmail 
-        // signerName  
-        // phoneNumber
         [HttpPost]
-        public IActionResult Create(string signerEmail, string signerName, string signerPhone )
+        public IActionResult Create(string signerEmail, string signerName, string phoneNumber)
         {
             // Check the token with minimal buffer time.
             bool tokenOk = CheckToken(3);
@@ -38,15 +33,16 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 RequestItemsService.EgName = EgName;
                 return Redirect("/ds/mustAuthenticate");
             }
-               
+
+            // Data for this method:
+            // signerEmail 
+            // signerName                 
 
             var basePath = RequestItemsService.Session.BasePath + "/restapi";
-            var recipientId = Guid.NewGuid().ToString();
-
 
             // Step 1: Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken;
-            var accountId = RequestItemsService.Session.AccountId;
+            var accessToken = RequestItemsService.User.AccessToken; //represents your {ACCESS_TOKEN}
+            var accountId = RequestItemsService.Session.AccountId; //represents your {ACCOUNT_ID}
 
             // Step 2: Construct your API headers
             var config = new Configuration(new ApiClient(basePath));
@@ -82,8 +78,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 DocumentId = "1",
                 // A 1- to 8-digit integer or 32-character GUID to match recipient IDs on your own systems.
                 // This value is referenced in the Tabs element below to assign tabs on a per-recipient basis.
-
-                RecipientId = recipientId
+                RecipientId = "1" //represents your {RECIPIENT_ID}
             };
 
             // Tabs are set per recipient/signer
@@ -94,14 +89,9 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
             RecipientSMSAuthentication smsAuth = new RecipientSMSAuthentication();
             smsAuth.SenderProvidedNumbers = new List<String>();
-            string[] phNumbers = signerPhone.Split(",");
-            foreach (var phNumber in phNumbers)
-            {
-                smsAuth.SenderProvidedNumbers.Add(phNumber);
 
-            }
-
-
+            // You may call the SenderProvidedNumbers.Add method repeatedly for multiple phone numbers.
+            smsAuth.SenderProvidedNumbers.Add(phoneNumber); // represents your {PHONE_NUMBER}.
             Signer signer1 = new Signer()
             {
                 Name = signerName,
@@ -109,7 +99,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 RoutingOrder = "1",
                 Status = "Created",
                 DeliveryMethod = "Email",
-                RecipientId = recipientId,
+                RecipientId = "1", //represents your {RECIPIENT_ID},
                 IdCheckConfigurationName = "SMS Auth $",
                 RequireIdLookup = "true",
                 Tabs = signer1Tabs,
@@ -124,7 +114,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             // Step 4: Call the eSignature REST API
             EnvelopesApi envelopesApi = new EnvelopesApi(config);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
-    
+
             ViewBag.h1 = "Envelope sent";
             ViewBag.message = "The envelope has been created and sent!<br />Envelope ID " + results.EnvelopeId + ".";
             return View("example_done");
