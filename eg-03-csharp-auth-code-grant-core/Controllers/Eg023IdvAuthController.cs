@@ -12,7 +12,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
     [Route("eg023")]
     public class Eg023IdvAuthController : EgController
     {
-        public Eg023IdvAuthController(DSConfiguration config, IRequestItemsService requestItemsService) 
+        public Eg023IdvAuthController(DSConfiguration config, IRequestItemsService requestItemsService)
             : base(config, requestItemsService)
         {
             ViewBag.title = "ID Verification Authentication";
@@ -20,9 +20,8 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         public override string EgName => "eg023";
 
-
         [HttpPost]
-        public IActionResult Create(string signerEmail, string signerName)
+        public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName)
         {
             // Check the token with minimal buffer time.
             bool tokenOk = CheckToken(3);
@@ -35,27 +34,23 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 return Redirect("/ds/mustAuthenticate");
             }
 
-
-            // Data for this method:
+            // Data for this method
             // signerEmail 
             // signerName
             var basePath = RequestItemsService.Session.BasePath + "/restapi";
-            var recipientId = Guid.NewGuid().ToString();
-
 
             // Step 1: Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken;
-            var accountId = RequestItemsService.Session.AccountId;
+            var accessToken = RequestItemsService.User.AccessToken; //represents your {ACCESS_TOKEN}
+            var accountId = RequestItemsService.Session.AccountId; //represents your {ACCOUNT_ID}
 
             // Step 2: Construct your API headers
             var config = new Configuration(new ApiClient(basePath));
             config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
 
-
-            //Step 3: Retreive the WorkflowId
+            //Step 3: Retreive the workflow ID
             AccountsApi workflowDetails = new AccountsApi(config);
             AccountIdentityVerificationResponse wfRes = workflowDetails.GetAccountIdentityVerification(accountId);
-            Console.WriteLine("Workflow id: " + wfRes.IdentityVerification[0].WorkflowId);
+            Console.WriteLine("Workflow ID: " + wfRes.IdentityVerification[0].WorkflowId);
 
             // Step 4: Construct your envelope JSON body
             // Note: If you did not successfully obtain your workflow ID, step 4 will fail.
@@ -88,9 +83,8 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 DocumentId = "1",
                 // A 1- to 8-digit integer or 32-character GUID to match recipient IDs on your own systems.
                 // This value is referenced in the Tabs element below to assign tabs on a per-recipient basis.
-                RecipientId = recipientId
-        };
-
+                RecipientId = "1" //represents your {RECIPIENT_ID}
+            };
 
             // Tabs are set per recipient/signer
             Tabs signer1Tabs = new Tabs
@@ -111,7 +105,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 Note = "",
                 Status = "created",
                 DeliveryMethod = "email",
-                RecipientId = recipientId,
+                RecipientId = "1", //represents your {RECIPIENT_ID}
                 IdentityVerification = workflow,
                 Tabs = signer1Tabs
             };
@@ -123,7 +117,6 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             // Step 5: Call the eSignature REST API
             EnvelopesApi envelopesApi = new EnvelopesApi(config);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
-
 
             ViewBag.h1 = "Envelope sent";
             ViewBag.message = "The envelope has been created and sent!<br />Envelope ID " + results.EnvelopeId + ".";
