@@ -8,46 +8,18 @@ using Newtonsoft.Json;
 namespace eg_03_csharp_auth_code_grant_core.Controllers
 {
     [Route("eg015")]
-    public class Eg015EnvelopeTabData : EgController
+    public class Eg015EnvelopeTabDataController : EgController
     {
-        public Eg015EnvelopeTabData(DSConfiguration config, IRequestItemsService requestItemsService) 
+        public Eg015EnvelopeTabDataController(DSConfiguration config, IRequestItemsService requestItemsService) 
             : base(config, requestItemsService)
         {
-            ViewBag.title = "Get envelope information";
+            ViewBag.title = "Get Envelope Tab Information";
         }
-
         public override string EgName => "eg015";
 
-        // ***DS.snippet.0.start
-        private EnvelopeFormData DoWork(string accessToken, string basePath, string accountId,
-            string envelopeId)
-        {
-            // Data for this method
-            // accessToken
-            // basePath
-            // accountId
-            // envelopeId
-
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(config);
-            ViewBag.h1 = "Get envelope tab data information";
-            ViewBag.message = "Results from the Envelopes::get method:";
-            EnvelopeFormData results = envelopesApi.GetFormData(accountId, envelopeId);
-            return results;
-        }
-        // ***DS.snippet.0.end
-
-
         [HttpPost]
-        public IActionResult Create(string signerEmail, string signerName)
+        public IActionResult Create()
         {
-            // Data for this method
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = RequestItemsService.Session.BasePath + "/restapi";
-            var accountId = RequestItemsService.Session.AccountId;
-            var envelopeId = RequestItemsService.EnvelopeId;
-
             // Check the token with minimal buffer time.
             bool tokenOk = CheckToken(3);
             if (!tokenOk)
@@ -61,10 +33,23 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 return Redirect("/ds/mustAuthenticate");
             }
 
-            EnvelopeFormData results = DoWork(accessToken, basePath, accountId, envelopeId);
-        
-            ViewBag.h1 = "Get envelope status results";
-            ViewBag.message  = "Results from the Envelopes::get method:";
+            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+
+            // Step 1: Obtain your OAuth token
+            var accessToken = RequestItemsService.User.AccessToken; //represents your {ACCESS_TOKEN}
+            var accountId = RequestItemsService.Session.AccountId; //represents your {ACCOUNT_ID}
+            var envelopeId = RequestItemsService.EnvelopeId;
+
+            // Step 2: Construct your API headers
+            var config = new Configuration(new ApiClient(basePath));
+            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
+
+            // Step 3: Call the eSignature REST API
+            EnvelopesApi envelopesApi = new EnvelopesApi(config);
+            EnvelopeFormData results = envelopesApi.GetFormData(accountId, envelopeId);
+
+            ViewBag.h1 = "Get envelope tab data information";
+            ViewBag.message = "Results from the Envelopes::get method:";
             ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
             return View("example_done");
         }
