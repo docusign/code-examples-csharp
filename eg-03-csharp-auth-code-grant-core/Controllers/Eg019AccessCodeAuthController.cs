@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Model;
 using eg_03_csharp_auth_code_grant_core.Models;
-using System.Text;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 using DocuSign.eSign.Client;
 
 namespace eg_03_csharp_auth_code_grant_core.Controllers
@@ -19,7 +19,6 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         }
 
         public override string EgName => "eg019";
-
 
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName, string accessCode)
@@ -37,14 +36,12 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
             // Data for this method:
             // signerEmail 
-            // signerName
-
+            // signerName            
             var basePath = RequestItemsService.Session.BasePath + "/restapi";
-            var recipientId = Guid.NewGuid().ToString();
 
             // Step 1: Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken;
-            var accountId = RequestItemsService.Session.AccountId;
+            var accessToken = RequestItemsService.User.AccessToken; //represents your {ACCESS_TOKEN}
+            var accountId = RequestItemsService.Session.AccountId; //represents your {ACCOUNT_ID}
 
             // Step 2: Construct your API headers
             var config = new Configuration(new ApiClient(basePath));
@@ -80,7 +77,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 DocumentId = "1",
                 // A 1- to 8-digit integer or 32-character GUID to match recipient IDs on your own systems.
                 // This value is referenced in the Tabs element below to assign tabs on a per-recipient basis.
-                RecipientId = recipientId
+                RecipientId = "1" //represents your {RECIPIENT_ID}
             };
 
             // Tabs are set per recipient/signer
@@ -96,11 +93,10 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 RoutingOrder = "1",
                 Status = "Created",
                 DeliveryMethod = "Email",
-                RecipientId = recipientId,
-                AccessCode = accessCode,
+                RecipientId = "1", //represents your {RECIPIENT_ID}
+                AccessCode = accessCode, //represents your {ACCESS_CODE}
                 Tabs = signer1Tabs
             };
-
 
             Recipients recipients = new Recipients();
             recipients.Signers = new List<Signer> { signer1 };
