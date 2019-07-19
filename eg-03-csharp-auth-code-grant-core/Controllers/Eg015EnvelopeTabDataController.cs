@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace eg_03_csharp_auth_code_grant_core.Controllers
 {
-    [Route("eg004")]
+    [Route("eg015")]
     public class Eg015EnvelopeTabData : EgController
     {
         public Eg015EnvelopeTabData(DSConfiguration config, IRequestItemsService requestItemsService) 
@@ -16,7 +16,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             ViewBag.title = "Get envelope information";
         }
 
-        public override string EgName => "eg004";
+        public override string EgName => "eg015";
 
         // ***DS.snippet.0.start
         private EnvelopeFormData DoWork(string accessToken, string basePath, string accountId,
