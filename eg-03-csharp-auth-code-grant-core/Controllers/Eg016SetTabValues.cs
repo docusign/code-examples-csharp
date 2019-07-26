@@ -59,36 +59,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             var config = new Configuration(new ApiClient(basePath));
             config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
 
-            // Step 3: Construct your envelope JSON body
-            
-            // Salary that will be used.
-            // The SDK can't create a number tab at this time. Bug DCM-2732
-            // The salary is set both as a readable number in the
-            // /salary/ text field, and as a pure number in a
-            // custom field ('salary') in the envelope.
-            int salary = 123000;
-            string doc1b64 = Convert.ToBase64String(System.IO.File.ReadAllBytes(Config.tabsDocx));
-
-            // Create document objects, one per document
-
-            Document doc1 = new Document
-            {
-                DocumentBase64 = doc1b64,
-                Name = "Lorem Ipsum", // can be different from actual file name
-                FileExtension = "docx",
-                DocumentId = "1"
-            };
-
-            // The order in the docs array determines the order in the envelope
-
-            // Step 4: Create Tabs Objects & CustomFields
-            // Create signHere fields (also known as tabs) on the documents,
-            // We're using anchor (autoPlace) positioning
-            //
-            // The DocuSign platform searches throughout your envelope's
-            // documents for matching anchor strings. So the
-            // signHere2 tab will be used in both document 2 and 3 since they
-            // use the same anchor string for their "signer 1" tabs.
+            // Step 3: Create Tabs and CustomFields
             SignHere signHere = new SignHere
             {
                 AnchorString = "/sn1/",
@@ -127,6 +98,11 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 TabLabel = "Familiar name"
             };
 
+            // The salary is set both as a readable number in the
+            // /salary/ text field, and as a pure number in a
+            // custom field ('salary') in the envelope.
+            int salary = 123000;
+
             Text textSalary = new Text
             {
                 AnchorString = "/salary/",
@@ -143,20 +119,19 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             };
 
             // The SDK can't create a number tab at this time. Bug DCM-2732
-            Number salaryCustomField = new Number
+            TextCustomField salaryCustomField = new TextCustomField
             {
                 Name = "salary",
                 Required = "false",
+                Show = "true", //to view on CoC
                 Value = salary.ToString()
-
 
             };
 
-            //CustomFields cf = new CustomFields
-            //{
-            //    TextCustomFields = new List<TextCustomField> { salaryCustomField }
-            //};
-
+            CustomFields cf = new CustomFields
+            {
+                TextCustomFields = new List<TextCustomField> { salaryCustomField }
+            };
 
             // create a signer recipient to sign the document, identified by name and email
             // We're setting the parameters via the object creation
@@ -176,8 +151,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             Tabs signer1Tabs = new Tabs
             {
                 SignHereTabs = new List<SignHere> { signHere },
-                TextTabs = new List<Text> { textLegal, textFamiliar, textSalary },
-                NumberTabs = new List<Number> { salaryCustomField }
+                TextTabs = new List<Text> { textLegal, textFamiliar, textSalary }
             };
             signer1.Tabs = signer1Tabs;
 
@@ -187,8 +161,21 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 Signers = new List<Signer> { signer1 }
             };
 
-            // create the envelope definition.
-            EnvelopeDefinition env = new EnvelopeDefinition()
+
+            string doc1b64 = Convert.ToBase64String(System.IO.File.ReadAllBytes(Config.tabsDocx));
+
+            // Create document objects, one per document
+
+            Document doc1 = new Document
+            {
+                DocumentBase64 = doc1b64,
+                Name = "Lorem Ipsum", // can be different from actual file name
+                FileExtension = "docx",
+                DocumentId = "1"
+            };
+
+            // Step 4: Create the envelope definition.
+            EnvelopeDefinition envelopeAttributes = new EnvelopeDefinition()
             {
 
                 EnvelopeIdStamping = "true",
@@ -196,14 +183,14 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 EmailBlurb = "Sample text for email body",
                 Status = "Sent",
                 Recipients = recipients,
-                CustomFields = salary,
+                CustomFields = cf,
                 Documents = new List<Document> { doc1 }
 
             };
 
-            // Step 5: Call the eSignature REST API to create Embedded Envelope
+            // Step 5: Call the eSignature REST API and subsequent View Request
             EnvelopesApi envelopesApi = new EnvelopesApi(config);
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelopeAttributes);
 
             RecipientViewRequest viewRequest = new RecipientViewRequest();
             // Set the url where you want the recipient to go once they are done signing
@@ -236,7 +223,6 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                                                // NOTE: The pings will only be sent if the pingUrl is an https address
             viewRequest.PingUrl = dsPingUrl; // optional setting
 
-            // Step 6: Lookup the embedded signing redirect URL for envelopeId
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, results.EnvelopeId, viewRequest);
             //***********
             // Don't use an iFrame with embedded signing requests!
