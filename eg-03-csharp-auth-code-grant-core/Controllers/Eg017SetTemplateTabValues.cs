@@ -76,8 +76,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 TabLabel = "ckAuthorization",
                 Selected = "true"
             };
-
-            Checkbox check3 = new Checkbox()
+             Checkbox check3 = new Checkbox()
             {
                 TabLabel = "ckAgreement",
                 Selected = "true"

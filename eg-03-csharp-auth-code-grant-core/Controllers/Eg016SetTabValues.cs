@@ -154,8 +154,6 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 TextTabs = new List<Text> { textLegal, textFamiliar, textSalary }
             };
             signer1.Tabs = signer1Tabs;
-
-            // Add the recipients to the envelope object
             Recipients recipients = new Recipients
             {
                 Signers = new List<Signer> { signer1 }
