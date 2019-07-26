@@ -143,20 +143,19 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             };
 
             // The SDK can't create a number tab at this time. Bug DCM-2732
-            TextCustomField salaryCustomField = new TextCustomField
+            Number salaryCustomField = new Number
             {
                 Name = "salary",
                 Required = "false",
-                Show = "true", // Yes, include in the CoC
                 Value = salary.ToString()
 
 
             };
 
-            CustomFields cf = new CustomFields
-            {
-                TextCustomFields = new List<TextCustomField> { salaryCustomField }
-            };
+            //CustomFields cf = new CustomFields
+            //{
+            //    TextCustomFields = new List<TextCustomField> { salaryCustomField }
+            //};
 
 
             // create a signer recipient to sign the document, identified by name and email
@@ -178,6 +177,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             {
                 SignHereTabs = new List<SignHere> { signHere },
                 TextTabs = new List<Text> { textLegal, textFamiliar, textSalary },
+                NumberTabs = new List<Number> { salaryCustomField }
             };
             signer1.Tabs = signer1Tabs;
 
@@ -196,7 +196,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 EmailBlurb = "Sample text for email body",
                 Status = "Sent",
                 Recipients = recipients,
-                CustomFields = cf,
+                CustomFields = salary,
                 Documents = new List<Document> { doc1 }
 
             };
