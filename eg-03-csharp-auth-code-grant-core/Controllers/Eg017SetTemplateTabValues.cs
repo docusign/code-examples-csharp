@@ -9,8 +9,8 @@ using DocuSign.eSign.Client;
 
 namespace eg_03_csharp_auth_code_grant_core.Controllers
 {
-    [Route("eg016")]
-    public class Eg016SetTabValuesController : EgController
+    [Route("eg017")]
+    public class Eg017SetTemplateTabValuesController : EgController
     {
         //Setup the Ping Url, signerClientId, and the 
         //Return (callback) URL for Embedded Signing Ceremony 
@@ -19,7 +19,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         private readonly string signerClientId = "1000";
         private string dsReturnUrl;
 
-        public Eg016SetTabValuesController(DSConfiguration config, IRequestItemsService requestItemsService)
+        public Eg017SetTemplateTabValuesController(DSConfiguration config, IRequestItemsService requestItemsService)
             : base(config, requestItemsService)
         {
             ViewBag.title = "SetTabValues";
@@ -27,7 +27,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             dsReturnUrl = config.AppUrl + "/dsReturn";
         }
 
-        public override string EgName => "eg016";
+        public override string EgName => "eg017";
 
 
         [HttpPost]
@@ -60,13 +60,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
 
             // Step 3: Construct your envelope JSON body
-            
-            // Salary that will be used.
-            // The SDK can't create a number tab at this time. Bug DCM-2732
-            // The salary is set both as a readable number in the
-            // /salary/ text field, and as a pure number in a
-            // custom field ('salary') in the envelope.
-            int salary = 123000;
+
             string doc1b64 = Convert.ToBase64String(System.IO.File.ReadAllBytes(Config.tabsDocx));
 
             // Create document objects, one per document
