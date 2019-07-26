@@ -31,7 +31,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
 
         [HttpPost]
-        public IActionResult Create(string signerEmail, string signerName)
+        public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName)
         {
             // Check the token with minimal buffer time.
             bool tokenOk = CheckToken(3);
@@ -59,145 +59,121 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             var config = new Configuration(new ApiClient(basePath));
             config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
 
-            // Step 3: Construct your envelope JSON body
-
-            string doc1b64 = Convert.ToBase64String(System.IO.File.ReadAllBytes(Config.tabsDocx));
-
-            // Create document objects, one per document
-
-            Document doc1 = new Document
+            // Step 3: Create Tabs and CustomFields
+            // Set the values for the fields in the template
+            // List item
+            List list1 = new List()
             {
-                DocumentBase64 = doc1b64,
-                Name = "Lorem Ipsum", // can be different from actual file name
-                FileExtension = "docx",
-                DocumentId = "1"
+                Value = "green",
+                DocumentId = "1",
+                PageNumber = "1",
+                TabLabel = "list"
             };
 
-            // The order in the docs array determines the order in the envelope
-
-            // Step 4: Create Tabs Objects & CustomFields
-            // Create signHere fields (also known as tabs) on the documents,
-            // We're using anchor (autoPlace) positioning
-            //
-            // The DocuSign platform searches throughout your envelope's
-            // documents for matching anchor strings. So the
-            // signHere2 tab will be used in both document 2 and 3 since they
-            // use the same anchor string for their "signer 1" tabs.
-            SignHere signHere = new SignHere
+            //Checkboxes
+            Checkbox check1 = new Checkbox()
             {
-                AnchorString = "/sn1/",
-                AnchorUnits = "pixels",
-                AnchorYOffset = "10",
-                AnchorXOffset = "20"
+                TabLabel = "ckAuthorization",
+                Selected = "true"
             };
 
-            Text textLegal = new Text
+            Checkbox check3 = new Checkbox()
             {
-                AnchorString = "/legal/",
-                AnchorUnits = "pixels",
-                AnchorYOffset = "-9",
-                AnchorXOffset = "5",
+                TabLabel = "ckAgreement",
+                Selected = "true"
+            };
+
+            RadioGroup radioGroup = new RadioGroup()
+            {
+                GroupName = "radio1",
+                // You only need to provide the readio entry for the entry you're selecting
+                Radios = new List<Radio> { new Radio { Value = "white", Selected = "true" } }
+            };
+
+            Text text = new Text()
+            {
+                TabLabel = "text",
+                Value = "Jabberywocky!"
+            };
+
+            // We can also add a new tab (field) to the ones already in the template:
+            Text textExtra = new Text()
+            {
+                DocumentId = "1",
+                PageNumber = "1",
+                XPosition = "280",
+                YPosition = "172",
                 Font = "helvetica",
-                FontSize = "size11",
-                Bold = "true",
-                Value = signerName,
-                Locked = "false",
-                TabId = "legal_name",
-                TabLabel = "Legal name",
-            };
-
-            Text textFamiliar = new Text
-            {
-                AnchorString = "/familiar/",
-                AnchorUnits = "pixels",
-                AnchorYOffset = "-9",
-                AnchorXOffset = "5",
-                Font = "helvetica",
-                FontSize = "size11",
-                Bold = "true",
-                Value = signerName,
-                Locked = "false",
-                TabId = "familiar_name",
-                TabLabel = "Familiar name"
-            };
-
-            Text textSalary = new Text
-            {
-                AnchorString = "/salary/",
-                AnchorUnits = "pixels",
-                AnchorYOffset = "-9",
-                AnchorXOffset = "5",
-                Font = "helvetica",
-                FontSize = "size11",
-                Bold = "true",
-                Value = salary.ToString("C2"),
-                Locked = "true",
-                TabId = "salary",
-                TabLabel = "Salary"
-            };
-
-            // The SDK can't create a number tab at this time. Bug DCM-2732
-            TextCustomField salaryCustomField = new TextCustomField
-            {
-                Name = "salary",
+                FontSize = "size14",
+                TabLabel = "added text field",
+                Height = "23",
+                Width = "84",
                 Required = "false",
-                Show = "true", // Yes, include in the CoC
-                Value = salary.ToString()
-
-
-            };
-
-            CustomFields cf = new CustomFields
-            {
-                TextCustomFields = new List<TextCustomField> { salaryCustomField }
-            };
-
-
-            // create a signer recipient to sign the document, identified by name and email
-            // We're setting the parameters via the object creation
-            Signer signer1 = new Signer
-            {
-                Email = signerEmail,
-                Name = signerName,
-                RecipientId = "1",
-                RoutingOrder = "1",
-                ClientUserId = signerClientId
-
+                Bold = "true",
+                Value = signerName,
+                Locked = "false",
+                TabId = "name"
             };
 
             // Add the tabs model (including the SignHere tab) to the signer.
             // The Tabs object wants arrays of the different field/tab types
             // Tabs are set per recipient / signer
-            Tabs signer1Tabs = new Tabs
+            Tabs tabs = new Tabs
             {
-                SignHereTabs = new List<SignHere> { signHere },
-                TextTabs = new List<Text> { textLegal, textFamiliar, textSalary }
-            };
-            signer1.Tabs = signer1Tabs;
-
-            // Add the recipients to the envelope object
-            Recipients recipients = new Recipients
-            {
-                Signers = new List<Signer> { signer1 }
+                CheckboxTabs = new List<Checkbox> { check1, check3 },
+                RadioGroupTabs = new List<RadioGroup> { radioGroup },
+                TextTabs = new List<Text> { text, textExtra },
+                ListTabs = new List<List> { list1 }
             };
 
-            // create the envelope definition.
-            EnvelopeDefinition env = new EnvelopeDefinition()
+            // create a signer recipient to sign the document, identified by name and email
+            // We're setting the parameters via the object creation
+            TemplateRole signer = new TemplateRole
             {
+                Email = signerEmail,
+                Name = signerName,
+                RoleName = "signer",
+                ClientUserId = signerClientId, // change the signer to be embedded
+                Tabs = tabs //Set Tab Values
+            };
 
-                EnvelopeIdStamping = "true",
-                EmailSubject = "Please Sign",
-                EmailBlurb = "Sample text for email body",
+            TemplateRole cc = new TemplateRole
+            {
+                Email = ccEmail,
+                Name = ccName,
+                RoleName = "cc"
+            };
+
+            // Create an envelope custom field to save our application's
+            // data about the envelope
+            TextCustomField customField = new TextCustomField()
+            {
+                Name = "app metadata item",
+                Required = "false",
+                Show = "true", // Yes, include in the CoC
+                Value = "1234567"
+            };
+
+            CustomFields cf = new CustomFields()
+            {
+                TextCustomFields = new List<TextCustomField> { customField }
+            };
+
+            // Step 4: Create the envelope definition.
+            EnvelopeDefinition envelopeAttributes = new EnvelopeDefinition()
+            {
+                // Uses the TemplateID received from example 08
+                TemplateId = RequestItemsService.TemplateId,
                 Status = "Sent",
-                Recipients = recipients,
-                CustomFields = cf,
-                Documents = new List<Document> { doc1 }
+                // Add the TemplateRole objects to the envelope object
+                TemplateRoles = new List<TemplateRole> { signer, cc },
+                CustomFields = cf
 
             };
 
-            // Step 5: Call the eSignature REST API to create Embedded Envelope
+            // Step 5: Call the eSignature REST API and subsequent View Request
             EnvelopesApi envelopesApi = new EnvelopesApi(config);
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelopeAttributes);
 
             RecipientViewRequest viewRequest = new RecipientViewRequest();
             // Set the url where you want the recipient to go once they are done signing
@@ -230,7 +206,6 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                                                // NOTE: The pings will only be sent if the pingUrl is an https address
             viewRequest.PingUrl = dsPingUrl; // optional setting
 
-            // Step 6: Lookup the embedded signing redirect URL for envelopeId
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, results.EnvelopeId, viewRequest);
             //***********
             // Don't use an iFrame with embedded signing requests!
