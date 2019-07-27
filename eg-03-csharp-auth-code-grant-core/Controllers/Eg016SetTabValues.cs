@@ -190,6 +190,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             EnvelopesApi envelopesApi = new EnvelopesApi(config);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelopeAttributes);
 
+            RequestItemsService.EnvelopeId = results.EnvelopeId;
             RecipientViewRequest viewRequest = new RecipientViewRequest();
             // Set the url where you want the recipient to go once they are done signing
             // should typically be a callback route somewhere in your app.

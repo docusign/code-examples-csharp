@@ -118,6 +118,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             EnvelopesApi envelopesApi = new EnvelopesApi(config);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
 
+            RequestItemsService.EnvelopeId = results.EnvelopeId;
             ViewBag.h1 = "Envelope sent";
             ViewBag.message = "The envelope has been created and sent!<br />Envelope ID " + results.EnvelopeId + ".";
             return View("example_done");
