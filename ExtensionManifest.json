@@ -4,14 +4,49 @@
             "number" : "1",
             "name" : "Requesting a Signature via your App (Embedded Signing)",
             "description" : "This code example demonstrates how to collect eSignatures via DocuSign from within your app without needing to send the signer an email or direct them to an external URL, a process also known as Embedded Signing.",
-            "source" : "https://github.com/docusign/eg-03-csharp-auth-code-grant-core/blob/master/eg-03-csharp-auth-code-grant-core/Examples/EmbeddedSigningCeremony.cs",
+            "source" : "https://github.com/docusign/TemporaryCSharpCodeExamples/blob/master/eg-03-csharp-auth-code-grant-core/Examples/EmbeddedSigningCeremony.cs",
             "method" : "SendEnvelopeForEmbeddedSigning"
         },
         {
-            "number" : "1",
-            "name" : "Requesting a Signature via your App (Embedded Signing)",
+            "number" : "2",
+            "name" : "Requesting a Signature via Email (Remote Signing)",
+            "description" : "This code example demonstrates how to send a signature request for a signer to read and sign via an email, also known as a remote signature request.",
+            "source" : "https://github.com/docusign/TemporaryCSharpCodeExamples/blob/master/eg-03-csharp-auth-code-grant-core/Examples/EmbeddedSigningCeremony.cs",
+            "method" : "SendEnvelopeForEmbeddedSigning"
+        },
+        {
+            "number" : "3",
+            "name" : "Getting Envelope Information",
+            "description" : "This code example demonstrates how to get the full set of data associated with an envelope that was sent by your app.",
+            "source" : "https://github.com/docusign/TemporaryCSharpCodeExamples/blob/master/eg-03-csharp-auth-code-grant-core/Examples/EmbeddedSigningCeremony.cs",
+            "method" : "SendEnvelopeForEmbeddedSigning"
+        },
+        {
+            "number" : "4",
+            "name" : "Get an envelope's basic information",
             "description" : "This code example demonstrates how to collect e-ignatures via DocuSign from within your app without needing to send the signer an email or direct them to an external URL, a process also known as Embedded Signing.",
-            "source" : "https://github.com/docusign/eg-03-csharp-auth-code-grant-core/blob/master/eg-03-csharp-auth-code-grant-core/Examples/EmbeddedSigningCeremony.cs",
+            "source" : "https://github.com/docusign/TemporaryCSharpCodeExamples/blob/master/eg-03-csharp-auth-code-grant-core/Examples/EmbeddedSigningCeremony.cs",
+            "method" : "SendEnvelopeForEmbeddedSigning"
+        },
+        {
+            "number" : "5",
+            "name" : "Listing Envelope Recipients",
+            "description" : "This code example demonstrates how to retrieve a list of all envelope recipients and their associated status details, such as the signing status for each envelope document.",
+            "source" : "https://github.com/docusign/TemporaryCSharpCodeExamples/blob/master/eg-03-csharp-auth-code-grant-core/Examples/EmbeddedSigningCeremony.cs",
+            "method" : "SendEnvelopeForEmbeddedSigning"
+        },
+        {
+            "number" : "6",
+            "name" : "Listing Envelope Documents",
+            "description" : "This code example demonstrates how to retrieve a list of all documents within a specific envelope.",
+            "source" : "https://github.com/docusign/TemporaryCSharpCodeExamples/blob/master/eg-03-csharp-auth-code-grant-core/Examples/EmbeddedSigningCeremony.cs",
+            "method" : "SendEnvelopeForEmbeddedSigning"
+        },
+        {
+            "number" : "7",
+            "name" : "Downloading Envelope Documents",
+            "description" : "This code example demonstrates how to retrieve documents from an envelope, such as the generated seal (which is created when a document is completed), a composite PDF of all documents, a zip file containing everything, or a specific document attachment within the envelope.",
+            "source" : "https://github.com/docusign/TemporaryCSharpCodeExamples/blob/master/eg-03-csharp-auth-code-grant-core/Examples/EmbeddedSigningCeremony.cs",
             "method" : "SendEnvelopeForEmbeddedSigning"
         }
     ]
