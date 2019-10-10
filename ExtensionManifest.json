@@ -1,0 +1,18 @@
+{
+    "codeExamples": [
+        {
+            "number" : "1",
+            "name" : "Requesting a Signature via your App (Embedded Signing)",
+            "description" : "This code example demonstrates how to collect eSignatures via DocuSign from within your app without needing to send the signer an email or direct them to an external URL, a process also known as Embedded Signing.",
+            "source" : "https://github.com/docusign/eg-03-csharp-auth-code-grant-core/blob/master/eg-03-csharp-auth-code-grant-core/Examples/EmbeddedSigningCeremony.cs",
+            "method" : "SendEnvelopeForEmbeddedSigning"
+        },
+        {
+            "number" : "1",
+            "name" : "Requesting a Signature via your App (Embedded Signing)",
+            "description" : "This code example demonstrates how to collect e-ignatures via DocuSign from within your app without needing to send the signer an email or direct them to an external URL, a process also known as Embedded Signing.",
+            "source" : "https://github.com/docusign/eg-03-csharp-auth-code-grant-core/blob/master/eg-03-csharp-auth-code-grant-core/Examples/EmbeddedSigningCeremony.cs",
+            "method" : "SendEnvelopeForEmbeddedSigning"
+        }
+    ]
+}
