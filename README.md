@@ -57,13 +57,20 @@ The **refresh token** is not used in this example.
 1. **Payments example: an order form, with online payment by credit card.**
    [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg014CollectPaymentController.cs)
 1. **Get the envelope tab data.**
-   Coming soon...
+   Retrieve the tab (field) values for all of the envelope's recipients.
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg015EnvelopeTabData.cs)
 1. **Set envelope tab values.**
-   Coming soon...
+   The example creates an envelope and sets the initial values for its tabs (fields). Some of the tabs
+   are set to be read-only, others can be updated by the recipient. The example also stores
+   metadata with the envelope.
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg016SetTabValues.cs)
 1. **Set template tab values.**
-   Coming soon...
+   The example creates an envelope using a template and sets the initial values for its tabs (fields).
+   The example also stores metadata with the envelope.
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg017SetTemplateTabValues.cs)
 1. **Get the envelope custom field data (metadata).**
-   Coming soon...
+   The example retrieves the custom metadata (custom data fields) stored with the envelope.
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg018EnvelopeCustomFieldData.cs)
 1. **Requiring an Access Code for a Recipient**
    [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg019AccessCodeAuthController.cs)
    This example sends an envelope that requires an access-code for the purpose of multi-factor authentication.   
