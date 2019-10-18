@@ -156,7 +156,7 @@ for information on choosing the right authentication flow for your application.
 ## License and additional information
 
 ### License
-This repository uses the MIT License. See the LICENSE file for more information.
+This repository uses the MIT License. Please see the LICENSE file for more information.
 
 ### Pull Requests
 Pull requests are welcomed. Pull requests will only be considered if their content
