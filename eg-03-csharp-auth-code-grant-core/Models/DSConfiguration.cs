@@ -23,6 +23,7 @@
         public string targetAccountId = null;
         public string demoDocPath = "demo_documents";
         public string docDocx = "World_Wide_Corp_Battle_Plan_Trafalgar.docx";
+        public string tabsDocx = "World_Wide_Corp_salary.docx";
         public string docPdf = "World_Wide_Corp_lorem.pdf";
         public string githubExampleUrl = "https://github.com/docusign/eg-03-csharp-auth-code-grant-core/tree/master/eg-03-csharp-auth-code-grant-core/Controllers/";
         public string documentation = null;

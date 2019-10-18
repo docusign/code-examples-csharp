@@ -1,0 +1,48 @@
+﻿<h4>18. Get the custom field data for an envelope</h4>
+<p>
+    Get the data values associated with the envelope itself. The custom data fields enable you to
+    add additional meta-data to the envelope. The custom data fields can be set by the <b>Sender</b>
+    via the DocuSign web tool, or can be set programmatically. The data can be included in the
+    envelope's certificate of completion.
+</p>
+
+<p>
+    This method is used to read the custom field values from
+    an envelope.
+</p>
+@if (ViewBag.showDoc) {
+<p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example.</p>
+}
+
+
+
+<p>
+    API method used:
+    <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeCustomFields/list">EnvelopeCustomFields::list</a>.
+</p>
+
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">eg018EnvelopeCustomFieldData.cs</a> on GitHub.
+</p>
+
+@if (ViewBag.envelopeOk) {
+<p>
+    The last envelope you created with this example launcher will be queried.
+    Recommendation:  use example 9, then this example, since example 9 includes many tabs of different types.
+</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    <button type="submit" class="btn btn-primary">Continue</button>
+</form>
+} else {
+<p>
+    Problem: please first create an envelope using <a href="eg016">example 16.</a> <br />
+    Thank you.
+</p>
+
+<form class="eg" action="eg016" method="get">
+    <button type="submit" class="btn btn-primary">Continue</button>
+</form>
+
+}
