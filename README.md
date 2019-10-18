@@ -9,7 +9,7 @@ This repo is a C# .NET Core MVC application that demonstrates:
 When the token expires, the user is asked to re-authenticate.
 The **refresh token** is not used in this example.
 
-## API version 2.0
+## API version 2.1
 
 1. **Embedded Signing Ceremony.**
    [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg001EmbeddedSigningController.cs)
@@ -57,25 +57,32 @@ The **refresh token** is not used in this example.
 1. **Payments example: an order form, with online payment by credit card.**
    [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg014CollectPaymentController.cs)
 1. **Get the envelope tab data.**
-   Coming soon...
+   Retrieve the tab (field) values for all of the envelope's recipients.
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg015EnvelopeTabData.cs)
 1. **Set envelope tab values.**
-   Coming soon...
+   The example creates an envelope and sets the initial values for its tabs (fields). Some of the tabs
+   are set to be read-only, others can be updated by the recipient. The example also stores
+   metadata with the envelope.
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg016SetTabValues.cs)
 1. **Set template tab values.**
-   Coming soon...
+   The example creates an envelope using a template and sets the initial values for its tabs (fields).
+   The example also stores metadata with the envelope.
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg017SetTemplateTabValues.cs)
 1. **Get the envelope custom field data (metadata).**
-   Coming soon...
+   The example retrieves the custom metadata (custom data fields) stored with the envelope.
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg018EnvelopeCustomFieldData.cs)
 1. **Requiring an Access Code for a Recipient**
    [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg019AccessCodeAuthController.cs)
-   This example sends and envelope that requires an access-code for the purpose of multi-factor authentication.   
+   This example sends an envelope that requires an access-code for the purpose of multi-factor authentication.   
 1. **Requiring SMS authentication for a recipient**
    [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg020SmsAuthController.cs)
-   This example sends and envelope that requires entering in a six digit code from an text message for the purpose of multi-factor authentication.   
+   This example sends an envelope that requires entering in a six digit code from an text message for the purpose of multi-factor authentication.   
 1. **Requiring Phone authentication for a recipient**
    [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg021PhoneAuthController.cs)
-   This example sends and envelope that requires entering in a voice-based response code for the purpose of multi-factor authentication.  
+   This example sends an envelope that requires entering in a voice-based response code for the purpose of multi-factor authentication.  
 1. **Requiring Knowledge-Based Authentication (KBA) for a Recipient**
    [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg022KbaAuthController.cs)
-   This example sends and envelope that requires passing a Public records check to validate identity for the purpose of multi-factor authentication.    
+   This example sends an envelope that requires passing a Public records check to validate identity for the purpose of multi-factor authentication.    
 
 
 ## Installation
