@@ -1,0 +1,58 @@
+﻿
+<h4>17. Set template tab values</h4>
+<p>
+    This example sets the value of a template's tabs. It includes setting
+    radio button and checkbox tabs.
+</p>
+<p>The example also sets custom metadata in the envelope via the envelope custom fields feature.</p>
+@if (ViewBag.showDoc == true)
+{
+<p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example.</p>
+}
+
+<p>
+    API method used:
+    <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
+</p>
+
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">Eg017SetTemplateTabValues.cs</a> on GitHub.
+</p>
+@if (ViewBag.templateOk) {
+<form class="eg" action="" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="signerEmail">Signer Email</label>
+        <input type="email" class="form-control" id="signerEmail" name="signerEmail"
+               aria-describedby="emailHelp" placeholder="pat@example.com" required
+               value="@ViewBag.Locals.DsConfig.SignerEmail">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="signerName">Signer Name</label>
+        <input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
+               value="@ViewBag.Locals.DsConfig.SignerName" required>
+    </div>
+    <div class="form-group">
+        <label for="ccEmail">CC Email</label>
+        <input type="email" class="form-control" id="ccEmail" name="ccEmail"
+               aria-describedby="emailHelp" placeholder="pat@example.com" required />
+        <small id="emailHelp" class="form-text text-muted">The email for the cc recipient must be different from the signer's email.</small>
+    </div>
+    <div class="form-group">
+        <label for="ccName">CC Name</label>
+        <input type="text" class="form-control" id="ccName" placeholder="Pat Johnson" name="ccName"
+               required>
+    </div>
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+} else {
+<p>
+    Problem: please first create the template using <a href="eg008">example 8.</a> <br />
+    Thank you.
+</p>
+
+<form class="eg" action="eg008" method="get">
+    <button type="submit" class="btn btn-primary">Continue</button>
+</form>
+}
