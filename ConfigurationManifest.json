@@ -1,0 +1,106 @@
+{
+    "authenticationTypes" : [
+        {
+            "name" : "AuthCodeGrant",
+            "DisplayName" : "Auth Code Grant",
+            "Description" : "Choose this option if each user who sends DocuSign evelopes using...",
+            "source" : "https://github.com/docusign/AuthenticationExamples/AuthCodeGrantExample.cs",
+            "Parameters" : [
+                {
+                    "Key" : "IntegrationKey",
+                    "Type" : "PlainText",
+                    "DisplayName" : "Integration Key",
+                    "PlaceHolder" : "XXXX-XXXX-XXXX-XXXX-XXXX-XXXX",
+                    "Mandatory" : true,
+                    "ValidationRegEx" : ""
+                },
+                {
+                    "Key" : "RedirectURIL",
+                    "Type" : "PlainText",
+                    "DisplayName" : "Redirect URIL",
+                    "PlaceHolder" : "http://example.com",
+                    "Mandatory" : true,
+                    "ValidationRegEx" : ""
+                },
+                {
+                    "Key" : "SecretKey",
+                    "Type" : "SecurityText",
+                    "DisplayName" : "Secret key",
+                    "PlaceHolder" : "",
+                    "Mandatory" : true,
+                    "ValidationRegEx" : ""
+                }
+            ]
+        },
+        {
+            "name" : "JWT",
+            "DisplayName" : "JSON Web Token (JWT)",
+            "Description" : "Choose this option if a sing login will be used to send all envelopes",
+            "source" : "https://github.com/docusign/AuthenticationExamples/JWTExample.cs",
+            "Parameters" : [
+                {
+                    "Key" : "IntegrationKey",
+                    "Type" : "PlainText",
+                    "DisplayName" : "Integration Key",
+                    "PlaceHolder" : "XXXX-XXXX-XXXX-XXXX-XXXX-XXXX",
+                    "Mandatory" : true,
+                    "ValidationRegEx" : ""
+                },
+                {
+                    "Key" : "RedirectURIL",
+                    "Type" : "PlainText",
+                    "DisplayName" : "Redirect URIL",
+                    "PlaceHolder" : "http://example.com",
+                    "Mandatory" : true,
+                    "ValidationRegEx" : ""
+                },
+                {
+                    "Key" : "RSA",
+                    "Type" : "MultiLineText",
+                    "DisplayName" : "RSA private key",
+                    "PlaceHolder" : "",
+                    "Mandatory" : true,
+                    "ValidationRegEx" : ""
+                }
+            ]
+        },
+        {
+            "name" : "QuickStart",
+            "DisplayName" : "QuickStart (which uses a temporary 8-hour token)",
+            "Description" : "Choose this option to use temporary OAuth token that is valid for only 8 hours...",
+            "source" : "https://github.com/docusign/AuthenticationExamples/QuickStartExample.cs",
+            "Parameters" : [
+                {
+                    "Key" : "IntegrationKey",
+                    "Type" : "PlainText",
+                    "DisplayName" : "Integration Key",
+                    "PlaceHolder" : "XXXX-XXXX-XXXX-XXXX-XXXX-XXXX",
+                    "Mandatory" : true,
+                    "ValidationRegEx" : ""
+                },
+                {
+                    "Key" : "RedirectURIL",
+                    "Type" : "PlainText",
+                    "DisplayName" : "Redirect URIL",
+                    "PlaceHolder" : "http://example.com",
+                    "Mandatory" : true,
+                    "ValidationRegEx" : ""
+                },
+                {
+                    "Key" : "Token",
+                    "Type" : "PlainText",
+                    "DisplayName" : "Token",
+                    "PlaceHolder" : "",
+                    "Mandatory" : true,
+                    "ValidationRegEx" : ""
+                }
+            ]
+        }
+    ],
+    "packages" : [
+        {
+            "name" : "DocuSign.eSign.dll",
+            "version" : "4.1.1"
+        }
+    ]
+}
