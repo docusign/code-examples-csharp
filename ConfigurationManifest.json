@@ -3,31 +3,32 @@
         {
             "name" : "AuthCodeGrant",
             "DisplayName" : "Auth Code Grant",
-            "Description" : "Choose this option if each user who sends DocuSign evelopes using...",
-            "source" : "https://github.com/docusign/TemporaryCSharpCodeExamples/blob/master/eg-03-csharp-auth-code-grant-core/Controllers/Eg001EmbeddedSigningController.cs",
+            "Description" : "Choose this option if each user who sends DocuSign envelopes using \nthe eSignature API will login to DocuSign during each session.",
+            "source" : "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Controllers/Eg001EmbeddedSigningController.cs",
             "Parameters" : [
                 {
-                    "Key" : "IntegrationKey",
-                    "Type" : "PlainText",
-                    "DisplayName" : "Integration Key",
+                    "Key" : "IntegratorKey",
+                    "InputType" : "PlainText",
+                    "DisplayName" : "Integrator key",
                     "PlaceHolder" : "XXXX-XXXX-XXXX-XXXX-XXXX-XXXX",
-                    "Mandatory" : true,
+                    "Mandatory" : 1,
                     "ValidationRegEx" : ""
                 },
                 {
-                    "Key" : "RedirectURIL",
-                    "Type" : "PlainText",
-                    "DisplayName" : "Redirect URIL",
+                    "Key" : "RedirectURI",
+                    "InputType" : "PlainText",
+					"ContentType" : "URI",
+                    "DisplayName" : "Redirect URI",
                     "PlaceHolder" : "http://example.com",
-                    "Mandatory" : true,
+                    "Mandatory" : 1,
                     "ValidationRegEx" : ""
                 },
                 {
                     "Key" : "SecretKey",
-                    "Type" : "SecurityText",
+                    "InputType" : "SecurityText",
                     "DisplayName" : "Secret key",
                     "PlaceHolder" : "",
-                    "Mandatory" : true,
+                    "Mandatory" : 1,
                     "ValidationRegEx" : ""
                 }
             ]
@@ -35,31 +36,32 @@
         {
             "name" : "JWT",
             "DisplayName" : "JSON Web Token (JWT)",
-            "Description" : "Choose this option if a sing login will be used to send all envelopes",
-            "source" : "https://github.com/docusign/TemporaryCSharpCodeExamples/blob/master/eg-03-csharp-auth-code-grant-core/Controllers/Eg001EmbeddedSigningController.cs",
+            "Description" : "Choose this option if a sing login will be used to send all envelopes.",
+            "source" : "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Controllers/Eg001EmbeddedSigningController.cs",
             "Parameters" : [
                 {
-                    "Key" : "IntegrationKey",
-                    "Type" : "PlainText",
-                    "DisplayName" : "Integration Key",
+                    "Key" : "IntegratorKey",
+                    "InputType" : "PlainText",
+                    "DisplayName" : "Integrator key",
                     "PlaceHolder" : "XXXX-XXXX-XXXX-XXXX-XXXX-XXXX",
-                    "Mandatory" : true,
+                    "Mandatory" : 1,
                     "ValidationRegEx" : ""
                 },
                 {
-                    "Key" : "RedirectURIL",
-                    "Type" : "PlainText",
-                    "DisplayName" : "Redirect URIL",
+                    "Key" : "RedirectURI",
+                    "InputType" : "PlainText",
+					"ContentType" : "URI",
+                    "DisplayName" : "Redirect URI",
                     "PlaceHolder" : "http://example.com",
-                    "Mandatory" : true,
+                    "Mandatory" : 1,
                     "ValidationRegEx" : ""
                 },
                 {
                     "Key" : "RSA",
-                    "Type" : "MultiLineText",
+                    "InputType" : "MultiLineText",
                     "DisplayName" : "RSA private key",
                     "PlaceHolder" : "",
-                    "Mandatory" : true,
+                    "Mandatory" : 1,
                     "ValidationRegEx" : ""
                 }
             ]
@@ -67,31 +69,32 @@
         {
             "name" : "QuickStart",
             "DisplayName" : "QuickStart (which uses a temporary 8-hour token)",
-            "Description" : "Choose this option to use temporary OAuth token that is valid for only 8 hours...",
-            "source" : "https://github.com/docusign/TemporaryCSharpCodeExamples/blob/master/eg-03-csharp-auth-code-grant-core/Controllers/Eg001EmbeddedSigningController.cs",
+            "Description" : "Choose this option to use temporary OAuth token that is valid for only 8 hours. \nThe purpose is to enable you to focus on your DocuSign integrations for Proof \nof Concepts (PoCs), hackathons, and more.",
+            "source" : "https://github.com/docusign/AuthenticationExamples/QuickStartExample.cs",
             "Parameters" : [
                 {
-                    "Key" : "IntegrationKey",
-                    "Type" : "PlainText",
-                    "DisplayName" : "Integration Key",
+                    "Key" : "IntegratorKey",
+                    "InputType" : "PlainText",
+                    "DisplayName" : "Integrator key",
                     "PlaceHolder" : "XXXX-XXXX-XXXX-XXXX-XXXX-XXXX",
-                    "Mandatory" : true,
+                    "Mandatory" : 1,
                     "ValidationRegEx" : ""
                 },
                 {
-                    "Key" : "RedirectURIL",
-                    "Type" : "PlainText",
-                    "DisplayName" : "Redirect URIL",
+                    "Key" : "RedirectURI",
+                    "InputType" : "PlainText",
+					"ContentType" : "URI",
+                    "DisplayName" : "Redirect URI",
                     "PlaceHolder" : "http://example.com",
-                    "Mandatory" : true,
+                    "Mandatory" : 1,
                     "ValidationRegEx" : ""
                 },
                 {
                     "Key" : "Token",
-                    "Type" : "PlainText",
+                    "InputType" : "PlainText",
                     "DisplayName" : "Token",
                     "PlaceHolder" : "",
-                    "Mandatory" : true,
+                    "Mandatory" : 1,
                     "ValidationRegEx" : ""
                 }
             ]
