@@ -36,7 +36,7 @@
         {
             "name" : "JWT",
             "displayName" : "JSON Web Token (JWT)",
-            "description" : "Choose this option if a signle login will be used to send all envelopes.",
+            "description" : "Choose this option if a single login will be used to send all envelopes.",
             "source" : "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Controllers/Eg001EmbeddedSigningController.cs",
             "parameters" : [
                 {
