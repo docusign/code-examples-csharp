@@ -1,77 +1,103 @@
 {
-    "authenticationTypes" : [
+  "authenticationTypes": [
+    {
+      "name": "AuthCodeGrant",
+      "displayName": "Auth Code Grant",
+      "description": "Choose this option if each user who sends DocuSign envelopes using \nthe eSignature API will login to DocuSign during each session.",
+      "shortDescription": "Users will login to DocuSign during each session to send envelopes to eSignature API",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Controllers/Eg001EmbeddedSigningController.cs",
+      "parameters": [
         {
-            "name" : "AuthCodeGrant",
-            "displayName" : "Auth Code Grant",
-            "description" : "Choose this option if each user who sends DocuSign envelopes using \nthe eSignature API will login to DocuSign during each session.",
-            "source" : "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Controllers/Eg001EmbeddedSigningController.cs",
-            "parameters" : [
-                {
-                    "key" : "IntegrationKey",
-                    "inputType" : "PlainText",
-                    "displayName" : "Integration key",
-                    "placeHolder" : "XXXX-XXXX-XXXX-XXXX-XXXX-XXXX",
-                    "mandatory" : true,
-                    "validationRegEx" : ""
-                },
-                {
-                    "key" : "RedirectURI",
-                    "inputType" : "PlainText",
-					"contentType" : "URI",
-                    "displayName" : "Redirect URI",
-                    "placeHolder" : "http://example.com",
-                    "mandatory" : true,
-                    "validationRegEx" : ""
-                },
-                {
-                    "key" : "SecretKey",
-                    "inputType" : "SecurityText",
-                    "displayName" : "Secret key",
-                    "placeHolder" : "",
-                    "mandatory" : true,
-                    "validationRegEx" : ""
-                }
-            ]
+          "key": "IntegrationKey",
+          "inputType": "PlainText",
+          "displayName": "Integration key",
+          "placeHolder": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+          "mandatory": true,
+          "validationRegEx": "^({{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}}{0,1})$",
+          "validationMessage": "A correct integration key should be a GUID"
         },
         {
-            "name" : "JWT",
-            "displayName" : "JSON Web Token (JWT)",
-            "description" : "Choose this option if a single login will be used to send all envelopes.",
-            "source" : "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Controllers/Eg001EmbeddedSigningController.cs",
-            "parameters" : [
-                {
-                    "key" : "IntegrationKey",
-                    "inputType" : "PlainText",
-                    "displayName" : "Integration key",
-                    "placeHolder" : "XXXX-XXXX-XXXX-XXXX-XXXX-XXXX",
-                    "mandatory" : true,
-                    "validationRegEx" : ""
-                },
-                {
-                    "key" : "RedirectURI",
-                    "inputType" : "PlainText",
-					"contentType" : "URI",
-                    "displayName" : "Redirect URI",
-                    "placeHolder" : "http://example.com",
-                    "mandatory" : true,
-                    "validationRegEx" : ""
-                },
-                {
-                    "key" : "RSA",
-                    "inputType" : "MultiLineText",
-                    "displayName" : "RSA private key",
-					"contentType" : "PEM",
-                    "placeHolder" : "",
-                    "mandatory" : true,
-                    "validationRegEx" : ""
-                }
-            ]
-        }
-    ],
-    "packages" : [
+          "key": "RedirectURI",
+          "inputType": "PlainText",
+          "contentType": "URI",
+          "displayName": "Redirect URI",
+          "placeHolder": "http://example.com",
+          "mandatory": true,
+          "validationRegEx": "",
+          "validationMessage": "A correct redirect URI should be a URI"
+        },
         {
-            "name" : "DocuSign.eSign.dll",
-            "version" : "4.1.1"
+          "key": "SecretKey",
+          "inputType": "PlainText",
+          "displayName": "Secret key",
+          "placeHolder": "",
+          "mandatory": true,
+          "validationRegEx": ""
+        },
+        {
+          "key": "SignerName",
+          "displayName": "Signer name",
+          "displayInWizard": "false"
+        },
+        {
+          "key": "SignerEmail",
+          "displayName": "Signer email",
+          "displayInWizard": "false"
         }
-    ]
+      ]
+    },
+    {
+      "name": "JWT",
+      "displayName": "JSON Web Token (JWT)",
+      "description": "Choose this option if a single login will be used to send all envelopes.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Controllers/Eg001EmbeddedSigningController.cs",
+      "parameters": [
+        {
+          "key": "IntegrationKey",
+          "inputType": "PlainText",
+          "displayName": "Integration key",
+          "placeHolder": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+          "mandatory": true,
+          "validationRegEx": "^({{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}}{0,1})$",
+          "validationMessage": "A correct integration key should be a GUID"
+        },
+        {
+          "key": "RedirectURI",
+          "inputType": "PlainText",
+          "contentType": "URI",
+          "displayName": "Redirect URI",
+          "placeHolder": "http://example.com",
+          "mandatory": true,
+          "validationRegEx": "",
+          "validationMessage": "A correct redirect URI should be a URI"
+        },
+        {
+          "key": "RSA",
+          "inputType": "MultiLineText",
+          "displayName": "RSA private key",
+          "contentType": "PEM",
+          "placeHolder": "",
+          "mandatory": true,
+          "validationRegEx": "",
+          "validationMessage": "A correct RSA private key should be a PEM-encoded certificate"
+        },
+        {
+          "key": "SignerName",
+          "displayName": "Signer name",
+          "displayInWizard": "false"
+        },
+        {
+          "key": "SignerEmail",
+          "displayName": "Signer email",
+          "displayInWizard": "false"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "name": "DocuSign.eSign.dll",
+      "version": "4.1.1"
+    }
+  ]
 }
