@@ -2,36 +2,36 @@
   "codeExamples": [
     {
       "number": "1",
-      "name": "Requesting a Signature via your App (Embedded Signing)",
-      "description": "This code example demonstrates how to collect eSignatures via DocuSign from within your app without needing to send the signer an email or direct them to an external URL, a process also known as Embedded Signing.",
+      "name": "Embedded Signing Ceremony",
+      "description": "This example sends an envelope, and then uses an embedded signing ceremony for the first signer. With embedded signing, the DocuSign signing ceremony is initiated from your website.",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/EmbeddedSigningCeremony.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
     {
       "number": "2",
-      "name": "Requesting a Signature via Email (Remote Signing)",
-      "description": "This code example demonstrates how to send a signature request for a signer to read and sign via an email, also known as a remote signature request.",
+      "name": "Send an envelope with a remote (email) signer and cc recipient",
+      "description": "The envelope includes a pdf, Word, and HTML document. Anchor text (AutoPlace) is used to position the signing fields in the documents.",
       "source": "https://github.com/docusign/TemporaryCSharpCodeExamples/blob/master/eg-03-csharp-auth-code-grant-core/Examples/EmbeddedSigningCeremony.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
     {
       "number": "3",
-      "name": "Getting Envelope Information",
-      "description": "This code example demonstrates how to get the full set of data associated with an envelope that was sent by your app.",
+      "name": "List envelopes in the user's account",
+      "description": "The envelopes' current status is included.",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetEnvelopeInformation.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
     {
       "number": "4",
       "name": "Get an envelope's basic information",
-      "description": "This code example demonstrates how to collect e-ignatures via DocuSign from within your app without needing to send the signer an email or direct them to an external URL, a process also known as Embedded Signing.",
+      "description": "The example lists the basic information about an envelope, including its overall status.",
       "source": "https://github.com/docusign/TemporaryCSharpCodeExamples/blob/master/eg-03-csharp-auth-code-grant-core/Examples/EmbeddedSigningCeremony.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
     {
       "number": "5",
-      "name": "Listing Envelope Recipients",
-      "description": "This code example demonstrates how to retrieve a list of all envelope recipients and their associated status details, such as the signing status for each envelope document.",
+      "name": "List an envelope's recipients",
+      "description": "Includes current recipient status.",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/ListEnvelopeRecipients.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
@@ -45,7 +45,119 @@
     {
       "number": "7",
       "name": "Downloading Envelope Documents",
-      "description": "This code example demonstrates how to retrieve documents from an envelope, such as the generated seal (which is created when a document is completed), a composite PDF of all documents, a zip file containing everything, or a specific document attachment within the envelope.",
+      "description": "The example can download individual documents, the documents concatenated together, or a zip file of the documents.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    },
+    {
+      "number": "8",
+      "name": "Programmatically create a template",
+      "description": "This code example demonstrates how to create a new DocuSign template using the eSignature API.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    },
+    {
+      "number": "9",
+      "name": "Send an envelope using a template",
+      "description": "This code example demonstrates how to generate a new envelope from an existing template.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    },
+    {
+      "number": "10",
+      "name": "Send an envelope and upload its documents with multpart binary transfer",
+      "description": "Binary transfer is 33% more efficient than using Base64 encoding.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    },
+    {
+      "number": "11",
+      "name": "Embedded sending",
+      "description": "Embeds the DocuSign web tool (NDSE) in your web app to finalize or update the envelope and documents before they are sent.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    },
+    {
+      "number": "12",
+      "name": "Embedded DocuSign web tool (NDSE).",
+      "description": "Embeds the DocuSign web tool (NDSE) in your web app.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    },
+    {
+      "number": "13",
+      "name": "Embedded Signing Ceremony from a template with an added document.",
+      "description": "This example sends an envelope based on a template. In addition to the template's document(s), the example adds an additional document to the envelope by using the Composite Templates feature.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    },
+    {
+      "number": "14",
+      "name": "Payments example: an order form, with online payment by credit card",
+      "description": "This code example demonstrates how to create an envelope that enables the recipients to also submit a payment when signing the envelope.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    },
+    {
+      "number": "15",
+      "name": "Get the envelope tab data.",
+      "description": "Retrieve the tab (field) values for all of the envelope's recipients. ",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    },
+    {
+      "number": "16",
+      "name": "Set envelope tab values",
+      "description": "The example creates an envelope and sets the initial values for its tabs (fields). Some of the tabs are set to be read-only, others can be updated by the recipient. The example also stores metadata with the envelope.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    },
+    {
+      "number": "17",
+      "name": "Set template tab values",
+      "description": "The example creates an envelope using a template and sets the initial values for its tabs (fields). The example also stores metadata with the envelope. ",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    },
+    {
+      "number": "18",
+      "name": "Get the envelope custom field data (metadata)",
+      "description": "The example retrieves the custom metadata (custom data fields) stored with the envelope. ",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    },
+    {
+      "number": "19",
+      "name": "Requiring an Access Code for a Recipient",
+      "description": "This example sends an envelope that requires an access-code for the purpose of multi-factor authentication.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    },
+    {
+      "number": "20",
+      "name": "Requiring SMS authentication for a recipient",
+      "description": "This example sends an envelope that requires entering in a six digit code from an text message for the purpose of multi-factor authentication.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    },
+    {
+      "number": "21",
+      "name": "Requiring Phone authentication for a recipient",
+      "description": "This example sends an envelope that requires entering in a voice-based response code for the purpose of multi-factor authentication.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    },
+    {
+      "number": "22",
+      "name": "Requiring Knowledge-Based Authentication (KBA) for a Recipient",
+      "description": "This example sends an envelope that requires passing a Public records check to validate identity for the purpose of multi-factor authentication.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    },
+    {
+      "number": "23",
+      "name": "Requiring ID Verification (IDV) for a recipient",
+      "description": "This example sends an envelope that requires submitting a photo of a government issued id for the purpose of multi-factor authentication.",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     }
