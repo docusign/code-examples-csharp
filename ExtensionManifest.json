@@ -11,7 +11,7 @@
       "number": "2",
       "name": "Send an envelope with a remote (email) signer and cc recipient",
       "description": "The envelope includes a pdf, Word, and HTML document. Anchor text (AutoPlace) is used to position the signing fields in the documents.",
-      "source": "https://github.com/docusign/TemporaryCSharpCodeExamples/blob/master/eg-03-csharp-auth-code-grant-core/Examples/SigningViaEmail.cs",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/SigningViaEmail.cs",
       "method": "SendEnvelopeViaEmail"
     },
     {
@@ -25,7 +25,7 @@
       "number": "4",
       "name": "Get an envelope's basic information",
       "description": "The example lists the basic information about an envelope, including its overall status.",
-      "source": "https://github.com/docusign/TemporaryCSharpCodeExamples/blob/master/eg-03-csharp-auth-code-grant-core/Examples/GetEnvelopeInformation.cs",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetEnvelopeInformation.cs",
       "method": "GetEnvelope"
     },
     {
