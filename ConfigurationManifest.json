@@ -14,7 +14,12 @@
           "placeHolder": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
           "mandatory": true,
           "validationRegEx": "^({{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}}{0,1})$",
-          "validationMessage": "A correct integration key should be a GUID"
+          "validationMessage": "A correct integration key should be a GUID",
+          "help": {
+            "hint": "How to get an integration key?",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+          }
         },
         {
           "key": "RedirectURI",
@@ -24,7 +29,12 @@
           "placeHolder": "http://example.com",
           "mandatory": true,
           "validationRegEx": "",
-          "validationMessage": "A correct redirect URI should be a URI"
+          "validationMessage": "A correct redirect URI should be a URI",
+          "help": {
+            "hint": "How to define a redirect URI?",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+          }
         },
         {
           "key": "SecretKey",
@@ -32,7 +42,12 @@
           "displayName": "Secret key",
           "placeHolder": "",
           "mandatory": true,
-          "validationRegEx": ""
+          "validationRegEx": "",
+          "help": {
+            "hint": "How to get a secret key?",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+          }
         },
         {
           "key": "SignerName",
@@ -44,7 +59,12 @@
           "displayName": "Signer email",
           "displayInWizard": "false"
         }
-      ]
+      ],
+      "help": {
+        "hint": "How do I use Authorization Code Grant?",
+        "displayText": "Learn more",
+        "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant"
+      }
     },
     {
       "name": "JWT",
@@ -59,7 +79,12 @@
           "placeHolder": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
           "mandatory": true,
           "validationRegEx": "^({{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}}{0,1})$",
-          "validationMessage": "A correct integration key should be a GUID"
+          "validationMessage": "A correct integration key should be a GUID",
+          "help": {
+            "hint": "How to get an integration key?",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken#prerequisites"
+          }
         },
         {
           "key": "RedirectURI",
@@ -69,7 +94,12 @@
           "placeHolder": "http://example.com",
           "mandatory": true,
           "validationRegEx": "",
-          "validationMessage": "A correct redirect URI should be a URI"
+          "validationMessage": "A correct redirect URI should be a URI",
+          "help": {
+            "hint": "How to define a redirect URI?",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken#prerequisites"
+          }
         },
         {
           "key": "RSA",
@@ -79,7 +109,12 @@
           "placeHolder": "",
           "mandatory": true,
           "validationRegEx": "",
-          "validationMessage": "A correct RSA private key should be a PEM-encoded certificate"
+          "validationMessage": "A correct RSA private key should be a PEM-encoded certificate",
+          "help": {
+            "hint": "How do I get RSA private key?",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken#prerequisites"
+          }
         },
         {
           "key": "SignerName",
@@ -91,7 +126,12 @@
           "displayName": "Signer email",
           "displayInWizard": "false"
         }
-      ]
+      ],
+      "help": {
+        "hint": "How do I use JSON Web Token (JWT) Grant?",
+        "displayText": "Learn more",
+        "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken"
+      }
     }
   ],
   "packages": [
@@ -99,5 +139,10 @@
       "name": "DocuSign.eSign.dll",
       "version": "4.1.1"
     }
-  ]
+  ],
+  "help": {
+    "hint": "How do I identify OAuth Authentication Type?",
+    "displayText": "Learn more",
+    "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication"
+  }
 }
