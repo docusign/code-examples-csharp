@@ -102,63 +102,63 @@
       "number": "15",
       "name": "Get the envelope tab data.",
       "description": "Retrieve the tab (field) values for all of the envelope's recipients. ",
-      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetEnvelopeTabData.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
     {
       "number": "16",
       "name": "Set envelope tab values",
       "description": "The example creates an envelope and sets the initial values for its tabs (fields). Some of the tabs are set to be read-only, others can be updated by the recipient. The example also stores metadata with the envelope.",
-      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/SetEnvelopeTabValue.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
     {
       "number": "17",
       "name": "Set template tab values",
       "description": "The example creates an envelope using a template and sets the initial values for its tabs (fields). The example also stores metadata with the envelope. ",
-      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/SetTemplateTabValues.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
     {
       "number": "18",
       "name": "Get the envelope custom field data (metadata)",
       "description": "The example retrieves the custom metadata (custom data fields) stored with the envelope. ",
-      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetCustomFields.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
     {
       "number": "19",
       "name": "Requiring an Access Code for a Recipient",
       "description": "This example sends an envelope that requires an access-code for the purpose of multi-factor authentication.",
-      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/RecipientAuthAccessCode.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
     {
       "number": "20",
       "name": "Requiring SMS authentication for a recipient",
       "description": "This example sends an envelope that requires entering in a six digit code from an text message for the purpose of multi-factor authentication.",
-      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/RecipientAuthSMS.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
     {
       "number": "21",
       "name": "Requiring Phone authentication for a recipient",
       "description": "This example sends an envelope that requires entering in a voice-based response code for the purpose of multi-factor authentication.",
-      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/RecipientAuthPhone.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
     {
       "number": "22",
       "name": "Requiring Knowledge-Based Authentication (KBA) for a Recipient",
       "description": "This example sends an envelope that requires passing a Public records check to validate identity for the purpose of multi-factor authentication.",
-      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/RecipientAuthKBA.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
     {
       "number": "23",
       "name": "Requiring ID Verification (IDV) for a recipient",
       "description": "This example sends an envelope that requires submitting a photo of a government issued id for the purpose of multi-factor authentication.",
-      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/RecipientAuthIDV.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     }
   ]
