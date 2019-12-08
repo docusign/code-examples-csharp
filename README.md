@@ -70,7 +70,7 @@ The **refresh token** is not used in this example.
    [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg017SetTemplateTabValues.cs)
 1. **Get the envelope custom field data (metadata).**
    The example retrieves the custom metadata (custom data fields) stored with the envelope.
-   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg018EnvelopeCustomFieldData.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg018EnvelopeCustomFieldDataController.cs)
 1. **Requiring an Access Code for a Recipient**
    [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg019AccessCodeAuthController.cs)
    This example sends an envelope that requires an access-code for the purpose of multi-factor authentication.   
