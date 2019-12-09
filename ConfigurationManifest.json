@@ -5,7 +5,7 @@
       "displayName": "Auth Code Grant",
       "description": "Choose this option if each user who sends DocuSign envelopes using \nthe eSignature API will login to DocuSign during each session.",
       "shortDescription": "Users will login to DocuSign during each session to send envelopes to eSignature API",
-      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Controllers/DSController.cs",
+      "source": "https://raw.githubusercontent.com/docusign/eg-03-csharp-auth-code-grant-core/master/eg-03-csharp-auth-code-grant-core/Startup.cs",
       "parameters": [
         {
           "key": "IntegrationKey",
