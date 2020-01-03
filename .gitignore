@@ -262,3 +262,6 @@ __pycache__/
 
 #configuration file, should not be checked in to source control
 appsettings.json
+
+#configuration file with secrets should not be checked in either
+eg-03-csharp-auth-code-grant-core/appsettings.json

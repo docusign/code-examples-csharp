@@ -112,8 +112,8 @@ The **refresh token** is not used in this example.
 * The repository includes a Visual Studio 2017 solution file and 
 NuGet package references in the project file.
 * Configure the project by editing the existing project file for 
-the API version you wish to use by modifying its
-  `appsettings.json`
+the API version you wish to use by copying `example-appsettings.json` to
+  `appsettings.json` and updating the file to contain your config values.
 
   See the Configuration section, below, for more information.
 
