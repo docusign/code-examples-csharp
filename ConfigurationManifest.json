@@ -87,16 +87,16 @@
           }
         },
         {
-          "key": "RedirectURI",
+          "key": "UserId",
           "inputType": "PlainText",
           "contentType": "URI",
-          "displayName": "Redirect URI",
-          "placeHolder": "http://example.com",
+          "displayName": "DocuSign UserId",
+          "placeHolder": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
           "mandatory": true,
           "validationRegEx": "",
-          "validationMessage": "A correct redirect URI should be a URI",
+          "validationMessage": "A correct userId should be a GUID",
           "help": {
-            "hint": "How to define a redirect URI?",
+            "hint": "How to find the DocuSign userId",
             "displayText": "Learn more",
             "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken#prerequisites"
           }
