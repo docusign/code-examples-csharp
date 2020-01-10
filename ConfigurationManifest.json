@@ -93,7 +93,7 @@
           "displayName": "DocuSign UserId",
           "placeHolder": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
           "mandatory": true,
-          "validationRegEx": "",
+          "validationRegEx": "^({{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}}{0,1})$",
           "validationMessage": "A correct userId should be a GUID",
           "help": {
             "hint": "How to find the DocuSign userId",
@@ -102,7 +102,7 @@
           }
         },
         {
-          "key": "RSA",
+          "key": "RSAKey",
           "inputType": "MultiLineText",
           "displayName": "RSA private key",
           "contentType": "PEM",
