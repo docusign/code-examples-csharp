@@ -134,6 +134,21 @@
           "key": "AuthServer",
           "defaultValue": "account-d.docusign.com",
           "displayInWizard": "false"
+        },
+        {
+          "key": "AuthorizationEndpoint",
+          "defaultValue": "https://account-d.docusign.com/oauth/auth",
+          "displayInWizard": "false"
+        },
+        {
+          "key": "TokenEndpoint",
+          "defaultValue": "https://account-d.docusign.com/oauth/token",
+          "displayInWizard": "false"
+        },
+        {
+          "key": "UserInformationEndpoint",
+          "defaultValue": "https://account-d.docusign.com/oauth/userinfo",
+          "displayInWizard": "false"
         }
       ],
       "help": {
