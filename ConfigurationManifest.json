@@ -51,12 +51,17 @@
         },
         {
           "key": "SignerName",
-          "displayName": "Signer name",
+          "placeHolder": "USER_FULLNAME",
           "displayInWizard": "false"
         },
         {
           "key": "SignerEmail",
-          "displayName": "Signer email",
+          "placeHolder": "USER_EMAIL",
+          "displayInWizard": "false"
+        },
+        {
+          "key": "AuthServer",
+          "defaultValue": "account-d.docusign.com",
           "displayInWizard": "false"
         }
       ],
@@ -89,7 +94,6 @@
         {
           "key": "UserId",
           "inputType": "PlainText",
-          "contentType": "URI",
           "displayName": "DocuSign UserId",
           "placeHolder": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
           "mandatory": true,
@@ -118,12 +122,17 @@
         },
         {
           "key": "SignerName",
-          "displayName": "Signer name",
+          "placeHolder": "USER_FULLNAME",
           "displayInWizard": "false"
         },
         {
           "key": "SignerEmail",
-          "displayName": "Signer email",
+          "placeHolder": "USER_EMAIL",
+          "displayInWizard": "false"
+        },
+        {
+          "key": "AuthServer",
+          "defaultValue": "account-d.docusign.com",
           "displayInWizard": "false"
         }
       ],
@@ -138,6 +147,10 @@
     {
       "name": "DocuSign.eSign.dll",
       "version": "4.1.1"
+    },
+    {
+      "name": "System.Configuration.ConfigurationManager",
+      "version": "4.7.0"
     }
   ],
   "help": {
