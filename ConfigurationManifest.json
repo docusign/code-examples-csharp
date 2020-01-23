@@ -84,7 +84,8 @@
         "hint": "How do I use Authorization Code Grant?",
         "displayText": "Learn more",
         "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant"
-      }
+      },
+      "postConfigOpenURI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant"
     },
     {
       "name": "JWT",
@@ -187,5 +188,6 @@
     "hint": "How do I identify OAuth Authentication Type?",
     "displayText": "Learn more",
     "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication"
-  }
+  },
+  "postConfigOpenURI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant"
 }
