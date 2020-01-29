@@ -52,40 +52,40 @@
         {
           "key": "SignerName",
           "placeHolder": "USER_FULLNAME",
-          "displayInWizard": "false"
+          "displayInWizard": false
         },
         {
           "key": "SignerEmail",
           "placeHolder": "USER_EMAIL",
-          "displayInWizard": "false"
+          "displayInWizard": false
         },
         {
           "key": "AuthServer",
           "defaultValue": "account-d.docusign.com",
-          "displayInWizard": "false"
+          "displayInWizard": false
         },
         {
           "key": "AuthorizationEndpoint",
           "defaultValue": "https://account-d.docusign.com/oauth/auth",
-          "displayInWizard": "false"
+          "displayInWizard": false
         },
         {
           "key": "TokenEndpoint",
           "defaultValue": "https://account-d.docusign.com/oauth/token",
-          "displayInWizard": "false"
+          "displayInWizard": false
         },
         {
           "key": "UserInformationEndpoint",
           "defaultValue": "https://account-d.docusign.com/oauth/userinfo",
-          "displayInWizard": "false"
+          "displayInWizard": false
         }
       ],
       "help": {
         "hint": "How do I use Authorization Code Grant?",
-        "displayText": "Learn more",
-        "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant"
+        "displayText": "Learn more"
       },
-      "postConfigOpenURI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant"
+      "postConfigOpenURI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant",
+      "applicableProjectType": "Web"
     },
     {
       "name": "JWT",
@@ -139,39 +139,40 @@
         {
           "key": "SignerName",
           "placeHolder": "USER_FULLNAME",
-          "displayInWizard": "false"
+          "displayInWizard": false
         },
         {
           "key": "SignerEmail",
           "placeHolder": "USER_EMAIL",
-          "displayInWizard": "false"
+          "displayInWizard": false
         },
         {
           "key": "AuthServer",
           "defaultValue": "account-d.docusign.com",
-          "displayInWizard": "false"
+          "displayInWizard": false
         },
         {
           "key": "AuthorizationEndpoint",
           "defaultValue": "https://account-d.docusign.com/oauth/auth",
-          "displayInWizard": "false"
+          "displayInWizard": false
         },
         {
           "key": "TokenEndpoint",
           "defaultValue": "https://account-d.docusign.com/oauth/token",
-          "displayInWizard": "false"
+          "displayInWizard": false
         },
         {
           "key": "UserInformationEndpoint",
           "defaultValue": "https://account-d.docusign.com/oauth/userinfo",
-          "displayInWizard": "false"
+          "displayInWizard": false
         }
       ],
       "help": {
         "hint": "How do I use JSON Web Token (JWT) Grant?",
         "displayText": "Learn more",
         "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken"
-      }
+      },
+      "preferredConfigFile" : "AppConfig"
     }
   ],
   "packages": [
@@ -188,6 +189,5 @@
     "hint": "How do I identify OAuth Authentication Type?",
     "displayText": "Learn more",
     "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication"
-  },
-  "postConfigOpenURI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant"
+  }
 }
