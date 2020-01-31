@@ -82,9 +82,9 @@
       ],
       "help": {
         "hint": "How do I use Authorization Code Grant?",
-        "displayText": "Learn more"
+        "displayText": "Learn more",
+        "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant"
       },
-      "postConfigOpenURI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant",
       "applicableProjectType": "Web"
     },
     {
