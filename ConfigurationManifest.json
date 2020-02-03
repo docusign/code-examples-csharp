@@ -183,7 +183,19 @@
     {
       "name": "System.Configuration.ConfigurationManager",
       "version": "4.7.0"
-    }
+    },
+    {
+      "name": "Microsoft.AspNet.Identity.Owin",
+      "version": "2.2.2"
+    },
+    {
+      "name": "System.Runtime.Caching",
+      "version": "4.7.0"
+    },
+    {
+      "name": "Microsoft.Owin.Host.SystemWeb",
+      "version": "4.1.0"
+    }	
   ],
   "help": {
     "hint": "How do I identify OAuth Authentication Type?",
