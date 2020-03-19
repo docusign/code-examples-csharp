@@ -2,7 +2,7 @@
   "authenticationTypes": [
     {
       "name": "AuthCodeGrant",
-      "displayName": "Auth Code Grant",
+      "displayName": "Authorization Code Grant",
       "description": "Choose this option if each user who sends DocuSign envelopes using \nthe eSignature API will login to DocuSign during each session.",
       "shortDescription": "Users will login to DocuSign during each session to send envelopes to eSignature API",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Common/AuthCodeGrant.cs",
@@ -82,9 +82,9 @@
       ],
       "help": {
         "hint": "How do I use Authorization Code Grant?",
-        "displayText": "Learn more"
+        "displayText": "Learn more",
+        "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant"
       },
-      "postConfigOpenURI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant",
       "applicableProjectType": "Web"
     },
     {
@@ -110,7 +110,7 @@
         {
           "key": "UserId",
           "inputType": "PlainText",
-          "displayName": "DocuSign UserId",
+          "displayName": "DocuSign User ID",
           "placeHolder": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
           "mandatory": true,
           "validationRegEx": "^({{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}}{0,1})$",
@@ -183,7 +183,19 @@
     {
       "name": "System.Configuration.ConfigurationManager",
       "version": "4.7.0"
-    }
+    },
+    {
+      "name": "Microsoft.AspNet.Identity.Owin",
+      "version": "2.2.2"
+    },
+    {
+      "name": "System.Runtime.Caching",
+      "version": "4.7.0"
+    },
+    {
+      "name": "Microsoft.Owin.Host.SystemWeb",
+      "version": "4.1.0"
+    }	
   ],
   "help": {
     "hint": "How do I identify OAuth Authentication Type?",

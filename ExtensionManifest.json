@@ -161,5 +161,6 @@
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/RecipientAuthIDV.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     }
-  ]
+  ],
+  "postAddOpenURI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant"
 }
