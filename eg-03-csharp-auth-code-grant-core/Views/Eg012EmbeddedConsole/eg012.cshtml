@@ -36,8 +36,7 @@
         <label for="startingView">Starting View</label>
         <select id="startingView" name="startingView" class="form-control">
             <option value="frontPage" selected>Front page</option>
-            <option value="envelope" @ViewBag.envelopeOk ? "" : 'disabled="true"' >
-                    The envelope's documents view</option>
+            <!option value="envelope" @ViewBag.envelopeOk ? "" : 'disabled="true"'> The envelope's documents view</!option>
         </select>
     </div>
     <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">

@@ -38,13 +38,18 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 ViewBag.source = CreateSourcePath();
                 ViewBag.documentation = Config.documentation + EgName;
                 ViewBag.showDoc = Config.documentation != null;
+                InitializeInternal();
                 
-                return View(EgName);
+                return View(EgName, this);
             }
 
             RequestItemsService.EgName = EgName;
                         
             return Redirect("/ds/mustAuthenticate");
+        }
+
+        protected virtual void InitializeInternal()
+        {
         }
 
         private dynamic CreateSourcePath()

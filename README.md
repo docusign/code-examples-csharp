@@ -86,8 +86,6 @@ The **refresh token** is not used in this example.
 1. **Requiring ID Verification (IDV) for a recipient**
    [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg023IdvAuthController.cs)
    This example sends an envelope that requires submitting a photo of a government issued id for the purpose of multi-factor authentication.    
-      
-
 
 ## Installation
 
@@ -104,12 +102,12 @@ The **refresh token** is not used in this example.
    If you will not be running the example on your own workstation,
    use the appropriate DNS name and port instead of `localhost`
 
-1. C# .NET Core version 2.1 or later.
+1. C# .NET Core version 3.1 or later.
 1. A name and email for a signer, and a name and email for a cc recipient.
 
 ### Installation steps
 * Download or clone this repository.
-* The repository includes a Visual Studio 2017 solution file and 
+* The repository includes a Visual Studio 2019 solution file and 
 NuGet package references in the project file.
 * Configure the project by editing the existing project file for 
 the API version you wish to use by modifying its
