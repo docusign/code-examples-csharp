@@ -2,7 +2,7 @@
   "codeExamples": [
     {
       "number": "1",
-      "name": "Embedded Signing Ceremony",
+      "name": "Embedded signing ceremony",
       "description": "This example sends an envelope, and then uses an embedded signing ceremony for the first signer. With embedded signing, the DocuSign signing ceremony is initiated from your website.",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/EmbeddedSigningCeremony.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
@@ -37,14 +37,14 @@
     },
     {
       "number": "6",
-      "name": "Listing Envelope Documents",
+      "name": "Listing envelope documents",
       "description": "This code example demonstrates how to retrieve a list of all documents within a specific envelope.",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/ListEnvelopeDocuments.cs",
       "method": "GetDocuments"
     },
     {
       "number": "7",
-      "name": "Downloading Envelope Documents",
+      "name": "Downloading envelope documents",
       "description": "The example can download individual documents, the documents concatenated together, or a zip file of the documents.",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetDocumentFromEnvelope.cs",
       "method": "DownloadDocument"
@@ -79,14 +79,14 @@
     },
     {
       "number": "12",
-      "name": "Embedded DocuSign web tool (NDSE).",
-      "description": "Embeds the DocuSign web tool (NDSE) in your web app.",
+      "name": "Embedded DocuSign web tool",
+      "description": "Embeds the DocuSign web tool (NDSE) in your web app",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/ShowEmbeddedConsole.cs",
       "method": "CreateEmbeddedConsoleView"
     },
     {
       "number": "13",
-      "name": "Embedded Signing Ceremony from a template with an added document.",
+      "name": "Embedded signing ceremony from a template with an added document",
       "description": "This example sends an envelope based on a template. In addition to the template's document(s), the example adds an additional document to the envelope by using the Composite Templates feature.",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/CreateEnvelopeUsingCompositeTemplate.cs",
       "method": "CreateEnvelopeUsingCompositeTemplate"
@@ -100,7 +100,7 @@
     },
     {
       "number": "15",
-      "name": "Get the envelope tab data.",
+      "name": "Get the envelope tab data",
       "description": "Retrieve the tab (field) values for all of the envelope's recipients. ",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/GetEnvelopeTabData.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
@@ -128,7 +128,7 @@
     },
     {
       "number": "19",
-      "name": "Requiring an Access Code for a Recipient",
+      "name": "Requiring an access code for a recipient",
       "description": "This example sends an envelope that requires an access-code for the purpose of multi-factor authentication.",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/RecipientAuthAccessCode.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
@@ -142,14 +142,14 @@
     },
     {
       "number": "21",
-      "name": "Requiring Phone authentication for a recipient",
+      "name": "Requiring phone authentication for a recipient",
       "description": "This example sends an envelope that requires entering in a voice-based response code for the purpose of multi-factor authentication.",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/RecipientAuthPhone.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
     {
       "number": "22",
-      "name": "Requiring Knowledge-Based Authentication (KBA) for a Recipient",
+      "name": "Requiring Knowledge-Based Authentication (KBA) for a recipient",
       "description": "This example sends an envelope that requires passing a Public records check to validate identity for the purpose of multi-factor authentication.",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/RecipientAuthKBA.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
