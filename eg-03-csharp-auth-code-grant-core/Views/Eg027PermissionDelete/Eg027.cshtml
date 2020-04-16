@@ -1,0 +1,33 @@
+﻿<h4>27. Deleting a permission profile.</h4>
+
+<p>
+    This method deletes a permission profile from an account.
+</p>
+
+@if (ViewBag.showDoc)
+{
+    <p><a target="_blank" href="@ViewBag.documentation">Documentation</a> about this example.</p>
+}
+
+<p>
+    API method used:
+    <a target="_blank" href="https://developers.docusign.com/esign-rest-api/reference/Accounts/AccountPermissionProfiles/delete">AccountPermissionProfiles::delete</a>.
+</p>
+
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">Eg027PermissionDeleteController.cs</a> on GitHub.
+</p>
+
+<form action="" class="eg" method="post" data-busy="form">
+
+    <div class="form-group">
+        <label for="permissionProfileId">Permission profile</label>
+        @Html.DropDownList(
+            "permissionProfileId", 
+            ViewBag.PermissionProfiles, 
+            "Select permission profile", 
+            new {@class = "custom-select", required = "required" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

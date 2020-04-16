@@ -10,12 +10,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DocuSign.eSign.dll" Version="4.2.0" />
+    <PackageReference Include="DocuSign.eSign.dll" Version="4.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Owin" Version="4.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Eg031BulkSendEnvelopes\Eg031.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Shared\_Layout.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

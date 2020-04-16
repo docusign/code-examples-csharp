@@ -13,12 +13,13 @@ else
 {
     <p><pre>@ViewBag.err</pre></p>
 
-    <h3>Stack trace</h3>
-    <p>
-        <pre>
-    @ViewBag.err.StackTrace
-  </pre>
-    </p>
+    @if (ViewBag.err != null)
+    {
+        <h3>Stack trace</h3>
+        <p>
+            <pre>@ViewBag.err.StackTrace</pre>
+        </p>
+    }
 }
 
 <p><a href="/">Continue</a></p>
