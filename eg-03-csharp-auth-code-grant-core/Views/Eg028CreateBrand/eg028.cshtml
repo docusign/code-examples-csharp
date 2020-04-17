@@ -1,0 +1,40 @@
+﻿@using eg_03_csharp_auth_code_grant_core.Common
+    <h4>28. Creating a brand</h4>
+<p>
+    The brand includes a Brand Name <a href="https://support.docusign.com/en/guides/ndse-admin-guide-configure-branding">Configure Brands</a>.
+</p>
+<p>
+    This code example demonstrates how to create a brand.
+</p>
+
+ @if (ViewBag.showDoc == true)
+ {
+     <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example.</p>
+ }
+
+<p>
+    API method used:
+    <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Accounts/AccountBrands/create">AccountBrands::create</a>.
+</p>
+
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">Eg024CreateBrandController.cs</a> on GitHub.
+</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <p>
+        <strong>New brand</strong>
+    </p>
+
+    <div class="form-group">
+        <label for="signerEmail">Brand name</label>
+        <input type="text" class="form-control" id="brandName" name="brandName"
+               aria-describedby="emailHelp" placeholder="New Brand" required>
+    </div>
+    <div class="form-group">
+        <label for="defaultBrandLanguage">Default Brand language</label>
+        @Html.DropDownList("defaultBrandLanguage", new SelectList(Languages.SupportedLanguages, "Key", "Value", "en"), new { @class = "form-control", @required = "required" })
+    </div>
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

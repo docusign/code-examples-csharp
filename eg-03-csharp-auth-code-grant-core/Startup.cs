@@ -16,6 +16,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using System.Text.Json;
+using DocuSign.eSign.Client;
+using DocuSign.eSign.Client.Auth;
+using System.Text;
 
 namespace eg_03_csharp_auth_code_grant_core
 {
@@ -40,9 +43,9 @@ namespace eg_03_csharp_auth_code_grant_core
             DSConfiguration config = new DSConfiguration();
 
             Configuration.Bind("DocuSign", config);
-            services.AddSingleton(config);
-            services.AddScoped<IRequestItemsService, RequestItemsService>();
 
+            services.AddSingleton(config);
+            services.AddSingleton<IRequestItemsService, RequestItemsService>();
             services.AddMvc(options =>
             {
                 options.Filters.Add<LocalsFilter>();
@@ -53,7 +56,7 @@ namespace eg_03_csharp_auth_code_grant_core
             services.AddSession();
             services.AddHttpContextAccessor();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+            
             services.AddAuthentication(options => {
                 options.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;

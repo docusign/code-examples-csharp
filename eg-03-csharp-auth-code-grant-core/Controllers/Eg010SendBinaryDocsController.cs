@@ -128,6 +128,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             catch (WebException ex)
             {
                 response = ex.Response;
+                ViewBag.errorMessage = ex.Message;
                 ViewBag.err = ex;
             }
 

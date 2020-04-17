@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OAuth;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eg_03_csharp_auth_code_grant_core.Controllers
@@ -9,10 +6,23 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
     [Route("ds/[action]")]
     public class AccountController : Controller
     {
-        [HttpGet]
-        public IActionResult Login(string returnUrl = "/")
+        private readonly IRequestItemsService _requestItemsService;
+        public AccountController(IRequestItemsService requestItemService) 
         {
-            return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });
+            this._requestItemsService = requestItemService;
+        }
+
+        [HttpGet]
+        public IActionResult Login(string authType = "CodeGrant", string returnUrl = "/")
+        {
+            if (authType == "CodeGrant") 
+            {
+                return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });
+            }
+
+            this._requestItemsService.UpdateUserFromJWT();
+
+            return LocalRedirect(returnUrl);
         }
 
         public IActionResult MustAuthenticate()
@@ -22,7 +32,8 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         
         public async System.Threading.Tasks.Task<IActionResult> logout()
         {            
-            await AuthenticationHttpContextExtensions.SignOutAsync(HttpContext);        
+            await AuthenticationHttpContextExtensions.SignOutAsync(HttpContext);
+            _requestItemsService.Logout();
             return LocalRedirect("/");            
         }
     }

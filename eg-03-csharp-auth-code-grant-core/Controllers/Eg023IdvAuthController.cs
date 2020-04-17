@@ -40,8 +40,8 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             var basePath = RequestItemsService.Session.BasePath + "/restapi";
 
             // Step 1: Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken; //represents your {ACCESS_TOKEN}
-            var accountId = RequestItemsService.Session.AccountId; //represents your {ACCOUNT_ID}
+            var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             // Step 2: Construct your API headers
             var config = new Configuration(new ApiClient(basePath));
@@ -83,7 +83,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 DocumentId = "1",
                 // A 1- to 8-digit integer or 32-character GUID to match recipient IDs on your own systems.
                 // This value is referenced in the Tabs element below to assign tabs on a per-recipient basis.
-                RecipientId = "1" //represents your {RECIPIENT_ID}
+                RecipientId = "1" // Represents your {RECIPIENT_ID}
             };
 
             // Tabs are set per recipient/signer
@@ -105,7 +105,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
                 Note = "",
                 Status = "created",
                 DeliveryMethod = "email",
-                RecipientId = "1", //represents your {RECIPIENT_ID}
+                RecipientId = "1", // Represents your {RECIPIENT_ID}
                 IdentityVerification = workflow,
                 Tabs = signer1Tabs
             };

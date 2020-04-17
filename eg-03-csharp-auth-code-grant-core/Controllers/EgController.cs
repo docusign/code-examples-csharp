@@ -24,7 +24,6 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             // user to fill out the form. If the token is not available, now is the time
             // to have the user authenticate or re-authenticate.
             bool tokenOk = CheckToken();
-
             
             if (tokenOk)
             {               
@@ -59,10 +58,8 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         }
 
         protected bool CheckToken(int bufferMin = 60)
-        {            
-            return HttpContext.User.Identity.IsAuthenticated 
-                && (DateTime.Now.Subtract(TimeSpan.FromMinutes(bufferMin)) <
-                RequestItemsService.User.ExpireIn.Value);
+        {
+            return RequestItemsService.CheckToken(bufferMin);
         }
     }
 }
