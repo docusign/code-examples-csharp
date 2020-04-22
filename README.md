@@ -12,7 +12,7 @@ The **refresh token** is not used in this example.
 ## API version 2.1
 
 1. **Embedded Signing Ceremony.**
-   [Source.](./code-examples-csharp/Controllers/Eg001EmbeddedSigningController.cs)
+   [Source.](./Controllers/Eg001EmbeddedSigningController.cs)
    This example sends an envelope, and then uses an embedded signing ceremony for the first signer.
    With embedded signing, the DocuSign signing ceremony is initiated from your website.
 1. **Send an envelope with a remote (email) signer and cc recipient.**
