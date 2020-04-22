@@ -12,108 +12,108 @@ The **refresh token** is not used in this example.
 ## API version 2.1
 
 1. **Embedded Signing Ceremony.**
-   [Source.](./Controllers/Eg001EmbeddedSigningController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg001EmbeddedSigningController.cs)
    This example sends an envelope, and then uses an embedded signing ceremony for the first signer.
    With embedded signing, the DocuSign signing ceremony is initiated from your website.
 1. **Send an envelope with a remote (email) signer and cc recipient.**
-   [Source.](./code-examples-csharp/Controllers/Eg002SigningViaEmailController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg002SigningViaEmailController.cs)
    The envelope includes a pdf, Word, and HTML document.
    Anchor text ([AutoPlace](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience)) is used to position the signing fields in the documents.
 1. **List envelopes in the user's account.**
-   [Source.](./code-examples-csharp/Controllers/Eg003ListEnvelopesController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg003ListEnvelopesController.cs)
    The envelope's current status is included.
 1. **Get an envelope's basic information.**
-   [Source.](./code-examples-csharp/Controllers/Eg004EnvelopeInfoController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg004EnvelopeInfoController.cs)
    The example lists the basic information about an envelope, including its overall status.
 1. **List an envelope's recipients**
-   [Source.](./code-examples-csharp/Controllers/Eg005EnvelopeRecipientsController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg005EnvelopeRecipientsController.cs)
    Includes current recipient status.
 1. **List an envelope's documents.**
-   [Source.](./code-examples-csharp/Controllers/Eg006EnvelopeDocsController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg006EnvelopeDocsController.cs)
 1. **Download an envelope's documents.**
-   [Source.](./code-examples-csharp/Controllers/Eg007EnvelopeGetDocController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg007EnvelopeGetDocController.cs)
    The example can download individual
    documents, the documents concatenated together, or a zip file of the documents.
 1. **Programmatically create a template.**
-   [Source.](./code-examples-csharp/Controllers/Eg008CreateTemplateController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg008CreateTemplateController.cs)
 1. **Send an envelope using a template.**
-   [Source.](./code-examples-csharp/Controllers/Eg009UseTemplateController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg009UseTemplateController.cs)
 1. **Send an envelope and upload its documents with multpart binary transfer.**
-   [Source.](./code-examples-csharp/Controllers/Eg010SendBinaryDocsController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg010SendBinaryDocsController.cs)
    Binary transfer is 33% more efficient than using Base64 encoding.
 1. **Embedded sending.**
-   [Source.](./code-examples-csharp/Controllers/Eg011EmbeddedSendingController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg011EmbeddedSendingController.cs)
    Embeds the DocuSign web tool (NDSE) in your web app to finalize or update
    the envelope and documents before they are sent.
 1. **Embedded DocuSign web tool (NDSE).**
-   [Source.](./code-examples-csharp/Controllers/Eg012EmbeddedConsoleController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg012EmbeddedConsoleController.cs)
 1. **Embedded Signing Ceremony from a template with an added document.**
-   [Source.](./code-examples-csharp/Controllers/Eg013AddDocToTemplateController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg013AddDocToTemplateController.cs)
    This example sends an envelope based on a template.
    In addition to the template's document(s), the example adds an
    additional document to the envelope by using the
    [Composite Templates](https://developers.docusign.com/esign-rest-api/guides/features/templates#composite-templates)
    feature.
 1. **Payments example: an order form, with online payment by credit card.**
-   [Source.](./code-examples-csharp/Controllers/Eg014CollectPaymentController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg014CollectPaymentController.cs)
 1. **Get the envelope tab data.**
    Retrieve the tab (field) values for all of the envelope's recipients.
-   [Source.](./code-examples-csharp/Controllers/Eg015EnvelopeTabData.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg015EnvelopeTabData.cs)
 1. **Set envelope tab values.**
    The example creates an envelope and sets the initial values for its tabs (fields). Some of the tabs
    are set to be read-only, others can be updated by the recipient. The example also stores
    metadata with the envelope.
-   [Source.](./code-examples-csharp/Controllers/Eg016SetTabValues.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg016SetTabValues.cs)
 1. **Set template tab values.**
    The example creates an envelope using a template and sets the initial values for its tabs (fields).
    The example also stores metadata with the envelope.
-   [Source.](./code-examples-csharp/Controllers/Eg017SetTemplateTabValues.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg017SetTemplateTabValues.cs)
 1. **Get the envelope custom field data (metadata).**
    The example retrieves the custom metadata (custom data fields) stored with the envelope.
-   [Source.](./code-examples-csharp/Controllers/Eg018EnvelopeCustomFieldDataController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg018EnvelopeCustomFieldDataController.cs)
 1. **Requiring an Access Code for a Recipient**
-   [Source.](./code-examples-csharp/Controllers/Eg019AccessCodeAuthController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg019AccessCodeAuthController.cs)
    This example sends an envelope that requires an access-code for the purpose of multi-factor authentication.   
 1. **Requiring SMS authentication for a recipient**
-   [Source.](./code-examples-csharp/Controllers/Eg020SmsAuthController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg020SmsAuthController.cs)
    This example sends an envelope that requires entering in a six digit code from an text message for the purpose of multi-factor authentication.   
 1. **Requiring Phone authentication for a recipient**
-   [Source.](./code-examples-csharp/Controllers/Eg021PhoneAuthController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg021PhoneAuthController.cs)
    This example sends an envelope that requires entering in a voice-based response code for the purpose of multi-factor authentication.  
 1. **Requiring Knowledge-Based Authentication (KBA) for a Recipient**
-   [Source.](./code-examples-csharp/Controllers/Eg022KbaAuthController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg022KbaAuthController.cs)
    This example sends an envelope that requires passing a Public records check to validate identity for the purpose of multi-factor authentication.    
 1. **Requiring ID Verification (IDV) for a recipient**
-   [Source.](./code-examples-csharp/Controllers/Eg023IdvAuthController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg023IdvAuthController.cs)
    This example sends an envelope that requires submitting a photo of a government issued id for the purpose of multi-factor authentication.    
 1. **Creating a permission profile**
-   [Source.](./code-examples-csharp/Controllers/Eg024PermissionCreateController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg024PermissionCreateController.cs)
    This code example demonstrates how to create a permission profile using the [Create Permission Profile](https://developers.docusign.com/esign-rest-api/reference/Accounts/AccountPermissionProfiles/create) method.
 1. **Setting a permission profile**
-   [Source.](./code-examples-csharp/Controllers/Eg025PermissionSetUserGroupController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg025PermissionSetUserGroupController.cs)
    This code example demonstrates how to set a user group's permission profile using the [Update Group](https://developers.docusign.com/esign-rest-api/reference/UserGroups/Groups/update) method. 
    You must have already created permissions profile and group of users.
 1. **Updating individual permission settings**
-   [Source.](./code-examples-csharp/Controllers/Eg026PermissionChangeSingleSettingController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg026PermissionChangeSingleSettingController.cs)
    This code example demonstrates how to edit individual permission settings on a permissions profile using the [Update Permission Profile](https://developers.docusign.com/esign-rest-api/reference/Accounts/AccountPermissionProfiles/update) method.
 1. **Deleting a permission profile**
-   [Source.](./code-examples-csharp/Controllers/Eg027PermissionDeleteController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg027PermissionDeleteController.cs)
    This code example demonstrates how to delete a permission profile using the [Delete Permission Profile](https://developers.docusign.com/esign-rest-api/reference/Accounts/AccountPermissionProfiles/create) method.
 1. **Creating a brand**
-   [Source.](./code-examples-csharp/Controllers/Eg028CreateBrandController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg028CreateBrandController.cs)
    This example creates a brand profile for an account using the [Create Brand](https://developers.docusign.com/esign-rest-api/reference/Accounts/AccountBrands/create) method.
 1. **Applying a brand to an envelope**
-   [Source.](./code-examples-csharp/Controllers/Eg029ApplyBrandToEnvelopeController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg029ApplyBrandToEnvelopeController.cs)
    This code example demonstrates how to apply a brand you've created to an envelope using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method. 
    First, the code creates the envelope and then applies the brand to it.
    Anchor text ([AutoPlace](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience)) is used to position the signing fields in the documents.
 1. **Applying a brand to a template**
-   [Source.](./code-examples-csharp/Controllers/Eg030ApplyBrandToTemplateController.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg030ApplyBrandToTemplateController.cs)
    This code example demonstrates how to apply a brand you've created to a template using using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method. 
    You must have at least one created template and brand.
    Anchor text ([AutoPlace](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience)) is used to position the signing fields in the documents.
 1. **Bulk sending envelopes to multiple recipients**
-   [Source.](./code-examples-csharp/Controllers/Eg031BulkSendEnvelopes.cs)
+   [Source.](./eg-03-csharp-auth-code-grant-core/Controllers/Eg031BulkSendEnvelopes.cs)
    This code example demonstrates how to send envelopes in bulk to multiple recipients using these methods:
    [Create Bulk Send List](https://developers.docusign.com/esign-rest-api/reference/BulkEnvelopes/BulkSend/createBulkSendList), 
    [Create Bulk Send Request](https://developers.docusign.com/esign-rest-api/reference/BulkEnvelopes/BulkSend/createBulkSendRequest).
