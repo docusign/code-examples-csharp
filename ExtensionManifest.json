@@ -154,11 +154,67 @@
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/RecipientAuthKBA.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
-    {
+    {    {
       "number": "23",
       "name": "Requiring ID Verification (IDV) for a recipient",
       "description": "This example sends an envelope that requires submitting a photo of a government issued id for the purpose of multi-factor authentication.",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/RecipientAuthIDV.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    }
+    {
+      "number": "24",
+      "name": "Creating a permission profile",
+      "description": "This example creates a new permission profile that can be assigned to users in the DocuSign account.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/CreatePermissionProfile.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    }
+    {
+      "number": "25",
+      "name": "Setting a permission profile",
+      "description": "This example applies an existing permission profile to a group of users in the DocuSign account.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/SetUserGroupPermission.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    }
+    {
+      "number": "26",
+      "name": "Updating individual permission settings",
+      "description": "This example update the settings of an existing permiossion profile.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/ChangePermissionSingleSetting.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    }
+    {
+      "number": "27",
+      "name": "Deleting a permission profile",
+      "description": "This example delete a permission profile.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/DeletePermission.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    }
+    {
+      "number": "28",
+      "name": "Creating a brand",
+      "description": "This example creates a new brand that can be used to customize the user experience of envelopes in the DocuSign account.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/CreateBrand.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    }
+    {
+      "number": "29",
+      "name": "Applying a brand to an envelope",
+      "description": "This example creates a new envelope and applies an existing brand to that envelope.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/ApplyBrandToEnvelope.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    }
+    {
+      "number": "30",
+      "name": "Applying a brand and template to an envelope",
+      "description": "This example creates a new envelope from a template and also applies an existing brand to it.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/ApplyBrandToTemplate.cs",
+      "method": "SendEnvelopeForEmbeddedSigning"
+    }
+
+      "number": "31",
+      "name": "Bulk sending envelopes to multiple recipients",
+      "description": "This example sends an envelope to multiple recipients by using the Bulk Send feature of DocuSign.",
+      "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/SendBulkEnvelopes.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     }
   ],
