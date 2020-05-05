@@ -157,7 +157,7 @@
     {
       "number": "23",
       "name": "Requiring ID Verification (IDV) for a recipient",
-      "description": "This example sends an envelope that requires submitting a photo of a government issued id for the purpose of multi-factor authentication.",
+      "description": "This example sends an envelope that requires submitting a photo of a government issued ID for the purpose of multi-factor authentication.",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/RecipientAuthIDV.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
@@ -178,14 +178,14 @@
     {
       "number": "26",
       "name": "Updating individual permission settings",
-      "description": "This example update the settings of an existing permiossion profile.",
+      "description": "This example updates the settings of an existing permission profile.",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/ChangePermissionSingleSetting.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
     {
       "number": "27",
       "name": "Deleting a permission profile",
-      "description": "This example delete a permission profile.",
+      "description": "This example deletes a permission profile.",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/DeletePermission.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
