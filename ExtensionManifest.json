@@ -154,7 +154,7 @@
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/RecipientAuthKBA.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
-    {    {
+    {
       "number": "23",
       "name": "Requiring ID Verification (IDV) for a recipient",
       "description": "This example sends an envelope that requires submitting a photo of a government issued id for the purpose of multi-factor authentication.",
