@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eg-03-csharp-auth-code-grant-core", "eg-03-csharp-auth-code-grant-core\eg-03-csharp-auth-code-grant-core.csproj", "{F6F2A6AC-A907-45EB-BE75-849E2B89E52E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "launcher-csharp", "launcher-csharp\launcher-csharp.csproj", "{F6F2A6AC-A907-45EB-BE75-849E2B89E52E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
