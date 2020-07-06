@@ -2,20 +2,27 @@
     var locals = ViewData["locals"] as Locals;//ViewBag.Locals;
     bool showDoc;
     Boolean.TryParse(ViewData["showDoc"].ToString(), out showDoc);//ViewBag.ShowDoc;
+    Layout = "_HomeLayout";
 }
-@if (locals.User == null)
-{
-    <!-- IF not signed in -->
     <div class="jumbotron">
-        <h1 class="display-4">Welcome!</h1>
-        <p class="Xlead">
-            Welcome to the DocuSign C# examples using multiple OAuth flows (JWT and Authorization Code Grant).
-        </p>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <h1 class="display-4">C# Launcher</h1>
+                        <p class="Xlead">
+                            Welcome to the DocuSign C# examples using multiple OAuth flows (JWT and Authorization Code Grant).
+                        </p>
+                    </td>
+                    <td>
+                        <img src="/images/banner-code.PNG" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-}
 
-<div id="index-page">
-    <h2>Welcome</h2>
+<div class="container" style="margin-top: 40px" id="index-page">
     <p>This launcher demonstrates use of the JWT and Authorization Code Grant OAuth flows and includes multiple usage examples for the DocuSign eSignature REST API.</p>
 
     @if (ViewBag.showDoc)
