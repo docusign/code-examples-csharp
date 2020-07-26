@@ -1,6 +1,6 @@
 # C#: Authorization Code Grant Examples
 
-### Github repo: [code-examples-csharp](./)
+### GitHub repo: [code-examples-csharp](https://github.com/docusign/code-examples-csharp)
 ## Introduction
 This repo is a C# .NET Core MVC application that demonstrates:
 
