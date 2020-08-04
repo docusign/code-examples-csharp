@@ -1,0 +1,72 @@
+﻿<h4>30. Applying a brand to a template</h4>
+<p>
+    This code example demonstrates how to apply a brand to a template.
+</p>
+
+@if (ViewBag.showDoc == true)
+{
+    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example.</p>
+}
+
+<p>
+    API method used:
+    <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
+</p>
+
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">Eg030ApplyBrandToTemplateController.cs</a> on GitHub.
+</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="signerEmail">Signer Email</label>
+        <input type="email" class="form-control" id="signerEmail" name="signerEmail"
+               aria-describedby="emailHelp" placeholder="pat@example.com" required
+               value="@ViewBag.Locals.DsConfig.SignerEmail">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="signerName">Signer Name</label>
+        <input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
+               value="@ViewBag.Locals.DsConfig.SignerName" required>
+    </div>
+    <div class="form-group">
+        <label for="ccEmail">CC Email</label>
+        <input type="email" class="form-control" id="ccEmail" name="ccEmail"
+               aria-describedby="emailHelp" placeholder="pat@example.com" required
+        <small id="emailHelp" class="form-text text-muted">The email and/or name for the cc recipient must be different from the signer.</small>
+    </div>
+    <div class="form-group">
+        <label for="ccName">CC Name</label>
+        <input type="text" class="form-control" id="ccName" placeholder="Pat Johnson" name="ccName"
+               required>
+    </div>
+    <div class="form-group">
+        <label for="templateId">Envelope template</label>
+        @if (ViewBag.EnvelopeTemplates == null)
+        {
+
+            @:<p>No Templates were found in your account, please <a href="Eg008">Create one</a> first.</p>
+        }
+        else
+        {
+            @Html.DropDownList("templateId", new SelectList(ViewBag.EnvelopeTemplates, "TemplateId", "Name"), new { @class = "form-control" })
+        }
+    </div>
+    <div class="form-group">
+        <label for="brandId">Brand</label>
+        @if (ViewBag.Brands == null)
+        {
+            @:<p>No Brands were found for this account, please <a href="Eg028">Create one</a> first.</p>
+        }
+        else
+        {
+            @Html.DropDownList("brandId", new SelectList(ViewBag.Brands, "BrandId", "BrandName"), new { @class = "form-control" })
+        }
+    </div>
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    @if ((ViewBag.EnvelopeTemplates != null) && (ViewBag.Brands != null))
+    {
+        @:<button type="submit" class="btn btn-primary">Submit</button>
+    }
+</form>

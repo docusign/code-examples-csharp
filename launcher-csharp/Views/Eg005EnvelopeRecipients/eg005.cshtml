@@ -1,0 +1,34 @@
+﻿
+<h4>5. List an envelope's recipients and their status</h4>
+<p>List the envelope's recipients, including their current status.</p>
+
+@if (ViewBag.showDoc) {
+<p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example.</p>
+}
+
+<p>
+    API method used:
+    <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipients/list">EnvelopeRecipients::list</a>.
+</p>
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">Eg005EnvelopeRecipientsController.cs</a> on GitHub.
+</p>
+
+@if (ViewBag.envelopeOk) { 
+<p>The envelope you created via example 2 will be queried.</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
+    <button type="submit" class="btn btn-primary">Continue</button>
+</form>
+
+} else {
+<p>
+    Problem: please first create an envelope using <a href="eg002">example 2.</a> <br />
+    Thank you.
+</p>
+
+<form class="eg" action="eg002" method="get">
+    <button type="submit" class="btn btn-primary">Continue</button>
+</form>
+}

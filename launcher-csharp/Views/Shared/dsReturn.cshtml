@@ -1,0 +1,29 @@
+﻿<h2>Returned data from DocuSign!</h2>
+<p>Data:</p>
+
+@if (ViewBag._event != null)
+{
+    <p>
+        <b>event: @ViewBag._event.</b> This event parameter is supplied by DocuSign.
+        Since it could have been spoofed, don't make business decisions based on
+        its value. Instead, query DocuSign as appropriate.
+    </p>
+}
+
+@if(ViewBag.envelopeId!=null) {
+<p>
+    <b>envelopeId: @ViewBag.envelopeId.</b> The envelopeId parameter is supplied by DocuSign.
+    Since it could have been spoofed, don't make business decisions based on
+    its value. Instead, query DocuSign as appropriate.
+</p>
+}
+
+@if (ViewBag.state != null) {
+<p>
+    <b>state: @ViewBag.state.</b> This example state was sent to DocuSign and has now been received back.
+    It is usually better to store state in your web framework's session.
+</p>
+}
+
+<p><a href="/">Continue</a></p>
+

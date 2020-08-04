@@ -1,0 +1,20 @@
+﻿@{
+    Layout = "_HomeLayout";
+}
+<div class="jumbotron">
+    <h1 class="display-4">Please Authenticate with DocuSign</h1>
+    <form class="eg" action="/ds/login" method="get" data-busy="form">
+        <label for="authType">Please choose your authentication type</label>
+        @Html.DropDownList("authType", new SelectList(new Dictionary<string, string>
+        {
+            { "CodeGrant", "Authorization Code Grant" },
+            { "JWT", "JWT (JSON Web Token)" }
+        },
+        "Key", "Value", "en"),
+        new { @class = "form-control", @required = "required" })
+        <br />
+        <input type="submit" value="Authenticate with DocuSign" class="btn btn-primary btn-lg" />
+    </form>
+    <hr class="my-4">
+    <p>You need to authenticate with DocuSign to continue your request.</p>
+</div>

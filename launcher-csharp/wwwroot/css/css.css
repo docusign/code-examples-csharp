@@ -1,0 +1,148 @@
+﻿body {
+    padding-top: 5rem;
+}
+
+/* See https://css-tricks.com/hash-tag-links-padding/ */
+#index-page h4 {
+    z-index: -100;
+}
+
+    #index-page h4::before {
+        z-index: -100;
+        display: block;
+        content: " ";
+        margin-top: -4rem;
+        height: 4rem;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+.jumbotron {
+    background: #000 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+    margin: 0 !important;
+    color: white;
+}
+    .jumbotron p {
+        font-size: 1.45em;
+        padding:0!important;
+    }
+
+hr.styled {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double 0;
+    color: #000;
+    text-align: center;
+}
+
+    hr.styled:after {
+        content: "§";
+        display: inline-block;
+        position: relative;
+        top: -0.7em;
+        font-size: 1.5em;
+        padding: 0 0.25em;
+        background: white;
+    }
+
+.feedback, .hidden {
+    display: none;
+}
+
+span.feedback {
+    margin-left: 2em;
+}
+
+form.eg {
+    max-width: 30em;
+}
+
+    form.eg label {
+        font-weight: 550;
+    }
+
+pre.json-display {
+    background-color: ghostwhite;
+    border: 1px solid silver;
+    padding: 10px 20px;
+}
+
+.json-key {
+    color: brown;
+}
+
+.json-value {
+    color: navy;
+}
+
+.json-string {
+    color: olive;
+}
+
+
+
+
+/* From http://tobiasahlin.com/spinkit/ */
+.spinner {
+    margin: 100px auto;
+    width: 150px;
+    height: 140px;
+    text-align: center;
+    font-size: 10px;
+}
+
+    .spinner > div {
+        background-color: blueviolet;
+        height: 100%;
+        width: 6px;
+        display: inline-block;
+        -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+        animation: sk-stretchdelay 1.2s infinite ease-in-out;
+    }
+
+    .spinner .rect2 {
+        -webkit-animation-delay: -1.1s;
+        animation-delay: -1.1s;
+    }
+
+    .spinner .rect3 {
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+    }
+
+    .spinner .rect4 {
+        -webkit-animation-delay: -0.9s;
+        animation-delay: -0.9s;
+    }
+
+    .spinner .rect5 {
+        -webkit-animation-delay: -0.8s;
+        animation-delay: -0.8s;
+    }
+
+@-webkit-keyframes sk-stretchdelay {
+    0%, 40%, 100% {
+        -webkit-transform: scaleY(0.4)
+    }
+
+    20% {
+        -webkit-transform: scaleY(1.0)
+    }
+}
+
+@keyframes sk-stretchdelay {
+    0%, 40%, 100% {
+        transform: scaleY(0.4);
+        -webkit-transform: scaleY(0.4);
+    }
+
+    20% {
+        transform: scaleY(1.0);
+        -webkit-transform: scaleY(1.0);
+    }
+}

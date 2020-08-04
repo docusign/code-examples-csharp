@@ -1,0 +1,33 @@
+﻿<h4>8. Create a template</h4>
+<p>
+    Create a template with two roles, <b>signer</b> and <b>cc</b>.
+    The template includes three documents.
+</p>
+
+<p>
+    Templates are usually created using the DocuSign web tool. This example creates
+    a template that will later be used by other examples in this launcher.
+</p>
+
+<p>
+    This example first lists the user's templates and only creates a new template if one does not already exist in your account.
+</p>
+
+@if (ViewBag.showDoc) {
+    <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example.</p>
+} 
+
+<p>
+    API methods used:
+    <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Templates/Templates/list">Templates::list</a>,
+    <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Templates/Templates/create">Templates::create</a>.
+</p>
+
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">Eg008CreateTemplateController.cs</a> on GitHub.
+</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
+    <button type="submit" class="btn btn-primary">Continue</button>
+</form>

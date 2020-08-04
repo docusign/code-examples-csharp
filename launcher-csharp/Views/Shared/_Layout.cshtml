@@ -1,0 +1,132 @@
+﻿@{ 
+    var locals = ViewBag.Locals;
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="assets/favicon.ico">
+
+    <title>@ViewData["title"]</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link href="~/css/css.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" target="_blank" href="https://developers.docusign.com">DocuSign Developer</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                @if (locals.User != null)
+                {
+                    <li>
+                        <a class="nav-link" href="/ds/logout" id="logout"
+                           data-busy="href">Logout<span class="sr-only">(current)</span></a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="nav-link" href="/ds/mustAuthenticate" id="login"
+                           data-busy="href">Login<span class="sr-only">(current)</span></a>
+                    </li>
+                }
+
+
+            </ul>
+            @if (locals.User != null)
+            {
+                <span class="navbar-text">
+                    Welcome @locals.User.Name (Account: @locals.Session.AccountName)
+                </span>
+            }
+            </div>
+    </nav>
+
+    <div>
+        <!-- The closing div is in foot.ejs -->
+            <div class="col-md-12 feedback" id="feedback">
+                <h3>Working...&nbsp;&nbsp;&nbsp;<span></span></h3>
+            </div>
+
+            <section id="busy" class="feedback">
+                <div class="spinner">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
+            </section>
+
+            <p id="download-continue" class="feedback"><a href="/">Continue</a></p>
+
+            <section id="content" style="margin:30px">
+
+                @RenderBody()
+                </content>
+        </div>
+    <!-- The opening div for the container is in head.ejs -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!--    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/core.min.js"></script>
+
+    <script src="~/js/notify.min.js"></script> <!-- see https://notifyjs.jpillora.com/ -->
+    <script src="~/js/eg_03.js"></script>
+
+    @*if (false) {
+    <!-- For debugging: showing local values including session -->
+    <pre>
+  locals:
+  <%= JSON.stringify(locals, null, "    ") %>
+  </pre>
+    } *@
+
+    <!-- Data from the server -->
+    <div id="server_data" data-server-data='{"flash":@locals.Messages}'
+         class="hidden"></div>
+
+
+    @*<environment include="Development">
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery"
+                    crossorigin="anonymous"
+                    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+            </script>
+            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>*@
+
+    @*@RenderSection("Scripts", required: false)*@
+</body>
+</html>

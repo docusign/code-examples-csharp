@@ -1,0 +1,43 @@
+﻿<h4>6. List an envelope's documents</h4>
+<p>
+    List the envelope's documents. A <i>Certificate of Completion</i> document
+    is also associated with every envelope.
+</p>
+
+<p>
+    This method is often used to dynamically create a list of an envelope's documents
+    in preparation for enabling your user to download one or more of the documents.
+</p>
+
+@if (ViewBag.showDoc) { 
+<p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example.</p>
+}
+
+<p>
+    API method used:
+    <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeDocuments/list">EnvelopeDocuments::list</a>.
+</p>
+
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">Eg006EnvelopeDocsController.cs</a> on GitHub.
+</p>
+
+@if (ViewBag.envelopeOk) {
+<p>The envelope you created via example 2 will be queried.</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
+    <button type="submit" class="btn btn-primary">Continue</button>
+</form>
+
+} else {
+<p>
+    Problem: please first create an envelope using <a href="eg002">example 2.</a> <br />
+    Thank you.
+</p>
+
+<form class="eg" action="eg002" method="get">
+    <button type="submit" class="btn btn-primary">Continue</button>
+</form>
+}
+

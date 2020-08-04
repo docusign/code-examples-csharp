@@ -1,0 +1,54 @@
+﻿<h4>29. Applying a brand to an envelope</h4>
+<p>
+    The envelope includes a pdf document. Anchor text
+    (<a href="https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience">AutoPlace</a>)
+    is used to position the signing fields in the documents.
+</p>
+<p>
+    This code example demonstrates how to apply a brand to an envelope.
+</p>
+
+@if (ViewBag.showDoc == true)
+{
+    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example.</p>
+}
+
+<p>
+    API method used:
+    <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
+</p>
+
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">Eg025ApplyBrandToEnvelopeController.cs</a> on GitHub.
+</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="signerEmail">Signer Email</label>
+        <input type="email" class="form-control" id="signerEmail" name="signerEmail"
+               aria-describedby="emailHelp" placeholder="pat@example.com" required
+               value="@ViewBag.Locals.DsConfig.SignerEmail">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="signerName">Signer Name</label>
+        <input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
+               value="@ViewBag.Locals.DsConfig.SignerName" required>
+    </div>
+    <div class="form-group">
+        <label for="brandId">Brand</label>
+        @if (ViewBag.Brands == null)
+        {
+            @:<p>No Brands were found for this account, please <a href="Eg028">Create one</a> first.</p>
+        }
+        else
+        {
+            @Html.DropDownList("brandId", new SelectList(ViewBag.Brands, "BrandId", "BrandName"), new { @class = "form-control" })
+        }
+    </div>
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    @if (ViewBag.Brands != null)
+    {
+        @:<button type="submit" class="btn btn-primary">Submit</button>
+    }
+</form>
