@@ -1,0 +1,22 @@
+﻿@model eg_03_csharp_auth_code_grant_core.Rooms.Controllers.Eg01CreateRoomsWithDataController
+
+<h4>1. Creates a new room.</h4>
+<p>
+    This is a general example of creating an room.
+</p>
+
+@if (ViewBag.showDoc == true)
+{
+    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example.</p>
+}
+<p>
+    API methods used:
+    <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Roles/Roles/GetRoles">Roles::GetRoles</a> and
+    <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/CreateRoom">Rooms::CreateRoom</a>.
+</p>
+
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">Eg01CreateRoomsWithDataController.cs</a> on GitHub.
+</p>
+
+<partial name="Shared/RoomView" model="Model.RoomModel" />

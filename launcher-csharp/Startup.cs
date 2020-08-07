@@ -16,9 +16,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using System.Text.Json;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Client.Auth;
-using System.Text;
+using DocuSign.Rooms.Api;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace eg_03_csharp_auth_code_grant_core
 {
@@ -34,6 +33,20 @@ namespace eg_03_csharp_auth_code_grant_core
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<RazorViewEngineOptions>(o =>
+            {
+                // {1} - controller
+                // {0} - action
+                o.ViewLocationFormats.Add("Views/Shared/{0}.cshtml");
+                o.ViewLocationFormats.Add("Views/{1}/{0}.cshtml");
+                o.ViewLocationFormats.Add($"/{{1}}/Views/{{0}}{RazorViewEngine.ViewExtension}");
+
+                o.AreaViewLocationFormats.Clear();
+                o.AreaViewLocationFormats.Add("/{2}/Views/{1}/{0}.cshtml");
+                o.AreaViewLocationFormats.Add("/{2}/Views/Shared/{0}.cshtml");
+                o.AreaViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
+            });
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -46,10 +59,13 @@ namespace eg_03_csharp_auth_code_grant_core
 
             services.AddSingleton(config);
             services.AddSingleton<IRequestItemsService, RequestItemsService>();
+            services.AddSingleton<IRoomsApi, RoomsApi>();
+            services.AddSingleton<IRolesApi, RolesApi>();
             services.AddMvc(options =>
             {
                 options.Filters.Add<LocalsFilter>();
-            });
+            }); 
+
             services.AddRazorPages();
             services.AddMemoryCache();
             //services.AddCaching();// Adds a default in-memory implementation of IDistributedCache
@@ -73,7 +89,18 @@ namespace eg_03_csharp_auth_code_grant_core
                 options.AuthorizationEndpoint = Configuration["DocuSign:AuthorizationEndpoint"];
                 options.TokenEndpoint = Configuration["DocuSign:TokenEndpoint"];
                 options.UserInformationEndpoint = Configuration["DocuSign:UserInformationEndpoint"];
+
                 options.Scope.Add("signature");
+                options.Scope.Add("dtr.rooms.read");
+                options.Scope.Add("dtr.rooms.write");
+                options.Scope.Add("dtr.documents.read");
+                options.Scope.Add("dtr.documents.write");
+                options.Scope.Add("dtr.profile.read");
+                options.Scope.Add("dtr.profile.write");
+                options.Scope.Add("dtr.company.read");
+                options.Scope.Add("dtr.company.write");
+                options.Scope.Add("room_forms");
+
                 options.SaveTokens = true;
                 options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "sub");
                 options.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
@@ -163,7 +190,24 @@ namespace eg_03_csharp_auth_code_grant_core
             app.UseSession();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "MyArea",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                var apiType = Enum.Parse<ExamplesAPIType>(Configuration["ExamplesAPI"]);
+                switch (apiType)
+                {
+                    case ExamplesAPIType.Rooms:
+                        endpoints.MapControllerRoute(
+                            name: "default",
+                            pattern: "{area=Rooms}/{controller=Home}/{action=Index}/{id?}");
+                        break;
+                    case ExamplesAPIType.ESignature:
+                        endpoints.MapControllerRoute(
+                            name: "default",
+                            pattern: "{controller=Home}/{action=Index}/{id?}");
+                        break;
+                }
             });
         }
     }

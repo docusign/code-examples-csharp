@@ -1,6 +1,5 @@
 ﻿using eg_03_csharp_auth_code_grant_core.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace eg_03_csharp_auth_code_grant_core.Controllers
 {
@@ -24,26 +23,25 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             // user to fill out the form. If the token is not available, now is the time
             // to have the user authenticate or re-authenticate.
             bool tokenOk = CheckToken();
-            
+
             if (tokenOk)
-            {               
+            {
                 //addSpecialAttributes(model);
                 ViewBag.envelopeOk = RequestItemsService.EnvelopeId != null;
                 ViewBag.documentsOk = RequestItemsService.EnvelopeDocuments != null;
-                ViewBag.documentOptions = RequestItemsService.EnvelopeDocuments != null? 
-                    RequestItemsService.EnvelopeDocuments.Documents: null;
+                ViewBag.documentOptions = RequestItemsService.EnvelopeDocuments?.Documents;
                 ViewBag.gatewayOk = Config.GatewayAccountId != null && Config.GatewayAccountId.Length > 25;
                 ViewBag.templateOk = RequestItemsService.TemplateId != null;
                 ViewBag.source = CreateSourcePath();
                 ViewBag.documentation = Config.documentation + EgName;
                 ViewBag.showDoc = Config.documentation != null;
                 InitializeInternal();
-                
+
                 return View(EgName, this);
             }
 
             RequestItemsService.EgName = EgName;
-                        
+
             return Redirect("/ds/mustAuthenticate");
         }
 
@@ -51,10 +49,15 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         {
         }
 
-        private dynamic CreateSourcePath()
+        public dynamic CreateSourcePath()
         {
-            var source = this.GetType().Name;
-            return Config.githubExampleUrl + source + ".cs";
+            var uri = Config.githubExampleUrl;
+            if (ControllerContext.RouteData.Values["area"] != null)
+            {
+                uri = uri + "/" + ControllerContext.RouteData.Values["area"];
+            }
+
+            return uri + "/Controllers/" + this.GetType().Name + ".cs";
         }
 
         protected bool CheckToken(int bufferMin = 60)

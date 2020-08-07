@@ -29,7 +29,7 @@ namespace eg_03_csharp_auth_code_grant_core.Common
             _configuration = configuration;
             _cache = cache;
             Status = "sent";
-            _apiClient = _apiClient ?? new ApiClient();
+            _apiClient ??= new ApiClient();
             var identity = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
 
             if (identity != null && identity.IsAuthenticated)
@@ -61,7 +61,8 @@ namespace eg_03_csharp_auth_code_grant_core.Common
             {
                 AccountId = _account.AccountId,
                 AccountName = _account.AccountName,
-                BasePath = _account.BaseUri
+                BasePath = _account.BaseUri,
+                RoomsApiBasePath = _configuration["DocuSign:RoomsApiEndpoint"]
             };
         }
 
