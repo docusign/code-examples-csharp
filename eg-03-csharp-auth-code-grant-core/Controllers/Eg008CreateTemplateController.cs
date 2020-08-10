@@ -178,8 +178,8 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             textInsteadOfNumber.Font = "helvetica";
             textInsteadOfNumber.FontSize = "size14";
             textInsteadOfNumber.TabLabel = "numbersOnly";
-            textInsteadOfNumber.Height = "23";
-            textInsteadOfNumber.Width = "84";
+            textInsteadOfNumber.Height = 23;
+            textInsteadOfNumber.Width = 84;
             textInsteadOfNumber.Required = "false";
 
             RadioGroup radioGroup = new RadioGroup();
@@ -201,8 +201,8 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             text.Font = "helvetica";
             text.FontSize = "size14";
             text.TabLabel = "text";
-            text.Height = "23";
-            text.Width = "84";
+            text.Height = 23;
+            text.Width = 84;
             text.Required = "false";
 
             // Tabs are set per recipient / signer
@@ -229,8 +229,6 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             // create the overall template definition
             EnvelopeTemplate template = new EnvelopeTemplate();
             // The order in the docs array determines the order in the env
-            template.Description = "Example template created via the API";
-            template.Name = resultsTemplateName;
             template.Documents = new List<Document> { doc};
             template.EmailSubject = "Please sign this document";
             template.Recipients = recipients;
