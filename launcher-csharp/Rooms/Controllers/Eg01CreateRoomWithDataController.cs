@@ -12,12 +12,12 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
 {
     [Area("Rooms")]
     [Route("Eg01")]
-    public class Eg01CreateRoomsWithDataController : EgController
+    public class Eg01CreateRoomWithDataController : EgController
     {
         private readonly IRoomsApi _roomsApi;
         private readonly IRolesApi _rolesApi;
 
-        public Eg01CreateRoomsWithDataController(
+        public Eg01CreateRoomWithDataController(
             DSConfiguration dsConfig, 
             IRequestItemsService requestItemsService,
             IRoomsApi roomsApi,

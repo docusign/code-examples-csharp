@@ -17,7 +17,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public virtual IActionResult Get()
         {
             // Check that the token is valid and will remain valid for awhile to enable the
             // user to fill out the form. If the token is not available, now is the time
