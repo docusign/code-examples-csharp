@@ -64,7 +64,7 @@ namespace eg_03_csharp_auth_code_grant_core
             services.AddMvc(options =>
             {
                 options.Filters.Add<LocalsFilter>();
-            }); 
+            });
 
             services.AddRazorPages();
             services.AddMemoryCache();
@@ -72,8 +72,9 @@ namespace eg_03_csharp_auth_code_grant_core
             services.AddSession();
             services.AddHttpContextAccessor();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            
-            services.AddAuthentication(options => {
+
+            services.AddAuthentication(options =>
+            {
                 options.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -191,7 +192,7 @@ namespace eg_03_csharp_auth_code_grant_core
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "MyArea",
+                    name: "Areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 var apiType = Enum.Parse<ExamplesAPIType>(Configuration["ExamplesAPI"]);
@@ -201,6 +202,10 @@ namespace eg_03_csharp_auth_code_grant_core
                         endpoints.MapControllerRoute(
                             name: "default",
                             pattern: "{area=Rooms}/{controller=Home}/{action=Index}/{id?}");
+                        endpoints.MapAreaControllerRoute(
+                            name: "default",
+                            areaName: "Rooms",
+                            pattern: "{controller=Home}/{action=Index}/{id?}");
                         break;
                     case ExamplesAPIType.ESignature:
                         endpoints.MapControllerRoute(
