@@ -31,17 +31,17 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         public override string EgName => "Eg01";
 
         [BindProperty]
-        public RoomModel RoomModel { get; set; }
+        public RoomViewModel RoomViewModel { get; set; }
 
         protected override void InitializeInternal()
         {
-            RoomModel = new RoomModel();
+            RoomViewModel = new RoomViewModel();
         }
 
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(RoomModel model)
+        public ActionResult Create(RoomViewModel viewModel)
         {
             // Check the token with minimal buffer time.
             var tokenOk = CheckToken(3);
@@ -66,12 +66,12 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             RoleSummary clientRole = _rolesApi.GetRoles(accountId, new RolesApi.GetRolesOptions {filter = "Client"}).Roles.First();
 
             // Step 4: Construct the request body for your room
-            RoomForCreate newRoom = BuildRoom(model, clientRole);
+            RoomForCreate newRoom = BuildRoom(viewModel, clientRole);
 
             try
             {
                 // Step 5. Call the Rooms API
-                var room = _roomsApi.CreateRoom(accountId, newRoom);
+                Room room = _roomsApi.CreateRoom(accountId, newRoom);
 
                 ViewBag.h1 = "The room was created";
                 ViewBag.message = $"The room was created! Room ID: {room.RoomId}, name:{room.Name}.";
@@ -85,11 +85,11 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             }
         }
 
-        private static RoomForCreate BuildRoom(RoomModel model, RoleSummary clientRole)
+        private static RoomForCreate BuildRoom(RoomViewModel viewModel, RoleSummary clientRole)
         {
             var newRoom = new RoomForCreate
             {
-                Name = model.Name,
+                Name = viewModel.Name,
                 RoleId = clientRole.RoleId,
                 TransactionSideId = "buy",
                 FieldData = new FieldDataForCreate

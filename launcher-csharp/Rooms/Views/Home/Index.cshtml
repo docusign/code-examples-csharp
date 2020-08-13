@@ -1,7 +1,4 @@
 ﻿@{
-    var locals = ViewData["locals"] as Locals;//ViewBag.Locals;
-    bool showDoc;
-    Boolean.TryParse(ViewData["showDoc"].ToString(), out showDoc);//ViewBag.ShowDoc;
     Layout = "_HomeLayout";
 }
 <div class="jumbotron">
@@ -33,6 +30,7 @@
     <h2>Rooms examples</h2>
     <partial name="../Eg01CreateRoomWithData/Shared/RoomListItem.cshtml" />
     <partial name="../Eg02CreateRoomsFromTemplate/Shared/RoomListItem.cshtml" />
+    <partial name="../Eg03ExportDataFromRoom/Shared/RoomListItem.cshtml" />
 
     <!-- anchor-js is only for the index page -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js"></script>

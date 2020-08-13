@@ -1,4 +1,4 @@
-﻿@model eg_03_csharp_auth_code_grant_core.Rooms.Models.RoomModel
+﻿@model eg_03_csharp_auth_code_grant_core.Rooms.Models.RoomViewModel
 
 <h4>Room</h4>
 <form class="eg" asp-action="Create" method="post" data-busy="form">
@@ -8,7 +8,7 @@
     </div>
     <div class="form-group">
         <label for="docSelect">Template</label>
-        <select class="custom-select"  asp-for="TemplateId" asp-items="@(new SelectList(Model.Templates, "RoomTemplateId","Name"))" required>
+        <select class="custom-select" asp-for="TemplateId" asp-items="@(new SelectList(Model.Templates, "RoomTemplateId","Name"))" required>
         </select>
     </div>
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
