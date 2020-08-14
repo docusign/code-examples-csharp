@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using DocuSign.Rooms.Api;
 using DocuSign.Rooms.Client;
 using DocuSign.Rooms.Model;
@@ -11,28 +12,31 @@ using Newtonsoft.Json;
 namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
 {
     [Area("Rooms")]
-    [Route("Eg03")]
-    public class Eg03ExportDataFromRoomController : EgController
+    [Route("Eg04")]
+    public class Eg04AddingFormToRoomController : EgController
     {
         private readonly IRoomsApi _roomsApi;
+        private readonly IFormLibrariesApi _formLibrariesApi;
 
-        public Eg03ExportDataFromRoomController(
+        public Eg04AddingFormToRoomController(
             DSConfiguration dsConfig,
             IRequestItemsService requestItemsService,
-            IRoomsApi roomsApi) : base(dsConfig, requestItemsService)
+            IRoomsApi roomsApi,
+            IFormLibrariesApi formLibrariesApi) : base(dsConfig, requestItemsService)
         {
             ViewBag.title = "Export room data";
             _roomsApi = roomsApi;
+            _formLibrariesApi = formLibrariesApi;
         }
 
-        public override string EgName => "Eg03";
+        public override string EgName => "Eg04";
 
         [BindProperty]
-        public RoomsListViewModel RoomsListViewModel { get; set; }
+        public RoomFormViewModel RoomFormViewModel { get; set; }
 
         protected override void InitializeInternal()
         {
-            RoomsListViewModel = new RoomsListViewModel();
+            RoomFormViewModel = new RoomFormViewModel();
         }
 
         [MustAuthenticate]
@@ -49,12 +53,22 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
 
             try
             {
-                //Step 3: Get Rooms
+                //Step 3: Get Forms Libraries
+                FormLibrarySummaryList formLibraries = _formLibrariesApi.GetFormLibraries(accountId);
+
+                //Step 4: Get Forms 
+                FormSummaryList forms = new FormSummaryList(new List<FormSummary>());
+                if (formLibraries.FormsLibrarySummaries.Any())
+                {
+                    forms = _formLibrariesApi.GetFormLibraryForms(accountId, formLibraries.FormsLibrarySummaries.First().FormsLibraryId);
+                }
+
+                //Step 5: Get Rooms 
                 RoomSummaryList rooms = _roomsApi.GetRooms(accountId);
 
-                RoomsListViewModel = new RoomsListViewModel {Rooms = rooms.Rooms.ToList()};
+                RoomFormViewModel = new RoomFormViewModel { Forms = forms.Forms, Rooms = rooms.Rooms };
 
-                return View("Eg03", this);
+                return View("Eg04", this);
             }
             catch (ApiException apiException)
             {
@@ -68,8 +82,8 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         [Route("ExportData")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ExportData(RoomsListViewModel model)
-        { 
+        public ActionResult ExportData(RoomFormViewModel roomFormModel)
+        {
             // Step 1. Obtain your OAuth token
             string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
@@ -81,10 +95,10 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             try
             {
                 // Step 3. Call the Rooms API 
-                FieldData fieldData = _roomsApi.GetRoomFieldData(accountId, model.RoomId);
-                ViewBag.h1 = "The room data was successfully exported";
-                ViewBag.message = $"Results from the Rooms::GetRoomFieldData method RoomId: {model.RoomId} :";
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(fieldData, Formatting.Indented);
+                RoomDocument roomDocument = _roomsApi.AddFormToRoom(accountId, roomFormModel.RoomId, new FormForAdd(roomFormModel.FormId));
+                ViewBag.h1 = "The form was successfully added to a room";
+                ViewBag.message = $"Results from the Rooms: AddFormToRoom method. RoomId: {roomFormModel.RoomId}, FormId: {roomFormModel.FormId} :";
+                ViewBag.Locals.Json = JsonConvert.SerializeObject(roomDocument, Formatting.Indented);
                 return View("example_done");
             }
             catch (ApiException apiException)
@@ -100,6 +114,7 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             var config = new Configuration(new ApiClient(basePath));
             config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
             _roomsApi.Configuration = config;
+            _formLibrariesApi.Configuration = config;
         }
     }
 }

@@ -1,0 +1,23 @@
+﻿@model eg_03_csharp_auth_code_grant_core.Rooms.Controllers.Eg04AddingFormToRoomController
+<h4>3. Adds form to a room.</h4>
+<p>
+    This is an example of adding form to a room.
+</p>
+
+@if (ViewBag.showDoc == true)
+{
+<p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example.</p>
+}
+<p>
+    API methods used:
+    <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRooms">Rooms: GetRooms</a>,
+    <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Forms/FormLibraries/GetFormLibraries">FormLibraries: GetFormLibraries</a>,
+    <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Forms/FormLibraries/GetFormLibraryForms">FormLibraries: GetFormLibraryForms</a> and
+    <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/AddFormToRoom">Rooms: AddFormToRoom</a>.
+</p>
+
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">Eg04AddingFormToRoomController.cs</a> on GitHub.
+</p>
+
+<partial name="Shared/AddFormView" model="Model.RoomFormViewModel" />

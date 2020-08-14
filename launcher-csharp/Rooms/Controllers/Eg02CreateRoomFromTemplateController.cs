@@ -41,20 +41,10 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             RoomViewModel = new RoomViewModel();
         }
 
+        [MustAuthenticate]
         [HttpGet]
         public override IActionResult Get()
-        {
-            // Check the token with minimal buffer time.
-            var tokenOk = CheckToken(3);
-            if (!tokenOk)
-            {
-                // We could store the parameters of the requested operation so it could be 
-                // restarted automatically. But since it should be rare to have a token issue
-                // here, we'll make the user re-enter the form data after authentication.
-                RequestItemsService.EgName = EgName;
-                return Redirect("/ds/mustAuthenticate");
-            }
-
+        { 
             // Step 1. Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
@@ -80,22 +70,12 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             }
         }
 
+        [MustAuthenticate]
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(RoomViewModel viewModel)
-        {
-            // Check the token with minimal buffer time.
-            var tokenOk = CheckToken(3);
-            if (!tokenOk)
-            {
-                // We could store the parameters of the requested operation so it could be 
-                // restarted automatically. But since it should be rare to have a token issue
-                // here, we'll make the user re-enter the form data after authentication.
-                RequestItemsService.EgName = EgName;
-                return Redirect("/ds/mustAuthenticate");
-            }
-
+        { 
             // Step 1. Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
@@ -115,7 +95,7 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
                 // Step 5. Call the Rooms API
                 var room = _roomsApi.CreateRoom(accountId, newRoom);
 
-                ViewBag.h1 = "The room was created";
+                ViewBag.h1 = "The room was successfully created";
                 ViewBag.message = $"The room was created! Room ID: {room.RoomId}, name:{room.Name}.";
                 return View("example_done");
             }

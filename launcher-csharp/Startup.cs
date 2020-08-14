@@ -61,7 +61,9 @@ namespace eg_03_csharp_auth_code_grant_core
             services.AddSingleton<IRequestItemsService, RequestItemsService>();
             services.AddSingleton<IRoomsApi, RoomsApi>();
             services.AddSingleton<IRolesApi, RolesApi>();
+            services.AddSingleton<IFormLibrariesApi, FormLibrariesApi>();
             services.AddSingleton<IRoomTemplatesApi, RoomTemplatesApi>();
+
             services.AddMvc(options =>
             {
                 options.Filters.Add<LocalsFilter>();
@@ -102,7 +104,7 @@ namespace eg_03_csharp_auth_code_grant_core
                 options.Scope.Add("dtr.company.read");
                 options.Scope.Add("dtr.company.write");
                 options.Scope.Add("room_forms");
- 
+
                 options.SaveTokens = true;
                 options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "sub");
                 options.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
