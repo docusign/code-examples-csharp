@@ -24,7 +24,6 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             IRoomsApi roomsApi,
             IFormLibrariesApi formLibrariesApi) : base(dsConfig, requestItemsService)
         {
-            ViewBag.title = "Export room data";
             _roomsApi = roomsApi;
             _formLibrariesApi = formLibrariesApi;
         }
@@ -32,11 +31,11 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         public override string EgName => "Eg04";
 
         [BindProperty]
-        public RoomFormViewModel RoomFormViewModel { get; set; }
+        public RoomFormModel RoomFormModel { get; set; }
 
         protected override void InitializeInternal()
         {
-            RoomFormViewModel = new RoomFormViewModel();
+            RoomFormModel = new RoomFormModel();
         }
 
         [MustAuthenticate]
@@ -60,13 +59,15 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
                 FormSummaryList forms = new FormSummaryList(new List<FormSummary>());
                 if (formLibraries.FormsLibrarySummaries.Any())
                 {
-                    forms = _formLibrariesApi.GetFormLibraryForms(accountId, formLibraries.FormsLibrarySummaries.First().FormsLibraryId);
+                    forms = _formLibrariesApi.GetFormLibraryForms(
+                        accountId,
+                        formLibraries.FormsLibrarySummaries.First().FormsLibraryId);
                 }
 
                 //Step 5: Get Rooms 
                 RoomSummaryList rooms = _roomsApi.GetRooms(accountId);
 
-                RoomFormViewModel = new RoomFormViewModel { Forms = forms.Forms, Rooms = rooms.Rooms };
+                RoomFormModel = new RoomFormModel { Forms = forms.Forms, Rooms = rooms.Rooms };
 
                 return View("Eg04", this);
             }
@@ -74,6 +75,7 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             {
                 ViewBag.errorCode = apiException.ErrorCode;
                 ViewBag.errorMessage = apiException.Message;
+
                 return View("Error");
             }
         }
@@ -82,7 +84,7 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         [Route("ExportData")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ExportData(RoomFormViewModel roomFormModel)
+        public ActionResult ExportData(RoomFormModel roomFormModel)
         {
             // Step 1. Obtain your OAuth token
             string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
@@ -95,16 +97,22 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             try
             {
                 // Step 3. Call the Rooms API 
-                RoomDocument roomDocument = _roomsApi.AddFormToRoom(accountId, roomFormModel.RoomId, new FormForAdd(roomFormModel.FormId));
+                RoomDocument roomDocument = _roomsApi.AddFormToRoom(
+                    accountId, 
+                    roomFormModel.RoomId, 
+                    new FormForAdd(roomFormModel.FormId));
+               
                 ViewBag.h1 = "The form was successfully added to a room";
                 ViewBag.message = $"Results from the Rooms: AddFormToRoom method. RoomId: {roomFormModel.RoomId}, FormId: {roomFormModel.FormId} :";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(roomDocument, Formatting.Indented);
+
                 return View("example_done");
             }
             catch (ApiException apiException)
             {
                 ViewBag.errorCode = apiException.ErrorCode;
                 ViewBag.errorMessage = apiException.Message;
+
                 return View("Error");
             }
         }
@@ -113,6 +121,7 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         {
             var config = new Configuration(new ApiClient(basePath));
             config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
+            
             _roomsApi.Configuration = config;
             _formLibrariesApi.Configuration = config;
         }

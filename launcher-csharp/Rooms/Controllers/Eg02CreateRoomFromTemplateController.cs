@@ -25,7 +25,6 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             IRolesApi rolesApi,
             IRoomTemplatesApi roomTemplatesApi) : base(dsConfig, requestItemsService)
         {
-            ViewBag.title = "Create room from template";
             _roomsApi = roomsApi;
             _rolesApi = rolesApi;
             _roomTemplatesApi = roomTemplatesApi;
@@ -34,11 +33,11 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         public override string EgName => "Eg02";
 
         [BindProperty]
-        public RoomViewModel RoomViewModel { get; set; }
+        public RoomModel RoomModel { get; set; }
 
         protected override void InitializeInternal()
         {
-            RoomViewModel = new RoomViewModel();
+            RoomModel = new RoomModel();
         }
 
         [MustAuthenticate]
@@ -57,7 +56,7 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             {    //Step 3: Get Templates
                 var templates = _roomTemplatesApi.GetRoomTemplates(accountId);
 
-                RoomViewModel = new RoomViewModel { Templates = templates.RoomTemplates };
+                RoomModel = new RoomModel { Templates = templates.RoomTemplates };
 
                 return View("Eg02", this);
 
@@ -74,7 +73,7 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(RoomViewModel viewModel)
+        public ActionResult Create(RoomModel model)
         { 
             // Step 1. Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
@@ -88,7 +87,7 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             RoleSummary clientRole = _rolesApi.GetRoles(accountId, new RolesApi.GetRolesOptions { filter = "Client" }).Roles.First();
 
             // Step 4: Construct the request body for your room with using selected template Id
-            RoomForCreate newRoom = BuildRoom(viewModel, clientRole, viewModel.TemplateId);
+            RoomForCreate newRoom = BuildRoom(model, clientRole, model.TemplateId);
 
             try
             {
@@ -107,11 +106,11 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             }
         }
 
-        private static RoomForCreate BuildRoom(RoomViewModel viewModel, RoleSummary clientRole, int? templateId)
+        private static RoomForCreate BuildRoom(RoomModel model, RoleSummary clientRole, int? templateId)
         {
             var newRoom = new RoomForCreate
             {
-                Name = viewModel.Name,
+                Name = model.Name,
                 RoleId = clientRole.RoleId, 
                 TemplateId = templateId,
                 FieldData = new FieldDataForCreate

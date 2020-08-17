@@ -23,7 +23,6 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             IRoomsApi roomsApi,
             IRolesApi rolesApi) : base(dsConfig, requestItemsService)
         {
-            ViewBag.title = "Create room with data";
             _roomsApi = roomsApi;
             _rolesApi = rolesApi;
         }
@@ -31,18 +30,18 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         public override string EgName => "Eg01";
 
         [BindProperty]
-        public RoomViewModel RoomViewModel { get; set; }
+        public RoomModel RoomModel { get; set; }
 
         protected override void InitializeInternal()
         {
-            RoomViewModel = new RoomViewModel();
+            RoomModel = new RoomModel();
         }
 
         [MustAuthenticate]
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(RoomViewModel viewModel)
+        public ActionResult Create(RoomModel model)
         { 
             // Step 1. Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
@@ -58,28 +57,30 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
                 RoleSummary clientRole = _rolesApi.GetRoles(accountId, new RolesApi.GetRolesOptions { filter = "Client" }).Roles.First();
 
                 // Step 4: Construct the request body for your room
-                RoomForCreate newRoom = BuildRoom(viewModel, clientRole);
+                RoomForCreate newRoom = BuildRoom(model, clientRole);
 
                 // Step 5. Call the Rooms API
                 Room room = _roomsApi.CreateRoom(accountId, newRoom);
 
                 ViewBag.h1 = "The room was successfully created";
-                ViewBag.message = $"The room was created! Room ID: {room.RoomId}, name:{room.Name}.";
+                ViewBag.message = $"The room was created! Room ID: {room.RoomId}, Name: {room.Name}.";
+
                 return View("example_done");
             }
             catch (ApiException apiException)
             {
                 ViewBag.errorCode = apiException.ErrorCode;
                 ViewBag.errorMessage = apiException.Message;
+
                 return View("Error");
             }
         }
 
-        private static RoomForCreate BuildRoom(RoomViewModel viewModel, RoleSummary clientRole)
+        private static RoomForCreate BuildRoom(RoomModel model, RoleSummary clientRole)
         {
             var newRoom = new RoomForCreate
             {
-                Name = viewModel.Name,
+                Name = model.Name,
                 RoleId = clientRole.RoleId,
                 TransactionSideId = "buy",
                 FieldData = new FieldDataForCreate
@@ -110,6 +111,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
         {
             var config = new Configuration(new ApiClient(basePath));
             config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
+
             _roomsApi.Configuration = config;
             _rolesApi.Configuration = config;
         }

@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System.Globalization;
 using DocuSign.Rooms.Api;
 using DocuSign.Rooms.Client;
 using DocuSign.Rooms.Model;
@@ -11,12 +11,12 @@ using Newtonsoft.Json;
 namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
 {
     [Area("Rooms")]
-    [Route("Eg03")]
-    public class Eg03ExportDataFromRoomController : EgController
+    [Route("Eg05")]
+    public class Eg05GetRoomsWithFiltersController : EgController
     {
         private readonly IRoomsApi _roomsApi;
 
-        public Eg03ExportDataFromRoomController(
+        public Eg05GetRoomsWithFiltersController(
             DSConfiguration dsConfig,
             IRequestItemsService requestItemsService,
             IRoomsApi roomsApi) : base(dsConfig, requestItemsService)
@@ -24,52 +24,22 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             _roomsApi = roomsApi;
         }
 
-        public override string EgName => "Eg03";
+        public override string EgName => "Eg05";
 
         [BindProperty]
-        public RoomsListModel RoomsListModel { get; set; }
+        public RoomFilterModel RoomFilterModel { get; set; }
 
         protected override void InitializeInternal()
         {
-            RoomsListModel = new RoomsListModel();
-        }
-
-        [MustAuthenticate]
-        [HttpGet]
-        public override IActionResult Get()
-        {
-            // Step 1. Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
-            string basePath = RequestItemsService.Session.RoomsApiBasePath + "/restapi"; // Base API path
-
-            // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
-
-            try
-            {
-                //Step 3: Get Rooms
-                RoomSummaryList rooms = _roomsApi.GetRooms(accountId);
-
-                RoomsListModel = new RoomsListModel {Rooms = rooms.Rooms.ToList()};
-
-                return View("Eg03", this);
-            }
-            catch (ApiException apiException)
-            {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
-
-                return View("Error");
-            }
+            RoomFilterModel = new RoomFilterModel();
         }
 
         [MustAuthenticate]
         [Route("ExportData")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ExportData(RoomsListModel model)
-        { 
+        public ActionResult ExportData(RoomFilterModel roomFilterModel)
+        {
             // Step 1. Obtain your OAuth token
             string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
@@ -81,11 +51,16 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             try
             {
                 // Step 3. Call the Rooms API 
-                FieldData fieldData = _roomsApi.GetRoomFieldData(accountId, model.RoomId);
-                
-                ViewBag.h1 = "The room data was successfully exported";
-                ViewBag.message = $"Results from the Rooms::GetRoomFieldData method RoomId: {model.RoomId} :";
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(fieldData, Formatting.Indented);
+                RoomSummaryList rooms = _roomsApi.GetRooms(accountId, new RoomsApi.GetRoomsOptions
+                {
+                    fieldDataChangedStartDate = roomFilterModel.FieldDataChangedStartDate.ToString(CultureInfo.InvariantCulture),
+                    fieldDataChangedEndDate = roomFilterModel.FieldDataChangedEndDate.ToString(CultureInfo.InvariantCulture)
+                });
+
+                ViewBag.h1 = "The rooms with filters was loaded";
+                ViewBag.message = $"Results from the Rooms: GetRooms method. FieldDataChangedStartDate: " +
+                                  $"{ roomFilterModel.FieldDataChangedStartDate }, FieldDataChangedEndDate: { roomFilterModel.FieldDataChangedEndDate } :";
+                ViewBag.Locals.Json = JsonConvert.SerializeObject(rooms, Formatting.Indented);
 
                 return View("example_done");
             }
@@ -93,7 +68,7 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             {
                 ViewBag.errorCode = apiException.ErrorCode;
                 ViewBag.errorMessage = apiException.Message;
-                
+
                 return View("Error");
             }
         }

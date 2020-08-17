@@ -17,7 +17,11 @@ namespace eg_03_csharp_auth_code_grant_core.Common
         private IMemoryCache _cache;
         private readonly IConfiguration _configuration;
 
-        public LocalsFilter(DSConfiguration docuSignConfiguration, IRequestItemsService requestItemsService, IMemoryCache cache, IConfiguration configuration)
+        public LocalsFilter(
+            DSConfiguration docuSignConfiguration, 
+            IRequestItemsService requestItemsService, 
+            IMemoryCache cache, 
+            IConfiguration configuration)
         {
             DocuSignConfiguration = docuSignConfiguration;
             _cache = cache;

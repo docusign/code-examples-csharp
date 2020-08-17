@@ -54,10 +54,10 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             var uri = Config.githubExampleUrl;
             if (ControllerContext.RouteData.Values["area"] != null)
             {
-                uri = uri + "/" + ControllerContext.RouteData.Values["area"];
+                uri = $"{uri}/{ControllerContext.RouteData.Values["area"]}";
             }
 
-            return uri + "/Controllers/" + this.GetType().Name + ".cs";
+            return $"{uri}/Controllers/{this.GetType().Name}.cs";
         }
 
         protected bool CheckToken(int bufferMin = 60)
