@@ -6,12 +6,12 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Models
     {
         public RoomFilterModel()
         {
-            FieldDataChangedStartDate = DateTime.Now.AddDays(-10);
-            FieldDataChangedEndDate = DateTime.Now;
+            FieldDataChangedStartDate = DateTimeOffset.Now.AddDays(-10);
+            FieldDataChangedEndDate = DateTimeOffset.Now;
         }
 
-        public DateTime FieldDataChangedStartDate { get; set; }
+        public DateTimeOffset FieldDataChangedStartDate { get; set; }
 
-        public DateTime FieldDataChangedEndDate { get; set; }
+        public DateTimeOffset FieldDataChangedEndDate { get; set; }
     }
 }
