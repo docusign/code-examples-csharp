@@ -84,7 +84,7 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             ConstructApiHeaders(accessToken, basePath);
 
             // Step 3: Obtain Role 
-            RoleSummary clientRole = _rolesApi.GetRoles(accountId, new RolesApi.GetRolesOptions { filter = "Client" }).Roles.First();
+            RoleSummary clientRole = _rolesApi.GetRoles(accountId, new RolesApi.GetRolesOptions { filter = "Default Admin" }).Roles.First();
 
             // Step 4: Construct the request body for your room with using selected template Id
             RoomForCreate newRoom = BuildRoom(model, clientRole, model.TemplateId);
