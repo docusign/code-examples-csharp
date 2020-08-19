@@ -58,11 +58,12 @@ namespace eg_03_csharp_auth_code_grant_core
             Configuration.Bind("DocuSign", config);
 
             services.AddSingleton(config);
-            services.AddSingleton<IRequestItemsService, RequestItemsService>();
-            services.AddSingleton<IRoomsApi, RoomsApi>();
-            services.AddSingleton<IRolesApi, RolesApi>();
-            services.AddSingleton<IFormLibrariesApi, FormLibrariesApi>();
-            services.AddSingleton<IRoomTemplatesApi, RoomTemplatesApi>();
+            services.AddScoped<IRequestItemsService, RequestItemsService>();
+            services.AddScoped<IRoomsApi, RoomsApi>();
+            services.AddScoped<IRolesApi, RolesApi>();
+            services.AddScoped<IFormLibrariesApi, FormLibrariesApi>();
+            services.AddScoped<IRoomTemplatesApi, RoomTemplatesApi>();
+            services.AddScoped<IExternalFormFillSessionsApi, ExternalFormFillSessionsApi>();
 
             services.AddMvc(options =>
             {

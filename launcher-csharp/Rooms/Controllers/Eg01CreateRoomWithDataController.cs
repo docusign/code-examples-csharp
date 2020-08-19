@@ -25,6 +25,13 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         {
             _roomsApi = roomsApi;
             _rolesApi = rolesApi;
+
+            // Step 1. Obtain your OAuth token
+            var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var basePath = RequestItemsService.Session.RoomsApiBasePath + "/restapi"; // Base API path
+
+            // Step 2: Construct your API headers
+            ConstructApiHeaders(accessToken, basePath);
         }
 
         public override string EgName => "Eg01";
@@ -42,24 +49,18 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(RoomModel model)
-        { 
-            // Step 1. Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+        {
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
-            var basePath = RequestItemsService.Session.RoomsApiBasePath + "/restapi"; // Base API path
 
-            // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
-            
             try
             {
                 // Step 3: Obtain Role 
-                RoleSummary clientRole = _rolesApi.GetRoles(accountId, new RolesApi.GetRolesOptions { filter = "Client" }).Roles.First();
+                RoleSummary clientRole = _rolesApi.GetRoles(accountId, new RolesApi.GetRolesOptions { filter = "Default Admin" }).Roles.First();
 
                 // Step 4: Construct the request body for your room
                 RoomForCreate newRoom = BuildRoom(model, clientRole);
 
-                // Step 5. Call the Rooms API
+                // Step 5: Call the Rooms API to create a room
                 Room room = _roomsApi.CreateRoom(accountId, newRoom);
 
                 ViewBag.h1 = "The room was successfully created";
@@ -87,18 +88,14 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
                 {
                     Data = new Dictionary<string, object>
                     {
-                        {"address1", "123 EZ Street"},
-                        {"address2", "unit 10"},
+                        {"address1", "Street 1"},
+                        {"address2", "Unit 10"},
                         {"city", "New York"},
                         {"postalCode", "11112"},
                         {"companyRoomStatus", "5"},
-                        {"state", "US-CA"},
+                        {"state", "US-NY"},
                         {
-                            "comments", @"Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                            "comments", @"New room for sale."
                         }
                     }
                 }

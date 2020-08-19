@@ -8,25 +8,27 @@ using eg_03_csharp_auth_code_grant_core.Models;
 using eg_03_csharp_auth_code_grant_core.Rooms.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using ApiError = DocuSign.Rooms.Model.ApiError;
 
 namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
 {
     [Area("Rooms")]
-    [Route("Eg04")]
-    public class Eg04AddingFormToRoomController : EgController
+    [Route("Eg06")]
+    public class Eg06CreateExternalFormFillSessionController : EgController
     {
         private readonly IRoomsApi _roomsApi;
         private readonly IFormLibrariesApi _formLibrariesApi;
+        private readonly IExternalFormFillSessionsApi _externalFormFillSessionsApi;
 
-        public Eg04AddingFormToRoomController(
+        public Eg06CreateExternalFormFillSessionController(
             DSConfiguration dsConfig,
             IRequestItemsService requestItemsService,
             IRoomsApi roomsApi,
-            IFormLibrariesApi formLibrariesApi) : base(dsConfig, requestItemsService)
+            IFormLibrariesApi formLibrariesApi,
+            IExternalFormFillSessionsApi externalFormFillSessionsApi) : base(dsConfig, requestItemsService)
         {
             _roomsApi = roomsApi;
             _formLibrariesApi = formLibrariesApi;
+            _externalFormFillSessionsApi = externalFormFillSessionsApi;
 
             // Step 1. Obtain your OAuth token
             string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
@@ -36,14 +38,14 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             ConstructApiHeaders(accessToken, basePath);
         }
 
-        public override string EgName => "Eg04";
+        public override string EgName => "Eg06";
 
         [BindProperty]
-        public RoomFormModel RoomFormModel { get; set; }
+        public RoomDocumentModel RoomDocumentModel { get; set; }
 
         protected override void InitializeInternal()
         {
-            RoomFormModel = new RoomFormModel();
+            RoomDocumentModel = new RoomDocumentModel();
         }
 
         [MustAuthenticate]
@@ -54,35 +56,43 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
 
             try
             {
-                //Step 3: Get Forms Libraries
-                FormLibrarySummaryList formLibraries = _formLibrariesApi.GetFormLibraries(accountId);
-
-                //Step 4: Get Forms 
-                FormSummaryList forms = new FormSummaryList(new List<FormSummary>());
-                if (formLibraries.FormsLibrarySummaries.Any())
-                {
-                    forms = _formLibrariesApi.GetFormLibraryForms(
-                        accountId,
-                        formLibraries.FormsLibrarySummaries.First().FormsLibraryId);
-                }
-
-                //Step 5: Get Rooms 
+                //Step 3: Get Rooms 
                 RoomSummaryList rooms = _roomsApi.GetRooms(accountId);
 
-                RoomFormModel = new RoomFormModel { Forms = forms.Forms, Rooms = rooms.Rooms };
+                RoomDocumentModel = new RoomDocumentModel { Rooms = rooms.Rooms };
 
-                return View("Eg04", this);
+                return View("Eg06", this);
             }
             catch (ApiException apiException)
             {
                 ViewBag.errorCode = apiException.ErrorCode;
                 ViewBag.errorMessage = apiException.Message;
 
-                ApiError error = JsonConvert.DeserializeObject<ApiError>(apiException.ErrorContent);
-                if (error.ErrorCode == "FORMS_INTEGRATION_NOT_ENABLED")
-                {
-                    return View("ExampleNotAvailable");
-                }
+                return View("Error");
+            }
+        }
+
+        [MustAuthenticate]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SelectRoom(RoomDocumentModel roomDocumentModel)
+        {
+            string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+
+            try
+            {
+                //Step 4: Get Room Documents
+                RoomDocumentList documents = _roomsApi.GetDocuments(accountId, roomDocumentModel.RoomId);
+
+                RoomDocumentModel.Documents = documents.Documents;
+
+                return View("Eg06", this);
+            }
+            catch (ApiException apiException)
+            {
+                ViewBag.errorCode = apiException.ErrorCode;
+                ViewBag.errorMessage = apiException.Message;
+
                 return View("Error");
             }
         }
@@ -91,21 +101,20 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         [Route("ExportData")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ExportData(RoomFormModel roomFormModel)
+        public ActionResult ExportData(RoomDocumentModel roomDocumentModel)
         {
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
-                // Step 6: Call the Rooms API to add form to a room
-                RoomDocument roomDocument = _roomsApi.AddFormToRoom(
+                // Step 5: Call the Rooms API to create external form fill session
+                ExternalFormFillSession url = _externalFormFillSessionsApi.CreateExternalFormFillSession(
                     accountId,
-                    roomFormModel.RoomId,
-                    new FormForAdd(roomFormModel.FormId));
+                    new ExternalFormFillSessionForCreate(roomDocumentModel.DocumentId.ToString(), roomDocumentModel.RoomId));
 
-                ViewBag.h1 = "The form was successfully added to a room";
-                ViewBag.message = $"Results from the Rooms: AddFormToRoom method. RoomId: {roomFormModel.RoomId}, FormId: {roomFormModel.FormId} :";
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(roomDocument, Formatting.Indented);
+                ViewBag.h1 = "External form fill sessions was successfully created";
+                ViewBag.message = $"To fill the form, navigate following URL: <a href='{url.Url}' target='_blank'>Fill the form</a>";
+                ViewBag.Locals.Json = JsonConvert.SerializeObject(url, Formatting.Indented);
 
                 return View("example_done");
             }
@@ -125,6 +134,7 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
 
             _roomsApi.Configuration = config;
             _formLibrariesApi.Configuration = config;
+            _externalFormFillSessionsApi.Configuration = config;
         }
     }
 }

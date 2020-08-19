@@ -22,6 +22,13 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             IRoomsApi roomsApi) : base(dsConfig, requestItemsService)
         {
             _roomsApi = roomsApi;
+
+            // Step 1. Obtain your OAuth token
+            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            string basePath = RequestItemsService.Session.RoomsApiBasePath + "/restapi"; // Base API path
+
+            // Step 2: Construct your API headers
+            ConstructApiHeaders(accessToken, basePath);
         }
 
         public override string EgName => "Eg03";
@@ -38,13 +45,7 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         [HttpGet]
         public override IActionResult Get()
         {
-            // Step 1. Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
-            string basePath = RequestItemsService.Session.RoomsApiBasePath + "/restapi"; // Base API path
-
-            // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
 
             try
             {
@@ -70,17 +71,11 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExportData(RoomsListModel model)
         { 
-            // Step 1. Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
-            string basePath = RequestItemsService.Session.RoomsApiBasePath + "/restapi"; // Base API path
-
-            // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
 
             try
             {
-                // Step 3. Call the Rooms API 
+                // Step 4: Call the Rooms API to get room field data
                 FieldData fieldData = _roomsApi.GetRoomFieldData(accountId, model.RoomId);
                 
                 ViewBag.h1 = "The room data was successfully exported";

@@ -22,6 +22,13 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             IRoomsApi roomsApi) : base(dsConfig, requestItemsService)
         {
             _roomsApi = roomsApi;
+
+            // Step 1. Obtain your OAuth token
+            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            string basePath = RequestItemsService.Session.RoomsApiBasePath + "/restapi"; // Base API path
+
+            // Step 2: Construct your API headers
+            ConstructApiHeaders(accessToken, basePath);
         }
 
         public override string EgName => "Eg05";
@@ -40,17 +47,11 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExportData(RoomFilterModel roomFilterModel)
         {
-            // Step 1. Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
-            string basePath = RequestItemsService.Session.RoomsApiBasePath + "/restapi"; // Base API path
-
-            // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
 
             try
             {
-                // Step 3. Call the Rooms API 
+                // Step 3: Call the Rooms API to get rooms with filters
                 RoomSummaryList rooms = _roomsApi.GetRooms(accountId, new RoomsApi.GetRoomsOptions
                 {
                     fieldDataChangedStartDate = roomFilterModel.FieldDataChangedStartDate.ToString(CultureInfo.InvariantCulture),
@@ -59,7 +60,8 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
 
                 ViewBag.h1 = "The rooms with filters was loaded";
                 ViewBag.message = $"Results from the Rooms: GetRooms method. FieldDataChangedStartDate: " +
-                                  $"{ roomFilterModel.FieldDataChangedStartDate }, FieldDataChangedEndDate: { roomFilterModel.FieldDataChangedEndDate } :";
+                                  $"{ roomFilterModel.FieldDataChangedStartDate.Date.ToShortDateString() }, " +
+                                  $"FieldDataChangedEndDate: { roomFilterModel.FieldDataChangedEndDate.Date.ToShortDateString() } :";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(rooms, Formatting.Indented);
 
                 return View("example_done");
