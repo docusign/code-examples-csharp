@@ -41,6 +41,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
         {            
             await AuthenticationHttpContextExtensions.SignOutAsync(HttpContext);
             _requestItemsService.Logout();
+            _configuration["quickstart"] = "false";
             return LocalRedirect("/");            
         }
     }
