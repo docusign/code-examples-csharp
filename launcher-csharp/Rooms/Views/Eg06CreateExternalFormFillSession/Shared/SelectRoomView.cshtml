@@ -10,7 +10,13 @@
     <form class="eg" asp-action="SelectRoom" method="post" data-busy="form">
         <div class="form-group">
             <label for="docSelect">Rooms</label>
-            <select class="custom-select" asp-for="RoomId" asp-items="@(new SelectList(Model.Rooms, "RoomId", "Name"))" onchange="this.form.submit();" data-val="true" data-val-required="The Room field is required.">
+            <select 
+                class="custom-select" 
+                asp-for="RoomId" 
+                asp-items="@(new SelectList(Model.Rooms, "RoomId", "Name"))"
+                onchange="this.form.submit();"
+                data-val="true" 
+                data-val-required="The Room field is required.">
                 <option>Please select a room</option>
             </select>
         </div>

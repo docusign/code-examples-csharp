@@ -25,7 +25,7 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
 
             // Step 1. Obtain your OAuth token
             string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            string basePath = RequestItemsService.Session.RoomsApiBasePath + "/restapi"; // Base API path
+            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
             ConstructApiHeaders(accessToken, basePath);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DocuSign.Rooms.Api;
 using DocuSign.Rooms.Client;
@@ -30,7 +31,7 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
 
             // Step 1. Obtain your OAuth token
             string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            string basePath = RequestItemsService.Session.RoomsApiBasePath + "/restapi"; // Base API path
+            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
             ConstructApiHeaders(accessToken, basePath);
@@ -79,7 +80,7 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
                 ViewBag.errorMessage = apiException.Message;
 
                 ApiError error = JsonConvert.DeserializeObject<ApiError>(apiException.ErrorContent);
-                if (error.ErrorCode == "FORMS_INTEGRATION_NOT_ENABLED")
+                if (error.ErrorCode.Equals("FORMS_INTEGRATION_NOT_ENABLED", StringComparison.InvariantCultureIgnoreCase))
                 {
                     return View("ExampleNotAvailable");
                 }
