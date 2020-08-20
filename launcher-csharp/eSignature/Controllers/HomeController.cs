@@ -1,27 +1,31 @@
 ﻿using System.Diagnostics;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using eg_03_csharp_auth_code_grant_core.Models;
-using Microsoft.AspNetCore.Authorization;
-using eg_03_csharp_auth_code_grant_core.Common;
+using Microsoft.Extensions.Configuration;
 
 namespace eg_03_csharp_auth_code_grant_core.Controllers
 {
     public class HomeController : Controller
     {
-        public IRequestItemsService RequestItemsService { get; }
+        private IRequestItemsService _requestItemsService { get; }
+        private IConfiguration _configuration { get;  }
 
-        public HomeController(IRequestItemsService requestItemsService)
+        public HomeController(IRequestItemsService requestItemsService, IConfiguration configuration)
         {
-            RequestItemsService = requestItemsService;
+            _requestItemsService = requestItemsService;
+            _configuration = configuration;
         }
 
         public IActionResult Index()
         {
-            string egName = RequestItemsService.EgName;
+            if ((_configuration["quickstart"] == "true") && (! this.User.Identity.IsAuthenticated))
+            {
+                return Redirect("eg001");
+            }
+            string egName = _requestItemsService.EgName;
             if (!string.IsNullOrWhiteSpace(egName))
             {
-                RequestItemsService.EgName = null;
+                _requestItemsService.EgName = null;
                 return Redirect(egName);
             }
 

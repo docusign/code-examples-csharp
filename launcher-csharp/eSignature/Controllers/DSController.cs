@@ -1,15 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace eg_03_csharp_auth_code_grant_core.Controllers
 {
     [Route("ds/[action]")]
     public class AccountController : Controller
     {
-        private readonly IRequestItemsService _requestItemsService;
-        public AccountController(IRequestItemsService requestItemService) 
+        private IRequestItemsService _requestItemsService;
+        private  IConfiguration _configuration { get;  }
+        public AccountController(IRequestItemsService requestItemsService, IConfiguration configuration)
         {
-            this._requestItemsService = requestItemService;
+            this._requestItemsService = requestItemsService;
+            this._configuration = configuration;
         }
 
         [HttpGet]
@@ -27,6 +30,10 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 
         public IActionResult MustAuthenticate()
         {
+            if (_configuration["quickstart"] == "true")
+            {
+                return Login();
+            }
             return View();
         }
         
