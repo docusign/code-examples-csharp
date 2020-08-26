@@ -7,6 +7,7 @@ using eg_03_csharp_auth_code_grant_core.Controllers;
 using eg_03_csharp_auth_code_grant_core.Models;
 using eg_03_csharp_auth_code_grant_core.Rooms.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
 {
@@ -25,13 +26,6 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         {
             _roomsApi = roomsApi;
             _rolesApi = rolesApi;
-
-            // Step 1. Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-
-            // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
         }
 
         public override string EgName => "Eg01";
@@ -50,6 +44,13 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(RoomModel model)
         {
+            // Step 1. Obtain your OAuth token
+            var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
+
+            // Step 2: Construct your API headers
+            ConstructApiHeaders(accessToken, basePath);
+
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
@@ -65,6 +66,7 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
 
                 ViewBag.h1 = "The room was successfully created";
                 ViewBag.message = $"The room was created! Room ID: {room.RoomId}, Name: {room.Name}.";
+                ViewBag.Locals.Json = JsonConvert.SerializeObject(room, Formatting.Indented);
 
                 return View("example_done");
             }
@@ -106,7 +108,7 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
 
         private void ConstructApiHeaders(string accessToken, string basePath)
         {
-            var config = new Configuration(new ApiClient(basePath));
+            var config = new Configuration(new ApiClient(basePath)); 
             config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
 
             _roomsApi.Configuration = config;

@@ -1,13 +1,12 @@
 ﻿using DocuSign.eSign.Client;
-using DocuSign.eSign.Client.Auth;
 using eg_03_csharp_auth_code_grant_core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using static DocuSign.eSign.Client.Auth.OAuth;
 using static DocuSign.eSign.Client.Auth.OAuth.UserInfo;
 
@@ -45,8 +44,22 @@ namespace eg_03_csharp_auth_code_grant_core.Common
                 this._configuration["DocuSignJWT:ImpersonatedUserId"],
                 this._configuration["DocuSignJWT:AuthServer"],
                 DSHelper.ReadFileContent(DSHelper.PrepareFullPrivateKeyFilePath(this._configuration["DocuSignJWT:PrivateKeyFile"])),
-                1);
-            
+                1,
+                new List<string>
+                {
+                    "click.manage",
+                    "signature",
+                    "impersonation",
+                    "dtr.rooms.read",
+                    "dtr.rooms.write",
+                    "dtr.documents.read",
+                    "dtr.documents.write",
+                    "dtr.profile.read",
+                    "dtr.profile.write",
+                    "dtr.company.read",
+                    "dtr.company.write",
+                    "room_forms"
+                });
             _account = GetAccountInfo(_authToken);
 
             this.User = new User
@@ -77,7 +90,7 @@ namespace eg_03_csharp_auth_code_grant_core.Common
             bool isAuthCodeGrantAuthenticated = this._httpContextAccessor.HttpContext.User.Identity.IsAuthenticated
                 && (DateTime.Now.Subtract(TimeSpan.FromMinutes(bufferMin)) < User.ExpireIn.Value);
 
-            bool isJWTGrantAuthenticated = _authToken != null
+            bool isJWTGrantAuthenticated = User?.AccessToken != null
                     && (DateTime.Now.Subtract(TimeSpan.FromMinutes(bufferMin)) < User.ExpireIn.Value);
 
             return isAuthCodeGrantAuthenticated || isJWTGrantAuthenticated;

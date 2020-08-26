@@ -28,13 +28,6 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         {
             _roomsApi = roomsApi;
             _formLibrariesApi = formLibrariesApi;
-
-            // Step 1. Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-
-            // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
         }
 
         public override string EgName => "Eg04";
@@ -51,6 +44,13 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         [HttpGet]
         public override IActionResult Get()
         {
+            // Step 1. Obtain your OAuth token
+            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
+
+            // Step 2: Construct your API headers
+            ConstructApiHeaders(accessToken, basePath);
+
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
@@ -93,12 +93,19 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ExportData(RoomFormModel roomFormModel)
-        {
+        {     
+            // Step 1. Obtain your OAuth token
+            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
+
+            // Step 2: Construct your API headers
+            ConstructApiHeaders(accessToken, basePath);
+
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
-                // Step 6: Call the Rooms API to add form to a room
+                // Step 3: Call the Rooms API to add form to a room
                 RoomDocument roomDocument = _roomsApi.AddFormToRoom(
                     accountId,
                     roomFormModel.RoomId,

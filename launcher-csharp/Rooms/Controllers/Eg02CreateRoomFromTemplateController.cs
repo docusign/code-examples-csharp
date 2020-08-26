@@ -7,6 +7,7 @@ using eg_03_csharp_auth_code_grant_core.Controllers;
 using eg_03_csharp_auth_code_grant_core.Models;
 using eg_03_csharp_auth_code_grant_core.Rooms.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
 {
@@ -28,13 +29,6 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             _roomsApi = roomsApi;
             _rolesApi = rolesApi;
             _roomTemplatesApi = roomTemplatesApi;
-
-            // Step 1. Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-
-            // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
         }
 
         public override string EgName => "Eg02";
@@ -51,6 +45,13 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         [HttpGet]
         public override IActionResult Get()
         {
+            // Step 1. Obtain your OAuth token
+            var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
+
+            // Step 2: Construct your API headers
+            ConstructApiHeaders(accessToken, basePath);
+
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
@@ -75,7 +76,14 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(RoomModel model)
-        { 
+        {
+            // Step 1. Obtain your OAuth token
+            var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
+
+            // Step 2: Construct your API headers
+            ConstructApiHeaders(accessToken, basePath);
+
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             // Step 4: Obtain Role 
@@ -87,10 +95,12 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             try
             {
                 // Step 6: Call the Rooms API to create a room
-                var room = _roomsApi.CreateRoom(accountId, newRoom);
+                Room room = _roomsApi.CreateRoom(accountId, newRoom);
 
                 ViewBag.h1 = "The room was successfully created";
                 ViewBag.message = $"The room was created! Room ID: {room.RoomId}, name:{room.Name}.";
+                ViewBag.Locals.Json = JsonConvert.SerializeObject(room, Formatting.Indented);
+
                 return View("example_done");
             }
             catch (ApiException apiException)

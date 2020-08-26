@@ -22,13 +22,6 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             IRoomsApi roomsApi) : base(dsConfig, requestItemsService)
         {
             _roomsApi = roomsApi;
-
-            // Step 1. Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-
-            // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
         }
 
         public override string EgName => "Eg05";
@@ -47,6 +40,13 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExportData(RoomFilterModel roomFilterModel)
         {
+            // Step 1. Obtain your OAuth token
+            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
+
+            // Step 2: Construct your API headers
+            ConstructApiHeaders(accessToken, basePath);
+
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try

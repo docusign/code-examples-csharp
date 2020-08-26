@@ -27,13 +27,6 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
             _roomsApi = roomsApi;
             _formLibrariesApi = formLibrariesApi;
             _externalFormFillSessionsApi = externalFormFillSessionsApi;
-
-            // Step 1. Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-
-            // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
         }
 
         public override string EgName => "Eg06";
@@ -50,6 +43,13 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         [HttpGet]
         public override IActionResult Get()
         {
+            // Step 1. Obtain your OAuth token
+            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
+
+            // Step 2: Construct your API headers
+            ConstructApiHeaders(accessToken, basePath);
+
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
@@ -75,11 +75,18 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult SelectRoom(RoomDocumentModel roomDocumentModel)
         {
+            // Step 1. Obtain your OAuth token
+            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
+
+            // Step 2: Construct your API headers
+            ConstructApiHeaders(accessToken, basePath);
+
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
-                //Step 4: Get Room Documents
+                //Step 3: Get Room Documents
                 RoomDocumentList documents = _roomsApi.GetDocuments(accountId, roomDocumentModel.RoomId);
 
                 RoomDocumentModel.Documents = documents.Documents;
@@ -101,11 +108,18 @@ namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExportData(RoomDocumentModel roomDocumentModel)
         {
+            // Step 1. Obtain your OAuth token
+            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
+
+            // Step 2: Construct your API headers
+            ConstructApiHeaders(accessToken, basePath);
+
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
-                // Step 5: Call the Rooms API to create external form fill session
+                // Step 3: Call the Rooms API to create external form fill session
                 ExternalFormFillSession url = _externalFormFillSessionsApi.CreateExternalFormFillSession(
                     accountId,
                     new ExternalFormFillSessionForCreate(roomDocumentModel.DocumentId.ToString(), roomDocumentModel.RoomId));
