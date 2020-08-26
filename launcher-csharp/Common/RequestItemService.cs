@@ -47,7 +47,6 @@ namespace eg_03_csharp_auth_code_grant_core.Common
                 1,
                 new List<string>
                 {
-                    "click.manage",
                     "signature",
                     "impersonation",
                     "dtr.rooms.read",
