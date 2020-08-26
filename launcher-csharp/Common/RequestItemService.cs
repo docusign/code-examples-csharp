@@ -76,7 +76,7 @@ namespace eg_03_csharp_auth_code_grant_core.Common
             bool isAuthCodeGrantAuthenticated = this._httpContextAccessor.HttpContext.User.Identity.IsAuthenticated
                 && (DateTime.Now.Subtract(TimeSpan.FromMinutes(bufferMin)) < User.ExpireIn.Value);
 
-            bool isJWTGrantAuthenticated = _authToken != null
+            bool isJWTGrantAuthenticated = User?.AccessToken != null
                     && (DateTime.Now.Subtract(TimeSpan.FromMinutes(bufferMin)) < User.ExpireIn.Value);
 
             return isAuthCodeGrantAuthenticated || isJWTGrantAuthenticated;
