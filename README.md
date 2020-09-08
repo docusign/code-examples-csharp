@@ -137,6 +137,7 @@ The **refresh token** is not used in this example.
    use the appropriate DNS name and port instead of `localhost`
 
 1. C# .NET Core version 3.1 or later.
+1. Visual Studio 2019 with ASP.NET package
 1. A name and email for a signer, and a name and email for a cc recipient.
 
 ### Installation steps
