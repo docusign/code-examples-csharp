@@ -135,6 +135,8 @@ The **refresh token** is not used in this example.
 
    If you will not be running the example on your own workstation,
    use the appropriate DNS name and port instead of `localhost`
+   
+   This [video](https://www.youtube.com/watch?v=eiRI4fe5HgM) demonstrates how to create an Integration Key (client id) for a user application like this example.
 
 1. C# .NET Core version 3.1 or later.
 1. Visual Studio 2019 with ASP.NET package
