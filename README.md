@@ -179,7 +179,7 @@ Then add the payment gateway account id to the **appsettings.json** file.
 ### Running the example
 Build and then start the solution.
 
-Your default browser will be opened to https://localhost:8080 and you will
+Your default browser will be opened to https://localhost:44333 and you will
 see the application's home page.
 
 
