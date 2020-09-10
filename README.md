@@ -124,31 +124,24 @@ The **refresh token** is not used in this example.
 ## Installation
 
 ### Prerequisites
-1. A DocuSign Developer Sandbox account (email and password) on [demo.docusign.net](https://demo.docusign.net).
-   Create a [free account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16531).
-1. A DocuSign Integration Key (a client ID) that is configured to use the
-   OAuth Authorization Code flow.
+1. A DocuSign Developer Sandbox account (email and password) on [demo.docusign.net](https://demo.docusign.net). Create a [free account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16531).
+1. A DocuSign Integration Key (a client ID) that is configured to use the OAuth Authorization Code flow.
    You will need the **Integration Key** itself, and its **secret**.
 
-   If you use this example on your own workstation,
-   the Integration key must include a **Redirect URI** of `http://localhost:8080/ds/callback`
+   If you use this example on your own workstation, the Integration key must include a **Redirect URI** of `https://localhost:44333/ds/callback`
 
-   If you will not be running the example on your own workstation,
-   use the appropriate DNS name and port instead of `localhost`
+   If you will not be running the example on your own workstation, use the appropriate DNS name and port instead of `localhost`
    
    This [video](https://www.youtube.com/watch?v=eiRI4fe5HgM) demonstrates how to create an Integration Key (client id) for a user application like this example.
 
 1. [C# .NET Core](https://dotnet.microsoft.com/download/dotnet-core) version 3.1 or later.
 1. [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/) with ASP.NET package.
-1. A name and email for a signer, and a name and email for a cc recipient.
+1. A name and email for a signer and a name and email for a cc recipient.
 
 ### Installation steps
 * Download or clone this repository.
-* The repository includes a Visual Studio 2019 solution file and 
-NuGet package references in the project file.
-* Configure the project by editing the existing project file for 
-the API version you wish to use by modifying its
-  `appsettings.json`
+* The repository includes a Visual Studio 2019 solution file and NuGet package references in the project file.
+* Configure the project by editing the existing project file for the API version you wish to use by modifying its `appsettings.json`
 
   See the Configuration section, below, for more information.
 
