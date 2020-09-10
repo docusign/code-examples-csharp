@@ -138,8 +138,8 @@ The **refresh token** is not used in this example.
    
    This [video](https://www.youtube.com/watch?v=eiRI4fe5HgM) demonstrates how to create an Integration Key (client id) for a user application like this example.
 
-1. C# .NET Core version 3.1 or later.
-1. Visual Studio 2019 with ASP.NET package
+1. [C# .NET Core](https://dotnet.microsoft.com/download/dotnet-core) version 3.1 or later.
+1. [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/) with ASP.NET package.
 1. A name and email for a signer, and a name and email for a cc recipient.
 
 ### Installation steps
