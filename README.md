@@ -124,6 +124,8 @@ The **refresh token** is not used in this example.
 ## Installation
 
 ### Prerequisites
+**Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, skip steps 1 and 2 below as they're automatically performed for you.**
+
 1. A DocuSign Developer Sandbox account (email and password) on [demo.docusign.net](https://demo.docusign.net). Create a [free account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16531).
 1. A DocuSign Integration Key (a client ID) that is configured to use the OAuth Authorization Code flow.
    You will need the **Integration Key** itself, and its **secret**.
@@ -146,6 +148,7 @@ The **refresh token** is not used in this example.
   See the Configuration section, below, for more information.
 
 ### Configuration
+**Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, skip step 1 below as it was automatically performed for you.**
 1. Create the **appsettings.json** (the configuration file) by using the example provided in **appsettings.example.json**.
 2. Two different authentication methods are supported:
 
