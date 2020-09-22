@@ -2,11 +2,11 @@
 using System.IO;
 using System.Net;
 using System.Text;
-using eg_03_csharp_auth_code_grant_core.Models;
+using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace eg_03_csharp_auth_code_grant_core.Controllers
+namespace DocuSign.CodeExamples.Controllers
 {
     [Route("eg010")]
     public class Eg010SendBinaryDocsController : EgController

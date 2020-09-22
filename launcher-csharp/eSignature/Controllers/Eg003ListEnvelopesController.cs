@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
-using eg_03_csharp_auth_code_grant_core.Models;
+using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using static DocuSign.eSign.Api.EnvelopesApi;
 
-namespace eg_03_csharp_auth_code_grant_core.Controllers
+namespace DocuSign.CodeExamples.Controllers
 {
     [Route("eg003")]
     public class Eg003ListEnvelopesController : EgController
@@ -31,9 +31,9 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             // basePath
             // accountId
 
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(config);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var envelopesApi = new EnvelopesApi(apiClient);
             ListStatusChangesOptions options = new ListStatusChangesOptions();
             options.fromDate = DateTime.Now.AddDays(-30).ToString("yyyy/MM/dd");
             // Call the API method:

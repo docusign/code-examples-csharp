@@ -1,11 +1,11 @@
 ﻿using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
-using eg_03_csharp_auth_code_grant_core.Models;
+using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace eg_03_csharp_auth_code_grant_core.Controllers
+namespace DocuSign.CodeExamples.Controllers
 {
     [Route("eg018")]
     public class Eg018EnvelopeCustomFieldDataController : EgController
@@ -39,11 +39,11 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             var envelopeId = RequestItemsService.EnvelopeId;
 
             // Step 2: Construct your API headers
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             // Step 3: Call the eSignature REST API
-            EnvelopesApi envelopesApi = new EnvelopesApi(config);
+            var envelopesApi = new EnvelopesApi(apiClient);
             CustomFieldsEnvelope results = envelopesApi.ListCustomFields(accountId, envelopeId);
 
             ViewBag.h1 = "Envelope custom field data";

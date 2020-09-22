@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
-using eg_03_csharp_auth_code_grant_core.Controllers;
-using eg_03_csharp_auth_code_grant_core.Models;
+using DocuSign.CodeExamples.Controllers;
+using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace eg_03_csharp_auth_code_grant_core.Views
+namespace DocuSign.CodeExamples.Views
 {
     [Route("eg001")]
     public class Eg001EmbeddedSigningController : EgController
@@ -43,9 +43,9 @@ namespace eg_03_csharp_auth_code_grant_core.Views
             EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName);
 
             // Step 2. Call DocuSign to create the envelope                   
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(config);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var envelopesApi = new EnvelopesApi(apiClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
             string envelopeId = results.EnvelopeId;
 

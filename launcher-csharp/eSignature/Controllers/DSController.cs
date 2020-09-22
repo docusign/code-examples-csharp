@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
-namespace eg_03_csharp_auth_code_grant_core.Controllers
+namespace DocuSign.CodeExamples.Controllers
 {
     [Route("ds/[action]")]
     public class AccountController : Controller

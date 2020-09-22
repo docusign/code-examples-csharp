@@ -2,10 +2,10 @@
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
-using eg_03_csharp_auth_code_grant_core.Models;
+using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace eg_03_csharp_auth_code_grant_core.Controllers
+namespace DocuSign.CodeExamples.Controllers
 {
     [Route("eg011")]
     public class Eg011EmbeddedSendingController : EgController
@@ -36,9 +36,9 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             // accountId 
             // dsReturnUrl
 
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(config);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var envelopesApi = new EnvelopesApi(apiClient);
 
             // Step 1. Make the envelope with "created" (draft) status            
             // Using eg002 to create the envelope with "created" status

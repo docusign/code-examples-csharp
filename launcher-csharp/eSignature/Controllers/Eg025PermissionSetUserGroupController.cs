@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
-using eg_03_csharp_auth_code_grant_core.Models;
+using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using DocuSign.eSign.Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace eg_03_csharp_auth_code_grant_core.Controllers
+namespace DocuSign.CodeExamples.Controllers
 {
     [Route("Eg025")]
     public class Eg025PermissionSetUserGroupController : EgController
@@ -27,11 +27,11 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             var basePath = RequestItemsService.Session.BasePath + "/restapi";
             var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
-            var accountsApi = new AccountsApi(config);
-            var groupsApi = new GroupsApi(config);
+            var accountsApi = new AccountsApi(apiClient);
+            var groupsApi = new GroupsApi(apiClient);
             var permissions = accountsApi.ListPermissions(accountId);
             var userGroups = groupsApi.ListGroups(accountId);
 
@@ -75,9 +75,9 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             // Step 2. Construct your API headers
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
-            var groupsApi = new GroupsApi(config);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var groupsApi = new GroupsApi(apiClient);
 
             // Step 3. Construct your request body
             var editedGroup = new Group

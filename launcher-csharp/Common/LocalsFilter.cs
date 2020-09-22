@@ -1,4 +1,4 @@
-﻿using eg_03_csharp_auth_code_grant_core.Models;
+﻿using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Memory;
@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 
-namespace eg_03_csharp_auth_code_grant_core.Common
+namespace DocuSign.CodeExamples.Common
 {
     public class LocalsFilter : IActionFilter
     {

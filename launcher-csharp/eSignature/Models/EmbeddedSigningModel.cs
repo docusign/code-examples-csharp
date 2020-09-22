@@ -1,4 +1,4 @@
-﻿namespace eg_03_csharp_auth_code_grant_core.Views
+﻿namespace DocuSign.CodeExamples.Views
 {
     public class EmbeddedSigningModel
     {

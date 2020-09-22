@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace eg_03_csharp_auth_code_grant_core.Common
+namespace DocuSign.CodeExamples.Common
 {
     public static class SameSiteCookieServiceCollectionExtensions
     {

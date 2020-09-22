@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Model;
-using eg_03_csharp_auth_code_grant_core.Models;
+using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using DocuSign.eSign.Client;
 
-namespace eg_03_csharp_auth_code_grant_core.Controllers
+namespace DocuSign.CodeExamples.Controllers
 {
     [Route("eg002")]
     public class Eg002SigningViaEmailController : EgController
@@ -33,9 +33,9 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             var accountId = RequestItemsService.Session.AccountId;
 
             EnvelopeDefinition env = MakeEnvelope(signerEmail, signerName, ccEmail, ccName);
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(config);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var envelopesApi = new EnvelopesApi(apiClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
             RequestItemsService.EnvelopeId = results.EnvelopeId;
             return results;

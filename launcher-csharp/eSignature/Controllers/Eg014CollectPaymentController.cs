@@ -4,10 +4,10 @@ using System.Text;
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
-using eg_03_csharp_auth_code_grant_core.Models;
+using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace eg_03_csharp_auth_code_grant_core.Controllers
+namespace DocuSign.CodeExamples.Controllers
 {
     [Route("eg014")]
     public class Eg014CollectPaymentController : EgController
@@ -32,9 +32,9 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             // accessToken
             // basePath 
             // accountId 
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(config);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var envelopesApi = new EnvelopesApi(apiClient);
 
             // Step 1. Make the envelope request body
             EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName);

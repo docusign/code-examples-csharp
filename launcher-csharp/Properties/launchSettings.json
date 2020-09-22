@@ -16,7 +16,7 @@
       },
       "applicationUrl": "https://localhost:8080;http://localhost:5000"
     },
-    "eg_03_csharp_auth_code_grant_core": {
+    "CodeExamples": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

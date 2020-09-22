@@ -1,11 +1,11 @@
 ﻿using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
-using eg_03_csharp_auth_code_grant_core.Models;
+using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace eg_03_csharp_auth_code_grant_core.Controllers
+namespace DocuSign.CodeExamples.Controllers
 {
 	[Route("Eg024")]
 	public class Eg024PermissionCreateController : EgController
@@ -47,11 +47,9 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
 			var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
 			// Step 2. Construct your API headers
-			var config = new Configuration(new ApiClient(basePath));
-			config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
-			AccountsApi accountsApi = new AccountsApi(config);
-
-
+			var apiClient = new ApiClient(basePath);
+			apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+			var accountsApi = new AccountsApi(apiClient);
 
 			// Step 3. Construct your request
 			var accountRoleSettings = new AccountRoleSettingsExtension();

@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Model;
-using eg_03_csharp_auth_code_grant_core.Models;
+using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using DocuSign.eSign.Client;
 
-namespace eg_03_csharp_auth_code_grant_core.Controllers
+namespace DocuSign.CodeExamples.Controllers
 {
     [Route("eg023")]
     public class Eg023IdvAuthController : EgController
@@ -44,11 +44,11 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             // Step 2: Construct your API headers
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             //Step 3: Retreive the workflow ID
-            AccountsApi workflowDetails = new AccountsApi(config);
+            var workflowDetails = new AccountsApi(apiClient);
             AccountIdentityVerificationResponse wfRes = workflowDetails.GetAccountIdentityVerification(accountId);
             Console.WriteLine("Workflow ID: " + wfRes.IdentityVerification[0].WorkflowId);
 
@@ -115,7 +115,7 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             env.Recipients = recipients;
 
             // Step 5: Call the eSignature REST API
-            EnvelopesApi envelopesApi = new EnvelopesApi(config);
+            var envelopesApi = new EnvelopesApi(apiClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
 
             ViewBag.h1 = "Envelope sent";

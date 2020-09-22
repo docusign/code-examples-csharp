@@ -2,10 +2,10 @@
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
-using eg_03_csharp_auth_code_grant_core.Models;
+using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace eg_03_csharp_auth_code_grant_core.Controllers
+namespace DocuSign.CodeExamples.Controllers
 {
     [Route("Eg030")]
     public class Eg030ApplyBrandToTemplateController : EgController
@@ -26,13 +26,13 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             var basePath = RequestItemsService.Session.BasePath + "/restapi";
             var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
-            AccountsApi accountsApi = new AccountsApi(config);
+            var accountsApi = new AccountsApi(apiClient);
             var brands = accountsApi.ListBrands(accountId);
             ViewBag.Brands = brands.Brands;
-            TemplatesApi templatesApi = new TemplatesApi(config);
+            var templatesApi = new TemplatesApi(apiClient);
             var templates = templatesApi.ListTemplates(accountId);
             ViewBag.EnvelopeTemplates = templates.EnvelopeTemplates;
         }
@@ -61,9 +61,9 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             // Step 2. Construct your API headers
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(config);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var envelopesApi = new EnvelopesApi(apiClient);
 
             // Step 3. Construct your request body
             EnvelopeDefinition envelopeDefinition = new EnvelopeDefinition

@@ -1,4 +1,4 @@
-﻿namespace eg_03_csharp_auth_code_grant_core.Models
+﻿namespace DocuSign.CodeExamples.Models
 {
     public class DSConfiguration
     {        

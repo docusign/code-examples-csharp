@@ -1,6 +1,6 @@
 ﻿using DocuSign.eSign.Model;
 
-namespace eg_03_csharp_auth_code_grant_core.Models
+namespace DocuSign.CodeExamples.Models
 {
 	/// <summary>
 	/// Temporary subclass for AccountRoleSettings

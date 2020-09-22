@@ -1,11 +1,11 @@
 ﻿using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
-using eg_03_csharp_auth_code_grant_core.Models;
+using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace eg_03_csharp_auth_code_grant_core.Controllers
+namespace DocuSign.CodeExamples.Controllers
 {
     [Route("Eg027")]
     public class Eg027PermissionDeleteController : EgController
@@ -24,11 +24,11 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             var basePath = RequestItemsService.Session.BasePath + "/restapi";
             var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             // Get all available permissions
-            AccountsApi accountsApi = new AccountsApi(config);
+            var accountsApi = new AccountsApi(apiClient);
             var permissions = accountsApi.ListPermissions(accountId);
             ViewBag.PermissionProfiles =
             permissions.PermissionProfiles.Select(pr => new SelectListItem
@@ -61,9 +61,9 @@ namespace eg_03_csharp_auth_code_grant_core.Controllers
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             // Step 2: Construct your API headers
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
-            AccountsApi accountsApi = new AccountsApi(config);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var accountsApi = new AccountsApi(apiClient);
 
             try
             {
