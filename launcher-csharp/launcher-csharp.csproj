@@ -6,9 +6,12 @@
   </PropertyGroup>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'CodeExamples' " />
 =======
 >>>>>>> a44521f6e820f62e9875ca275f136d409118ffe6
+=======
+>>>>>>> parent of 0647272... fixing wrong appurl for mac
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
