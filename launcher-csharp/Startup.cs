@@ -3,8 +3,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using eg_03_csharp_auth_code_grant_core.Common;
-using eg_03_csharp_auth_code_grant_core.Models;
+using DocuSign.CodeExamples.Common;
+using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OAuth;
@@ -20,7 +20,7 @@ using DocuSign.eSign.Client;
 using DocuSign.eSign.Client.Auth;
 using System.Text;
 
-namespace eg_03_csharp_auth_code_grant_core
+namespace DocuSign.CodeExamples
 {
     public class Startup
     {
@@ -34,11 +34,11 @@ namespace eg_03_csharp_auth_code_grant_core
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureNonBreakingSameSiteCookies();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             DSConfiguration config = new DSConfiguration();
 

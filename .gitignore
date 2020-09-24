@@ -260,5 +260,6 @@ paket-files/
 __pycache__/
 *.pyc
 
-#configuration file, should not be checked in to source control
+#configuration files (secrets), should not be checked in to source control
 appsettings.json
+private.key

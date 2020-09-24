@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace eg_03_csharp_auth_code_grant_core
+namespace DocuSign.CodeExamples
 {
     public class Program
     {
