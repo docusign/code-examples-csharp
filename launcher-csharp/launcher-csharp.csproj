@@ -5,6 +5,7 @@
     <RootNamespace>DocuSign.CodeExamples</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'CodeExamples' " />
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
