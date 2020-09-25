@@ -1,5 +1,6 @@
 ﻿using DocuSign.eSign.Client;
-using eg_03_csharp_auth_code_grant_core.Models;
+using DocuSign.eSign.Client.Auth;
+using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +11,7 @@ using System.Security.Claims;
 using static DocuSign.eSign.Client.Auth.OAuth;
 using static DocuSign.eSign.Client.Auth.OAuth.UserInfo;
 
-namespace eg_03_csharp_auth_code_grant_core.Common
+namespace DocuSign.CodeExamples.Common
 {
     public class RequestItemsService : IRequestItemsService
     {

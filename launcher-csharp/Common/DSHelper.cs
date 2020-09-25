@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace eg_03_csharp_auth_code_grant_core.Common
+namespace DocuSign.CodeExamples.Common
 {
     internal class DSHelper
     {

@@ -3,8 +3,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using eg_03_csharp_auth_code_grant_core.Common;
-using eg_03_csharp_auth_code_grant_core.Models;
+using DocuSign.CodeExamples.Common;
+using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OAuth;
@@ -19,7 +19,7 @@ using System.Text.Json;
 using DocuSign.Rooms.Api;
 using Microsoft.AspNetCore.Mvc.Razor;
 
-namespace eg_03_csharp_auth_code_grant_core
+namespace DocuSign.CodeExamples
 {
     public class Startup
     {
@@ -47,11 +47,11 @@ namespace eg_03_csharp_auth_code_grant_core
                 o.AreaViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
             });
 
+            services.ConfigureNonBreakingSameSiteCookies();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             DSConfiguration config = new DSConfiguration();
 
