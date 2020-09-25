@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
-using eg_03_csharp_auth_code_grant_core.Models;
+using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
+namespace DocuSign.CodeExamples.Rooms.Controllers
 {
     [Area("Rooms")]
     public class HomeController : Controller

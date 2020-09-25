@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DocuSign.CodeExamples.Controllers;
+using DocuSign.CodeExamples.Models;
+using DocuSign.CodeExamples.Rooms.Models;
 using DocuSign.Rooms.Api;
 using DocuSign.Rooms.Client;
 using DocuSign.Rooms.Model;
-using eg_03_csharp_auth_code_grant_core.Controllers;
-using eg_03_csharp_auth_code_grant_core.Models;
-using eg_03_csharp_auth_code_grant_core.Rooms.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ApiError = DocuSign.Rooms.Model.ApiError;
 
-namespace eg_03_csharp_auth_code_grant_core.Rooms.Controllers
+namespace DocuSign.CodeExamples.Rooms.Controllers
 {
     [Area("Rooms")]
     [Route("Eg04")]

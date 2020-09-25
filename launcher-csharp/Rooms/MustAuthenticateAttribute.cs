@@ -1,10 +1,10 @@
 ﻿using System;
-using eg_03_csharp_auth_code_grant_core.Controllers;
+using DocuSign.CodeExamples.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace eg_03_csharp_auth_code_grant_core.Rooms
+namespace DocuSign.CodeExamples.Rooms
 {
     public class MustAuthenticateAttribute : ActionFilterAttribute
     {

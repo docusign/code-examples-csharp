@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DocuSign.Rooms.Model;
 
-namespace eg_03_csharp_auth_code_grant_core.Rooms.Models
+namespace DocuSign.CodeExamples.Rooms.Models
 {
     public class RoomDocumentModel
     {

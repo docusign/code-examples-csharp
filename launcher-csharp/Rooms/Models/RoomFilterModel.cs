@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace eg_03_csharp_auth_code_grant_core.Rooms.Models
+namespace DocuSign.CodeExamples.Rooms.Models
 {
     public class RoomFilterModel
     {
