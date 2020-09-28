@@ -15,15 +15,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg02")]
     public class Eg02CreateRoomsFromTemplateController : EgController
     {
-        private readonly IRoomTemplatesApi _roomTemplatesApi;
 
         public Eg02CreateRoomsFromTemplateController(
             DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService,
-            IRoomTemplatesApi roomTemplatesApi) : base(dsConfig, requestItemsService)
-        {
-            _roomTemplatesApi = roomTemplatesApi;
-        }
+            IRequestItemsService requestItemsService) : base(dsConfig, requestItemsService)
+        {}
 
         public override string EgName => "Eg02";
 
@@ -44,16 +40,14 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
-            var roomsApi = new RoomsApi(new ApiClient(basePath));
-            var rolesApi = new RolesApi(new ApiClient(basePath));
-            rolesApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            roomsApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var roomTemplatesApi = new RoomTemplatesApi(new ApiClient(basePath));
+            roomTemplatesApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {    //Step 3: Get Templates
-                var templates = _roomTemplatesApi.GetRoomTemplates(accountId);
+                var templates = roomTemplatesApi.GetRoomTemplates(accountId);
 
                 RoomModel = new RoomModel { Templates = templates.RoomTemplates };
 
