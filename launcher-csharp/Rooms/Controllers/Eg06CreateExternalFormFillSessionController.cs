@@ -13,20 +13,10 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg06")]
     public class Eg06CreateExternalFormFillSessionController : EgController
     {
-        private readonly IRoomsApi _roomsApi;
-        private readonly IFormLibrariesApi _formLibrariesApi;
-        private readonly IExternalFormFillSessionsApi _externalFormFillSessionsApi;
-
         public Eg06CreateExternalFormFillSessionController(
             DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService,
-            IRoomsApi roomsApi,
-            IFormLibrariesApi formLibrariesApi,
-            IExternalFormFillSessionsApi externalFormFillSessionsApi) : base(dsConfig, requestItemsService)
+            IRequestItemsService requestItemsService) : base(dsConfig, requestItemsService)
         {
-            _roomsApi = roomsApi;
-            _formLibrariesApi = formLibrariesApi;
-            _externalFormFillSessionsApi = externalFormFillSessionsApi;
         }
 
         public override string EgName => "Eg06";
@@ -48,14 +38,17 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
+            var roomsApi = new RoomsApi(new ApiClient(basePath));
+            var formLibrariesApi = new FormLibrariesApi(new ApiClient(basePath));
+            formLibrariesApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            roomsApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
                 //Step 3: Get Rooms 
-                RoomSummaryList rooms = _roomsApi.GetRooms(accountId);
+                RoomSummaryList rooms = roomsApi.GetRooms(accountId);
 
                 RoomDocumentModel = new RoomDocumentModel { Rooms = rooms.Rooms };
 
@@ -80,14 +73,15 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
+            var roomsApi = new RoomsApi(new ApiClient(basePath));
+            roomsApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
                 //Step 3: Get Room Documents
-                RoomDocumentList documents = _roomsApi.GetDocuments(accountId, roomDocumentModel.RoomId);
+                RoomDocumentList documents = roomsApi.GetDocuments(accountId, roomDocumentModel.RoomId);
 
                 RoomDocumentModel.Documents = documents.Documents;
 
@@ -113,14 +107,17 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
+            var roomsApi = new RoomsApi(new ApiClient(basePath));
+            var externalFormFillSessionsApi = new ExternalFormFillSessionsApi(new ApiClient(basePath));
+            externalFormFillSessionsApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            roomsApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
                 // Step 3: Call the Rooms API to create external form fill session
-                ExternalFormFillSession url = _externalFormFillSessionsApi.CreateExternalFormFillSession(
+                ExternalFormFillSession url = externalFormFillSessionsApi.CreateExternalFormFillSession(
                     accountId,
                     new ExternalFormFillSessionForCreate(roomDocumentModel.DocumentId.ToString(), roomDocumentModel.RoomId));
 
@@ -137,16 +134,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 return View("Error");
             }
-        }
-
-        private void ConstructApiHeaders(string accessToken, string basePath)
-        {
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
-
-            _roomsApi.Configuration = config;
-            _formLibrariesApi.Configuration = config;
-            _externalFormFillSessionsApi.Configuration = config;
         }
     }
 }

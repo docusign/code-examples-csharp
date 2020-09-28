@@ -14,14 +14,10 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg03")]
     public class Eg03ExportDataFromRoomController : EgController
     {
-        private readonly IRoomsApi _roomsApi;
-
         public Eg03ExportDataFromRoomController(
             DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService,
-            IRoomsApi roomsApi) : base(dsConfig, requestItemsService)
+            IRequestItemsService requestItemsService) : base(dsConfig, requestItemsService)
         {
-            _roomsApi = roomsApi;
         }
 
         public override string EgName => "Eg03";
@@ -43,14 +39,15 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
+            var roomsApi = new RoomsApi(new ApiClient(basePath));
+            roomsApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
                 //Step 3: Get Rooms
-                RoomSummaryList rooms = _roomsApi.GetRooms(accountId);
+                RoomSummaryList rooms = roomsApi.GetRooms(accountId);
 
                 RoomsListModel = new RoomsListModel {Rooms = rooms.Rooms.ToList()};
 
@@ -76,14 +73,15 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
+            var roomsApi = new RoomsApi(new ApiClient(basePath));
+            roomsApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
                 // Step 3: Call the Rooms API to get room field data
-                FieldData fieldData = _roomsApi.GetRoomFieldData(accountId, model.RoomId);
+                FieldData fieldData = roomsApi.GetRoomFieldData(accountId, model.RoomId);
                 
                 ViewBag.h1 = "The room data was successfully exported";
                 ViewBag.message = $"Results from the Rooms::GetRoomFieldData method RoomId: {model.RoomId} :";
@@ -98,14 +96,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 
                 return View("Error");
             }
-        }
-
-        private void ConstructApiHeaders(string accessToken, string basePath)
-        {
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
-
-            _roomsApi.Configuration = config;
         }
     }
 }

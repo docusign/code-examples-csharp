@@ -15,17 +15,10 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg01")]
     public class Eg01CreateRoomWithDataController : EgController
     {
-        private readonly IRoomsApi _roomsApi;
-        private readonly IRolesApi _rolesApi;
-
         public Eg01CreateRoomWithDataController(
             DSConfiguration dsConfig, 
-            IRequestItemsService requestItemsService,
-            IRoomsApi roomsApi,
-            IRolesApi rolesApi) : base(dsConfig, requestItemsService)
+            IRequestItemsService requestItemsService) : base(dsConfig, requestItemsService)
         {
-            _roomsApi = roomsApi;
-            _rolesApi = rolesApi;
         }
 
         public override string EgName => "Eg01";
@@ -49,20 +42,23 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
+            var roomsApi = new RoomsApi(new ApiClient(basePath));
+            var rolesApi = new RolesApi(new ApiClient(basePath));
+            rolesApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            roomsApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
                 // Step 3: Obtain Role 
-                RoleSummary clientRole = _rolesApi.GetRoles(accountId, new RolesApi.GetRolesOptions { filter = "Default Admin" }).Roles.First();
+                RoleSummary clientRole = rolesApi.GetRoles(accountId, new RolesApi.GetRolesOptions { filter = "Default Admin" }).Roles.First();
 
                 // Step 4: Construct the request body for your room
                 RoomForCreate newRoom = BuildRoom(model, clientRole);
 
                 // Step 5: Call the Rooms API to create a room
-                Room room = _roomsApi.CreateRoom(accountId, newRoom);
+                Room room = roomsApi.CreateRoom(accountId, newRoom);
 
                 ViewBag.h1 = "The room was successfully created";
                 ViewBag.message = $"The room was created! Room ID: {room.RoomId}, Name: {room.Name}.";
@@ -104,15 +100,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             };
 
             return newRoom;
-        }
-
-        private void ConstructApiHeaders(string accessToken, string basePath)
-        {
-            var config = new Configuration(new ApiClient(basePath)); 
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
-
-            _roomsApi.Configuration = config;
-            _rolesApi.Configuration = config;
         }
     }
 }

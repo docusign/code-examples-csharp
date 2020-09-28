@@ -17,17 +17,10 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg04")]
     public class Eg04AddingFormToRoomController : EgController
     {
-        private readonly IRoomsApi _roomsApi;
-        private readonly IFormLibrariesApi _formLibrariesApi;
-
         public Eg04AddingFormToRoomController(
             DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService,
-            IRoomsApi roomsApi,
-            IFormLibrariesApi formLibrariesApi) : base(dsConfig, requestItemsService)
+            IRequestItemsService requestItemsService) : base(dsConfig, requestItemsService)
         {
-            _roomsApi = roomsApi;
-            _formLibrariesApi = formLibrariesApi;
         }
 
         public override string EgName => "Eg04";
@@ -49,26 +42,29 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
+            var roomsApi = new RoomsApi(new ApiClient(basePath));
+            var formLibrariesApi = new FormLibrariesApi(new ApiClient(basePath));
+            formLibrariesApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            roomsApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
                 //Step 3: Get Forms Libraries
-                FormLibrarySummaryList formLibraries = _formLibrariesApi.GetFormLibraries(accountId);
+                FormLibrarySummaryList formLibraries = formLibrariesApi.GetFormLibraries(accountId);
 
                 //Step 4: Get Forms 
                 FormSummaryList forms = new FormSummaryList(new List<FormSummary>());
                 if (formLibraries.FormsLibrarySummaries.Any())
                 {
-                    forms = _formLibrariesApi.GetFormLibraryForms(
+                    forms = formLibrariesApi.GetFormLibraryForms(
                         accountId,
                         formLibraries.FormsLibrarySummaries.First().FormsLibraryId);
                 }
 
                 //Step 5: Get Rooms 
-                RoomSummaryList rooms = _roomsApi.GetRooms(accountId);
+                RoomSummaryList rooms = roomsApi.GetRooms(accountId);
 
                 RoomFormModel = new RoomFormModel { Forms = forms.Forms, Rooms = rooms.Rooms };
 
@@ -99,14 +95,17 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
+            var roomsApi = new RoomsApi(new ApiClient(basePath));
+            var formLibraryApi = new FormLibrariesApi(new ApiClient(basePath));
+            formLibraryApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            roomsApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
                 // Step 3: Call the Rooms API to add form to a room
-                RoomDocument roomDocument = _roomsApi.AddFormToRoom(
+                RoomDocument roomDocument = roomsApi.AddFormToRoom(
                     accountId,
                     roomFormModel.RoomId,
                     new FormForAdd(roomFormModel.FormId));
@@ -124,15 +123,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 return View("Error");
             }
-        }
-
-        private void ConstructApiHeaders(string accessToken, string basePath)
-        {
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
-
-            _roomsApi.Configuration = config;
-            _formLibrariesApi.Configuration = config;
         }
     }
 }

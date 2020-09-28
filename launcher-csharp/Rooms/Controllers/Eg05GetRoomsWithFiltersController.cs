@@ -14,14 +14,10 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg05")]
     public class Eg05GetRoomsWithFiltersController : EgController
     {
-        private readonly IRoomsApi _roomsApi;
-
         public Eg05GetRoomsWithFiltersController(
             DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService,
-            IRoomsApi roomsApi) : base(dsConfig, requestItemsService)
+            IRequestItemsService requestItemsService) : base(dsConfig, requestItemsService)
         {
-            _roomsApi = roomsApi;
         }
 
         public override string EgName => "Eg05";
@@ -45,14 +41,15 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
-            ConstructApiHeaders(accessToken, basePath);
+            var roomsApi = new RoomsApi(new ApiClient(basePath));
+            roomsApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
                 // Step 3: Call the Rooms API to get rooms with filters
-                RoomSummaryList rooms = _roomsApi.GetRooms(accountId, new RoomsApi.GetRoomsOptions
+                RoomSummaryList rooms = roomsApi.GetRooms(accountId, new RoomsApi.GetRoomsOptions
                 {
                     fieldDataChangedStartDate = roomFilterModel.FieldDataChangedStartDate.ToString(CultureInfo.InvariantCulture),
                     fieldDataChangedEndDate = roomFilterModel.FieldDataChangedEndDate.ToString(CultureInfo.InvariantCulture)
@@ -73,14 +70,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 return View("Error");
             }
-        }
-
-        private void ConstructApiHeaders(string accessToken, string basePath)
-        {
-            var config = new Configuration(new ApiClient(basePath));
-            config.AddDefaultHeader("Authorization", "Bearer " + accessToken);
-
-            _roomsApi.Configuration = config;
         }
     }
 }
