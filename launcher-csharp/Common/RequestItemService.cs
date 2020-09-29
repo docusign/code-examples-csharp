@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using static DocuSign.eSign.Client.Auth.OAuth;
 using static DocuSign.eSign.Client.Auth.OAuth.UserInfo;
 
@@ -29,7 +29,7 @@ namespace DocuSign.CodeExamples.Common
             _configuration = configuration;
             _cache = cache;
             Status = "sent";
-            _apiClient = _apiClient ?? new ApiClient();
+            _apiClient ??= new ApiClient();
             var identity = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
 
             if (identity != null && identity.IsAuthenticated)
@@ -45,8 +45,21 @@ namespace DocuSign.CodeExamples.Common
                 this._configuration["DocuSignJWT:ImpersonatedUserId"],
                 this._configuration["DocuSignJWT:AuthServer"],
                 DSHelper.ReadFileContent(DSHelper.PrepareFullPrivateKeyFilePath(this._configuration["DocuSignJWT:PrivateKeyFile"])),
-                1);
-            
+                1,
+                new List<string>
+                {
+                    "signature",
+                    "impersonation",
+                    "dtr.rooms.read",
+                    "dtr.rooms.write",
+                    "dtr.documents.read",
+                    "dtr.documents.write",
+                    "dtr.profile.read",
+                    "dtr.profile.write",
+                    "dtr.company.read",
+                    "dtr.company.write",
+                    "room_forms"
+                });
             _account = GetAccountInfo(_authToken);
 
             this.User = new User
@@ -61,7 +74,8 @@ namespace DocuSign.CodeExamples.Common
             {
                 AccountId = _account.AccountId,
                 AccountName = _account.AccountName,
-                BasePath = _account.BaseUri
+                BasePath = _account.BaseUri,
+                RoomsApiBasePath = _configuration["DocuSign:RoomsApiEndpoint"]
             };
         }
 
