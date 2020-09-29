@@ -40,8 +40,9 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
-            var roomTemplatesApi = new RoomTemplatesApi(new ApiClient(basePath));
-            roomTemplatesApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var roomTemplatesApi = new RoomTemplatesApi(apiClient);
 
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
@@ -73,10 +74,10 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
-            var roomsApi = new RoomsApi(new ApiClient(basePath));
-            var rolesApi = new RolesApi(new ApiClient(basePath));
-            rolesApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            roomsApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var roomsApi = new RoomsApi(apiClient);
+            var rolesApi = new RolesApi(apiClient);
 
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 

@@ -38,10 +38,10 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
-            var roomsApi = new RoomsApi(new ApiClient(basePath));
-            var formLibrariesApi = new FormLibrariesApi(new ApiClient(basePath));
-            formLibrariesApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            roomsApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var roomsApi = new RoomsApi(apiClient);
+            var formLibrariesApi = new FormLibrariesApi(apiClient);
 
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
@@ -73,8 +73,9 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
-            var roomsApi = new RoomsApi(new ApiClient(basePath));
-            roomsApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var roomsApi = new RoomsApi(apiClient);
 
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
@@ -107,10 +108,10 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
-            var roomsApi = new RoomsApi(new ApiClient(basePath));
-            var externalFormFillSessionsApi = new ExternalFormFillSessionsApi(new ApiClient(basePath));
-            externalFormFillSessionsApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            roomsApi.ApiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var roomsApi = new RoomsApi(apiClient);
+            var externalFormFillSessionsApi = new ExternalFormFillSessionsApi(apiClient);
 
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
