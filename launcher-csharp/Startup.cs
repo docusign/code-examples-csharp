@@ -77,6 +77,8 @@ namespace DocuSign.CodeExamples
             services.AddHttpContextAccessor();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            var apiType = Enum.Parse<ExamplesAPIType>(Configuration["ExamplesAPI"]);
+
             services.AddAuthentication(options =>
             {
                 options.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -95,16 +97,23 @@ namespace DocuSign.CodeExamples
                 options.TokenEndpoint = Configuration["DocuSign:TokenEndpoint"];
                 options.UserInformationEndpoint = Configuration["DocuSign:UserInformationEndpoint"];
 
-                options.Scope.Add("signature");
-                options.Scope.Add("dtr.rooms.read");
-                options.Scope.Add("dtr.rooms.write");
-                options.Scope.Add("dtr.documents.read");
-                options.Scope.Add("dtr.documents.write");
-                options.Scope.Add("dtr.profile.read");
-                options.Scope.Add("dtr.profile.write");
-                options.Scope.Add("dtr.company.read");
-                options.Scope.Add("dtr.company.write");
-                options.Scope.Add("room_forms");
+                switch (apiType)
+                {
+                    case ExamplesAPIType.ESignature:
+                        options.Scope.Add("signature");
+                        break;
+                    case ExamplesAPIType.Rooms:
+                        options.Scope.Add("dtr.rooms.read");
+                        options.Scope.Add("dtr.rooms.write");
+                        options.Scope.Add("dtr.documents.read");
+                        options.Scope.Add("dtr.documents.write");
+                        options.Scope.Add("dtr.profile.read");
+                        options.Scope.Add("dtr.profile.write");
+                        options.Scope.Add("dtr.company.read");
+                        options.Scope.Add("dtr.company.write");
+                        options.Scope.Add("room_forms");
+                        break;
+                }
 
                 options.SaveTokens = true;
                 options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "sub");
