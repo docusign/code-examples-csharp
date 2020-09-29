@@ -123,22 +123,22 @@ The **refresh token** is not used in this example.
 ## Rooms API 
 
 1. **Create room with Data.**
-   [Source.](./launcher-csharp/Rooms/Controllers/Eg01CreateRoomWithDataController)
+   [Source.](./launcher-csharp/Rooms/Controllers/Eg01CreateRoomWithDataController.cs)
    This example creates a new room in your DocuSign Rooms account to be used for a transaction.
 1. **Create a room from a template.**
-   [Source.](./launcher-csharp/Rooms/Controllers/Eg02CreateRoomFromTemplateController)
+   [Source.](./launcher-csharp/Rooms/Controllers/Eg02CreateRoomFromTemplateController.cs)
    This example creates a new room using a template.
 1. **Create room with Data.**
-   [Source.](./launcher-csharp/Rooms/Controllers/Eg03ExportDataFromRoomController)
+   [Source.](./launcher-csharp/Rooms/Controllers/Eg03ExportDataFromRoomController.cs)
    This example exports all the avialalble data from a specific room in your DocuSign Rooms account.
 1. **Create a room from a template.**
-   [Source.](./launcher-csharp/Rooms/Controllers/Eg04AddingFormToRoomController)
+   [Source.](./launcher-csharp/Rooms/Controllers/Eg04AddingFormToRoomController.cs)
    This example adds a standard realestate related form to a specific room in your DocuSign Rooms account.
 1. **Create room with Data.**
-   [Source.](./launcher-csharp/Rooms/Controllers/Eg05GetRoomsWithFiltersController)
+   [Source.](./launcher-csharp/Rooms/Controllers/Eg05GetRoomsWithFiltersController.cs)
    This example searches for rooms in your DocuSign Rooms account using a specific filter. 
 1. **Create a room from a template.**
-   [Source.](./launcher-csharp/Rooms/Controllers/Eg06CreateExternalFormFillSessionController)
+   [Source.](./launcher-csharp/Rooms/Controllers/Eg06CreateExternalFormFillSessionController.cs)
    This example create an external form that can be filled using DocuSign for a specific room in your DocuSign Rooms account.
 
 
