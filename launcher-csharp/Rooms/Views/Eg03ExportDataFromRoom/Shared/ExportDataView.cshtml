@@ -1,0 +1,26 @@
+﻿@model DocuSign.CodeExamples.Rooms.Models.RoomsListModel
+
+<h4>Room data</h4>
+@if (Model.Rooms.Any())
+{
+    <p>
+        Please select a room
+    </p>
+    <form class="eg" asp-action="ExportData" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="docSelect">Rooms</label>
+            <select class="custom-select" asp-for="RoomId" asp-items="@(new SelectList(Model.Rooms, "RoomId","Name"))" required>
+            </select>
+        </div>
+        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+}
+else
+{
+    <p>
+        Problem: please first create a room using <a href="eg01">example 1.</a> <br />
+        Thank you.
+    </p>
+    <a href="/" class="btn btn-primary">Continue</a>
+}

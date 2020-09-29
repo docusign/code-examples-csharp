@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq;
 using System.Security.Claims;
@@ -10,15 +11,21 @@ namespace DocuSign.CodeExamples.Common
 {
     public class LocalsFilter : IActionFilter
     {
-        DSConfiguration Config { get; }
+        DSConfiguration DocuSignConfiguration { get; }
 
         private readonly IRequestItemsService _requestItemsService;
         private IMemoryCache _cache;
+        private readonly IConfiguration _configuration;
 
-        public LocalsFilter(DSConfiguration config, IRequestItemsService requestItemsService, IMemoryCache cache)
+        public LocalsFilter(
+            DSConfiguration docuSignConfiguration, 
+            IRequestItemsService requestItemsService, 
+            IMemoryCache cache, 
+            IConfiguration configuration)
         {
-            Config = config;
+            DocuSignConfiguration = docuSignConfiguration;
             _cache = cache;
+            _configuration = configuration;
             _requestItemsService = requestItemsService;
         }
 
@@ -38,14 +45,13 @@ namespace DocuSign.CodeExamples.Common
             var httpContext = context.HttpContext;
 
             var locals = httpContext.Session.GetObjectFromJson<Locals>("locals") ?? new Locals();
-            locals.DsConfig = Config;
+            locals.DsConfig = DocuSignConfiguration;
             locals.Session = httpContext.Session.GetObjectFromJson<Session>("session") ?? null;
             locals.Messages = "";
             locals.Json = null;
             locals.User = null;
             viewBag.Locals = locals;
-            viewBag.showDoc = Config.documentation != null;
-
+            viewBag.showDoc = DocuSignConfiguration.documentation != null;
 
             var identity = httpContext.User.Identity as ClaimsIdentity;
             if (identity != null && !identity.IsAuthenticated && (_requestItemsService.User?.AccessToken == null))
@@ -75,7 +81,7 @@ namespace DocuSign.CodeExamples.Common
                     ExpireIn = _requestItemsService.User?.ExpireIn
                 };
 
-                _requestItemsService.User = locals.User;                
+                _requestItemsService.User = locals.User;
             }
 
             if (locals.Session == null)
@@ -85,7 +91,8 @@ namespace DocuSign.CodeExamples.Common
                     {
                         AccountId = identity.FindFirst(x => x.Type.Equals("account_id")).Value,
                         AccountName = identity.FindFirst(x => x.Type.Equals("account_name")).Value,
-                        BasePath = identity.FindFirst(x => x.Type.Equals("base_uri")).Value
+                        BasePath = identity.FindFirst(x => x.Type.Equals("base_uri")).Value,
+                        RoomsApiBasePath = _configuration["DocuSign:RoomsApiEndpoint"]
                     }
                     :
                     new Session
@@ -93,10 +100,11 @@ namespace DocuSign.CodeExamples.Common
                         AccountId = _requestItemsService.Session.AccountId,
                         AccountName = _requestItemsService.Session.AccountName,
                         BasePath = _requestItemsService.Session.BasePath,
+                        RoomsApiBasePath = _requestItemsService.Session.RoomsApiBasePath,
                     };
 
-                _requestItemsService.Session = locals.Session;                
-            }        
+                _requestItemsService.Session = locals.Session;
+            }
         }
     }
 }
