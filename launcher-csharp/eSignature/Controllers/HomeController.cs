@@ -21,7 +21,6 @@ namespace DocuSign.CodeExamples.Controllers
             var r = this.Request;
             if (_configuration["quickstart"] == "true")
             {
-                _configuration["quickstart"] = "false";
                 return Redirect("eg001");
             }
             string egName = _requestItemsService.EgName;
