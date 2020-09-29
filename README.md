@@ -9,7 +9,7 @@ This repo is a C# .NET Core MVC application that demonstrates:
 When the token expires, the user is asked to re-authenticate.
 The **refresh token** is not used in this example.
 
-## API version 2.1
+## eSignature API
 
 1. **Embedded Signing Ceremony.**
    [Source.](./launcher-csharp/Eg001EmbeddedSigningController.cs)
@@ -119,6 +119,27 @@ The **refresh token** is not used in this example.
    [Create Bulk Send Request](https://developers.docusign.com/esign-rest-api/reference/BulkEnvelopes/BulkSend/createBulkSendRequest).
    First, the code creates a bulk send recipients list, and then creates an envelope.
    After that, initiates bulk envelope sending.
+
+## Rooms API 
+
+1. **Create room with Data.**
+   [Source.](./launcher-csharp/Rooms/Controllers/Eg01CreateRoomWithDataController)
+   This example creates a new room in your DocuSign Rooms account to be used for a transaction.
+1. **Create a room from a template.**
+   [Source.](./launcher-csharp/Rooms/Controllers/Eg02CreateRoomFromTemplateController)
+   This example creates a new room using a template.
+1. **Create room with Data.**
+   [Source.](./launcher-csharp/Rooms/Controllers/Eg03ExportDataFromRoomController)
+   This example exports all the avialalble data from a specific room in your DocuSign Rooms account.
+1. **Create a room from a template.**
+   [Source.](./launcher-csharp/Rooms/Controllers/Eg04AddingFormToRoomController)
+   This example adds a standard realestate related form to a specific room in your DocuSign Rooms account.
+1. **Create room with Data.**
+   [Source.](./launcher-csharp/Rooms/Controllers/Eg05GetRoomsWithFiltersController)
+   This example searches for rooms in your DocuSign Rooms account using a specific filter. 
+1. **Create a room from a template.**
+   [Source.](./launcher-csharp/Rooms/Controllers/Eg06CreateExternalFormFillSessionController)
+   This example create an external form that can be filled using DocuSign for a specific room in your DocuSign Rooms account.
 
 
 ## Installation
