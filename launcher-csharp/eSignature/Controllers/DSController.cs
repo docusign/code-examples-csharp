@@ -45,7 +45,6 @@ namespace DocuSign.CodeExamples.Controllers
         {
             if (_configuration["quickstart"] == "true")
             {
-                _configuration["quickstart"] = "false";
                 return Login();
             }
             return View();
