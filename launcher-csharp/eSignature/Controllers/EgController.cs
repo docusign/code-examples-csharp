@@ -56,10 +56,12 @@ namespace DocuSign.CodeExamples.Controllers
             {
                 uri = $"{uri}/{ControllerContext.RouteData.Values["area"]}";
             }
-            if (EgName == "eg001"){
+            if (EgName == "eg001")
+            {
                 return $"{uri}/launcher-csharp/{this.GetType().Name}.cs";
             }
-            else{
+            else
+            {
                 return $"{uri}/launcher-csharp/eSignature/Controllers/{this.GetType().Name}.cs";
             }
         }
