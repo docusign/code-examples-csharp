@@ -1,4 +1,8 @@
-# C#: Authorization Code Grant Examples
+# C#: DocuSign Code Examples and Launcher
+
+This GitHub repo includes code example for both the DocuSign eSignature REST API as well as the DocuSign Rooms API. To use the Rooms API code example, modify the **ExampleAPI** settings at the end of the appsettings.json file from ESignature to Rooms.
+
+**Note:** to use the Rooms API you must also [create your DocuSign Developer Account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account). 
 
 ### GitHub repo: [code-examples-csharp](https://github.com/docusign/code-examples-csharp)
 ## Introduction
@@ -121,6 +125,8 @@ The **refresh token** is not used in this example.
    After that, initiates bulk envelope sending.
 
 ## Rooms API 
+**Note:** to use the Rooms API you must also [create your DocuSign Developer Account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account). 
+
 
 1. **Create room with Data.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg01CreateRoomWithDataController.cs)
@@ -134,10 +140,10 @@ The **refresh token** is not used in this example.
 1. **Create a room from a template.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg04AddingFormToRoomController.cs)
    This example adds a standard realestate related form to a specific room in your DocuSign Rooms account.
-1. **Create room with Data.**
+1. **How to search for rooms with filters.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg05GetRoomsWithFiltersController.cs)
    This example searches for rooms in your DocuSign Rooms account using a specific filter. 
-1. **Create a room from a template.**
+1. **Create an external form fillable session.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg06CreateExternalFormFillSessionController.cs)
    This example create an external form that can be filled using DocuSign for a specific room in your DocuSign Rooms account.
 
