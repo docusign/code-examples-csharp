@@ -9,6 +9,7 @@ using DocuSign.eSign.Client;
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    [Area("eSignature")]
     [Route("eg019")]
     public class Eg019AccessCodeAuthController : EgController
     {

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    [Area("eSignature")]
     [Route("eg008")]
     public class Eg008CreateTemplateController : EgController
     {

@@ -54,15 +54,11 @@ namespace DocuSign.CodeExamples.Controllers
             var uri = Config.githubExampleUrl;
             if (ControllerContext.RouteData.Values["area"] != null)
             {
-                uri = $"{uri}/{ControllerContext.RouteData.Values["area"]}";
-            }
-            if (EgName == "eg001")
-            {
-                return $"{uri}/launcher-csharp/{this.GetType().Name}.cs";
+                return $"{uri}/{ControllerContext.RouteData.Values["area"]}/Controllers/{this.GetType().Name}.cs";
             }
             else
             {
-                return $"{uri}/launcher-csharp/eSignature/Controllers/{this.GetType().Name}.cs";
+                return $"{uri}/{this.GetType().Name}.cs";
             }
         }
 

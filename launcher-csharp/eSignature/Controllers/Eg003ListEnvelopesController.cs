@@ -12,6 +12,7 @@ using static DocuSign.eSign.Api.EnvelopesApi;
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    [Area("eSignature")]
     [Route("eg003")]
     public class Eg003ListEnvelopesController : EgController
     {

@@ -13,10 +13,10 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 {
     [Area("Rooms")]
     [Route("Eg02")]
-    public class Eg02CreateRoomsFromTemplateController : EgController
+    public class Eg02CreateRoomFromTemplateController : EgController
     {
 
-        public Eg02CreateRoomsFromTemplateController(
+        public Eg02CreateRoomFromTemplateController(
             DSConfiguration dsConfig,
             IRequestItemsService requestItemsService) : base(dsConfig, requestItemsService)
         {}
@@ -35,6 +35,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         [HttpGet]
         public override IActionResult Get()
         {
+            base.Get();
             // Step 1. Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
@@ -106,31 +107,31 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             }
         }
 
-        private static RoomForCreate BuildRoom(RoomModel model, RoleSummary clientRole, int? templateId)
+private static RoomForCreate BuildRoom(RoomModel model, RoleSummary clientRole, int? templateId)
+{
+    var newRoom = new RoomForCreate
+    {
+        Name = model.Name,
+        RoleId = clientRole.RoleId, 
+        TemplateId = templateId,
+        FieldData = new FieldDataForCreate
         {
-            var newRoom = new RoomForCreate
+            Data = new Dictionary<string, object>
             {
-                Name = model.Name,
-                RoleId = clientRole.RoleId, 
-                TemplateId = templateId,
-                FieldData = new FieldDataForCreate
+                {"address1", "Street 1"},
+                {"address2", "Unit 10"},
+                {"city", "New York"},
+                {"postalCode", "11112"},
+                {"companyRoomStatus", "5"},
+                {"state", "US-NY"},
                 {
-                    Data = new Dictionary<string, object>
-                    {
-                        {"address1", "Street 1"},
-                        {"address2", "Unit 10"},
-                        {"city", "New York"},
-                        {"postalCode", "11112"},
-                        {"companyRoomStatus", "5"},
-                        {"state", "US-NY"},
-                        {
-                            "comments", @"New room for sale."
-                        }
-                    }
+                    "comments", @"New room for sale."
                 }
-            };
-
-            return newRoom;
+            }
         }
+    };
+
+    return newRoom;
+}
     }
 }

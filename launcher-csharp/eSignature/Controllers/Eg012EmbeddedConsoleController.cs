@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    [Area("eSignature")]
     [Route("eg012")]
     public class Eg012EmbeddedConsoleController : EgController
     {

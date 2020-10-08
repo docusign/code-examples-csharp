@@ -9,6 +9,7 @@ using DocuSign.eSign.Client;
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    [Area("eSignature")]
     [Route("eg016")]
     public class Eg016SetTabValuesController : EgController
     {
