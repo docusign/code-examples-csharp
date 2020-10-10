@@ -131,9 +131,9 @@ The **refresh token** is not used in this example.
 1. **Create room with Data.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg03ExportDataFromRoomController.cs)
    This example exports all the avialalble data from a specific room in your DocuSign Rooms account.
-1. **Create a room from a template.**
+1. **Add forms to a room.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg04AddingFormToRoomController.cs)
-   This example adds a standard realestate related form to a specific room in your DocuSign Rooms account.
+   This example adds a standard real estate related form to a specific room in your DocuSign Rooms account.
 1. **Create room with Data.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg05GetRoomsWithFiltersController.cs)
    This example searches for rooms in your DocuSign Rooms account using a specific filter. 
