@@ -40,17 +40,16 @@ namespace DocuSign.CodeExamples.Common
 
         public void UpdateUserFromJWT()
         {
-            this._authToken = _apiClient.RequestJWTUserToken(
-                this._configuration["DocuSignJWT:ClientId"],
-                this._configuration["DocuSignJWT:ImpersonatedUserId"],
-                this._configuration["DocuSignJWT:AuthServer"],
-                DSHelper.ReadFileContent(DSHelper.PrepareFullPrivateKeyFilePath(this._configuration["DocuSignJWT:PrivateKeyFile"])),
-                1,
-                new List<string>
+            var apiType = Enum.Parse<ExamplesAPIType>(this._configuration["ExamplesAPI"]);
+            var scopes = new List<string>
                 {
                     "signature",
                     "impersonation",
-                    "dtr.rooms.read",
+                };
+            if (apiType == ExamplesAPIType.Rooms)
+            {
+                scopes.AddRange(new List<string> {
+                "dtr.rooms.read",
                     "dtr.rooms.write",
                     "dtr.documents.read",
                     "dtr.documents.write",
@@ -58,8 +57,13 @@ namespace DocuSign.CodeExamples.Common
                     "dtr.profile.write",
                     "dtr.company.read",
                     "dtr.company.write",
-                    "room_forms"
-                });
+                    "room_forms"});
+            }
+            this._authToken = _apiClient.RequestJWTUserToken(
+                this._configuration["DocuSignJWT:ClientId"],
+                this._configuration["DocuSignJWT:ImpersonatedUserId"],
+                this._configuration["DocuSignJWT:AuthServer"],
+                DSHelper.ReadFileContent(DSHelper.PrepareFullPrivateKeyFilePath(this._configuration["DocuSignJWT:PrivateKeyFile"])), 1, scopes);
             _account = GetAccountInfo(_authToken);
 
             this.User = new User
