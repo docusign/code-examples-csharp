@@ -153,7 +153,7 @@ The **refresh token** is not used in this example.
 ### Prerequisites
 **Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, skip steps 1 and 2 below as they're automatically performed for you.**
 
-1. A DocuSign Developer Sandbox account (email and password) on [demo.docusign.net](https://demo.docusign.net). Create a [free account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16531).
+1. A DocuSign developer account (email and password) on [demo.docusign.net](https://demo.docusign.net). Create a [free account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16531).
 1. A DocuSign Integration Key (a client ID) that is configured to use the OAuth Authorization Code flow.
    You will need the **Integration Key** itself, and its **secret**.
 
@@ -198,7 +198,7 @@ To update to production, change all of the authorization service
 
 #### Payments code example
 To use the payments example, create a
-test payments gateway for your developer sandbox account.
+test payments gateway for your developer account.
 
 See the
 [PAYMENTS_INSTALLATION.md](./PAYMENTS_INSTALLATION.md)
