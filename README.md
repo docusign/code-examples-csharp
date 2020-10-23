@@ -1,4 +1,8 @@
-# C#: Authorization Code Grant Examples
+# C#: DocuSign Code Examples and Launcher
+
+This GitHub repo includes code example for both the DocuSign eSignature REST API as well as the DocuSign Rooms API. To use the Rooms API code example, modify the **ExampleAPI** settings at the end of the appsettings.json file from ESignature to Rooms.
+
+**Note:** to use the Rooms API you must also [create your DocuSign Developer Account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account). 
 
 ### GitHub repo: [code-examples-csharp](https://github.com/docusign/code-examples-csharp)
 ## Introduction
@@ -11,10 +15,10 @@ The **refresh token** is not used in this example.
 
 ## eSignature API
 
-1. **Embedded Signing Ceremony.**
+1. **Embedded signing.**
    [Source.](./launcher-csharp/Eg001EmbeddedSigningController.cs)
-   This example sends an envelope, and then uses an embedded signing ceremony for the first signer.
-   With embedded signing, the DocuSign signing ceremony is initiated from your website.
+   This example sends an envelope, and then uses an embedded signing for the first signer.
+   With embedded signing, DocuSign signing is initiated from your website.
 1. **Send an envelope with a remote (email) signer and cc recipient.**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg002SigningViaEmailController.cs)
    The envelope includes a pdf, Word, and HTML document.
@@ -47,7 +51,7 @@ The **refresh token** is not used in this example.
    the envelope and documents before they are sent.
 1. **Embedded DocuSign web tool (NDSE).**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg012EmbeddedConsoleController.cs)
-1. **Embedded Signing Ceremony from a template with an added document.**
+1. **Embedded signing from a template with an added document.**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg013AddDocToTemplateController.cs)
    This example sends an envelope based on a template.
    In addition to the template's document(s), the example adds an
@@ -121,6 +125,8 @@ The **refresh token** is not used in this example.
    After that, initiates bulk envelope sending.
 
 ## Rooms API 
+**Note:** to use the Rooms API you must also [create your DocuSign Developer Account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account). 
+
 
 1. **Create room with Data.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg01CreateRoomWithDataController.cs)
@@ -134,10 +140,10 @@ The **refresh token** is not used in this example.
 1. **Add forms to a room.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg04AddingFormToRoomController.cs)
    This example adds a standard real estate related form to a specific room in your DocuSign Rooms account.
-1. **Create room with Data.**
+1. **How to search for rooms with filters.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg05GetRoomsWithFiltersController.cs)
    This example searches for rooms in your DocuSign Rooms account using a specific filter. 
-1. **Create a room from a template.**
+1. **Create an external form fillable session.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg06CreateExternalFormFillSessionController.cs)
    This example create an external form that can be filled using DocuSign for a specific room in your DocuSign Rooms account.
 
@@ -147,7 +153,7 @@ The **refresh token** is not used in this example.
 ### Prerequisites
 **Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, skip steps 1 and 2 below as they're automatically performed for you.**
 
-1. A DocuSign Developer Sandbox account (email and password) on [demo.docusign.net](https://demo.docusign.net). Create a [free account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16531).
+1. A DocuSign developer account (email and password) on [demo.docusign.net](https://demo.docusign.net). Create a [free account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16531).
 1. A DocuSign Integration Key (a client ID) that is configured to use the OAuth Authorization Code flow.
    You will need the **Integration Key** itself, and its **secret**.
 
@@ -192,7 +198,7 @@ To update to production, change all of the authorization service
 
 #### Payments code example
 To use the payments example, create a
-test payments gateway for your developer sandbox account.
+test payments gateway for your developer account.
 
 See the
 [PAYMENTS_INSTALLATION.md](./PAYMENTS_INSTALLATION.md)
