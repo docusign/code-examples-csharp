@@ -35,6 +35,7 @@ namespace DocuSign.CodeExamples.Controllers
                 ViewBag.source = CreateSourcePath();
                 ViewBag.documentation = Config.documentation + EgName;
                 ViewBag.showDoc = Config.documentation != null;
+                ViewBag.pausedEnvelopeOk = RequestItemsService.PausedEnvelopeId != null;
                 InitializeInternal();
 
                 return View(EgName, this);
