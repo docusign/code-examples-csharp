@@ -50,9 +50,29 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
 
             // Step 3. Construct request body
             var envelope = CreateEnvelope(recipient1, conditionalRecipient1, conditionalRecipient2);
+            EnvelopeSummary results;
 
-            // Step 4. Call the eSignature API
-            var results = envelopesApi.CreateEnvelope(accountId, envelope);
+            try
+            {
+                // Step 4. Call the eSignature API
+                results = envelopesApi.CreateEnvelope(accountId, envelope);
+            }
+            catch (ApiException apiException)
+            {
+                ViewBag.errorCode = apiException.ErrorCode;
+
+                if (apiException.Message.Contains("WORKFLOW_UPDATE_RECIPIENTROUTING_NOT_ALLOWED"))
+                {
+                    ViewBag.errorMessage = "Update to the workflow with recipient routing is not allowed for your account!";
+                    ViewBag.errorInformation = "Please contact with our <a href='https://developers.docusign.com/support/' target='_blank'>support team</a> to resolve this issue.";
+                }
+                else
+                {
+                    ViewBag.errorMessage = apiException.Message;
+                }
+
+                return View("Error");
+            }
 
             // Process results
             ViewBag.h1 = "The envelope was created successfully!";
