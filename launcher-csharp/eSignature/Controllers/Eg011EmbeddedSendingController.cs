@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Controllers
         public Eg011EmbeddedSendingController(DSConfiguration config, IRequestItemsService requestItemsService) 
             : base(config, requestItemsService)
         {
-            ViewBag.title = "Embedded Sending";
+            ViewBag.title = "Use embedded sending";
         }
 
         public override string EgName => "eg011";
