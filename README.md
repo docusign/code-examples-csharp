@@ -51,7 +51,7 @@ The **refresh token** is not used in this example.
    the envelope and documents before they are sent.
 1. **Embedded DocuSign web tool (NDSE).**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg012EmbeddedConsoleController.cs)
-1. **Use mbedded signing from a template with an added document.**
+1. **Use embedded signing from a template with an added document.**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg013AddDocToTemplateController.cs)
    This example sends an envelope based on a template.
    In addition to the template's document(s), the example adds an
