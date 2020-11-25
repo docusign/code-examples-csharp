@@ -129,7 +129,7 @@ The **refresh token** is not used in this example.
 1. **Unpause a signature workflow**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg033UnpauseSignatureWorkflowController.cs)
    This code example demonstrates how to update an envelope to resume the workflow that has been paused using the [Update Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/update) method.
-   You must have at least one created an envelope with a paused signature workflow.
+   You must have created at least one envelope with a paused signature workflow.
 1. **Conditional recipients**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg034ConditionalRecipientsWorkflowController.cs)
    This code example demonstrates how to create an envelope where the workflow is routed to different recipients based on the value of a transaction using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
