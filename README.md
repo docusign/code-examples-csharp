@@ -15,9 +15,9 @@ The **refresh token** is not used in this example.
 
 ## eSignature API
 
-1. **Embedded signing.**
+1. **Use embedded signing.**
    [Source.](./launcher-csharp/Eg001EmbeddedSigningController.cs)
-   This example sends an envelope, and then uses an embedded signing for the first signer.
+   This example sends an envelope, and then uses embedded signing for the first signer.
    With embedded signing, DocuSign signing is initiated from your website.
 1. **Send an envelope with a remote (email) signer and cc recipient.**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg002SigningViaEmailController.cs)
@@ -45,13 +45,13 @@ The **refresh token** is not used in this example.
 1. **Send an envelope and upload its documents with multpart binary transfer.**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg010SendBinaryDocsController.cs)
    Binary transfer is 33% more efficient than using Base64 encoding.
-1. **Embedded sending.**
+1. **Use embedded sending.**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg011EmbeddedSendingController.cs)
    Embeds the DocuSign web tool (NDSE) in your web app to finalize or update
    the envelope and documents before they are sent.
 1. **Embedded DocuSign web tool (NDSE).**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg012EmbeddedConsoleController.cs)
-1. **Embedded signing from a template with an added document.**
+1. **Use embedded signing from a template with an added document.**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg013AddDocToTemplateController.cs)
    This example sends an envelope based on a template.
    In addition to the template's document(s), the example adds an
@@ -123,6 +123,16 @@ The **refresh token** is not used in this example.
    [Create Bulk Send Request](https://developers.docusign.com/esign-rest-api/reference/BulkEnvelopes/BulkSend/createBulkSendRequest).
    First, the code creates a bulk send recipients list, and then creates an envelope.
    After that, initiates bulk envelope sending.
+1. **Pause a signature workflow**
+   [Source.](./launcher-csharp/eSignature/Controllers/Eg032PauseSignatureWorkflowController.cs)
+   This code example demonstrates how to create an envelope where the workflow is paused before the envelope is sent to a second recipient using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
+1. **Unpause a signature workflow**
+   [Source.](./launcher-csharp/eSignature/Controllers/Eg033UnpauseSignatureWorkflowController.cs)
+   This code example demonstrates how to update an envelope to resume the workflow that has been paused using the [Update Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/update) method.
+   You must have created at least one envelope with a paused signature workflow.
+1. **Conditional recipients**
+   [Source.](./launcher-csharp/eSignature/Controllers/Eg034ConditionalRecipientsWorkflowController.cs)
+   This code example demonstrates how to create an envelope where the workflow is routed to different recipients based on the value of a transaction using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
 
 ## Rooms API 
 **Note:** to use the Rooms API you must also [create your DocuSign Developer Account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account). 
