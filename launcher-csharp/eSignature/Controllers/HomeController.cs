@@ -18,8 +18,12 @@ namespace DocuSign.CodeExamples.Controllers
 
         public IActionResult Index()
         {
-            if ((_configuration["quickstart"] == "true") && (! this.User.Identity.IsAuthenticated))
+            if (_configuration["quickstart"] == "true")
             {
+                if (this.User.Identity.IsAuthenticated)
+                {
+                    _configuration["quickstart"] = "false";
+                }
                 return Redirect("eg001");
             }
             string egName = _requestItemsService.EgName;

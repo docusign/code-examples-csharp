@@ -10,6 +10,7 @@ using System.Linq;
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    [Area("eSignature")]
     [Route("Eg031")]
     public class Eg031BulkSendEnvelopesController : EgController
     {

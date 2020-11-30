@@ -49,11 +49,15 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
             try
             {
-                // Step 3: Call the Rooms API to get rooms with filters
+                // Step 3: Prepare your request parameters
+                var fieldDataChangedStartDate = roomFilterModel.FieldDataChangedStartDate.ToString(CultureInfo.InvariantCulture);
+                var fieldDataChangedEndDate = roomFilterModel.FieldDataChangedEndDate.ToString(CultureInfo.InvariantCulture);
+
+                // Step 4: Call the Rooms API to get rooms with filters
                 RoomSummaryList rooms = roomsApi.GetRooms(accountId, new RoomsApi.GetRoomsOptions
                 {
-                    fieldDataChangedStartDate = roomFilterModel.FieldDataChangedStartDate.ToString(CultureInfo.InvariantCulture),
-                    fieldDataChangedEndDate = roomFilterModel.FieldDataChangedEndDate.ToString(CultureInfo.InvariantCulture)
+                    fieldDataChangedStartDate = fieldDataChangedStartDate,
+                    fieldDataChangedEndDate = fieldDataChangedEndDate
                 });
 
                 ViewBag.h1 = "The rooms with filters was loaded";

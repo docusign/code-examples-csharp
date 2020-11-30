@@ -16,7 +16,6 @@ namespace DocuSign.CodeExamples
         string DocumentId { get; set; }
         EnvelopeDocuments EnvelopeDocuments { get; set; }
         string TemplateId { get; set; }
-        string PausedEnvelopeId { get; set; }
         string Status { get; set; }
         public void UpdateUserFromJWT();
         public void Logout();

@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    [Area("eSignature")]
     [Route("eg010")]
     public class Eg010SendBinaryDocsController : EgController
     {

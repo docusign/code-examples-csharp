@@ -172,7 +172,7 @@
         "displayText": "Learn more",
         "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken"
       },
-      "preferredConfigFile" : "AppConfig"
+      "preferredConfigFile": "AppConfig"
     }
   ],
   "packages": [
@@ -195,10 +195,11 @@
     {
       "name": "Microsoft.Owin.Host.SystemWeb",
       "version": "4.1.0"
-    }	
+    }
   ],
   "help": {
     "hint": "How do I identify OAuth Authentication Type?",
     "displayText": "Learn more",
     "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication"
   }
+}

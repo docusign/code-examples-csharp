@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    [Area("eSignature")]
     [Route("eg015")]
     public class Eg015EnvelopeTabDataController : EgController
     {

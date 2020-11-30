@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    [Area("eSignature")]
     [Route("eg013")]
     public class Eg013AddDocToTemplateController : EgController
     {
@@ -50,7 +51,7 @@ namespace DocuSign.CodeExamples.Controllers
             String envelopeId = results.EnvelopeId;
             Console.WriteLine("Envelope was created. EnvelopeId " + envelopeId);
 
-            // Step 3. create the recipient view, the embedded signing
+            // Step 3. create the recipient view, the Signing Ceremony
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, dsReturnUrl);
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
             return results1.Url;
@@ -85,7 +86,7 @@ namespace DocuSign.CodeExamples.Controllers
             };
 
             // DocuSign recommends that you redirect to DocuSign for the
-            // embedded signing. There are multiple ways to save state.
+            // Signing Ceremony. There are multiple ways to save state.
 
             return viewRequest;
         }

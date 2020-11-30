@@ -25,7 +25,7 @@
         public string docDocx = "World_Wide_Corp_Battle_Plan_Trafalgar.docx";
         public string tabsDocx = "World_Wide_Corp_salary.docx";
         public string docPdf = "World_Wide_Corp_lorem.pdf";
-        public string githubExampleUrl = "https://github.com/docusign/code-examples-csharp/tree/master";
+        public string githubExampleUrl = "https://github.com/docusign/code-examples-csharp/blob/master/launcher-csharp";
         public string documentation = null;
     }
 }

@@ -2,8 +2,8 @@
   "codeExamples": [
     {
       "number": "1",
-      "name": "Use embedded signing",
-      "description": "This example sends an envelope, and then uses embedded signing for the first signer. With embedded signing, the DocuSign signing is initiated from your website.",
+      "name": "Embedded signing ceremony",
+      "description": "This example sends an envelope, and then uses an embedded signing ceremony for the first signer. With embedded signing, the DocuSign signing ceremony is initiated from your website.",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/EmbeddedSigningCeremony.cs",
       "method": "SendEnvelopeForEmbeddedSigning"
     },
@@ -72,7 +72,7 @@
     },
     {
       "number": "11",
-      "name": "Use embedded sending",
+      "name": "Embedded sending",
       "description": "Embeds the DocuSign web tool (NDSE) in your web app to finalize or update the envelope and documents before they are sent.",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/EmbeddedSending.cs",
       "method": "SendEnvelopeUsingEmbeddedSending"
@@ -86,7 +86,7 @@
     },
     {
       "number": "13",
-      "name": "Use embedded signing from a template with an added document",
+      "name": "Embedded signing ceremony from a template with an added document",
       "description": "This example sends an envelope based on a template. In addition to the template's document(s), the example adds an additional document to the envelope by using the Composite Templates feature.",
       "source": "https://raw.githubusercontent.com/docusign/TemporaryCSharpCodeExamples/master/eg-03-csharp-auth-code-grant-core/Examples/CreateEnvelopeUsingCompositeTemplate.cs",
       "method": "CreateEnvelopeUsingCompositeTemplate"

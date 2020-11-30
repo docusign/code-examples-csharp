@@ -6,6 +6,7 @@ using DocuSign.Rooms.Api;
 using DocuSign.Rooms.Client;
 using DocuSign.Rooms.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Newtonsoft.Json;
 
 namespace DocuSign.CodeExamples.Rooms.Controllers
@@ -34,6 +35,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         [HttpGet]
         public override IActionResult Get()
         {
+            base.Get();
             // Step 1. Obtain your OAuth token
             string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path

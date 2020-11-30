@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    [Area("eSignature")]
     [Route("eg011")]
     public class Eg011EmbeddedSendingController : EgController
     {
@@ -15,7 +16,7 @@ namespace DocuSign.CodeExamples.Controllers
         public Eg011EmbeddedSendingController(DSConfiguration config, IRequestItemsService requestItemsService) 
             : base(config, requestItemsService)
         {
-            ViewBag.title = "Use embedded sending";
+            ViewBag.title = "Embedded Sending";
         }
 
         public override string EgName => "eg011";

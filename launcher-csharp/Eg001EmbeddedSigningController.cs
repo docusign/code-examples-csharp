@@ -21,7 +21,7 @@ namespace DocuSign.CodeExamples.Views
         {            
             dsPingUrl = config.AppUrl + "/";
             dsReturnUrl = config.AppUrl + "/dsReturn";           
-            ViewBag.title = "Use embedded signing";
+            ViewBag.title = "Embedded Signing Ceremony";
         }
 
         // ***DS.snippet.0.start
@@ -52,12 +52,12 @@ namespace DocuSign.CodeExamples.Views
             // Save for future use within the example launcher
             RequestItemsService.EnvelopeId = envelopeId;
 
-            // Step 3. create the recipient view, the embedded signing
+            // Step 3. create the recipient view, the Signing Ceremony
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName);
             // call the CreateRecipientView API
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
 
-            // Step 4. Redirect the user to the embedded signing
+            // Step 4. Redirect the user to the Signing Ceremony
             // Don't use an iFrame!
             // State can be stored/recovered using the framework's session or a
             // query parameter on the returnUrl (see the makeRecipientViewRequest method)
@@ -80,7 +80,7 @@ namespace DocuSign.CodeExamples.Views
             // should typically be a callback route somewhere in your app.
             // The query parameter is included as an example of how
             // to save/recover state information during the redirect to
-            // the DocuSign signing. It's usually better to use
+            // the DocuSign signing ceremony. It's usually better to use
             // the session mechanism of your web framework. Query parameters
             // can be changed/spoofed very easily.
             viewRequest.ReturnUrl = dsReturnUrl + "?state=123";
@@ -97,9 +97,9 @@ namespace DocuSign.CodeExamples.Views
             viewRequest.ClientUserId = signerClientId;
 
             // DocuSign recommends that you redirect to DocuSign for the
-            // embedded signing. There are multiple ways to save state.
+            // Signing Ceremony. There are multiple ways to save state.
             // To maintain your application's session, use the pingUrl
-            // parameter. It causes the DocuSign signing web page
+            // parameter. It causes the DocuSign Signing Ceremony web page
             // (not the DocuSign server) to send pings via AJAX to your
             // app,
             viewRequest.PingFrequency = "600"; // seconds
@@ -208,7 +208,7 @@ namespace DocuSign.CodeExamples.Views
             }
 
             string redirectUrl = DoWork(signerEmail, signerName, accessToken, basePath, accountId);
-            // Redirect the user to the embedded signing
+            // Redirect the user to the Signing Ceremony
             return Redirect(redirectUrl);
         }
     }
