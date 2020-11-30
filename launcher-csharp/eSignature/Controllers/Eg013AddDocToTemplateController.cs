@@ -50,7 +50,7 @@ namespace DocuSign.CodeExamples.Controllers
             String envelopeId = results.EnvelopeId;
             Console.WriteLine("Envelope was created. EnvelopeId " + envelopeId);
 
-            // Step 3. create the recipient view, the Signing Ceremony
+            // Step 3. create the recipient view, the embedded signing
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, dsReturnUrl);
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
             return results1.Url;
@@ -85,7 +85,7 @@ namespace DocuSign.CodeExamples.Controllers
             };
 
             // DocuSign recommends that you redirect to DocuSign for the
-            // Signing Ceremony. There are multiple ways to save state.
+            // embedded signing. There are multiple ways to save state.
 
             return viewRequest;
         }
