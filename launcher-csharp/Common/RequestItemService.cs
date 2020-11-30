@@ -140,6 +140,12 @@ namespace DocuSign.CodeExamples.Common
             set => _cache.Set(GetKey("TemplateId"), value);
         }
 
+        public string PausedEnvelopeId
+        {
+            get => _cache.Get<string>(GetKey("PausedEnvelopeId"));
+            set => _cache.Set(GetKey("PausedEnvelopeId"), value);
+        }
+
         public string Status { get; set; }
 
         private Account GetAccountInfo(OAuthToken authToken)
