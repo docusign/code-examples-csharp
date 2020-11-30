@@ -35,6 +35,7 @@ namespace DocuSign.CodeExamples.Controllers
                 ViewBag.source = CreateSourcePath();
                 ViewBag.documentation = Config.documentation + EgName;
                 ViewBag.showDoc = Config.documentation != null;
+                ViewBag.pausedEnvelopeOk = RequestItemsService.PausedEnvelopeId != null;
                 InitializeInternal();
 
                 return View(EgName, this);
@@ -50,15 +51,19 @@ namespace DocuSign.CodeExamples.Controllers
         }
 
         public dynamic CreateSourcePath()
-        {
+       {
             var uri = Config.githubExampleUrl;
             if (ControllerContext.RouteData.Values["area"] != null)
             {
-                return $"{uri}/{ControllerContext.RouteData.Values["area"]}/Controllers/{this.GetType().Name}.cs";
+                uri = $"{uri}/{ControllerContext.RouteData.Values["area"]}";
+            }
+            if (EgName == "eg001")
+            {
+                return $"{uri}/launcher-csharp/{this.GetType().Name}.cs";
             }
             else
             {
-                return $"{uri}/{this.GetType().Name}.cs";
+                return $"{uri}/launcher-csharp/eSignature/Controllers/{this.GetType().Name}.cs";
             }
         }
 
