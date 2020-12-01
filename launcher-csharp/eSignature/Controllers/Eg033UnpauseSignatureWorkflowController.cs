@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
 using DocuSign.eSign.Api;
@@ -53,8 +53,8 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
             var envelope = CreateEnvelope();
 
             // Step 4. Call the eSignature API
-            var updateOptinons = new UpdateOptions() { resendEnvelope = "true" };
-            var results = envelopesApi.Update(accountId, RequestItemsService.PausedEnvelopeId, envelope, updateOptinons);
+            var updateOptions = new UpdateOptions() { resendEnvelope = "true" };
+            var results = envelopesApi.Update(accountId, RequestItemsService.PausedEnvelopeId, envelope, updateOptions);
 
             // Process results
             ViewBag.h1 = "The envelope was updated successfully!";
