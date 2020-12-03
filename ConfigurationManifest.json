@@ -78,6 +78,11 @@
           "key": "UserInformationEndpoint",
           "defaultValue": "https://account-d.docusign.com/oauth/userinfo",
           "displayInWizard": false
+        },
+        {
+          "key": "owin:AutomaticAppStartup",
+          "defaultValue": "false",
+          "displayInWizard": false
         }
       ],
       "help": {
