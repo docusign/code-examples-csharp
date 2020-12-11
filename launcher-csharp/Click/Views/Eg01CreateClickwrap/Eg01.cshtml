@@ -1,0 +1,22 @@
+﻿@model DocuSign.CodeExamples.Click.Controllers.Eg01CreateClickwrapController
+
+<h4 id="exmample01">1. Creates a new clickwrap from data.</h4>
+<p>
+    This example creates a new clickwrap from data.
+</p>
+<p>
+    API methods used:
+    <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createclickwrap/">ClickWraps::createClickwrap</a>.
+</p>
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">Eg01CreateClickwrapController.cs</a> on GitHub.
+</p>
+
+<form class="eg" asp-action="Create" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input type="text" class="form-control" name="Name" placeholder="Name of the clickwrap" required>
+    </div>
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

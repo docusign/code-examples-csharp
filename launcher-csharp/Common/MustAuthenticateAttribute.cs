@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DocuSign.CodeExamples.Rooms
+namespace DocuSign.CodeExamples.Common
 {
     public class MustAuthenticateAttribute : ActionFilterAttribute
     {

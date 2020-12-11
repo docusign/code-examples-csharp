@@ -3,6 +3,7 @@
     public enum ExamplesAPIType
     {
         Rooms,
-        ESignature
+        ESignature,
+        Click
     }
 }

@@ -18,7 +18,7 @@ namespace DocuSign.CodeExamples.Common
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IConfiguration _configuration;
         private readonly IMemoryCache _cache;
-        private readonly string _id;                 
+        private readonly string _id;
         private OAuthToken _authToken;
         protected static ApiClient _apiClient { get; private set; }
         private static Account _account { get; set; }
@@ -59,6 +59,15 @@ namespace DocuSign.CodeExamples.Common
                     "dtr.company.write",
                     "room_forms"});
             }
+
+            if (apiType == ExamplesAPIType.Click)
+            {
+                scopes.AddRange(new List<string> {
+                    "click.manage",
+                    "click.send"
+            });
+            }
+
             this._authToken = _apiClient.RequestJWTUserToken(
                 this._configuration["DocuSignJWT:ClientId"],
                 this._configuration["DocuSignJWT:ImpersonatedUserId"],
@@ -104,40 +113,53 @@ namespace DocuSign.CodeExamples.Common
         {
             return string.Format("{0}_{1}", _id, key);
         }
-        
-        public string EgName {
+
+        public string EgName
+        {
             get => _cache.Get<string>(GetKey("EgName"));
             set => _cache.Set(GetKey("EgName"), value);
         }
-       
-        public Session Session {
+
+        public Session Session
+        {
             get => _cache.Get<Session>(GetKey("Session"));
             set => _cache.Set(GetKey("Session"), value);
         }
 
-        public User User {
+        public User User
+        {
             get => _cache.Get<User>(GetKey("User"));
             set => _cache.Set(GetKey("User"), value);
         }
 
-        public string EnvelopeId {
+        public string EnvelopeId
+        {
             get => _cache.Get<string>(GetKey("EnvelopeId"));
             set => _cache.Set(GetKey("EnvelopeId"), value);
         }
 
-        public string DocumentId {
+        public string DocumentId
+        {
             get => _cache.Get<string>(GetKey("DocumentId"));
             set => _cache.Set(GetKey("DocumentId"), value);
         }
 
-        public EnvelopeDocuments EnvelopeDocuments {
+        public EnvelopeDocuments EnvelopeDocuments
+        {
             get => _cache.Get<EnvelopeDocuments>(GetKey("EnvelopeDocuments"));
             set => _cache.Set(GetKey("EnvelopeDocuments"), value);
         }
 
-        public string TemplateId {
+        public string TemplateId
+        {
             get => _cache.Get<string>(GetKey("TemplateId"));
             set => _cache.Set(GetKey("TemplateId"), value);
+        }
+
+        public string ClickwrapId
+        {
+            get => _cache.Get<string>(GetKey("ClickwrapId"));
+            set => _cache.Set(GetKey("ClickwrapId"), value);
         }
 
         public string PausedEnvelopeId

@@ -100,7 +100,7 @@ namespace DocuSign.CodeExamples.Common
                         AccountId = _requestItemsService.Session.AccountId,
                         AccountName = _requestItemsService.Session.AccountName,
                         BasePath = _requestItemsService.Session.BasePath,
-                        RoomsApiBasePath = _requestItemsService.Session.RoomsApiBasePath,
+                        RoomsApiBasePath = _requestItemsService.Session.RoomsApiBasePath
                     };
 
                 _requestItemsService.Session = locals.Session;

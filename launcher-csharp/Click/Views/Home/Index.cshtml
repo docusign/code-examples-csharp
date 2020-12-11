@@ -1,0 +1,85 @@
+﻿@{
+    Layout = "_HomeLayout";
+}
+
+<div class="jumbotron">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <h1 class="display-4">C# Launcher</h1>
+                    <p class="Xlead">
+                        Welcome to the DocuSign C# examples using multiple OAuth flows (JWT and Authorization Code Grant).
+                    </p>
+                </td>
+                <td>
+                    <img src="/images/banner-code.PNG" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container" style="margin-top: 40px" id="index-page">
+    <p>This launcher demonstrates use of the JWT and Authorization Code Grant OAuth flows and includes multiple usage examples for the DocuSign Click API.</p>
+
+    <h2>Click examples</h2>
+    <h4 id="example01">1. <a asp-action="Get" asp-controller="Eg01CreateClickwrap" asp-area="Click">Create Clickwraps</a></h4>
+    <p>
+        This example shows how to create a clickwrap
+    </p>
+    <p>
+        API methods used:
+        <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createclickwrap/">ClickWraps::createClickwrap</a>.
+    </p>
+
+    <h4 id="example02">2. <a asp-action="Get" asp-controller="Eg02ActivateClickwrap" asp-area="Click">Activate Clickwrap</a></h4>
+    <p>
+        This example shows how to activate a clickwrap
+    </p>
+    <p>
+        API methods used:
+        <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/updateclickwrapversion/">ClickWraps::updateClickwrapVersion</a>.
+    </p>
+
+    <h4 id="example03">3. <a asp-action="Get" asp-controller="Eg03TestClickwrap" asp-area="Click">Test Clickwrap</a></h4>
+    <p>
+        This example shows how to test a newly create clickwrap
+    </p>
+
+    <h4 id="example04">4. <a asp-action="Get" asp-controller="Eg04EmbedClickwrap" asp-area="Click">Clickwrap Embeding</a></h4>
+    <p>
+        This example shows how to embed a clickwrap into a page
+    </p>
+
+    <h4 id="example05">5. <a asp-action="Get" asp-controller="Eg05CreateNewClickwrapVersion" asp-area="Click">Clickwrap Versioning</a></h4>
+    <p>
+        This example shows how to create a new clickwrap version
+    </p>
+    <p>
+        API methods used:
+        <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/updateclickwrapversion/">ClickWraps::updateClickwrapVersion</a>.
+    </p>
+
+    <h4 id="example06">6. <a asp-action="Get" asp-controller="Eg06RetrieveClickwraps" asp-area="Click">Retrieve Clickwraps</a></h4>
+    <p>
+        This example shows how to get a list of clickwraps
+    </p>
+    <p>
+        API methods used:
+        <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwraps/">ClickWraps::getClickwraps</a>.
+    </p>
+
+    <h4 id="example07">7. <a asp-action="Get" asp-controller="Eg07GetClickwrapResponses" asp-area="Click">Get Clickwrap Responses</a></h4>
+    <p>
+        This example shows how to get clickwrap responses
+    </p>
+    <p>
+        API methods used:
+        <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwrapagreements/">ClickWraps::getClickwrapAgreements</a>.
+    </p>
+
+    <!-- anchor-js is only for the index page -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js"></script>
+    <script>anchors.options.placement = 'left'; anchors.add('h4')</script>
+</div>
