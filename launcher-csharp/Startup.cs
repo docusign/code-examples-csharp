@@ -113,6 +113,11 @@ namespace DocuSign.CodeExamples
                         options.Scope.Add("dtr.company.write");
                         options.Scope.Add("room_forms");
                         break;
+                    case ExamplesAPIType.Click:
+                        options.Scope.Add("click.manage");
+                        options.Scope.Add("click.send");
+                        break;
+
                 }
 
                 options.SaveTokens = true;
@@ -224,6 +229,11 @@ namespace DocuSign.CodeExamples
                         endpoints.MapControllerRoute(
                             name: "default",
                             pattern: "{controller=Home}/{action=Index}/{id?}");
+                        break;
+                    case ExamplesAPIType.Click:
+                        endpoints.MapControllerRoute(
+                            name: "default",
+                            pattern: "{area=Click}/{controller=Home}/{action=Index}/{id?}");
                         break;
                 }
             });

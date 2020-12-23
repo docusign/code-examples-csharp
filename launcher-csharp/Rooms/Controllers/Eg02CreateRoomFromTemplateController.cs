@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Rooms.Models;

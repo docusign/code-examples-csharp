@@ -1,0 +1,19 @@
+﻿@model DocuSign.CodeExamples.Click.Controllers.Eg06RetrieveClickwrapsController
+
+<h4 id="example06">6. Retrieve Clickwraps</h4>
+<p>
+    This example shows how to get a list of clickwraps
+</p>
+<p>
+    API methods used:
+    <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwraps/">ClickWraps::updateClickwrapVersion</a>.
+</p>
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">Eg06RetrieveClickwrapsController.cs</a> on GitHub.
+</p>
+
+<form class="eg" asp-action="Retrieve" method="post" data-busy="form">
+    <h3>Retrieve all clickwraps</h3>
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

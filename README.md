@@ -156,7 +156,32 @@ The **refresh token** is not used in this example.
 1. **Create an external form fillable session.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg06CreateExternalFormFillSessionController.cs)
    This example create an external form that can be filled using DocuSign for a specific room in your DocuSign Rooms account.
+   
+## Click API 
+**Note:** to use the Click API, include click_manage and click_send scopes. Review the [Click API 101 Auth Guide](https://developers.docusign.com/docs/click-api/click101/auth) for more details. 
 
+
+1. **Create Clickwraps.**
+   [Source.](./launcher-csharp/Click/Controllers/Eg01CreateClickwrapController.cs)
+   Creates a clickwrap.
+1. **Activate Clickwrap.**
+   [Source.](./launcher-csharp/Click/Controllers/Eg02ActivateClickwrapController.cs)
+   Activates a newly created clickwrap.
+1. **Test Clickwrap.**
+   [Source.](./launcher-csharp/Click/Controllers/Eg03TestClickwrapController.cs)
+   Tests a newly created clickwrap.
+1. **Clickwrap Embeding.**
+   [Source.](./launcher-csharp/Click/Controllers/Eg04EmbedClickwrapController.cs)
+   Embeds a clickwrap into a page.
+1. **Clickwrap Versioning.**
+   [Source.](./launcher-csharp/Click/Controllers/Eg05CreateNewClickwrapVersionController.cs)
+   Creates a new clickwrap version.
+1. **Retrieve Clickwraps.**
+   [Source.](./launcher-csharp/Click/Controllers/Eg06RetrieveClickwrapsController.cs)
+   Retrieves clickwraps.
+1. **Get Clickwrap Responses.**
+   [Source.](./launcher-csharp/Click/Controllers/Eg07GetClickwrapResponsesController.cs)
+   Retrieves a clickwrap responses.
 
 ## Installation
 

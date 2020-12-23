@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
 using DocuSign.eSign.Api;
