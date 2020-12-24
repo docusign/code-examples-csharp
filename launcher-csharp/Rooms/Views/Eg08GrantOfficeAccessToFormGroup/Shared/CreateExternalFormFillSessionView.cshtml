@@ -1,0 +1,28 @@
+﻿@model DocuSign.CodeExamples.Rooms.Models.RoomDocumentModel
+
+<h4>Creating external form fill session</h4>
+
+@if (Model.Documents != null && Model.Documents.Any())
+{
+    <p>
+        Please select a form document
+    </p>
+    <form class="eg" asp-action="ExportData" method="post" data-busy="form">
+        <input type="hidden" asp-for="RoomId">
+        <div class="form-group">
+            <label for="docSelect">Forms</label>
+            <select class="custom-select" asp-for="DocumentId" asp-items="@(new SelectList(Model.Documents, "DocuSignFormId", "Name"))" required>
+            </select>
+        </div>
+        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+}
+else
+{
+    <p>
+        Problem: selected rooms does not has any documents. Please first add form to a room using <a href="eg04">example 4.</a> <br />
+        Thank you.
+    </p>
+    <a href="/" class="btn btn-primary">Continue</a> 
+}

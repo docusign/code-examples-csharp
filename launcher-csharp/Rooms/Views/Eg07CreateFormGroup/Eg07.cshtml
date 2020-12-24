@@ -1,0 +1,24 @@
+﻿@model DocuSign.CodeExamples.Rooms.Controllers.Eg06CreateExternalFormFillSessionController
+
+<h4>6. Creates external form fill session</h4>
+<p>
+    This is an example of creating external form fill session
+</p>
+<p>
+    API methods used:
+    <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRooms">Rooms: GetRooms</a>,
+    <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetDocuments">Rooms: GetDocuments</a>,
+    <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Forms/ExternalFormFillSessions/CreateExternalFormFillSession">ExternalFormFillSessions: CreateExternalFormFillSession</a>.
+</p>
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">Eg06CreateExternalFormFillSessionController.cs</a> on GitHub.
+</p>
+
+@if (Model.RoomDocumentModel.RoomId == null)
+{
+    <partial name="Shared/SelectRoomView" model="Model.RoomDocumentModel" />
+}
+else
+{
+    <partial name="Shared/CreateExternalFormFillSessionView" model="Model.RoomDocumentModel" />
+}

@@ -1,0 +1,33 @@
+﻿@model DocuSign.CodeExamples.Rooms.Models.RoomDocumentModel
+
+<h4>Creating external form fill session</h4>
+
+@if (Model.Rooms != null && Model.Rooms.Any())
+{
+    <p>
+        Please select a room
+    </p>
+    <form class="eg" asp-action="SelectRoom" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="docSelect">Rooms</label>
+            <select 
+                class="custom-select" 
+                asp-for="RoomId" 
+                asp-items="@(new SelectList(Model.Rooms, "RoomId", "Name"))"
+                onchange="this.form.submit();"
+                data-val="true" 
+                data-val-required="The Room field is required.">
+                <option>Please select a room</option>
+            </select>
+        </div>
+        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    </form>
+}
+else
+{
+    <p>
+        Problem: please first create a room using <a href="eg01">example 1.</a> <br />
+        Thank you.
+    </p>
+    <a href="/" class="btn btn-primary">Continue</a>
+}
