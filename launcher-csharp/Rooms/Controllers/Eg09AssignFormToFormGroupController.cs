@@ -7,6 +7,9 @@ using DocuSign.Rooms.Client;
 using DocuSign.Rooms.Model;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DocuSign.CodeExamples.Rooms.Controllers
 {
@@ -20,14 +23,14 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         {
         }
 
-        public override string EgName => "Eg06";
+        public override string EgName => "Eg09";
 
         [BindProperty]
-        public RoomDocumentModel RoomDocumentModel { get; set; }
+        public FormFormGroupModel FormFormGroupModel { get; set; }
 
         protected override void InitializeInternal()
         {
-            RoomDocumentModel = new RoomDocumentModel();
+            FormFormGroupModel = new FormFormGroupModel();
         }
 
         [MustAuthenticate]
@@ -36,25 +39,37 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         {
             base.Get();
             // Step 1. Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            string accessToken = RequestItemsService.User.AccessToken;
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var roomsApi = new RoomsApi(apiClient);
+            var formGroupsApi = new FormGroupsApi(apiClient);
             var formLibrariesApi = new FormLibrariesApi(apiClient);
 
-            string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            string accountId = RequestItemsService.Session.AccountId;
 
             try
             {
-                //Step 3: Get Rooms 
-                RoomSummaryList rooms = roomsApi.GetRooms(accountId);
+                //Step 3: Get Forms Libraries
+                FormLibrarySummaryList formLibraries = formLibrariesApi.GetFormLibraries(accountId);
 
-                RoomDocumentModel = new RoomDocumentModel { Rooms = rooms.Rooms };
+                //Step 4: Get Forms 
+                FormSummaryList forms = new FormSummaryList(new List<FormSummary>());
+                if (formLibraries.FormsLibrarySummaries.Any())
+                {
+                    forms = formLibrariesApi.GetFormLibraryForms(
+                        accountId,
+                        formLibraries.FormsLibrarySummaries.First().FormsLibraryId);
+                }
 
-                return View("Eg06", this);
+                //Step 5: Get Form Groups
+                FormGroupSummaryList formGroups = formGroupsApi.GetFormGroups(accountId);
+
+                FormFormGroupModel = new FormFormGroupModel { Forms = forms.Forms, FormGroups = formGroups.FormGroups };
+
+                return View("Eg09", this);
             }
             catch (ApiException apiException)
             {
@@ -66,67 +81,31 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         }
 
         [MustAuthenticate]
+        [Route("AssignFormToFormGroup")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult SelectRoom(RoomDocumentModel roomDocumentModel)
+        public ActionResult AssignFormToFormGroup(FormFormGroupModel formFormGroupModel)
         {
             // Step 1. Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            string accessToken = RequestItemsService.User.AccessToken;
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var roomsApi = new RoomsApi(apiClient);
 
-            string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            var formGroupsApi = new FormGroupsApi(apiClient);
 
-            try
-            {
-                //Step 3: Get Room Documents
-                RoomDocumentList documents = roomsApi.GetDocuments(accountId, roomDocumentModel.RoomId);
-
-                RoomDocumentModel.Documents = documents.Documents;
-
-                return View("Eg06", this);
-            }
-            catch (ApiException apiException)
-            {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
-
-                return View("Error");
-            }
-        }
-
-        [MustAuthenticate]
-        [Route("ExportData")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult ExportData(RoomDocumentModel roomDocumentModel)
-        {
-            // Step 1. Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-
-            // Step 2: Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var roomsApi = new RoomsApi(apiClient);
-            var externalFormFillSessionsApi = new ExternalFormFillSessionsApi(apiClient);
-
-            string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            string accountId = RequestItemsService.Session.AccountId; 
 
             try
             {
-                // Step 3: Call the Rooms API to create external form fill session
-                ExternalFormFillSession url = externalFormFillSessionsApi.CreateExternalFormFillSession(
-                    accountId,
-                    new ExternalFormFillSessionForCreate(roomDocumentModel.DocumentId.ToString(), roomDocumentModel.RoomId));
+                // Step 3: Call the Form Group API to assign the form to the form group
+                FormGroupFormToAssign formGroupFormToAssign = formGroupsApi.AssignFormGroupForm(accountId, new Guid(formFormGroupModel.FormGroupId), new FormGroupFormToAssign() { FormId = formFormGroupModel.FormId });
 
-                ViewBag.h1 = "External form fill sessions was successfully created";
-                ViewBag.message = $"To fill the form, navigate following URL: <a href='{url.Url}' target='_blank'>Fill the form</a>";
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(url, Formatting.Indented);
+                ViewBag.h1 = "The form was assigned to the form group successfully";
+                ViewBag.message = $"The form ('{formGroupFormToAssign.FormId}') was assigned to the form group ('{formFormGroupModel.FormGroupId}') successfully";
+                ViewBag.Locals.Json = JsonConvert.SerializeObject(formGroupFormToAssign, Formatting.Indented);
 
                 return View("example_done");
             }

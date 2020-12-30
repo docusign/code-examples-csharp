@@ -1,12 +1,10 @@
-﻿using DocuSign.CodeExamples.Common;
-using DocuSign.CodeExamples.Controllers;
+﻿using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Rooms.Models;
 using DocuSign.Rooms.Api;
 using DocuSign.Rooms.Client;
-using DocuSign.Rooms.Model;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using System;
 
 namespace DocuSign.CodeExamples.Rooms.Controllers
 {
@@ -23,11 +21,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         public override string EgName => "Eg08";
 
         [BindProperty]
-        public RoomDocumentModel RoomDocumentModel { get; set; }
+        public OfficeAccessModel OfficeAccessModel { get; set; }
 
         protected override void InitializeInternal()
         {
-            RoomDocumentModel = new RoomDocumentModel();
+            OfficeAccessModel = new OfficeAccessModel();
         }
 
         [MustAuthenticate]
@@ -36,25 +34,28 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         {
             base.Get();
             // Step 1. Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            string accessToken = RequestItemsService.User.AccessToken;
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var roomsApi = new RoomsApi(apiClient);
-            var formLibrariesApi = new FormLibrariesApi(apiClient);
+            var officesApi = new OfficesApi(apiClient);
+            var formGroupsApi = new FormGroupsApi(apiClient);
 
-            string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            string accountId = RequestItemsService.Session.AccountId;
 
             try
             {
-                //Step 3: Get Rooms 
-                RoomSummaryList rooms = roomsApi.GetRooms(accountId);
+                //Step 3: Get Offices 
+                var offices = officesApi.GetOffices(accountId);
 
-                RoomDocumentModel = new RoomDocumentModel { Rooms = rooms.Rooms };
+                //Step 4: Get Form Groups 
+                var formGroups = formGroupsApi.GetFormGroups(accountId);
 
-                return View("Eg06", this);
+                OfficeAccessModel = new OfficeAccessModel { Offices = offices.OfficeSummaries, FormGroups = formGroups.FormGroups };
+
+                return View("Eg08", this);
             }
             catch (ApiException apiException)
             {
@@ -66,67 +67,29 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         }
 
         [MustAuthenticate]
+        [Route("GrantAccess")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult SelectRoom(RoomDocumentModel roomDocumentModel)
+        public ActionResult GrantAccess(OfficeAccessModel roomDocumentModel)
         {
             // Step 1. Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            string accessToken = RequestItemsService.User.AccessToken;
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
             // Step 2: Construct your API headers
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var roomsApi = new RoomsApi(apiClient);
+            var formGroupsApi = new FormGroupsApi(apiClient);
 
-            string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
-
-            try
-            {
-                //Step 3: Get Room Documents
-                RoomDocumentList documents = roomsApi.GetDocuments(accountId, roomDocumentModel.RoomId);
-
-                RoomDocumentModel.Documents = documents.Documents;
-
-                return View("Eg06", this);
-            }
-            catch (ApiException apiException)
-            {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
-
-                return View("Error");
-            }
-        }
-
-        [MustAuthenticate]
-        [Route("ExportData")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult ExportData(RoomDocumentModel roomDocumentModel)
-        {
-            // Step 1. Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-
-            // Step 2: Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var roomsApi = new RoomsApi(apiClient);
-            var externalFormFillSessionsApi = new ExternalFormFillSessionsApi(apiClient);
-
-            string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            string accountId = RequestItemsService.Session.AccountId;
 
             try
             {
-                // Step 3: Call the Rooms API to create external form fill session
-                ExternalFormFillSession url = externalFormFillSessionsApi.CreateExternalFormFillSession(
-                    accountId,
-                    new ExternalFormFillSessionForCreate(roomDocumentModel.DocumentId.ToString(), roomDocumentModel.RoomId));
+                // Step 3: Grant access
+                formGroupsApi.GrantOfficeAccessToFormGroup(accountId, new Guid(roomDocumentModel.FormGroupId), roomDocumentModel.OfficeId);
 
-                ViewBag.h1 = "External form fill sessions was successfully created";
-                ViewBag.message = $"To fill the form, navigate following URL: <a href='{url.Url}' target='_blank'>Fill the form</a>";
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(url, Formatting.Indented);
+                ViewBag.h1 = "Access is granted for the office";
+                ViewBag.message = $"To the office with Id'{roomDocumentModel.OfficeId}' granted access for the form group with id '{roomDocumentModel.FormGroupId}'";
 
                 return View("example_done");
             }
