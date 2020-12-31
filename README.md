@@ -140,22 +140,22 @@ The **refresh token** is not used in this example.
 
 1. **Create room with Data.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg01CreateRoomWithDataController.cs)
-   This example creates a new room in your DocuSign Rooms account to be used for a transaction.
+   This code example creates a new room in your DocuSign Rooms account to be used for a transaction.
 1. **Create a room from a template.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg02CreateRoomFromTemplateController.cs)
-   This example creates a new room using a template.
+   This code example creates a new room using a template.
 1. **Create room with Data.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg03ExportDataFromRoomController.cs)
-   This example exports all the avialalble data from a specific room in your DocuSign Rooms account.
+   This code example exports all the avialalble data from a specific room in your DocuSign Rooms account.
 1. **Add forms to a room.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg04AddingFormToRoomController.cs)
-   This example adds a standard real estate related form to a specific room in your DocuSign Rooms account.
+   This code example adds a standard real estate related form to a specific room in your DocuSign Rooms account.
 1. **How to search for rooms with filters.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg05GetRoomsWithFiltersController.cs)
-   This example searches for rooms in your DocuSign Rooms account using a specific filter. 
+   This code example searches for rooms in your DocuSign Rooms account using a specific filter. 
 1. **Create an external form fillable session.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg06CreateExternalFormFillSessionController.cs)
-   This example create an external form that can be filled using DocuSign for a specific room in your DocuSign Rooms account.
+   This code example create an external form that can be filled using DocuSign for a specific room in your DocuSign Rooms account.
    
 ## Click API 
 **Note:** to use the Click API, include click_manage and click_send scopes. Review the [Click API 101 Auth Guide](https://developers.docusign.com/docs/click-api/click101/auth) for more details. 
@@ -163,25 +163,19 @@ The **refresh token** is not used in this example.
 
 1. **Create Clickwraps.**
    [Source.](./launcher-csharp/Click/Controllers/Eg01CreateClickwrapController.cs)
-   Creates a clickwrap.
+   This code example creates a clickwrap.
 1. **Activate Clickwrap.**
    [Source.](./launcher-csharp/Click/Controllers/Eg02ActivateClickwrapController.cs)
-   Activates a newly created clickwrap.
-1. **Test Clickwrap.**
-   [Source.](./launcher-csharp/Click/Controllers/Eg03TestClickwrapController.cs)
-   Tests a newly created clickwrap.
-1. **Clickwrap Embeding.**
-   [Source.](./launcher-csharp/Click/Controllers/Eg04EmbedClickwrapController.cs)
-   Embeds a clickwrap into a page.
+   This code example activates a newly created clickwrap.
 1. **Clickwrap Versioning.**
-   [Source.](./launcher-csharp/Click/Controllers/Eg05CreateNewClickwrapVersionController.cs)
-   Creates a new clickwrap version.
+   [Source.](./launcher-csharp/Click/Controllers/Eg03CreateNewClickwrapVersionController.cs)
+   This code example creates a new clickwrap version.
 1. **Retrieve Clickwraps.**
-   [Source.](./launcher-csharp/Click/Controllers/Eg06RetrieveClickwrapsController.cs)
-   Retrieves clickwraps.
+   [Source.](./launcher-csharp/Click/Controllers/Eg04RetrieveClickwrapsController.cs)
+   This code example demonstrates how to retrieve a clickwrap.
 1. **Get Clickwrap Responses.**
-   [Source.](./launcher-csharp/Click/Controllers/Eg07GetClickwrapResponsesController.cs)
-   Retrieves a clickwrap responses.
+   [Source.](./launcher-csharp/Click/Controllers/Eg05GetClickwrapResponsesController.cs)
+   This code example demonstrates how to retrieve clickwrap responses.
 
 ## Installation
 
