@@ -1,10 +1,10 @@
-﻿using DocuSign.CodeExamples.Controllers;
+﻿using System;
+using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Rooms.Models;
 using DocuSign.Rooms.Api;
 using DocuSign.Rooms.Client;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace DocuSign.CodeExamples.Rooms.Controllers
 {

@@ -1,6 +1,6 @@
-﻿using DocuSign.Rooms.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using DocuSign.Rooms.Model;
 
 namespace DocuSign.CodeExamples.Rooms.Models
 {
