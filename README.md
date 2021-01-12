@@ -19,7 +19,7 @@ The **refresh token** is not used in this example.
    [Source.](./launcher-csharp/Eg001EmbeddedSigningController.cs)
    This example sends an envelope, and then uses embedded signing for the first signer.
    With embedded signing, DocuSign signing is initiated from your website.
-1. **Send an envelope with a remote (email) signer and cc recipient.**
+1. **Request a signature by email (Remote Signing).**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg002SigningViaEmailController.cs)
    The envelope includes a pdf, Word, and HTML document.
    Anchor text ([AutoPlace](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience)) is used to position the signing fields in the documents.
@@ -40,7 +40,7 @@ The **refresh token** is not used in this example.
    documents, the documents concatenated together, or a zip file of the documents.
 1. **Programmatically create a template.**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg008CreateTemplateController.cs)
-1. **Send an envelope using a template.**
+1. **Request a signature by email using a template.**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg009UseTemplateController.cs)
 1. **Send an envelope and upload its documents with multpart binary transfer.**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg010SendBinaryDocsController.cs)
