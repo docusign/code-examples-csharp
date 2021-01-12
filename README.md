@@ -19,7 +19,7 @@ The **refresh token** is not used in this example.
    [Source.](./launcher-csharp/Eg001EmbeddedSigningController.cs)
    This example sends an envelope, and then uses embedded signing for the first signer.
    With embedded signing, DocuSign signing is initiated from your website.
-1. **Send an envelope with a remote (email) signer and cc recipient.**
+1. **How to request a signature by email (Remote Signing).**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg002SigningViaEmailController.cs)
    The envelope includes a pdf, Word, and HTML document.
    Anchor text ([AutoPlace](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience)) is used to position the signing fields in the documents.
