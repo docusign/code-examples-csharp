@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 
 namespace DocuSign.CodeExamples.eSignature.Controllers
 {
+    [Area("eSignature")]
     [Route("Eg034")]
     public class Eg034ConditionalRecipientsWorkflowController : EgController
     {

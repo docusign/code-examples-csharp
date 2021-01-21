@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'CodeExamples' " />
-
-  <ItemGroup>
-    <Content Remove="Views\Eg035.cshtml" />
-  </ItemGroup>
   
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />

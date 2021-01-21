@@ -10,6 +10,7 @@ using static DocuSign.eSign.Api.EnvelopesApi;
 
 namespace DocuSign.CodeExamples.eSignature.Controllers
 {
+    [Area("eSignature")]
     [Route("Eg033")]
     public class Eg033UnpauseSignatureWorkflowController : EgController
     {
