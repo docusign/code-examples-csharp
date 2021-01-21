@@ -133,6 +133,9 @@ The **refresh token** is not used in this example.
 1. **Conditional recipients**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg034ConditionalRecipientsWorkflowController.cs)
    This code example demonstrates how to create an envelope where the workflow is routed to different recipients based on the value of a transaction using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
+1. **Request a signature by SMS**
+   [Source.](./launcher-csharp/eSignature/Controllers/Eg035SMSDeliveryController.cs)
+   This code example demonstrates how to send a signature request for a signer to read and sign via an SMS message. [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
 
 ## Rooms API 
 **Note:** to use the Rooms API you must also [create your DocuSign Developer Account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account). 
