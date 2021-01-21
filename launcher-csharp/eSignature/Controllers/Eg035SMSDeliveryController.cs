@@ -27,8 +27,12 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
             // Data for this method
             // signerEmail 
             // signerName
+            // signerCountryCode
+            // signerPhoneNumber
             // ccEmail
             // ccName
+            // ccCountryCode
+            // ccPhoneNumber
             var accessToken = RequestItemsService.User.AccessToken;
             var basePath = RequestItemsService.Session.BasePath + "/restapi";
             var accountId = RequestItemsService.Session.AccountId;
@@ -47,8 +51,12 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
             // Data for this method
             // signerEmail
             // signerName
+            // signerCountryCode
+            // signerPhoneNumber
             // ccEmail
             // ccName
+            // ccCountryCode
+            // ccPhoneNumber
             // Config.docDocx
             // Config.docPdf
             // RequestItemsService.Status -- the envelope status ('created' or 'sent')
