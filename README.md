@@ -137,7 +137,7 @@ For more information about the scopes used for obtaining authorization to use th
    This code example demonstrates how to create an envelope where the workflow is routed to different recipients based on the value of a transaction using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
 1. **Request a signature by SMS**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg035SMSDeliveryController.cs)
-   This code example demonstrates how to send a signature request for a signer to read and sign via an SMS message. [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
+   This code example demonstrates how to send a signature request for a signer to read and sign via an SMS message using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
 
 ## Rooms API 
 
