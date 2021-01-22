@@ -15,6 +15,8 @@ The **refresh token** is not used in this example.
 
 ## eSignature API
 
+For more information about the scopes used for obtaining authorization to use the eSignature API, see the [Required Scopes section](https://developers.docusign.com/docs/esign-rest-api/esign101/auth).
+
 1. **Use embedded signing.**
    [Source.](./launcher-csharp/Eg001EmbeddedSigningController.cs)
    This example sends an envelope, and then uses embedded signing for the first signer.
@@ -133,8 +135,14 @@ The **refresh token** is not used in this example.
 1. **Conditional recipients**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg034ConditionalRecipientsWorkflowController.cs)
    This code example demonstrates how to create an envelope where the workflow is routed to different recipients based on the value of a transaction using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
+1. **Request a signature by SMS**
+   [Source.](./launcher-csharp/eSignature/Controllers/Eg035SMSDeliveryController.cs)
+   This code example demonstrates how to send a signature request for a signer to read and sign via an SMS message using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
 
 ## Rooms API 
+
+For more information about the scopes used for obtaining authorization to use the Rooms API, see the [Required Scopes section](https://developers.docusign.com/docs/rooms-api/rooms101/auth/).
+
 **Note:** to use the Rooms API you must also [create your DocuSign Developer Account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account). 
 
 
@@ -212,8 +220,11 @@ The **refresh token** is not used in this example.
 1. Update the values of **ClientId**, and **ClientSecret** text with your values. 
 
 #### For JWT (JSON Web Tokens)
+
 1. Replace the **ClientId**, and **ImpersonatedUserId** text with your values. 
 2. Add and **RSA Private Key** from **DocuSign eSignature Admin** and copy/paste its value into private.key
+
+**Note:** Before you can make any API calls using JWT Grant, you must get your user’s consent for your app to impersonate them. To do this, the `impersonation` scope is added when requesting a JSON Web Token.
 
 See the [Authentication guide](https://developers.docusign.com/esign-rest-api/guides/authentication)
 for information on choosing the right authentication flow for your application.

@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 
 namespace DocuSign.CodeExamples.eSignature.Controllers
 {
+    [Area("eSignature")]
     [Route("Eg032")]
     public class Eg032PauseSignatureWorkflowController : EgController
     {
