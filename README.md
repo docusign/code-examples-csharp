@@ -15,11 +15,13 @@ The **refresh token** is not used in this example.
 
 ## eSignature API
 
+For more information about the scopes used for obtaining authorization to use the eSignature API, see the [Required Scopes section](https://developers.docusign.com/docs/esign-rest-api/esign101/auth).
+
 1. **Use embedded signing.**
    [Source.](./launcher-csharp/Eg001EmbeddedSigningController.cs)
    This example sends an envelope, and then uses embedded signing for the first signer.
    With embedded signing, DocuSign signing is initiated from your website.
-1. **Send an envelope with a remote (email) signer and cc recipient.**
+1. **Request a signature by email (Remote Signing).**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg002SigningViaEmailController.cs)
    The envelope includes a pdf, Word, and HTML document.
    Anchor text ([AutoPlace](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience)) is used to position the signing fields in the documents.
@@ -40,7 +42,7 @@ The **refresh token** is not used in this example.
    documents, the documents concatenated together, or a zip file of the documents.
 1. **Programmatically create a template.**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg008CreateTemplateController.cs)
-1. **Send an envelope using a template.**
+1. **Request a signature by email using a template.**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg009UseTemplateController.cs)
 1. **Send an envelope and upload its documents with multpart binary transfer.**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg010SendBinaryDocsController.cs)
@@ -133,29 +135,35 @@ The **refresh token** is not used in this example.
 1. **Conditional recipients**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg034ConditionalRecipientsWorkflowController.cs)
    This code example demonstrates how to create an envelope where the workflow is routed to different recipients based on the value of a transaction using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
+1. **Request a signature by SMS**
+   [Source.](./launcher-csharp/eSignature/Controllers/Eg035SMSDeliveryController.cs)
+   This code example demonstrates how to send a signature request for a signer to read and sign via an SMS message using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
 
 ## Rooms API 
+
+For more information about the scopes used for obtaining authorization to use the Rooms API, see the [Required Scopes section](https://developers.docusign.com/docs/rooms-api/rooms101/auth/).
+
 **Note:** to use the Rooms API you must also [create your DocuSign Developer Account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account). 
 
 
 1. **Create room with Data.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg01CreateRoomWithDataController.cs)
-   This example creates a new room in your DocuSign Rooms account to be used for a transaction.
+   This code example creates a new room in your DocuSign Rooms account to be used for a transaction.
 1. **Create a room from a template.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg02CreateRoomFromTemplateController.cs)
-   This example creates a new room using a template.
+   This code example creates a new room using a template.
 1. **Create room with Data.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg03ExportDataFromRoomController.cs)
-   This example exports all the avialalble data from a specific room in your DocuSign Rooms account.
+   This code example exports all the avialalble data from a specific room in your DocuSign Rooms account.
 1. **Add forms to a room.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg04AddingFormToRoomController.cs)
-   This example adds a standard real estate related form to a specific room in your DocuSign Rooms account.
+   This code example adds a standard real estate related form to a specific room in your DocuSign Rooms account.
 1. **How to search for rooms with filters.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg05GetRoomsWithFiltersController.cs)
-   This example searches for rooms in your DocuSign Rooms account using a specific filter. 
+   This code example searches for rooms in your DocuSign Rooms account using a specific filter. 
 1. **Create an external form fillable session.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg06CreateExternalFormFillSessionController.cs)
-   This example create an external form that can be filled using DocuSign for a specific room in your DocuSign Rooms account.
+   This code example create an external form that can be filled using DocuSign for a specific room in your DocuSign Rooms account.
    
 ## Click API 
 **Note:** to use the Click API, include click_manage and click_send scopes. Review the [Click API 101 Auth Guide](https://developers.docusign.com/docs/click-api/click101/auth) for more details. 
@@ -163,25 +171,19 @@ The **refresh token** is not used in this example.
 
 1. **Create Clickwraps.**
    [Source.](./launcher-csharp/Click/Controllers/Eg01CreateClickwrapController.cs)
-   Creates a clickwrap.
+   This code example creates a clickwrap.
 1. **Activate Clickwrap.**
    [Source.](./launcher-csharp/Click/Controllers/Eg02ActivateClickwrapController.cs)
-   Activates a newly created clickwrap.
-1. **Test Clickwrap.**
-   [Source.](./launcher-csharp/Click/Controllers/Eg03TestClickwrapController.cs)
-   Tests a newly created clickwrap.
-1. **Clickwrap Embeding.**
-   [Source.](./launcher-csharp/Click/Controllers/Eg04EmbedClickwrapController.cs)
-   Embeds a clickwrap into a page.
+   This code example activates a newly created clickwrap.
 1. **Clickwrap Versioning.**
-   [Source.](./launcher-csharp/Click/Controllers/Eg05CreateNewClickwrapVersionController.cs)
-   Creates a new clickwrap version.
+   [Source.](./launcher-csharp/Click/Controllers/Eg03CreateNewClickwrapVersionController.cs)
+   This code example creates a new clickwrap version.
 1. **Retrieve Clickwraps.**
-   [Source.](./launcher-csharp/Click/Controllers/Eg06RetrieveClickwrapsController.cs)
-   Retrieves clickwraps.
+   [Source.](./launcher-csharp/Click/Controllers/Eg04RetrieveClickwrapsController.cs)
+   This code example demonstrates how to retrieve a clickwrap.
 1. **Get Clickwrap Responses.**
-   [Source.](./launcher-csharp/Click/Controllers/Eg07GetClickwrapResponsesController.cs)
-   Retrieves a clickwrap responses.
+   [Source.](./launcher-csharp/Click/Controllers/Eg05GetClickwrapResponsesController.cs)
+   This code example demonstrates how to retrieve clickwrap responses.
 
 ## Installation
 
@@ -218,8 +220,11 @@ The **refresh token** is not used in this example.
 1. Update the values of **ClientId**, and **ClientSecret** text with your values. 
 
 #### For JWT (JSON Web Tokens)
+
 1. Replace the **ClientId**, and **ImpersonatedUserId** text with your values. 
 2. Add and **RSA Private Key** from **DocuSign eSignature Admin** and copy/paste its value into private.key
+
+**Note:** Before you can make any API calls using JWT Grant, you must get your user’s consent for your app to impersonate them. To do this, the `impersonation` scope is added when requesting a JSON Web Token.
 
 See the [Authentication guide](https://developers.docusign.com/esign-rest-api/guides/authentication)
 for information on choosing the right authentication flow for your application.

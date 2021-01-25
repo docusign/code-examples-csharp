@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
+using DocuSign.CodeExamples.Common;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -64,8 +66,19 @@ namespace DocuSign.CodeExamples.Controllers
         /// <returns>Consent URL</returns>
         private string BuildConsentURL()
         {
+            var scopes = "signature impersonation";
+            var apiType = Enum.Parse<ExamplesAPIType>(this._configuration["ExamplesAPI"]);
+            if (apiType == ExamplesAPIType.Rooms)
+            {
+                scopes += " dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write "
+                + "dtr.profile.read dtr.profile.write dtr.company.read dtr.company.write room_forms";
+            }
+            else if (apiType == ExamplesAPIType.Click)
+            {
+                scopes += " click.manage click.send";
+            }
             return this._configuration["DocuSign:AuthorizationEndpoint"] + "?response_type=code" +
-                "&scope=signature%20impersonation" +
+                "&scope=" + scopes +
                 "&client_id=" + this._configuration["DocuSignJWT:ClientId"] + 
                 "&redirect_uri=" + this._configuration["DocuSign:AppUrl"] + "/ds/login?authType=JWT";
         }

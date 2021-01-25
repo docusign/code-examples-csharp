@@ -1,0 +1,71 @@
+﻿
+<h4>35. Send an envelope via SMS delivery</h4>
+<p>
+    This is a general example of creating and sending an envelope (a signing request) to a recipient and nofiying this recipient via SMS delivery.
+</p>
+
+@if (ViewBag.showDoc == true)
+{
+    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example.</p>
+}
+
+<p>
+    API method used:
+    <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
+</p>
+
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">Eg035SMSDeliveryController.cs</a> on GitHub.
+</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="signerCountryCode">Signer Country Code</label>
+        <input type="number" class="form-control" id="signerCountryCode" name="signerCountryCode"
+               aria-describedby="countryCodeHelp" placeholder="1" required>
+        <small id="countryCodeHelp" class="form-text text-muted">The country code for the phone below</small>
+    </div>
+    <div class="form-group">
+        <label for="signerPhoneNumber">Signer Phone Number</label>
+        <input type="tel" class="form-control" id="signerPhoneNumber" name="signerPhoneNumber"
+               aria-describedby="phoneNumberHelp" placeholder="415-555-1212" required>
+        <small id="phoneNumberHelp" class="form-text text-muted">This phone number will receive a notification. We'll never share your phone number with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="signerEmail">Signer Email</label>
+        <input type="email" class="form-control" id="signerEmail" name="signerEmail"
+               aria-describedby="emailHelp" placeholder="pat@example.com" required
+               value="@ViewBag.Locals.DsConfig.SignerEmail">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="signerName">Signer Name</label>
+        <input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
+               value="@ViewBag.Locals.DsConfig.SignerName" required>
+    </div>
+    <div class="form-group">
+        <label for="ccCountryCode">CC Country Code</label>
+        <input type="number" class="form-control" id="ccCountryCode" name="ccCountryCode"
+               aria-describedby="countryCodeHelp" placeholder="1" required>
+        <small id="countryCodeHelp" class="form-text text-muted">The country code for the phone below</small>
+    </div>
+    <div class="form-group">
+        <label for="ccPhoneNumber">CC Phone Number</label>
+        <input type="tel" class="form-control" id="ccPhoneNumber" name="ccPhoneNumber"
+               aria-describedby="phoneNumberHelp" placeholder="415-555-1212" required>
+        <small id="phoneNumberHelp" class="form-text text-muted">This phone number will receive a notification. We'll never share your phone number with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="ccEmail">CC Email</label>
+        <input type="email" class="form-control" id="ccEmail" name="ccEmail"
+               aria-describedby="emailHelp" placeholder="pat@example.com" required
+        <small id="emailHelp" class="form-text text-muted">The email and/or name for the cc recipient must be different from the signer.</small>
+    </div>
+    <div class="form-group">
+        <label for="ccName">CC Name</label>
+        <input type="text" class="form-control" id="ccName" placeholder="Pat Johnson" name="ccName"
+               required>
+    </div>
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
