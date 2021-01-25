@@ -153,10 +153,10 @@ namespace DocuSign.CodeExamples.Controllers
                 Console.WriteLine("Bulk Batch ID: "+ bulkRequestResult.BatchId);
 
                 // Step 8. Confirm successful batch send 
-               var status = bulkEnvelopesApi.Get(accountId, bulkRequestResult.BatchId);
+                var status = bulkEnvelopesApi.GetBulkSendBatchStatus(accountId, bulkRequestResult.BatchId);
 
                 ViewBag.h1 = "Bulk send envelope was successfully performed!";
-                ViewBag.message = $@"Bulk request was sent to {status.Sent} user lists.";
+                ViewBag.message = $@"Bulk request queued to {status.Queued} user lists.";
             }
             catch (Exception ex)
             {
