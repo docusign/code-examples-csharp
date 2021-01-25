@@ -51,10 +51,9 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
             try
             {
-                //Step 3: Get Forms Libraries
+                // step 3: obtain the desired form ID
                 FormLibrarySummaryList formLibraries = formLibrariesApi.GetFormLibraries(accountId);
 
-                //Step 4: Get Forms 
                 FormSummaryList forms = new FormSummaryList(new List<FormSummary>());
                 if (formLibraries.FormsLibrarySummaries.Any())
                 {
@@ -63,7 +62,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                         formLibraries.FormsLibrarySummaries.First().FormsLibraryId);
                 }
 
-                //Step 5: Get Form Groups
                 FormGroupSummaryList formGroups = formGroupsApi.GetFormGroups(accountId);
 
                 FormFormGroupModel = new FormFormGroupModel { Forms = forms.Forms, FormGroups = formGroups.FormGroups };
@@ -99,7 +97,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
             try
             {
-                // Step 3: Call the Form Group API to assign the form to the form group
+                // Step 5: Call the Rooms API to assign the form to the form group
                 FormGroupFormToAssign formGroupFormToAssign = formGroupsApi.AssignFormGroupForm(accountId, new Guid(formFormGroupModel.FormGroupId), new FormGroupFormToAssign() { FormId = formFormGroupModel.FormId });
 
                 ViewBag.h1 = "The form was assigned to the form group successfully";
