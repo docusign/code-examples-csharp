@@ -9,17 +9,17 @@ using Newtonsoft.Json;
 namespace DocuSign.CodeExamples.Click.Controllers
 {
     [Area("Click")]
-    [Route("[area]/Eg07")]
-    public class Eg07GetClickwrapResponsesController : EgController
+    [Route("[area]/Eg05")]
+    public class Eg05GetClickwrapResponsesController : EgController
     {
-        public Eg07GetClickwrapResponsesController(
+        public Eg05GetClickwrapResponsesController(
             DSConfiguration dsConfig, 
             IRequestItemsService requestItemsService) 
             : base(dsConfig, requestItemsService)
         {
         }
 
-        public override string EgName => "Eg07";
+        public override string EgName => "Eg05";
         protected override void InitializeInternal()
         {
             ViewBag.ClickwrapId = RequestItemsService.ClickwrapId;
