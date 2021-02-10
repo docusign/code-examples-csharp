@@ -1,9 +1,8 @@
-﻿using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿using DocuSign.eSign.Model;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using eSignature.Examples;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -39,13 +38,7 @@ namespace DocuSign.CodeExamples.Controllers
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
             var envelopeId = RequestItemsService.EnvelopeId;
 
-            // Step 2: Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-
-            // Step 3: Call the eSignature REST API
-            var envelopesApi = new EnvelopesApi(apiClient);
-            EnvelopeFormData results = envelopesApi.GetFormData(accountId, envelopeId);
+            EnvelopeFormData results = GetEnvelopeTabData.GetEnvelopeFormData(accessToken, basePath, accountId, envelopeId);
 
             ViewBag.h1 = "Get envelope tab data information";
             ViewBag.message = "Results from the Envelopes::get method:";

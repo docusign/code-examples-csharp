@@ -1,9 +1,7 @@
-﻿using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
-using DocuSign.CodeExamples.Models;
+﻿using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using eSignature.Examples;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -18,27 +16,6 @@ namespace DocuSign.CodeExamples.Controllers
         }
 
         public override string EgName => "eg004";
-
-        // ***DS.snippet.0.start
-        private Envelope DoWork(string accessToken, string basePath, string accountId,
-            string envelopeId)
-        {
-            // Data for this method
-            // accessToken
-            // basePath
-            // accountId
-            // envelopeId
-
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var envelopesApi = new EnvelopesApi(apiClient);
-            ViewBag.h1 = "Get envelope status results";
-            ViewBag.message = "Results from the Envelopes::get method:";
-            Envelope results = envelopesApi.GetEnvelope(accountId, envelopeId);
-            return results;
-        }
-        // ***DS.snippet.0.end
-
 
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName)
@@ -62,7 +39,7 @@ namespace DocuSign.CodeExamples.Controllers
                 return Redirect("/ds/mustAuthenticate");
             }
 
-            Envelope results = DoWork(accessToken, basePath, accountId, envelopeId);
+            var results = GetEnvelopeInformation.GetEnvelope(accessToken, basePath, accountId, envelopeId);
         
             ViewBag.h1 = "Get envelope status results";
             ViewBag.message  = "Results from the Envelopes::get method:";

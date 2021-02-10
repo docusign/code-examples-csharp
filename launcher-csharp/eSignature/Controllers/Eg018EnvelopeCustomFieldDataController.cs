@@ -1,9 +1,7 @@
-﻿using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
-using DocuSign.CodeExamples.Models;
+﻿using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using eSignature.Examples;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -34,18 +32,12 @@ namespace DocuSign.CodeExamples.Controllers
 
             var basePath = RequestItemsService.Session.BasePath + "/restapi";
 
-            // Step 1: Obtain your OAuth token
+            // Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var accountId = RequestItemsService.Session.AccountId; // Rrepresents your {ACCOUNT_ID}
             var envelopeId = RequestItemsService.EnvelopeId;
 
-            // Step 2: Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-
-            // Step 3: Call the eSignature REST API
-            var envelopesApi = new EnvelopesApi(apiClient);
-            CustomFieldsEnvelope results = envelopesApi.ListCustomFields(accountId, envelopeId);
+            var results = GetCustomFields.ListAllCustomFieldsForEnvelope(accessToken, basePath, accountId, envelopeId);
 
             ViewBag.h1 = "Envelope custom field data";
             ViewBag.message = "Results from the EnvelopeCustomFields::list method:";

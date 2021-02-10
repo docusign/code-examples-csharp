@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿using DocuSign.eSign.Model;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using eSignature.Examples;
+using System.Linq;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -20,50 +19,6 @@ namespace DocuSign.CodeExamples.Controllers
 
         public override string EgName => "eg006";
 
-        // ***DS.snippet.0.start
-        private (EnvelopeDocumentsResult results, EnvelopeDocuments envelopeDocuments) DoWork(
-            string accessToken, string basePath, string accountId, string envelopeId)
-        {
-            // Data for this method
-            // accessToken
-            // basePath
-            // accountId
-            // envelopeId
-
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var envelopesApi = new EnvelopesApi(apiClient);
-            EnvelopeDocumentsResult results = envelopesApi.ListDocuments(accountId, envelopeId);
-
-            // Prepare and save the envelopeId and its list of documents in the session so
-            // they can be used in example 7 (download a document)
-            List<EnvelopeDocItem> envelopeDocItems = new List<EnvelopeDocItem>
-            {
-                new EnvelopeDocItem { Name = "Combined", Type = "content", DocumentId = "combined" },
-                new EnvelopeDocItem { Name = "Zip archive", Type = "zip", DocumentId = "archive" }
-            };
-
-            foreach (EnvelopeDocument doc in results.EnvelopeDocuments)
-            {
-                envelopeDocItems.Add(new EnvelopeDocItem
-                {
-                    DocumentId = doc.DocumentId,
-                    Name = doc.DocumentId == "certificate" ? "Certificate of completion" : doc.Name,
-                    Type = doc.Type
-                });
-            }
-
-            EnvelopeDocuments envelopeDocuments = new EnvelopeDocuments
-            {
-                EnvelopeId = envelopeId,
-                Documents = envelopeDocItems
-            };
-
-            return (results, envelopeDocuments);
-        }
-        // ***DS.snippet.0.end
-
-
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName)
         {
@@ -72,7 +27,6 @@ namespace DocuSign.CodeExamples.Controllers
             var basePath = RequestItemsService.Session.BasePath + "/restapi";
             var accountId = RequestItemsService.Session.AccountId;
             var envelopeId = RequestItemsService.EnvelopeId;
-
 
             bool tokenOk = CheckToken(3);
             if (!tokenOk)
@@ -86,14 +40,21 @@ namespace DocuSign.CodeExamples.Controllers
                 return Redirect("/ds/mustAuthenticate");
             }
 
-            (EnvelopeDocumentsResult results, EnvelopeDocuments envelopeDocuments) = 
-                DoWork(accessToken, basePath, accountId, envelopeId);
+            (EnvelopeDocumentsResult results, ListEnvelopeDocuments.EnvelopeDocuments envelopeDocuments) =
+                ListEnvelopeDocuments.GetDocuments(accessToken, basePath, accountId, envelopeId);
+
+            var mappedEnvelopeDocuments = new EnvelopeDocuments
+            {
+                EnvelopeId = envelopeDocuments.EnvelopeId,
+                Documents = envelopeDocuments.Documents.Select(docItem => new EnvelopeDocItem { DocumentId = docItem.DocumentId, Name = docItem.Name, Type = docItem.Type })
+                                                       .ToList()
+            };
 
             // Save the envelopeId and its list of documents in the session so
             // they can be used in example 7 (download a document)
-            RequestItemsService.EnvelopeDocuments = envelopeDocuments;
+            RequestItemsService.EnvelopeDocuments = mappedEnvelopeDocuments;
         
-            ViewBag.envelopeDocuments = envelopeDocuments;
+            ViewBag.envelopeDocuments = mappedEnvelopeDocuments;
             ViewBag.h1 = "List envelope documents result";
             ViewBag.message = "Results from the EnvelopeDocuments::list method:";
             ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
