@@ -18,7 +18,7 @@ namespace eSignature.Examples
         /// <param name="accessToken">Access Token for API call (OAuth)</param>
         /// <param name="basePath">BasePath for API calls (URI)</param>
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
-        /// <param name="docPdf">String of bytes representing the document (pdf)</param>
+        /// <param name="templateId">The DocuSign Template ID</param>
         /// <param name="returnUrl">URL user will be redirected to after they sign</param>
         /// <param name="pingUrl">URL that DocuSign will be able to ping to incdicate signing session is active</param>
         /// <returns>The envelopeId (GUID) of the resulting Envelope and the URL for the embedded signing</returns>

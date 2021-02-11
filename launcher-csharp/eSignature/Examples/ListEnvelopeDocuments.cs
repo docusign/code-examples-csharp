@@ -29,7 +29,7 @@ namespace eSignature.Examples
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// <param name="envelopeId">The required envelopeId</param>
         /// <returns>An object containing information about all the documents in the envelopes</returns>
-        public static (EnvelopeDocumentsResult results, EnvelopeDocuments envelopeDocuments) GetDocuments(string accessToken, string basePath, string accountId, string envelopeId)
+        public static EnvelopeDocuments GetDocuments(string accessToken, string basePath, string accountId, string envelopeId)
         {
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
@@ -58,7 +58,7 @@ namespace eSignature.Examples
                 Documents = envelopeDocItems
             };
 
-            return (results, envelopeDocuments);
+            return envelopeDocuments;
         }
     }
 }

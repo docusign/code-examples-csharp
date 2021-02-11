@@ -43,39 +43,11 @@ namespace DocuSign.CodeExamples.Controllers
                 return Redirect("/ds/mustAuthenticate");
             }
 
-            // Order form constants
-            string l1Name = "Harmonica";
-            int l1Price = 5;
-            string l1Description = $"${l1Price} each"
-                 , l2Name = "Xylophone";
-            int l2Price = 150;
-            string l2Description = $"${l2Price} each";
-
-            // Payment line items
-            PaymentLineItem paymentLineIteml1 = new PaymentLineItem
-            {
-                Name = l1Name,
-                Description = l1Description,
-                AmountReference = "l1e"
-            },
-            paymentLineIteml2 = new PaymentLineItem
-            {
-                Name = l2Name,
-                Description = l2Description,
-                AmountReference = "l2e"
-            };
-            PaymentDetails paymentDetails = new PaymentDetails
-            {
-                GatewayAccountId = Config.GatewayAccountId,
-                CurrencyCode = "USD",
-                GatewayName = Config.GatewayName,
-                GatewayDisplayName = Config.GatewayDisplayName,
-                LineItems = new List<PaymentLineItem> { paymentLineIteml1, paymentLineIteml2 }
-            };
-
+            // Call the Examples API method to create an envelope with payment processing
             string envelopeId = CollectPaymentInEnvelope.CreateEnvelopeWithPayment(signerEmail, signerName, ccEmail,
-                ccName, accessToken, basePath, accountId, RequestItemsService.Status, paymentDetails);
+                ccName, accessToken, basePath, accountId, RequestItemsService.Status, Config.GatewayAccountId, Config.GatewayName, Config.GatewayDisplayName);
 
+            // Process results
             Console.WriteLine("Envelope was created.EnvelopeId " + envelopeId);
             ViewBag.h1 = "Envelope sent";
             ViewBag.message = "The envelope has been created and sent!<br/>Envelope ID " + envelopeId + ".";

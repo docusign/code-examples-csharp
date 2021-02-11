@@ -9,6 +9,37 @@ namespace eSignature.Examples
 {
     public class SMSDelivery
     {
+        /// <summary>
+        /// Creates an envelope that would include two documents and add a signer and cc recipients to be notified via SMS
+        /// </summary>
+        /// <param name="accessToken">Access Token for API call (OAuth)</param>
+        /// <param name="basePath">BasePath for API calls (URI)</param>
+        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
+        /// <param name="signerEmail">Email address for the signer</param>
+        /// <param name="signerName">Full name of the signer</param>
+        /// <param name="signerCountryCode">Country code of the signer</param>
+        /// <param name="signerPhoneNumber">Phone number of the signer</param>
+        /// <param name="ccEmail">Email address for the cc recipient</param>
+        /// <param name="ccName">Name of the cc recipient</param>
+        /// <param name="ccCountryCode">Country code of the cc recipient</param>
+        /// <param name="ccPhoneNumber">Phone number of the cc recipient</param>
+        /// <param name="docPdf">String of bytes representing the document (pdf)</param>
+        /// <param name="docDocx">String of bytes representing the Word document (docx)</param>
+        /// <param name="envStatus">Status to set the envelope to</param>
+        /// <returns>EnvelopeId for the new envelope</returns>
+        public static string SendRequestViaSMS(string accessToken, string basePath, string accountId, string signerEmail, string signerName, string signerCountryCode, string signerPhoneNumber, string ccEmail, string ccName, string ccCountryCode, string ccPhoneNumber, string docDocx, string docPdf, string envStatus)
+        {
+            EnvelopeDefinition env = MakeEnvelope(signerEmail, signerName, signerCountryCode, signerPhoneNumber, ccEmail,
+                ccName, ccCountryCode, ccPhoneNumber, docDocx, docPdf, envStatus);
+
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+
+            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+            return results.EnvelopeId;
+        }
+
         private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string signerCountryCode, string signerPhoneNumber, string ccEmail, string ccName, string ccCountryCode, string ccPhoneNumber, string docDocx, string docPdf, string envStatus)
         {
             // Data for this method
@@ -189,37 +220,6 @@ namespace eSignature.Examples
                 "        </body>\n" +
                 "    </html>"
                 );
-        }
-
-        /// <summary>
-        /// Creates an envelope that would include two documents and add a signer and cc recipients to be notified via SMS
-        /// </summary>
-        /// <param name="accessToken">Access Token for API call (OAuth)</param>
-        /// <param name="basePath">BasePath for API calls (URI)</param>
-        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
-        /// <param name="signerEmail">Email address for the signer</param>
-        /// <param name="signerName">Full name of the signer</param>
-        /// <param name="signerCountryCode">Country code of the signer</param>
-        /// <param name="signerPhoneNumber">Phone number of the signer</param>
-        /// <param name="ccEmail">Email address for the cc recipient</param>
-        /// <param name="ccName">Name of the cc recipient</param>
-        /// <param name="ccCountryCode">Country code of the cc recipient</param>
-        /// <param name="ccPhoneNumber">Phone number of the cc recipient</param>
-        /// <param name="docPdf">String of bytes representing the document (pdf)</param>
-        /// <param name="docDocx">String of bytes representing the Word document (docx)</param>
-        /// <param name="envStatus">Status to set the envelope to</param>
-        /// <returns>EnvelopeId for the new envelope</returns>
-        public static string SendRequestViaSMS(string accessToken, string basePath, string accountId, string signerEmail, string signerName, string signerCountryCode, string signerPhoneNumber, string ccEmail, string ccName, string ccCountryCode, string ccPhoneNumber, string docDocx, string docPdf, string envStatus)
-        {
-            EnvelopeDefinition env = MakeEnvelope(signerEmail, signerName, signerCountryCode, signerPhoneNumber, ccEmail,
-                ccName, ccCountryCode, ccPhoneNumber, docDocx, docPdf, envStatus);
-
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
-
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
-            return results.EnvelopeId;
         }
     }
 }

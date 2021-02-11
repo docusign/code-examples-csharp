@@ -58,6 +58,7 @@ namespace DocuSign.CodeExamples.Controllers
             var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
+            // Call the Examples API method to apply a brand to the envelope
             var results = ApplyBrandToEnvelope.CreateEnvelopeWithBranding(signerEmail, signerName, brandId, accessToken,
                 basePath, accountId, RequestItemsService.Status, Config.docPdf);
             

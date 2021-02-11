@@ -36,7 +36,7 @@ namespace DocuSign.CodeExamples.Controllers
                 return Redirect("/ds/mustAuthenticate");
             }
 
-            // Call DoWork. It Returns a tuple. See https://stackoverflow.com/a/36436255/64904
+            // Call the Examples API method to create a new DocuSign template
             (bool createdNewTemplate, string templateId, string resultsTemplateName) = CreateNewTemplate.CreateTemplate(
                  accessToken, basePath, accountId);
 

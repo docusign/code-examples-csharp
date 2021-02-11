@@ -18,7 +18,6 @@ namespace eSignature.Examples
         /// <returns>A group information</returns>
         public static GroupInformation GetGroupInformation(string permissionProfileId, string userGroupId, string accessToken, string basePath, string accountId)
 		{
-
             // Construct your API headers
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);

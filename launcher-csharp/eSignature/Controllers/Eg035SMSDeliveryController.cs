@@ -36,9 +36,12 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
             var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
+            // Call the Examples API method to create and send an envelope and notify recipients via SMS
             var envelopeId = SMSDelivery.SendRequestViaSMS(accessToken, basePath, accountId, signerEmail, signerName,
                 signerCountryCode, signerPhoneNumber, ccEmail, ccName, ccCountryCode, ccPhoneNumber, Config.docDocx,
                 Config.docPdf, RequestItemsService.Status);
+
+            RequestItemsService.EnvelopeId = envelopeId;
 
             ViewBag.h1 = "Envelope sent";
             ViewBag.message = "The envelope has been created and sent!<br />Envelope ID " + envelopeId + ".";

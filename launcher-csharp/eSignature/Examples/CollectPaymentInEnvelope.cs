@@ -9,7 +9,45 @@ namespace eSignature.Examples
 {
     public static class CollectPaymentInEnvelope
     {
-        private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName, string envStatus, PaymentDetails paymentDetails)
+        /// <summary>
+        /// Creates an envelope that would include payment processing to collect payment from recipient
+        /// </summary>
+        /// <param name="signerEmail">Email address for the signer</param>
+        /// <param name="signerName">Full name of the signer</param>
+        /// <param name="ccEmail">Email address for the cc recipient</param>
+        /// <param name="ccName">Name of the cc recipient</param>
+        /// <param name="accessToken">Access Token for API call (OAuth)</param>
+        /// <param name="basePath">BasePath for API calls (URI)</param>
+        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
+        /// <param name="envStatus">Status to set the envelope to</param>
+        /// <param name="paymentDetails">Object containing all the necassary information to process payments</param>
+        /// <returns>EnvelopeId for the new envelope</returns>
+        public static string CreateEnvelopeWithPayment(string signerEmail, string signerName, string ccEmail,
+            string ccName, string accessToken, string basePath, string accountId, string envStatus, string gatawayAccountId, string gatewayName, string gatewayDisplayName)
+        {
+            // Data for this method
+            // signerEmail 
+            // signerName
+            // ccEmail
+            // ccName
+            // accessToken
+            // basePath 
+            // accountId 
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+
+            // Step 1. Make the envelope request body
+            EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, envStatus, gatawayAccountId, gatewayName, gatewayDisplayName);
+
+            // Step 2. call Envelopes::create API method
+            // Exceptions will be caught by the calling function
+            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
+            return results.EnvelopeId;
+        }
+
+        private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail,
+            string ccName, string envStatus, string gatewayAccountId, string gatewayName, string gatewayDisplayName)
         {
             // Data for this method
             // signerEmail 
@@ -44,6 +82,32 @@ namespace eSignature.Examples
             int l1Price = 5;
             int l2Price = 150;
             int currencyMultiplier = 100;
+            string l1Name = "Harmonica";
+            string l1Description = $"${l1Price} each"
+                 , l2Name = "Xylophone";
+            string l2Description = $"${l2Price} each";
+
+            // Payment line items
+            PaymentLineItem paymentLineIteml1 = new PaymentLineItem
+            {
+                Name = l1Name,
+                Description = l1Description,
+                AmountReference = "l1e"
+            },
+            paymentLineIteml2 = new PaymentLineItem
+            {
+                Name = l2Name,
+                Description = l2Description,
+                AmountReference = "l2e"
+            };
+            PaymentDetails paymentDetails = new PaymentDetails
+            {
+                GatewayAccountId = gatewayAccountId,
+                CurrencyCode = "USD",
+                GatewayName = gatewayName,
+                GatewayDisplayName = gatewayDisplayName,
+                LineItems = new List<PaymentLineItem> { paymentLineIteml1, paymentLineIteml2 }
+            };
 
             // read file from a local directory
             // The read could raise an exception if the file is not available!
@@ -232,43 +296,6 @@ namespace eSignature.Examples
             env.Status = envStatus;
 
             return env;
-        }
-
-        /// <summary>
-        /// Creates an envelope that would include payment processing to collect payment from recipient
-        /// </summary>
-        /// <param name="signerEmail">Email address for the signer</param>
-        /// <param name="signerName">Full name of the signer</param>
-        /// <param name="ccEmail">Email address for the cc recipient</param>
-        /// <param name="ccName">Name of the cc recipient</param>
-        /// <param name="accessToken">Access Token for API call (OAuth)</param>
-        /// <param name="basePath">BasePath for API calls (URI)</param>
-        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
-        /// <param name="envStatus">Status to set the envelope to</param>
-        /// <param name="paymentDetails">Object containing all the necassary information to process payments</param>
-        /// <returns>EnvelopeId for the new envelope</returns>
-        public static string CreateEnvelopeWithPayment(string signerEmail, string signerName, string ccEmail,
-            string ccName, string accessToken, string basePath, string accountId, string envStatus, PaymentDetails paymentDetails)
-        {
-            // Data for this method
-            // signerEmail 
-            // signerName
-            // ccEmail
-            // ccName
-            // accessToken
-            // basePath 
-            // accountId 
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
-
-            // Step 1. Make the envelope request body
-            EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, envStatus, paymentDetails);
-
-            // Step 2. call Envelopes::create API method
-            // Exceptions will be caught by the calling function
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
-            return results.EnvelopeId;
         }
     }
 }

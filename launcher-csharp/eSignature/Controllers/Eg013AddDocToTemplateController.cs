@@ -45,6 +45,7 @@ namespace DocuSign.CodeExamples.Controllers
                 return Redirect("/ds/mustAuthenticate");
             }
 
+            // Call the Examples API method to create an envelope using both a template and a document
             string redirectUrl = CreateEnvelopeUsingCompositeTemplate.CreateEnvelopeFromCompositeTemplate(signerEmail,
                 signerName, ccEmail, ccName, accessToken, basePath, accountId, item, quantity, dsReturnUrl,
                 signerClientId, RequestItemsService.TemplateId);

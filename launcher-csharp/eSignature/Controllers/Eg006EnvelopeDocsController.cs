@@ -40,9 +40,11 @@ namespace DocuSign.CodeExamples.Controllers
                 return Redirect("/ds/mustAuthenticate");
             }
 
-            (EnvelopeDocumentsResult results, ListEnvelopeDocuments.EnvelopeDocuments envelopeDocuments) =
+            // Call the Examples API method to get the list of all documents from the specified envelope
+            ListEnvelopeDocuments.EnvelopeDocuments envelopeDocuments =
                 ListEnvelopeDocuments.GetDocuments(accessToken, basePath, accountId, envelopeId);
 
+            // Map the envelopeDocuments object to match the RequestItemsService.EnvelopeDocuments type
             var mappedEnvelopeDocuments = new EnvelopeDocuments
             {
                 EnvelopeId = envelopeDocuments.EnvelopeId,
@@ -53,11 +55,12 @@ namespace DocuSign.CodeExamples.Controllers
             // Save the envelopeId and its list of documents in the session so
             // they can be used in example 7 (download a document)
             RequestItemsService.EnvelopeDocuments = mappedEnvelopeDocuments;
-        
+
+            // Process results
             ViewBag.envelopeDocuments = mappedEnvelopeDocuments;
             ViewBag.h1 = "List envelope documents result";
             ViewBag.message = "Results from the EnvelopeDocuments::list method:";
-            ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
+            ViewBag.Locals.Json = JsonConvert.SerializeObject(mappedEnvelopeDocuments, Formatting.Indented);
             return View("example_done");
         }
     }

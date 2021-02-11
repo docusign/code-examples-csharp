@@ -39,6 +39,7 @@ namespace DocuSign.CodeExamples.Controllers
                 return Redirect("/ds/mustAuthenticate");
             }
 
+            // Call the Examples API method to generate the URL for the embedded console for the specified envelope 
             string redirectUrl = ShowEmbeddedConsole.CreateEmbeddedConsoleView(accessToken, basePath,
                 accountId, startingView, dsReturnUrl, envelopeId);
 

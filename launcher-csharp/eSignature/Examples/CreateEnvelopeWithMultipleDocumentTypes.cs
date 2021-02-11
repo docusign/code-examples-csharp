@@ -8,6 +8,146 @@ namespace eSignature.Examples
 {
     public static class CreateEnvelopeWithMultipleDocumentTypes
     {
+        /// <summary>
+        /// Creates an envelope with multiple types of documents and sends it for signature
+        /// </summary>
+        /// <param name="signerEmail">Email address for the signer</param>
+        /// <param name="signerName">Full name of the signer</param>
+        /// <param name="ccEmail">Email address for the cc recipient</param>
+        /// <param name="ccName">Name of the cc recipient</param>
+        /// <param name="docPdf">String of bytes representing the document (pdf)</param>
+        /// <param name="docDocx">String of bytes representing the Word document (docx)</param>
+        /// <param name="accessToken">Access Token for API call (OAuth)</param>
+        /// <param name="basePath">BasePath for API calls (URI)</param>
+        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
+        /// <returns>EnvelopeId and any API error information</returns>
+        public static (bool statusOk, string envelopeId, string errorCode, string errorMessage, WebException webEx) CreateAndSendEnvelope(
+            string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string accessToken, string basePath, string accountId)
+        {
+            // Step 1. Make the envelope JSON request body
+            dynamic envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName);
+
+            // Step 2. Gather documents and their headeres
+            // Read files from a local directory
+            // The reads could raise an exception if the file is not available! 
+            dynamic doc1 = envelope["documents"][0];
+            dynamic doc2 = envelope["documents"][1];
+            dynamic doc3 = envelope["documents"][2];
+
+            dynamic documents = new[] {
+                new {
+                    mime = "text/html",
+                    filename = (string) doc1["name"],
+                    documentId = (string) doc1["documentId"],
+                    bytes = Encoding.ASCII.GetBytes(document1(signerEmail, signerName, ccEmail, ccName))
+                },
+                new {
+                    mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                    filename = (string) doc2["name"],
+                    documentId = (string) doc2["documentId"],
+                    bytes = System.IO.File.ReadAllBytes(docDocx)
+                },
+                new {
+                    mime = "application/pdf",
+                    filename = (string) doc3["name"],
+                    documentId = (string) doc3["documentId"],
+                    bytes = System.IO.File.ReadAllBytes(docPdf)
+                }
+            };
+
+            // Step 3. Create the multipart body
+            byte[] CRLF = Encoding.ASCII.GetBytes("\r\n");
+            byte[] boundary = Encoding.ASCII.GetBytes("multipartboundary_multipartboundary");
+            byte[] hyphens = Encoding.ASCII.GetBytes("--");
+
+            string uri = basePath
+                    + "/v2/accounts/" + accountId + "/envelopes";
+            HttpWebRequest request = WebRequest.CreateHttp(uri);
+
+            request.Method = "POST";
+            request.Accept = "application/json";
+            request.ContentType = "multipart/form-data; boundary=" + Encoding.ASCII.GetString(boundary);
+            request.Headers.Add("Authorization", "Bearer " + accessToken);
+
+            using (var buffer = new BinaryWriter(request.GetRequestStream(), Encoding.ASCII))
+            {
+                buffer.Write(hyphens);
+                buffer.Write(boundary);
+                buffer.Write(CRLF);
+                buffer.Write(Encoding.ASCII.GetBytes("Content-Type: application/json"));
+                buffer.Write(CRLF);
+                buffer.Write(Encoding.ASCII.GetBytes("Content-Disposition: form-data"));
+                buffer.Write(CRLF);
+                buffer.Write(CRLF);
+
+                var json = JsonConvert.SerializeObject(envelope, Formatting.Indented);
+                buffer.Write(Encoding.ASCII.GetBytes(json));
+                // Loop to add the documents.
+                // See section Multipart Form Requests on page https://developers.docusign.com/esign-rest-api/guides/requests-and-responses
+                foreach (var d in documents)
+                {
+                    buffer.Write(CRLF);
+                    buffer.Write(hyphens);
+                    buffer.Write(boundary);
+                    buffer.Write(CRLF);
+                    buffer.Write(Encoding.ASCII.GetBytes("Content-Type:" + d.mime));
+                    buffer.Write(CRLF);
+                    buffer.Write(Encoding.ASCII.GetBytes("Content-Disposition: file; filename=\"" + d.filename + ";documentid=" + d.documentId));
+                    buffer.Write(CRLF);
+                    buffer.Write(CRLF);
+                    buffer.Write(d.bytes);
+                }
+
+                // Add closing boundary
+                buffer.Write(CRLF);
+                buffer.Write(hyphens);
+                buffer.Write(boundary);
+                buffer.Write(hyphens);
+                buffer.Write(CRLF);
+                buffer.Flush();
+            }
+
+            WebResponse response = null;
+            WebException webEx = null;
+            try
+            {
+                response = request.GetResponse();
+            }
+            catch (WebException ex)
+            {
+                response = ex.Response;
+                webEx = ex;
+            }
+
+            var res = "";
+
+            using (var stream = response.GetResponseStream())
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    res = reader.ReadToEnd();
+                }
+            }
+
+            HttpStatusCode code = ((HttpWebResponse)response).StatusCode;
+            dynamic obj = JsonConvert.DeserializeObject(res);
+            bool statusOk = code >= HttpStatusCode.OK && code < HttpStatusCode.MultipleChoices;
+            string envelopeId = null;
+            string errorCode = null;
+            string errorMessage = null;
+
+            if (statusOk)
+            {
+                envelopeId = obj.envelopeId;
+            }
+            else
+            {
+                errorCode = obj.errorCode;
+                errorMessage = obj.message;
+            }
+
+            return (statusOk, envelopeId, errorCode, errorMessage, webEx);
+        }
 
         private static string document1(string signerEmail, string signerName, string ccEmail, string ccName)
         {
@@ -148,147 +288,6 @@ namespace eSignature.Examples
             };
 
             return envelopeDefinition;
-        }
-
-        /// <summary>
-        /// Creates an envelope with multiple types of documents and sends it for signature
-        /// </summary>
-        /// <param name="signerEmail">Email address for the signer</param>
-        /// <param name="signerName">Full name of the signer</param>
-        /// <param name="ccEmail">Email address for the cc recipient</param>
-        /// <param name="ccName">Name of the cc recipient</param>
-        /// <param name="docPdf">String of bytes representing the document (pdf)</param>
-        /// <param name="docDocx">String of bytes representing the Word document (docx)</param>
-        /// <param name="accessToken">Access Token for API call (OAuth)</param>
-        /// <param name="basePath">BasePath for API calls (URI)</param>
-        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
-        /// <returns>EnvelopeId and any API error information</returns>
-        public static (bool statusOk, string envelopeId, string errorCode, string errorMessage, WebException webEx) CreateAndSendEnvelope(
-            string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string accessToken, string basePath, string accountId)
-        {
-            // Step 1. Make the envelope JSON request body
-            dynamic envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName);
-
-            // Step 2. Gather documents and their headeres
-            // Read files from a local directory
-            // The reads could raise an exception if the file is not available! 
-            dynamic doc1 = envelope["documents"][0];
-            dynamic doc2 = envelope["documents"][1];
-            dynamic doc3 = envelope["documents"][2];
-
-            dynamic documents = new[] {
-                new {
-                    mime = "text/html",
-                    filename = (string) doc1["name"],
-                    documentId = (string) doc1["documentId"],
-                    bytes = Encoding.ASCII.GetBytes(document1(signerEmail, signerName, ccEmail, ccName))
-                },
-                new {
-                    mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                    filename = (string) doc2["name"],
-                    documentId = (string) doc2["documentId"],
-                    bytes = System.IO.File.ReadAllBytes(docDocx)
-                },
-                new {
-                    mime = "application/pdf",
-                    filename = (string) doc3["name"],
-                    documentId = (string) doc3["documentId"],
-                    bytes = System.IO.File.ReadAllBytes(docPdf)
-                }
-            };
-
-            // Step 3. Create the multipart body
-            byte[] CRLF = Encoding.ASCII.GetBytes("\r\n");
-            byte[] boundary = Encoding.ASCII.GetBytes("multipartboundary_multipartboundary");
-            byte[] hyphens = Encoding.ASCII.GetBytes("--");
-
-            string uri = basePath
-                    + "/v2/accounts/" + accountId + "/envelopes";
-            HttpWebRequest request = WebRequest.CreateHttp(uri);
-
-            request.Method = "POST";
-            request.Accept = "application/json";
-            request.ContentType = "multipart/form-data; boundary=" + Encoding.ASCII.GetString(boundary);
-            request.Headers.Add("Authorization", "Bearer " + accessToken);
-
-            using (var buffer = new BinaryWriter(request.GetRequestStream(), Encoding.ASCII))
-            {
-                buffer.Write(hyphens);
-                buffer.Write(boundary);
-                buffer.Write(CRLF);
-                buffer.Write(Encoding.ASCII.GetBytes("Content-Type: application/json"));
-                buffer.Write(CRLF);
-                buffer.Write(Encoding.ASCII.GetBytes("Content-Disposition: form-data"));
-                buffer.Write(CRLF);
-                buffer.Write(CRLF);
-
-                var json = JsonConvert.SerializeObject(envelope, Formatting.Indented);
-                buffer.Write(Encoding.ASCII.GetBytes(json));
-                // Loop to add the documents.
-                // See section Multipart Form Requests on page https://developers.docusign.com/esign-rest-api/guides/requests-and-responses
-                foreach (var d in documents)
-                {
-                    buffer.Write(CRLF);
-                    buffer.Write(hyphens);
-                    buffer.Write(boundary);
-                    buffer.Write(CRLF);
-                    buffer.Write(Encoding.ASCII.GetBytes("Content-Type:" + d.mime));
-                    buffer.Write(CRLF);
-                    buffer.Write(Encoding.ASCII.GetBytes("Content-Disposition: file; filename=\"" + d.filename + ";documentid=" + d.documentId));
-                    buffer.Write(CRLF);
-                    buffer.Write(CRLF);
-                    buffer.Write(d.bytes);
-                }
-
-                // Add closing boundary
-                buffer.Write(CRLF);
-                buffer.Write(hyphens);
-                buffer.Write(boundary);
-                buffer.Write(hyphens);
-                buffer.Write(CRLF);
-                buffer.Flush();
-            }
-
-            WebResponse response = null;
-            WebException webEx = null;
-            try
-            {
-                response = request.GetResponse();
-            }
-            catch (WebException ex)
-            {
-                response = ex.Response;
-                webEx = ex;
-            }
-
-            var res = "";
-
-            using (var stream = response.GetResponseStream())
-            {
-                using (var reader = new StreamReader(stream))
-                {
-                    res = reader.ReadToEnd();
-                }
-            }
-
-            HttpStatusCode code = ((HttpWebResponse)response).StatusCode;
-            dynamic obj = JsonConvert.DeserializeObject(res);
-            bool statusOk = code >= HttpStatusCode.OK && code < HttpStatusCode.MultipleChoices;
-            string envelopeId = null;
-            string errorCode = null;
-            string errorMessage = null;
-
-            if (statusOk)
-            {
-                envelopeId = obj.envelopeId;
-            }
-            else
-            {
-                errorCode = obj.errorCode;
-                errorMessage = obj.message;
-            }
-
-            return (statusOk, envelopeId, errorCode, errorMessage, webEx);
         }
     }
 }

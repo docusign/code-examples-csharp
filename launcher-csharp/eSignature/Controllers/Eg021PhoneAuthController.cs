@@ -39,9 +39,12 @@ namespace DocuSign.CodeExamples.Controllers
             var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
+            // Call the Examples API method to create an envelope and 
+            // add recipient that is to be authenticated with phone call
             string envelopeId = RecipientAuthPhone.CreateEnvelopeWithRecipientUsingPhoneAuth(signerEmail, signerName,
                 accessToken, basePath, accountId, phoneNumber);
 
+            // Process results
             ViewBag.h1 = "Envelope sent";
             ViewBag.message = "The envelope has been created and sent!<br />Envelope ID " + envelopeId + ".";
             return View("example_done");

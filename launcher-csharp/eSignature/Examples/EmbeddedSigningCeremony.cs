@@ -11,6 +11,46 @@ namespace eSignature.Examples
     /// </summary>
     public static class EmbeddedSigningCeremony
     {
+        /// <summary>
+        /// Creates a new envelope, adds a single document and a signle recipient (signer) and generates a url that is used for embedded signing.
+        /// </summary>
+        /// <param name="signerEmail">Email address for the signer</param>
+        /// <param name="signerName">Full name of the signer</param>
+        /// <param name="signerClientId">A unique ID for the embedded signing session for this signer</param>
+        /// <param name="accessToken">Access Token for API call (OAuth)</param>
+        /// <param name="basePath">BasePath for API calls (URI)</param>
+        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
+        /// <param name="docPdf">String of bytes representing the document (pdf)</param>
+        /// <param name="returnUrl">URL user will be redirected to after they sign</param>
+        /// <param name="pingUrl">URL that DocuSign will be able to ping to incdicate signing session is active</param>
+        /// <returns>The envelopeId (GUID) of the resulting Envelope and the URL for the embedded signing</returns>
+        public static (string, string) SendEnvelopeForEmbeddedSigning(string signerEmail, string signerName, string signerClientId,
+            string accessToken, string basePath, string accountId, string docPdf, string returnUrl, string pingUrl = null)
+        {
+            // Step 1. Create the envelope definition
+            EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, signerClientId, docPdf);
+
+            // Step 2. Call DocuSign to create the envelope                   
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
+            string envelopeId = results.EnvelopeId;
+
+            // Step 3. create the recipient view, the Signing Ceremony
+            RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, returnUrl, signerClientId, pingUrl);
+            // call the CreateRecipientView API
+            ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
+
+            // Step 4. Redirect the user to the Signing Ceremony
+            // Don't use an iFrame!
+            // State can be stored/recovered using the framework's session or a
+            // query parameter on the returnUrl (see the makeRecipientViewRequest method)
+            string redirectUrl = results1.Url;
+            // returning both the envelopeId as well as the url to be used for embedded signing
+            return (envelopeId, redirectUrl);
+        }
+
         private static RecipientViewRequest MakeRecipientViewRequest(string signerEmail, string signerName, string returnUrl, string signerClientId, string pingUrl = null)
         {
             // Data for this method
@@ -125,45 +165,6 @@ namespace eSignature.Examples
             envelopeDefinition.Status = "sent";
 
             return envelopeDefinition;
-        }
-        /// <summary>
-        /// Creates a new envelope, adds a single document and a signle recipient (signer) and generates a url that is used for embedded signing.
-        /// </summary>
-        /// <param name="signerEmail">Email address for the signer</param>
-        /// <param name="signerName">Full name of the signer</param>
-        /// <param name="signerClientId">A unique ID for the embedded signing session for this signer</param>
-        /// <param name="accessToken">Access Token for API call (OAuth)</param>
-        /// <param name="basePath">BasePath for API calls (URI)</param>
-        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
-        /// <param name="docPdf">String of bytes representing the document (pdf)</param>
-        /// <param name="returnUrl">URL user will be redirected to after they sign</param>
-        /// <param name="pingUrl">URL that DocuSign will be able to ping to incdicate signing session is active</param>
-        /// <returns>The envelopeId (GUID) of the resulting Envelope and the URL for the embedded signing</returns>
-        public static (string, string) SendEnvelopeForEmbeddedSigning(string signerEmail, string signerName, string signerClientId,
-            string accessToken, string basePath, string accountId, string docPdf, string returnUrl, string pingUrl = null)
-        {
-            // Step 1. Create the envelope definition
-            EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, signerClientId, docPdf);
-
-            // Step 2. Call DocuSign to create the envelope                   
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
-            string envelopeId = results.EnvelopeId;
-
-            // Step 3. create the recipient view, the Signing Ceremony
-            RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, returnUrl, signerClientId, pingUrl);
-            // call the CreateRecipientView API
-            ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
-
-            // Step 4. Redirect the user to the Signing Ceremony
-            // Don't use an iFrame!
-            // State can be stored/recovered using the framework's session or a
-            // query parameter on the returnUrl (see the makeRecipientViewRequest method)
-            string redirectUrl = results1.Url;
-            // returning both the envelopeId as well as the url to be used for embedded signing
-            return (envelopeId, redirectUrl);
         }
     }
 }

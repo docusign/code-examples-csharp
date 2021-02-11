@@ -9,6 +9,50 @@ namespace eSignature.Examples
 {
     public static class EmbeddedSending
     {
+        /// <summary>
+        /// Create an envelope and then create an embedded sending view for that envelope
+        /// </summary>
+        /// <param name="signerEmail">Email address for the signer</param>
+        /// <param name="signerName">Full name of the signer</param>
+        /// <param name="ccEmail">Email address for the cc recipient</param>
+        /// <param name="ccName">Name of the cc recipient</param>
+        /// <param name="accessToken">Access Token for API call (OAuth)</param>
+        /// <param name="basePath">BasePath for API calls (URI)</param>
+        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
+        /// <param name="docPdf">String of bytes representing the document (pdf)</param>
+        /// <param name="docDocx">String of bytes representing the Word document (docx)</param>
+        /// <param name="startingView">The sending view to show initially (either "tagging" or "recipient")</param>
+        /// <param name="returnUrl">URL user will be redirected to after they sign</param>
+        /// <returns>URL to embed in your application</returns>
+        public static string SendEnvelopeUsingEmbeddedSending(string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string accessToken, string basePath, string accountId, string startingView, string returnUrl)
+        {
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+
+            // Step 1. Make the envelope with "created" (draft) status            
+            EnvelopeDefinition env = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, docDocx, docPdf, "created");
+            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+            string envelopeId = results.EnvelopeId;
+
+            // Step 2. create the sender view
+            // Call the CreateSenderView API
+            // Exceptions will be caught by the calling function
+            ReturnUrlRequest viewRequest = new ReturnUrlRequest
+            {
+                ReturnUrl = returnUrl
+            };
+            ViewUrl result1 = envelopesApi.CreateSenderView(accountId, envelopeId, viewRequest);
+            // Switch to Recipient and Documents view if requested by the user
+            String redirectUrl = result1.Url;
+            Console.WriteLine("startingView: " + startingView);
+            if ("recipient".Equals(startingView))
+            {
+                redirectUrl = redirectUrl.Replace("send=1", "send=0");
+            }
+            return redirectUrl;
+        }
+
         private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string envStatus)
         {
             // Data for this method
@@ -161,50 +205,6 @@ namespace eSignature.Examples
                 "        </body>\n" +
                 "    </html>"
                 );
-        }
-
-        /// <summary>
-        /// Create an envelope and then create an embedded sending view for that envelope
-        /// </summary>
-        /// <param name="signerEmail">Email address for the signer</param>
-        /// <param name="signerName">Full name of the signer</param>
-        /// <param name="ccEmail">Email address for the cc recipient</param>
-        /// <param name="ccName">Name of the cc recipient</param>
-        /// <param name="accessToken">Access Token for API call (OAuth)</param>
-        /// <param name="basePath">BasePath for API calls (URI)</param>
-        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
-        /// <param name="docPdf">String of bytes representing the document (pdf)</param>
-        /// <param name="docDocx">String of bytes representing the Word document (docx)</param>
-        /// <param name="startingView">The sending view to show initially (either "tagging" or "recipient")</param>
-        /// <param name="returnUrl">URL user will be redirected to after they sign</param>
-        /// <returns>URL to embed in your application</returns>
-        public static string SendEnvelopeUsingEmbeddedSending(string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string accessToken, string basePath,string accountId, string startingView, string returnUrl)
-        {
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
-
-            // Step 1. Make the envelope with "created" (draft) status            
-            EnvelopeDefinition env = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, docDocx, docPdf, "created");
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
-            string envelopeId = results.EnvelopeId;
-
-            // Step 2. create the sender view
-            // Call the CreateSenderView API
-            // Exceptions will be caught by the calling function
-            ReturnUrlRequest viewRequest = new ReturnUrlRequest
-            {
-                ReturnUrl = returnUrl
-            };
-            ViewUrl result1 = envelopesApi.CreateSenderView(accountId, envelopeId, viewRequest);
-            // Switch to Recipient and Documents view if requested by the user
-            String redirectUrl = result1.Url;
-            Console.WriteLine("startingView: " + startingView);
-            if ("recipient".Equals(startingView))
-            {
-                redirectUrl = redirectUrl.Replace("send=1", "send=0");
-            }
-            return redirectUrl;
         }
     }
 }

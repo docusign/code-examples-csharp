@@ -45,11 +45,12 @@ namespace DocuSign.CodeExamples.Controllers
             var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
-            var results = SetEnvelopeTabValue.CreateEnvelopeAndUpdateTabData(signerEmail, signerName, signerClientId,
+            // Call the Examples API method to create an envelope and set the tab values
+            (string envelopeId, string redirectUrl) = SetEnvelopeTabValue.CreateEnvelopeAndUpdateTabData(signerEmail, signerName, signerClientId,
                 accessToken, basePath, accountId, Config.tabsDocx, dsReturnUrl, dsPingUrl);
 
-            RequestItemsService.EnvelopeId = results.Item1;
-            return Redirect(results.Item2);
+            RequestItemsService.EnvelopeId = envelopeId;
+            return Redirect(redirectUrl);
         }
     }
 }

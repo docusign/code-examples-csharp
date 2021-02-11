@@ -38,8 +38,10 @@ namespace DocuSign.CodeExamples.Controllers
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
             var envelopeId = RequestItemsService.EnvelopeId;
 
+            // Call the Examples API method to get all tab data from the specified envelope
             EnvelopeFormData results = GetEnvelopeTabData.GetEnvelopeFormData(accessToken, basePath, accountId, envelopeId);
 
+            // Process results
             ViewBag.h1 = "Get envelope tab data information";
             ViewBag.message = "Results from the Envelopes::get method:";
             ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);

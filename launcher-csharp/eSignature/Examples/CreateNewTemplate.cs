@@ -10,6 +10,54 @@ namespace eSignature.Examples
     {
         private static string templateName = "Example Signer and CC template";
 
+        /// <summary>
+        /// Generates a new DocuSign Template based on static information in this class
+        /// </summary>
+        /// <param name="accessToken">Access Token for API call (OAuth)</param>
+        /// <param name="basePath">BasePath for API calls (URI)</param>
+        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
+        /// <returns>Template name, templateId and a flag to indicate if this is a new template or it exited prior to calling this method</returns>
+        public static (bool createdNewTemplate, string templateId, string resultsTemplateName) CreateTemplate(string accessToken, string basePath, string accountId)
+        {
+            // Step 1. List templates to see if ours exists already
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            TemplatesApi templatesApi = new TemplatesApi(apiClient);
+            TemplatesApi.ListTemplatesOptions options = new TemplatesApi.ListTemplatesOptions();
+            options.searchText = "Example Signer and CC template";
+            EnvelopeTemplateResults results = templatesApi.ListTemplates(accountId, options);
+
+            string templateId;
+            string resultsTemplateName;
+            bool createdNewTemplate;
+
+            // Step 2. Process results
+            if (int.Parse(results.ResultSetSize) > 0)
+            {
+                // Found the template! Record its id
+                templateId = results.EnvelopeTemplates[0].TemplateId;
+                resultsTemplateName = results.EnvelopeTemplates[0].Name;
+                createdNewTemplate = false;
+            }
+            else
+            {
+                // No template! Create one!
+                EnvelopeTemplate templateReqObject = MakeTemplate(templateName);
+
+                TemplateSummary template = templatesApi.CreateTemplate(accountId, templateReqObject);
+
+                // Retrieve the new template Name / TemplateId
+                EnvelopeTemplateResults templateResults = templatesApi.ListTemplates(accountId, options);
+                templateId = templateResults.EnvelopeTemplates[0].TemplateId;
+                resultsTemplateName = templateResults.EnvelopeTemplates[0].Name;
+                createdNewTemplate = true;
+
+            }
+
+            return (createdNewTemplate: createdNewTemplate,
+                templateId: templateId, resultsTemplateName: resultsTemplateName);
+        }
+
         private static EnvelopeTemplate MakeTemplate(string resultsTemplateName)
         {
             // Data for this method
@@ -175,57 +223,7 @@ namespace eSignature.Examples
             template.Recipients = recipients;
             template.Status = "created";
 
-
             return template;
         }
-
-        /// <summary>
-        /// Generates a new DocuSign Template based on static information in this class
-        /// </summary>
-        /// <param name="accessToken">Access Token for API call (OAuth)</param>
-        /// <param name="basePath">BasePath for API calls (URI)</param>
-        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
-        /// <returns>Template name, templateId and a flag to indicate if this is a new template or it exited prior to calling this method</returns>
-        public static (bool createdNewTemplate, string templateId, string resultsTemplateName) CreateTemplate(string accessToken, string basePath, string accountId)
-        {
-            // Step 1. List templates to see if ours exists already
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            TemplatesApi templatesApi = new TemplatesApi(apiClient);
-            TemplatesApi.ListTemplatesOptions options = new TemplatesApi.ListTemplatesOptions();
-            options.searchText = "Example Signer and CC template";
-            EnvelopeTemplateResults results = templatesApi.ListTemplates(accountId, options);
-
-            string templateId;
-            string resultsTemplateName;
-            bool createdNewTemplate;
-
-            // Step 2. Process results
-            if (int.Parse(results.ResultSetSize) > 0)
-            {
-                // Found the template! Record its id
-                templateId = results.EnvelopeTemplates[0].TemplateId;
-                resultsTemplateName = results.EnvelopeTemplates[0].Name;
-                createdNewTemplate = false;
-            }
-            else
-            {
-                // No template! Create one!
-                EnvelopeTemplate templateReqObject = MakeTemplate(templateName);
-
-                TemplateSummary template = templatesApi.CreateTemplate(accountId, templateReqObject);
-
-                // Retrieve the new template Name / TemplateId
-                EnvelopeTemplateResults templateResults = templatesApi.ListTemplates(accountId, options);
-                templateId = templateResults.EnvelopeTemplates[0].TemplateId;
-                resultsTemplateName = templateResults.EnvelopeTemplates[0].Name;
-                createdNewTemplate = true;
-
-            }
-
-            return (createdNewTemplate: createdNewTemplate,
-                templateId: templateId, resultsTemplateName: resultsTemplateName);
-        }
-
     }
 }

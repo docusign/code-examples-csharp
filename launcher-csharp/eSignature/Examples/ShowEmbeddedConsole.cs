@@ -6,30 +6,6 @@ namespace eSignature.Examples
 {
     public static class ShowEmbeddedConsole
     {
-
-        private static ConsoleViewRequest MakeConsoleViewRequest(string dsReturnUrl, string startingView,
-            string envelopeId)
-        {
-            // Data for this method
-            // dsReturnUrl
-            // startingView
-            // envelopeId
-
-            ConsoleViewRequest viewRequest = new ConsoleViewRequest();
-            // Set the URL where you want the recipient to go once they are done
-            // with the NDSE. It is usually the case that the
-            // user will never "finish" with the NDSE.
-            // Assume that control will not be passed back to your app.
-            viewRequest.ReturnUrl = dsReturnUrl;
-
-            if ("envelope".Equals(startingView) && envelopeId != null)
-            {
-                viewRequest.EnvelopeId = envelopeId;
-            }
-
-            return viewRequest;
-        }
-
         /// <summary>
         /// Generates a URL to be use to embedded a view of an envelope in your application
         /// </summary>
@@ -55,6 +31,29 @@ namespace eSignature.Examples
             ViewUrl results = envelopesApi.CreateConsoleView(accountId, viewRequest);
             string redirectUrl = results.Url;
             return redirectUrl;
+        }
+
+        private static ConsoleViewRequest MakeConsoleViewRequest(string dsReturnUrl, string startingView,
+            string envelopeId)
+        {
+            // Data for this method
+            // dsReturnUrl
+            // startingView
+            // envelopeId
+
+            ConsoleViewRequest viewRequest = new ConsoleViewRequest();
+            // Set the URL where you want the recipient to go once they are done
+            // with the NDSE. It is usually the case that the
+            // user will never "finish" with the NDSE.
+            // Assume that control will not be passed back to your app.
+            viewRequest.ReturnUrl = dsReturnUrl;
+
+            if ("envelope".Equals(startingView) && envelopeId != null)
+            {
+                viewRequest.EnvelopeId = envelopeId;
+            }
+
+            return viewRequest;
         }
     }
 }

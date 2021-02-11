@@ -42,6 +42,7 @@ namespace DocuSign.CodeExamples.Controllers
 
             try
             {
+                // Call the Examples API method to create a new brand
                 var results = CreateBrand.Create(brandName, defaultBrandLanguage, accessToken, basePath, accountId);
                 ViewBag.h1 = "New brand created";
                 ViewBag.message = "The brand has been created!<br />Brand ID:" + results.Brands[0].BrandId + ".";

@@ -9,6 +9,30 @@ namespace eSignature.Examples
 {
     public static class SingingViaEmail
     {
+        /// <summary>
+        /// Creates an envelope that would include two documents and add a signer and cc recipients to be notified via email
+        /// </summary>
+        /// <param name="signerEmail">Email address for the signer</param>
+        /// <param name="signerName">Full name of the signer</param>
+        /// <param name="ccEmail">Email address for the cc recipient</param>
+        /// <param name="ccName">Name of the cc recipient</param>
+        /// <param name="accessToken">Access Token for API call (OAuth)</param>
+        /// <param name="basePath">BasePath for API calls (URI)</param>
+        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
+        /// <param name="docPdf">String of bytes representing the document (pdf)</param>
+        /// <param name="docDocx">String of bytes representing the Word document (docx)</param>
+        /// <param name="envStatus">Status to set the envelope to</param>
+        /// <returns>EnvelopeId for the new envelope</returns>
+        public static string SendEnvelopeViaEmail(string signerEmail, string signerName, string ccEmail, string ccName, string accessToken, string basePath, string accountId, string docDocx, string docPdf, string envStatus)
+        {
+            EnvelopeDefinition env = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, docDocx, docPdf, envStatus);
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+            return results.EnvelopeId;
+        }
+
         private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string envStatus)
         {
             // Data for this method
@@ -162,30 +186,5 @@ namespace eSignature.Examples
                 "    </html>"
                 );
         }
-        /// <summary>
-        /// Creates an envelope that would include two documents and add a signer and cc recipients to be notified via email
-        /// </summary>
-        /// <param name="signerEmail">Email address for the signer</param>
-        /// <param name="signerName">Full name of the signer</param>
-        /// <param name="ccEmail">Email address for the cc recipient</param>
-        /// <param name="ccName">Name of the cc recipient</param>
-        /// <param name="signerClientId">A unique ID for the embedded signing session for this signer</param>
-        /// <param name="accessToken">Access Token for API call (OAuth)</param>
-        /// <param name="basePath">BasePath for API calls (URI)</param>
-        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
-        /// <param name="docPdf">String of bytes representing the document (pdf)</param>
-        /// <param name="docDocx">String of bytes representing the Word document (docx)</param>
-        /// <param name="envStatus">Status to set the envelope to</param>
-        /// <returns>EnvelopeId for the new envelope</returns>
-        public static string SendEnvelopeViaEmail(string signerEmail, string signerName, string ccEmail, string ccName, string accessToken, string basePath, string accountId, string docDocx, string docPdf, string envStatus)
-        {
-            EnvelopeDefinition env = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, docDocx, docPdf, envStatus);
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
-            return results.EnvelopeId;
-        }
-
     }
 }

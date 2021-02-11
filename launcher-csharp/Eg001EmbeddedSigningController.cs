@@ -48,6 +48,7 @@ namespace DocuSign.CodeExamples.Views
                 return Redirect("/ds/mustAuthenticate");
             }
 
+            // Call the method from Examples API to send envelope and generate url for embedded signing
             var result = EmbeddedSigningCeremony.SendEnvelopeForEmbeddedSigning(signerEmail,
                 signerName, signerClientId, accessToken, basePath, accountId, Config.docPdf, dsReturnUrl, dsPingUrl);
 

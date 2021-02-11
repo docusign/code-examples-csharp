@@ -37,8 +37,10 @@ namespace DocuSign.CodeExamples.Controllers
             var accountId = RequestItemsService.Session.AccountId; // Rrepresents your {ACCOUNT_ID}
             var envelopeId = RequestItemsService.EnvelopeId;
 
+            // Call the Examples API method to get all the custom fields from the specified envelope
             var results = GetCustomFields.ListAllCustomFieldsForEnvelope(accessToken, basePath, accountId, envelopeId);
 
+            // Process results
             ViewBag.h1 = "Envelope custom field data";
             ViewBag.message = "Results from the EnvelopeCustomFields::list method:";
             ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);

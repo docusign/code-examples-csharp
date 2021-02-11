@@ -43,6 +43,7 @@ namespace DocuSign.CodeExamples.Controllers
                 return Redirect("/ds/mustAuthenticate");
             }
 
+            // Call the Examples API method to create the envelope and send it using embedded sending
             var redirectUrl = EmbeddedSending.SendEnvelopeUsingEmbeddedSending(signerEmail, signerName, ccEmail, ccName,
                 Config.docDocx, Config.docPdf, accessToken, basePath, accountId, startingView, dsReturnUrl);
 

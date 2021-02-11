@@ -39,8 +39,10 @@ namespace DocuSign.CodeExamples.Controllers
                 return Redirect("/ds/mustAuthenticate");
             }
 
+            // Call the Examples API method to get the specified envelope's information 
             var results = GetEnvelopeInformation.GetEnvelope(accessToken, basePath, accountId, envelopeId);
-        
+
+            // Process results
             ViewBag.h1 = "Get envelope status results";
             ViewBag.message  = "Results from the Envelopes::get method:";
             ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);

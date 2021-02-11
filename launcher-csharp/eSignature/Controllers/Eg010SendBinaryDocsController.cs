@@ -41,10 +41,12 @@ namespace DocuSign.CodeExamples.Controllers
                 return Redirect("/ds/mustAuthenticate");
             }
 
+            // Call the Examples API method to create the envelope multiple types of documents and send it
             (bool statusOk, string envelopeId, string errorCode, string errorMessage, WebException webEx) =
                 CreateEnvelopeWithMultipleDocumentTypes.CreateAndSendEnvelope(signerEmail, signerName, ccEmail, ccName,
                     Config.docDocx, Config.docPdf, accessToken, basePath, accountId);
 
+            // Process results
             if (statusOk)
             {
                 RequestItemsService.EnvelopeId = envelopeId;

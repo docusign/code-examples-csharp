@@ -74,6 +74,7 @@ namespace DocuSign.CodeExamples.Controllers
             var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
+            // Call the Examples API method to set permissions to the specified user group
             var result = SetUserGroupPermission.GetGroupInformation(permissionProfileId, userGroupId, 
                 accessToken, basePath, accountId);
 

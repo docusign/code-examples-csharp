@@ -28,9 +28,9 @@ namespace DocuSign.CodeExamples.Controllers
             var accountId = RequestItemsService.Session.AccountId;
             var envelopeId = RequestItemsService.EnvelopeId;
             // documents data for the envelope. See example EG006
-            List<ListEnvelopeDocuments.EnvelopeDocItem> documents =
+            List<GetDocumentFromEnvelope.EnvelopeDocItem> documents =
                 RequestItemsService.EnvelopeDocuments.Documents.Select(docItems => 
-                    new ListEnvelopeDocuments.EnvelopeDocItem{ DocumentId = docItems.DocumentId, Name = docItems.Name, Type = docItems.Type }).ToList();
+                    new GetDocumentFromEnvelope.EnvelopeDocItem{ DocumentId = docItems.DocumentId, Name = docItems.Name, Type = docItems.Type }).ToList();
 
             bool tokenOk = CheckToken(3);
             if (!tokenOk)
@@ -44,6 +44,7 @@ namespace DocuSign.CodeExamples.Controllers
                 return Redirect("/ds/mustAuthenticate");
             }
 
+            // Call the Examples API method to download the specified document from the envelope
             var result = GetDocumentFromEnvelope.DownloadDocument(accessToken, basePath, accountId,
                 envelopeId, documents, docSelect);
             return File(result.Item1, result.Item2, result.Item3);

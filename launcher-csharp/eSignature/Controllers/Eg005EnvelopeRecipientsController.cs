@@ -37,7 +37,11 @@ namespace DocuSign.CodeExamples.Controllers
                 RequestItemsService.EgName = EgName;
                 return Redirect("/ds/mustAuthenticate");
             }
-            var results = ListEnvelopeRecipients.GetRecipients(accessToken, basePath, accountId, envelopeId);            
+
+            // Call the Examples API method to get the list of recipients for the specified envelope
+            var results = ListEnvelopeRecipients.GetRecipients(accessToken, basePath, accountId, envelopeId);
+
+            // Process results
             ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
             return View("example_done");
         }

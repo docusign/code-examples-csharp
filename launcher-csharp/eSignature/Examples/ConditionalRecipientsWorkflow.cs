@@ -13,9 +13,12 @@ namespace eSignature.Examples
         /// <param name="accessToken">Access Token for API call (OAuth)</param>
         /// <param name="basePath">BasePath for API calls (URI)</param>
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
-        /// <param name="recipient1">The signer</param>
-        /// <param name="conditionalRecipient1">The first conditional signer</param>
-        /// <param name="conditionalRecipient2">The second conditional signer</param>
+        /// <param name="recipient1Email">The signer email</param>
+        /// <param name="recipient1Name">The signer name</param>
+        /// <param name="conditionalRecipient1Email">The first conditional signer email</param>
+        /// <param name="conditionalRecipient1Name">The first conditional signer name</param>
+        /// <param name="conditionalRecipient2Email">The second conditional signer email</param>
+        /// <param name="conditionalRecipient2Name">The second conditional signer name</param>
         /// <returns>The update summary of the envelopes</returns>
         public static EnvelopeSummary SendEnvelope(string accessToken, string basePath, string accountId, string recipient1Email, string recipient1Name, string conditionalRecipient1Email, string conditionalRecipient1Name, string conditionalRecipient2Email, string conditionalRecipient2Name)
         {

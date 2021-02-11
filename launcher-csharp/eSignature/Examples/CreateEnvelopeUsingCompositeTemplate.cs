@@ -9,6 +9,45 @@ namespace eSignature.Examples
 {
     public static class CreateEnvelopeUsingCompositeTemplate
     {
+        /// <summary>
+        /// Creates a composite template that includes both a template and a document
+        /// </summary>
+        /// <param name="signerEmail">Email address for the signer</param>
+        /// <param name="signerName">Full name of the signer</param>
+        /// <param name="ccEmail">Email address for the cc recipient</param>
+        /// <param name="ccName">Name of the cc recipient</param>
+        /// <param name="accessToken">Access Token for API call (OAuth)</param>
+        /// <param name="basePath">BasePath for API calls (URI)</param>
+        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
+        /// <param name="item">Item to order for the document that is generated</param>
+        /// <param name="quantity">Quantity to order for the document that is generated</param>
+        /// <param name="returnUrl">URL user will be redirected to after they sign</param>
+        /// <param name="signerClientId">A unique ID for the embedded signing session for this signer</param>
+        /// <param name="templateId">The templateId for the tempalte to use to create an envelope</param>
+        /// <returns>URL for embedded signing session for the newly created envelope</returns>
+        public static string CreateEnvelopeFromCompositeTemplate(string signerEmail, string signerName, string ccEmail,
+            string ccName, string accessToken, string basePath,
+            string accountId, string item, string quantity, string returnUrl, string signerClientId, string templateId)
+        {
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+
+            // Step 1. Make the envelope request body
+            EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, item, quantity, signerClientId, templateId);
+
+            // Step 2. call Envelopes::create API method
+            // Exceptions will be caught by the calling function
+            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
+            string envelopeId = results.EnvelopeId;
+            Console.WriteLine("Envelope was created. EnvelopeId " + envelopeId);
+
+            // Step 3. create the recipient view, the Signing Ceremony
+            RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, returnUrl, signerClientId);
+            ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
+            return results1.Url;
+        }
+
         private static RecipientViewRequest MakeRecipientViewRequest(string signerEmail, string signerName,
             string dsReturnUrl, string signerClientId)
         {
@@ -203,45 +242,6 @@ namespace eSignature.Examples
                     "        <h3 style=\"margin-top:3em;\">Agreed: <span style=\"color:white;\">**signature_1**/</span></h3>\n" +
                     "        </body>\n" +
                     "    </html>");
-        }
-
-        /// <summary>
-        /// Creates a composite template that includes both a template and a document
-        /// </summary>
-        /// <param name="signerEmail">Email address for the signer</param>
-        /// <param name="signerName">Full name of the signer</param>
-        /// <param name="ccEmail">Email address for the cc recipient</param>
-        /// <param name="ccName">Name of the cc recipient</param>
-        /// <param name="accessToken">Access Token for API call (OAuth)</param>
-        /// <param name="basePath">BasePath for API calls (URI)</param>
-        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
-        /// <param name="item">Item to order for the document that is generated</param>
-        /// <param name="quantity">Quantity to order for the document that is generated</param>
-        /// <param name="returnUrl">URL user will be redirected to after they sign</param>
-        /// <param name="signerClientId">A unique ID for the embedded signing session for this signer</param>
-        /// <param name="templateId">The templateId for the tempalte to use to create an envelope</param>
-        /// <returns>URL for embedded signing session for the newly created envelope</returns>
-        public static string CreateEnvelopeFromCompositeTemplate(string signerEmail, string signerName, string ccEmail,
-            string ccName, string accessToken, string basePath,
-            string accountId, string item, string quantity, string returnUrl, string signerClientId, string templateId)
-        {
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
-
-            // Step 1. Make the envelope request body
-            EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, item, quantity, signerClientId, templateId);
-
-            // Step 2. call Envelopes::create API method
-            // Exceptions will be caught by the calling function
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
-            string envelopeId = results.EnvelopeId;
-            Console.WriteLine("Envelope was created. EnvelopeId " + envelopeId);
-
-            // Step 3. create the recipient view, the Signing Ceremony
-            RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, returnUrl, signerClientId);
-            ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
-            return results1.Url;
         }
     }
 }

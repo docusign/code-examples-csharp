@@ -40,9 +40,11 @@ namespace DocuSign.CodeExamples.Controllers
                 return Redirect("/ds/mustAuthenticate");
             }
 
+            // Call the Examples API method to create the envelope from template and send it
             string envelopeId = CreateEnvelopeFromTemplate.SendEnvelopeFromTemplate(signerEmail, signerName, ccEmail,
                 ccName, accessToken, basePath, accountId, templateId);
 
+            // Process results
             RequestItemsService.EnvelopeId = envelopeId;
             ViewBag.message = "The envelope has been created and sent!<br/>Envelope ID " + envelopeId + ".";
             return View("example_done");
