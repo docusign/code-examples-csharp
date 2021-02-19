@@ -47,10 +47,10 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
             try
             {
-                //Step 3: Get Offices 
+                //Step 3: Retrieve an office ID 
                 var offices = officesApi.GetOffices(accountId);
 
-                //Step 4: Get Form Groups 
+                //Step 4: Select the desired form group ID
                 var formGroups = formGroupsApi.GetFormGroups(accountId);
 
                 OfficeAccessModel = new OfficeAccessModel { Offices = offices.OfficeSummaries, FormGroups = formGroups.FormGroups };

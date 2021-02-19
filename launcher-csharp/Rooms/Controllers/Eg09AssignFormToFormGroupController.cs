@@ -51,7 +51,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
             try
             {
-                // step 3: obtain the desired form ID
+                // step 3: Retrieve the desired form library ID 
                 FormLibrarySummaryList formLibraries = formLibrariesApi.GetFormLibraries(accountId);
 
                 FormSummaryList forms = new FormSummaryList(new List<FormSummary>());
@@ -62,6 +62,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                         formLibraries.FormsLibrarySummaries.First().FormsLibraryId);
                 }
 
+                // step 4: Select the desired form group ID
                 FormGroupSummaryList formGroups = formGroupsApi.GetFormGroups(accountId);
 
                 FormFormGroupModel = new FormFormGroupModel { Forms = forms.Forms, FormGroups = formGroups.FormGroups };
