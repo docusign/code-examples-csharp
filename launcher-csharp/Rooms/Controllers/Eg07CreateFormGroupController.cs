@@ -39,7 +39,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
-            // Step 2: Construct your API headers
+            // Step 3: Construct your API headers
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
@@ -48,8 +48,10 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
             try
             {
-                // Step 3: Call the Rooms API to create a form group
-                FormGroup formGroup = formGroupsApi.CreateFormGroup(accountId, new FormGroupForCreate(formGroupModel.Name));
+                // step 3: Construct the request body
+                var formGroupForCreate = new FormGroupForCreate(formGroupModel.Name);
+                // Step 4: Call the Rooms API to create a form group
+                FormGroup formGroup = formGroupsApi.CreateFormGroup(accountId, formGroupForCreate);
 
                 ViewBag.h1 = "The form group was successfully created";
                 ViewBag.message = $"The form group was successfully created, FormGroupId: '{formGroup.FormGroupId}'";
