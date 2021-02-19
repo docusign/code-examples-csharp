@@ -164,7 +164,15 @@ For more information about the scopes used for obtaining authorization to use th
 1. **Create an external form fillable session.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg06CreateExternalFormFillSessionController.cs)
    This code example create an external form that can be filled using DocuSign for a specific room in your DocuSign Rooms account.
-   
+1. **Create a form group.**
+   [Source.](./launcher-csharp/Rooms/Controllers/Eg07CreateFormGroupController.cs)
+   This code example create a form group for your DocuSign Rooms for Real Estate account.
+1. **Grants office access to a form group.**
+   [Source.](./launcher-csharp/Rooms/Controllers/Eg08GrantOfficeAccessToFormGroupController.cs)
+   This code example grants access to a form group to a specific office.
+1. **Assign a form group to a group.**
+   [Source.](./launcher-csharp/Rooms/Controllers/Eg09AssignFormToFormGroupController.cs)
+   This code example assigns a form to a specific form group.   
 ## Click API 
 **Note:** to use the Click API, include click_manage and click_send scopes. Review the [Click API 101 Auth Guide](https://developers.docusign.com/docs/click-api/click101/auth) for more details. 
 
