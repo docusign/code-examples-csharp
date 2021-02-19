@@ -135,9 +135,9 @@ For more information about the scopes used for obtaining authorization to use th
 1. **Conditional recipients**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg034ConditionalRecipientsWorkflowController.cs)
    This code example demonstrates how to create an envelope where the workflow is routed to different recipients based on the value of a transaction using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
-1. **Request a signature by SMS**
+1. **Request a signature by SMS delivery**
    [Source.](./launcher-csharp/eSignature/Controllers/Eg035SMSDeliveryController.cs)
-   This code example demonstrates how to send a signature request for a signer to read and sign via an SMS message using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
+   This code example demonstrates how to send a signature request via an SMS message using the [Envelopes: create](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
 
 ## Rooms API 
 
@@ -164,7 +164,15 @@ For more information about the scopes used for obtaining authorization to use th
 1. **Create an external form fillable session.**
    [Source.](./launcher-csharp/Rooms/Controllers/Eg06CreateExternalFormFillSessionController.cs)
    This code example create an external form that can be filled using DocuSign for a specific room in your DocuSign Rooms account.
-   
+1. **Create a form group.**
+   [Source.](./launcher-csharp/Rooms/Controllers/Eg07CreateFormGroupController.cs)
+   This code example create a form group for your DocuSign Rooms for Real Estate account.
+1. **Grants office access to a form group.**
+   [Source.](./launcher-csharp/Rooms/Controllers/Eg08GrantOfficeAccessToFormGroupController.cs)
+   This code example grants access to a form group to a specific office.
+1. **Assign a form group to a group.**
+   [Source.](./launcher-csharp/Rooms/Controllers/Eg09AssignFormToFormGroupController.cs)
+   This code example assigns a form to a specific form group.   
 ## Click API 
 **Note:** to use the Click API, include click_manage and click_send scopes. Review the [Click API 101 Auth Guide](https://developers.docusign.com/docs/click-api/click101/auth) for more details. 
 
