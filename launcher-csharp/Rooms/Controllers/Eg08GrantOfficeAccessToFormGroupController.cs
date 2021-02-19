@@ -85,7 +85,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
             try
             {
-                // Step 4: Call the Rooms API to grant access
+                // Step 5: Call the Rooms API to grant access
                 formGroupsApi.GrantOfficeAccessToFormGroup(accountId, new Guid(roomDocumentModel.FormGroupId), roomDocumentModel.OfficeId);
 
                 ViewBag.h1 = "Access is granted for the office";
