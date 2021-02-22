@@ -41,9 +41,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             string accessToken = RequestItemsService.User.AccessToken;
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
-            // Step 2: Construct your API headers
+            // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            // Step 2 end
+            
             var formGroupsApi = new FormGroupsApi(apiClient);
             var formLibrariesApi = new FormLibrariesApi(apiClient);
 
