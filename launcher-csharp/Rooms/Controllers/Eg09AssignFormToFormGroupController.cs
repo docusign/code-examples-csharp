@@ -37,7 +37,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         public override IActionResult Get()
         {
             base.Get();
-            // Step 1. Obtain your OAuth token
             string accessToken = RequestItemsService.User.AccessToken;
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
@@ -53,7 +52,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
             try
             {
-                // step 3: Retrieve the desired form library ID 
+                // Step 3 start
                 FormLibrarySummaryList formLibraries = formLibrariesApi.GetFormLibraries(accountId);
 
                 FormSummaryList forms = new FormSummaryList(new List<FormSummary>());
@@ -63,10 +62,12 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                         accountId,
                         formLibraries.FormsLibrarySummaries.First().FormsLibraryId);
                 }
-
-                // step 4: Select the desired form group ID
+                // Step 3 end
+                
+                // Step 4 start
                 FormGroupSummaryList formGroups = formGroupsApi.GetFormGroups(accountId);
-
+                // Step 4 end
+                
                 FormFormGroupModel = new FormFormGroupModel { Forms = forms.Forms, FormGroups = formGroups.FormGroups };
 
                 return View("Eg09", this);
@@ -86,11 +87,9 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AssignFormToFormGroup(FormFormGroupModel formFormGroupModel)
         {
-            // Step 1. Obtain your OAuth token
             string accessToken = RequestItemsService.User.AccessToken;
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
 
-            // Step 2: Construct your API headers
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
@@ -100,9 +99,10 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
             try
             {
-                // Step 5: Call the Rooms API to assign the form to the form group
+                // Step 6 start
                 FormGroupFormToAssign formGroupFormToAssign = formGroupsApi.AssignFormGroupForm(accountId, new Guid(formFormGroupModel.FormGroupId), new FormGroupFormToAssign() { FormId = formFormGroupModel.FormId });
-
+                // Step 6 end
+                
                 ViewBag.h1 = "The form was assigned to the form group successfully";
                 ViewBag.message = $"The form ('{formGroupFormToAssign.FormId}') was assigned to the form group ('{formFormGroupModel.FormGroupId}') successfully";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(formGroupFormToAssign, Formatting.Indented);
