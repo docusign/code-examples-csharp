@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using DocuSign.Click.Api;
 using DocuSign.Click.Client;
+using DocuSign.Click.Examples;
 using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
@@ -33,26 +34,20 @@ namespace DocuSign.CodeExamples.Click.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Retrieve()
         {
-            // Step 1. Obtain your OAuth token
+            // Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken;
             var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
-
-            // Step 2: Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var clickAccountApi = new AccountsApi(apiClient);
-
             var accountId = RequestItemsService.Session.AccountId;
 
             try
             {
-                // Step 3: Call the Click API to get the clickwraps
-                var clickwraps = clickAccountApi.GetClickwraps(accountId);
+                // Call the Click API to get the clickwraps
+                var clickwraps = RetrieveClickwraps.GetClickwraps(basePath, accessToken, accountId);
 
                 var messageBuilder = new StringBuilder();
                 clickwraps.Clickwraps.ForEach(cw => messageBuilder.AppendLine($"Clickwrap ID:{cw.ClickwrapId}, Clickwrap Version: {cw.VersionNumber}"));
 
-                //Show results
+                // Show results
                 ViewBag.h1 = "Clickwraps were successfully retreived";
                 ViewBag.message = $"The clickwraps retrieved: {messageBuilder.ToString()}.";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(clickwraps.Clickwraps, Formatting.Indented);
