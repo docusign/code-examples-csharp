@@ -1,5 +1,5 @@
-﻿using DocuSign.Click.Api;
-using DocuSign.Click.Client;
+﻿using DocuSign.Click.Client;
+using DocuSign.Click.Examples;
 using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
@@ -32,14 +32,9 @@ namespace DocuSign.CodeExamples.Click.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create()
         {
-            // Step 1. Obtain your OAuth token
+            // Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken;
             var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
-
-            // Step 2: Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var clickAccountApi = new AccountsApi(apiClient);
 
             try
             {
@@ -54,10 +49,10 @@ namespace DocuSign.CodeExamples.Click.Controllers
                 var accountId = RequestItemsService.Session.AccountId;
                 var clickwrapId = RequestItemsService.ClickwrapId;
 
-                // Step 3: Call the Click API to get a clickwrap agreements
-                var clickWrapAgreements = clickAccountApi.GetClickwrapAgreements(accountId, clickwrapId);
+                // Call the Click API to get a clickwrap agreements
+                var clickWrapAgreements = GetClickwrapResponses.GetAgreements(clickwrapId, basePath, accessToken, accountId);
 
-                //Show results
+                // Show results
                 ViewBag.h1 = "The data was successfully fetched";
                 ViewBag.message = $"The clickwrap contains {clickWrapAgreements.UserAgreements.Count} agreements.";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(clickWrapAgreements, Formatting.Indented);
