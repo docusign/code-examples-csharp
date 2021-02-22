@@ -15,7 +15,7 @@ namespace DocuSign.Click.Examples
         /// <param name="basePath">BasePath for API calls (URI)</param>
         /// <param name="accessToken">Access Token for API call (OAuth)</param>
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
-        /// <returns></returns>
+        /// <returns>The summary response of a newly created clickwrap</returns>
         public static ClickwrapVersionSummaryResponse Create(string name, string basePath, string accessToken, string accountId)
         {
             var apiClient = new ApiClient(basePath);
