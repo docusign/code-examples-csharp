@@ -1,6 +1,5 @@
 ﻿using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
-using DocuSign.CodeExamples.Rooms.Models;
 using DocuSign.Rooms.Client;
 using DocuSign.Rooms.Examples;
 using Microsoft.AspNetCore.Mvc;
@@ -42,7 +41,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             try
             {
                 // Mapping room model to match types
-                var mappedRoomModel = new DocuSign.Rooms.Examples.RoomModel
+                var mappedRoomModel = new CreateRoomWithData.RoomModel
                 {
                     Name = model.Name,
                     TemplateId = model.TemplateId,
