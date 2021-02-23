@@ -5,6 +5,7 @@ using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Rooms.Models;
 using DocuSign.Rooms.Api;
 using DocuSign.Rooms.Client;
+using DocuSign.Rooms.Examples;
 using DocuSign.Rooms.Model;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -37,29 +38,19 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExportData(RoomFilterModel roomFilterModel)
         {
-            // Step 1. Obtain your OAuth token
+            // Obtain your OAuth token
             string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-
-            // Step 2: Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var roomsApi = new RoomsApi(apiClient);
-
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
-                // Step 3: Prepare your request parameters
+                // Prepare your request parameters
                 var fieldDataChangedStartDate = roomFilterModel.FieldDataChangedStartDate.ToString(CultureInfo.InvariantCulture);
                 var fieldDataChangedEndDate = roomFilterModel.FieldDataChangedEndDate.ToString(CultureInfo.InvariantCulture);
 
-                // Step 4: Call the Rooms API to get rooms with filters
-                RoomSummaryList rooms = roomsApi.GetRooms(accountId, new RoomsApi.GetRoomsOptions
-                {
-                    fieldDataChangedStartDate = fieldDataChangedStartDate,
-                    fieldDataChangedEndDate = fieldDataChangedEndDate
-                });
+                // Call the Rooms API to get rooms with filters
+                var rooms = GetRoomsWithFilters.GetRooms(basePath, accessToken, accountId, fieldDataChangedStartDate, fieldDataChangedEndDate);
 
                 ViewBag.h1 = "The rooms with filters was loaded";
                 ViewBag.message = $"Results from the Rooms: GetRooms method. FieldDataChangedStartDate: " +
