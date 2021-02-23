@@ -1,0 +1,53 @@
+﻿@model DocuSign.CodeExamples.Rooms.Models.OfficeAccessModel
+
+@if (Model.Offices != null && Model.Offices.Any())
+{
+    @if (Model.FormGroups != null && Model.FormGroups.Any())
+    {
+        <p>
+            Please select an office and a form group
+        </p>
+        <form class="eg" asp-action="GrantAccess" method="post" data-busy="form">
+            <div class="form-group">
+                <label for="officeSelect">Offices</label>
+                <select class="custom-select"
+                        id="officeSelect"
+                        asp-for="OfficeId"
+                        asp-items="@(new SelectList(Model.Offices, "OfficeId", "Name"))"
+                        data-val="true"
+                        data-val-required="The Office field is required.">
+                    <option>Please select an office</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="formGroupSelect">Form Group</label>
+                <select class="custom-select"
+                        id="formGroupSelect"
+                        asp-for="FormGroupId"
+                        asp-items="@(new SelectList(Model.FormGroups, "FormGroupId", "Name"))"
+                        data-val="true"
+                        data-val-required="The Form Group field is required.">
+                    <option>Please select a form group</option>
+                </select>
+            </div>
+            <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+            <input type="submit" class="btn btn-primary" value="Grant Access" id="btnSubmit" />
+        </form>
+    }
+    else
+    {
+        <p>
+            Problem: please first create a form group using <a href="eg07">example 7.</a> <br />
+            Thank you.
+        </p>
+        <a href="/" class="btn btn-primary">Continue</a>
+    }
+}
+else
+{
+    <p>
+        Problem: please first create an office
+    </p>
+    <a href="/" class="btn btn-primary">Continue</a>
+}

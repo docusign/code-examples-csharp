@@ -1,0 +1,52 @@
+﻿@model DocuSign.CodeExamples.Rooms.Models.FormFormGroupModel
+
+@if (Model.Forms != null && Model.Forms.Any())
+{
+    @if (Model.FormGroups != null && Model.FormGroups.Any())
+    {
+        <p>
+            Please select an office and a form group
+        </p>
+        <form class="eg" asp-action="AssignFormToFormGroup" method="post" data-busy="form">
+            <div class="form-group">
+                <label for="docSelect">Forms</label>
+                <select class="custom-select"
+                        asp-for="FormId"
+                        asp-items="@(new SelectList(Model.Forms, "LibraryFormId", "Name"))"
+                        data-val="true"
+                        data-val-required="The Froms field is required.">
+                    <option>Please select a form</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="docSelect">Form Group</label>
+                <select class="custom-select"
+                        asp-for="FormGroupId"
+                        asp-items="@(new SelectList(Model.FormGroups, "FormGroupId", "Name"))"
+                        data-val="true"
+                        data-val-required="The Form Group field is required.">
+                    <option>Please select a form group</option>
+                </select>
+            </div>
+            <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+            <input type="submit" class="btn btn-primary" value="Add" id="btnSubmit" />
+        </form>
+    }
+    else
+    {
+        <p>
+            Problem: please first create a form group using <a href="eg07">example 7.</a> <br />
+            Thank you.
+        </p>
+        <a href="/" class="btn btn-primary">Continue</a>
+    }
+}
+else
+{
+    <p>
+        Problem: please first create a form. <br />
+        Thank you.
+    </p>
+    <a href="/" class="btn btn-primary">Continue</a>
+}

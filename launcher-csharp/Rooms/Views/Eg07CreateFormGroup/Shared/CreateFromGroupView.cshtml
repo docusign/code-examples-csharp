@@ -1,0 +1,11 @@
+﻿@model DocuSign.CodeExamples.Rooms.Models.FormGroupModel
+
+<h4>Form Group</h4>
+<form class="eg" asp-action="CreateFormGroup" method="post" data-busy="form">
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input type="input" class="form-control" asp-for="Name" placeholder="Form group name" required>
+    </div>
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
