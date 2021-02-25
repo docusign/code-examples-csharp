@@ -1,8 +1,8 @@
-﻿using DocuSign.Rooms.Api;
+﻿using System.Collections.Generic;
+using System.Linq;
+using DocuSign.Rooms.Api;
 using DocuSign.Rooms.Client;
 using DocuSign.Rooms.Model;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace DocuSign.Rooms.Examples
 {
@@ -16,7 +16,11 @@ namespace DocuSign.Rooms.Examples
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// <param name="model">The model of room</param>
         /// <returns>The instance of created room</returns>
-        public static Room CreateRoom(string basePath, string accessToken, string accountId, RoomModel model)
+        public static Room CreateRoom(
+            string basePath,
+            string accessToken,
+            string accountId,
+            RoomModel model)
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);

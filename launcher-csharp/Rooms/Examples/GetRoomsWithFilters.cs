@@ -15,7 +15,12 @@ namespace DocuSign.Rooms.Examples
         /// <param name="fieldDataChangedStartDate">The start date</param>
         /// <param name="fieldDataChangedEndDate">The end date</param>
         /// <returns>The filtered room summary list</returns>
-        public static RoomSummaryList GetRooms(string basePath, string accessToken, string accountId, string fieldDataChangedStartDate, string fieldDataChangedEndDate)
+        public static RoomSummaryList GetRooms(
+            string basePath,
+            string accessToken,
+            string accountId,
+            string fieldDataChangedStartDate,
+            string fieldDataChangedEndDate)
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);

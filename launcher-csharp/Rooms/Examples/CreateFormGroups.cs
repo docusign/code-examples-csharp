@@ -14,7 +14,11 @@ namespace DocuSign.Rooms.Examples
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// <param name="groupName">The name of new group</param>
         /// <returns>The new form group</returns>
-        public static FormGroup CreateGroup(string basePath, string accessToken, string accountId, string groupName)
+        public static FormGroup CreateGroup(
+            string basePath,
+            string accessToken,
+            string accountId,
+            string groupName)
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);

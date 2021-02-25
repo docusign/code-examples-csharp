@@ -1,8 +1,8 @@
-﻿using DocuSign.Rooms.Api;
+﻿using System.Collections.Generic;
+using System.Linq;
+using DocuSign.Rooms.Api;
 using DocuSign.Rooms.Client;
 using DocuSign.Rooms.Model;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace DocuSign.Rooms.Examples
 {
@@ -15,7 +15,10 @@ namespace DocuSign.Rooms.Examples
         /// <param name="accessToken">Access Token for API call (OAuth)</param>
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// <returns>The list of room templates</returns>
-        public static RoomTemplatesSummaryList GetTemplates(string basePath, string accessToken, string accountId)
+        public static RoomTemplatesSummaryList GetTemplates(
+            string basePath,
+            string accessToken,
+            string accountId)
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);
@@ -35,7 +38,12 @@ namespace DocuSign.Rooms.Examples
         /// <param name="model">The model of room</param>
         /// <param name="templateId">The Id of room template</param>
         /// <returns>The instance of created room</returns>
-        public static Room CreateRoom(string basePath, string accessToken, string accountId, RoomModel model, int templateId)
+        public static Room CreateRoom(
+            string basePath,
+            string accessToken,
+            string accountId,
+            RoomModel model,
+            int templateId)
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);
@@ -53,7 +61,10 @@ namespace DocuSign.Rooms.Examples
             return roomsApi.CreateRoom(accountId, newRoom);
         }
 
-        private static RoomForCreate BuildRoom(RoomModel model, RoleSummary clientRole, int? templateId)
+        private static RoomForCreate BuildRoom(
+            RoomModel model,
+            RoleSummary clientRole,
+            int? templateId)
         {
             var newRoom = new RoomForCreate
             {

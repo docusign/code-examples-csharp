@@ -14,7 +14,11 @@ namespace DocuSign.Rooms.Examples
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// /// <param name="roomId">The Id of a specified room</param>
         /// <returns>The list of Room Documents</returns>
-        public static RoomDocumentList GetDocuments(string basePath, string accessToken, string accountId, int? roomId)
+        public static RoomDocumentList GetDocuments(
+            string basePath,
+            string accessToken,
+            string accountId,
+            int? roomId)
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);
@@ -32,7 +36,10 @@ namespace DocuSign.Rooms.Examples
         /// <param name="accessToken">Access Token for API call (OAuth)</param>
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// <returns>The list of rooms</returns>
-        public static RoomSummaryList GetRooms(string basePath, string accessToken, string accountId)
+        public static RoomSummaryList GetRooms(
+            string basePath,
+            string accessToken,
+            string accountId)
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);
@@ -52,7 +59,11 @@ namespace DocuSign.Rooms.Examples
         /// <param name="documentId">The Id of a specified document</param>
         /// <param name="roomId">The Id of a specified room</param>
         /// <returns>ExternalFormFillSession</returns>
-        public static ExternalFormFillSession CreateSession(string basePath, string accessToken, string accountId, ExternalFormFillSessionForCreate sessionForCreate)
+        public static ExternalFormFillSession CreateSession(
+            string basePath,
+            string accessToken,
+            string accountId,
+            ExternalFormFillSessionForCreate sessionForCreate)
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);
