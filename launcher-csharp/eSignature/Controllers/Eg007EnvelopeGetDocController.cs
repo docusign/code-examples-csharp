@@ -19,7 +19,6 @@ namespace DocuSign.CodeExamples.Controllers
 
         public override string EgName => "eg007";
 
-        // ***DS.snippet.0.start
         private FileStreamResult DoWork(string accessToken, string basePath, string accountId,
             string envelopeId, List<EnvelopeDocItem> documents, string docSelect)
         {
@@ -79,7 +78,6 @@ namespace DocuSign.CodeExamples.Controllers
             return File(results, mimetype, docName);
             // Step 3 end
         }
-        // ***DS.snippet.0.end
 
 
 
