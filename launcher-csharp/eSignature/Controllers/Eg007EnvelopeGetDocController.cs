@@ -77,8 +77,8 @@ namespace DocuSign.CodeExamples.Controllers
             }
 
             return File(results, mimetype, docName);
+            // Step 3 end
         }
-        // Step 3 end
         // ***DS.snippet.0.end
 
 
