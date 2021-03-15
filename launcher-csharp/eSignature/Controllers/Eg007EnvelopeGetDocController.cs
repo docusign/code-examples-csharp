@@ -30,16 +30,19 @@ namespace DocuSign.CodeExamples.Controllers
             // envelopeId
             // docSelect -- the requested documentId 
             // documents -- from eg 6
+            // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            // Step 2 end
+            // Step 3 start
             var envelopesApi = new EnvelopesApi(apiClient);
 
-            // Step 1. EnvelopeDocuments::get.
+            // EnvelopeDocuments::get.
             // Exceptions will be caught by the calling function
             System.IO.Stream results = envelopesApi.GetDocument(accountId,
                             envelopeId, docSelect);
 
-            // Step 2. Look up the document from the list of documents 
+            // Look up the document from the list of documents 
             EnvelopeDocItem docItem = documents.FirstOrDefault(d => docSelect.Equals(d.DocumentId));
             // Process results. Determine the file name and mimetype
             string docName = docItem.Name;
@@ -75,6 +78,7 @@ namespace DocuSign.CodeExamples.Controllers
 
             return File(results, mimetype, docName);
         }
+        // Step 3 end
         // ***DS.snippet.0.end
 
 
