@@ -43,6 +43,7 @@ namespace DocuSign.CodeExamples.Controllers
 
             // Look up the document from the list of documents 
             EnvelopeDocItem docItem = documents.FirstOrDefault(d => docSelect.Equals(d.DocumentId));
+            // Step 3 end
             // Process results. Determine the file name and mimetype
             string docName = docItem.Name;
             bool hasPDFsuffix = docName.ToUpper().EndsWith(".PDF");
@@ -76,7 +77,6 @@ namespace DocuSign.CodeExamples.Controllers
             }
 
             return File(results, mimetype, docName);
-            // Step 3 end
         }
 
 
