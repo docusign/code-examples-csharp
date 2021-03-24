@@ -31,7 +31,7 @@ namespace DocuSign.CodeExamples.Monitor.Examples
 			// Get monitoring data
 			do
 			{
-				var cursorValueFormated = (cursorValue != "") ? "=" + cursorValue : cursorValue;
+				var cursorValueFormated = (!string.IsNullOrEmpty(cursorValue)) ? $"={cursorValue}" : cursorValue;
 
 				// Add cursor value and amount of records to read to the request
 				var requestParameters = String.Format("stream?cursor{0}&limit={1}",
