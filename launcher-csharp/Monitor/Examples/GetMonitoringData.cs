@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace DocuSign.CodeExamples.Monitor.Examples
 {
-    public class GetMonitoringData : Controller
+    public class GetMonitoringDataFunc
     {
         /// <summary>
         /// Gets data from monitor
@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Monitor.Examples
         /// <param name="requestPath">Request path, used for API calls (URI)</param>
         /// <param name="accessToken">Access Token for API call (JWT OAuth)</param>
         /// <returns>The list of JObjects, containing data from monitor</returns>
-        public static List<JObject> DoWork(string accessToken, string requestPath)
+        public virtual IEnumerable<Object> Invoke(string accessToken, string requestPath)
         {
             //  Construct API headers
             WebHeaderCollection headers = new WebHeaderCollection();
@@ -66,3 +66,4 @@ namespace DocuSign.CodeExamples.Monitor.Examples
         }
     }
 }
+

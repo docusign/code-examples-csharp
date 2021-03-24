@@ -9,6 +9,9 @@ namespace DocuSign.CodeExamples.Controllers
     public class MonitorController : EgController
     {
         private IRequestItemsService _requestItemsService;
+
+        private readonly GetMonitoringDataFunc _getMonitoringDataFunc = new GetMonitoringDataFunc();
+
         public MonitorController(DSConfiguration config, IRequestItemsService requestItemsService)
             : base(config, requestItemsService)
         {
@@ -29,7 +32,7 @@ namespace DocuSign.CodeExamples.Controllers
             string requestPath = "https://lens-d.docusign.net/api/v2.0/datasets/monitor/";
 
             // Getting monitoring data
-            var results = GetMonitoringData.DoWork(accessToken, requestPath);
+            var results = _getMonitoringDataFunc.Invoke(accessToken, requestPath);
 
             // Process results
             ViewBag.h1 = "Response output";
