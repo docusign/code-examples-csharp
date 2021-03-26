@@ -1,8 +1,7 @@
-﻿using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿using DocuSign.eSign.Client;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
+using eSignature.Examples;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -37,26 +36,14 @@ namespace DocuSign.CodeExamples.Controllers
             // signerName
             var basePath = RequestItemsService.Session.BasePath + "/restapi";
 
-            // Step 1. Obtain your OAuth token
+            // Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
-            // Step 2. Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-
-            // Step 3. Construct your request body
-            Brand newBrand = new Brand
-            {
-                BrandName = brandName,
-                DefaultBrandLanguage = defaultBrandLanguage
-            };
-
             try
             {
-                // Step 4. Call the eSignature REST API
-                var accountsApi = new AccountsApi(apiClient);
-                var results = accountsApi.CreateBrand(accountId, newBrand);
+                // Call the Examples API method to create a new brand
+                var results = CreateBrand.Create(brandName, defaultBrandLanguage, accessToken, basePath, accountId);
                 ViewBag.h1 = "New brand created";
                 ViewBag.message = "The brand has been created!<br />Brand ID:" + results.Brands[0].BrandId + ".";
             }

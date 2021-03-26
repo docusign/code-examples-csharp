@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
+using eSignature.Examples;
+using System.Linq;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -19,66 +18,6 @@ namespace DocuSign.CodeExamples.Controllers
 
         public override string EgName => "eg007";
 
-        // ***DS.snippet.0.start
-        private FileStreamResult DoWork(string accessToken, string basePath, string accountId,
-            string envelopeId, List<EnvelopeDocItem> documents, string docSelect)
-        {
-            // Data for this method
-            // accessToken
-            // basePath
-            // accountId
-            // envelopeId
-            // docSelect -- the requested documentId 
-            // documents -- from eg 6
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var envelopesApi = new EnvelopesApi(apiClient);
-
-            // Step 1. EnvelopeDocuments::get.
-            // Exceptions will be caught by the calling function
-            System.IO.Stream results = envelopesApi.GetDocument(accountId,
-                            envelopeId, docSelect);
-
-            // Step 2. Look up the document from the list of documents 
-            EnvelopeDocItem docItem = documents.FirstOrDefault(d => docSelect.Equals(d.DocumentId));
-            // Process results. Determine the file name and mimetype
-            string docName = docItem.Name;
-            bool hasPDFsuffix = docName.ToUpper().EndsWith(".PDF");
-            bool pdfFile = hasPDFsuffix;
-            // Add .pdf if it's a content or summary doc and doesn't already end in .pdf
-            string docType = docItem.Type;
-            if (("content".Equals(docType) || "summary".Equals(docType)) && !hasPDFsuffix)
-            {
-                docName += ".pdf";
-                pdfFile = true;
-            }
-            // Add .zip as appropriate
-            if ("zip".Equals(docType))
-            {
-                docName += ".zip";
-            }
-            // Return the file information
-            // See https://stackoverflow.com/a/30625085/64904
-            string mimetype;
-            if (pdfFile)
-            {
-                mimetype = "application/pdf";
-            }
-            else if ("zip".Equals(docType))
-            {
-                mimetype = "application/zip";
-            }
-            else
-            {
-                mimetype = "application/octet-stream";
-            }
-
-            return File(results, mimetype, docName);
-        }
-        // ***DS.snippet.0.end
-
-
-
         [HttpPost]
         public ActionResult Create(string docSelect)
         {
@@ -89,7 +28,9 @@ namespace DocuSign.CodeExamples.Controllers
             var accountId = RequestItemsService.Session.AccountId;
             var envelopeId = RequestItemsService.EnvelopeId;
             // documents data for the envelope. See example EG006
-            List<EnvelopeDocItem> documents = RequestItemsService.EnvelopeDocuments.Documents;
+            List<GetDocumentFromEnvelope.EnvelopeDocItem> documents =
+                RequestItemsService.EnvelopeDocuments.Documents.Select(docItems => 
+                    new GetDocumentFromEnvelope.EnvelopeDocItem{ DocumentId = docItems.DocumentId, Name = docItems.Name, Type = docItems.Type }).ToList();
 
             bool tokenOk = CheckToken(3);
             if (!tokenOk)
@@ -103,9 +44,10 @@ namespace DocuSign.CodeExamples.Controllers
                 return Redirect("/ds/mustAuthenticate");
             }
 
-            FileStreamResult result = DoWork(accessToken, basePath, accountId,
+            // Call the Examples API method to download the specified document from the envelope
+            var result = GetDocumentFromEnvelope.DownloadDocument(accessToken, basePath, accountId,
                 envelopeId, documents, docSelect);
-            return result;
+            return File(result.Item1, result.Item2, result.Item3);
         }
     }
 }
