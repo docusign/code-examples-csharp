@@ -22,7 +22,7 @@ namespace DocuSign.Rooms.Examples
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var roomsApi = new RoomsApi(apiClient);
 
             // Call the Rooms API to get Room Documents
@@ -43,7 +43,7 @@ namespace DocuSign.Rooms.Examples
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var roomsApi = new RoomsApi(apiClient);
 
             // Call the Rooms API to get the list of rooms
@@ -67,7 +67,7 @@ namespace DocuSign.Rooms.Examples
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var externalFormFillSessionsApi = new ExternalFormFillSessionsApi(apiClient);
 
             // Call the Rooms API to create external form fill session

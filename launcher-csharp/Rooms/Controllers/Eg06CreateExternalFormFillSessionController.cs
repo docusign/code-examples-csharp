@@ -102,8 +102,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             try
             {
                 // Call the Rooms API to create external form fill session
-                var url = CreateExternalFormFillSession.CreateSession(basePath, accessToken, accountId,
-                    new ExternalFormFillSessionForCreate(roomDocumentModel.DocumentId.ToString(), roomDocumentModel.RoomId));
+                var url = CreateExternalFormFillSession.CreateSession(basePath,
+                    accessToken,
+                    accountId,
+                    new ExternalFormFillSessionForCreate(roomDocumentModel.DocumentId.ToString(),
+                        roomDocumentModel.RoomId));
 
                 ViewBag.h1 = "External form fill sessions was successfully created";
                 ViewBag.message = $"To fill the form, navigate following URL: <a href='{url.Url}' target='_blank'>Fill the form</a>";

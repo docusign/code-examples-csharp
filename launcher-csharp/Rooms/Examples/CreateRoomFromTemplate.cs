@@ -22,7 +22,7 @@ namespace DocuSign.Rooms.Examples
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var roomTemplatesApi = new RoomTemplatesApi(apiClient);
 
             // Call the Rooms API to create a room
@@ -47,7 +47,7 @@ namespace DocuSign.Rooms.Examples
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var roomsApi = new RoomsApi(apiClient);
             var rolesApi = new RolesApi(apiClient);
 
@@ -75,15 +75,13 @@ namespace DocuSign.Rooms.Examples
                 {
                     Data = new Dictionary<string, object>
                     {
-                        {"address1", "Street 1"},
-                        {"address2", "Unit 10"},
-                        {"city", "New York"},
-                        {"postalCode", "11112"},
-                        {"companyRoomStatus", "5"},
-                        {"state", "US-NY"},
-                        {
-                            "comments", @"New room for sale."
-                        }
+                        { "address1", "Street 1" },
+                        { "address2", "Unit 10" },
+                        { "city", "New York" },
+                        { "postalCode", "11112" },
+                        { "companyRoomStatus", "5" },
+                        { "state", "US-NY" },
+                        { "comments", @"New room for sale." }
                     }
                 }
             };
@@ -95,7 +93,7 @@ namespace DocuSign.Rooms.Examples
         {
             public string Name { get; set; }
             public int TemplateId { get; set; }
-            public List<RoomTemplate> Templates { get; set; }
+            public IEnumerable<RoomTemplate> Templates { get; set; }
         }
     }
 }

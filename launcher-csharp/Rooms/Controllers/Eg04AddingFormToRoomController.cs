@@ -78,7 +78,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             try
             {
                 // Call the Rooms API to add form to a room
-                var roomDocument = AddingFormToRoom.AddForm(basePath, accessToken, accountId, roomFormModel.RoomId, roomFormModel.FormId);
+                var roomDocument = AddingFormToRoom.AddForm(basePath,
+                    accessToken,
+                    accountId,
+                    roomFormModel.RoomId,
+                    roomFormModel.FormId);
 
                 ViewBag.h1 = "The form was successfully added to a room";
                 ViewBag.message = $"Results from the Rooms: AddFormToRoom method. RoomId: {roomFormModel.RoomId}, FormId: {roomFormModel.FormId} :";

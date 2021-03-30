@@ -79,7 +79,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 };
 
                 // Call the Rooms API to create a room
-                var room = CreateRoomFromTemplate.CreateRoom(basePath, accessToken, accountId, mappedRoomModel, mappedRoomModel.TemplateId);
+                var room = CreateRoomFromTemplate.CreateRoom(basePath,
+                    accessToken,
+                    accountId,
+                    mappedRoomModel,
+                    mappedRoomModel.TemplateId);
 
                 // Show results
                 ViewBag.h1 = "The room was successfully created";

@@ -23,13 +23,13 @@ namespace DocuSign.Rooms.Examples
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var formGroupsApi = new FormGroupsApi(apiClient);
             var formLibrariesApi = new FormLibrariesApi(apiClient);
 
             FormLibrarySummaryList formLibraries = formLibrariesApi.GetFormLibraries(accountId);
 
-            FormSummaryList forms = new FormSummaryList(new List<FormSummary>());
+            FormSummaryList forms = new FormSummaryList();
             if (formLibraries.FormsLibrarySummaries.Any())
             {
                 forms = formLibrariesApi.GetFormLibraryForms(
@@ -60,7 +60,7 @@ namespace DocuSign.Rooms.Examples
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var formGroupsApi = new FormGroupsApi(apiClient);
 
             // Call the Rooms API to assign form to form group

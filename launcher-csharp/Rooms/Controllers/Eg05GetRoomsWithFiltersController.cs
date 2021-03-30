@@ -50,7 +50,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 var fieldDataChangedEndDate = roomFilterModel.FieldDataChangedEndDate.ToString(CultureInfo.InvariantCulture);
 
                 // Call the Rooms API to get rooms with filters
-                var rooms = GetRoomsWithFilters.GetRooms(basePath, accessToken, accountId, fieldDataChangedStartDate, fieldDataChangedEndDate);
+                var rooms = GetRoomsWithFilters.GetRooms(basePath,
+                    accessToken,
+                    accountId,
+                    fieldDataChangedStartDate,
+                    fieldDataChangedEndDate);
 
                 ViewBag.h1 = "The rooms with filters was loaded";
                 ViewBag.message = $"Results from the Rooms: GetRooms method. FieldDataChangedStartDate: " +
