@@ -43,9 +43,9 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             try
             {
                 // Call the Rooms API to get forms and form groups
-                (FormSummaryList forms, FormGroupSummaryList formGroups) = 
+                (FormSummaryList forms, FormGroupSummaryList formGroups) =
                     AssignFormToFormGroups.GetFormsAndFormGroups(basePath, accessToken, accountId);
-                
+
                 FormFormGroupModel = new FormFormGroupModel { Forms = forms.Forms, FormGroups = formGroups.FormGroups };
 
                 return View("Eg09", this);
@@ -75,7 +75,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 // Call the Rooms API to assign form to form group
                 var formGroupFormToAssign = AssignFormToFormGroups.AssignForm(basePath, accessToken, accountId,
                     formFormGroupModel.FormGroupId, new FormGroupFormToAssign() { FormId = formFormGroupModel.FormId });
-                
+
                 ViewBag.h1 = "The form was assigned to the form group successfully";
                 ViewBag.message = $"The form ('{formGroupFormToAssign.FormId}') was assigned to the form group ('{formFormGroupModel.FormGroupId}') successfully";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(formGroupFormToAssign, Formatting.Indented);
@@ -85,7 +85,9 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             catch (ApiException apiException)
             {
                 ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
+                ViewBag.errorMessage = apiException.Message.Equals("Unhandled response type.") ? 
+                    "Response is empty and could not be cast to FormGroupFormToAssign. " +
+                    "Please contact DocuSign support" : apiException.Message;
 
                 return View("Error");
             }
