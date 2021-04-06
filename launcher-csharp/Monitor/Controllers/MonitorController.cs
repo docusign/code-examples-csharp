@@ -2,10 +2,11 @@
 using Newtonsoft.Json;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Monitor.Examples;
+using DocuSign.CodeExamples.Common;
 
 namespace DocuSign.CodeExamples.Controllers
 {
-    [Route("monitorExample001")]
+    [Route("Monitor/monitorExample001")]
     public class MonitorController : EgController
     {
         private IRequestItemsService _requestItemsService;
@@ -21,6 +22,7 @@ namespace DocuSign.CodeExamples.Controllers
 
         public override string EgName => "monitorExample001";
 
+        [MustAuthenticate]
         [HttpPost]
         public IActionResult Create()
         {

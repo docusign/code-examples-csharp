@@ -15,7 +15,7 @@
   <ItemGroup>
     <PackageReference Include="DocuSign.Click" Version="1.0.0" />
     <PackageReference Include="DocuSign.eSign.dll" Version="5.3.1-rc" />
-    <PackageReference Include="DocuSign.Rooms" Version="1.1.0-rc" />
+    <PackageReference Include="DocuSign.Rooms" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0-preview1.19506.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0-preview1.19506.2">

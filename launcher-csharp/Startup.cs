@@ -117,7 +117,10 @@ namespace DocuSign.CodeExamples
                         options.Scope.Add("click.manage");
                         options.Scope.Add("click.send");
                         break;
-
+                    case ExamplesAPIType.Monitor:
+                        options.Scope.Add("signature");
+                        options.Scope.Add("impersonation");
+                        break;
                 }
 
                 options.SaveTokens = true;
