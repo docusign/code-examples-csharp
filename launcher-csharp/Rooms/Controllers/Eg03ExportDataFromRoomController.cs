@@ -1,13 +1,10 @@
 ﻿using System.Linq;
-using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Rooms.Models;
-using DocuSign.Rooms.Api;
 using DocuSign.Rooms.Client;
-using DocuSign.Rooms.Model;
+using DocuSign.Rooms.Examples;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Newtonsoft.Json;
 
 namespace DocuSign.CodeExamples.Rooms.Controllers
@@ -37,21 +34,16 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         public override IActionResult Get()
         {
             base.Get();
-            // Step 1. Obtain your OAuth token
+
+            // Obtain your OAuth token
             string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-
-            // Step 2: Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var roomsApi = new RoomsApi(apiClient);
-
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
-                //Step 3: Get Rooms
-                RoomSummaryList rooms = roomsApi.GetRooms(accountId);
+                // Get Rooms
+                var rooms = ExportDataFromRoom.GetRooms(basePath, accessToken, accountId);
 
                 RoomsListModel = new RoomsListModel {Rooms = rooms.Rooms.ToList()};
 
@@ -72,22 +64,17 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExportData(RoomsListModel model)
         {
-            // Step 1. Obtain your OAuth token
+            // Obtain your OAuth token
             string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-
-            // Step 2: Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var roomsApi = new RoomsApi(apiClient);
-
             string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
-                // Step 3: Call the Rooms API to get room field data
-                FieldData fieldData = roomsApi.GetRoomFieldData(accountId, model.RoomId);
-                
+                // Call the Rooms API to get room field data
+                var fieldData = ExportDataFromRoom.Export(basePath, accessToken, accountId, model.RoomId);
+
+                // Show results
                 ViewBag.h1 = "The room data was successfully exported";
                 ViewBag.message = $"Results from the Rooms::GetRoomFieldData method RoomId: {model.RoomId} :";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(fieldData, Formatting.Indented);
