@@ -1,13 +1,11 @@
-﻿using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿using DocuSign.eSign.Client;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
-
+using eSignature.Examples;
 
 namespace DocuSign.CodeExamples.Controllers
 {
-	[Area("eSignature")]
+    [Area("eSignature")]
 	[Route("Eg024")]
 	public class Eg024PermissionCreateController : EgController
 	{
@@ -47,13 +45,8 @@ namespace DocuSign.CodeExamples.Controllers
 			var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
 			var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
-			// Step 2. Construct your API headers
-			var apiClient = new ApiClient(basePath);
-			apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-			var accountsApi = new AccountsApi(apiClient);
-
-			// Step 3. Construct your request
-			var accountRoleSettings = new AccountRoleSettingsExtension();
+			// Step 2. Construct your request
+			var accountRoleSettings = new CreatePermissionProfile.AccountRoleSettingsExtension();
 			accountRoleSettings.UseNewDocuSignExperienceInterface = "1";
 			accountRoleSettings.EnableSequentialSigningInterface = true.ToString();
 			accountRoleSettings.PowerFormRole = "admin";
@@ -82,11 +75,11 @@ namespace DocuSign.CodeExamples.Controllers
 			accountRoleSettings.AllowedToBeEnvelopeTransferRecipient = permissionProfileModel.AccountRoleSettingsModel.AllowedToBeEnvelopeTransferRecipient.ToString();
 			accountRoleSettings.EnableTransactionPointIntegration = permissionProfileModel.AccountRoleSettingsModel.EnableTransactionPointIntegration.ToString();
 
-			var newPermimssionProfile = new PermissionProfile(PermissionProfileName: permissionProfileModel.ProfileName, Settings: accountRoleSettings);
 			try
 			{
-				// Step 4. Call the eSignature REST API
-				var result = accountsApi.CreatePermissionProfile(accountId, newPermimssionProfile);
+				// Step 3. Call the eSignature REST API
+				var result = CreatePermissionProfile.Create(permissionProfileModel.ProfileName,
+                    accountRoleSettings, accessToken, basePath, accountId);
 
 				ViewBag.h1 = "The permission profile was updated";
 				ViewBag.message = $"The permission profile was created!<br />Permission profile ID: {result.PermissionProfileId}, name:{result.PermissionProfileName}.";
