@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using DocuSign.CodeExamples.Controllers;
+﻿using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Rooms.Models;
-using DocuSign.Rooms.Api;
 using DocuSign.Rooms.Client;
+using DocuSign.Rooms.Examples;
 using DocuSign.Rooms.Model;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -37,37 +34,18 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         public override IActionResult Get()
         {
             base.Get();
-            string accessToken = RequestItemsService.User.AccessToken;
+
+            // Obtain your OAuth token
+            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-
-            // Step 2 start
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            // Step 2 end
-            
-            var formGroupsApi = new FormGroupsApi(apiClient);
-            var formLibrariesApi = new FormLibrariesApi(apiClient);
-
-            string accountId = RequestItemsService.Session.AccountId;
+            string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
-                // Step 3 start
-                FormLibrarySummaryList formLibraries = formLibrariesApi.GetFormLibraries(accountId);
+                // Call the Rooms API to get forms and form groups
+                (FormSummaryList forms, FormGroupSummaryList formGroups) =
+                    AssignFormToFormGroups.GetFormsAndFormGroups(basePath, accessToken, accountId);
 
-                FormSummaryList forms = new FormSummaryList(new List<FormSummary>());
-                if (formLibraries.FormsLibrarySummaries.Any())
-                {
-                    forms = formLibrariesApi.GetFormLibraryForms(
-                        accountId,
-                        formLibraries.FormsLibrarySummaries.First().FormsLibraryId);
-                }
-                // Step 3 end
-                
-                // Step 4 start
-                FormGroupSummaryList formGroups = formGroupsApi.GetFormGroups(accountId);
-                // Step 4 end
-                
                 FormFormGroupModel = new FormFormGroupModel { Forms = forms.Forms, FormGroups = formGroups.FormGroups };
 
                 return View("Eg09", this);
@@ -87,22 +65,17 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AssignFormToFormGroup(FormFormGroupModel formFormGroupModel)
         {
-            string accessToken = RequestItemsService.User.AccessToken;
+            // Obtain your OAuth token
+            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-
-            var formGroupsApi = new FormGroupsApi(apiClient);
-
-            string accountId = RequestItemsService.Session.AccountId; 
+            string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
-                // Step 6 start
-                FormGroupFormToAssign formGroupFormToAssign = formGroupsApi.AssignFormGroupForm(accountId, new Guid(formFormGroupModel.FormGroupId), new FormGroupFormToAssign() { FormId = formFormGroupModel.FormId });
-                // Step 6 end
-                
+                // Call the Rooms API to assign form to form group
+                var formGroupFormToAssign = AssignFormToFormGroups.AssignForm(basePath, accessToken, accountId,
+                    formFormGroupModel.FormGroupId, new FormGroupFormToAssign() { FormId = formFormGroupModel.FormId });
+
                 ViewBag.h1 = "The form was assigned to the form group successfully";
                 ViewBag.message = $"The form ('{formGroupFormToAssign.FormId}') was assigned to the form group ('{formFormGroupModel.FormGroupId}') successfully";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(formGroupFormToAssign, Formatting.Indented);
@@ -112,7 +85,9 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             catch (ApiException apiException)
             {
                 ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
+                ViewBag.errorMessage = apiException.Message.Equals("Unhandled response type.") ? 
+                    "Response is empty and could not be cast to FormGroupFormToAssign. " +
+                    "Please contact DocuSign support" : apiException.Message;
 
                 return View("Error");
             }
