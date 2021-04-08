@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using DocuSign.eSign.Api;
+﻿using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
+using eSignature.Examples;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -57,40 +56,13 @@ namespace DocuSign.CodeExamples.Controllers
             // signerName
             var basePath = RequestItemsService.Session.BasePath + "/restapi";
 
-            // Step 1. Obtain your OAuth token
+            // Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
-            // Step 2. Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var envelopesApi = new EnvelopesApi(apiClient);
-
-            // Step 3. Construct your request body
-            EnvelopeDefinition envelopeDefinition = new EnvelopeDefinition
-            {
-                TemplateId = templateId,
-                BrandId = brandId,
-                TemplateRoles = new List<TemplateRole>
-                {
-                    new TemplateRole
-                    {
-                        Name = signerName,
-                        Email = signerEmail,
-                        RoleName = "signer"
-                    },
-                    new TemplateRole
-                    {
-                        Name = cCName,
-                        Email = ccEmail,
-                        RoleName = "cc"
-                    }
-                },
-                Status = RequestItemsService.Status
-            };
-
-            // Step 4. Call the eSignature 
-            var results = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
+            // Call the eSignature 
+            var results = ApplyBrandToTemplate.CreateEnvelopeFromTemplateWithBrand(signerEmail, signerName, ccEmail,
+                cCName, brandId, templateId, accessToken, basePath, accountId, RequestItemsService.Status);
 
             ViewBag.h1 = "Envelope sent";
             ViewBag.message = "The envelope has been created and sent!<br />Envelope ID " + results.EnvelopeId + ".";

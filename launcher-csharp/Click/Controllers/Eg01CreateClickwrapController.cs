@@ -1,9 +1,5 @@
-﻿
-using System;
-using System.Collections.Generic;
-using DocuSign.Click.Api;
-using DocuSign.Click.Client;
-using DocuSign.Click.Model;
+﻿using DocuSign.Click.Client;
+using DocuSign.Click.Examples;
 using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
@@ -31,24 +27,15 @@ namespace DocuSign.CodeExamples.Click.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(string name)
         {
-            // Step 1. Obtain your OAuth token
+            // Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken; 
             var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
-
-            // Step 2: Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var clickAccountApi = new AccountsApi(apiClient);
-
             var accountId = RequestItemsService.Session.AccountId;
 
             try
             {
-                // Step 3: Construct the request body for your clickwrap
-                ClickwrapRequest clickwrapRequest = BuildClickwraprequest(name);
-
-                // Step 4: Call the Click API to create a clickwrap
-                var clickWrap = clickAccountApi.CreateClickwrap(accountId, clickwrapRequest);
+                // Call the Click API to create a clickwrap
+                var clickWrap = CreateClickwrap.Create(name, basePath, accessToken, accountId);
 
                 //Show results
                 ViewBag.h1 = "The clickwrap was successfully created";
@@ -67,37 +54,6 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
                 return View("Error");
             }
-        }
-
-        private static ClickwrapRequest BuildClickwraprequest(string name)
-        {
-            var clickwrapRequest = new ClickwrapRequest
-            {
-                DisplaySettings = new DisplaySettings()
-                {
-                    ConsentButtonText = "I Agree",
-                    DisplayName = "Terms of Service",
-                    Downloadable = true,
-                    Format = "modal",
-                    MustRead = true,
-                    MustView = true,
-                    RequireAccept = true,
-                    DocumentDisplay = "document"
-                },
-                Documents = new List<Document>(){
-                    new Document()
-                    {
-                        DocumentBase64=Convert.ToBase64String(System.IO.File.ReadAllBytes("Terms_of_service.pdf")),
-                        DocumentName="Terms of Service",
-                        FileExtension="pdf",
-                        Order= 0
-                    }
-                },
-                Name = name,
-                RequireReacceptance = true
-            };
-
-            return clickwrapRequest;
         }
     }
 }

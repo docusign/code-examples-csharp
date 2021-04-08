@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using DocuSign.eSign.Api;
+﻿using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using DocuSign.eSign.Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using eSignature.Examples;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -71,25 +70,14 @@ namespace DocuSign.CodeExamples.Controllers
             // Uri of rest api
             var basePath = RequestItemsService.Session.BasePath + "/restapi";
 
-            // Step 1. Obtain your OAuth token
+            // Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
-            // Step 2. Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var groupsApi = new GroupsApi(apiClient);
+            // Call the Examples API method to set permissions to the specified user group
+            var result = SetUserGroupPermission.GetGroupInformation(permissionProfileId, userGroupId, 
+                accessToken, basePath, accountId);
 
-            // Step 3. Construct your request body
-            var editedGroup = new Group
-            {
-                GroupId = userGroupId,
-                PermissionProfileId = permissionProfileId
-            };
-            var requestBody = new GroupInformation { Groups = new List<Group> { editedGroup } };
-
-            //Step 4. Call the eSignature REST API
-            var result = groupsApi.UpdateGroups(accountId, requestBody);
             var errorDetails = result.Groups.FirstOrDefault()?.ErrorDetails;
 
             if (errorDetails is null)

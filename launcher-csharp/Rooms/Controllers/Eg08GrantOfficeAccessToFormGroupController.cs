@@ -1,9 +1,9 @@
-﻿using System;
-using DocuSign.CodeExamples.Controllers;
+﻿using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Rooms.Models;
-using DocuSign.Rooms.Api;
 using DocuSign.Rooms.Client;
+using DocuSign.Rooms.Examples;
+using DocuSign.Rooms.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DocuSign.CodeExamples.Rooms.Controllers
@@ -33,29 +33,18 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         public override IActionResult Get()
         {
             base.Get();
-            string accessToken = RequestItemsService.User.AccessToken;
+
+            // Obtain your OAuth token
+            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-
-            // Step 2 start
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            // Step 2 end
-            
-            var officesApi = new OfficesApi(apiClient);
-            var formGroupsApi = new FormGroupsApi(apiClient);
-
-            string accountId = RequestItemsService.Session.AccountId;
+            string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
-                // Step 3 start
-                var offices = officesApi.GetOffices(accountId);
-                // Step 3 end
-                
-                // Step 4 start
-                var formGroups = formGroupsApi.GetFormGroups(accountId);
-                // Step 4 end
-                
+                // Call the Rooms API to get offices and form groups
+                (OfficeSummaryList offices, FormGroupSummaryList formGroups) = 
+                    GrantOfficeAccessToFormGroup.GetOfficesAndFormGroups(basePath, accessToken, accountId);
+
                 OfficeAccessModel = new OfficeAccessModel { Offices = offices.OfficeSummaries, FormGroups = formGroups.FormGroups };
 
                 return View("Eg08", this);
@@ -75,20 +64,15 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult GrantAccess(OfficeAccessModel roomDocumentModel)
         {
-            string accessToken = RequestItemsService.User.AccessToken;
+            // Obtain your OAuth token
+            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var formGroupsApi = new FormGroupsApi(apiClient);
-
-            string accountId = RequestItemsService.Session.AccountId;
+            string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
-                // Step 5 start
-                formGroupsApi.GrantOfficeAccessToFormGroup(accountId, new Guid(roomDocumentModel.FormGroupId), roomDocumentModel.OfficeId);
-                // Step 5 end
+                // Call the Rooms API to grant office access to a form group
+                GrantOfficeAccessToFormGroup.GrantAccess(basePath, accessToken, accountId, roomDocumentModel.FormGroupId, roomDocumentModel.OfficeId);
                 
                 ViewBag.h1 = "Access is granted for the office";
                 ViewBag.message = $"To the office with Id'{roomDocumentModel.OfficeId}' granted access for the form group with id '{roomDocumentModel.FormGroupId}'";

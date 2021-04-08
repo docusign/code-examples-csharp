@@ -9,6 +9,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using static DocuSign.eSign.Api.EnvelopesApi;
+using eSignature.Examples;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -23,25 +24,6 @@ namespace DocuSign.CodeExamples.Controllers
         }
    
         public override string EgName => "eg003";
-
-        // ***DS.snippet.0.start
-        private EnvelopesInformation DoWork(string accessToken, string basePath, string accountId)
-        {
-            // Data for this method
-            // accessToken
-            // basePath
-            // accountId
-
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var envelopesApi = new EnvelopesApi(apiClient);
-            ListStatusChangesOptions options = new ListStatusChangesOptions();
-            options.fromDate = DateTime.Now.AddDays(-30).ToString("yyyy/MM/dd");
-            // Call the API method:
-            EnvelopesInformation results = envelopesApi.ListStatusChanges(accountId, options);
-            return results;
-        }
-        // ***DS.snippet.0.end
 
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName)
@@ -65,7 +47,8 @@ namespace DocuSign.CodeExamples.Controllers
             }
 
             // Call the worker
-            EnvelopesInformation results = DoWork(accessToken, basePath, accountId);
+            var results = ListAccountEnvelopes.ListAllEnvelope(accessToken, basePath, accountId);
+
             // Process results
             ViewBag.h1 = "List envelopes results";
             ViewBag.message = "Results from the Envelopes::listStatusChanges method:";
