@@ -34,11 +34,11 @@ namespace DocuSign.CodeExamples.Monitor.Examples
             // Get monitoring data
             do
             {
-                var cursorValueFormated = (!string.IsNullOrEmpty(cursorValue)) ? $"={cursorValue}" : cursorValue;
+                var cursorValueFormatted = (!string.IsNullOrEmpty(cursorValue)) ? $"={cursorValue}" : cursorValue;
 
                 // Add cursor value and amount of records to read to the request
                 var requestParameters = String.Format("stream?cursor{0}&limit={1}",
-                cursorValueFormated, limit);
+                cursorValueFormatted, limit);
 
                 WebRequest request = WebRequest.Create(requestPath + requestParameters);
                 request.Headers = headers;

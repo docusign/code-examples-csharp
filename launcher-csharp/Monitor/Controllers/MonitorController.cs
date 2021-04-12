@@ -38,7 +38,7 @@ namespace DocuSign.CodeExamples.Controllers
 
             // Process results
             ViewBag.h1 = "Response output";
-            ViewBag.message = "Monitor data responce output:";
+            ViewBag.message = "Monitor data response output:";
             ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
             return View("example_done");
         }
