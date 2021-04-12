@@ -4,6 +4,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using eSignature.Examples;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -57,19 +58,14 @@ namespace DocuSign.CodeExamples.Controllers
             // Uri of rest api
             var basePath = RequestItemsService.Session.BasePath + "/restapi";
 
-            // Step 1: Obtain your OAuth token
+            // Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
-
-            // Step 2: Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var accountsApi = new AccountsApi(apiClient);
 
             try
             {
                 //Step 3. Call the eSignature REST API 
-                accountsApi.DeletePermissionProfile(accountId, permissionProfileId);
+                DeletePermission.DeletePermissionProfile(permissionProfileId, accessToken, basePath, accountId);
             }
             catch (ApiException ex)
             {

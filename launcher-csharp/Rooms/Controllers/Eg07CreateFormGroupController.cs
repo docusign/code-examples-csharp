@@ -1,8 +1,8 @@
 ﻿using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Rooms.Models;
-using DocuSign.Rooms.Api;
 using DocuSign.Rooms.Client;
+using DocuSign.Rooms.Examples;
 using DocuSign.Rooms.Model;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -35,26 +35,15 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateFormGroup(FormGroupModel formGroupModel)
         {
+            // Obtain your OAuth token
             string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-
-            // Step 2 start
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            // Step 2 end
-            
-            var formGroupsApi = new FormGroupsApi(apiClient);
-            string accountId = RequestItemsService.Session.AccountId;
+            string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
-                // Step 3 start
-                var formGroupForCreate = new FormGroupForCreate(formGroupModel.Name);
-                // Step 3 end                
-                
-                // Step 4 start
-                FormGroup formGroup = formGroupsApi.CreateFormGroup(accountId, formGroupForCreate);
-                // Step 4 end
+                // Call the Rooms API to create form group
+                FormGroup formGroup = CreateFormGroups.CreateGroup(basePath, accessToken, accountId, formGroupModel.Name);
                 
                 ViewBag.h1 = "The form group was successfully created";
                 ViewBag.message = $"The form group was successfully created, FormGroupId: '{formGroup.FormGroupId}'";
