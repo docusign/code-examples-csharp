@@ -195,7 +195,7 @@ For more information about the scopes used for obtaining authorization to use th
 
 ## Monitor API:
 
-For more information about the scopes used for obtaining authorization to use the Monitor API, see the [Required Scopes section](https://developers.docusign.com/docs/monitor-api/monitor101/auth/)
+For more information about the scopes used for obtaining authorization to use the Monitor API, see the [Required Scopes section](https://developers.docusign.com/docs/monitor-api/monitor101/auth/).
 
 **Note:** To use the Monitor API you must also [enable DocuSign Monitor for your organization](https://developers.docusign.com/docs/monitor-api/how-to/enable-monitor/). 
 
