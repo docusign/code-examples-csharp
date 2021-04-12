@@ -193,6 +193,16 @@ For more information about the scopes used for obtaining authorization to use th
    [Source.](./launcher-csharp/Click/Controllers/Eg05GetClickwrapResponsesController.cs)
    This code example demonstrates how to retrieve clickwrap responses.
 
+## Monitor API:
+
+For more information about the scopes used for obtaining authorization to use the Monitor API, see the [Required Scopes section](https://developers.docusign.com/docs/monitor-api/monitor101/auth/).
+
+**Note:** To use the Monitor API you must also [enable DocuSign Monitor for your organization](https://developers.docusign.com/docs/monitor-api/how-to/enable-monitor/). 
+
+1. **Get Monitoring Data.**
+   [Source.](./launcher-csharp/Monitor/Examples/GetMonitoringData.cs)<br />
+   Demonstrates how to get and display all of your organization’s monitoring data.
+   
 ## Installation
 
 ### Prerequisites
