@@ -18,11 +18,14 @@ namespace DocuSign.CodeExamples.Monitor.Examples
         public virtual IEnumerable<Object> Invoke(string accessToken, string requestPath)
         {
             //  Construct API headers
+            // step 2 start
             WebHeaderCollection headers = new WebHeaderCollection();
             headers.Add("Authorization", String.Format("Bearer {0}", accessToken));
             headers.Add("Content-Type", "application/json");
+            // step 2 end
 
             // Declare variables
+            // step 3 start
             bool complete = false;
             string cursorValue = "";
             int limit = 2; // Amount of records you want to read in one request
@@ -60,7 +63,9 @@ namespace DocuSign.CodeExamples.Monitor.Examples
                     cursorValue = endCursor;
                     functionResult.Add(resultJson);
                 }
-            } while (!complete);
+            } 
+            while (!complete);
+            // step 3 end
 
             return functionResult;
         }
