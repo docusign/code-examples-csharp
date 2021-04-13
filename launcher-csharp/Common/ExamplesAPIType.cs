@@ -4,6 +4,7 @@
     {
         Rooms,
         ESignature,
-        Click
+        Click,
+        Monitor
     }
 }

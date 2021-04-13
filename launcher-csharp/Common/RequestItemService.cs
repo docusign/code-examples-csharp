@@ -68,6 +68,15 @@ namespace DocuSign.CodeExamples.Common
             });
             }
 
+            if (apiType == ExamplesAPIType.Monitor)
+            {
+                scopes.AddRange(new List<string>
+                {
+                    "signature",
+                    "impersonation"
+                });
+            }
+
             this._authToken = _apiClient.RequestJWTUserToken(
                 this._configuration["DocuSignJWT:ClientId"],
                 this._configuration["DocuSignJWT:ImpersonatedUserId"],
