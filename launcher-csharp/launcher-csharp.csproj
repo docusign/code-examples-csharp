@@ -9,6 +9,11 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'CodeExamples' " />
   
   <ItemGroup>
+    <Compile Remove="Common\AuthCodeGrant.cs" />
+    <Compile Remove="Common\JWTAuth.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
