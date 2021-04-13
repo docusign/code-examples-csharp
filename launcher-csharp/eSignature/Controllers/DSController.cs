@@ -49,6 +49,11 @@ namespace DocuSign.CodeExamples.Controllers
             {
                 return Login();
             }
+            if (_configuration["ExamplesAPI"] == "Monitor")
+            {
+                // Monitor API supports JWT only
+                return Login("JWT");
+            }
             return View();
         }
         
