@@ -1,4 +1,4 @@
-#region NetFramework
+﻿#region NetFramework
 // TODO: 
 // 1. add local filters to your FilterConfig, for example: filters.Add(new LocalsFilter(DSConfiguration.Instance, RequestItemsService.Instance));
 // 2. Use attribute for register startup for OWIN: [assembly: OwinStartupAttribute(typeof(DocuSign.eSignature.DSOwinStartup))]
@@ -136,10 +136,27 @@ namespace DocuSign.eSignature
 
 					var stateString = Options.StateDataFormat.Protect(state);
 
+					var selectedApiTypes = ConfigurationManager.AppSettings["SelectedApiTypes"];
+					string scopes = "";
+
+					if (selectedApiTypes.Contains("ESignature"))
+					{
+						scopes += "signature ";
+					}
+					if (selectedApiTypes.Contains("Rooms"))
+					{
+						scopes += "dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write" +
+						  " dtr.profile.read dtr.profile.write dtr.company.read dtr.company.write room_forms ";
+					}
+					if (selectedApiTypes.Contains("Click"))
+					{
+						scopes += "click.manage click.send";
+					}
+
 					Response.Redirect(WebUtilities.AddQueryString(Options.AuthorizationEndpoint,
 						new Dictionary<string, string>{
 							{ "client_id", Options.ClientId },
-							{ "scope", "signature" },
+							{ "scope", scopes },
 							{ "response_type", "code" },
 							{ "redirect_uri", Options.AppUrl + Options.CallbackPath.ToString() },
 							{ "state", stateString }
@@ -483,7 +500,31 @@ namespace DocuSign.eSignature
 				options.AuthorizationEndpoint = Configuration["DocuSign:AuthorizationEndpoint"];
 				options.TokenEndpoint = Configuration["DocuSign:TokenEndpoint"];
 				options.UserInformationEndpoint = Configuration["DocuSign:UserInformationEndpoint"];
-				options.Scope.Add("signature");
+
+				var selectedApiTypes = Configuration["DocuSign:SelectedApiTypes"];
+
+				if (selectedApiTypes.Contains("ESignature"))
+				{
+					options.Scope.Add("signature");
+				}
+				if (selectedApiTypes.Contains("Rooms"))
+				{
+					options.Scope.Add("dtr.rooms.read");
+					options.Scope.Add("dtr.rooms.write");
+					options.Scope.Add("dtr.documents.read");
+					options.Scope.Add("dtr.documents.write");
+					options.Scope.Add("dtr.profile.read");
+					options.Scope.Add("dtr.profile.write");
+					options.Scope.Add("dtr.company.read");
+					options.Scope.Add("dtr.company.write");
+					options.Scope.Add("room_forms");
+				}
+				if (selectedApiTypes.Contains("Click"))
+				{
+					options.Scope.Add("click.manage");
+					options.Scope.Add("click.send");
+				}
+
 				options.SaveTokens = true;
 				options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "sub");
 				options.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
