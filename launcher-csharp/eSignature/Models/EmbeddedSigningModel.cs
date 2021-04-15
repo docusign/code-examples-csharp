@@ -2,7 +2,7 @@
 {
     public class EmbeddedSigningModel
     {
-        public string SingerEmail { get; set; }
-        public string SingerName { get; set; }
+        public string SignerEmail { get; set; }
+        public string SignerName { get; set; }
     }
 }

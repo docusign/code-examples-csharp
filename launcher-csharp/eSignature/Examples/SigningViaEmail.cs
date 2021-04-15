@@ -7,7 +7,7 @@ using DocuSign.eSign.Model;
 
 namespace eSignature.Examples
 {
-    public static class SingingViaEmail
+    public static class SigningViaEmail
     {
         /// <summary>
         /// Creates an envelope that would include two documents and add a signer and cc recipients to be notified via email
