@@ -37,7 +37,7 @@ namespace DocuSign.CodeExamples.Controllers
             var accountId = RequestItemsService.Session.AccountId;
 
             // Call the Examples API method to create and send an envelope via email
-            var envelopeId = SingingViaEmail.SendEnvelopeViaEmail(signerEmail, signerName, ccEmail, ccName, accessToken,
+            var envelopeId = SigningViaEmail.SendEnvelopeViaEmail(signerEmail, signerName, ccEmail, ccName, accessToken,
                 basePath, accountId, Config.docDocx, Config.docPdf, RequestItemsService.Status);
 
             RequestItemsService.EnvelopeId = envelopeId;
