@@ -143,7 +143,7 @@ namespace eSignature.Examples
             // Add the roles via an inlineTemplate
             InlineTemplate inlineTemplate = new InlineTemplate
             {
-                Sequence = "1",
+                Sequence = "2",
                 Recipients = recipientsServerTemplate
             };
             compTemplate1.InlineTemplates = new List<InlineTemplate> { inlineTemplate };
@@ -194,7 +194,7 @@ namespace eSignature.Examples
             // Add the recipients via an inlineTemplate
             InlineTemplate inlineTemplate2 = new InlineTemplate
             {
-                Sequence = "2",
+                Sequence = "1",
                 Recipients = recipientsAddedDoc
             };
             compTemplate2.InlineTemplates = new List<InlineTemplate> { inlineTemplate2 };
