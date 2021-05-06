@@ -136,19 +136,17 @@ namespace DocuSign.eSignature
 
 					var stateString = Options.StateDataFormat.Protect(state);
 
-					var selectedApiTypes = ConfigurationManager.AppSettings["SelectedApiTypes"];
-					string scopes = "";
+					var selectedApiTypes = Configuration.GetSection("DocuSign:examplesApi")
+						.Get<Dictionary<string, bool>>();
 
-					if (selectedApiTypes.Contains("ESignature"))
-					{
-						scopes += "signature ";
-					}
-					if (selectedApiTypes.Contains("Rooms"))
+					var scopes = "signature impersonation ";
+
+					if (selectedApiTypes["isRoomsApi"])
 					{
 						scopes += "dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write" +
 						  " dtr.profile.read dtr.profile.write dtr.company.read dtr.company.write room_forms ";
 					}
-					if (selectedApiTypes.Contains("Click"))
+					if (selectedApiTypes["isClickApi"])
 					{
 						scopes += "click.manage click.send";
 					}
@@ -501,12 +499,11 @@ namespace DocuSign.eSignature
 				options.TokenEndpoint = Configuration["DocuSign:TokenEndpoint"];
 				options.UserInformationEndpoint = Configuration["DocuSign:UserInformationEndpoint"];
 
+				options.Scope.Add("signature");
+				options.Scope.Add("impersonation");
+
 				var selectedApiTypes = Configuration["DocuSign:SelectedApiTypes"];
 
-				if (selectedApiTypes.Contains("ESignature"))
-				{
-					options.Scope.Add("signature");
-				}
 				if (selectedApiTypes.Contains("Rooms"))
 				{
 					options.Scope.Add("dtr.rooms.read");
