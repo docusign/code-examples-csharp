@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
+using DocuSign.Monitor.Api;
+using DocuSign.Monitor.Client;
+using static DocuSign.Monitor.Api.DataSetApi;
 
 namespace DocuSign.CodeExamples.Monitor.Examples
 {
@@ -17,11 +16,13 @@ namespace DocuSign.CodeExamples.Monitor.Examples
         /// <returns>The list of JObjects, containing data from monitor</returns>
         public virtual IEnumerable<Object> Invoke(string accessToken, string requestPath)
         {
+            ApiClient apiClient = new ApiClient(ApiClient.Demo_REST_BasePath);
+            
             //  Construct API headers
             // step 2 start
-            WebHeaderCollection headers = new WebHeaderCollection();
-            headers.Add("Authorization", String.Format("Bearer {0}", accessToken));
-            headers.Add("Content-Type", "application/json");
+            apiClient.SetBasePath(ApiClient.Demo_REST_BasePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", String.Format("Bearer {0}", accessToken));
+            apiClient.Configuration.DefaultHeader.Add("Content-Type", "application/json");
             // step 2 end
 
             // Declare variables
@@ -29,28 +30,22 @@ namespace DocuSign.CodeExamples.Monitor.Examples
             bool complete = false;
             string cursorValue = "";
             int limit = 2; // Amount of records you want to read in one request
-            List<JObject> functionResult = new List<JObject>();
+            List<object> functionResult = new List<object>();
+            
+            DataSetApi dataSetApi = new DataSetApi(apiClient);
+            GetStreamOptions options = new GetStreamOptions();
+
+            options.limit = limit;
 
             // Get monitoring data
             do
             {
-                var cursorValueFormatted = (!string.IsNullOrEmpty(cursorValue)) ? $"={cursorValue}" : cursorValue;
+                if (!string.IsNullOrEmpty(cursorValue))
+                    options.cursor = cursorValue;
 
-                // Add cursor value and amount of records to read to the request
-                var requestParameters = String.Format("stream?cursor{0}&limit={1}",
-                cursorValueFormatted, limit);
+                var cursoredResult = dataSetApi.GetStreamWithHttpInfo("2.0", "monitor", options);
 
-                WebRequest request = WebRequest.Create(requestPath + requestParameters);
-                request.Headers = headers;
-
-                Stream requestStream = request.GetResponse().GetResponseStream();
-                StreamReader requestStreamReader = new StreamReader(requestStream);
-
-                string result = requestStreamReader.ReadToEnd();
-
-                // Parse result to JSON format
-                JObject resultJson = JObject.Parse(result);
-                string endCursor = resultJson.GetValue("endCursor").ToString();
+                string endCursor = cursoredResult.Data.EndCursor;
 
                 // If the endCursor from the response is the same as the one that you already have,
                 // it means that you have reached the end of the records
@@ -61,7 +56,7 @@ namespace DocuSign.CodeExamples.Monitor.Examples
                 else
                 {
                     cursorValue = endCursor;
-                    functionResult.Add(resultJson);
+                    functionResult.AddRange(cursoredResult.Data.Data);
                 }
             } 
             while (!complete);
