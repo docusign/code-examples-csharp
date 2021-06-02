@@ -75,7 +75,8 @@ namespace eSignature.Examples
                                 TabId = "ApprovalTab",
                                 Operator = "equals",
                                 Value = "false",
-                                TabLabel = "ApproveWhenChecked"
+                                TabLabel = "ApproveWhenChecked",
+                                TabType = "checkbox"
                             }
                         }
                     },
@@ -92,7 +93,8 @@ namespace eSignature.Examples
                                 TabId = "ApprovalTab",
                                 Operator = "equals",
                                 Value = "true",
-                                TabLabel = "ApproveWhenChecked"
+                                TabLabel = "ApproveWhenChecked",
+                                TabType = "checkbox"
                             }
                         }
                     }
