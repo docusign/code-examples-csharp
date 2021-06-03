@@ -56,7 +56,7 @@ namespace DocuSign.CodeExamples.Monitor.Examples
                 else
                 {
                     cursorValue = endCursor;
-                    functionResult.AddRange(cursoredResult.Data.Data);
+                    functionResult.Add(cursoredResult.Data);
                 }
             } 
             while (!complete);
