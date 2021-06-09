@@ -69,9 +69,8 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
             }
 
             // Process results
-            ViewBag.h1 = "The envelope was created successfully!";
-            ViewBag.message = "Results from the Envelopes::create method:";
-            ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
+            ViewBag.h1 = "Use conditional recipients";
+            ViewBag.message = $"Envelope ID {results.EnvelopeId} with conditional routing criteria has been created and sent to the first recipient!";
             return View("example_done");
         }
     }
