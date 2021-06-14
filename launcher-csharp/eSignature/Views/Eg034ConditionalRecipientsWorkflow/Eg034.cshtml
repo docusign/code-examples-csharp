@@ -11,10 +11,10 @@
     }
 }
 
-<h4>34.  Conditional recipients.</h4>
+<h4>34.  Conditional recipients</h4>
 
 <p>
-    Method Envelopes::create creates an envelope where the workflow is routed to different recipients based on the value of a transaction.
+    Method Envelopes::create creates an envelope where the workflow is routed to different recipients based on the value of a transaction
 </p>
 
 @if (ViewBag.showDoc)
@@ -24,7 +24,7 @@
 
 <p>
     API methods used:
-    <a target="_blank" href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
+    <a target="_blank" href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>
 </p>
 
 <p>
@@ -37,8 +37,8 @@
     <div class="row">
         <div class="col-md-6 column">
             <div class="form-group">
-                @GetTextInputMarkup("recipient1.Name", "Signer name", "text")
                 @GetTextInputMarkup("recipient1.Email", "Signer Email", "email")
+                @GetTextInputMarkup("recipient1.Name", "Signer name", "text")
             </div>
         </div>
     </div>
@@ -47,8 +47,8 @@
     <div class="row">
         <div class="col-md-6 column ">
             <div class="form-group">
-                @GetTextInputMarkup("conditionalRecipient1.Name", "Signer name", "text")
                 @GetTextInputMarkup("conditionalRecipient1.Email", "Signer Email", "email")
+                @GetTextInputMarkup("conditionalRecipient1.Name", "Signer name", "text")
             </div>
         </div>
     </div>
@@ -57,8 +57,8 @@
     <div class="row">
         <div class="col-md-6 column ">
             <div class="form-group">
-                @GetTextInputMarkup("conditionalRecipient2.Name", "Signer name", "text")
                 @GetTextInputMarkup("conditionalRecipient2.Email", "Signer Email", "email")
+                @GetTextInputMarkup("conditionalRecipient2.Name", "Signer name", "text")
             </div>
         </div>
     </div>
