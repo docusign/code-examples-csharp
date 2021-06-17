@@ -83,7 +83,7 @@ For a list of code examples that use the Click API, select the C# tab under [Exa
    1. Generate a secret key, if you don’t already have one. Under **Authentication**, select **+ ADD SECRET KEY**. Copy the secret key and save it in appsettings.json as your `ClientSecret`.
    1. Add the launcher’s redirect URI. Under **Additional settings**, select **+ ADD URI**, and set a redirect URI of https://localhost:44333/ds/callback. Select **SAVE**.   
    1. Set a name and email address for the signer. In appsettings.json, save an email address as `SignerEmail` and a name as `SignerName`.  
-1. Run the launcher with Visual Studio: Select the green Play IIS Express button.
+1. Run the launcher with Visual Studio: Select the green Play **IIS Express** button.
 
 
 ### Installation steps for JWT Grant authentication
@@ -101,7 +101,7 @@ Also, in order to select JSON Web Token authentication in the launcher, in launc
    1. Add the launcher’s redirect URI. Under **Additional settings**, select **+ ADD URI**, and set a redirect URI of https://localhost:44333/ds/callback. Select **SAVE**.   
    1. Set a name and email address for the signer. In appsettings.json, save an email address as `SignerEmail` and a name as `SignerName`.  
 **Note:** Protect your personal information. Please make sure that appsettings.json will not be stored in your source code repository.  
-1. Run the launcher with Visual Studio: Select the green Play IIS Express button. 
+1. Run the launcher with Visual Studio: Select the green **Play IIS** Express button. 
 1. On the black navigation bar, select **Login**.
 1. From the picklist, select **JWT (JSON Web Token)** > **Authenticate with DocuSign**.
 1. When prompted, log in to your DocuSign developer account. If this is your first time using the app, select **ACCEPT** at the consent window. 
