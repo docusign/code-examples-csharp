@@ -7,24 +7,21 @@ using Newtonsoft.Json;
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("[area]/Eg02")]
-    public class Eg02ActivateClickwrapController : EgController
+    [Route("[area]/Eg05")]
+    public class Eg05AuditUsersController : EgController
     {
-        public Eg02ActivateClickwrapController(
+        public Eg05AuditUsersController(
             DSConfiguration dsConfig, 
             IRequestItemsService requestItemsService) 
             : base(dsConfig, requestItemsService)
         {
         }
 
-        public override string EgName => "Eg02";
-
+        public override string EgName => "Eg05";
         protected override void InitializeInternal()
         {
             ViewBag.ClickwrapId = RequestItemsService.ClickwrapId;
             ViewBag.AccountId = RequestItemsService.Session.AccountId;
-        }
-    
-
+        }    
     }
 }

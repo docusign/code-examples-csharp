@@ -1,15 +1,15 @@
-﻿@model DocuSign.CodeExamples.Click.Controllers.Eg02ActivateClickwrapController
+﻿@model DocuSign.CodeExamples.Admin.Controllers.Eg02CreateActiveCLMESignUserController
 
-<h4 id="example02">2. Activate Clickwrap</h4>
+<h4 id="example02">2. Create a new user with an active status for CLM and eSignature</h4>
 <p>
-    This example activates a newly created clickwrap
+    Demonstrates how to create a new DocuSign user (valid for both CLM and eSignature APIs) and activate their account automatically.
 </p>
 <p>
     API methods used:
     <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/updateclickwrapversion/">ClickWraps::updateClickwrapVersion</a>.
 </p>
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">Eg02ActivateClickwrapController.cs</a> on GitHub.
+    View source file <a target="_blank" href="@ViewBag.source">Eg02CreateActiveCLMESignUserController.cs</a> on GitHub.
 </p>
 
 @if (ViewBag.ClickwrapId != null) {
