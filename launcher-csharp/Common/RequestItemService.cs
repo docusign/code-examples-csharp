@@ -77,6 +77,19 @@ namespace DocuSign.CodeExamples.Common
                 });
             }
 
+            if (apiType == ExamplesAPIType.Admin)
+            {
+                scopes.AddRange(new List<string> {
+                    "user_read",
+                    "user_write",
+                    "account_read",
+                    "organization_read",
+                    "group_read",
+                    "permission_read"
+            });
+            }
+
+
             this._authToken = _apiClient.RequestJWTUserToken(
                 this._configuration["DocuSignJWT:ClientId"],
                 this._configuration["DocuSignJWT:ImpersonatedUserId"],

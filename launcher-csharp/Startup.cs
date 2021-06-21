@@ -243,6 +243,11 @@ namespace DocuSign.CodeExamples
                             name: "default",
                             pattern: "{area=Monitor}/{controller=Home}/{action=Index}/{id?}");
                         break;
+                    case ExamplesAPIType.Admin:
+                        endpoints.MapControllerRoute(
+                            name: "default",
+                            pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}");
+                        break;
                 }
             });
         }

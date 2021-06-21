@@ -82,6 +82,10 @@ namespace DocuSign.CodeExamples.Controllers
             {
                 scopes += " click.manage click.send";
             }
+            if (apiType == ExamplesAPIType.Admin)
+            {
+                scopes += " user_read user_write organization_read account_read group_read permission_read";
+            }
             return this._configuration["DocuSign:AuthorizationEndpoint"] + "?response_type=code" +
                 "&scope=" + scopes +
                 "&client_id=" + this._configuration["DocuSignJWT:ClientId"] + 
