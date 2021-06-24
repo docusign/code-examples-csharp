@@ -12,24 +12,37 @@
     View source file <a target="_blank" href="@ViewBag.source">Eg02CreateActiveCLMESignUserController.cs</a> on GitHub.
 </p>
 
-@if (ViewBag.ClickwrapId != null) {
-<p>
-    Uses the clickwrap that was created in the first step.
-</p>
 
-<form class="eg" asp-action="Activate" method="post" data-busy="form">
-    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-
-} else { 
-<p>
-    Problem: please first create a clickwrap using <a href="Eg01">example 1.</a> <br />
-    Thank you.
-</p>
-
-<form class="eg" action="Eg01" method="get">
+<form class="eg" asp-action="Create" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="UserName">User Name</label>
+        <input type="text" class="form-control" name="UserName" placeholder="User Name for the new user" required>
+    </div>
+    <div class="form-group">
+        <label for="FirstName">First Name</label>
+        <input type="text" class="form-control" name="FirstName" placeholder="First Name of the new user" required>
+    </div>
+    <div class="form-group">
+        <label for="LastName">Last Name</label>
+        <input type="text" class="form-control" name="LastName" placeholder="Last Name of the new user" required>
+    </div>
+    <div class="form-group">
+        <label for="Email">Email Address</label>
+        <input type="text" class="form-control" name="Email" placeholder="Email address of the new user" required>
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="CLMPermissionhProfiles">CLM permission profile</label>
+        @Html.DropDownList("CLMPermissionProfileId", new SelectList(ViewBag.CLMPermissionProfiles, "Id", "Name"), new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="ESignaturePermissionProfiles">eSignature permissio profile</label>
+        @Html.DropDownList("ESignPermissionProfileId", new SelectList(ViewBag.ESignPermissionProfiles, "Id", "Name"), new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="DSGroups">DocuSign Admin Group</label>
+        @Html.DropDownList("DsGroupId", new SelectList(ViewBag.DsGroups, "DsGroupId", "GroupName"), new { @class = "form-control" })
+    </div>
     <button type="submit" class="btn btn-primary">Continue</button>
 </form>
-} 
+

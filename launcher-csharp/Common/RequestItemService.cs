@@ -1,12 +1,11 @@
 ﻿using DocuSign.eSign.Client;
-using DocuSign.eSign.Client.Auth;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using static DocuSign.eSign.Client.Auth.OAuth;
 using static DocuSign.eSign.Client.Auth.OAuth.UserInfo;
@@ -22,6 +21,7 @@ namespace DocuSign.CodeExamples.Common
         private OAuthToken _authToken;
         protected static ApiClient _apiClient { get; private set; }
         private static Account _account { get; set; }
+        private static Guid? _organizationId { get; set; }
 
         public RequestItemsService(IHttpContextAccessor httpContextAccessor, IMemoryCache cache, IConfiguration configuration)
         {
@@ -152,6 +152,24 @@ namespace DocuSign.CodeExamples.Common
         {
             get => _cache.Get<User>(GetKey("User"));
             set => _cache.Set(GetKey("User"), value);
+        }
+        public Guid? OrganizationId
+        {
+            get
+            {
+                if (_organizationId == null)
+                {
+                    var apiClient = new OrgAdmin.Client.ApiClient("https://api-d.docusign.net/management");
+                    apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + this.User.AccessToken);
+                    var accountApi = new OrgAdmin.Api.AccountsApi(apiClient);
+                    _organizationId = accountApi.GetOrganizations().Organizations.FirstOrDefault().Id;
+                }
+                return _organizationId;
+            }
+            set
+            {
+                _organizationId = value;
+            }
         }
 
         public string EnvelopeId

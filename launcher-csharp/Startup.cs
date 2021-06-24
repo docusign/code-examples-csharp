@@ -120,6 +120,15 @@ namespace DocuSign.CodeExamples
                     case ExamplesAPIType.Monitor:
                         options.Scope.Add("signature");
                         options.Scope.Add("impersonation");
+                        options.Scope.Add("room_forms");
+                        break;
+                    case ExamplesAPIType.Admin:
+                        options.Scope.Add("user_read");
+                        options.Scope.Add("user_write");
+                        options.Scope.Add("account_read");
+                        options.Scope.Add("organization_read");
+                        options.Scope.Add("group_read");
+                        options.Scope.Add("permission_read");
                         break;
                 }
 
