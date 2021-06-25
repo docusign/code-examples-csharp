@@ -92,7 +92,8 @@ namespace DocuSign.CodeExamples.Common
                         AccountId = identity.FindFirst(x => x.Type.Equals("account_id")).Value,
                         AccountName = identity.FindFirst(x => x.Type.Equals("account_name")).Value,
                         BasePath = identity.FindFirst(x => x.Type.Equals("base_uri")).Value,
-                        RoomsApiBasePath = _configuration["DocuSign:RoomsApiEndpoint"]
+                        RoomsApiBasePath = _configuration["DocuSign:RoomsApiEndpoint"],
+                        AdminApiBasePath = _configuration["DocuSign:AdminApiEndpoint"]
                     }
                     :
                     new Session

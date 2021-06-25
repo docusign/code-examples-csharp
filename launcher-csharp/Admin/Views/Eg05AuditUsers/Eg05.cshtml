@@ -6,33 +6,12 @@
 </p>
 <p>
     API methods used:
-    <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwrapagreements/">ClickWraps::updateClickwrapVersion</a>.
+    <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwrapagreements/">Users::getUsers</a> and <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwrapagreements/">Users::getUserProfiles</a>.
 </p>
 <p>
     View source file <a target="_blank" href="@ViewBag.source">Eg05AuditUsersController.cs</a> on GitHub.
 </p>
 
-@if (ViewBag.ClickwrapId != null)
-{
-    <p>
-        Uses the clickwrap that was created in the first step.
-    </p>
-
-    <form class="eg" asp-action="Create" method="post" data-busy="form">
-        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-
-
-}
-else
-{
-    <p>
-        Problem: please first create a clickwrap using <a href="Eg01">example 1.</a> <br />
-        Thank you.
-    </p>
-
-    <form class="eg" action="Eg01" method="get">
-        <button type="submit" class="btn btn-primary">Continue</button>
-    </form>
-}
+<form class="eg" asp-action="Audit" method="post" data-busy="form">
+    <button type="submit" class="btn btn-primary">Continue</button>
+</form>

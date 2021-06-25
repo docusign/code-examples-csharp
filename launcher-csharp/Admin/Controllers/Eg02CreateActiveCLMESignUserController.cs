@@ -28,7 +28,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         {
             var organizationId = RequestItemsService.OrganizationId;
             var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = "https://api-d.docusign.net/management"; // Base API path
+            var basePath = RequestItemsService.Session.AdminApiBasePath; 
             var accountId = RequestItemsService.Session.AccountId;
 
             var apiClient = new ApiClient(basePath);
@@ -50,20 +50,21 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         }
 
         [MustAuthenticate]
-        [Route("Activate")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(string userName, string firstName, string lastName, string email, string cLMPermissionProfileId, string eSignPermissionProfileId, string dsGroupId)
         {
             // Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
+            var basePath = RequestItemsService.Session.AdminApiBasePath;
             var accountId = RequestItemsService.Session.AccountId;
             var orgId = RequestItemsService.OrganizationId;
 
             try
             {
                 var userId = CreateCLMESignUser.Create(userName, firstName, lastName, email, cLMPermissionProfileId, eSignPermissionProfileId, Guid.Parse(dsGroupId), clmProductId, eSignProductId, basePath, accessToken, Guid.Parse(accountId), orgId);
+                ViewBag.h1 = "The new user for CLM and eSignature was successfully created";
+                ViewBag.message = $"The user was created! User ID: {userId}, UserName: {userName}.";
                 return View("example_done");           
             }
             catch (ApiException apiException)

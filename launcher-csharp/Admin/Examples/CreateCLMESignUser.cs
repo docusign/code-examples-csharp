@@ -9,7 +9,7 @@ namespace DocuSign.Admin.Examples
     public class CreateCLMESignUser
     {
         /// <summary>
-        /// Creates a new clickwrap
+        /// Creates a new user to be used in both CLM and eSignature products
         /// </summary>
         /// <param name="userName">New user's user name</param>
         /// <param name="firstName">New user's first name</param>
@@ -24,9 +24,11 @@ namespace DocuSign.Admin.Examples
         /// <param name="accessToken">Access Token for API call (OAuth)</param>
         /// <param name="orgId">DocuSign Organization Id (GUID)</param>
         /// <param name="accountId">The DocuSign Account Id (GUID)</param>
+        /// <returns>User ID of the newly created user</returns>
         public static Guid? Create(string userName, string firstName, string lastName, string email, string clmPermissionProfileId, string eSignPermissionProfileId, Guid? dsGroupId, Guid? clmProductId, Guid? eSignProductId, string basePath, string accessToken, Guid? accountId, Guid? orgId)
         {
-            var apiClient = new ApiClient("https://api-d.docusign.net/management");
+            // Step 5 Start
+            var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             UsersApi usersApi = new UsersApi(apiClient);
             var newMultiProductUserAddRequest = new NewMultiProductUserAddRequest();
@@ -41,6 +43,7 @@ namespace DocuSign.Admin.Examples
             newMultiProductUserAddRequest.DsGroups = new List<DSGroupRequest>();
             newMultiProductUserAddRequest.DsGroups.Add(new DSGroupRequest { DsGroupId = dsGroupId });
             AddUserResponse response = usersApi.AddUsers_0(orgId, accountId, newMultiProductUserAddRequest);
+            // Step 5 End
             return response.Id;
         }
 

@@ -110,7 +110,8 @@ namespace DocuSign.CodeExamples.Common
                 AccountId = _account.AccountId,
                 AccountName = _account.AccountName,
                 BasePath = _account.BaseUri,
-                RoomsApiBasePath = _configuration["DocuSign:RoomsApiEndpoint"]
+                RoomsApiBasePath = _configuration["DocuSign:RoomsApiEndpoint"],
+                AdminApiBasePath = _configuration["DocuSign:AdminApiEndpoint"]
             };
         }
 
@@ -159,7 +160,7 @@ namespace DocuSign.CodeExamples.Common
             {
                 if (_organizationId == null)
                 {
-                    var apiClient = new OrgAdmin.Client.ApiClient("https://api-d.docusign.net/management");
+                    var apiClient = new OrgAdmin.Client.ApiClient(this.Session.AdminApiBasePath);
                     apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + this.User.AccessToken);
                     var accountApi = new OrgAdmin.Api.AccountsApi(apiClient);
                     _organizationId = accountApi.GetOrganizations().Organizations.FirstOrDefault().Id;
