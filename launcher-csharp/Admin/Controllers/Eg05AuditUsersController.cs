@@ -3,6 +3,7 @@ using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 
 namespace DocuSign.CodeExamples.Admin.Controllers
@@ -34,7 +35,11 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             var accessToken = RequestItemsService.User.AccessToken;
             var basePath = RequestItemsService.Session.AdminApiBasePath;
             var accountId = RequestItemsService.Session.AccountId;
-            AuditUsers.GetRecentlyModifiedUsers(basePath, accessToken, Guid.Parse(accountId), organizationId);
+            var usersData = AuditUsers.GetRecentlyModifiedUsersData(basePath, accessToken, Guid.Parse(accountId), organizationId);
+            // Process results
+            ViewBag.h1 = "List users audit results";
+            ViewBag.message = "Results from the Envelopes::getUsers calls:";
+            ViewBag.Locals.Json = JsonConvert.SerializeObject(usersData, Formatting.Indented);
             return View("example_done");
         }
     }
