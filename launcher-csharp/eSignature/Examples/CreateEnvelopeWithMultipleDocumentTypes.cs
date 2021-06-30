@@ -61,7 +61,7 @@ namespace eSignature.Examples
             byte[] hyphens = Encoding.ASCII.GetBytes("--");
 
             string uri = basePath
-                    + "/v2/accounts/" + accountId + "/envelopes";
+                    + "/v2.1/accounts/" + accountId + "/envelopes";
             HttpWebRequest request = WebRequest.CreateHttp(uri);
 
             request.Method = "POST";
