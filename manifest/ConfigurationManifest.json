@@ -78,11 +78,6 @@
           "key": "UserInformationEndpoint",
           "defaultValue": "https://account-d.docusign.com/oauth/userinfo",
           "displayInWizard": false
-        },
-        {
-          "key": "owin:AutomaticAppStartup",
-          "defaultValue": "false",
-          "displayInWizard": false
         }
       ],
       "help": {
@@ -133,6 +128,7 @@
           "contentType": "PEM",
           "placeHolder": "",
           "mandatory": true,
+          "defaultValue": "Specify here your private RSA key. See https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken for details.",
           "validationRegEx": "",
           "validationMessage": "A correct RSA private key should be a PEM-encoded certificate",
           "help": {
@@ -170,6 +166,11 @@
           "key": "UserInformationEndpoint",
           "defaultValue": "https://account-d.docusign.com/oauth/userinfo",
           "displayInWizard": false
+        },
+        {
+          "key": "KeyFilePath",
+          "defaultValue": "docusign_private_key.txt",
+          "displayInWizard": false
         }
       ],
       "help": {
@@ -181,10 +182,6 @@
     }
   ],
   "packages": [
-    {
-      "name": "DocuSign.eSign.dll",
-      "version": "5.2.0"
-    },
     {
       "name": "System.Configuration.ConfigurationManager",
       "version": "4.7.0"
@@ -200,6 +197,70 @@
     {
       "name": "Microsoft.Owin.Host.SystemWeb",
       "version": "4.1.0"
+    }
+  ],
+  "supportedAPIs": [
+    {
+      "apiType": "ESignature",
+      "displayName": "ESignature",
+      "packages": [
+        {
+          "name": "DocuSign.eSign.dll",
+          "version": "5.5.0-rc"
+        }
+      ],
+      "scopes": [
+        "signature"
+      ]
+    },
+    {
+      "apiType": "Rooms",
+      "displayName": "Rooms",
+      "packages": [
+        {
+          "name": "DocuSign.Rooms",
+          "version": "1.1.0"
+        }
+      ],
+      "scopes": [
+        "dtr.rooms.read",
+        "dtr.rooms.write",
+        "dtr.documents.read",
+        "dtr.documents.write",
+        "dtr.profile.read",
+        "dtr.profile.write",
+        "dtr.company.read",
+        "dtr.company.write",
+        "room_forms"
+      ]
+    },
+    {
+      "apiType": "Click",
+      "displayName": "Click",
+      "packages": [
+        {
+          "name": "DocuSign.Click",
+          "version": "1.0.0"
+        }
+      ],
+      "scopes": [
+        "click.manage",
+        "click.send"
+      ]
+    },
+    {
+      "apiType": "Monitor",
+      "displayName": "Monitor",
+      "packages": [
+        {
+          "name": "DocuSign.Monitor",
+          "version": "1.0.0-beta"
+        }
+      ],
+      "scopes": [
+        "signature",
+        "impersonation"
+      ]
     }
   ],
   "help": {
