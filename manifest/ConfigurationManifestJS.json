@@ -1,0 +1,259 @@
+﻿{
+  "authenticationTypes": [
+    {
+      "name": "AuthCodeGrant",
+      "displayName": "Authorization Code Grant JS",
+      "description": "Choose this option if each user who sends DocuSign envelopes using \nthe eSignature API will login to DocuSign during each session.",
+      "shortDescription": "Users will login to DocuSign during each session to send envelopes to eSignature API",
+      "sources": [
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/common/config.js",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/common/DSAuthCodeGrant.js",
+          "folder": "DocuSign"
+        }
+      ],
+      "parameters": [
+        {
+          "key": "dsClientId",
+          "inputType": "PlainText",
+          "displayName": "Integration key",
+          "placeHolder": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+          "mandatory": true,
+          "validationRegEx": "^({{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}}{0,1})$",
+          "validationMessage": "A correct integration key should be a GUID",
+          "help": {
+            "hint": "How to get an integration key?",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+          }
+        },
+        {
+          "key": "RedirectURI",
+          "inputType": "PlainText",
+          "contentType": "URI",
+          "displayName": "Redirect URI",
+          "placeHolder": "http://example.com",
+          "mandatory": true,
+          "validationRegEx": "",
+          "validationMessage": "A correct redirect URI should be a URI",
+          "help": {
+            "hint": "How to define a redirect URI?",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+          }
+        },
+        {
+          "key": "dsClientSecret",
+          "inputType": "PlainText",
+          "displayName": "Secret key",
+          "placeHolder": "",
+          "mandatory": true,
+          "validationRegEx": "",
+          "help": {
+            "hint": "How to get a secret key?",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+          }
+        },
+        {
+          "key": "signerName",
+          "placeHolder": "USER_FULLNAME",
+          "displayInWizard": false
+        },
+        {
+          "key": "signerEmail",
+          "placeHolder": "USER_EMAIL",
+          "displayInWizard": false
+        },
+        {
+          "key": "roomsApiUrl",
+          "defaultValue": "https://demo.rooms.docusign.com",
+          "displayInWizard": false
+        },
+        {
+          "key": "clickAPIUrl",
+          "defaultValue": "https://demo.docusign.net/clickapi",
+          "displayInWizard": false
+        },
+        {
+          "key": "production",
+          "defaultValue": "false",
+          "displayInWizard": false
+        }
+      ],
+      "help": {
+        "hint": "How do I use Authorization Code Grant?",
+        "displayText": "Learn more",
+        "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant"
+      },
+      "applicableProjectType": "Web"
+    },
+    {
+      "name": "JWT",
+      "displayName": "JSON Web Token (JWT) JS",
+      "description": "Choose this option if a single login will be used to send all envelopes.",
+      "sources": [
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/common/config.js",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/common/DSJwtAuth.js",
+          "folder": "DocuSign"
+        }
+      ],
+      "parameters": [
+        {
+          "key": "dsClientId",
+          "inputType": "PlainText",
+          "displayName": "Integration key",
+          "placeHolder": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+          "mandatory": true,
+          "validationRegEx": "^({{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}}{0,1})$",
+          "validationMessage": "A correct integration key should be a GUID",
+          "help": {
+            "hint": "How to get an integration key?",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken#prerequisites"
+          }
+        },
+        {
+          "key": "impersonatedUserGuid",
+          "inputType": "PlainText",
+          "displayName": "DocuSign User ID",
+          "placeHolder": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+          "mandatory": true,
+          "validationRegEx": "^({{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}}{0,1})$",
+          "validationMessage": "A correct userId should be a GUID",
+          "help": {
+            "hint": "How to find the DocuSign userId",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken#prerequisites"
+          }
+        },
+        {
+          "key": "signerName",
+          "placeHolder": "USER_FULLNAME",
+          "displayInWizard": false
+        },
+        {
+          "key": "signerEmail",
+          "placeHolder": "USER_EMAIL",
+          "displayInWizard": false
+        },
+        {
+          "key": "roomsApiUrl",
+          "defaultValue": "https://demo.rooms.docusign.com",
+          "displayInWizard": false
+        },
+        {
+          "key": "clickAPIUrl",
+          "defaultValue": "https://demo.docusign.net/clickapi",
+          "displayInWizard": false
+        },
+        {
+          "key": "privateKeyLocation",
+          "defaultValue": "private.key",
+          "displayInWizard": false
+        },
+        {
+          "key": "production",
+          "defaultValue": "false",
+          "displayInWizard": false
+        }
+      ],
+      "help": {
+        "hint": "How do I use JSON Web Token (JWT) Grant?",
+        "displayText": "Learn more",
+        "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken"
+      },
+      "preferredConfigFile": "AppConfig"
+    }
+  ],
+  "packages": [
+    {
+      "name": "docusign-esign",
+      "version": "5.9.0-rc1"
+    },
+    {
+      "name": "fs",
+      "version": "0.0.1-security"
+    },
+    {
+      "name": "moment",
+      "version": "^2.24.0"
+    },
+    {
+      "name": "passport",
+      "version": "^0.4.0"
+    }
+  ],
+  "supportedAPIs": [
+    {
+      "apiType": "ESignature",
+      "displayName": "ESignature",
+      "packages": [
+        {
+          "name": "docusign-esign",
+          "version": "^5.10.0"
+        }
+      ],
+      "scopes": [
+        "signature"
+      ]
+    },
+    {
+      "apiType": "Rooms",
+      "displayName": "Rooms",
+      "packages": [
+        {
+          "name": "docusign-rooms",
+          "version": "^1.1.0"
+        }
+      ],
+      "scopes": [
+        "dtr.rooms.read",
+        "dtr.rooms.write",
+        "dtr.documents.read",
+        "dtr.documents.write",
+        "dtr.profile.read",
+        "dtr.profile.write",
+        "dtr.company.read",
+        "dtr.company.write",
+        "room_forms"
+      ]
+    },
+    {
+      "apiType": "Click",
+      "displayName": "Click",
+      "packages": [
+        {
+          "name": "docusign-click",
+          "version": "^1.0.0"
+        }
+      ],
+      "scopes": [
+        "click.manage",
+        "click.send"
+      ]
+    },
+    {
+      "apiType": "Monitor",
+      "displayName": "Monitor",
+      "packages": [
+        {
+          "name": "docusign-monitor",
+          "version": "^1.0.0"
+        }
+      ]
+    }
+  ],
+  "help": {
+    "hint": "How do I identify OAuth Authentication Type?",
+    "displayText": "Learn more",
+    "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication"
+  }
+}

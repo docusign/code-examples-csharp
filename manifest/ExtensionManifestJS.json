@@ -1,0 +1,405 @@
+﻿{
+  "codeExamples": [
+    {
+      "number": "1",
+      "name": "Embedded Signing Ceremony",
+      "description": "This example sends an envelope, and then uses an embedded signing ceremony for the first signer. With embedded signing, the DocuSign signing ceremony is initiated from your website.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/embeddedSigning.js",
+      "method": "SendEnvelopeForEmbeddedSigning",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "2",
+      "name": "Send an envelope with a remote (email) signer and cc recipient",
+      "description": "The envelope includes a pdf, Word, and HTML document. Anchor text (AutoPlace) is used to position the signing fields in the documents.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/signViaEmail.js",
+      "method": "SendEnvelopeViaEmail",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "3",
+      "name": "List envelopes in the user's account",
+      "description": "The envelopes' current status is included.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/listEnvelopes.js",
+      "method": "ListAllEnvelope",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "4",
+      "name": "Get an envelope's basic information",
+      "description": "The example lists the basic information about an envelope, including its overall status.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/envelopeInfo.js",
+      "method": "GetEnvelope",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "5",
+      "name": "List an envelope's recipients",
+      "description": "Includes current recipient status.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/envelopeRecipients.js",
+      "method": "GetRecipients",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "6",
+      "name": "Listing Envelope Documents",
+      "description": "This code example demonstrates how to retrieve a list of all documents within a specific envelope.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/envelopeDocs.js",
+      "method": "GetDocuments",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "7",
+      "name": "Downloading Envelope Documents",
+      "description": "The example can download individual documents, the documents concatenated together, or a zip file of the documents.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/envelopeGetDoc.js",
+      "method": "DownloadDocument",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "8",
+      "name": "Programmatically create a template",
+      "description": "This code example demonstrates how to create a new DocuSign template using the eSignature API.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/createTemplate.js",
+      "method": "CreateTemplate",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "9",
+      "name": "Send an envelope using a template",
+      "description": "This code example demonstrates how to generate a new envelope from an existing template.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/useTemplate.js",
+      "method": "SendEnvelopeFromTemplate",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "10",
+      "name": "Send an envelope and upload its documents with multpart binary transfer",
+      "description": "Binary transfer is 33% more efficient than using Base64 encoding.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/sendBinaryDocs.js",
+      "method": "CreateAndSendEnvelope",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "11",
+      "name": "Embedded sending",
+      "description": "Embeds the DocuSign web tool (NDSE) in your web app to finalize or update the envelope and documents before they are sent.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/embeddedSending.js",
+      "method": "SendEnvelopeUsingEmbeddedSending",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "12",
+      "name": "Embedded DocuSign web tool (NDSE).",
+      "description": "Embeds the DocuSign web tool (NDSE) in your web app.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/embeddedConsole.js",
+      "method": "CreateEmbeddedConsoleView",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "13",
+      "name": "Embedded Signing Ceremony from a template with an added document.",
+      "description": "This example sends an envelope based on a template. In addition to the template's document(s), the example adds an additional document to the envelope by using the Composite Templates feature.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/addDocToTemplate.js",
+      "method": "CreateEnvelopeUsingCompositeTemplate",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "14",
+      "name": "Payments example: an order form, with online payment by credit card",
+      "description": "This code example demonstrates how to create an envelope that enables the recipients to also submit a payment when signing the envelope.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/collectPayment.js",
+      "method": "CreateEnvelopeWithPayment",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "15",
+      "name": "Get the envelope tab data.",
+      "description": "Retrieve the tab (field) values for all of the envelope's recipients. ",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/envelopeTabData.js",
+      "method": "GetEnvelopeFormData",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "16",
+      "name": "Set envelope tab values",
+      "description": "The example creates an envelope and sets the initial values for its tabs (fields). Some of the tabs are set to be read-only, others can be updated by the recipient. The example also stores metadata with the envelope.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/setTabValues.js",
+      "method": "CreateEnvelopeAndUpdateTabData",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "17",
+      "name": "Set template tab values",
+      "description": "The example creates an envelope using a template and sets the initial values for its tabs (fields). The example also stores metadata with the envelope. ",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/setTemplateTabValues.js",
+      "method": "CreateEnvelopeFromTempalteAndUpdateTabValues",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "18",
+      "name": "Get the envelope custom field data (metadata)",
+      "description": "The example retrieves the custom metadata (custom data fields) stored with the envelope. ",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/envelopeCustomFieldData.js",
+      "method": "ListAllCustomFieldsForEnvelope",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "19",
+      "name": "Requiring an Access Code for a Recipient",
+      "description": "This example sends an envelope that requires an access-code for the purpose of multi-factor authentication.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/accessCodeAuthentication.js",
+      "method": "CreateEnvelopeWithRecipientUsingAccessCodeAuth",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "20",
+      "name": "Requiring SMS authentication for a recipient",
+      "description": "This example sends an envelope that requires entering in a six digit code from an text message for the purpose of multi-factor authentication.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/smsAuthentication.js",
+      "method": "CreateEnvelopeWithRecipientUsingSMSAuth",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "21",
+      "name": "Requiring Phone authentication for a recipient",
+      "description": "This example sends an envelope that requires entering in a voice-based response code for the purpose of multi-factor authentication.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/phoneAuthentication.js",
+      "method": "CreateEnvelopeWithRecipientUsingPhoneAuth",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "22",
+      "name": "Requiring Knowledge-Based Authentication (KBA) for a Recipient",
+      "description": "This example sends an envelope that requires passing a Public records check to validate identity for the purpose of multi-factor authentication.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/kbaAuthentication.js",
+      "method": "CreateEnvelopeWithRecipientUsingKBAAuth",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "23",
+      "name": "Requiring ID Verification (IDV) for a recipient",
+      "description": "This example sends an envelope that requires submitting a photo of a government issued id for the purpose of multi-factor authentication.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/idvAuthentication.js",
+      "method": "CreateEnvelopeWithRecipientUsingIDVAuth",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "24",
+      "name": "Creating a permission profile",
+      "description": "This example creates a new permission profile that can be assigned to users in the DocuSign account.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/createPermission.js",
+      "method": "Create",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "25",
+      "name": "Setting a permission profile",
+      "description": "This example applies an existing permission profile to a group of users in the DocuSign account.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/permissionSetUserGroup.js",
+      "method": "GetGroupInformation",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "26",
+      "name": "Updating individual permission settings",
+      "description": "This example updates the settings of an existing permission profile.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/permissionChangeSingleSetting.js",
+      "method": "UpdatePermissionProfile",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "27",
+      "name": "Deleting a permission profile",
+      "description": "This example deletes a permission profile.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/deletePermission.js",
+      "method": "DeletePermissionProfile",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "28",
+      "name": "Creating a brand",
+      "description": "This example creates a new brand that can be used to customize the user experience of envelopes in the DocuSign account.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/createBrand.js",
+      "method": "Create",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "29",
+      "name": "Applying a brand to an envelope",
+      "description": "This example creates a new envelope and applies an existing brand to that envelope.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/applyBrandToEnvelope.js",
+      "method": "CreateEnvelopeWithBranding",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "30",
+      "name": "Applying a brand and template to an envelope",
+      "description": "This example creates a new envelope from a template and also applies an existing brand to it.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/applyBrandToTemplate.js",
+      "method": "CreateEnvelopeFromTemplateWithBrand",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "31",
+      "name": "Bulk sending envelopes to multiple recipients",
+      "description": "This example sends an envelope to multiple recipients by using the DocuSign Bulk Send feature.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/bulkSendEnvelope.js",
+      "method": "GetStatus",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "32",
+      "name": "Pause a signature workflow",
+      "description": "This example creates and envelope and then pauses the signature workflow",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/pauseSignatureWorkflow.js",
+      "method": "PauseWorkflow",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "33",
+      "name": "Unpause a signature workflow",
+      "description": "This example unpauses a signature workflow for the previously created envelope that was paused.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/unpauseSignatureWorkflow.js",
+      "method": "UnpauseWorkflow",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "34",
+      "name": "Conditional recipients",
+      "description": "This example creates an envelope that is routed to different recipients based on a predefined condition.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/useConditionalRecipients.js",
+      "method": "SendEnvelope",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "35",
+      "name": "Request Signature by SMS",
+      "description": "This example demonstrates how to send a signature request for a signer (and CC) to read and sign via an SMS message.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/smsDelivery.js",
+      "method": "SendRequestViaSMS",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "36",
+      "name": "Create Clickwraps",
+      "description": "This example shows how to create a clickwrap.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/click/examples/createClickwrap.js",
+      "method": "CreateClickwrap",
+      "apiType": "Click"
+    },
+    {
+      "number": "37",
+      "name": "Activate Clickwrap",
+      "description": "This example shows how to activate a clickwrap.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/click/examples/activateClickwrap.js",
+      "method": "UpdateClickwrapVersion",
+      "apiType": "Click"
+    },
+    {
+      "number": "38",
+      "name": "Clickwrap Versioning",
+      "description": "This example shows how to create a new clickwrap version.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/click/examples/createNewClickwrapVersion.js",
+      "method": "UpdateClickwrapVersion",
+      "apiType": "Click"
+    },
+    {
+      "number": "39",
+      "name": "Retrieve Clickwraps",
+      "description": "This example shows how to get a list of clickwraps.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/click/examples/listClickwraps.js",
+      "method": "GetClickwraps",
+      "apiType": "Click"
+    },
+    {
+      "number": "40",
+      "name": "Get Clickwrap Responses",
+      "description": "This example shows how to get clickwrap responses.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/click/examples/clickwrapResponses.js",
+      "method": "GetClickwrapAgreements",
+      "apiType": "Click"
+    },
+    {
+      "number": "41",
+      "name": "Create a room with data",
+      "description": "This example creates a room using specified data.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/rooms/examples/createRoomWithData.js",
+      "method": "CreateRoom",
+      "apiType": "Rooms"
+    },
+    {
+      "number": "42",
+      "name": "Create a room from template",
+      "description": "This example creates a room from a template.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/rooms/examples/createRoomFromTemplate.js",
+      "method": "CreateRoom",
+      "apiType": "Rooms"
+    },
+    {
+      "number": "43",
+      "name": "Export data from a room",
+      "description": "This example exports data from a room.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/rooms/examples/exportDataFromRoom.js",
+      "method": "GetRoomFieldData",
+      "apiType": "Rooms"
+    },
+    {
+      "number": "44",
+      "name": "Add form to a room",
+      "description": "This example adds form to a room.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/rooms/examples/addingFormToRoom.js",
+      "method": "AddFormToRoom",
+      "apiType": "Rooms"
+    },
+    {
+      "number": "45",
+      "name": "Get filtered rooms",
+      "description": "This example returns rooms by filter.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/rooms/examples/getRoomsWithFilters.js",
+      "method": "GetRooms",
+      "apiType": "Rooms"
+    },
+    {
+      "number": "46",
+      "name": "Create external form fill session",
+      "description": "This is an example of creating external form fill session.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/rooms/examples/createExternalFormFillSession.js",
+      "method": "CreateExternalFormFillSession",
+      "apiType": "Rooms"
+    },
+    {
+      "number": "47",
+      "name": "Create a form group",
+      "description": "This is an example of creating a form group for your DocuSign Rooms for Real Estate account.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/rooms/examples/createFormGroup.js",
+      "method": "CreateFormGroup",
+      "apiType": "Rooms"
+    },
+    {
+      "number": "48",
+      "name": "Grants office access to a form group",
+      "description": "This is an example of granting office access to a form group.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/rooms/examples/grantOfficeAccessToFormGroup.js",
+      "method": "GrantOfficeAccessToFormGroup",
+      "apiType": "Rooms"
+    },
+    {
+      "number": "49",
+      "name": "Assign a form to a form group",
+      "description": "This is an example of assigning a form to a form group.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/rooms/examples/assignFormToFormGroup.js",
+      "method": "AssignFormGroupForm",
+      "apiType": "Rooms"
+    },
+    {
+      "number": "50",
+      "name": "Getting the monitoring data",
+      "description": "Getting the monitoring data",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/monitor/examples/getMonitoringData.js",
+      "method": "GetMonitoringData",
+      "apiType": "Monitor"
+    }
+  ],
+  "postAddOpenURI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant"
+}
