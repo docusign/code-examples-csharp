@@ -136,13 +136,10 @@ namespace DocuSign.eSignature
 
 					var stateString = Options.StateDataFormat.Protect(state);
 
-					var selectedApiTypes = ConfigurationManager.AppSettings["SelectedApiTypes"];
-					string scopes = "";
+					var selectedApiTypes = ConfigurationManager.AppSettings["SelectedApiTypes"] ?? "";
 
-					if (selectedApiTypes.Contains("ESignature"))
-					{
-						scopes += "signature ";
-					}
+					var scopes = "signature impersonation ";
+
 					if (selectedApiTypes.Contains("Rooms"))
 					{
 						scopes += "dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write" +
@@ -454,7 +451,8 @@ namespace DocuSign.eSignature
 	using Newtonsoft.Json;
 	using Newtonsoft.Json.Linq;
 	using System;
-	using System.Net.Http;
+    using System.Collections.Generic;
+    using System.Net.Http;
 	using System.Net.Http.Headers;
 	using System.Security.Claims;
 	using System.Threading.Tasks;
@@ -501,28 +499,31 @@ namespace DocuSign.eSignature
 				options.TokenEndpoint = Configuration["DocuSign:TokenEndpoint"];
 				options.UserInformationEndpoint = Configuration["DocuSign:UserInformationEndpoint"];
 
-				var selectedApiTypes = Configuration["DocuSign:SelectedApiTypes"];
+				options.Scope.Add("signature");
+				options.Scope.Add("impersonation");
 
-				if (selectedApiTypes.Contains("ESignature"))
-				{
-					options.Scope.Add("signature");
-				}
-				if (selectedApiTypes.Contains("Rooms"))
-				{
-					options.Scope.Add("dtr.rooms.read");
-					options.Scope.Add("dtr.rooms.write");
-					options.Scope.Add("dtr.documents.read");
-					options.Scope.Add("dtr.documents.write");
-					options.Scope.Add("dtr.profile.read");
-					options.Scope.Add("dtr.profile.write");
-					options.Scope.Add("dtr.company.read");
-					options.Scope.Add("dtr.company.write");
-					options.Scope.Add("room_forms");
-				}
-				if (selectedApiTypes.Contains("Click"))
-				{
-					options.Scope.Add("click.manage");
-					options.Scope.Add("click.send");
+				var selectedApiTypes = Configuration.GetSection("DocuSign:examplesApi")
+					.Get<Dictionary<string, bool>>();
+
+				if (selectedApiTypes != null)
+                {
+					if (selectedApiTypes.ContainsKey("isRoomsApi") && selectedApiTypes["isRoomsApi"])
+					{
+						options.Scope.Add("dtr.rooms.read");
+						options.Scope.Add("dtr.rooms.write");
+						options.Scope.Add("dtr.documents.read");
+						options.Scope.Add("dtr.documents.write");
+						options.Scope.Add("dtr.profile.read");
+						options.Scope.Add("dtr.profile.write");
+						options.Scope.Add("dtr.company.read");
+						options.Scope.Add("dtr.company.write");
+						options.Scope.Add("room_forms");
+					}
+					if (selectedApiTypes.ContainsKey("isClickApi") && selectedApiTypes["isClickApi"])
+					{
+						options.Scope.Add("click.manage");
+						options.Scope.Add("click.send");
+					}
 				}
 
 				options.SaveTokens = true;

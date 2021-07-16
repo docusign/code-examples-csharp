@@ -1,4 +1,6 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using DocuSign.eSign.Client;
@@ -19,12 +21,45 @@ namespace DocuSign.eSignature
             string ik = ConfigurationManager.AppSettings["IntegrationKey"];
             string userId = ConfigurationManager.AppSettings["userId"];
             string authServer = ConfigurationManager.AppSettings["AuthServer"];
-            string rsaKey = ConfigurationManager.AppSettings["RSAKey"];
+            string rsaKeyFilePath = ConfigurationManager.AppSettings["KeyFilePath"];
+            string selectedApiTypes = ConfigurationManager.AppSettings["SelectedApiTypes"] ?? "";
+
+            List<string> scopes = new List<string>
+            {
+                "signature",
+                "impersonation"
+            };
+
+            if (selectedApiTypes.Contains("Rooms"))
+            {
+                scopes.AddRange(new List<string>
+                {
+                    "dtr.rooms.read",
+                    "dtr.rooms.write",
+                    "dtr.documents.read",
+                    "dtr.documents.write",
+                    "dtr.profile.read",
+                    "dtr.profile.write",
+                    "dtr.company.read",
+                    "dtr.company.write",
+                    "room_forms"
+                });
+            }
+            if (selectedApiTypes.Contains("Click"))
+            {
+                scopes.AddRange(new List<string>
+                {
+                    "click.manage",
+                    "click.send"
+                });
+            }
+
             OAuth.OAuthToken authToken = apiClient.RequestJWTUserToken(ik,
                             userId,
                             authServer,
-                            Encoding.UTF8.GetBytes(rsaKey),
-                            1);
+                            File.ReadAllBytes(rsaKeyFilePath),
+                            1,
+                            scopes);
 
             string accessToken = authToken.access_token;
             apiClient.SetOAuthBasePath(authServer);
