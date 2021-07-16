@@ -22,7 +22,7 @@ namespace DocuSign.eSignature
             string userId = ConfigurationManager.AppSettings["userId"];
             string authServer = ConfigurationManager.AppSettings["AuthServer"];
             string rsaKeyFilePath = ConfigurationManager.AppSettings["KeyFilePath"];
-            string selectedApiTypes = ConfigurationManager.AppSettings["SelectedApiTypes"];
+            string selectedApiTypes = ConfigurationManager.AppSettings["SelectedApiTypes"] ?? "";
 
             List<string> scopes = new List<string>
             {
