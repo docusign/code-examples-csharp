@@ -160,9 +160,9 @@ namespace DocuSign.CodeExamples.Common
             {
                 if (_organizationId == null)
                 {
-                    var apiClient = new OrgAdmin.Client.ApiClient(this.Session.AdminApiBasePath);
+                    var apiClient = new DocuSign.Admin.Client.ApiClient(this.Session.AdminApiBasePath);
                     apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + this.User.AccessToken);
-                    var accountApi = new OrgAdmin.Api.AccountsApi(apiClient);
+                    var accountApi = new DocuSign.Admin.Api.AccountsApi(apiClient);
                     _organizationId = accountApi.GetOrganizations().Organizations.FirstOrDefault().Id;
                 }
                 return _organizationId;

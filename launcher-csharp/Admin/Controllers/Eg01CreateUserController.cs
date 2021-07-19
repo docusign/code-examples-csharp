@@ -4,7 +4,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using DocuSign.CodeExamples.Admin.Examples;
-using DocuSign.OrgAdmin.Client;
+using DocuSign.Admin.Client;
 using System;
 
 namespace DocuSign.CodeExamples.Admin.Controllers

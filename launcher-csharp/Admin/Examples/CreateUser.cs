@@ -1,6 +1,6 @@
-﻿using DocuSign.OrgAdmin.Api;
-using DocuSign.OrgAdmin.Client;
-using DocuSign.OrgAdmin.Model;
+﻿using DocuSign.Admin.Api;
+using DocuSign.Admin.Client;
+using DocuSign.Admin.Model;
 using System;
 using System.Collections.Generic;
 

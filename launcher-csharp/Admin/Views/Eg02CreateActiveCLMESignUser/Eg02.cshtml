@@ -33,11 +33,11 @@
     </div>
     <div class="form-group">
         <label for="CLMPermissionhProfiles">CLM permission profile</label>
-        @Html.DropDownList("CLMPermissionProfileId", new SelectList(ViewBag.CLMPermissionProfiles, "Id", "Name"), new { @class = "form-control" })
+        @Html.DropDownList("CLMPermissionProfileId", new SelectList(ViewBag.CLMPermissionProfiles, "PermissionProfileId", "PermissionProfileName"), new { @class = "form-control" })
     </div>
     <div class="form-group">
         <label for="ESignaturePermissionProfiles">eSignature permissio profile</label>
-        @Html.DropDownList("ESignPermissionProfileId", new SelectList(ViewBag.ESignPermissionProfiles, "Id", "Name"), new { @class = "form-control" })
+        @Html.DropDownList("ESignPermissionProfileId", new SelectList(ViewBag.ESignPermissionProfiles, "PermissionProfileId", "PermissionProfileName"), new { @class = "form-control" })
     </div>
     <div class="form-group">
         <label for="DSGroups">DocuSign Admin Group</label>

@@ -1,6 +1,6 @@
-﻿using DocuSign.OrgAdmin.Api;
-using DocuSign.OrgAdmin.Client;
-using DocuSign.OrgAdmin.Model;
+﻿using DocuSign.Admin.Api;
+using DocuSign.Admin.Client;
+using DocuSign.Admin.Model;
 using System;
 using System.Collections.Generic;
 
@@ -42,7 +42,7 @@ namespace DocuSign.Admin.Examples
             newMultiProductUserAddRequest.ProductPermissionProfiles = productPermissionProfiles;
             newMultiProductUserAddRequest.DsGroups = new List<DSGroupRequest>();
             newMultiProductUserAddRequest.DsGroups.Add(new DSGroupRequest { DsGroupId = dsGroupId });
-            AddUserResponse response = usersApi.AddUsers_0(orgId, accountId, newMultiProductUserAddRequest);
+            AddUserResponse response = usersApi.AddOrUpdateUser(orgId, accountId, newMultiProductUserAddRequest);
             // Step 5 End
             return response.Id;
         }

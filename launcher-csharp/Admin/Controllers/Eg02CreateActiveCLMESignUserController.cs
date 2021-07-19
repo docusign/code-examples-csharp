@@ -1,6 +1,6 @@
 ﻿using DocuSign.Admin.Examples;
-using DocuSign.OrgAdmin.Api;
-using DocuSign.OrgAdmin.Client;
+using DocuSign.Admin.Api;
+using DocuSign.Admin.Client;
 using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
