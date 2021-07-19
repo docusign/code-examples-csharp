@@ -134,24 +134,6 @@ namespace eSignature.Examples
                 RecipientId = "1"
             };
 
-            Witness witness1 = new Witness
-            {
-                Email = "inbar@mailinator.com",
-                Name = "Inbar Test",
-                WitnessFor = "1",
-                RecipientId = "2",
-            };
-
-            SignHere signerHere = new SignHere
-            {
-                DocumentId = "3",
-                PageNumber = "1",
-                XPosition = "500",
-                YPosition = "500"
-            };
-
-            witness1.Tabs = new Tabs { SignHereTabs = new List<SignHere> { signerHere } };
-
             // Create signHere fields (also known as tabs) on the documents,
             // We're using anchor (autoPlace) positioning
             //
@@ -174,9 +156,7 @@ namespace eSignature.Examples
             // Add the recipient to the envelope object
             Recipients recipients = new Recipients
             {
-                Signers = new List<Signer> { signer1 },
-                Witnesses = new List<Witness> { witness1}
-                
+                Signers = new List<Signer> { signer1 }
             };
             envelopeDefinition.Recipients = recipients;
 
