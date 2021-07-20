@@ -1,12 +1,14 @@
 ﻿@model DocuSign.CodeExamples.Admin.Controllers.Eg02CreateActiveCLMESignUserController
 
-<h4 id="example02">2. Create a new user with an active status for CLM and eSignature</h4>
+<h4 id="example02">2. Create a new active user for CLM and eSignature</h4>
 <p>
     Demonstrates how to create a new DocuSign user (valid for both CLM and eSignature APIs) and activate their account automatically.
 </p>
 <p>
     API methods used:
-    <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/updateclickwrapversion/">ClickWraps::updateClickwrapVersion</a>.
+    <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/productpermissionprofiles/productpermissionprofiles/getproductpermissionprofiles/">ProductPermissionProfiles:getProductPermissionProfiles</a>, 
+    <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/dsgroups/dsgroups/getdsgroups/">DsGroups:getDsGroups</a>,
+    <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/users/users/addusers/">Users:addUsers</a>
 </p>
 <p>
     View source file <a target="_blank" href="@ViewBag.source">Eg02CreateActiveCLMESignUserController.cs</a> on GitHub.
