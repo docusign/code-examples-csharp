@@ -101,7 +101,8 @@ namespace DocuSign.CodeExamples.Common
                         AccountId = _requestItemsService.Session.AccountId,
                         AccountName = _requestItemsService.Session.AccountName,
                         BasePath = _requestItemsService.Session.BasePath,
-                        RoomsApiBasePath = _requestItemsService.Session.RoomsApiBasePath
+                        RoomsApiBasePath = _configuration["DocuSign:RoomsApiEndpoint"],
+                        AdminApiBasePath = _configuration["DocuSign:AdminApiEndpoint"]
                     };
 
                 _requestItemsService.Session = locals.Session;
