@@ -42,6 +42,7 @@ namespace DocuSign.Admin.Examples
             newMultiProductUserAddRequest.ProductPermissionProfiles = productPermissionProfiles;
             newMultiProductUserAddRequest.DsGroups = new List<DSGroupRequest>();
             newMultiProductUserAddRequest.DsGroups.Add(new DSGroupRequest { DsGroupId = dsGroupId });
+            newMultiProductUserAddRequest.AutoActivateMemberships = true;
             AddUserResponse response = usersApi.AddOrUpdateUser(orgId, accountId, newMultiProductUserAddRequest);
             // Step 5 End
             return response.Id;
