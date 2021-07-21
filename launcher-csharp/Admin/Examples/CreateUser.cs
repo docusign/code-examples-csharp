@@ -1,6 +1,6 @@
-﻿using DocuSign.Admin.Api;
-using DocuSign.Admin.Client;
-using DocuSign.Admin.Model;
+﻿using DocuSign.Admin.Model;
+using DocuSign.eSign.Api;
+using DocuSign.eSign.Model;
 using System;
 using System.Collections.Generic;
 
@@ -27,14 +27,36 @@ namespace DocuSign.CodeExamples.Admin.Examples
             string userName, string email, long permissionProfileId, long groupId)
         {
             // Construct your API headers
-            var apiClient = new ApiClient(basePath);
+            var apiClient = new DocuSign.Admin.Client.ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
-            var usersApi = new UsersApi(apiClient);
+            var usersApi = new DocuSign.Admin.Api.UsersApi(apiClient);
             NewUserRequest newUserRequest = ConstructNewUserRequest(permissionProfileId, groupId, accountId, email,
                 firstName, lastName, userName);
 
             return usersApi.CreateUser(organizationId, newUserRequest);
+        }
+
+        /// <summary>
+        /// Gets the DocuSign permission profiles and groups
+        /// </summary>
+        /// <param name="accessToken">Access Token for API call (OAuth)</param>
+        /// <param name="basePath">BasePath for API calls (URI)</param>
+        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
+        /// <returns>The tuple with DocuSign permission profiles and groups information</returns>
+        public static (PermissionProfileInformation, GroupInformation) GetPermissionProfilesAndGroups(
+            string accessToken, string basePath, string accountId)
+        {
+            var apiClient = new eSign.Client.ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+
+            var accountsApi = new AccountsApi(apiClient);
+            var permissionProfiles = accountsApi.ListPermissions(accountId);
+
+            var dsGroupsApi = new GroupsApi(apiClient);
+            var groups = dsGroupsApi.ListGroups(accountId);
+
+            return (permissionProfiles, groups);
         }
 
         /// <summary>

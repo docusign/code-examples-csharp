@@ -118,7 +118,7 @@ namespace eSignature.Examples
             doc1.DocumentBase64 = doc1b64;
             doc1.Name = "Lorem Ipsum"; // can be different from actual file name
             doc1.FileExtension = "pdf";
-            doc1.DocumentId = "3";
+            doc1.DocumentId = "1";
 
             // The order in the docs array determines the order in the envelope
             envelopeDefinition.Documents = new List<Document> { doc1 };
@@ -126,6 +126,8 @@ namespace eSignature.Examples
             // Create a signer recipient to sign the document, identified by name and email
             // We set the clientUserId to enable embedded signing for the recipient
             // We're setting the parameters via the object creation
+
+            // create a signer object, in this case for embedded signing
             Signer signer1 = new Signer
             {
                 Email = signerEmail,
@@ -133,31 +135,51 @@ namespace eSignature.Examples
                 ClientUserId = signerClientId,
                 RecipientId = "1"
             };
+            // create a radioGroup for the radio buttons
+            RadioGroup radioGroup = new RadioGroup
+            {
+                GroupName = "RadioGroup1",
+                DocumentId = "1",
+                Radios = new List<Radio>()
 
-            // Create signHere fields (also known as tabs) on the documents,
-            // We're using anchor (autoPlace) positioning
-            //
-            // The DocuSign platform seaches throughout your envelope's
-            // documents for matching anchor strings.
+            };
+            // add the two radio buttons to the radio button group. The first one is defaulted by setting Selected to be "true"
+            radioGroup.Radios.Add(new Radio { PageNumber = "1", Value = "radio 1", XPosition = "200", YPosition = "100", Selected = "true" });
+            radioGroup.Radios.Add(new Radio { PageNumber = "1", Value = "radio 2", XPosition = "200", YPosition = "120", Selected = "false" });
+
+            // create two SignHer tabs, each is conditional on each of the radio buttons based on their individual values
             SignHere signHere1 = new SignHere
             {
-                AnchorString = "/sn1/",
-                AnchorUnits = "pixels",
-                AnchorXOffset = "10",
-                AnchorYOffset = "20"
+                DocumentId = "1",
+                PageNumber = "1",
+                XPosition = "100",
+                YPosition = "400",
+                ConditionalParentLabel = "RadioGroup1",
+                ConditionalParentValue = "radio 1"
+                
             };
-            // Tabs are set per recipient / signer
+            SignHere signHere2 = new SignHere
+            {
+                DocumentId = "1",
+                PageNumber = "1",
+                XPosition = "400",
+                YPosition = "400",
+                ConditionalParentLabel = "RadioGroup1",
+                ConditionalParentValue = "radio 2"
+            };
+            // add all the tabs to the singer object
             Tabs signer1Tabs = new Tabs
             {
-                SignHereTabs = new List<SignHere> { signHere1 }
+                RadioGroupTabs = new List<RadioGroup> { radioGroup } ,
+                SignHereTabs = new List<SignHere> { signHere1, signHere2 }
             };
             signer1.Tabs = signer1Tabs;
-
             // Add the recipient to the envelope object
             Recipients recipients = new Recipients
             {
                 Signers = new List<Signer> { signer1 }
             };
+            // add recipients to envelope definitions, need to also add documents
             envelopeDefinition.Recipients = recipients;
 
             // Request that the envelope be sent by setting |status| to "sent".

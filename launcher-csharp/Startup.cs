@@ -123,6 +123,7 @@ namespace DocuSign.CodeExamples
                         options.Scope.Add("room_forms");
                         break;
                     case ExamplesAPIType.Admin:
+                        options.Scope.Add("signature");
                         options.Scope.Add("user_read");
                         options.Scope.Add("user_write");
                         options.Scope.Add("account_read");
