@@ -5,6 +5,7 @@ using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 
 namespace DocuSign.CodeExamples.Admin.Controllers
@@ -62,9 +63,10 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
             try
             {
-                var userId = CreateCLMESignUser.Create(userName, firstName, lastName, email, cLMPermissionProfileId, eSignPermissionProfileId, Guid.Parse(dsGroupId), clmProductId, eSignProductId, basePath, accessToken, Guid.Parse(accountId), orgId);
-                ViewBag.h1 = "The new user for CLM and eSignature was successfully created";
-                ViewBag.message = $"The user was created! User ID: {userId}, UserName: {userName}.";
+                var newUser = CreateCLMESignUser.Create(userName, firstName, lastName, email, cLMPermissionProfileId, eSignPermissionProfileId, Guid.Parse(dsGroupId), clmProductId, eSignProductId, basePath, accessToken, Guid.Parse(accountId), orgId);
+                ViewBag.h1 = "Create a new active user for CLM and eSignature";
+                ViewBag.message = "Results from MultiProductUserManagmentaddOrUpdate method:";
+                ViewBag.Locals.Json = JsonConvert.SerializeObject(newUser, Formatting.Indented);
                 return View("example_done");           
             }
             catch (ApiException apiException)

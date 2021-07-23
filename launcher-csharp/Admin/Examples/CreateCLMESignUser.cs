@@ -24,8 +24,8 @@ namespace DocuSign.Admin.Examples
         /// <param name="accessToken">Access Token for API call (OAuth)</param>
         /// <param name="orgId">DocuSign Organization Id (GUID)</param>
         /// <param name="accountId">The DocuSign Account Id (GUID)</param>
-        /// <returns>User ID of the newly created user</returns>
-        public static Guid? Create(string userName, string firstName, string lastName, string email, string clmPermissionProfileId, string eSignPermissionProfileId, Guid? dsGroupId, Guid? clmProductId, Guid? eSignProductId, string basePath, string accessToken, Guid? accountId, Guid? orgId)
+        /// <returns>The AddUserResponse object coming back from the API</returns>
+        public static AddUserResponse Create(string userName, string firstName, string lastName, string email, string clmPermissionProfileId, string eSignPermissionProfileId, Guid? dsGroupId, Guid? clmProductId, Guid? eSignProductId, string basePath, string accessToken, Guid? accountId, Guid? orgId)
         {
             // Step 5 Start
             var apiClient = new ApiClient(basePath);
@@ -45,7 +45,7 @@ namespace DocuSign.Admin.Examples
             newMultiProductUserAddRequest.AutoActivateMemberships = true;
             AddUserResponse response = usersApi.AddOrUpdateUser(orgId, accountId, newMultiProductUserAddRequest);
             // Step 5 End
-            return response.Id;
+            return response;
         }
 
     }
