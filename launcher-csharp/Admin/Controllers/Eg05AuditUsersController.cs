@@ -38,7 +38,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             var usersData = AuditUsers.GetRecentlyModifiedUsersData(basePath, accessToken, Guid.Parse(accountId), organizationId);
             // Process results
             ViewBag.h1 = "Audit users";
-            ViewBag.message = "Results from Users::getUserProfiles method:";
+            ViewBag.message = "Results from Users:getUserProfiles method:";
             ViewBag.Locals.Json = JsonConvert.SerializeObject(usersData, Formatting.Indented);
             return View("example_done");
         }
