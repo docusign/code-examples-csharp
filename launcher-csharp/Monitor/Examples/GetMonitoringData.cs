@@ -29,13 +29,10 @@ namespace DocuSign.CodeExamples.Monitor.Examples
             // step 3 start
             bool complete = false;
             string cursorValue = "";
-            int limit = 2; // Amount of records you want to read in one request
             List<object> functionResult = new List<object>();
             
             DataSetApi dataSetApi = new DataSetApi(apiClient);
             GetStreamOptions options = new GetStreamOptions();
-
-            options.limit = limit;
 
             // Get monitoring data
             do
