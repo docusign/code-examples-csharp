@@ -16,9 +16,11 @@ namespace DocuSign.Admin.Examples
         /// <returns>List of users' data that can be used for auditing purposes</returns>
         public static IEnumerable<UserDrilldownResponse> GetRecentlyModifiedUsersData(string basePath, string accessToken, Guid? accountId, Guid? orgId)
         {
-            // Step 3 start
+            // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            // Step 2 end
+            // Step 3 start
             UsersApi usersApi = new UsersApi(apiClient);
             var getUsersOptions = new UsersApi.GetUsersOptions { accountId = accountId, lastModifiedSince = DateTime.Today.AddDays(-10).ToShortDateString() };
             var recentlyModifiedUsers = usersApi.GetUsers(orgId, getUsersOptions);
