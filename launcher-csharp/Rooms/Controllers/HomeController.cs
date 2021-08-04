@@ -7,19 +7,22 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Area("Rooms")]
     public class HomeController : Controller
     {
-        public IRequestItemsService RequestItemsService { get; }
+        private IRequestItemsService _requestItemsService { get; }
 
         public HomeController(IRequestItemsService requestItemsService)
         {
-            RequestItemsService = requestItemsService;
+            _requestItemsService = requestItemsService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string egName)
         {
-            string egName = RequestItemsService.EgName;
+            if (string.IsNullOrEmpty(egName))
+            {
+                egName = _requestItemsService.EgName;
+            }
             if (!string.IsNullOrWhiteSpace(egName))
             {
-                RequestItemsService.EgName = null;
+                _requestItemsService.EgName = null;
                 return Redirect(egName);
             }
 

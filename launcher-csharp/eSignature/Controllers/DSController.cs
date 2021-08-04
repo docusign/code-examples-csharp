@@ -23,6 +23,7 @@ namespace DocuSign.CodeExamples.Controllers
         {
             if (authType == "CodeGrant") 
             {
+                returnUrl += "?egName=" + _requestItemsService.EgName;
                 return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });
             }
 
