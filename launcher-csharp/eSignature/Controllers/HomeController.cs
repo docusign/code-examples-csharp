@@ -26,6 +26,10 @@ namespace DocuSign.CodeExamples.Controllers
                 }
                 return Redirect("eg001");
             }
+            if (egName == "home")
+            {
+                return View();
+            }
             if (string.IsNullOrEmpty(egName))
             {
                 egName = _requestItemsService.EgName;

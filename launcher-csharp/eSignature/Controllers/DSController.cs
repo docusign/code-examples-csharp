@@ -63,7 +63,7 @@ namespace DocuSign.CodeExamples.Controllers
             await AuthenticationHttpContextExtensions.SignOutAsync(HttpContext);
             _requestItemsService.Logout();
             _configuration["quickstart"] = "false";
-            return LocalRedirect("/");            
+            return LocalRedirect("/?egName=home");            
         }
 
         /// <summary>

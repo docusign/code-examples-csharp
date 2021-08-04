@@ -118,6 +118,7 @@ namespace DocuSign.CodeExamples.Common
         public void Logout()
         {
             this._authToken = null;
+            this.EgName = null;
             this.User = null;
         }
 
