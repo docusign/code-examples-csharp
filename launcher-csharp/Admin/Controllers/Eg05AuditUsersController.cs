@@ -1,4 +1,5 @@
 ﻿using DocuSign.Admin.Examples;
+using DocuSign.Admin.Client;
 using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
@@ -31,16 +32,26 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Audit()
         {
-            var organizationId = RequestItemsService.OrganizationId;
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = RequestItemsService.Session.AdminApiBasePath;
-            var accountId = RequestItemsService.Session.AccountId;
-            var usersData = AuditUsers.GetRecentlyModifiedUsersData(basePath, accessToken, Guid.Parse(accountId), organizationId);
-            // Process results
-            ViewBag.h1 = "Audit users";
-            ViewBag.message = "Results from Users:getUserProfiles method:";
-            ViewBag.Locals.Json = JsonConvert.SerializeObject(usersData, Formatting.Indented);
-            return View("example_done");
+            try
+            {
+                var organizationId = RequestItemsService.OrganizationId;
+                var accessToken = RequestItemsService.User.AccessToken;
+                var basePath = RequestItemsService.Session.AdminApiBasePath;
+                var accountId = RequestItemsService.Session.AccountId;
+                var usersData = AuditUsers.GetRecentlyModifiedUsersData(basePath, accessToken, Guid.Parse(accountId), organizationId);
+                // Process results
+                ViewBag.h1 = "Audit users";
+                ViewBag.message = "Results from Users:getUserProfiles method:";
+                ViewBag.Locals.Json = JsonConvert.SerializeObject(usersData, Formatting.Indented);
+                return View("example_done");
+            }
+            catch (ApiException apiException)
+            {
+                ViewBag.errorCode = apiException.ErrorCode;
+                ViewBag.errorMessage = apiException.Message;
+
+                return View("Error");
+            }
         }
     }
 }

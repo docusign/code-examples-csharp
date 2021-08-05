@@ -24,14 +24,22 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         protected override void InitializeInternal()
         {
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = RequestItemsService.Session.BasePath + "/restapi";
-            var accountId = RequestItemsService.Session.AccountId;
+            try
+            {
+                var accessToken = RequestItemsService.User.AccessToken;
+                var basePath = RequestItemsService.Session.BasePath + "/restapi";
+                var accountId = RequestItemsService.Session.AccountId;
 
-            var (permissionProfiles, groups) = CreateUser.GetPermissionProfilesAndGroups(accessToken, basePath, accountId);
+                var (permissionProfiles, groups) = CreateUser.GetPermissionProfilesAndGroups(accessToken, basePath, accountId);
 
-            ViewBag.PermissionProfiles = permissionProfiles.PermissionProfiles;
-            ViewBag.Groups = groups.Groups;
+                ViewBag.PermissionProfiles = permissionProfiles.PermissionProfiles;
+                ViewBag.Groups = groups.Groups;
+            }
+            catch (ApiException apiException)
+            {
+                ViewBag.errorCode = apiException.ErrorCode;
+                ViewBag.errorMessage = apiException.Message;
+            }
         }
 
         [MustAuthenticate]

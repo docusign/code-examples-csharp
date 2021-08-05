@@ -85,7 +85,9 @@ namespace DocuSign.CodeExamples.Common
                     "account_read",
                     "organization_read",
                     "group_read",
-                    "permission_read"
+                    "permission_read",
+                    "identity_provider_read",
+                    "domain_read"
             });
             }
 
@@ -164,7 +166,15 @@ namespace DocuSign.CodeExamples.Common
                     var apiClient = new DocuSign.Admin.Client.ApiClient(this.Session.AdminApiBasePath);
                     apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + this.User.AccessToken);
                     var accountApi = new DocuSign.Admin.Api.AccountsApi(apiClient);
-                    _organizationId = accountApi.GetOrganizations().Organizations.FirstOrDefault().Id;
+                    var org = accountApi.GetOrganizations().Organizations.FirstOrDefault();
+                    if (org == null)
+                    {
+                        throw new DocuSign.Admin.Client.ApiException(0, "You must create an organization for this account to be able to use the DocuSign Admin API." );
+                    }
+                        else
+                    {
+                        _organizationId = org.Id;
+                    }
                 }
                 return _organizationId;
             }

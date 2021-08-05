@@ -130,6 +130,8 @@ namespace DocuSign.CodeExamples
                         options.Scope.Add("organization_read");
                         options.Scope.Add("group_read");
                         options.Scope.Add("permission_read");
+                        options.Scope.Add("identity_provider_read");
+                        options.Scope.Add("domain_read");
                         break;
                 }
 

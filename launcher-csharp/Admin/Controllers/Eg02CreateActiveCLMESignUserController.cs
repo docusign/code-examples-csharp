@@ -29,7 +29,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         {
             var organizationId = RequestItemsService.OrganizationId;
             var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = RequestItemsService.Session.AdminApiBasePath; 
+            var basePath = RequestItemsService.Session.AdminApiBasePath;
             var accountId = RequestItemsService.Session.AccountId;
 
             var apiClient = new ApiClient(basePath);
@@ -48,6 +48,28 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             var dsGroupsApi = new DSGroupsApi(apiClient);
             ViewBag.DsGroups = dsGroupsApi.GetDSGroups(organizationId, Guid.Parse(accountId)).DsGroups;
             // Step 4 End
+            if (ViewBag.DsGroups.Count == 0)
+            {
+                throw new ApiException(0, "You do not have any groups set in your DocuSign Admin. Please go to DocuSign Admin and create a group to use this code example.");
+            }
+        }
+
+        [MustAuthenticate]
+        [HttpGet]
+        public override IActionResult Get()
+        {
+            try
+            {
+                base.Get();
+                return View("Eg02", this);
+            }
+            catch (ApiException apiException)
+            {
+                ViewBag.errorCode = apiException.ErrorCode;
+                ViewBag.errorMessage = apiException.Message;
+
+                return View("Error");
+            }
         }
 
         [MustAuthenticate]
