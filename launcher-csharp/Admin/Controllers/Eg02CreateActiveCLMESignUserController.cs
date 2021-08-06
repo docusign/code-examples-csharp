@@ -50,7 +50,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             // Step 4 End
             if (ViewBag.DsGroups.Count == 0)
             {
-                throw new ApiException(0, "You do not have any groups set in your DocuSign Admin. Please go to "<a target=\'_blank\' href=\"https://admindemo.docusign.com/authenticate?goTo=groups\">DocuSign Admin</a>" and create a group to use this code example.");
+                throw new ApiException(0, "You do not have any groups set in your DocuSign Admin. Please go to \"<a target=\'_blank\' href=\"https://admindemo.docusign.com/authenticate?goTo=groups\">DocuSign Admin</a>\" and create a group to use this code example.");
             }
         }
 
