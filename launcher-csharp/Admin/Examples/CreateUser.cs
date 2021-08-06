@@ -98,7 +98,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
                         }
                     }
                 },
-                AutoActivateMemberships = true
+                AutoActivateMemberships = false
             };
         }
     }
