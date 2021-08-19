@@ -40,7 +40,7 @@
         @Html.DropDownList("CLMPermissionProfileId", new SelectList(ViewBag.CLMPermissionProfiles, "PermissionProfileId", "PermissionProfileName"), new { @class = "form-control" })
     </div>
     <div class="form-group">
-        <label for="DSGroups">DocuSign Admin Group</label>
+        <label for="DSGroups">DocuSign Admin group</label>
         @Html.DropDownList("DsGroupId", new SelectList(ViewBag.DsGroups, "DsGroupId", "GroupName"), new { @class = "form-control" })
     </div>
     <button type="submit" class="btn btn-primary">Continue</button>
