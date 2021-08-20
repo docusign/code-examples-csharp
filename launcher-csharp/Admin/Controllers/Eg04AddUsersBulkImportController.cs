@@ -32,17 +32,15 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             var basePath = RequestItemsService.Session.AdminApiBasePath;
             var accountId = RequestItemsService.Session.AccountId;
             var organizationId = RequestItemsService.OrganizationId;
-            string csvFileData = $"AccountID, AccountName, FirstName, LastName, UserEmail, eSignPermissionProfile, Group, Language, UserTitle, CompanyName, AddressLine1, AddressLine2, City, StateRegionProvince, PostalCode, Phone, LoginPolicy, AutoActivate\n" +
-                $"{accountId},Sample Account, First1, Last1, example@sampleemail.example,Account Administrator, Everyone, en, Mr., Some Division,123 4th St, Suite C1,Seattle,WA,8178,2065559999,fedAuthRequired,";
-
+       
             try
             {
                 // Call the Admin API to create a new user
                 var organizationImportResponse = ImportUser.CreateBulkImportRequest(
-                    accessToken, basePath, organizationId, csvFileData);
+                    accessToken, basePath, accountId, organizationId, Config.docCsv);
 
                 //Show results
-                ViewBag.h1 = "Results of bulk-export";
+                ViewBag.h1 = "Results of bulk-import";
                 ViewBag.message = $"User data imported. Bulk-import response:";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(organizationImportResponse, Formatting.Indented);
 

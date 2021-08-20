@@ -31,9 +31,10 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             // Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken;
             var basePath = RequestItemsService.Session.AdminApiBasePath;
-            var accountId = RequestItemsService.Session.AccountId;
             var organizationId = RequestItemsService.OrganizationId;
-            var filePath = Path.GetFullPath(Path.Combine(Path.GetFullPath(System.AppDomain.CurrentDomain.BaseDirectory), @"..\..\..\UserData.csv"));
+            var filePath = Path.GetFullPath(Path.Combine(
+                Path.GetFullPath(System.AppDomain.CurrentDomain.BaseDirectory),
+                Config.exportUsersPath));
 
             try
             {
