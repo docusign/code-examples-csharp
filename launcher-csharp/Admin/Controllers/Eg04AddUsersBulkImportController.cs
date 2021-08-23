@@ -40,8 +40,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                     accessToken, basePath, accountId, organizationId, Config.docCsv);
 
                 //Show results
-                ViewBag.h1 = "Results of bulk-import";
-                ViewBag.message = $"User data imported. Bulk-import response:";
+                ViewBag.h1 = "Add users via bulk import";
+                ViewBag.message = "Results from UserImport:addBulkUserImport method:";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(organizationImportResponse, Formatting.Indented);
 
                 return View("example_done");

@@ -43,8 +43,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                     accessToken, basePath, organizationId, filePath);
 
                 //Show results
-                ViewBag.h1 = "Results of bulk-export";
-                ViewBag.message = $"User data exported to {filePath}. Bulk-export response:";
+                ViewBag.h1 = "Bulk export user data";
+                ViewBag.message = $"User data exported to {filePath}. Results from UserExport:getUserListExport method:";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(organizationExportsResponse, Formatting.Indented);
 
                 return View("example_done");

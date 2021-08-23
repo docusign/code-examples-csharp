@@ -61,8 +61,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                     organizationId, firstName, lastName, userName, email, Int64.Parse(permissionProfileId), Int64.Parse(groupId));
 
                 //Show results
-                ViewBag.h1 = "The user was successfully created";
-                ViewBag.message = $"The user was created! User ID: {user.Id}";
+                ViewBag.h1 = "Create a new eSignature user";
+                ViewBag.message = "Results from Users::addUsers method:";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(user, Formatting.Indented);
 
                 return View("example_done");
