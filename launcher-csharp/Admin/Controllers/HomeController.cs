@@ -1,9 +1,9 @@
 ﻿using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DocuSign.CodeExamples.Monitor.Controllers
+namespace DocuSign.CodeExamples.Admin.Controllers
 {
-    [Area("Monitor")]
+    [Area("Admin")]
     public class HomeController : Controller
     {
         private IRequestItemsService _requestItemsService { get; }
@@ -22,7 +22,7 @@ namespace DocuSign.CodeExamples.Monitor.Controllers
             if (!string.IsNullOrWhiteSpace(egName))
             {
                 _requestItemsService.EgName = null;
-                return Redirect($"Monitor/{egName}");
+                return Redirect($"Admin/{egName}");
             }
 
             return View();

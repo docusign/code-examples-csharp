@@ -1,0 +1,50 @@
+﻿@model DocuSign.CodeExamples.Admin.Controllers.Eg02CreateActiveCLMESignUserController
+
+<h4 id="example02">2. Create a new active user for CLM and eSignature</h4>
+<p>
+    Demonstrates how to create a new DocuSign user (valid for both CLM and eSignature APIs) and activate their account automatically.
+</p>
+<p>
+    API methods used:
+    <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/productpermissionprofiles/productpermissionprofiles/getproductpermissionprofiles/">ProductPermissionProfiles:getProductPermissionProfiles</a>, 
+    <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/dsgroups/dsgroups/getdsgroups/">DsGroups:getDsGroups</a>, 
+    <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/addorupdateuser/">MultiProductUserManagement:addOrUpdateUser</a>.
+</p>
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">Eg02CreateActiveCLMESignUserController.cs</a> on GitHub.
+</p>
+
+
+<form class="eg" asp-action="Create" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="UserName">User Name</label>
+        <input type="text" class="form-control" name="UserName" placeholder="User Name for the new user" required>
+    </div>
+    <div class="form-group">
+        <label for="FirstName">First Name</label>
+        <input type="text" class="form-control" name="FirstName" placeholder="First Name of the new user" required>
+    </div>
+    <div class="form-group">
+        <label for="LastName">Last Name</label>
+        <input type="text" class="form-control" name="LastName" placeholder="Last Name of the new user" required>
+    </div>
+    <div class="form-group">
+        <label for="Email">Email Address</label>
+        <input type="text" class="form-control" name="Email" placeholder="Email address of the new user" required>
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="ESignaturePermissionProfiles">eSignature permission profile</label>
+        @Html.DropDownList("ESignPermissionProfileId", new SelectList(ViewBag.ESignPermissionProfiles, "PermissionProfileId", "PermissionProfileName"), new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="CLMPermissionhProfiles">CLM permission profile</label>
+        @Html.DropDownList("CLMPermissionProfileId", new SelectList(ViewBag.CLMPermissionProfiles, "PermissionProfileId", "PermissionProfileName"), new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="DSGroups">DocuSign Admin group</label>
+        @Html.DropDownList("DsGroupId", new SelectList(ViewBag.DsGroups, "DsGroupId", "GroupName"), new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Continue</button>
+</form>
+

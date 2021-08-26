@@ -23,6 +23,7 @@ namespace DocuSign.CodeExamples.Controllers
         {
             if (authType == "CodeGrant") 
             {
+                returnUrl += "?egName=" + _requestItemsService.EgName;
                 return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });
             }
 
@@ -62,7 +63,7 @@ namespace DocuSign.CodeExamples.Controllers
             await AuthenticationHttpContextExtensions.SignOutAsync(HttpContext);
             _requestItemsService.Logout();
             _configuration["quickstart"] = "false";
-            return LocalRedirect("/");            
+            return LocalRedirect("/?egName=home");            
         }
 
         /// <summary>
@@ -81,6 +82,10 @@ namespace DocuSign.CodeExamples.Controllers
             else if (apiType == ExamplesAPIType.Click)
             {
                 scopes += " click.manage click.send";
+            }
+            if (apiType == ExamplesAPIType.Admin)
+            {
+                scopes += " user_read user_write organization_read account_read group_read permission_read identity_provider_read";
             }
             return this._configuration["DocuSign:AuthorizationEndpoint"] + "?response_type=code" +
                 "&scope=" + scopes +

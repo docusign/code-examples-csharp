@@ -12,6 +12,7 @@ namespace DocuSign.CodeExamples
         Session Session { get; set; }
 
         User User { get; set; }
+        public Guid? OrganizationId { get; set; }
         string EnvelopeId { get; set; }
         string DocumentId { get; set; }
         string ClickwrapId { get; set; }

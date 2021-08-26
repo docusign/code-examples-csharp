@@ -1,0 +1,79 @@
+﻿@{
+    Layout = "_HomeLayout";
+}
+
+<div class="jumbotron">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <h1 class="display-4">C# Launcher</h1>
+                    <p class="Xlead">
+                        Run and explore DocuSign Admin API code examples with Authorization Code Grant or JWT Grant authentication
+                    </p>
+                </td>
+                <td>
+                    <img src="/images/banner-code.PNG" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container" style="margin-top: 40px" id="index-page">
+
+    <h2>DocuSign Admin Code Examples</h2>
+    <h4 id="example01">1. <a asp-action="Get" asp-controller="Eg01CreateUser" asp-area="Admin">Create a new active eSignature user</a></h4>
+    <p>
+        Demonstrates how to create a new eSignature user and activate their account automatically.
+    </p>
+    <p>
+        API method used:
+        <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/users/users/createuser/">Users:createUser</a>
+    </p>
+
+    <h4 id="example02">2. <a asp-action="Get" asp-controller="Eg02CreateActiveCLMESignUser" asp-area="Admin">Create a new active user for CLM and eSignature</a></h4>
+    <p>
+        Demonstrates how to create a new DocuSign user (valid for both CLM and eSignature APIs) and activate their account automatically.
+    </p>
+    <p>
+        API methods used:
+        <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/productpermissionprofiles/productpermissionprofiles/getproductpermissionprofiles/">ProductPermissionProfiles:getProductPermissionProfiles</a>, 
+        <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/dsgroups/dsgroups/getdsgroups/">DsGroups:getDsGroups</a>,  
+        <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/addorupdateuser/">MultiProductUserManagement:addOrUpdateUser</a>
+    </p>
+
+
+    <h4 id="example03">3. <a asp-action="Get" asp-controller="Eg03BulkExportUserData" asp-area="Admin">Bulk export user data</a></h4>
+    <p>
+        Demonstrates how to bulk export user accounts within an organization into a CSV (comma-separated value) file.
+    </p>
+    <p>
+        API methods used:
+        <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userexport/createuserlistexport/">UserExport:createUserListExport</a>,  
+        <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userexport/getuserlistexport/">UserExport:getUserListExport</a>
+    </p>
+
+    <h4 id="example04">4. <a asp-action="Get" asp-controller="Eg04AddUsersBulkImport" asp-area="Admin">Add users via bulk import</a></h4>
+    <p>
+        Demonstrates how to bulk import users and add user data from an example CSV (comma-separated value) file into a DocuSign Admin organization.
+    </p>
+    <p>
+        API method used:
+        <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userimport/addbulkuserimport/">UserImport:addBulkUserImport</a>
+    </p>
+
+    <h4 id="example05">5. <a asp-action="Get" asp-controller="Eg05AuditUsers" asp-area="Admin">Audit Users</a></h4>
+    <p>
+        Demonstrates how to audit the users in your account by retrieving the profiles of users that were modified after a specified date.
+    </p>
+    <p>
+        API methods used:
+        <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/users/users/getusers/">Users:getUsers</a>,  
+        <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/users/users/getuserprofiles/">Users:getUserProfiles</a>
+    </p>
+
+    <!-- anchor-js is only for the index page -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js"></script>
+    <script>anchors.options.placement = 'left'; anchors.add('h4')</script>
+</div>

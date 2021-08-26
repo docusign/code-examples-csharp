@@ -5,6 +5,7 @@
         Rooms,
         ESignature,
         Click,
-        Monitor
+        Monitor,
+        Admin
     }
 }

@@ -16,7 +16,7 @@ namespace DocuSign.CodeExamples.Controllers
             _configuration = configuration;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string egName)
         {
             if (_configuration["quickstart"] == "true")
             {
@@ -26,7 +26,14 @@ namespace DocuSign.CodeExamples.Controllers
                 }
                 return Redirect("eg001");
             }
-            string egName = _requestItemsService.EgName;
+            if (egName == "home")
+            {
+                return View();
+            }
+            if (string.IsNullOrEmpty(egName))
+            {
+                egName = _requestItemsService.EgName;
+            }
             if (!string.IsNullOrWhiteSpace(egName))
             {
                 _requestItemsService.EgName = null;
