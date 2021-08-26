@@ -1,0 +1,54 @@
+﻿@*@model DocuSign.CodeExamples.Admin.Controllers.Eg01CreateUserController*@
+
+<h4>1. Create a new active eSignature user</h4>
+<p>
+    Demonstrates how to create a new eSignature user and activate their account automatically.
+</p>
+
+@if (ViewBag.showDoc == true)
+{
+    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example.</p>
+}
+
+<p>
+    API method used:
+    <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/users/users/createuser/">Users::createUser</a>.
+</p>
+
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">Eg01CreateUserController.cs</a> on GitHub.
+</p>
+
+<form class="eg" asp-action="Create" asp-controller="Eg01CreateUser" asp-area="Admin" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="userName">User Name</label>
+        <input type="text" class="form-control" id="userName" placeholder="PatJohnson" name="userName"
+               required>
+    </div>
+    <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" id="firstName" placeholder="Pat" name="firstName"
+               required>
+    </div>
+    <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" id="lastName" placeholder="Johnson" name="lastName"
+               required>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email"
+               aria-describedby="emailHelp" placeholder="pat@example.com" required>
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="PermissionProfiles">eSignature permission profile</label>
+        @Html.DropDownList("PermissionProfileId", new SelectList(ViewBag.PermissionProfiles, "PermissionProfileId", "PermissionProfileName"), new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="DSGroups">DocuSign Admin group</label>
+        @Html.DropDownList("GroupId", new SelectList(ViewBag.Groups, "GroupId", "GroupName"), new { @class = "form-control" })
+    </div>
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

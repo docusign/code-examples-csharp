@@ -120,6 +120,17 @@ namespace DocuSign.CodeExamples
                     case ExamplesAPIType.Monitor:
                         options.Scope.Add("signature");
                         options.Scope.Add("impersonation");
+                        options.Scope.Add("room_forms");
+                        break;
+                    case ExamplesAPIType.Admin:
+                        options.Scope.Add("signature");
+                        options.Scope.Add("user_read");
+                        options.Scope.Add("user_write");
+                        options.Scope.Add("account_read");
+                        options.Scope.Add("organization_read");
+                        options.Scope.Add("group_read");
+                        options.Scope.Add("permission_read");
+                        options.Scope.Add("identity_provider_read");
                         break;
                 }
 
@@ -242,6 +253,11 @@ namespace DocuSign.CodeExamples
                         endpoints.MapControllerRoute(
                             name: "default",
                             pattern: "{area=Monitor}/{controller=Home}/{action=Index}/{id?}");
+                        break;
+                    case ExamplesAPIType.Admin:
+                        endpoints.MapControllerRoute(
+                            name: "default",
+                            pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}");
                         break;
                 }
             });
