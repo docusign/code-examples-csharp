@@ -32,9 +32,12 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             var basePath = RequestItemsService.Session.AdminApiBasePath;
             var accountId = RequestItemsService.Session.AccountId;
 
+
+            // Step 2 Start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-
+            // Step 2 End
+            
             // Step 3 Start
             var productPermissionProfileApi = new ProductPermissionProfilesApi(apiClient);
             var productPermissionProfiles = productPermissionProfileApi.GetProductPermissionProfiles(organizationId, Guid.Parse(accountId));

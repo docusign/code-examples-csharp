@@ -25,14 +25,14 @@ namespace DocuSign.Admin.Examples
             var getUsersOptions = new UsersApi.GetUsersOptions { accountId = accountId, lastModifiedSince = DateTime.Today.AddDays(-10).ToShortDateString() };
             var recentlyModifiedUsers = usersApi.GetUsers(orgId, getUsersOptions);
             // Step 3 end
-            // Step 4 start
+            // Step 5 start
             var usersData = new List<UserDrilldownResponse>();
             foreach (var user in recentlyModifiedUsers.Users)
             {
                 var getUserProfilesOptions = new UsersApi.GetUserProfilesOptions { email = user.Email };
                 usersData.AddRange(usersApi.GetUserProfiles(orgId, getUserProfilesOptions).Users);
             }
-            // Step 4 end
+            // Step 5 end
             return usersData;
         }
     }
