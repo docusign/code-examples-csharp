@@ -39,7 +39,7 @@ For a list of code examples that use the Click API, select the C# tab under [Exa
 ## Monitor API
 
 **Note:** To use the Monitor API, you must also [enable DocuSign Monitor for your organization](https://developers.docusign.com/docs/monitor-api/how-to/enable-monitor/).  
-For information about the scopes used for obtaining authorization to use the Monitor API, see the [scopes section](https://developers.docusign.com/docs/monitor-api/monitor101/auth/).  \
+For information about the scopes used for obtaining authorization to use the Monitor API, see the [scopes section](https://developers.docusign.com/docs/monitor-api/monitor101/auth/). 
 
 For a list of code examples that use the Admin API, select the C# tab under [Examples and languages](https://developers.docusign.com/docs/admin-api/how-to/code-launchers#examples-and-languages) on the DocuSign Developer Center.
 
