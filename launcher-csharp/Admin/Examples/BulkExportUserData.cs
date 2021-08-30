@@ -21,9 +21,12 @@ namespace DocuSign.CodeExamples.Admin.Examples
         public static OrganizationExportResponse CreateBulkExportRequest(string accessToken, string basePath,
             Guid? organizationId, string filePath)
         {
+            // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            // Step 2 end
 
+            // Step 3 start
             var bulkExportsApi = new BulkExportsApi(apiClient);
 
             var organizationExportRequest = new OrganizationExportRequest
@@ -48,6 +51,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
                     exportResponse = bulkExportsApi.GetUserListExport(organizationId, exportResponse.Id);
                 }
             }
+            // Step 3 end
 
             return exportResponse;
         }

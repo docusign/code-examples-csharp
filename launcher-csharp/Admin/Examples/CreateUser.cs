@@ -27,14 +27,18 @@ namespace DocuSign.CodeExamples.Admin.Examples
             string userName, string email, long permissionProfileId, long groupId)
         {
             // Construct your API headers
+            // Step 2 start
             var apiClient = new DocuSign.Admin.Client.ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            // Step 2 end
 
+            // Step 4 start
             var usersApi = new DocuSign.Admin.Api.UsersApi(apiClient);
             NewUserRequest newUserRequest = ConstructNewUserRequest(permissionProfileId, groupId, accountId, email,
                 firstName, lastName, userName);
 
             return usersApi.CreateUser(organizationId, newUserRequest);
+            // Step 4 end
         }
 
         /// <summary>
@@ -76,6 +80,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
         {
             return new NewUserRequest
             {
+                // Step 3 start
                 FirstName = firstName,
                 LastName = lastName,
                 UserName = userName,
@@ -99,6 +104,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
                     }
                 },
                 AutoActivateMemberships = false
+                // Step 3 end
             };
         }
     }

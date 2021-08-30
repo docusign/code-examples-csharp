@@ -19,9 +19,12 @@ namespace DocuSign.CodeExamples.Admin.Examples
         /// <returns>The response of users import</returns>
         public static OrganizationImportResponse CreateBulkImportRequest(string accessToken, string basePath, string accountId, Guid? organizationId, string csvFilePath)
         {
+            // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            // Step 2 end
 
+            // Step 3 start
             var bulkImportsApi = new BulkImportsApi(apiClient);
 
             var csvFileData = File.ReadAllText(csvFilePath)
@@ -30,6 +33,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
             var bytes = Encoding.UTF8.GetBytes(csvFileData);
 
             return bulkImportsApi.CreateBulkImportAddUsersRequest(organizationId, bytes);
+            // Step 3 end
         }
     }
 }
