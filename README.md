@@ -50,7 +50,7 @@ For a list of code examples that use the Monitor API, select the C# tab under [E
 
 For information about the scopes used for obtaining authorization to use the Admin API, see the [scopes section](https://developers.docusign.com/docs/admin-api/admin101/auth/).
 
-For a list of code examples that use the Admin API, select the C# tab under Examples and languages on the DocuSign Developer Center.
+For a list of code examples that use the Admin API, select the C# tab under [Examples and languages](https://developers.docusign.com/docs/admin-api/how-to/code-launchers/#examples-and-languages) on the DocuSign Developer Center.
 
 
 ## Installation
