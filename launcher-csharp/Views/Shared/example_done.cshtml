@@ -8,4 +8,8 @@
     <p><pre class="json-display"><code id="json-display">@ViewBag.Locals.Json</code></pre></p>
 }
 
+@if (ViewBag.AdditionalLink != null)
+{
+    <p><a href="@ViewBag.AdditionalLink">@ViewBag.AdditionalLinkText</a></p>
+}
 <p><a href="/">Continue</a></p>
