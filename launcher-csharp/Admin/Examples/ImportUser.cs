@@ -35,5 +35,20 @@ namespace DocuSign.CodeExamples.Admin.Examples
             return bulkImportsApi.CreateBulkImportAddUsersRequest(organizationId, bytes);
             // Step 3 end
         }
+        /// <summary>
+        /// Checks the status of an existing bulk import requests
+        /// </summary>
+        /// <param name="accessToken">Access Token for API call (OAuth)</param>
+        /// <param name="basePath">BasePath for API calls (URI)</param>
+        /// <param name="organizationId">The DocuSign organization ID (GUID or short version) for which the APIs call would be made</param>
+        /// <param name="importId">Unique ID of the bulk user import request</param>
+        /// <returns></returns>
+        public static OrganizationImportResponse CheckkStatus(string accessToken, string basePath, Guid? organizationId, Guid? importId)
+        {
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var bulkImportsApi = new BulkImportsApi(apiClient);
+            return bulkImportsApi.GetBulkUserImportRequest(organizationId, importId);
+        }
     }
 }
