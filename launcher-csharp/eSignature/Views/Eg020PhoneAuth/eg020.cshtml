@@ -1,12 +1,12 @@
 ﻿
-<h4>21. Requiring an Phone Authentication for a Recipient</h4>
+<h4>20. Requiring Phone Authentication for a Recipient</h4>
 <p>
-    The envelope includes a pdf document. Anchor text
+    The envelope includes a PDF document. Anchor text
     (<a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">AutoPlace</a>)
-    is used to position the signing fields in the documents.
+    is used to position the signing fields (tabs) in the documents.
 </p>
 <p>
-    This is a general example of creating and sending an envelope (a signing request) using a phone call for Recipient Authentication.
+    This is a general example of creating and sending an envelope (a signing request) using an SMS message or phone call for Recipient Authentication.
 </p>
 
 @if (ViewBag.showDoc == true)
@@ -20,14 +20,20 @@
 </p>
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">Eg021SmsAuthController.cs</a> on GitHub.
+    View source file <a target="_blank" href="@ViewBag.source">Eg020PhoneAuthController.cs</a> on GitHub.
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
 
     <div class="form-group">
+        <label for="signerCountryCode">Signer Country Code</label>
+        <input type="number" class="form-control" id="signerCountryCode" name="signerCountryCode"
+               aria-describedby="countryCodeHelp" placeholder="1" required>
+        <small id="countryCodeHelp" class="form-text text-muted">The country code for the phone below</small>
+    </div>
+    <div class="form-group">
         <label for="signerPhone">Signer Phone Number</label>
-        <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber"
+        <input type="tel" class="form-control" id="signerPhoneNumber" name="signerPhoneNumber"
                aria-describedby="telHelp" placeholder="415-555-1212" required
                value="">
         <small id="telHelp" class="form-text text-muted">We'll never share your phone number with anyone else.</small>

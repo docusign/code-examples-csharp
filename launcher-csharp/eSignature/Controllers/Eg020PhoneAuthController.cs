@@ -5,19 +5,19 @@ using eSignature.Examples;
 namespace DocuSign.CodeExamples.Controllers
 {
     [Area("eSignature")]
-    [Route("eg021")]
-    public class Eg021PhoneAuthController : EgController
+    [Route("eg020")]
+    public class Eg020PhoneAuthController : EgController
     {
-        public Eg021PhoneAuthController(DSConfiguration config, IRequestItemsService requestItemsService)
+        public Eg020PhoneAuthController(DSConfiguration config, IRequestItemsService requestItemsService)
             : base(config, requestItemsService)
         {
             ViewBag.title = "Phone Authenticatication";
         }
 
-        public override string EgName => "eg021";
+        public override string EgName => "eg020";
 
         [HttpPost]
-        public IActionResult Create(string signerEmail, string signerName, string phoneNumber)
+        public IActionResult Create(string signerEmail, string signerName, string signerCountryCode, string signerPhoneNumber)
         {
             // Check the token with minimal buffer time.
             bool tokenOk = CheckToken(3);
@@ -42,7 +42,7 @@ namespace DocuSign.CodeExamples.Controllers
             // Call the Examples API method to create an envelope and 
             // add recipient that is to be authenticated with phone call
             string envelopeId = RecipientAuthPhone.CreateEnvelopeWithRecipientUsingPhoneAuth(signerEmail, signerName,
-                accessToken, basePath, accountId, phoneNumber);
+                accessToken, basePath, accountId, signerCountryCode, signerPhoneNumber);
 
             // Process results
             ViewBag.h1 = "Envelope sent";

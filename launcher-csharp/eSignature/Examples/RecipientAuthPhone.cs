@@ -8,7 +8,7 @@ namespace eSignature.Examples
     public static class RecipientAuthPhone
     {
         /// <summary>
-        /// Creates an envelope and adds a recipient that is to be authenticated using a phone call.
+        /// Creates an envelope and adds a recipient that is to be authenticated using either a phone call or an SMS (text) message.
         /// </summary>
         /// <param name="signerEmail">Email address for the signer</param>
         /// <param name="signerName">Full name of the signer</param>
@@ -17,7 +17,7 @@ namespace eSignature.Examples
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// <param name="phoneNumber">Phone number to make the phone call to be verified by the recipient</param>
         /// <returns>EnvelopeId for the new envelope</returns>
-        public static string CreateEnvelopeWithRecipientUsingPhoneAuth(string signerEmail, string signerName, string accessToken, string basePath, string accountId, string phoneNumber)
+        public static string CreateEnvelopeWithRecipientUsingPhoneAuth(string signerEmail, string signerName, string accessToken, string basePath, string accountId, string countryAreaCode, string phoneNumber)
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);
@@ -61,18 +61,29 @@ namespace eSignature.Examples
             {
                 SignHereTabs = new List<SignHere> { signHere1 }
             };
-            RecipientPhoneAuthentication phoneAuthNumber = new RecipientPhoneAuthentication();
-            phoneAuthNumber.SenderProvidedNumbers = new List<string>();
 
-            // You may call the SenderProvidedNumbers.Add method repeatedly for multiple phone numbers. 
-            phoneAuthNumber.SenderProvidedNumbers.Add(phoneNumber); // represents your {PHONE_NUMBER}.
-            RecipientPhoneAuthentication phoneAuth = new RecipientPhoneAuthentication()
+
+            string workflowId = "c368e411-1592-4001-a3df-dca94ac539ae"; // default workflowID for phone auth, can be hardcoded
+
+            RecipientIdentityVerification workflow = new RecipientIdentityVerification()
             {
-                RecordVoicePrint = "false",
-                ValidateRecipProvidedNumber = "false",
-                RecipMayProvideNumber = "true",
+                WorkflowId = workflowId,
+                InputOptions = new List<RecipientIdentityInputOption> {
+                    new RecipientIdentityInputOption
+                    {
+                        Name = "phone_number_list",
+                        ValueType = "PhoneNumberList",
+                        PhoneNumberList = new List<RecipientIdentityPhoneNumber>
+                        {
+                            new RecipientIdentityPhoneNumber
+                            {
+                                Number = phoneNumber,
+                                CountryCode = countryAreaCode
+                            }
+                        }
+                    }
+                }
             };
-            phoneAuth.SenderProvidedNumbers = phoneAuthNumber.SenderProvidedNumbers;
 
             Signer signer1 = new Signer()
             {
@@ -84,8 +95,7 @@ namespace eSignature.Examples
                 RecipientId = "1", //represents your {RECIPIENT_ID},
                 RequireIdLookup = "true",
                 Tabs = signer1Tabs,
-                PhoneAuthentication = phoneAuth,
-                IdCheckConfigurationName = "Phone Auth $",
+                IdentityVerification = workflow,
             };
 
             Recipients recipients = new Recipients();
