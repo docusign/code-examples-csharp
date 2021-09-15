@@ -45,7 +45,7 @@ namespace DocuSign.CodeExamples.Controllers
                 // Call the Examples API method to create an envelope and 
                 // add recipient that is to be authenticated with phone call
                 string envelopeId = RecipientAuthPhone.CreateEnvelopeWithRecipientUsingPhoneAuth(signerEmail, signerName,
-                    accessToken, basePath, accountId, signerCountryCode, signerPhoneNumber);
+                    accessToken, basePath, accountId, signerCountryCode, signerPhoneNumber, Config.docPdf);
 
                 // Process results
                 ViewBag.h1 = "Envelope sent";
