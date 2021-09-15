@@ -78,7 +78,7 @@ namespace eSignature.Examples
                             new RecipientIdentityPhoneNumber
                             {
                                 Number = phoneNumber,
-                                CountryCode = countryAreaCode
+                                CountryCode = countryAreaCode,
                             }
                         }
                     }
@@ -93,7 +93,6 @@ namespace eSignature.Examples
                 Status = "Created",
                 DeliveryMethod = "Email",
                 RecipientId = "1", //represents your {RECIPIENT_ID},
-                RequireIdLookup = "true",
                 Tabs = signer1Tabs,
                 IdentityVerification = workflow,
             };
