@@ -1,14 +1,14 @@
 ﻿
-<h4>20. Requiring Phone Authentication for a Recipient</h4>
+<h4>20. Require Phone Authentication for a Recipient</h4>
+<p>
+    Sends an envelope that requires entering a six-digit code from a text message or phone call for the purpose of multifactor authentication.
+</p>
 <p>
     The envelope includes a PDF document. Anchor text
     (<a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">AutoPlace</a>)
-    is used to position the signing fields (tabs) in the documents.
+    is used to position the signing fields in the documents.
 </p>
-<p>
-    This is a general example of creating and sending an envelope (a signing request) using an SMS message or phone call for Recipient Authentication.
-</p>
-
+    
 @if (ViewBag.showDoc == true)
 {
     <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example.</p>
