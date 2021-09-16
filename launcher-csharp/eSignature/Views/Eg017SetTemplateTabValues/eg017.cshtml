@@ -1,18 +1,21 @@
 ﻿
 <h4>17. Set template tab values</h4>
 <p>
-    This example sets the value of a template's tabs. It includes setting
-    radio button and checkbox tabs.
+    This example sets the <a target="_blank" href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/">tab</a> (field) values for a template being used by an envelope. It includes setting radio button and checkbox tabs.
 </p>
 <p>The example also sets custom metadata in the envelope via the envelope custom fields feature.</p>
 @if (ViewBag.showDoc == true)
 {
-<p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example.</p>
+<p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
 }
 
 <p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
+  API methods used:
+  <a target='_blank'
+    href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>
+  and
+  <a target='_blank'
+    href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/">EnvelopeViews::createRecipient</a>.
 </p>
 
 <p>
@@ -48,8 +51,7 @@
 </form>
 } else {
 <p>
-    Problem: please first create the template using <a href="eg008">example 8.</a> <br />
-    Thank you.
+    Prerequisite: Please first create the template using <a href="eg008">example 8</a>.
 </p>
 
 <form class="eg" action="eg008" method="get">

@@ -1,17 +1,14 @@
 ﻿
-    <h4>22. Requiring Knowledge Based Authentication (KBA) for a Recipient</h4>
+    <h4>22. Send an envelope with knowledge-based authentication (KBA)</h4>
 <p>
-    The envelope includes a pdf document. Anchor text
+    This example sends an envelope requiring the recipient answer multiple-choice, public records&ndash;based questions for multifactor authentication. The envelope includes a PDF document. Anchor text
     (<a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">AutoPlace</a>)
     is used to position the signing fields in the documents.
-</p>
-<p>
-    This is a general example of creating and sending an envelope (a signing request) using KBA for Recipient Authentication.
 </p>
 
  @if (ViewBag.showDoc == true)
  {
-     <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example.</p>
+     <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
  }
 
 <p>
@@ -25,7 +22,7 @@
 
 <form class="eg" action="" method="post" data-busy="form">
     <p>
-        <strong>Note:</strong> The Access Code for this example is the Signer Name.
+        <strong>Note:</strong> The access code for this example is the Signer Name.
     </p>
 
     <div class="form-group">
