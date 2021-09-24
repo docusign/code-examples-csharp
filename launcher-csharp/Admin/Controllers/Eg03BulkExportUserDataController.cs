@@ -44,7 +44,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
                 //Show results
                 ViewBag.h1 = "Bulk export user data";
-                ViewBag.message = $"User data exported to {filePath}. Results from UserExport:getUserListExport method:";
+                ViewBag.message = $"User data exported to {filePath}.<br/> Results from UserExport:getUserListExport method:";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(organizationExportsResponse, Formatting.Indented);
 
                 return View("example_done");

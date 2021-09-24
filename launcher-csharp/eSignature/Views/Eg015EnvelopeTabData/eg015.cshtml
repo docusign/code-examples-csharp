@@ -8,7 +8,7 @@
 </p>
 
 @if (ViewBag.showDoc) {
-<p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example.</p>
+<p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
 }
 
 
@@ -24,7 +24,7 @@
 @if (ViewBag.envelopeOk) {
 <p>
     The last envelope you created with this example launcher will be queried.
-    Recommendation:  use example 9, then this example, since example 9 includes many tabs of different types.
+    Recommendation: Use example 9, then this example, since example 9 includes many tabs of different types.
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
@@ -33,8 +33,7 @@
 </form>
 } else {
 <p>
-    Problem: please first create an envelope using <a href="eg009">example 9.</a> <br />
-    Thank you.
+    Prerequisite: Please first create an envelope using <a href="eg009">example 9</a>.
 </p>
 
 <form class="eg" action="eg009" method="get">

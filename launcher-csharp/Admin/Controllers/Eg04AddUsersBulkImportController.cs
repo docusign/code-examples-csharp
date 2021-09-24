@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using DocuSign.CodeExamples.Admin.Examples;
 using DocuSign.Admin.Client;
+using DocuSign.Admin.Model;
+using System;
 
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
@@ -36,14 +38,44 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             try
             {
                 // Call the Admin API to create a new user
-                var organizationImportResponse = ImportUser.CreateBulkImportRequest(
+                OrganizationImportResponse organizationImportResponse = ImportUser.CreateBulkImportRequest(
                     accessToken, basePath, accountId, organizationId, Config.docCsv);
 
                 //Show results
                 ViewBag.h1 = "Add users via bulk import";
                 ViewBag.message = "Results from UserImport:addBulkUserImport method:";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(organizationImportResponse, Formatting.Indented);
+                ViewBag.AdditionalLinkText = "Check the request status";
+                ViewBag.AdditionalLink = "CheckStatus?id=" + organizationImportResponse.Id;
 
+                return View("example_done");
+            }
+            catch (ApiException apiException)
+            {
+                ViewBag.errorCode = apiException.ErrorCode;
+                ViewBag.errorMessage = apiException.Message;
+
+                return View("Error");
+            }
+        }
+
+        [MustAuthenticate]
+        [HttpGet]
+        [Route("CheckStatus")]
+        public ActionResult CheckStatus(string id)
+        {
+            try
+            {
+                // Obtain your OAuth token
+                var accessToken = RequestItemsService.User.AccessToken;
+                var basePath = RequestItemsService.Session.AdminApiBasePath;
+                var organizationId = RequestItemsService.OrganizationId;
+                OrganizationImportResponse organizationImportResponse = ImportUser.CheckkStatus(accessToken, basePath, organizationId, Guid.Parse(id));
+
+                //Show results
+                ViewBag.h1 = "Check status of users bulk import";
+                ViewBag.message = "Results from UserImport:getBulkUserImportRequest method:";
+                ViewBag.Locals.Json = JsonConvert.SerializeObject(organizationImportResponse, Formatting.Indented);
                 return View("example_done");
             }
             catch (ApiException apiException)

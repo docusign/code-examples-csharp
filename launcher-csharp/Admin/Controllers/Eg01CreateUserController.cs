@@ -62,7 +62,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
                 //Show results
                 ViewBag.h1 = "Create a new eSignature user";
-                ViewBag.message = "Results from Users::addUsers method:";
+                ViewBag.message = "Results from eSignUserManagement:createUser method:";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(user, Formatting.Indented);
 
                 return View("example_done");

@@ -1,17 +1,13 @@
-﻿
-    <h4>20. Requiring an Access Code for a Recipient</h4>
+﻿<h4>20. Send an envelope with SMS authentication</h4>
 <p>
-    The envelope includes a pdf document. Anchor text
+    This example sends an envelope requiring the recipient enter a code received via an SMS message for multifactor authentication. The envelope includes a PDF document. Anchor text
     (<a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">AutoPlace</a>)
     is used to position the signing fields in the documents.
-</p>
-<p>
-    This is a general example of creating and sending an envelope (a signing request) using an SMS Code for Recipient Authentication.
 </p>
 
  @if (ViewBag.showDoc == true)
  {
-     <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example.</p>
+     <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
  }
 
 <p>

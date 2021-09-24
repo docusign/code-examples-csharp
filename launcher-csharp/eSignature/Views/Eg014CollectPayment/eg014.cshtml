@@ -1,4 +1,4 @@
-﻿<h4>14. Send an envelope with an order form, including a payment field.</h4>
+﻿<h4>14. Send an envelope with an order form and payment field</h4>
 
 <h5 style="color: purple;">
     Note: This example will only work if the sender's DocuSign account
@@ -7,14 +7,11 @@
     own instance of this project to set it.
 </h5>
 
-<p>
-    Anchor strings
-    (<a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">AutoPlace</a>)
-    are used to position the fields in the documents.
+<p>Anchor text (<a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">AutoPlace</a>) is used to position the fields in the documents.
 </p>
 
 @if (ViewBag.showDoc) {
-<p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example.</p>
+<p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
 }
 
 <p>
@@ -55,6 +52,6 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 } else {
-<p>Problem: please set the <b>DS_PAYMENT_GATEWAY_ID</b> value in the configuration file.</p>
+<p>Prerequisite: Please set the <b>DS_PAYMENT_GATEWAY_ID</b> value in the configuration file.</p>
 }
 
