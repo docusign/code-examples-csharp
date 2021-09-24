@@ -103,7 +103,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
                         }
                     }
                 },
-                AutoActivateMemberships = false
+                AutoActivateMemberships = true
                 // Step 3 end
             };
         }

@@ -2,7 +2,7 @@
 
 ### GitHub repo: [code-examples-csharp](./README.md)
 
-This GitHub repo includes code examples for the DocuSign eSignature REST API, Rooms API, Click API, and Monitor API. To switch between API code examples, in the appsettings.json file, change the `ExamplesAPI` setting from `ESignature` to `Rooms`, `Click`, `Monitor`, or `Admin`.  
+This GitHub repo includes code examples for the DocuSign Admin API, Click API, eSignature REST API, Monitor API, and Rooms API. To switch between API code examples, modify the `ExamplesAPI` setting from `ESignature` to `Admin`, `Click`, `Monitor`, or  `Rooms`, in the appsettings.json file. 
 
 
 ## Introduction
@@ -43,6 +43,7 @@ For a list of code examples that use the Click API, select the C# tab under [Exa
 For information about the scopes used for obtaining authorization to use the Monitor API, see the [scopes section](https://developers.docusign.com/docs/monitor-api/monitor101/auth/). 
 
 For a list of code examples that use the Monitor API, select the C# tab under [Examples and languages](https://developers.docusign.com/docs/monitor-api/how-to/code-launchers#examples-and-languages) on the DocuSign Developer Center.
+
 
 ## Admin API
 
