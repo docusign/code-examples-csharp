@@ -48,15 +48,56 @@ namespace eSignature.Examples
                         new Document
                         {
                             DocumentBase64 = Convert.ToBase64String(System.IO.File.ReadAllBytes(docDocx)),
-                            Name = "Battle Plan",
-                            FileExtension = "docx",
+                            Name = "Lorem Ipsum",
+                            FileExtension = "pdf",
                             DocumentId = "1"
                         }
                     },
                 EnvelopeIdStamping = envelopeIdStamping,
                 EmailSubject = emailSubject,
-                Status = "created"
-            };
+                Status = "created",
+                Recipients = new Recipients
+                {
+                    Signers = new List<Signer>
+                    {
+                        new Signer
+                        {
+                            Name = "Multi Bulk Recipient::signer",
+                            Email = "multiBulkRecipients-signer@docusign.com",
+                            RoleName = "signer",
+                            RoutingOrder = "1",
+                            Status = "created",
+                            DeliveryMethod = "Email",
+                            RecipientId = "1",
+                            RecipientType = "signer",
+                            Tabs = new Tabs
+                            {
+                                SignHereTabs = new List<SignHere>
+                                {
+                                    new SignHere
+                                    {
+                                        AnchorString = "/sn1/",
+                                        AnchorUnits = "pixels",
+                                        AnchorYOffset = "10",
+                                        AnchorXOffset = "20"
+                                    }
+                                }
+                            }
+                        },
+                        new Signer
+                        {
+                            Name = "Multi Bulk Recipient::cc",
+                            Email = "multiBulkRecipients-cc@docusign.com",
+                            RoleName = "cc",
+                            RoutingOrder = "1",
+                            Status = "created",
+                            DeliveryMethod = "Email",
+                            RecipientId = "2",
+                            RecipientType = "cc"
+                        }
+                    }
+                }
+        };
 
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
             var envelopeResults = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
@@ -98,10 +139,10 @@ namespace eSignature.Examples
                             Email = "multiBulkRecipients-signer@docusign.com",
                             RoleName = "signer",
                             RoutingOrder = "1",
-                            Status = "sent",
+                            Status = "created",
                             DeliveryMethod = "Email",
                             RecipientId = "1",
-                            RecipientType = "signer"
+                            RecipientType = "signer",
                         },
                         new Signer
                         {
@@ -109,7 +150,7 @@ namespace eSignature.Examples
                             Email = "multiBulkRecipients-cc@docusign.com",
                             RoleName = "cc",
                             RoutingOrder = "1",
-                            Status = "sent",
+                            Status = "created",
                             DeliveryMethod = "Email",
                             RecipientId = "2",
                             RecipientType = "cc"
