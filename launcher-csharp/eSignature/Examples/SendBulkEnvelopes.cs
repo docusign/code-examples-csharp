@@ -83,8 +83,11 @@ namespace eSignature.Examples
                                     }
                                 }
                             }
-                        },
-                        new Signer
+                        }
+                    },
+                    CarbonCopies = new List<CarbonCopy>
+                    {
+                        new CarbonCopy
                         {
                             Name = "Multi Bulk Recipient::cc",
                             Email = "multiBulkRecipients-cc@docusign.com",
@@ -95,6 +98,7 @@ namespace eSignature.Examples
                             RecipientId = "2",
                             RecipientType = "cc"
                         }
+
                     }
                 }
         };
@@ -143,8 +147,11 @@ namespace eSignature.Examples
                             DeliveryMethod = "Email",
                             RecipientId = "1",
                             RecipientType = "signer",
-                        },
-                        new Signer
+                        }
+                    },
+                CarbonCopies = new List<CarbonCopy>
+                    {
+                        new CarbonCopy
                         {
                             Name = "Multi Bulk Recipient::cc",
                             Email = "multiBulkRecipients-cc@docusign.com",
@@ -155,14 +162,15 @@ namespace eSignature.Examples
                             RecipientId = "2",
                             RecipientType = "cc"
                         }
+
                     }
             };
             envelopesApi.CreateRecipient(accountId, envelopeResults.EnvelopeId, recipients);
 
             // Step 6. Initiate bulk send
             var bulkRequestResult = bulkEnvelopesApi.CreateBulkSendRequest(accountId, createBulkListResult.ListId, new BulkSendRequest { EnvelopeOrTemplateId = envelopeResults.EnvelopeId });
-            // TODO: instead of waiting 5 seconds, consider using the Asynchrnous method
-            System.Threading.Thread.Sleep(5000);
+            // TODO: instead of waiting 10 seconds, consider using the Asynchrnous method
+            System.Threading.Thread.Sleep(10000);
 
             // Step 7. Confirm successful batch send 
             return bulkEnvelopesApi.GetBulkSendBatchStatus(accountId, bulkRequestResult.BatchId);
