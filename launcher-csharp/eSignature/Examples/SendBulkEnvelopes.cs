@@ -26,21 +26,21 @@ namespace eSignature.Examples
         /// <returns>The status of sending</returns>
         public static BulkSendBatchStatus GetStatus(string signer1Name, string signer1Email, string carbonCopy1Name, string carbonCopy1Email, string signer2Name, string signer2Email, string carbonCopy2Name, string carbonCopy2Email, string accessToken, string basePath, string accountId, string docDocx, string envelopeIdStamping, string emailSubject)
         {
-            // Step 1. Construct your API headers
+            // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            // Step 2 end
 
             var bulkEnvelopesApi = new BulkEnvelopesApi(apiClient);
 
-            // Construct request body
+            // Step 3 start
             var sendingList = MakeBulkSendList(signer1Name,  signer1Email, carbonCopy1Name, carbonCopy1Email, signer2Name, signer2Email, carbonCopy2Name, carbonCopy2Email);
 
-
-            // Step 2. Submit a bulk list
             var createBulkListResult = bulkEnvelopesApi.CreateBulkSendList(accountId, sendingList);
+            // Step 3 end
 
 
-            // Step 3. Create an envelope
+            // Step 4 start
             var envelopeDefinition = new EnvelopeDefinition
             {
                 Documents = new List<Document>
@@ -48,23 +48,69 @@ namespace eSignature.Examples
                         new Document
                         {
                             DocumentBase64 = Convert.ToBase64String(System.IO.File.ReadAllBytes(docDocx)),
-                            Name = "Battle Plan",
-                            FileExtension = "docx",
+                            Name = "Lorem Ipsum",
+                            FileExtension = "pdf",
                             DocumentId = "1"
                         }
                     },
                 EnvelopeIdStamping = envelopeIdStamping,
                 EmailSubject = emailSubject,
-                Status = "created"
-            };
+                Status = "created",
+                Recipients = new Recipients
+                {
+                    Signers = new List<Signer>
+                    {
+                        new Signer
+                        {
+                            Name = "Multi Bulk Recipient::signer",
+                            Email = "multiBulkRecipients-signer@docusign.com",
+                            RoleName = "signer",
+                            RoutingOrder = "1",
+                            Status = "created",
+                            DeliveryMethod = "Email",
+                            RecipientId = "1",
+                            RecipientType = "signer",
+                            Tabs = new Tabs
+                            {
+                                SignHereTabs = new List<SignHere>
+                                {
+                                    new SignHere
+                                    {
+                                        AnchorString = "/sn1/",
+                                        AnchorUnits = "pixels",
+                                        AnchorYOffset = "10",
+                                        AnchorXOffset = "20"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    CarbonCopies = new List<CarbonCopy>
+                    {
+                        new CarbonCopy
+                        {
+                            Name = "Multi Bulk Recipient::cc",
+                            Email = "multiBulkRecipients-cc@docusign.com",
+                            RoleName = "cc",
+                            RoutingOrder = "1",
+                            Status = "created",
+                            DeliveryMethod = "Email",
+                            RecipientId = "2",
+                            RecipientType = "cc"
+                        }
+
+                    }
+                }
+        };
 
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
             var envelopeResults = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
+            // Step 4 end
 
-            // Step 4. Attach your bulk list ID to the envelope
+            // Attach your bulk list ID to the envelope
             // Add an envelope custom field set to the value of your listId (EnvelopeCustomFields::create)
             // This Custom Field is used for tracking your Bulk Send via the Envelopes::Get method
-
+            // Step 5 start
             var fields = new CustomFields
             {
                 ListCustomFields = new List<ListCustomField> { },
@@ -81,13 +127,14 @@ namespace eSignature.Examples
                     }
             };
             envelopesApi.CreateCustomFields(accountId, envelopeResults.EnvelopeId, fields);
+            // Step 5 end
 
-            // Step 5. Add placeholder recipients. 
+            // Add placeholder recipients. 
             // These will be replaced by the details provided in the Bulk List uploaded during Step 2
             // Note: The name / email format used is:
             // Name: Multi Bulk Recipients::{rolename}
             // Email: MultiBulkRecipients-{rolename}@docusign.com
-
+            // Step 6 start
             var recipients = new Recipients
             {
                 Signers = new List<Signer>
@@ -98,33 +145,40 @@ namespace eSignature.Examples
                             Email = "multiBulkRecipients-signer@docusign.com",
                             RoleName = "signer",
                             RoutingOrder = "1",
-                            Status = "sent",
+                            Status = "created",
                             DeliveryMethod = "Email",
                             RecipientId = "1",
-                            RecipientType = "signer"
-                        },
-                        new Signer
+                            RecipientType = "signer",
+                        }
+                    },
+                CarbonCopies = new List<CarbonCopy>
+                    {
+                        new CarbonCopy
                         {
                             Name = "Multi Bulk Recipient::cc",
                             Email = "multiBulkRecipients-cc@docusign.com",
                             RoleName = "cc",
                             RoutingOrder = "1",
-                            Status = "sent",
+                            Status = "created",
                             DeliveryMethod = "Email",
                             RecipientId = "2",
                             RecipientType = "cc"
                         }
+
                     }
             };
             envelopesApi.CreateRecipient(accountId, envelopeResults.EnvelopeId, recipients);
+            // Step 6 end
 
-            // Step 6. Initiate bulk send
+            // Step 7 start
             var bulkRequestResult = bulkEnvelopesApi.CreateBulkSendRequest(accountId, createBulkListResult.ListId, new BulkSendRequest { EnvelopeOrTemplateId = envelopeResults.EnvelopeId });
-            // TODO: instead of waiting 5 seconds, consider using the Asynchrnous method
-            System.Threading.Thread.Sleep(5000);
+            // TODO: instead of waiting 10 seconds, consider using the Asynchrnous method
+            System.Threading.Thread.Sleep(10000);
+            // Step 7 end
 
-            // Step 7. Confirm successful batch send 
+            // Step 8 start
             return bulkEnvelopesApi.GetBulkSendBatchStatus(accountId, bulkRequestResult.BatchId);
+            // Step 8 end
         }
 
         private static BulkSendingList MakeBulkSendList(string signer1Name, string signer1Email, string carbonCopy1Name, string carbonCopy1Email, string signer2Name, string signer2Email, string carbonCopy2Name, string carbonCopy2Email)
