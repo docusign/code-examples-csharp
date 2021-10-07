@@ -107,11 +107,10 @@ namespace eSignature.Examples
             var envelopeResults = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
             // Step 4 end
 
-            // Step 5 start
             // Attach your bulk list ID to the envelope
             // Add an envelope custom field set to the value of your listId (EnvelopeCustomFields::create)
             // This Custom Field is used for tracking your Bulk Send via the Envelopes::Get method
-
+            // Step 5 start
             var fields = new CustomFields
             {
                 ListCustomFields = new List<ListCustomField> { },
@@ -130,13 +129,12 @@ namespace eSignature.Examples
             envelopesApi.CreateCustomFields(accountId, envelopeResults.EnvelopeId, fields);
             // Step 5 end
 
-            // Step 6 start
             // Add placeholder recipients. 
             // These will be replaced by the details provided in the Bulk List uploaded during Step 2
             // Note: The name / email format used is:
             // Name: Multi Bulk Recipients::{rolename}
             // Email: MultiBulkRecipients-{rolename}@docusign.com
-
+            // Step 6 start
             var recipients = new Recipients
             {
                 Signers = new List<Signer>
