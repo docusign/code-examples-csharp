@@ -9,6 +9,11 @@
 {
     <p>@ViewBag.errorCode: @ViewBag.errorMessage</p>
     <p>@Html.Raw(ViewBag.errorInformation)</p>
+    @if (ViewBag.SupportMessage != null)
+    {
+        <p>@Html.Raw(ViewBag.SupportMessage) </p>
+    }
+
 }
 else
 {
