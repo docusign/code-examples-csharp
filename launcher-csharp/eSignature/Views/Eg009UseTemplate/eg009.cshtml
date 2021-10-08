@@ -1,18 +1,17 @@
 ﻿<h4>9. Send an envelope using a template</h4>
 <p>
-    The envelope is defined by the template.
-    The signer and cc recipient name and email are used to fill in the template's <i>roles</i>.
+    The envelope is defined by the template. The signer and cc recipient name and email are used to fill in the template's <i>roles</i>.
 </p>
 
 <p>
     This example demonstrates a common pattern for DocuSign integrations: envelopes will
     be sent programmatically, based on a template. If the template definition needs to be
-    updated, the DocuSign web tool can be used to easily update the template, thus
+    updated, the DocuSign web UI can be used to easily update the template, thus
     avoiding the need to make software changes.
 </p>
 
 @if (ViewBag.showDoc) {
-<p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example.</p>
+<p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
 }
 
 <p>
@@ -56,8 +55,7 @@
 
 } else {
 <p>
-    Problem: please first create the template using <a href="eg008">example 8.</a> <br />
-    Thank you.
+    Prerequisite: Please first create the template using <a href="eg008">example 8</a>.
 </p>
 
 <form class="eg" action="eg008" method="get">
