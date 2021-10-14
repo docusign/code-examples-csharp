@@ -33,11 +33,11 @@ namespace eSignature.Examples
 
             var bulkEnvelopesApi = new BulkEnvelopesApi(apiClient);
 
-            // Step 3 start
+            // Step 3-1 start
             var sendingList = MakeBulkSendList(signer1Name,  signer1Email, carbonCopy1Name, carbonCopy1Email, signer2Name, signer2Email, carbonCopy2Name, carbonCopy2Email);
 
             var createBulkListResult = bulkEnvelopesApi.CreateBulkSendList(accountId, sendingList);
-            // Step 3 end
+            // Step 3-1 end
 
 
             // Step 4 start
@@ -181,6 +181,7 @@ namespace eSignature.Examples
             // Step 8 end
         }
 
+        // step 3-2 start
         private static BulkSendingList MakeBulkSendList(string signer1Name, string signer1Email, string carbonCopy1Name, string carbonCopy1Email, string signer2Name, string signer2Email, string carbonCopy2Name, string carbonCopy2Email)
         {
             return new BulkSendingList
@@ -230,5 +231,6 @@ namespace eSignature.Examples
                 Name = "sample.csv"
             };
         }
+        // step 3-2 end
     }
 }
