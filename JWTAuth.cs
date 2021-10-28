@@ -2,12 +2,11 @@
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Text;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Client.Auth;
 using static DocuSign.eSign.Client.Auth.OAuth.UserInfo;
 
-namespace DocuSign.eSignature
+namespace DocuSign.CodeExamples.Authentication
 {
     public static class JWTAuth
     {

@@ -33,6 +33,24 @@ namespace eSignature.Examples
             // Step 2. Call DocuSign to create the envelope                   
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var connectApi = new ConnectApi(apiClient);
+            var connectEventData = new ConnectEventData();
+            connectEventData.Version = "restv2.1";
+
+            var connectCustomConfiguration = new ConnectCustomConfiguration();
+            connectCustomConfiguration.Name = "my custom connect configuration";
+            connectCustomConfiguration.ConfigurationType = "custom";
+            connectCustomConfiguration.AllUsers = "true";
+            connectCustomConfiguration.IncludeHMAC = "false";
+            connectCustomConfiguration.EnableLog = "true";
+            // The URL you publish events to (your web hook) must be TLS secure (https protocol)
+            connectCustomConfiguration.UrlToPublishTo = "https://domain.com/testDocuSignCustomConnectConfigFromCATBlog";
+            connectCustomConfiguration.EventData = connectEventData;
+            connectCustomConfiguration.EnvelopeEvents = new List<string> { "Completed" };
+            connectApi.CreateConfiguration(accountId, connectCustomConfiguration);
+
+
+
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
             string envelopeId = results.EnvelopeId;
