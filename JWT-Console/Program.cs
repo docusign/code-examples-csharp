@@ -31,7 +31,7 @@ namespace DocuSign.CodeExamples.JWT_Console
             string ccName = Console.ReadLine();
             string docDocx = @"..\..\..\..\launcher-csharp\World_Wide_Corp_salary.docx";
             string docPdf = @"..\..\..\..\launcher-csharp\World_Wide_Corp_lorem.pdf";
-            string envelopeId = SigningViaEmail.SendEnvelopeViaEmail(signerEmail, signerName, ccEmail, ccName, accessToken.access_token, acct.BaseUri, acct.AccountId, docDocx, docPdf, "sent");
+            string envelopeId = SigningViaEmail.SendEnvelopeViaEmail(signerEmail, signerName, ccEmail, ccName, accessToken.access_token, acct.BaseUri + "/restapi", acct.AccountId, docDocx, docPdf, "sent");
             Console.WriteLine($"Successfully sent envelope with envelopeId {envelopeId}");
         }
     }
