@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
+﻿using DocuSign.CodeExamples.Common;
 using DocuSign.eSign.Client;
-using DocuSign.eSign.Client.Auth;
-using static DocuSign.eSign.Client.Auth.OAuth.UserInfo;
+using static DocuSign.eSign.Client.Auth.OAuth;
+using System.Collections.Generic;
+using System;
 
 namespace DocuSign.CodeExamples.Authentication
 {
@@ -13,27 +11,20 @@ namespace DocuSign.CodeExamples.Authentication
         /// <summary>
         /// Uses Json Web Token (JWT) Authentication Method to obtain the necessary information needed to make API calls.
         /// </summary>
-        /// <returns>A tuple containing the accessToken, accountId and baseUri</returns>
-        public static (string, string, string) AuthenticateWithJWT()
+        /// <returns>Auth token needed for API calls</returns>
+        public static OAuthToken AuthenticateWithJWT(string api, string clientId, string impersonatedUserId, string authServer, string privateKeyFile)
         {
             var apiClient = new ApiClient();
-            string ik = ConfigurationManager.AppSettings["IntegrationKey"];
-            string userId = ConfigurationManager.AppSettings["userId"];
-            string authServer = ConfigurationManager.AppSettings["AuthServer"];
-            string rsaKeyFilePath = ConfigurationManager.AppSettings["KeyFilePath"];
-            string selectedApiTypes = ConfigurationManager.AppSettings["SelectedApiTypes"] ?? "";
-
-            List<string> scopes = new List<string>
-            {
-                "signature",
-                "impersonation"
-            };
-
-            if (selectedApiTypes.Contains("Rooms"))
-            {
-                scopes.AddRange(new List<string>
+            var apiType = Enum.Parse<ExamplesAPIType>(api);
+            var scopes = new List<string>
                 {
-                    "dtr.rooms.read",
+                    "signature",
+                    "impersonation",
+                };
+            if (apiType == ExamplesAPIType.Rooms)
+            {
+                scopes.AddRange(new List<string> {
+                "dtr.rooms.read",
                     "dtr.rooms.write",
                     "dtr.documents.read",
                     "dtr.documents.write",
@@ -41,37 +32,44 @@ namespace DocuSign.CodeExamples.Authentication
                     "dtr.profile.write",
                     "dtr.company.read",
                     "dtr.company.write",
-                    "room_forms"
-                });
+                    "room_forms"});
             }
-            if (selectedApiTypes.Contains("Click"))
+
+            if (apiType == ExamplesAPIType.Click)
+            {
+                scopes.AddRange(new List<string> {
+                    "click.manage",
+                    "click.send"
+            });
+            }
+
+            if (apiType == ExamplesAPIType.Monitor)
             {
                 scopes.AddRange(new List<string>
                 {
-                    "click.manage",
-                    "click.send"
+                    "signature",
+                    "impersonation"
                 });
             }
 
-            OAuth.OAuthToken authToken = apiClient.RequestJWTUserToken(ik,
-                            userId,
-                            authServer,
-                            File.ReadAllBytes(rsaKeyFilePath),
-                            1,
-                            scopes);
-
-            string accessToken = authToken.access_token;
-            apiClient.SetOAuthBasePath(authServer);
-            OAuth.UserInfo userInfo = apiClient.GetUserInfo(authToken.access_token);
-            Account acct = null;
-
-            var accounts = userInfo.Accounts;
+            if (apiType == ExamplesAPIType.Admin)
             {
-                acct = accounts.FirstOrDefault(a => a.IsDefault == "true");
+                scopes.AddRange(new List<string> {
+                    "user_read",
+                    "user_write",
+                    "account_read",
+                    "organization_read",
+                    "group_read",
+                    "permission_read",
+                    "identity_provider_read",
+                    "domain_read"
+            });
             }
-            string accountId = acct.AccountId;
-            string baseUri = acct.BaseUri + "/restapi";
-            return (accessToken, accountId, baseUri);
+
+
+            return apiClient.RequestJWTUserToken(
+                clientId, impersonatedUserId, authServer,
+                DSHelper.ReadFileContent(DSHelper.PrepareFullPrivateKeyFilePath(privateKeyFile)), 1, scopes);
         }
     }
 }

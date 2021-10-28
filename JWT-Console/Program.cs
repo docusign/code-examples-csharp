@@ -9,7 +9,7 @@ namespace DocuSign.CodeExamples.JWT_Console
         {
 
             string accessToken, accountId, baseUri;
-            (accessToken, accountId, baseUri) = JWTAuth.AuthenticateWithJWT();
+            //accessToken = JWTAuth.AuthenticateWithJWT();
 
             Console.WriteLine("Hello World!");
         }

@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\DSHelper.cs" Link="DSHelper.cs" />
+    <Compile Include="..\ExamplesAPIType.cs" Link="ExamplesAPIType.cs" />
     <Compile Include="..\JWTAuth.cs" Link="JWTAuth.cs" />
   </ItemGroup>
 
