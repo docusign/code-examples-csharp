@@ -1,5 +1,11 @@
-﻿using System;
-using DocuSign.CodeExamples.Authentication;
+﻿using DocuSign.CodeExamples.Authentication;
+using DocuSign.eSign.Client;
+using static DocuSign.eSign.Client.Auth.OAuth;
+using static DocuSign.eSign.Client.Auth.OAuth.UserInfo;
+using eSignature.Examples;
+using System;
+using System.Configuration;
+using System.Linq;
 
 namespace DocuSign.CodeExamples.JWT_Console
 {
@@ -7,11 +13,26 @@ namespace DocuSign.CodeExamples.JWT_Console
     {
         static void Main(string[] args)
         {
+            var accessToken = JWTAuth.AuthenticateWithJWT("ESignature", ConfigurationManager.AppSettings["ClientId"], ConfigurationManager.AppSettings["ImpersonatedUserId"], 
+                                                        ConfigurationManager.AppSettings["AuthServer"], ConfigurationManager.AppSettings["PrivateKeyFile"]);
+            var apiClient = new ApiClient();
+            apiClient.SetOAuthBasePath(ConfigurationManager.AppSettings["AuthServer"]);
+            UserInfo userInfo = apiClient.GetUserInfo(accessToken.access_token);
+            Account acct = userInfo.Accounts.FirstOrDefault();
 
-            string accessToken, accountId, baseUri;
-            //accessToken = JWTAuth.AuthenticateWithJWT();
-
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Welcome to the JWT Code example! ");
+            Console.Write("Enter the signer's email address: ");
+            string signerEmail = Console.ReadLine();
+            Console.Write("Enter the signer's name: ");
+            string signerName = Console.ReadLine();
+            Console.Write("Enter the carbon copy's email address: ");
+            string ccEmail = Console.ReadLine();
+            Console.Write("Enter the carbon copy's name ");
+            string ccName = Console.ReadLine();
+            string docDocx = @"..\..\..\..\launcher-csharp\World_Wide_Corp_salary.docx";
+            string docPdf = @"..\..\..\..\launcher-csharp\World_Wide_Corp_lorem.pdf";
+            string envelopeId = SigningViaEmail.SendEnvelopeViaEmail(signerEmail, signerName, ccEmail, ccName, accessToken.access_token, acct.BaseUri, acct.AccountId, docDocx, docPdf, "sent");
+            Console.WriteLine($"Successfully sent envelope with envelopeId {envelopeId}");
         }
     }
 }

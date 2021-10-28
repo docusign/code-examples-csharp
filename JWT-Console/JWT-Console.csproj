@@ -8,19 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DocuSign\**" />
+    <EmbeddedResource Remove="DocuSign\**" />
+    <None Remove="DocuSign\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\DSHelper.cs" Link="DSHelper.cs" />
     <Compile Include="..\ExamplesAPIType.cs" Link="ExamplesAPIType.cs" />
     <Compile Include="..\JWTAuth.cs" Link="JWTAuth.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Examples\SigningViaEmail.cs" Link="SigningViaEmail.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DocuSign.eSign.dll" Version="5.8.0-rc" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
     <PackageReference Include="System.Runtime.Caching" Version="4.7.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DocuSign\" />
   </ItemGroup>
 
 </Project>
