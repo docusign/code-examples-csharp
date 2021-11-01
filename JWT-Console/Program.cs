@@ -27,7 +27,7 @@ namespace DocuSign.CodeExamples.JWT_Console
             string signerName = Console.ReadLine();
             Console.Write("Enter the carbon copy's email address: ");
             string ccEmail = Console.ReadLine();
-            Console.Write("Enter the carbon copy's name ");
+            Console.Write("Enter the carbon copy's name: ");
             string ccName = Console.ReadLine();
             string docDocx = @"..\..\..\..\launcher-csharp\World_Wide_Corp_salary.docx";
             string docPdf = @"..\..\..\..\launcher-csharp\World_Wide_Corp_lorem.pdf";
