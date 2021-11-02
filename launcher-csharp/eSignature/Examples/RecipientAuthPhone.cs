@@ -39,7 +39,7 @@ namespace eSignature.Examples
             {
                 throw new ApiException(0, "IDENTITY_WORKFLOW_INVALID_ID");
             }
-            string workflowId = phoeAuthWorkflow.WorkflowId;
+            string workflowId = phoneAuthWorkflow.WorkflowId;
 
             // Construct your envelope JSON body
             // Step 4 start
