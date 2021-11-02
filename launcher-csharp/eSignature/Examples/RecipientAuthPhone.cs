@@ -113,6 +113,7 @@ namespace eSignature.Examples
             Recipients recipients = new Recipients();
             recipients.Signers = new List<Signer> { signer1 };
             env.Recipients = recipients;
+            // Step 4 end
 
             // Call the eSignature REST API
             // Step 5 start
