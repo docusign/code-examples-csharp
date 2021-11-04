@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
@@ -23,10 +24,25 @@ namespace eSignature.Examples
         public static string CreateEnvelopeWithRecipientUsingPhoneAuth(string signerEmail, string signerName, string accessToken, string basePath, string accountId, string countryAreaCode, string phoneNumber, string docPdf)
         {
             // Construct your API headers
+            // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            // Step 2 end
+
+
+            // Step 3 start
+            var accountsApi = new AccountsApi(apiClient);
+            AccountIdentityVerificationResponse response = accountsApi.GetAccountIdentityVerification(accountId);
+            var phoneAuthWorkflow = response.IdentityVerification.FirstOrDefault(x => x.DefaultName == "Phone Authentication");
+            // Step 3 end
+            if (phoneAuthWorkflow == null)
+            {
+                throw new ApiException(0, "IDENTITY_WORKFLOW_INVALID_ID");
+            }
+            string workflowId = phoneAuthWorkflow.WorkflowId;
 
             // Construct your envelope JSON body
+            // Step 4 start
             EnvelopeDefinition env = new EnvelopeDefinition()
             {
                 EnvelopeIdStamping = "true",
@@ -61,9 +77,6 @@ namespace eSignature.Examples
             {
                 SignHereTabs = new List<SignHere> { signHere1 }
             };
-
-
-            string workflowId = "c368e411-1592-4001-a3df-dca94ac539ae"; // default workflowID for phone auth, can be hardcoded
 
             RecipientIdentityVerification workflow = new RecipientIdentityVerification()
             {
@@ -100,10 +113,13 @@ namespace eSignature.Examples
             Recipients recipients = new Recipients();
             recipients.Signers = new List<Signer> { signer1 };
             env.Recipients = recipients;
+            // Step 4 end
 
             // Call the eSignature REST API
+            // Step 5 start
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+            // Step 5 end
             return results.EnvelopeId;
         }
     }
