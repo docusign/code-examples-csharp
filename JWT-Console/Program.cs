@@ -32,11 +32,13 @@ namespace DocuSign.CodeExamples.JWT_Console
             string ccName = Console.ReadLine();
             string docDocx = @"..\..\..\..\launcher-csharp\World_Wide_Corp_salary.docx";
             string docPdf = @"..\..\..\..\launcher-csharp\World_Wide_Corp_lorem.pdf";
-            Console.WriteLine("*****.....*****.....*****");
+            Console.WriteLine("");
             string envelopeId = SigningViaEmail.SendEnvelopeViaEmail(signerEmail, signerName, ccEmail, ccName, accessToken.access_token, acct.BaseUri + "/restapi", acct.AccountId, docDocx, docPdf, "sent");
-            Console.WriteLine("*****.....*****.....*****");
+            Console.WriteLine("");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Successfully sent envelope with envelopeId {envelopeId}");
+            Console.WriteLine("");
+            Console.WriteLine("");
             Console.ForegroundColor = ConsoleColor.White;
         }
     }
