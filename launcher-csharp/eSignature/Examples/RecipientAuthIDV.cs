@@ -62,8 +62,8 @@ namespace eSignature.Examples
             SignHere signHere1 = new SignHere
             {
                 Name = "SignHereTab",
-                XPosition = "75",
-                YPosition = "572",
+                XPosition = "200",
+                YPosition = "160",
                 TabLabel = "SignHereTab",
                 PageNumber = "1",
                 DocumentId = "1",
