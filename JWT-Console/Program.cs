@@ -20,6 +20,7 @@ namespace DocuSign.CodeExamples.JWT_Console
             UserInfo userInfo = apiClient.GetUserInfo(accessToken.access_token);
             Account acct = userInfo.Accounts.FirstOrDefault();
 
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Welcome to the JWT Code example! ");
             Console.Write("Enter the signer's email address: ");
             string signerEmail = Console.ReadLine();
@@ -31,8 +32,12 @@ namespace DocuSign.CodeExamples.JWT_Console
             string ccName = Console.ReadLine();
             string docDocx = @"..\..\..\..\launcher-csharp\World_Wide_Corp_salary.docx";
             string docPdf = @"..\..\..\..\launcher-csharp\World_Wide_Corp_lorem.pdf";
+            Console.WriteLine("*****.....*****.....*****");
             string envelopeId = SigningViaEmail.SendEnvelopeViaEmail(signerEmail, signerName, ccEmail, ccName, accessToken.access_token, acct.BaseUri + "/restapi", acct.AccountId, docDocx, docPdf, "sent");
+            Console.WriteLine("*****.....*****.....*****");
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Successfully sent envelope with envelopeId {envelopeId}");
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
