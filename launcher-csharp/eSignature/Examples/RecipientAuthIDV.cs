@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
@@ -19,15 +20,26 @@ namespace eSignature.Examples
         public static string CreateEnvelopeWithRecipientUsingIDVAuth(string signerEmail, string signerName, string accessToken, string basePath, string accountId)
         {
             // Construct your API headers
+            // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            // Step 2 end
 
             // Retreive the workflow ID
-            AccountsApi workflowDetails = new AccountsApi(apiClient);
-            AccountIdentityVerificationResponse wfRes = workflowDetails.GetAccountIdentityVerification(accountId);
+            // Step 3 start
+            var accountsApi = new AccountsApi(apiClient);
+            AccountIdentityVerificationResponse response = accountsApi.GetAccountIdentityVerification(accountId);
+            var phoneAuthWorkflow = response.IdentityVerification.FirstOrDefault(x => x.DefaultName == "DocuSign ID Verification");
+            // Step 3 end
+            if (phoneAuthWorkflow == null)
+            {
+                throw new ApiException(0, "IDENTITY_WORKFLOW_INVALID_ID");
+            }
+            string workflowId = phoneAuthWorkflow.WorkflowId;
 
             // Construct your envelope JSON body
             // Note: If you did not successfully obtain your workflow ID, step 4 will fail.
+            // Step 4 start
             EnvelopeDefinition env = new EnvelopeDefinition()
             {
                 EnvelopeIdStamping = "true",
@@ -50,8 +62,8 @@ namespace eSignature.Examples
             SignHere signHere1 = new SignHere
             {
                 Name = "SignHereTab",
-                XPosition = "75",
-                YPosition = "572",
+                XPosition = "200",
+                YPosition = "160",
                 TabLabel = "SignHereTab",
                 PageNumber = "1",
                 DocumentId = "1",
@@ -65,7 +77,6 @@ namespace eSignature.Examples
             {
                 SignHereTabs = new List<SignHere> { signHere1 }
             };
-            string workflowId = wfRes.IdentityVerification[0].WorkflowId;
             RecipientIdentityVerification workflow = new RecipientIdentityVerification()
             {
                 WorkflowId = workflowId
@@ -87,10 +98,14 @@ namespace eSignature.Examples
             Recipients recipients = new Recipients();
             recipients.Signers = new List<Signer> { signer1 };
             env.Recipients = recipients;
+            // Step 4 end
+
 
             // Call the eSignature REST API
+            // Step 5 start
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+            // Step 5 end
             return results.EnvelopeId;
         }
     }
