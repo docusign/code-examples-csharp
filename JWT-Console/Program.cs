@@ -4,6 +4,7 @@ using static DocuSign.eSign.Client.Auth.OAuth;
 using static DocuSign.eSign.Client.Auth.OAuth.UserInfo;
 using eSignature.Examples;
 using System;
+using System.Diagnostics;
 using System.Configuration;
 using System.Linq;
 
@@ -11,16 +12,40 @@ namespace DocuSign.CodeExamples.JWT_Console
 {
     class Program
     {
+        static readonly string DevCenterPage = "https://developers.docusign.com/platform/auth/consent";
+
         static void Main(string[] args)
         {
-            var accessToken = JWTAuth.AuthenticateWithJWT("ESignature", ConfigurationManager.AppSettings["ClientId"], ConfigurationManager.AppSettings["ImpersonatedUserId"], 
-                                                        ConfigurationManager.AppSettings["AuthServer"], ConfigurationManager.AppSettings["PrivateKeyFile"]);
+            Console.ForegroundColor = ConsoleColor.White;
+            OAuthToken accessToken = null;
+            try
+            {
+                accessToken = JWTAuth.AuthenticateWithJWT("ESignature", ConfigurationManager.AppSettings["ClientId"], ConfigurationManager.AppSettings["ImpersonatedUserId"],
+                                                            ConfigurationManager.AppSettings["AuthServer"], ConfigurationManager.AppSettings["PrivateKeyFile"]);
+            }
+            catch (ApiException apiExp)
+            {
+                // Consent for impersonation must be obtained to use JWT Grant
+                if (apiExp.Message.Contains("consent_required"))
+                {
+                    // build a URL to provide consent for this Integratio Key and this userId
+                    string url = "https://" + ConfigurationManager.AppSettings["AuthServer"] + "/oauth/auth?response_type=code^&scope=impersonation%20signature^&client_id=" +
+                                ConfigurationManager.AppSettings["ClientId"] + "^&redirect_uri=" + DevCenterPage;
+                    Console.WriteLine($"Consent is required - launching browser (URL is {url})");
+                    // Start new browser window for login and consent to this app by DocuSign user
+                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = false });
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Unable to send envelope; Exiting. Please rerun the console app once consent was provided");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Environment.Exit(-1);
+                }
+            }
+
             var apiClient = new ApiClient();
             apiClient.SetOAuthBasePath(ConfigurationManager.AppSettings["AuthServer"]);
             UserInfo userInfo = apiClient.GetUserInfo(accessToken.access_token);
             Account acct = userInfo.Accounts.FirstOrDefault();
 
-            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Welcome to the JWT Code example! ");
             Console.Write("Enter the signer's email address: ");
             string signerEmail = Console.ReadLine();
@@ -40,6 +65,7 @@ namespace DocuSign.CodeExamples.JWT_Console
             Console.WriteLine("");
             Console.WriteLine("");
             Console.ForegroundColor = ConsoleColor.White;
+            Environment.Exit(0);
         }
     }
 }
