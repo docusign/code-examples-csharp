@@ -92,7 +92,7 @@ namespace eSignature.Examples
                             Name = "Multi Bulk Recipient::cc",
                             Email = "multiBulkRecipients-cc@docusign.com",
                             RoleName = "cc",
-                            RoutingOrder = "1",
+                            RoutingOrder = "2",
                             Status = "created",
                             DeliveryMethod = "Email",
                             RecipientId = "2",
