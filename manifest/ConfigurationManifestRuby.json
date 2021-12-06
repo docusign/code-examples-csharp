@@ -217,7 +217,7 @@
     },
     {
       "name": "omniauth-rails_csrf_protection",
-      "version": ""
+      "version": "1.0.0"
     }
   ],
   "supportedAPIs": [
@@ -227,7 +227,7 @@
       "packages": [
         {
           "name": "docusign_esign",
-          "version": "3.13.0.rc1"
+          "version": "3.13.0"
         }
       ],
       "scopes": [
@@ -240,7 +240,7 @@
       "packages": [
         {
           "name": "docusign_rooms",
-          "version": "1.2.0.rc1"
+          "version": "1.1.0"
         }
       ],
       "scopes": [
