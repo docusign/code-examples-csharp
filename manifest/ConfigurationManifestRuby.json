@@ -3,7 +3,7 @@
     {
       "name": "AuthCodeGrant",
       "displayName": "Authorization Code Grant Ruby",
-      "description": "Choose this option if each user who sends DocuSign envelopes using \nthe eSignature API will login to DocuSign during each session.",
+      "description": "Choose this option if each user who sends DocuSign envelopes using \nThe eSignature API will login to DocuSign during each session.",
       "shortDescription": "Users will login to DocuSign during each session to send envelopes to eSignature API",
       "sources": [
         {
