@@ -39,7 +39,7 @@
 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">Eg031BulkSendEnvelopesController.cs</a> on GitHub.
+    View source file <a target="_blank" href="@ViewBag.source">Eg031BulkSendEnvelopes.cs</a> on GitHub.
 </p>
 
 <form action="" class="eg" method="post" data-busy="form">
@@ -47,31 +47,31 @@
         <div class="col-md-6">
             <h5 class="mt-4">Bulk copy #1</h5>
             <div class="form-group">
-                @GetTextInputMarkup("signer1.Name", "Signer Name", "text")
-            </div>
-            <div class="form-group">
                 @GetTextInputMarkup("signer1.Email", "Signer Email", "email")
             </div>
             <div class="form-group">
-                @GetTextInputMarkup("carbonCopy1.Name", "CC Name", "text")
+                @GetTextInputMarkup("signer1.Name", "Signer Name", "text")
             </div>
             <div class="form-group">
                 @GetTextInputMarkup("carbonCopy1.Email", "CC Email", "email")
+            </div>
+            <div class="form-group">
+                @GetTextInputMarkup("carbonCopy1.Name", "CC Name", "text")
             </div>
         </div>
         <div class="col-md-6">
             <h5 class="mt-4">Bulk copy #2</h5>
             <div class="form-group">
-                @GetTextInputMarkup("signer2.Name", "Signer name", "text")
-            </div>
-            <div class="form-group">
                 @GetTextInputMarkup("signer2.Email", "Signer Email", "email")
             </div>
             <div class="form-group">
-                @GetTextInputMarkup("carbonCopy2.Name", "CC Name", "text")
+                @GetTextInputMarkup("signer2.Name", "Signer name", "text")
             </div>
             <div class="form-group">
                 @GetTextInputMarkup("carbonCopy2.Email", "CC Email", "email")
+            </div>
+            <div class="form-group">
+                @GetTextInputMarkup("carbonCopy2.Name", "CC Name", "text")
             </div>
         </div>
     </div>

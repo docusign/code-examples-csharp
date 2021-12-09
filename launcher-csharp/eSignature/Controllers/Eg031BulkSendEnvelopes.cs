@@ -8,9 +8,9 @@ namespace DocuSign.CodeExamples.Controllers
 {
     [Area("eSignature")]
     [Route("Eg031")]
-    public class Eg031BulkSendEnvelopesController : EgController
+    public class Eg031BulkSendEnvelopes : EgController
     {
-        public Eg031BulkSendEnvelopesController(DSConfiguration config, IRequestItemsService requestItemsService) :
+        public Eg031BulkSendEnvelopes(DSConfiguration config, IRequestItemsService requestItemsService) :
             base(config, requestItemsService)
         {
         }
