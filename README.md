@@ -79,7 +79,7 @@ For a list of code examples that use the Admin API, select the C# tab under [Exa
    where {base_url} is the URL for the web app.  
    
 1. [C# .NET Core](https://dotnet.microsoft.com/download/dotnet-core) 3.1 or later.  
-1. [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/) with ASP.NET package (Visual Studio 2019 is also supported).
+1. [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/) with ASP.NET package  (Visual Studio 2019 is also supported).
 
 
 ### Installation steps

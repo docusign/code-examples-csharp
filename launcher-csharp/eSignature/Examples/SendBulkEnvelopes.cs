@@ -92,7 +92,7 @@ namespace eSignature.Examples
                             Name = "Multi Bulk Recipient::cc",
                             Email = "multiBulkRecipients-cc@docusign.com",
                             RoleName = "cc",
-                            RoutingOrder = "1",
+                            RoutingOrder = "2",
                             Status = "created",
                             DeliveryMethod = "Email",
                             RecipientId = "2",
@@ -129,56 +129,16 @@ namespace eSignature.Examples
             envelopesApi.CreateCustomFields(accountId, envelopeResults.EnvelopeId, fields);
             // Step 5 end
 
-            // Add placeholder recipients. 
-            // These will be replaced by the details provided in the Bulk List uploaded during Step 2
-            // Note: The name / email format used is:
-            // Name: Multi Bulk Recipients::{rolename}
-            // Email: MultiBulkRecipients-{rolename}@docusign.com
+
             // Step 6 start
-            var recipients = new Recipients
-            {
-                Signers = new List<Signer>
-                    {
-                        new Signer
-                        {
-                            Name = "Multi Bulk Recipient::signer",
-                            Email = "multiBulkRecipients-signer@docusign.com",
-                            RoleName = "signer",
-                            RoutingOrder = "1",
-                            Status = "created",
-                            DeliveryMethod = "Email",
-                            RecipientId = "1",
-                            RecipientType = "signer",
-                        }
-                    },
-                CarbonCopies = new List<CarbonCopy>
-                    {
-                        new CarbonCopy
-                        {
-                            Name = "Multi Bulk Recipient::cc",
-                            Email = "multiBulkRecipients-cc@docusign.com",
-                            RoleName = "cc",
-                            RoutingOrder = "1",
-                            Status = "created",
-                            DeliveryMethod = "Email",
-                            RecipientId = "2",
-                            RecipientType = "cc"
-                        }
-
-                    }
-            };
-            envelopesApi.CreateRecipient(accountId, envelopeResults.EnvelopeId, recipients);
-            // Step 6 end
-
-            // Step 7 start
             var bulkRequestResult = bulkEnvelopesApi.CreateBulkSendRequest(accountId, createBulkListResult.ListId, new BulkSendRequest { EnvelopeOrTemplateId = envelopeResults.EnvelopeId });
             // TODO: instead of waiting 10 seconds, consider using the Asynchrnous method
             System.Threading.Thread.Sleep(10000);
-            // Step 7 end
+            // Step 6 end
 
-            // Step 8 start
+            // Step 7 start
             return bulkEnvelopesApi.GetBulkSendBatchStatus(accountId, bulkRequestResult.BatchId);
-            // Step 8 end
+            // Step 7 end
         }
 
         // step 3-2 start

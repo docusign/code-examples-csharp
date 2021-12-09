@@ -1,4 +1,5 @@
 ﻿using DocuSign.CodeExamples.Models;
+using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using eSignature.Examples;
@@ -7,9 +8,9 @@ namespace DocuSign.CodeExamples.Controllers
 {
     [Area("eSignature")]
     [Route("Eg031")]
-    public class Eg031BulkSendEnvelopesController : EgController
+    public class Eg031BulkSendEnvelopes : EgController
     {
-        public Eg031BulkSendEnvelopesController(DSConfiguration config, IRequestItemsService requestItemsService) :
+        public Eg031BulkSendEnvelopes(DSConfiguration config, IRequestItemsService requestItemsService) :
             base(config, requestItemsService)
         {
         }
@@ -47,8 +48,9 @@ namespace DocuSign.CodeExamples.Controllers
                     carbonCopy1.Email, signer2.Name, signer2.Email, carbonCopy2.Name, carbonCopy2.Email, accessToken,
                     basePath, accountId, Config.docPdf, envelopeIdStamping, emailSubject);
 
-                ViewBag.h1 = "Bulk send envelope was successfully performed!";
-                ViewBag.message = $@"Bulk request queued to {status.Queued} user lists.";
+                ViewBag.h1 = "Bulk send envelopes";
+                ViewBag.message = "Results from BulkSend:getBulkSendBatchStatus method:";
+                ViewBag.Locals.Json = JsonConvert.SerializeObject(status, Formatting.Indented);
             }
             catch (Exception ex)
             {

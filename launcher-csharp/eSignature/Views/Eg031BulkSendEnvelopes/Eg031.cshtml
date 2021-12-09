@@ -15,7 +15,8 @@
 <h4>31.  Bulk send envelopes</h4>
 
 <p>
-    This example creates and sends an envelope to multiple recipients using bulk lists. The method <a target="_blank" href="https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/createbulksendlist/">BulkSend::createBulkSendList</a> creates a bulk send list that you can use to send an envelope to up to 1,000 recipients at once.
+    Demonstrates how to send envelopes in bulk to multiple recipients. First, this example creates a bulk-send recipients list, then creates an envelope. After that, 
+    it initiates bulk envelope sending.
 </p>
 
 @if (ViewBag.showDoc)
@@ -23,60 +24,57 @@
     <p><a target="_blank" href="@ViewBag.documentation">Documentation</a> about this example</p>
 }
 
-<p>API methods used:
+<p>
+    API methods used:
     <a target="_blank"
-      href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>,
+       href="https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/createbulksendlist/">BulkSend::createBulkSendList</a>,
     <a target="_blank"
-      href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopecustomfields/create/">EnvelopeCustomFields::create</a>,
+       href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>,
     <a target="_blank"
-      href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/enveloperecipients/create/EnvelopeRecipientPreview">EnvelopeRecipients::create</a>,
+       href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopecustomfields/create/">EnvelopeCustomFields::create</a>,
     <a target="_blank"
-      href="https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/createbulksendlist/">BulkSend::createBulkSendList</a>, 
+       href="https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/createbulksendrequest/">BulkSend::createBulkSendRequest</a>,
     <a target="_blank"
-      href="https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/createbulksendrequest/">BulkSend::createBulkSendRequest</a>, and 
-      <a target="_blank"
-      href="https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/getbulksendbatchstatus/">BulkSend::getBulkSendBatchStatus</a>
+       href="https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/getbulksendbatchstatus/">BulkSend::getBulkSendBatchStatus</a>
 </p>
 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">Eg031BulkSendEnvelopesController.cs</a> on GitHub.
+    View source file <a target="_blank" href="@ViewBag.source">Eg031BulkSendEnvelopes.cs</a> on GitHub.
 </p>
 
 <form action="" class="eg" method="post" data-busy="form">
-
-    <h5 class="mt-4"> Bulk copy #1</h5>
     <div class="row">
-        <div class="col-md-6 column">
+        <div class="col-md-6">
+            <h5 class="mt-4">Bulk copy #1</h5>
             <div class="form-group">
-                @GetTextInputMarkup("signer1.Name", "Signer name", "text")
                 @GetTextInputMarkup("signer1.Email", "Signer Email", "email")
             </div>
-        </div>
-        <div class="col-md-6 column">
             <div class="form-group">
-                @GetTextInputMarkup("carbonCopy1.Name", "CC name", "text")
-                @GetTextInputMarkup("carbonCopy1.Email", "CC Email", "mail")
+                @GetTextInputMarkup("signer1.Name", "Signer Name", "text")
+            </div>
+            <div class="form-group">
+                @GetTextInputMarkup("carbonCopy1.Email", "CC Email", "email")
+            </div>
+            <div class="form-group">
+                @GetTextInputMarkup("carbonCopy1.Name", "CC Name", "text")
             </div>
         </div>
-    </div>
-
-
-    <h5 class="mt-4"> Bulk copy #2</h5>
-    <div class="row">
-        <div class="col-md-6 column ">
+        <div class="col-md-6">
+            <h5 class="mt-4">Bulk copy #2</h5>
             <div class="form-group">
-                @GetTextInputMarkup("signer2.Name", "Signer name", "text")
                 @GetTextInputMarkup("signer2.Email", "Signer Email", "email")
             </div>
-        </div>
-        <div class="col-md-6 column ">
             <div class="form-group">
-                @GetTextInputMarkup("carbonCopy2.Name", "CC name", "text")
-                @GetTextInputMarkup("carbonCopy2.Email", "CC Email", "mail")
+                @GetTextInputMarkup("signer2.Name", "Signer name", "text")
+            </div>
+            <div class="form-group">
+                @GetTextInputMarkup("carbonCopy2.Email", "CC Email", "email")
+            </div>
+            <div class="form-group">
+                @GetTextInputMarkup("carbonCopy2.Name", "CC Name", "text")
             </div>
         </div>
     </div>
-
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
