@@ -18,18 +18,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DocuSign.Admin" Version="1.0.0-alpha" />
+    <PackageReference Include="DocuSign.Admin" Version="1.0.0" />
     <PackageReference Include="DocuSign.Click" Version="1.0.0" />
     <PackageReference Include="DocuSign.eSign.dll" Version="5.8.0-rc" />
-    <PackageReference Include="DocuSign.Monitor" Version="1.0.0-beta" />
-    <PackageReference Include="DocuSign.Rooms" Version="1.1.0" />
+    <PackageReference Include="DocuSign.Monitor" Version="1.0.0" />
+    <PackageReference Include="DocuSign.Rooms" Version="1.2.0-rc" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0-preview1.19506.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0-preview1.19506.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0-preview1.19506.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
 
