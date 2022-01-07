@@ -12,6 +12,12 @@
     <Compile Remove="Common\AuthCodeGrant.cs" />
     <Compile Remove="Common\JWTAuth.cs" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Include="..\DSHelper.cs" Link="DSHelper.cs" />
+    <Compile Include="..\ExamplesAPIType.cs" Link="ExamplesAPIType.cs" />
+    <Compile Include="..\JWTAuth.cs" Link="JWTAuth.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
@@ -31,6 +37,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
