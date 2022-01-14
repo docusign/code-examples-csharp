@@ -38,8 +38,8 @@ namespace DocuSign.CodeExamples.Click.Controllers
                 var clickWrap = CreateClickwrap.Create(name, basePath, accessToken, accountId);
 
                 //Show results
-                ViewBag.h1 = "The clickwrap was successfully created";
-                ViewBag.message = $"The clickwrap was created! Clickwrap ID: {clickWrap.ClickwrapId}, Name: {clickWrap.ClickwrapName}.";
+                ViewBag.h1 = "Create a clickwrap";
+                ViewBag.message = $"The clickwrap {clickWrap.ClickwrapName} has been created.";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(clickWrap, Formatting.Indented);
 
                 // Save for future use within the example launcher

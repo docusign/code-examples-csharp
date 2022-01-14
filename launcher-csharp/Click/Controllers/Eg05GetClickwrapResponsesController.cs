@@ -53,8 +53,8 @@ namespace DocuSign.CodeExamples.Click.Controllers
                 var clickWrapAgreements = GetClickwrapResponses.GetAgreements(clickwrapId, basePath, accessToken, accountId);
 
                 // Show results
-                ViewBag.h1 = "The data was successfully fetched";
-                ViewBag.message = $"The clickwrap contains {clickWrapAgreements.UserAgreements.Count} agreements.";
+                ViewBag.h1 = "Get clickwrap responses";
+                ViewBag.message = $"Results from the ClickWraps::getClickwrapAgreements method:";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(clickWrapAgreements, Formatting.Indented);
 
                 return View("example_done");

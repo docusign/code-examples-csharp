@@ -48,8 +48,8 @@ namespace DocuSign.CodeExamples.Click.Controllers
                 clickwraps.Clickwraps.ForEach(cw => messageBuilder.AppendLine($"Clickwrap ID:{cw.ClickwrapId}, Clickwrap Version: {cw.VersionNumber}"));
 
                 // Show results
-                ViewBag.h1 = "Clickwraps were successfully retreived";
-                ViewBag.message = $"The clickwraps retrieved: {messageBuilder.ToString()}.";
+                ViewBag.h1 = "Get a list of clickwraps";
+                ViewBag.message = $"Results from the Click::getClickwraps method:";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(clickwraps.Clickwraps, Formatting.Indented);
 
                 return View("example_done");
