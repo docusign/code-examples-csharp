@@ -1,12 +1,12 @@
 ﻿@model DocuSign.CodeExamples.Click.Controllers.Eg05GetClickwrapResponsesController
 
-<h4 id="example05">5. Get Clickwrap Responses</h4>
+<h4 id="example05">5. Get clickwrap responses</h4>
 <p>
-    This example shows how to get clickwrap responses
+    Gets user responses to your clickwrap agreements.
 </p>
 <p>
-    API methods used:
-    <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwrapagreements/">ClickWraps::updateClickwrapVersion</a>.
+    API method used:
+    <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwrapagreements">ClickWraps::getClickwrapAgreements</a>.
 </p>
 <p>
     View source file <a target="_blank" href="@ViewBag.source">Eg05GetClickwrapResponsesController.cs</a> on GitHub.
@@ -15,7 +15,7 @@
 @if (ViewBag.ClickwrapId != null)
 {
     <p>
-        Uses the clickwrap that was created in the first step.
+        The clickwrap you created via example 1 will be queried.
     </p>
 
     <form class="eg" asp-action="Create" method="post" data-busy="form">
