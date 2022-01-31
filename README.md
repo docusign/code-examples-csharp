@@ -1,4 +1,4 @@
-# C# Launcher Code Examples1
+# C# Launcher Code Examples
 
 ### GitHub repo: [code-examples-csharp](./README.md)
 
