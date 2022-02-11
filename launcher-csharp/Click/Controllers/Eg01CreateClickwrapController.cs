@@ -44,6 +44,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
                 // Save for future use within the example launcher
                 RequestItemsService.ClickwrapId = clickWrap.ClickwrapId;
+                RequestItemsService.ClickwrapName = clickWrap.ClickwrapName;
 
                 return View("example_done");
             }

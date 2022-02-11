@@ -34,7 +34,7 @@ namespace DocuSign.Click.Examples
                 DisplaySettings = new DisplaySettings()
                 {
                     ConsentButtonText = "I Agree",
-                    DisplayName = "Terms of Service",
+                    DisplayName = name,
                     Downloadable = true,
                     Format = "modal",
                     MustRead = true,
