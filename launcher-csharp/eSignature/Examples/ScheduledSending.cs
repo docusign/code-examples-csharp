@@ -70,6 +70,14 @@ namespace eSignature.Examples
                 RoutingOrder = "1"
             };
 
+            // Add the workflow rule that set the schedule for the envelope to be sent
+            Workflow workflow = new Workflow { ScheduledSending = new ScheduledSendingApiModel() };
+            workflow.ScheduledSending.Status = "pending";
+            var rule = new EnvelopeDelayRuleApiModel();
+            rule.ResumeDate = resumeDate.ToString();
+            workflow.ScheduledSending.Rules = new List<EnvelopeDelayRuleApiModel> { rule };
+            env.Workflow = workflow;
+
             // routingOrder (lower means earlier) determines the order of deliveries
             // to the recipients. Parallel routing order is supported by using the
             // same integer as the order for two or more recipients.
