@@ -17,7 +17,7 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
         public override string EgName => "Eg036";
 
         [HttpPost]
-        public IActionResult Create(string signerEmail, string signerName, string signerCountryCode, string signerPhoneNumber, string ccEmail, string ccName, string ccCountryCode, string ccPhoneNumber)
+        public IActionResult Create(string signer1Email, string signer1Name, string signer2Email, string signer2Name, int delay)
         {
             // Check the token with minimal buffer time.
             bool tokenOk = CheckToken(3);
@@ -37,9 +37,7 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             // Call the Examples API method to create and send an envelope and notify recipients via SMS
-            var envelopeId = SMSDelivery.SendRequestViaSMS(accessToken, basePath, accountId, signerEmail, signerName,
-                signerCountryCode, signerPhoneNumber, ccEmail, ccName, ccCountryCode, ccPhoneNumber, Config.docDocx,
-                Config.docPdf, RequestItemsService.Status);
+            var envelopeId = DelayedRouting.SendEnvelopeWithDelayedRouting(signer1Email, signer1Name, signer2Email, signer2Name, accessToken, basePath, accountId, Config.docPdf, delay);
 
             RequestItemsService.EnvelopeId = envelopeId;
 
