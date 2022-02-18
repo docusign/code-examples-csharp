@@ -70,7 +70,7 @@ namespace eSignature.Examples
                 RoutingOrder = "1"
             };
 
-            // Add the workflow rule that set the schedule for the envelope to be sent
+            // Add the workflow rule that sets the schedule for the envelope to be sent
             Workflow workflow = new Workflow { ScheduledSending = new ScheduledSendingApiModel() };
             workflow.ScheduledSending.Status = "pending";
             var rule = new EnvelopeDelayRuleApiModel();

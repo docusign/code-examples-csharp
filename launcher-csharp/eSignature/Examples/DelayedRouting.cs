@@ -78,6 +78,20 @@ namespace eSignature.Examples
                 RoutingOrder = "2"
             };
 
+            // Add the workflow step that sets a delay for the second signer
+            Workflow workflow = new Workflow();
+            var workflowStep = new WorkflowStep();
+            workflowStep.Action = "pause_before";
+            workflowStep.TriggerOnItem = "routing_order";
+            workflowStep.ItemId = "2";
+            workflowStep.Status = "pending";
+            workflowStep.DelayedRouting = new DelayedRoutingApiModel();
+            var delayRouteRule = new EnvelopeDelayRuleApiModel();
+            delayRouteRule.Delay = new TimeSpan(delay, 0, 0).ToString();
+            workflowStep.DelayedRouting.Rules = new List<EnvelopeDelayRuleApiModel> { delayRouteRule };
+            workflow.WorkflowSteps = new List<WorkflowStep> { workflowStep };
+            env.Workflow = workflow;
+
             // routingOrder (lower means earlier) determines the order of deliveries
             // to the recipients. Parallel routing order is supported by using the
             // same integer as the order for two or more recipients.
