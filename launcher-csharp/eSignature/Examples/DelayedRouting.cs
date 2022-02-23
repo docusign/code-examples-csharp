@@ -105,7 +105,7 @@ namespace eSignature.Examples
             // use the same anchor string for their "signer 1" tabs.
             SignHere signHere1 = new SignHere
             {
-                AnchorString = "**signature_1**",
+                AnchorString = "/sn1/",
                 AnchorUnits = "pixels",
                 AnchorYOffset = "10",
                 AnchorXOffset = "20"
@@ -116,18 +116,18 @@ namespace eSignature.Examples
                 AnchorString = "/sn1/",
                 AnchorUnits = "pixels",
                 AnchorYOffset = "10",
-                AnchorXOffset = "20"
+                AnchorXOffset = "120"
             };
 
             // Tabs are set per recipient / signer
             Tabs signer1Tabs = new Tabs
             {
-                SignHereTabs = new List<SignHere> { signHere1, signHere2 }
+                SignHereTabs = new List<SignHere> { signHere1 }
             };
             signer1.Tabs = signer1Tabs;
             Tabs signer2Tabs = new Tabs
             {
-                SignHereTabs = new List<SignHere> { signHere1, signHere2 }
+                SignHereTabs = new List<SignHere> { signHere2 }
             };
             signer2.Tabs = signer2Tabs;
 
