@@ -49,9 +49,10 @@ namespace DocuSign.CodeExamples.Click.Controllers
                 }
 
                 var clickwrapId = RequestItemsService.ClickwrapId;
+                var clickwrapName = RequestItemsService.ClickwrapName;
 
                 // Call the Click API to create the clickwrap version
-                var clickWrap = CreateNewClickwrapVersion.Create(clickwrapId, basePath, accessToken, accountId);
+                var clickWrap = CreateNewClickwrapVersion.Create(clickwrapId, basePath, accessToken, accountId, clickwrapName);
 
                 // Show results
                 ViewBag.h1 = "Create a new clickwrap version";

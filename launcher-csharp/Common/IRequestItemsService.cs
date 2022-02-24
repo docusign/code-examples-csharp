@@ -16,6 +16,7 @@ namespace DocuSign.CodeExamples
         string EnvelopeId { get; set; }
         string DocumentId { get; set; }
         string ClickwrapId { get; set; }
+        string ClickwrapName { get; set; }
         EnvelopeDocuments EnvelopeDocuments { get; set; }
         string TemplateId { get; set; }
         string PausedEnvelopeId { get; set; }
