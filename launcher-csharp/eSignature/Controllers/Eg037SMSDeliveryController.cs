@@ -17,7 +17,7 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
         public override string EgName => "Eg037";
 
         [HttpPost]
-        public IActionResult Create(string signerEmail, string signerName, string signerCountryCode, string signerPhoneNumber, string ccEmail, string ccName, string ccCountryCode, string ccPhoneNumber)
+        public IActionResult Create(string signerName, string signerCountryCode, string signerPhoneNumber, string ccName, string ccCountryCode, string ccPhoneNumber)
         {
             // Check the token with minimal buffer time.
             bool tokenOk = CheckToken(3);
@@ -37,8 +37,8 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
             var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             // Call the Examples API method to create and send an envelope and notify recipients via SMS
-            var envelopeId = SMSDelivery.SendRequestViaSMS(accessToken, basePath, accountId, signerEmail, signerName,
-                signerCountryCode, signerPhoneNumber, ccEmail, ccName, ccCountryCode, ccPhoneNumber, Config.docDocx,
+            var envelopeId = SMSDelivery.SendRequestViaSMS(accessToken, basePath, accountId, signerName,
+                signerCountryCode, signerPhoneNumber, ccName, ccCountryCode, ccPhoneNumber, Config.docDocx,
                 Config.docPdf, RequestItemsService.Status);
 
             RequestItemsService.EnvelopeId = envelopeId;
