@@ -191,7 +191,7 @@ namespace eSignature.Examples
                 "          margin-top: 0px;margin-bottom: 3.5em;font-size: 1em;\n" +
                 "          color: darkblue;\">Order Processing Division</h2>\n" +
                 "        <h4>Ordered by " + signerName + "</h4>\n" +
-                "        <p style=\"margin-top:0em; margin-bottom:0em;\">Email: " + signerPhone + "</p>\n" +
+                "        <p style=\"margin-top:0em; margin-bottom:0em;\">Phone Number: " + signerPhone + "</p>\n" +
                 "        <p style=\"margin-top:0em; margin-bottom:0em;\">Copy to: " + ccName + ", " + ccPhone+ "</p>\n" +
                 "        <p style=\"margin-top:3em;\">\n" +
                 "  Candy bonbon pastry jujubes lollipop wafer biscuit biscuit. Topping brownie sesame snaps sweet roll pie. Croissant danish biscuit soufflé caramels jujubes jelly. Dragée danish caramels lemon drops dragée. Gummi bears cupcake biscuit tiramisu sugar plum pastry. Dragée gummies applicake pudding liquorice. Donut jujubes oat cake jelly-o. Dessert bear claw chocolate cake gummies lollipop sugar plum ice cream gummies cheesecake.\n" +
