@@ -174,8 +174,8 @@ namespace eSignature.Examples
         {
             // Data for this method
             // signerEmail
-            // signerName
-            // ccEmail
+            // signerPhone
+            // ccPhone
             // ccName
 
             return Encoding.UTF8.GetBytes(
