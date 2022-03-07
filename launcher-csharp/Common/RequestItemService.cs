@@ -158,6 +158,12 @@ namespace DocuSign.CodeExamples.Common
             set => _cache.Set(GetKey("ClickwrapId"), value);
         }
 
+        public string ClickwrapName
+        {
+            get => _cache.Get<string>(GetKey("ClickwrapName"));
+            set => _cache.Set(GetKey("ClickwrapName"), value);
+        }
+
         public string PausedEnvelopeId
         {
             get => _cache.Get<string>(GetKey("PausedEnvelopeId"));

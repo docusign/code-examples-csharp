@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 namespace DocuSign.CodeExamples.eSignature.Controllers
 {
     [Area("eSignature")]
-    [Route("Eg035")]
-    public class Eg035SMSDeliveryController : EgController
+    [Route("Eg037")]
+    public class Eg037SMSDeliveryController : EgController
     {
-        public Eg035SMSDeliveryController(DSConfiguration config, IRequestItemsService requestItemsService) 
+        public Eg037SMSDeliveryController(DSConfiguration config, IRequestItemsService requestItemsService) 
             : base(config, requestItemsService)
         {
         }
 
-        public override string EgName => "Eg035";
+        public override string EgName => "Eg037";
 
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName, string signerCountryCode, string signerPhoneNumber, string ccEmail, string ccName, string ccCountryCode, string ccPhoneNumber)
