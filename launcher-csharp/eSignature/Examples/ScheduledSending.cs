@@ -86,9 +86,7 @@ namespace eSignature.Examples
             // We're using anchor (autoPlace) positioning
             //
             // The DocuSign platform searches throughout your envelope's
-            // documents for matching anchor strings. So the
-            // signHere2 tab will be used in both document 2 and 3 since they
-            // use the same anchor string for their "signer 1" tabs.
+            // documents for matching anchor strings. 
             SignHere signHere = new SignHere
             {
                 AnchorString = "/sn1/",
