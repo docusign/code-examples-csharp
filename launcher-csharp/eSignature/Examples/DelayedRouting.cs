@@ -84,7 +84,6 @@ namespace eSignature.Examples
             workflowStep.Action = "pause_before";
             workflowStep.TriggerOnItem = "routing_order";
             workflowStep.ItemId = "2";
-            workflowStep.Status = "pending";
             workflowStep.DelayedRouting = new DelayedRoutingApiModel();
             var delayRouteRule = new EnvelopeDelayRuleApiModel();
             delayRouteRule.Delay = new TimeSpan(delay, 0, 0).ToString();

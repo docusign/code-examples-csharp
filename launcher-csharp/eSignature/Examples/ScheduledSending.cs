@@ -72,7 +72,6 @@ namespace eSignature.Examples
 
             // Add the workflow rule that sets the schedule for the envelope to be sent
             Workflow workflow = new Workflow { ScheduledSending = new ScheduledSendingApiModel() };
-            workflow.ScheduledSending.Status = "pending";
             var rule = new EnvelopeDelayRuleApiModel();
             rule.ResumeDate = resumeDate.ToString();
             workflow.ScheduledSending.Rules = new List<EnvelopeDelayRuleApiModel> { rule };
