@@ -30,8 +30,9 @@ namespace DocuSign.CodeExamples.Click.Controllers
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create()
+        public ActionResult Create(string clientUserId)
         {
+
             // Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken;
             var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
@@ -50,11 +51,11 @@ namespace DocuSign.CodeExamples.Click.Controllers
                 var clickwrapId = RequestItemsService.ClickwrapId;
 
                 // Call the Click API to get a clickwrap agreements
-                var clickWrapAgreements = GetClickwrapResponses.GetAgreements(clickwrapId, basePath, accessToken, accountId);
+                var clickWrapAgreements = GetClickwrapResponses.GetAgreements(clickwrapId, basePath, accessToken, accountId, clientUserId);
 
                 // Show results
-                ViewBag.h1 = "The data was successfully fetched";
-                ViewBag.message = $"The clickwrap contains {clickWrapAgreements.UserAgreements.Count} agreements.";
+                ViewBag.h1 = "Get clickwrap responses";
+                ViewBag.message = $"Results from the ClickWraps::getClickwrapAgreements method:";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(clickWrapAgreements, Formatting.Indented);
 
                 return View("example_done");

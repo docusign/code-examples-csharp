@@ -1,8 +1,7 @@
-﻿<h4>29. Apply a brand to an envelope</h4>
+﻿
+<h4>35. Schedule an envelope</h4>
 <p>
-    This example creates an envelope using any of the created brands on your account. The envelope includes a PDF document. Anchor text
-    (<a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">AutoPlace</a>)
-    is used to position the signing fields in the documents.
+    Demonstrates how to schedule an envelope using the scheduled sending feature.
 </p>
 
 @if (ViewBag.showDoc == true)
@@ -16,7 +15,7 @@
 </p>
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">Eg025ApplyBrandToEnvelopeController.cs</a> on GitHub.
+    View source file <a target="_blank" href="@ViewBag.source">Eg035ScheduleSendingController.cs</a> on GitHub.
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
@@ -33,19 +32,10 @@
                value="@ViewBag.Locals.DsConfig.SignerName" required />
     </div>
     <div class="form-group">
-        <label for="brandId">Brand</label>
-        @if (ViewBag.Brands == null)
-        {
-            @:<p>No brands were found for this account; please <a href="Eg028">create one</a> first.</p>
-        }
-        else
-        {
-            @Html.DropDownList("brandId", new SelectList(ViewBag.Brands, "BrandId", "BrandName"), new { @class = "form-control" })
-        }
+        <label for="signerName">Resume Date</label>
+        <input type="date" class="form-control" id="resumeDate" name="resumeDate" required />
+        <small id="emailHelp" class="form-text text-muted">Please choose a date in the future</small>
     </div>
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    @if (ViewBag.Brands != null)
-    {
-        @:<button type="submit" class="btn btn-primary">Submit</button>
-    }
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
