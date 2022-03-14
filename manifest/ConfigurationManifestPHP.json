@@ -208,11 +208,11 @@
   "packages": [
     {
       "name": "twig/twig",
-      "version": "^2.0"
+      "version": "3.3.8"
     },
     {
       "name": "league/oauth2-client",
-      "version": "^2.4"
+      "version": "2.6.1"
     },
     {
       "name": "ext-json",
@@ -220,15 +220,15 @@
     },
     {
       "name": "guzzlehttp/guzzle",
-      "version": "^6.5"
+      "version": "7.4.1"
     },
     {
       "name": "firebase/php-jwt",
-      "version": "^5.0"
+      "version": "5.5.1"
     },
     {
       "name": "mashape/unirest-php",
-      "version": "^3.0"
+      "version": "3.0.4"
     }
   ],
   "supportedAPIs": [
@@ -238,7 +238,7 @@
       "packages": [
         {
           "name": "docusign/esign-client",
-          "version": "^6.2.0-rc"
+          "version": "6.7.0"
         }
       ],
       "scopes": [
@@ -251,7 +251,7 @@
       "packages": [
         {
           "name": "docusign/rooms-client",
-          "version": "^1.1.0-rc"
+          "version": "2.0.0"
         }
       ],
       "scopes": [
@@ -272,7 +272,7 @@
       "packages": [
         {
           "name": "docusign/click-client",
-          "version": "1.0.0"
+          "version": "1.1.0"
         }
       ],
       "scopes": [
