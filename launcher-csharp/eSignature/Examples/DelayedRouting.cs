@@ -24,8 +24,10 @@ namespace eSignature.Examples
             EnvelopeDefinition env = MakeEnvelope(signer1Email, signer1Name, signer2Email, signer2Name, docPdf, delay);
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            // Step 3 start
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+            // Step 3 end
             return results.EnvelopeId;
         }
 
@@ -40,6 +42,7 @@ namespace eSignature.Examples
 
             // document 1 (pdf) has tag /sn1/
             //
+            // Step 2 start
             // The envelope has a single recipient.
             // recipient 1 - signer
             // read file from a local directory
@@ -84,7 +87,6 @@ namespace eSignature.Examples
             workflowStep.Action = "pause_before";
             workflowStep.TriggerOnItem = "routing_order";
             workflowStep.ItemId = "2";
-            workflowStep.Status = "pending";
             workflowStep.DelayedRouting = new DelayedRoutingApiModel();
             var delayRouteRule = new EnvelopeDelayRuleApiModel();
             delayRouteRule.Delay = new TimeSpan(delay, 0, 0).ToString();
@@ -140,6 +142,7 @@ namespace eSignature.Examples
             // Request that the envelope be sent by setting |status| to "sent".
             // To request that the envelope be created as a draft, set to "created"
             env.Status = "sent";
+            // Step 2 end
 
             return env;
         }

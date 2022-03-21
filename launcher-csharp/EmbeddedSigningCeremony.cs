@@ -138,7 +138,7 @@ namespace eSignature.Examples
             // Create signHere fields (also known as tabs) on the documents,
             // We're using anchor (autoPlace) positioning
             //
-            // The DocuSign platform seaches throughout your envelope's
+            // The DocuSign platform searches throughout your envelope's
             // documents for matching anchor strings.
             SignHere signHere1 = new SignHere
             {
