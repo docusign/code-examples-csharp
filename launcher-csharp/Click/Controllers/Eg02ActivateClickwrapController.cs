@@ -5,6 +5,7 @@ using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 
 namespace DocuSign.CodeExamples.Click.Controllers
 {
@@ -23,7 +24,11 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
         protected override void InitializeInternal()
         {
-            ViewBag.ClickwrapId = RequestItemsService.ClickwrapId;
+            // Obtain your OAuth token
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
+            var accountId = RequestItemsService.Session.AccountId;
+            ViewBag.ClickwrapsData = ActivateClickwrap.GetInactiveClickwraps(basePath, accessToken, accountId);
             ViewBag.AccountId = RequestItemsService.Session.AccountId;
         }
     
@@ -49,8 +54,8 @@ namespace DocuSign.CodeExamples.Click.Controllers
                     return View("Error");
                 }
 
-                var clickwrapId = RequestItemsService.ClickwrapId;
-                var clickwrapVersion = "1"; // A newly created clickwrap has default version 1
+                var clickwrapId = RequestItemsService.Clickwrap.ClickwrapId;
+                var clickwrapVersion = RequestItemsService.Clickwrap.VersionNumber;
 
                 // Call the Click API to activate a clickwrap
                 var clickWrap = ActivateClickwrap.Update(clickwrapId, clickwrapVersion, basePath, accessToken, accountId);
