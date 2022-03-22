@@ -37,7 +37,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
         [Route("Activate")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Activate()
+        public ActionResult Activate(string ClickwrapData)
         {
             // Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken;
@@ -54,8 +54,11 @@ namespace DocuSign.CodeExamples.Click.Controllers
                     return View("Error");
                 }
 
-                var clickwrapId = RequestItemsService.Clickwrap.ClickwrapId;
-                var clickwrapVersion = RequestItemsService.Clickwrap.VersionNumber;
+                // clickwrapData is passed in the form of a string that looks like:
+                // { "clickwrapId": "XXXXX", "VersionNumber": "X", ... }
+                // need to get it into a format I can access those fields with
+                var clickwrapId = ClickwrapData.ClickwrapId; 
+                var clickwrapVersion = ClickwrapData.VersionNumber;
 
                 // Call the Click API to activate a clickwrap
                 var clickWrap = ActivateClickwrap.Update(clickwrapId, clickwrapVersion, basePath, accessToken, accountId);
