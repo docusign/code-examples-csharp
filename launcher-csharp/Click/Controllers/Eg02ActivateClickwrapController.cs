@@ -37,8 +37,9 @@ namespace DocuSign.CodeExamples.Click.Controllers
         [Route("Activate")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Activate(string ClickwrapData)
+        public ActionResult Activate()
         {
+
             // Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken;
             var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
@@ -54,11 +55,16 @@ namespace DocuSign.CodeExamples.Click.Controllers
                     return View("Error");
                 }
 
-                // clickwrapData is passed in the form of a string that looks like:
-                // { "clickwrapId": "XXXXX", "VersionNumber": "X", ... }
-                // need to get it into a format I can access those fields with
-                var clickwrapId = ClickwrapData.ClickwrapId; 
-                var clickwrapVersion = ClickwrapData.VersionNumber;
+                // Console.Out.WriteLine(ClickwrapData);
+                // string[] Clickwrap = ClickwrapData.Split(':');
+                // Console.Out.WriteLine(Clickwrap);
+                // var clickwrapId = Clickwrap[0];
+                // Console.Out.WriteLine(clickwrapId);
+                // var clickwrapVersion = Clickwrap[1];
+                // Console.Out.WriteLine(clickwrapVersion);
+
+                string clickwrapId = "7328f416-c34d-42c4-a83a-d18fb6627b8a";
+                string clickwrapVersion = "1";
 
                 // Call the Click API to activate a clickwrap
                 var clickWrap = ActivateClickwrap.Update(clickwrapId, clickwrapVersion, basePath, accessToken, accountId);
@@ -70,7 +76,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
                 return View("example_done");
             }
-            catch (ApiException apiException)
+            catch (ApiException apiException) 
             {
                 ViewBag.errorCode = apiException.ErrorCode;
                 ViewBag.errorMessage = apiException.Message;
