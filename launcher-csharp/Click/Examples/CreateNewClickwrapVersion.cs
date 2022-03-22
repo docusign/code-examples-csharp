@@ -36,7 +36,6 @@ namespace DocuSign.Click.Examples
                 {
                     DisplayName = $"{clickwrapName}",
                     MustRead = true,
-                    MustView = false,
                     RequireAccept = false,
                     Downloadable = false,
                     SendToEmail = false,
