@@ -38,7 +38,6 @@ namespace DocuSign.Click.Examples
                     Downloadable = true,
                     Format = "modal",
                     MustRead = true,
-                    MustView = true,
                     RequireAccept = true,
                     DocumentDisplay = "document"
                 },
