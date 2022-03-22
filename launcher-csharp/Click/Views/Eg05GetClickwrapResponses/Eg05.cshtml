@@ -12,47 +12,25 @@
     View source file <a target="_blank" href="@ViewBag.source">Eg05GetClickwrapResponsesController.cs</a> on GitHub.
 </p>
 
-@if (ViewBag.ClickwrapId != null)
-{
-
-    <p>
-        First, test your clickwrap:
-    </p>
-
-    <ul>
-        <li>Log in to your developer account and select the <strong>Manage</strong> page.
-        <li>Select the <strong>Clickwraps</strong> tab.
-        <li>
-            In the list of active clickwraps, locate the one you want to test, then click 
-            the dropdown arrow to the right of <strong>COPY CODE</strong> and select <strong>Test Clickwrap</strong>.
-        </li>
-        <li>In the Test Clickwrap dialog box, click <strong>TEST CLICKWRAP</strong>.
-        <li>In the Test Your Clickwrap browser page, in the <strong>Unique ID</strong> field, enter any string, then click <strong>Test Clickwrap</strong>.
-        <li>Review your displayed clickwrap and click <strong>I AGREE</strong> (or the equivalent button you configured) to complete the test.
-    </ul>
-
-    <p>
-        Then enter the same string you used to test your clickwrap in the field below.
-    </p>
+@if (ViewBag.ClickwrapsData.Clickwraps != null) {
+    <p>Please choose a clickwrap</p>
 
     <form class="eg" asp-action="Create" method="post" data-busy="form">
         <div class="form-group">
-            <label for="clientUserId">Unique ID</label>
-            <input type="text" class="form-control" id="clientUserId"
-                name="clientUserId" required>
+            <label for="clickwrapId">Clickwrap</label>
+            <select class="custom-select" id="clickwrapId"
+                    name="clickwrapId">
+                @foreach (var clickwrap in ViewBag.ClickwrapsData.Clickwraps) {
+                    <option value=@Html.Raw(clickwrap.ClickwrapId)>@Html.Raw(clickwrap.ClickwrapName)</option>
+                }
+            </select>
         </div>
-        <input type="hidden" name="_csrf" value="<%- csrfToken %>"/>
-        <button type="submit" class="btn btn-primary">Continue</button>
+        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-}
-else
-{
-    <p>
-        Problem: please first create a clickwrap using <a href="Eg01">example 1.</a> <br />
-        Thank you.
+} else { 
+    <p class="">
+        Problem: You do not have clickwraps. Go to example#1 and create one: <a
+            href="{{ app_url ~ 'index.php?page=' }}ceg001">create clickwrap.</a> <br/>
     </p>
-
-    <form class="eg" action="Eg01" method="get">
-        <button type="submit" class="btn btn-primary">Continue</button>
-    </form>
-}
+} 

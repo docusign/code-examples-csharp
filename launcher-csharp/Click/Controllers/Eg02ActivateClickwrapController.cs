@@ -37,7 +37,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
         [Route("Activate")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Activate()
+        public ActionResult Activate(string ClickwrapData)
         {
 
             // Obtain your OAuth token
@@ -47,24 +47,9 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
             try
             {
-                if (string.IsNullOrEmpty(RequestItemsService.ClickwrapId))
-                {
-                    ViewBag.errorCode = 400;
-                    ViewBag.errorMessage = "Cannot find any clickwrap. Please first create a clickwrap using the first example.";
-
-                    return View("Error");
-                }
-
-                // Console.Out.WriteLine(ClickwrapData);
-                // string[] Clickwrap = ClickwrapData.Split(':');
-                // Console.Out.WriteLine(Clickwrap);
-                // var clickwrapId = Clickwrap[0];
-                // Console.Out.WriteLine(clickwrapId);
-                // var clickwrapVersion = Clickwrap[1];
-                // Console.Out.WriteLine(clickwrapVersion);
-
-                string clickwrapId = "7328f416-c34d-42c4-a83a-d18fb6627b8a";
-                string clickwrapVersion = "1";
+                string[] Clickwrap = ClickwrapData.Split(':');
+                var clickwrapId = Clickwrap[0];
+                var clickwrapVersion = Clickwrap[1];
 
                 // Call the Click API to activate a clickwrap
                 var clickWrap = ActivateClickwrap.Update(clickwrapId, clickwrapVersion, basePath, accessToken, accountId);
