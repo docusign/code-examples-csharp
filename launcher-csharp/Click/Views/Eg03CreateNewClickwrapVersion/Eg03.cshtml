@@ -14,6 +14,7 @@
 <p>
     View source file <a target="_blank" href="@ViewBag.source">Eg03CreateNewClickwrapVersionController.cs</a> on GitHub.
 </p>
+<<<<<<< HEAD
 
 @if (ViewBag.ClickwrapId != null)
 {
@@ -22,22 +23,29 @@
     </p>
 
 
+=======
+@if (ViewBag.ClickwrapsData.Clickwraps.Count > 0) {
+>>>>>>> 2061802bd3432e565e30dca69d10e2b3f77ac72f
     <form class="eg" asp-action="Create" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="clickwrapId">Clickwrap</label>
+            <select class="custom-select" id="clickwrapId"
+                    name="clickwrapId">
+                @foreach (var clickwrap in ViewBag.ClickwrapsData.Clickwraps) {
+                    <option value=@Html.Raw(clickwrap.ClickwrapId)>@Html.Raw(clickwrap.ClickwrapName)</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="clickwrapName">New Name</label>
+            <input type="text" class="form-control" id="clickwrapName" name="clickwrapName" required/>
+        </div>
         <input type="hidden" name="_csrf" value="<%- csrfToken %>">
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-
-
-}
-else
-{
-    <p>
-        Problem: please first create a clickwrap using <a href="Eg01">example 1.</a> <br />
-        Thank you.
+} else { 
+    <p class="">
+        Problem: You do not have clickwraps. Go to example#1 and create one: <a
+            href="eg01">create clickwrap.</a> <br/>
     </p>
-
-    <form class="eg" action="Eg01" method="get">
-        <button type="submit" class="btn btn-primary">Continue</button>
-    </form>
-}
-
+} 

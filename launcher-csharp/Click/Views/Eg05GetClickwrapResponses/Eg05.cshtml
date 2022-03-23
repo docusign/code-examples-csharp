@@ -12,6 +12,7 @@
     View source file <a target="_blank" href="@ViewBag.source">Eg05GetClickwrapResponsesController.cs</a> on GitHub.
 </p>
 
+<<<<<<< HEAD
 @if (ViewBag.ClickwrapId != null)
 {
 
@@ -50,9 +51,27 @@ else
     <p>
         Problem: please first create a clickwrap using <a href="Eg01">example 1.</a> <br />
         Thank you.
-    </p>
+=======
+@if (ViewBag.ClickwrapsData.Clickwraps.Count > 0) {
+    <p>Please choose a clickwrap</p>
 
-    <form class="eg" action="Eg01" method="get">
-        <button type="submit" class="btn btn-primary">Continue</button>
+    <form class="eg" asp-action="Create" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="clickwrapId">Clickwrap</label>
+            <select class="custom-select" id="clickwrapId"
+                    name="clickwrapId">
+                @foreach (var clickwrap in ViewBag.ClickwrapsData.Clickwraps) {
+                    <option value=@Html.Raw(clickwrap.ClickwrapId)>@Html.Raw(clickwrap.ClickwrapName)</option>
+                }
+            </select>
+        </div>
+        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-}
+} else { 
+    <p class="">
+        Problem: You do not have clickwraps. Go to example#1 and create one: <a
+            href="eg01">create clickwrap.</a> <br/>
+>>>>>>> 2061802bd3432e565e30dca69d10e2b3f77ac72f
+    </p>
+} 
