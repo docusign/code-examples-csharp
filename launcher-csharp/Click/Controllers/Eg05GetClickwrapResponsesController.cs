@@ -22,7 +22,11 @@ namespace DocuSign.CodeExamples.Click.Controllers
         public override string EgName => "Eg05";
         protected override void InitializeInternal()
         {
-            ViewBag.ClickwrapId = RequestItemsService.ClickwrapId;
+            // Obtain your OAuth token
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
+            var accountId = RequestItemsService.Session.AccountId;
+            ViewBag.ClickwrapsData = RetrieveClickwraps.GetClickwraps(basePath, accessToken, accountId);
             ViewBag.AccountId = RequestItemsService.Session.AccountId;
         }
     
@@ -30,7 +34,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(string clientUserId)
+        public ActionResult Create(string clickwrapId)
         {
 
             // Obtain your OAuth token
@@ -39,19 +43,10 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
             try
             {
-                if (string.IsNullOrEmpty(RequestItemsService.ClickwrapId))
-                {
-                    ViewBag.errorCode = 400;
-                    ViewBag.errorMessage = "Cannot find any clickwrap. Please first create a clickwrap using the first example.";
-
-                    return View("Error");
-                }
-
                 var accountId = RequestItemsService.Session.AccountId;
-                var clickwrapId = RequestItemsService.ClickwrapId;
 
                 // Call the Click API to get a clickwrap agreements
-                var clickWrapAgreements = GetClickwrapResponses.GetAgreements(clickwrapId, basePath, accessToken, accountId, clientUserId);
+                var clickWrapAgreements = GetClickwrapResponses.GetAgreements(clickwrapId, basePath, accessToken, accountId);
 
                 // Show results
                 ViewBag.h1 = "Get clickwrap responses";
