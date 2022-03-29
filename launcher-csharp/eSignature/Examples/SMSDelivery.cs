@@ -31,14 +31,17 @@ namespace eSignature.Examples
         {
             EnvelopeDefinition env = MakeEnvelope(signerName, signerCountryCode, signerPhoneNumber, ccName, ccCountryCode, ccPhoneNumber, docDocx, docPdf, envStatus);
 
+            // Step 3 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
 
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+            // Step 3 end
             return results.EnvelopeId;
         }
 
+        // Step 2 start
         private static EnvelopeDefinition MakeEnvelope(string signerName, string signerCountryCode, string signerPhoneNumber, string ccName, string ccCountryCode, string ccPhoneNumber, string docDocx, string docPdf, string envStatus)
         {
             // Data for this method
@@ -202,5 +205,6 @@ namespace eSignature.Examples
                 "    </html>"
                 );
         }
+        // Step 2 end
     }
 }
