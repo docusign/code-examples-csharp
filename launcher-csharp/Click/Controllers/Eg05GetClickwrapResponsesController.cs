@@ -46,7 +46,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
                 var accountId = RequestItemsService.Session.AccountId;
 
                 // Call the Click API to get a clickwrap agreements
-                var clickWrapAgreements = GetClickwrapResponses.GetAgreements(clickwrapId, basePath, accessToken, accountId, clientUserId);
+                var clickWrapAgreements = GetClickwrapResponses.GetAgreements(clickwrapId, basePath, accessToken, accountId);
 
                 // Show results
                 ViewBag.h1 = "Get clickwrap responses";
