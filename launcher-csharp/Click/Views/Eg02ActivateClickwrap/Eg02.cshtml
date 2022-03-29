@@ -13,22 +13,8 @@
     View source file <a target="_blank" href="@ViewBag.source">Eg02ActivateClickwrapController.cs</a> on GitHub.
 </p>
 
-<<<<<<< HEAD
-@if (ViewBag.ClickwrapId != null) {
-<p>
-    The clickwrap you created via example 1 will be queried.
-</p>
-
-<form class="eg" asp-action="Activate" method="post" data-busy="form">
-    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-=======
 @if (ViewBag.ClickwrapsData.Clickwraps.Count > 0) {
-    <p>@Html.Raw(ViewBag.ClickwrapsData.Clickwraps)</p>
->>>>>>> 2061802bd3432e565e30dca69d10e2b3f77ac72f
-
+    <p>Please choose a clickwrap to activate</p>
     <form class="eg" asp-action="Activate" method="post" data-busy="form">
         <div class="form-group">
             <label for="clickwrapData">Clickwrap</label>
