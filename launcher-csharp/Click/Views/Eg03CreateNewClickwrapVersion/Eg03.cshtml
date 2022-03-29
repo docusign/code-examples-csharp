@@ -14,18 +14,7 @@
 <p>
     View source file <a target="_blank" href="@ViewBag.source">Eg03CreateNewClickwrapVersionController.cs</a> on GitHub.
 </p>
-<<<<<<< HEAD
-
-@if (ViewBag.ClickwrapId != null)
-{
-    <p>
-        The clickwrap you created via example 1 will be queried.
-    </p>
-
-
-=======
 @if (ViewBag.ClickwrapsData.Clickwraps.Count > 0) {
->>>>>>> 2061802bd3432e565e30dca69d10e2b3f77ac72f
     <form class="eg" asp-action="Create" method="post" data-busy="form">
         <div class="form-group">
             <label for="clickwrapId">Clickwrap</label>
