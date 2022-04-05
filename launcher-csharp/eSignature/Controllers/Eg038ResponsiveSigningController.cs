@@ -2,6 +2,7 @@
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
+using DocuSign.eSign.Client;
 
 namespace DocuSign.CodeExamples.Views
 {
@@ -37,10 +38,20 @@ namespace DocuSign.CodeExamples.Views
                 return Redirect("/ds/mustAuthenticate");
             }
 
-            string redirectUrl = ResponsiveSigning.CreateEnvelopeFromHTML(signerEmail,
+            try
+            {
+                string redirectUrl = ResponsiveSigning.CreateEnvelopeFromHTML(signerEmail,
                 signerName, ccEmail, ccName, signerClientId, accessToken, basePath, accountId, dsReturnUrl, dsPingUrl);
 
-            return Redirect(redirectUrl);
+                return Redirect(redirectUrl);
+            } 
+            catch (ApiException apiException) 
+            {
+                ViewBag.errorCode = apiException.ErrorCode;
+                ViewBag.errorMessage = apiException.Message;
+
+                return View("Error");
+            }
         }
     }
 }

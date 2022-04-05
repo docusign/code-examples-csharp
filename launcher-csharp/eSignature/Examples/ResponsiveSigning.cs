@@ -68,20 +68,6 @@ namespace eSignature.Examples
             string ccName, 
             string signerClientId)
         {
-            SignHere signHere = new SignHere
-            {
-                StampType = "signature",
-                Name = "SignHere",
-                TabLabel = "signatureTab",
-                ScaleValue = "1",
-                Optional = "false",
-                DocumentId = "1",
-                RecipientId = "1",
-                PageNumber = "1",
-                XPosition = "143",
-                YPosition = "440"
-            };
-
             Signer signer = new Signer
             {
                 Email = signerEmail,
@@ -89,10 +75,7 @@ namespace eSignature.Examples
                 ClientUserId = signerClientId,
                 RecipientId = "1",
                 RoutingOrder = "1",
-                Tabs = new Tabs
-                {
-                    SignHereTabs = new List<SignHere> { signHere}
-                }
+                RoleName = "Signer"
             };
 
             CarbonCopy cc = new CarbonCopy
@@ -108,7 +91,8 @@ namespace eSignature.Examples
             string htmlWithData = htmlMarkup.Replace("{signerName}", signerName)
                     .Replace("{signerEmail}", signerEmail)
                     .Replace("{ccName}", ccName)
-                    .Replace("{ccEmail}", ccEmail);
+                    .Replace("{ccEmail}", ccEmail)
+                    .Replace("/sn1/", "<ds-signature data-ds-role=\"Signer\"/>");
 
             return new EnvelopeDefinition()
             {
