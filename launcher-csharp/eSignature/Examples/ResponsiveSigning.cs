@@ -92,7 +92,9 @@ namespace eSignature.Examples
                     .Replace("{signerEmail}", signerEmail)
                     .Replace("{ccName}", ccName)
                     .Replace("{ccEmail}", ccEmail)
-                    .Replace("/sn1/", "<ds-signature data-ds-role=\"Signer\"/>");
+                    .Replace("/sn1/", "<ds-signature data-ds-role=\"Signer\"/>")
+                    .Replace("/l1q/", " <input data-ds-type=\"number\"/></div>")
+                    .Replace("/l2q/", " <input data-ds-type=\"number\"/></div>");
 
             return new EnvelopeDefinition()
             {
