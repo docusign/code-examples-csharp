@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Error";
+}
+
+<h2>Problem: an error occurred</h2>
+<p>Error information:</p>
+
+@if (ViewBag.errorCode != null)
+{
+    <p>@ViewBag.errorCode: @ViewBag.errorMessage</p>
+    <p>@Html.Raw(ViewBag.errorInformation)</p>
+    @if (ViewBag.SupportMessage != null)
+    {
+        <p>@Html.Raw(ViewBag.SupportMessage) </p>
+    }
+
+}
+else
+{
+    <p><pre>@ViewBag.err</pre></p>
+
+    @if (ViewBag.err != null)
+    {
+        <h3>Stack trace</h3>
+        <p>
+            <pre>@ViewBag.err.StackTrace</pre>
+        </p>
+    }
+}
+
+<p><a href="/">Continue</a></p>
