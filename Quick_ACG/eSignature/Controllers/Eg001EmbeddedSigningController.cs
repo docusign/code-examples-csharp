@@ -2,7 +2,6 @@
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
-using System;
 
 namespace DocuSign.CodeExamples.Views
 {
@@ -35,7 +34,7 @@ namespace DocuSign.CodeExamples.Views
             string accessToken = RequestItemsService.User.AccessToken;
             string basePath = RequestItemsService.Session.BasePath + "/restapi";
             string accountId = RequestItemsService.Session.AccountId;
-            string docPDF = Convert.ToBoolean(Config.QuickACG) ? @"..\\launcher-csharp\\" + Config.docPdf : Config.docPdf;
+            string docPDF = @"..\\launcher-csharp\\" + Config.docPdf;
 
             // Check the token with minimal buffer time.
             bool tokenOk = CheckToken(3);
