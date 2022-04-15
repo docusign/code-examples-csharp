@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace DocuSign.QuickACG
 {
@@ -10,7 +12,16 @@ namespace DocuSign.QuickACG
             CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            var builder = WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
+            builder.ConfigureAppConfiguration((hostingContext, config) =>
+            {
+                config.AddJsonFile(Path.GetFullPath(@"..\\launcher-csharp\\appsettings.json"),
+                                   optional: false,
+                                   reloadOnChange: true);
+            });
+            return builder;
+        }
     }
 }
