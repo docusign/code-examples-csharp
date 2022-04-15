@@ -9,10 +9,6 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'CodeExamples' " />
 
   <ItemGroup>
-    <Compile Remove="Common\AuthCodeGrant.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Include="..\launcher-csharp\Common\LocalsFilter.cs" Link="Common\LocalsFilter.cs" />
     <Compile Include="..\launcher-csharp\Common\SameSiteCookieServiceCollectionExtensions.cs" Link="Common\SameSiteCookieServiceCollectionExtensions.cs" />
     <Compile Include="..\launcher-csharp\Common\SessionExtensions.cs" Link="Common\SessionExtensions.cs" />
