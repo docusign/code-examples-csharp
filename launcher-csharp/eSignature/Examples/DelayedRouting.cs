@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
@@ -87,10 +86,10 @@ namespace eSignature.Examples
             workflowStep.Action = "pause_before";
             workflowStep.TriggerOnItem = "routing_order";
             workflowStep.ItemId = "2";
-            workflowStep.DelayedRouting = new DelayedRoutingApiModel();
-            var delayRouteRule = new EnvelopeDelayRuleApiModel();
+            workflowStep.DelayedRouting = new DocuSign.eSign.Model.DelayedRouting();
+            var delayRouteRule = new EnvelopeDelayRule();
             delayRouteRule.Delay = new TimeSpan(delay, 0, 0).ToString();
-            workflowStep.DelayedRouting.Rules = new List<EnvelopeDelayRuleApiModel> { delayRouteRule };
+            workflowStep.DelayedRouting.Rules = new List<EnvelopeDelayRule> { delayRouteRule };
             workflow.WorkflowSteps = new List<WorkflowStep> { workflowStep };
             env.Workflow = workflow;
 
