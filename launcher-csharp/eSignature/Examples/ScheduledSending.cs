@@ -74,10 +74,10 @@ namespace eSignature.Examples
             };
 
             // Add the workflow rule that sets the schedule for the envelope to be sent
-            Workflow workflow = new Workflow { ScheduledSending = new ScheduledSendingApiModel() };
-            var rule = new EnvelopeDelayRuleApiModel();
+            Workflow workflow = new Workflow { ScheduledSending = new DocuSign.eSign.Model.ScheduledSending() };
+            var rule = new EnvelopeDelayRule();
             rule.ResumeDate = resumeDate.ToString();
-            workflow.ScheduledSending.Rules = new List<EnvelopeDelayRuleApiModel> { rule };
+            workflow.ScheduledSending.Rules = new List<EnvelopeDelayRule> { rule };
             env.Workflow = workflow;
 
             // routingOrder (lower means earlier) determines the order of deliveries
