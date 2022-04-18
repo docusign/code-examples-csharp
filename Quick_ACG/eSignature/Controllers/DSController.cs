@@ -8,7 +8,9 @@ namespace DocuSign.CodeExamples.Controllers
     public class AccountController : Controller
     {
         private IRequestItemsService _requestItemsService;
+
         private  IConfiguration _configuration { get;  }
+
         public AccountController(IRequestItemsService requestItemsService, IConfiguration configuration)
         {
             this._requestItemsService = requestItemsService;

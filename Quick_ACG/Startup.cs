@@ -109,15 +109,15 @@ namespace DocuSign.QuickACG
                         request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", context.AccessToken);
 
-                        var response = await context.Backchannel.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, context.HttpContext.RequestAborted);
+                        HttpResponseMessage response = await context.Backchannel.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, context.HttpContext.RequestAborted);
                         response.EnsureSuccessStatusCode();
-                        var user = JObject.Parse(await response.Content.ReadAsStringAsync());
+                        var userJObject = JObject.Parse(await response.Content.ReadAsStringAsync());
 
-                        user.Add("access_token", context.AccessToken);
-                        user.Add("refresh_token", context.RefreshToken);
-                        user.Add("expires_in", DateTime.Now.Add(context.ExpiresIn.Value).ToString());
+                        userJObject.Add("access_token", context.AccessToken);
+                        userJObject.Add("refresh_token", context.RefreshToken);
+                        userJObject.Add("expires_in", DateTime.Now.Add(context.ExpiresIn.Value).ToString());
 
-                        using (JsonDocument payload = JsonDocument.Parse(user.ToString()))
+                        using (JsonDocument payload = JsonDocument.Parse(userJObject.ToString()))
                         {
                             context.RunClaimActions(payload.RootElement);
                         }
@@ -170,7 +170,6 @@ namespace DocuSign.QuickACG
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
 
             app.UseRouting();
             app.UseAuthentication();
