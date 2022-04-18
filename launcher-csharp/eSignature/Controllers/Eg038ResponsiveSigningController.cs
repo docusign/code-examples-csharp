@@ -30,6 +30,7 @@ namespace DocuSign.CodeExamples.Views
             string accessToken = RequestItemsService.User.AccessToken;
             string basePath = RequestItemsService.Session.BasePath + "/restapi";
             string accountId = RequestItemsService.Session.AccountId;
+            string redirectUrl = string.Empty;
 
             bool tokenOk = CheckToken(3);
             if (!tokenOk)
@@ -40,10 +41,8 @@ namespace DocuSign.CodeExamples.Views
 
             try
             {
-                string redirectUrl = ResponsiveSigning.CreateEnvelopeFromHTML(signerEmail,
-                signerName, ccEmail, ccName, signerClientId, accessToken, basePath, accountId, dsReturnUrl, dsPingUrl);
-
-                return Redirect(redirectUrl);
+                redirectUrl = ResponsiveSigning.CreateEnvelopeFromHTML(signerEmail,
+                    signerName, ccEmail, ccName, signerClientId, accessToken, basePath, accountId, dsReturnUrl, dsPingUrl);
             } 
             catch (ApiException apiException) 
             {
@@ -52,6 +51,8 @@ namespace DocuSign.CodeExamples.Views
 
                 return View("Error");
             }
+
+            return Redirect(redirectUrl);
         }
     }
 }
