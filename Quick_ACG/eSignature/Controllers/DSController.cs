@@ -18,7 +18,7 @@ namespace DocuSign.CodeExamples.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login(string returnUrl = "/")
+        public IActionResult Login(string returnUrl = "/eg001")
         {
             returnUrl += "?egName=" + _requestItemsService.EgName;
             return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });

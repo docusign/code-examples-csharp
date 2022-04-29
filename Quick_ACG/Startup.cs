@@ -37,17 +37,11 @@ namespace DocuSign.QuickACG
             {
                 // {1} - controller
                 // {0} - action
-                o.ViewLocationFormats.Add("Views/Shared/{0}.cshtml");
                 o.ViewLocationFormats.Add("Views/{1}/{0}.cshtml");
-                o.ViewLocationFormats.Add($"/{{1}}/Views/{{0}}{RazorViewEngine.ViewExtension}");
 
                 o.AreaViewLocationFormats.Clear();
-                o.AreaViewLocationFormats.Add("/{2}/Views/{1}/{0}.cshtml");
-                o.AreaViewLocationFormats.Add("/{2}/Views/Shared/{0}.cshtml");
-                o.AreaViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
             });
 
-            services.ConfigureNonBreakingSameSiteCookies();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -60,10 +54,7 @@ namespace DocuSign.QuickACG
 
             services.AddSingleton(config);
             services.AddScoped<IRequestItemsService, RequestItemsService>();
-            services.AddMvc(options =>
-            {
-                options.Filters.Add<LocalsFilter>();
-            });
+            services.AddMvc();
 
             services.AddRazorPages();
             services.AddMemoryCache();
@@ -121,12 +112,6 @@ namespace DocuSign.QuickACG
                         {
                             context.RunClaimActions(payload.RootElement);
                         }
-                    },
-                    OnRemoteFailure = context =>
-                    {
-                        context.HandleResponse();
-                        context.Response.Redirect("/Home/Error?message=" + context.Failure?.Message);
-                        return Task.FromResult(0);
                     }
                 };
             });
@@ -164,7 +149,6 @@ namespace DocuSign.QuickACG
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
 
@@ -180,7 +164,7 @@ namespace DocuSign.QuickACG
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}");
+                    pattern: "{controller=Eg}/{action=Index}");
             });
         }
     }

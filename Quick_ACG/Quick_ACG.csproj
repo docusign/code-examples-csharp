@@ -9,21 +9,19 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'CodeExamples' " />
 
   <ItemGroup>
-    <Compile Include="..\launcher-csharp\Common\LocalsFilter.cs" Link="Common\LocalsFilter.cs" />
-    <Compile Include="..\launcher-csharp\Common\SameSiteCookieServiceCollectionExtensions.cs" Link="Common\SameSiteCookieServiceCollectionExtensions.cs" />
-    <Compile Include="..\launcher-csharp\Common\SessionExtensions.cs" Link="Common\SessionExtensions.cs" />
+    <None Remove="eSignature\Controllers\EgController.cs~RF9bf1e5d.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\launcher-csharp\EmbeddedSigningCeremony.cs" Link="EmbeddedSigningCeremony.cs" />
     <Compile Include="..\launcher-csharp\eSignature\Controllers\Eg001EmbeddedSigningController.cs" Link="eSignature\Controllers\Eg001EmbeddedSigningController.cs" />
     <Compile Include="..\launcher-csharp\eSignature\Models\DSConfiguration.cs" Link="eSignature\Models\DSConfiguration.cs" />
-    <Compile Include="..\launcher-csharp\eSignature\Models\ErrorViewModel.cs" Link="eSignature\Models\ErrorViewModel.cs" />
-    <Compile Include="..\launcher-csharp\eSignature\Models\Locals.cs" Link="eSignature\Models\Locals.cs" />
     <Compile Include="..\launcher-csharp\eSignature\Models\Session.cs" Link="eSignature\Models\Session.cs" />
     <Compile Include="..\launcher-csharp\eSignature\Models\User.cs" Link="eSignature\Models\User.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
-    <None Include="..\launcher-csharp\Views\Shared\Error.cshtml" Link="Views\Shared\Error.cshtml" />
     <None Include="..\launcher-csharp\_ViewImports.cshtml" Link="_ViewImports.cshtml" />
   </ItemGroup>
 
@@ -42,6 +40,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Eg001EmbeddedSigning\" />
+    <Folder Include="wwwroot\css\" />
   </ItemGroup>
 
 </Project>

@@ -37,13 +37,8 @@ namespace DocuSign.CodeExamples.Common
 
         public bool CheckToken(int bufferMin = 60)
         {
-            bool isAuthCodeGrantAuthenticated = this._httpContextAccessor.HttpContext.User.Identity.IsAuthenticated
-                && (DateTime.Now.Subtract(TimeSpan.FromMinutes(bufferMin)) < User.ExpireIn.Value);
-
-            bool isJWTGrantAuthenticated = User?.AccessToken != null
-                    && (DateTime.Now.Subtract(TimeSpan.FromMinutes(bufferMin)) < User.ExpireIn.Value);
-
-            return isAuthCodeGrantAuthenticated || isJWTGrantAuthenticated;
+            return this._httpContextAccessor.HttpContext.User.Identity.IsAuthenticated
+                && (DateTime.Now.Subtract(TimeSpan.FromMinutes(bufferMin)) < User?.ExpireIn.Value);
         }
 
         private string GetKey(string key)
