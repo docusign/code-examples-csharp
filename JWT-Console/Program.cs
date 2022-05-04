@@ -29,23 +29,28 @@ namespace DocuSign.CodeExamples.JWT_Console
                 // Consent for impersonation must be obtained to use JWT Grant
                 if (apiExp.Message.Contains("consent_required"))
                 {
-                    // build a URL to provide consent for this Integratio Key and this userId
-                    string url = "https://" + ConfigurationManager.AppSettings["AuthServer"] + "/oauth/auth?response_type=code^&scope=impersonation%20signature^&client_id=" +
-                                ConfigurationManager.AppSettings["ClientId"] + "^&redirect_uri=" + DevCenterPage;
-                    Console.WriteLine($"Consent is required - launching browser (URL is {url})");
+                    string url;
                     // Start new browser window for login and consent to this app by DocuSign user
                     if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                     {
-                        Process.Start(new ProcessStartInfo("cmd", $"/c start {url}"));
+                        // build a URL to provide consent for this Integratio Key and this userId
+                        url = "https://" + ConfigurationManager.AppSettings["AuthServer"] + "/oauth/auth?response_type=code^&scope=impersonation%20signature^&client_id=" +
+                                    ConfigurationManager.AppSettings["ClientId"] + "^&redirect_uri=" + DevCenterPage;
+                        Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = false });
                     }
                     else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                     {
+                        url = "https://" + ConfigurationManager.AppSettings["AuthServer"] + "/oauth/auth?response_type=code&scope=impersonation%20signature&client_id=" +
+                                    ConfigurationManager.AppSettings["ClientId"] + "&redirect_uri=" + DevCenterPage;
                         Process.Start("xdg-open", url);
                     }
                     else
                     {
+                        url = "https://" + ConfigurationManager.AppSettings["AuthServer"] + "/oauth/auth?response_type=code&scope=impersonation%20signature&client_id=" +
+                                    ConfigurationManager.AppSettings["ClientId"] + "&redirect_uri=" + DevCenterPage;
                         Process.Start("open", url);
                     }
+                    Console.WriteLine($"Consent is required - launched browser (URL is {url})");
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Unable to send envelope; Exiting. Please rerun the console app once consent was provided");
                     Console.ForegroundColor = ConsoleColor.White;
