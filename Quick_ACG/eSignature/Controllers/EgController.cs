@@ -9,8 +9,8 @@ namespace DocuSign.CodeExamples.Controllers
     public abstract class EgController : Controller
     {
         public abstract string EgName { get; }
-        protected DSConfiguration Config { get; }
-        protected IRequestItemsService RequestItemsService { get; }
+        public DSConfiguration Config { get; }
+        public IRequestItemsService RequestItemsService { get; }
 
         public EgController(DSConfiguration config, IRequestItemsService requestItemsService)
         {

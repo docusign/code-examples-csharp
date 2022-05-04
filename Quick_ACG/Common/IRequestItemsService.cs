@@ -4,15 +4,15 @@ namespace DocuSign.CodeExamples
 {
     public interface IRequestItemsService
     {        
-        string EgName { get; set; }
+        public string EgName { get; set; }
 
-        Session Session { get; set; }
+        public Session Session { get; set; }
 
-        User User { get; set; }
+        public User User { get; set; }
 
-        string EnvelopeId { get; set; }
+        public string EnvelopeId { get; set; }
 
-        string Status { get; set; }
+        public string Status { get; set; }
 
         public void Logout();
 

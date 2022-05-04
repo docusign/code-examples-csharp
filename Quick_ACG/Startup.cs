@@ -1,34 +1,33 @@
-﻿using System.Net.Http.Headers;
-using System.Security.Claims;
+﻿using DocuSign.CodeExamples;
 using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OAuth;
-using Newtonsoft.Json.Linq;
-using System.Text.Json;
-using Microsoft.AspNetCore.Mvc.Razor;
-using DocuSign.CodeExamples;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using System.Net.Http;
-using System;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Claims;
+using System.Text.Json;
 
 namespace DocuSign.QuickACG
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)

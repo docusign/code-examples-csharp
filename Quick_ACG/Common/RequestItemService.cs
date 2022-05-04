@@ -1,9 +1,9 @@
-﻿using DocuSign.eSign.Client;
-using System;
-using DocuSign.CodeExamples.Models;
+﻿using DocuSign.CodeExamples.Models;
+using DocuSign.eSign.Client;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Security.Claims;
 
 namespace DocuSign.CodeExamples.Common
@@ -13,7 +13,7 @@ namespace DocuSign.CodeExamples.Common
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMemoryCache _cache;
         private readonly string _id;
-        protected static ApiClient _apiClient { get; private set; }
+        public ApiClient _apiClient { get; private set; }
 
         public RequestItemsService(IHttpContextAccessor httpContextAccessor, IMemoryCache cache, IConfiguration configuration)
         {
