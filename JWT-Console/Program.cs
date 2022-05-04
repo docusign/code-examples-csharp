@@ -7,6 +7,7 @@ using System;
 using System.Diagnostics;
 using System.Configuration;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace DocuSign.CodeExamples.JWT_Console
 {
@@ -33,7 +34,18 @@ namespace DocuSign.CodeExamples.JWT_Console
                                 ConfigurationManager.AppSettings["ClientId"] + "^&redirect_uri=" + DevCenterPage;
                     Console.WriteLine($"Consent is required - launching browser (URL is {url})");
                     // Start new browser window for login and consent to this app by DocuSign user
-                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = false });
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    {
+                        Process.Start(new ProcessStartInfo("cmd", $"/c start {url}"));
+                    }
+                    else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                    {
+                        Process.Start("xdg-open", url);
+                    }
+                    else
+                    {
+                        Process.Start("open", url);
+                    }
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Unable to send envelope; Exiting. Please rerun the console app once consent was provided");
                     Console.ForegroundColor = ConsoleColor.White;
