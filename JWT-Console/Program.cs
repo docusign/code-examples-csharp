@@ -55,8 +55,8 @@ namespace DocuSign.CodeExamples.JWT_Console
             string ccEmail = Console.ReadLine();
             Console.Write("Enter the carbon copy's name: ");
             string ccName = Console.ReadLine();
-            string docDocx = @"../../../../launcher-csharp\World_Wide_Corp_salary.docx";
-            string docPdf = @"../../../../launcher-csharp\World_Wide_Corp_lorem.pdf";
+            string docDocx = @"../../../../launcher-csharp/World_Wide_Corp_salary.docx";
+            string docPdf = @"../../../../launcher-csharp/World_Wide_Corp_lorem.pdf";
             Console.WriteLine("");
             string envelopeId = SigningViaEmail.SendEnvelopeViaEmail(signerEmail, signerName, ccEmail, ccName, accessToken.access_token, acct.BaseUri + "/restapi", acct.AccountId, docDocx, docPdf, "sent");
             Console.WriteLine("");
