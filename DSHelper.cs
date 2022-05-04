@@ -18,7 +18,6 @@ namespace DocuSign.CodeExamples.Common
             var filePath = Path.GetDirectoryName(fileName);
             if (string.IsNullOrEmpty(filePath))
             {
-
                 filePath = Directory.GetCurrentDirectory();
             }
 
