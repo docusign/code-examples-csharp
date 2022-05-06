@@ -3,6 +3,7 @@ using DocuSign.CodeExamples.Views;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -59,7 +60,6 @@ namespace DocuSign.CodeExamples.Controllers
 
             if (tokenOk)
             {
-                //addSpecialAttributes(model);
                 ViewBag.envelopeOk = RequestItemsService.EnvelopeId != null;
                 ViewBag.gatewayOk = Config.GatewayAccountId != null && Config.GatewayAccountId.Length > 25;
                 ViewBag.source = CreateSourcePath();
@@ -77,8 +77,6 @@ namespace DocuSign.CodeExamples.Controllers
 
                 return View(EgName, this);
             }
-
-            RequestItemsService.EgName = EgName;
 
             return Redirect("/ds/mustAuthenticate");
         }

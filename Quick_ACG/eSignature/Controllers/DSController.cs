@@ -18,19 +18,14 @@ namespace DocuSign.CodeExamples.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login(string returnUrl = "/eg001")
+        public IActionResult Login(string returnUrl = "/")
         {
-            returnUrl += "?egName=" + _requestItemsService.EgName;
             return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });
         }
 
         public IActionResult MustAuthenticate()
         {
-            if (_configuration["quickstart"] == "true")
-            {
-                return Login();
-            }
-            return View();
+            return Login();
         }
         
         public async System.Threading.Tasks.Task<IActionResult> logout()
