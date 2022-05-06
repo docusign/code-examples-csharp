@@ -1,9 +1,9 @@
-﻿using DocuSign.eSign.Client;
+﻿using DocuSign.CodeExamples.Common;
+using DocuSign.eSign.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
-using DocuSign.CodeExamples.Common;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -46,15 +46,17 @@ namespace DocuSign.CodeExamples.Controllers
 
         public IActionResult MustAuthenticate()
         {
-            if (_configuration["quickstart"] == "true")
-            {
-                return Login();
-            }
             if (_configuration["ExamplesAPI"] == "Monitor")
             {
                 // Monitor API supports JWT only
                 return Login("JWT");
             }
+
+            if (_configuration["quickstart"] == "true")
+            {
+                return Login();
+            }
+           
             return View();
         }
         
