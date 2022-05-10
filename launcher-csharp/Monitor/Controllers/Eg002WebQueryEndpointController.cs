@@ -57,8 +57,8 @@ namespace DocuSign.CodeExamples.Controllers
                 filterEndDate);
 
             // Process results
-            ViewBag.h1 = "Response output";
-            ViewBag.message = "Filtered organization's data response output:";
+            ViewBag.h1 = "Query monitoring data with filters";
+            ViewBag.message = "Results from DataSet:postWebQuery method:";
             ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
             return View("example_done");
         }
