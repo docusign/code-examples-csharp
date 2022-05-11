@@ -38,8 +38,8 @@ namespace DocuSign.CodeExamples.Controllers
             var results = _getMonitoringDataFunc.Invoke(accessToken, requestPath);
 
             // Process results
-            ViewBag.h1 = "Response output";
-            ViewBag.message = "Monitor data response output:";
+            ViewBag.h1 = "Get monitoring data";
+            ViewBag.message = "Results from DataSet:getStream method:";
             ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
             return View("example_done");
         }
