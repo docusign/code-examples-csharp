@@ -22,7 +22,7 @@ namespace DocuSign.CodeExamples.Monitor.Controllers
             if (!string.IsNullOrWhiteSpace(egName))
             {
                 _requestItemsService.EgName = null;
-                return Redirect($"Monitor/{egName}");
+                return Redirect($"/{egName}");
             }
 
             return View();

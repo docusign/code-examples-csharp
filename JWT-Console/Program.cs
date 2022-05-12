@@ -31,15 +31,16 @@ namespace DocuSign.CodeExamples.JWT_Console
                 // Consent for impersonation must be obtained to use JWT Grant
                 if (apiExp.Message.Contains("consent_required"))
                 {
+                    // Caret needed for escaping & in windows URL
                     string caret = "";
                     if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                     {
                         caret = "^";
                     }
 
-                    // build a URL to provide consent for this Integratio Key and this userId
-                    string url = "https://" + ConfigurationManager.AppSettings["AuthServer"] + "/oauth/auth?response_type=code" + caret + "&scope=impersonation%20signature"
-                        + caret + "&client_id=" + ConfigurationManager.AppSettings["ClientId"] + caret + "&redirect_uri=" + DevCenterPage;
+                    // build a URL to provide consent for this Integration Key and this userId
+                    string url = "https://" + ConfigurationManager.AppSettings["AuthServer"] + "/oauth/auth?response_type=code" + caret + "&scope=impersonation%20signature" + caret +
+                        "&client_id=" + ConfigurationManager.AppSettings["ClientId"] + caret + "&redirect_uri=" + DevCenterPage;
                     Console.WriteLine($"Consent is required - launching browser (URL is {url})");
 
                     // Start new browser window for login and consent to this app by DocuSign user
