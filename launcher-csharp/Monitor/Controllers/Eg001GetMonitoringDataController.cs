@@ -1,19 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+﻿using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Monitor.Examples;
-using DocuSign.CodeExamples.Common;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace DocuSign.CodeExamples.Controllers
 {
-    [Route("Monitor/monitorExample001")]
-    public class MonitorController : EgController
+    [Area("Monitor")]
+    [Route("monitorExample001")]
+    public class Eg001GetMonitoringDataController : EgController
     {
         private IRequestItemsService _requestItemsService;
 
         private readonly GetMonitoringDataFunc _getMonitoringDataFunc = new GetMonitoringDataFunc();
 
-        public MonitorController(DSConfiguration config, IRequestItemsService requestItemsService)
+        public Eg001GetMonitoringDataController(DSConfiguration config, IRequestItemsService requestItemsService)
             : base(config, requestItemsService)
         {
             ViewBag.title = "How to get monitoring data";
@@ -37,8 +38,8 @@ namespace DocuSign.CodeExamples.Controllers
             var results = _getMonitoringDataFunc.Invoke(accessToken, requestPath);
 
             // Process results
-            ViewBag.h1 = "Response output";
-            ViewBag.message = "Monitor data response output:";
+            ViewBag.h1 = "Get monitoring data";
+            ViewBag.message = "Results from DataSet:getStream method:";
             ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
             return View("example_done");
         }

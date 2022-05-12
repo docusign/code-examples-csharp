@@ -1,23 +1,23 @@
-﻿using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using DocuSign.CodeExamples.Common;
+﻿using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Models;
+using DocuSign.Rooms.Api;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text.Json;
-using DocuSign.Rooms.Api;
-using Microsoft.AspNetCore.Mvc.Razor;
+using System.Threading.Tasks;
 
 namespace DocuSign.CodeExamples
 {
@@ -250,9 +250,10 @@ namespace DocuSign.CodeExamples
                             pattern: "{area=Click}/{controller=Home}/{action=Index}/{id?}");
                         break;
                     case ExamplesAPIType.Monitor:
-                        endpoints.MapControllerRoute(
+                        endpoints.MapAreaControllerRoute(
                             name: "default",
-                            pattern: "{area=Monitor}/{controller=Home}/{action=Index}/{id?}");
+                            areaName: "Monitor",
+                            pattern: "{controller=Home}/{action=Index}/{id?}");
                         break;
                     case ExamplesAPIType.Admin:
                         endpoints.MapControllerRoute(
