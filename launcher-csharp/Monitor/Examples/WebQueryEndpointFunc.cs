@@ -34,16 +34,17 @@ namespace DocuSign.CodeExamples.Monitor.Examples
             // step 2 end
 
             // Declare variables
-            // step 3 start
+            // step 4 start
             DataSetApi dataSetApi = new DataSetApi(apiClient);
             WebQuery options = PrepareWebQuery(filterStartDate, filterEndDate, accountId);
 
             var cursoredResult = dataSetApi.PostWebQuery("2.0", "monitor", options);
-            // step 3 end
+            // step 4 end
 
             return cursoredResult.Result;
         }
 
+        // Step 3 start
         private WebQuery PrepareWebQuery(string filterStartDate, string filterEndDate, string accountId)
         {
             return new WebQuery
@@ -75,6 +76,7 @@ namespace DocuSign.CodeExamples.Monitor.Examples
                 }
             };
         }
+        // Step 3 end
     }
 }
 
