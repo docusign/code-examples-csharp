@@ -33,6 +33,7 @@ namespace eSignature.Examples
             // Step 2. Call DocuSign to create the envelope                   
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
             string envelopeId = results.EnvelopeId;
@@ -137,7 +138,7 @@ namespace eSignature.Examples
             // Create signHere fields (also known as tabs) on the documents,
             // We're using anchor (autoPlace) positioning
             //
-            // The DocuSign platform seaches throughout your envelope's
+            // The DocuSign platform searches throughout your envelope's
             // documents for matching anchor strings.
             SignHere signHere1 = new SignHere
             {

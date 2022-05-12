@@ -27,27 +27,27 @@ namespace eSignature.Examples
         /// <param name="docDocx">String of bytes representing the Word document (docx)</param>
         /// <param name="envStatus">Status to set the envelope to</param>
         /// <returns>EnvelopeId for the new envelope</returns>
-        public static string SendRequestViaSMS(string accessToken, string basePath, string accountId, string signerEmail, string signerName, string signerCountryCode, string signerPhoneNumber, string ccEmail, string ccName, string ccCountryCode, string ccPhoneNumber, string docDocx, string docPdf, string envStatus)
+        public static string SendRequestViaSMS(string accessToken, string basePath, string accountId, string signerName, string signerCountryCode, string signerPhoneNumber, string ccName, string ccCountryCode, string ccPhoneNumber, string docDocx, string docPdf, string envStatus)
         {
-            EnvelopeDefinition env = MakeEnvelope(signerEmail, signerName, signerCountryCode, signerPhoneNumber, ccEmail,
-                ccName, ccCountryCode, ccPhoneNumber, docDocx, docPdf, envStatus);
+            EnvelopeDefinition env = MakeEnvelope(signerName, signerCountryCode, signerPhoneNumber, ccName, ccCountryCode, ccPhoneNumber, docDocx, docPdf, envStatus);
 
+            // Step 3 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
 
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+            // Step 3 end
             return results.EnvelopeId;
         }
 
-        private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string signerCountryCode, string signerPhoneNumber, string ccEmail, string ccName, string ccCountryCode, string ccPhoneNumber, string docDocx, string docPdf, string envStatus)
+        // Step 2 start
+        private static EnvelopeDefinition MakeEnvelope(string signerName, string signerCountryCode, string signerPhoneNumber, string ccName, string ccCountryCode, string ccPhoneNumber, string docDocx, string docPdf, string envStatus)
         {
             // Data for this method
-            // signerEmail
             // signerName
             // signerCountryCode
             // signerPhoneNumber
-            // ccEmail
             // ccName
             // ccCountryCode
             // ccPhoneNumber
@@ -75,7 +75,7 @@ namespace eSignature.Examples
 
             // Create document objects, one per document
             Document doc1 = new Document();
-            string b64 = Convert.ToBase64String(document1(signerEmail, signerName, ccEmail, ccName));
+            string b64 = Convert.ToBase64String(document1(signerPhoneNumber, signerName, ccPhoneNumber, ccName));
             doc1.DocumentBase64 = b64;
             doc1.Name = "Order acknowledgement"; // can be different from actual file name
             doc1.FileExtension = "html"; // Source data format. Signed docs are always pdf.
@@ -101,22 +101,14 @@ namespace eSignature.Examples
             // We're setting the parameters via the object creation
             Signer signer1 = new Signer
             {
-                Email = signerEmail,
                 Name = signerName,
                 RecipientId = "1",
                 RoutingOrder = "1",
-                AdditionalNotifications = new List<RecipientAdditionalNotification>
+                PhoneNumber = new RecipientPhoneNumber
                 {
-                new RecipientAdditionalNotification
-                    {
-                        PhoneNumber = new RecipientPhoneNumber
-                        {
-                            CountryCode = signerCountryCode,
-                            Number= signerPhoneNumber
-                        },
-                        SecondaryDeliveryMethod = "SMS"
-                    }
-                }
+                    CountryCode = signerCountryCode,
+                    Number = signerPhoneNumber
+                },
             };
 
             // routingOrder (lower means earlier) determines the order of deliveries
@@ -127,22 +119,14 @@ namespace eSignature.Examples
             // We're setting the parameters via setters
             CarbonCopy cc1 = new CarbonCopy
             {
-                Email = ccEmail,
                 Name = ccName,
                 RecipientId = "2",
                 RoutingOrder = "2",
-                AdditionalNotifications = new List<RecipientAdditionalNotification>
+                PhoneNumber = new RecipientPhoneNumber
                 {
-                new RecipientAdditionalNotification
-                    {
-                        PhoneNumber = new RecipientPhoneNumber
-                        {
-                            CountryCode = ccCountryCode,
-                            Number= ccPhoneNumber
-                        },
-                        SecondaryDeliveryMethod = "SMS"
-                    }
-                }
+                    CountryCode = ccCountryCode,
+                    Number = ccPhoneNumber
+                },
             };
 
             // Create signHere fields (also known as tabs) on the documents,
@@ -189,12 +173,12 @@ namespace eSignature.Examples
             return env;
         }
 
-        private static byte[] document1(string signerEmail, string signerName, string ccEmail, string ccName)
+        private static byte[] document1(string signerPhone, string signerName, string ccPhone, string ccName)
         {
             // Data for this method
             // signerEmail
-            // signerName
-            // ccEmail
+            // signerPhone
+            // ccPhone
             // ccName
 
             return Encoding.UTF8.GetBytes(
@@ -210,8 +194,8 @@ namespace eSignature.Examples
                 "          margin-top: 0px;margin-bottom: 3.5em;font-size: 1em;\n" +
                 "          color: darkblue;\">Order Processing Division</h2>\n" +
                 "        <h4>Ordered by " + signerName + "</h4>\n" +
-                "        <p style=\"margin-top:0em; margin-bottom:0em;\">Email: " + signerEmail + "</p>\n" +
-                "        <p style=\"margin-top:0em; margin-bottom:0em;\">Copy to: " + ccName + ", " + ccEmail + "</p>\n" +
+                "        <p style=\"margin-top:0em; margin-bottom:0em;\">Phone Number: " + signerPhone + "</p>\n" +
+                "        <p style=\"margin-top:0em; margin-bottom:0em;\">Copy to: " + ccName + ", " + ccPhone+ "</p>\n" +
                 "        <p style=\"margin-top:3em;\">\n" +
                 "  Candy bonbon pastry jujubes lollipop wafer biscuit biscuit. Topping brownie sesame snaps sweet roll pie. Croissant danish biscuit soufflé caramels jujubes jelly. Dragée danish caramels lemon drops dragée. Gummi bears cupcake biscuit tiramisu sugar plum pastry. Dragée gummies applicake pudding liquorice. Donut jujubes oat cake jelly-o. Dessert bear claw chocolate cake gummies lollipop sugar plum ice cream gummies cheesecake.\n" +
                 "        </p>\n" +
@@ -221,5 +205,6 @@ namespace eSignature.Examples
                 "    </html>"
                 );
         }
+        // Step 2 end
     }
 }

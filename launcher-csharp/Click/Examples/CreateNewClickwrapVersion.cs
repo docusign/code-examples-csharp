@@ -16,27 +16,26 @@ namespace DocuSign.Click.Examples
         /// <param name="accessToken">Access Token for API call (OAuth)</param>
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// <returns>The summary response of a newly created clickwrap version</returns>
-        public static ClickwrapVersionSummaryResponse Create(string clickwrapId, string basePath, string accessToken, string accountId)
+        public static ClickwrapVersionSummaryResponse Create(string clickwrapId, string basePath, string accessToken, string accountId, string clickwrapName)
         {
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             var clickAccountApi = new AccountsApi(apiClient);
 
-            var clickwrapRequest = BuildUpdateClickwrapVersionRequest();
+            var clickwrapRequest = BuildUpdateClickwrapVersionRequest(clickwrapName);
 
             return clickAccountApi.CreateClickwrapVersion(accountId, clickwrapId, clickwrapRequest);
         }
 
-        private static ClickwrapRequest BuildUpdateClickwrapVersionRequest()
+        private static ClickwrapRequest BuildUpdateClickwrapVersionRequest(string clickwrapName)
         {
             var clickwrapRequest = new ClickwrapRequest
             {
-                Name = "Terms of Service",
+                Name = $"{clickwrapName}",
                 DisplaySettings = new DisplaySettings()
                 {
-                    DisplayName = "Terms of Service v2",
+                    DisplayName = $"{clickwrapName}",
                     MustRead = true,
-                    MustView = false,
                     RequireAccept = false,
                     Downloadable = false,
                     SendToEmail = false,

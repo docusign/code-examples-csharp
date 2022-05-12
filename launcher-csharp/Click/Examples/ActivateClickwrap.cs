@@ -35,5 +35,16 @@ namespace DocuSign.Click.Examples
 
             return clickwrapRequest;
         }
+
+        public static ClickwrapVersionsResponse GetInactiveClickwraps(string basePath, string accessToken, string accountId)
+        {
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var clickAccountApi = new AccountsApi(apiClient);
+            var options = new AccountsApi.GetClickwrapsOptions();
+            options.status = "inactive";
+
+            return clickAccountApi.GetClickwraps(accountId, options);
+        }
     }
 }

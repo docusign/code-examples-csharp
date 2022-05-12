@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+<appSettings>
+	<add key="ClientId" value="{INTEGRATION_KEY_JWT}"/>
+	<add key="AuthServer" value="account-d.docusign.com"/>
+	<add key="ImpersonatedUserID" value="{IMPERSONATED_USER_ID}"/>
+	<add key="PrivateKeyFile" value="..\..\..\private.key"/>
+</appSettings>
+</configuration>

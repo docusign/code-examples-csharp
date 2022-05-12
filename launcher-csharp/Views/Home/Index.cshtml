@@ -319,17 +319,24 @@
 
         <h2>Bulk operations</h2>
 
-        <h4 id="example031">31. <a href="eg031">Bulk sending envelopes to multiple recipients</a></h4>
+        <h4 id="example031">31. <a href="eg031">Bulk send envelopes</a></h4>
 
         <p>
-            Bulk sending envelopes to multiple recipients.
+            Demonstrates how to send envelopes in bulk to multiple recipients. First, this example creates a bulk-send recipients list, then creates an envelope. After 
+            that, it initiates bulk envelope sending.
         </p>
         <p>
             API methods used:
-            <a target="_blank" href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/enveloperecipients/create/">EnvelopeRecipients::create</a>,
-            <a target="_blank" href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>,
-            <a target="_blank" href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeCustomFields/create">EnvelopeCustomFields::create</a>,
-            <a target="_blank" href="https://developers.docusign.com/esign-rest-api/reference/BulkEnvelopes/BulkSend/createBulkSendList">BulkSend::createBulkSendList</a>.
+    <a target="_blank"
+       href="https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/createbulksendlist/">BulkSend::createBulkSendList</a>,
+    <a target="_blank"
+       href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>,
+    <a target="_blank"
+       href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopecustomfields/create/">EnvelopeCustomFields::create</a>,
+    <a target="_blank"
+       href="https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/createbulksendrequest/">BulkSend::createBulkSendRequest</a>,
+    <a target="_blank"
+       href="https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/getbulksendbatchstatus/">BulkSend::getBulkSendBatchStatus</a>
         </p>
 
         <h2>Advanced recipient routing</h2>
@@ -364,16 +371,44 @@
             <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes:create</a>.
         </p>
 
-        <h2>Premium features</h2>
-
-        <h4 id="example035">35. <a href="eg035">Request Signature by SMS</a></h4>
+        <h4 id="example035">35. <a href="eg035">Schedule an envelope</a></h4>
 
         <p>
-            This example demonstrates how to send a signature request for a signer (and CC) to read and sign via an SMS message.
+            Demonstrates how to schedule an envelope using the scheduled sending feature.
+        </p>
+        <p>
+            API method used:
+            <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes:create</a>.
+        </p>
+        <h4 id="example036">36. <a href="eg036">Send an envelope with delayed routing</a></h4>
+
+        <p>
+            Demonstrates how to delay an envelope’s delivery between recipients using the delayed routing feature.
+        </p>
+        <p>
+            API method used:
+            <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes:create</a>.
+        </p>
+        <h2>Premium features</h2>
+
+        <h4 id="example037">37. <a href="eg037">Request a signature by SMS delivery</a></h4>
+
+        <p>
+            Sends a signature request via an SMS message.
         </p>
         <p>
             API method used:
             <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
+        </p>
+
+        <h4 id="example038">38. <a href="eg038">Create a signable HTML document</a></h4>
+        <p>
+        Demonstrates how to create an HTML document for responsive signing.
+        <p>
+        API methods used:
+        <a target="_blank" href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>,
+        <a target='_blank'
+            href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/">EnvelopeViews::createRecipient</a>.
         </p>
 
         <!-- anchor-js is only for the index page -->

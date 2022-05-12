@@ -79,7 +79,7 @@ For a list of code examples that use the Admin API, select the C# tab under [Exa
    where {base_url} is the URL for the web app.  
    
 1. [C# .NET Core](https://dotnet.microsoft.com/download/dotnet-core) 3.1 or later.  
-1. [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/) with ASP.NET package.
+1. [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/) with ASP.NET package  (Visual Studio 2019 is also supported).
 
 
 ### Installation steps
@@ -117,6 +117,8 @@ Also, in order to select JSON Web Token authentication in the launcher, in launc
 1. When prompted, log in to your DocuSign developer account. If this is your first time using the app, select **ACCEPT** at the consent window. 
 1. Select your desired code example.
 
+## JWT grant remote signing project
+See [DocuSign Quickstart overview](https://developers.docusign.com/docs/esign-rest-api/quickstart/overview/) on the DocuSign Developer Center for more information on how to run the JWT grant remote signing project.
 
 ## Payments code example  
 To use the payments code example, create a test payment gateway on the [Payments](https://admindemo.docusign.com/authenticate?goTo=payments) page in your developer account. See [Configure a payment gateway](./PAYMENTS_INSTALLATION.md) for details.  
