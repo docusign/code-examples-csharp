@@ -176,7 +176,7 @@
   "packages": [
     {
       "name": "docusign-esign",
-      "version": "5.9.0-rc1"
+      "version": "5.15.0"
     },
     {
       "name": "fs",
@@ -184,11 +184,11 @@
     },
     {
       "name": "moment",
-      "version": "^2.24.0"
+      "version": "^2.29.1"
     },
     {
       "name": "passport",
-      "version": "^0.4.0"
+      "version": "^0.5.2"
     }
   ],
   "supportedAPIs": [
@@ -198,7 +198,7 @@
       "packages": [
         {
           "name": "docusign-esign",
-          "version": "^5.10.0"
+          "version": "^5.15.0"
         }
       ],
       "scopes": [
@@ -232,7 +232,7 @@
       "packages": [
         {
           "name": "docusign-click",
-          "version": "^1.0.0"
+          "version": "^1.1.0"
         }
       ],
       "scopes": [
@@ -246,7 +246,7 @@
       "packages": [
         {
           "name": "docusign-monitor",
-          "version": "^1.0.0"
+          "version": "^1.0.1"
         }
       ]
     }
