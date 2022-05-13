@@ -1,4 +1,5 @@
 ﻿using DocuSign.CodeExamples.Models;
+using DocuSign.CodeExamples.Views;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DocuSign.CodeExamples.Controllers
@@ -37,6 +38,11 @@ namespace DocuSign.CodeExamples.Controllers
                 ViewBag.showDoc = Config.documentation != null;
                 ViewBag.pausedEnvelopeOk = RequestItemsService.PausedEnvelopeId != null;
                 InitializeInternal();
+
+                if (Config.QuickACG == "true" && !(this is Eg001EmbeddedSigningController))
+                {
+                    return Redirect("eg001");
+                }
 
                 return View(EgName, this);
             }
