@@ -4,7 +4,7 @@
       "number": "1",
       "name": "Embedded Signing Ceremony",
       "description": "This example sends an envelope, and then uses an embedded signing ceremony for the first signer. With embedded signing, the DocuSign signing ceremony is initiated from your website.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/embeddedSigning.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/eg001_embedded_signing_service.rb",
       "method": "SendEnvelopeForEmbeddedSigning",
       "apiType": "ESignature"
     },
@@ -12,7 +12,7 @@
       "number": "2",
       "name": "Send an envelope with a remote (email) signer and cc recipient",
       "description": "The envelope includes a pdf, Word, and HTML document. Anchor text (AutoPlace) is used to position the signing fields in the documents.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/signingViaEmail.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg002_signing_via_email_service.rb",
       "method": "SendEnvelopeViaEmail",
       "apiType": "ESignature"
     },
@@ -20,7 +20,7 @@
       "number": "3",
       "name": "List envelopes in the user's account",
       "description": "The envelopes' current status is included.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/listEnvelopes.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg003_list_envelopes_service.rb",
       "method": "ListAllEnvelope",
       "apiType": "ESignature"
     },
@@ -28,7 +28,7 @@
       "number": "4",
       "name": "Get an envelope's basic information",
       "description": "The example lists the basic information about an envelope, including its overall status.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/envelopeInfo.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg004_envelope_info_service.rb",
       "method": "GetEnvelope",
       "apiType": "ESignature"
     },
@@ -36,7 +36,7 @@
       "number": "5",
       "name": "List an envelope's recipients",
       "description": "Includes current recipient status.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/envelopeRecipients.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/controllers/e_sign/eg005_envelope_recipients_controller.rb",
       "method": "GetRecipients",
       "apiType": "ESignature"
     },
@@ -44,7 +44,7 @@
       "number": "6",
       "name": "Listing Envelope Documents",
       "description": "This code example demonstrates how to retrieve a list of all documents within a specific envelope.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/envelopeDocs.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg006_envelope_docs_service.rb",
       "method": "GetDocuments",
       "apiType": "ESignature"
     },
@@ -52,7 +52,7 @@
       "number": "7",
       "name": "Downloading Envelope Documents",
       "description": "The example can download individual documents, the documents concatenated together, or a zip file of the documents.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/envelopeGetDoc.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg007_envelope_get_doc_service.rb",
       "method": "DownloadDocument",
       "apiType": "ESignature"
     },
@@ -60,7 +60,7 @@
       "number": "8",
       "name": "Programmatically create a template",
       "description": "This code example demonstrates how to create a new DocuSign template using the eSignature API.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/createTemplate.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg008_create_template_service.rb",
       "method": "CreateTemplate",
       "apiType": "ESignature"
     },
@@ -68,7 +68,7 @@
       "number": "9",
       "name": "Send an envelope using a template",
       "description": "This code example demonstrates how to generate a new envelope from an existing template.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/useTemplate.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg009_use_template_service.rb",
       "method": "SendEnvelopeFromTemplate",
       "apiType": "ESignature"
     },
@@ -76,7 +76,7 @@
       "number": "10",
       "name": "Send an envelope and upload its documents with multpart binary transfer",
       "description": "Binary transfer is 33% more efficient than using Base64 encoding.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/sendBinaryDocs.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg010_send_binary_docs_service.rb",
       "method": "CreateAndSendEnvelope",
       "apiType": "ESignature"
     },
@@ -84,7 +84,7 @@
       "number": "11",
       "name": "Embedded sending",
       "description": "Embeds the DocuSign web tool (NDSE) in your web app to finalize or update the envelope and documents before they are sent.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/embeddedSending.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg011_embedded_sending_service.rb",
       "method": "SendEnvelopeUsingEmbeddedSending",
       "apiType": "ESignature"
     },
@@ -92,7 +92,7 @@
       "number": "12",
       "name": "Embedded DocuSign web tool (NDSE).",
       "description": "Embeds the DocuSign web tool (NDSE) in your web app.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/embeddedConsole.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg012_embedded_console_service.rb",
       "method": "CreateEmbeddedConsoleView",
       "apiType": "ESignature"
     },
@@ -100,7 +100,7 @@
       "number": "13",
       "name": "Embedded Signing Ceremony from a template with an added document.",
       "description": "This example sends an envelope based on a template. In addition to the template's document(s), the example adds an additional document to the envelope by using the Composite Templates feature.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/addDocToTemplate.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg013_add_doc_to_template_service.rb",
       "method": "CreateEnvelopeUsingCompositeTemplate",
       "apiType": "ESignature"
     },
@@ -108,7 +108,7 @@
       "number": "14",
       "name": "Payments example: an order form, with online payment by credit card",
       "description": "This code example demonstrates how to create an envelope that enables the recipients to also submit a payment when signing the envelope.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/collectPayment.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg014_collect_payment_service.rb",
       "method": "CreateEnvelopeWithPayment",
       "apiType": "ESignature"
     },
@@ -116,7 +116,7 @@
       "number": "15",
       "name": "Get the envelope tab data.",
       "description": "Retrieve the tab (field) values for all of the envelope's recipients. ",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/envelopeTabData.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg015_get_envelope_tab_data_service.rb",
       "method": "GetEnvelopeFormData",
       "apiType": "ESignature"
     },
@@ -124,7 +124,7 @@
       "number": "16",
       "name": "Set envelope tab values",
       "description": "The example creates an envelope and sets the initial values for its tabs (fields). Some of the tabs are set to be read-only, others can be updated by the recipient. The example also stores metadata with the envelope.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/setTabValues.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg016_set_envelope_tab_data_service.rb",
       "method": "CreateEnvelopeAndUpdateTabData",
       "apiType": "ESignature"
     },
@@ -132,7 +132,7 @@
       "number": "17",
       "name": "Set template tab values",
       "description": "The example creates an envelope using a template and sets the initial values for its tabs (fields). The example also stores metadata with the envelope. ",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/setTemplateTabValues.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg017_set_template_tab_values_service.rb",
       "method": "CreateEnvelopeFromTempalteAndUpdateTabValues",
       "apiType": "ESignature"
     },
@@ -140,7 +140,7 @@
       "number": "18",
       "name": "Get the envelope custom field data (metadata)",
       "description": "The example retrieves the custom metadata (custom data fields) stored with the envelope. ",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/envelopeCustomFieldData.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg018_get_envelope_custom_field_data_service.rb",
       "method": "ListAllCustomFieldsForEnvelope",
       "apiType": "ESignature"
     },
@@ -148,23 +148,15 @@
       "number": "19",
       "name": "Requiring an Access Code for a Recipient",
       "description": "This example sends an envelope that requires an access-code for the purpose of multi-factor authentication.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/accessCodeAuthentication.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg019_access_code_authentication_service.rb",
       "method": "CreateEnvelopeWithRecipientUsingAccessCodeAuth",
       "apiType": "ESignature"
     },
     {
       "number": "20",
-      "name": "Requiring SMS authentication for a recipient",
-      "description": "This example sends an envelope that requires entering in a six digit code from an text message for the purpose of multi-factor authentication.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/smsAuthentication.js",
-      "method": "CreateEnvelopeWithRecipientUsingSMSAuth",
-      "apiType": "ESignature"
-    },
-    {
-      "number": "21",
       "name": "Requiring Phone authentication for a recipient",
       "description": "This example sends an envelope that requires entering in a voice-based response code for the purpose of multi-factor authentication.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/phoneAuthentication.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg020_phone_authentication_service.rb",
       "method": "CreateEnvelopeWithRecipientUsingPhoneAuth",
       "apiType": "ESignature"
     },
@@ -172,7 +164,7 @@
       "number": "22",
       "name": "Requiring Knowledge-Based Authentication (KBA) for a Recipient",
       "description": "This example sends an envelope that requires passing a Public records check to validate identity for the purpose of multi-factor authentication.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/kbaAuthentication.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg022_kba_authentication_service.rb",
       "method": "CreateEnvelopeWithRecipientUsingKBAAuth",
       "apiType": "ESignature"
     },
@@ -180,7 +172,7 @@
       "number": "23",
       "name": "Requiring ID Verification (IDV) for a recipient",
       "description": "This example sends an envelope that requires submitting a photo of a government issued id for the purpose of multi-factor authentication.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/idvAuthentication.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg023_idv_authentication_service.rb",
       "method": "CreateEnvelopeWithRecipientUsingIDVAuth",
       "apiType": "ESignature"
     },
@@ -188,7 +180,7 @@
       "number": "24",
       "name": "Creating a permission profile",
       "description": "This example creates a new permission profile that can be assigned to users in the DocuSign account.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/createPermission.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg024_permission_create_service.rb",
       "method": "Create",
       "apiType": "ESignature"
     },
@@ -196,7 +188,7 @@
       "number": "25",
       "name": "Setting a permission profile",
       "description": "This example applies an existing permission profile to a group of users in the DocuSign account.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/permissionSetUserGroup.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg025_permissions_set_user_group_service.rb",
       "method": "GetGroupInformation",
       "apiType": "ESignature"
     },
@@ -204,7 +196,7 @@
       "number": "26",
       "name": "Updating individual permission settings",
       "description": "This example updates the settings of an existing permission profile.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/permissionChangeSingleSetting.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg026_permissions_change_single_setting_service.rb",
       "method": "UpdatePermissionProfile",
       "apiType": "ESignature"
     },
@@ -212,7 +204,7 @@
       "number": "27",
       "name": "Deleting a permission profile",
       "description": "This example deletes a permission profile.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/deletePermission.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg027_permissions_delete_service.rb",
       "method": "DeletePermissionProfile",
       "apiType": "ESignature"
     },
@@ -220,7 +212,7 @@
       "number": "28",
       "name": "Creating a brand",
       "description": "This example creates a new brand that can be used to customize the user experience of envelopes in the DocuSign account.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/createBrand.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg028_brands_creating_service.rb",
       "method": "Create",
       "apiType": "ESignature"
     },
@@ -228,7 +220,7 @@
       "number": "29",
       "name": "Applying a brand to an envelope",
       "description": "This example creates a new envelope and applies an existing brand to that envelope.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/applyBrandToEnvelope.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg029_brands_apply_to_envelope_service.rb",
       "method": "CreateEnvelopeWithBranding",
       "apiType": "ESignature"
     },
@@ -236,7 +228,7 @@
       "number": "30",
       "name": "Applying a brand and template to an envelope",
       "description": "This example creates a new envelope from a template and also applies an existing brand to it.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/applyBrandToTemplate.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg030_brands_apply_to_template_service.rb",
       "method": "CreateEnvelopeFromTemplateWithBrand",
       "apiType": "ESignature"
     },
@@ -244,7 +236,7 @@
       "number": "31",
       "name": "Bulk sending envelopes to multiple recipients",
       "description": "This example sends an envelope to multiple recipients by using the DocuSign Bulk Send feature.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/bulkSendEnvelope.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg031_bulk_sending_envelopes_service.rb",
       "method": "GetStatus",
       "apiType": "ESignature"
     },
@@ -252,7 +244,7 @@
       "number": "32",
       "name": "Pause a signature workflow",
       "description": "This example creates and envelope and then pauses the signature workflow",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/pauseSignatureWorkflow.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg032_pauses_signature_workflow_service.rb",
       "method": "PauseWorkflow",
       "apiType": "ESignature"
     },
@@ -260,7 +252,7 @@
       "number": "33",
       "name": "Unpause a signature workflow",
       "description": "This example unpauses a signature workflow for the previously created envelope that was paused.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/unpauseSignatureWorkflow.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg033_unpauses_signature_workflow_service.rb",
       "method": "UnpauseWorkflow",
       "apiType": "ESignature"
     },
@@ -268,7 +260,7 @@
       "number": "34",
       "name": "Conditional recipients",
       "description": "This example creates an envelope that is routed to different recipients based on a predefined condition.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/useConditionalRecipients.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg034_use_conditional_recipients_service.rb",
       "method": "SendEnvelope",
       "apiType": "ESignature"
     },
@@ -276,7 +268,7 @@
       "number": "35",
       "name": "Request Signature by SMS",
       "description": "This example demonstrates how to send a signature request for a signer (and CC) to read and sign via an SMS message.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/smsDelivery.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg035_sms_delivery_service.rb",
       "method": "SendRequestViaSMS",
       "apiType": "ESignature"
     },
@@ -284,7 +276,7 @@
       "number": "36",
       "name": "Create Clickwraps",
       "description": "This example shows how to create a clickwrap.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/click/examples/createClickwrap.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/clickwrap/eg001_create_clickwrap_service.rb",
       "method": "CreateClickwrap",
       "apiType": "Click"
     },
@@ -292,7 +284,7 @@
       "number": "37",
       "name": "Activate Clickwrap",
       "description": "This example shows how to activate a clickwrap.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/click/examples/activateClickwrap.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/clickwrap/eg002_activate_clickwrap_service.rb",
       "method": "UpdateClickwrapVersion",
       "apiType": "Click"
     },
@@ -300,7 +292,7 @@
       "number": "38",
       "name": "Clickwrap Versioning",
       "description": "This example shows how to create a new clickwrap version.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/click/examples/createNewClickwrapVersion.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/clickwrap/eg003_create_new_clickwrap_version_service.rb",
       "method": "UpdateClickwrapVersion",
       "apiType": "Click"
     },
@@ -308,7 +300,7 @@
       "number": "39",
       "name": "Retrieve Clickwraps",
       "description": "This example shows how to get a list of clickwraps.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/click/examples/listClickwraps.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/clickwrap/eg004_list_clickwraps_service.rb",
       "method": "GetClickwraps",
       "apiType": "Click"
     },
@@ -316,7 +308,7 @@
       "number": "40",
       "name": "Get Clickwrap Responses",
       "description": "This example shows how to get clickwrap responses.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/click/examples/clickwrapResponses.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/clickwrap/eg005_clickwrap_responses_service.rb",
       "method": "GetClickwrapAgreements",
       "apiType": "Click"
     },
@@ -324,7 +316,7 @@
       "number": "41",
       "name": "Create a room with data",
       "description": "This example creates a room using specified data.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/rooms/examples/createRoomWithData.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/room_api/eg001_create_room_with_data_service.rb",
       "method": "CreateRoom",
       "apiType": "Rooms"
     },
@@ -332,7 +324,7 @@
       "number": "42",
       "name": "Create a room from template",
       "description": "This example creates a room from a template.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/rooms/examples/createRoomFromTemplate.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/room_api/eg002_create_room_with_template_service.rb",
       "method": "CreateRoom",
       "apiType": "Rooms"
     },
@@ -340,7 +332,7 @@
       "number": "43",
       "name": "Export data from a room",
       "description": "This example exports data from a room.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/rooms/examples/exportDataFromRoom.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/room_api/eg003_export_data_from_room_service.rb",
       "method": "GetRoomFieldData",
       "apiType": "Rooms"
     },
@@ -348,7 +340,7 @@
       "number": "44",
       "name": "Add form to a room",
       "description": "This example adds form to a room.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/rooms/examples/addingFormToRoom.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/room_api/eg004_add_forms_to_room_service.rb",
       "method": "AddFormToRoom",
       "apiType": "Rooms"
     },
@@ -356,7 +348,7 @@
       "number": "45",
       "name": "Get filtered rooms",
       "description": "This example returns rooms by filter.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/rooms/examples/getRoomsWithFilters.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/room_api/eg005_get_rooms_with_filters_service.rb",
       "method": "GetRooms",
       "apiType": "Rooms"
     },
@@ -364,7 +356,7 @@
       "number": "46",
       "name": "Create external form fill session",
       "description": "This is an example of creating external form fill session.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/rooms/examples/createExternalFormFillSession.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/room_api/eg006_create_an_external_form_fill_session_service.rb",
       "method": "CreateExternalFormFillSession",
       "apiType": "Rooms"
     },
@@ -372,7 +364,7 @@
       "number": "47",
       "name": "Create a form group",
       "description": "This is an example of creating a form group for your DocuSign Rooms for Real Estate account.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/rooms/examples/createFormGroup.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/room_api/eg007_create_form_group_service.rb",
       "method": "CreateFormGroup",
       "apiType": "Rooms"
     },
@@ -380,7 +372,7 @@
       "number": "48",
       "name": "Grants office access to a form group",
       "description": "This is an example of granting office access to a form group.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/rooms/examples/grantOfficeAccessToFormGroup.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/room_api/eg008_grant_office_access_to_form_group_service.rb",
       "method": "GrantOfficeAccessToFormGroup",
       "apiType": "Rooms"
     },
@@ -388,7 +380,7 @@
       "number": "49",
       "name": "Assign a form to a form group",
       "description": "This is an example of assigning a form to a form group.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/rooms/examples/assignFormToFormGroup.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/room_api/eg009_assign_form_to_form_group_service.rb",
       "method": "AssignFormGroupForm",
       "apiType": "Rooms"
     },
@@ -396,7 +388,7 @@
       "number": "50",
       "name": "Getting the monitoring data",
       "description": "Getting the monitoring data",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/monitor/examples/getMonitoringData.js",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/monitor_api/eg001_get_monitoring_dataset_service.rb",
       "method": "GetMonitoringData",
       "apiType": "Monitor"
     }
