@@ -1,0 +1,288 @@
+{
+  "authenticationTypes": [
+    {
+      "name": "AuthCodeGrant",
+      "displayName": "Authorization Code Grant Ruby",
+      "description": "Choose this option if each user who sends DocuSign envelopes using \nThe eSignature API will login to DocuSign during each session.",
+      "shortDescription": "Users will login to DocuSign during each session to send envelopes to eSignature API",
+      "sources": [
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby-private/master/app/services/api_creator.rb",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/jwt_auth/jwt_creator.rb",
+          "folder": "DocuSign"
+        }
+      ],
+      "parameters": [
+        {
+          "key": "integration_key",
+          "inputType": "PlainText",
+          "displayName": "Integration key",
+          "placeHolder": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+          "mandatory": true,
+          "validationRegEx": "^({{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}}{0,1})$",
+          "validationMessage": "A correct integration key should be a GUID",
+          "help": {
+            "hint": "How to get an integration key?",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+          }
+        },
+        {
+          "key": "redirect_uri",
+          "inputType": "PlainText",
+          "contentType": "URI",
+          "displayName": "Redirect URI",
+          "placeHolder": "http://example.com",
+          "mandatory": true,
+          "validationRegEx": "",
+          "validationMessage": "A correct redirect URI should be a URI",
+          "help": {
+            "hint": "How to define a redirect URI?",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+          }
+        },
+        {
+          "key": "integration_secret",
+          "inputType": "PlainText",
+          "displayName": "Secret key",
+          "placeHolder": "",
+          "mandatory": true,
+          "validationRegEx": "",
+          "help": {
+            "hint": "How to get a secret key?",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+          }
+        },
+        {
+          "key": "signer_name",
+          "placeHolder": "USER_FULLNAME",
+          "displayInWizard": false
+        },
+        {
+          "key": "signer_email",
+          "placeHolder": "USER_EMAIL",
+          "displayInWizard": false
+        },
+        {
+          "key": "rooms_host",
+          "defaultValue": "https://demo.rooms.docusign.com",
+          "displayInWizard": false
+        },
+        {
+          "key": "monitor_host",
+          "defaultValue": "https://lens-d.docusign.net",
+          "displayInWizard": false
+        },
+        {
+          "key": "click_host",
+          "defaultValue": "https://demo.docusign.net/clickapi",
+          "displayInWizard": false
+        },
+        {
+          "key": "production",
+          "defaultValue": "false",
+          "displayInWizard": false
+        }
+      ],
+      "help": {
+        "hint": "How do I use Authorization Code Grant?",
+        "displayText": "Learn more",
+        "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant"
+      },
+      "applicableProjectType": "Web"
+    },
+    {
+      "name": "JWT",
+      "displayName": "JSON Web Token (JWT) Ruby",
+      "description": "Choose this option if a single login will be used to send all envelopes.",
+      "sources": [
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby-private/master/app/services/api_creator.rb",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/jwt_auth/jwt_creator.rb",
+          "folder": "DocuSign"
+        }
+      ],
+      "parameters": [
+        {
+          "key": "integration_key",
+          "inputType": "PlainText",
+          "displayName": "Integration key",
+          "placeHolder": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+          "mandatory": true,
+          "validationRegEx": "^({{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}}{0,1})$",
+          "validationMessage": "A correct integration key should be a GUID",
+          "help": {
+            "hint": "How to get an integration key?",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken#prerequisites"
+          }
+        },
+        {
+          "key": "user_id",
+          "inputType": "PlainText",
+          "displayName": "DocuSign User ID",
+          "placeHolder": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+          "mandatory": true,
+          "validationRegEx": "^({{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}}{0,1})$",
+          "validationMessage": "A correct userId should be a GUID",
+          "help": {
+            "hint": "How to find the DocuSign userId",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken#prerequisites"
+          }
+        },
+        {
+          "key": "signer_name",
+          "placeHolder": "USER_FULLNAME",
+          "displayInWizard": false
+        },
+        {
+          "key": "signer_email",
+          "placeHolder": "USER_EMAIL",
+          "displayInWizard": false
+        },
+        {
+          "key": "rooms_host",
+          "defaultValue": "https://demo.rooms.docusign.com",
+          "displayInWizard": false
+        },
+        {
+          "key": "monitor_host",
+          "defaultValue": "https://lens-d.docusign.net",
+          "displayInWizard": false
+        },
+        {
+          "key": "click_host",
+          "defaultValue": "https://demo.docusign.net/clickapi",
+          "displayInWizard": false
+        },
+        {
+          "key": "private_key",
+          "defaultValue": "docusign_private_key.txt",
+          "displayInWizard": false
+        },
+        {
+          "key": "production",
+          "defaultValue": "false",
+          "displayInWizard": false
+        }
+      ],
+      "help": {
+        "hint": "How do I use JSON Web Token (JWT) Grant?",
+        "displayText": "Learn more",
+        "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken"
+      }
+    }
+  ],
+  "packages": [
+    {
+      "name": "rails",
+      "version": "7.0.2.3"
+    },
+    {
+      "name": "sqlite3",
+      "version": "1.4.2"
+    },
+    {
+      "name": "puma",
+      "version": "5.6.2"
+    },
+    {
+      "name": "sass-rails",
+      "version": "6.0.0"
+    },
+    {
+      "name": "uglifier",
+      "version": "4.2.0"
+    },
+    {
+      "name": "turbolinks",
+      "version": "5.2.1"
+    },
+    {
+      "name": "jbuilder",
+      "version": "2.11.5"
+    },
+    {
+      "name": "omniauth-oauth2",
+      "version": "1.7.2"
+    },
+    {
+      "name": "omniauth-rails_csrf_protection",
+      "version": "1.0.1"
+    }
+  ],
+  "supportedAPIs": [
+    {
+      "apiType": "ESignature",
+      "displayName": "ESignature",
+      "packages": [
+        {
+          "name": "docusign_esign",
+          "version": "3.15.0"
+        }
+      ],
+      "scopes": [
+        "signature"
+      ]
+    },
+    {
+      "apiType": "Rooms",
+      "displayName": "Rooms",
+      "packages": [
+        {
+          "name": "docusign_rooms",
+          "version": "1.1.0"
+        }
+      ],
+      "scopes": [
+        "dtr.rooms.read",
+        "dtr.rooms.write",
+        "dtr.documents.read",
+        "dtr.documents.write",
+        "dtr.profile.read",
+        "dtr.profile.write",
+        "dtr.company.read",
+        "dtr.company.write",
+        "room_forms"
+      ]
+    },
+    {
+      "apiType": "Click",
+      "displayName": "Click",
+      "packages": [
+        {
+          "name": "docusign_click",
+          "version": "1.0.0"
+        }
+      ],
+      "scopes": [
+        "click.manage",
+        "click.send"
+      ]
+    },
+    {
+      "apiType": "Monitor",
+      "displayName": "Monitor",
+      "packages": [
+        {
+          "name": "docusign_monitor",
+          "version": "1.0.0"
+        }
+      ]
+    }
+  ],
+  "help": {
+    "hint": "How do I identify OAuth Authentication Type?",
+    "displayText": "Learn more",
+    "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication"
+  }
+}

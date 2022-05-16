@@ -2,7 +2,7 @@
 
 ### GitHub repo: [code-examples-csharp](./README.md)
 
-This GitHub repo includes code examples for the DocuSign eSignature REST API, Rooms API, Click API, and Monitor API. To switch between API code examples, in the appsettings.json file, change the `ExamplesAPI` setting from `ESignature` to `Rooms`, `Click`, `Monitor`, or `Admin`.  
+This GitHub repo includes code examples for the DocuSign Admin API, Click API, eSignature REST API, Monitor API, and Rooms API. To switch between API code examples, modify the `ExamplesAPI` setting from `ESignature` to `Admin`, `Click`, `Monitor`, or  `Rooms`, in the appsettings.json file. 
 
 
 ## Introduction
@@ -44,6 +44,7 @@ For information about the scopes used for obtaining authorization to use the Mon
 
 For a list of code examples that use the Monitor API, select the C# tab under [Examples and languages](https://developers.docusign.com/docs/monitor-api/how-to/code-launchers#examples-and-languages) on the DocuSign Developer Center.
 
+
 ## Admin API
 
 **Note:** To use the Admin API, you must [create an organization](https://support.docusign.com/en/guides/org-admin-guide-create-org) in your DocuSign developer account. Also, to run the DocuSign CLM code example, [CLM must be enabled for your organization](https://support.docusign.com/en/articles/DocuSign-and-SpringCM).
@@ -78,7 +79,7 @@ For a list of code examples that use the Admin API, select the C# tab under [Exa
    where {base_url} is the URL for the web app.  
    
 1. [C# .NET Core](https://dotnet.microsoft.com/download/dotnet-core) 3.1 or later.  
-1. [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/) with ASP.NET package.
+1. [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/) with ASP.NET package  (Visual Studio 2019 is also supported).
 
 
 ### Installation steps
@@ -116,6 +117,8 @@ Also, in order to select JSON Web Token authentication in the launcher, in launc
 1. When prompted, log in to your DocuSign developer account. If this is your first time using the app, select **ACCEPT** at the consent window. 
 1. Select your desired code example.
 
+## JWT grant remote signing project
+See [DocuSign Quickstart overview](https://developers.docusign.com/docs/esign-rest-api/quickstart/overview/) on the DocuSign Developer Center for more information on how to run the JWT grant remote signing project.
 
 ## Payments code example  
 To use the payments code example, create a test payment gateway on the [Payments](https://admindemo.docusign.com/authenticate?goTo=payments) page in your developer account. See [Configure a payment gateway](./PAYMENTS_INSTALLATION.md) for details.  

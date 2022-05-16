@@ -1,32 +1,40 @@
 ﻿
-<h4>21. Send an envelope with phone authentication</h4>
+<h4>20. Require Phone Authentication for a Recipient</h4>
 <p>
-    This example sends an envelope requiring the recipient enter a code received via a telephone call for multifactor
-    authentication. The envelope includes a PDF document. Anchor text
+    Sends an envelope that requires entering a six-digit code from a text message or phone call for the purpose of multifactor authentication.
+</p>
+<p>
+    The envelope includes a PDF file. Anchor text
     (<a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">AutoPlace</a>)
     is used to position the signing fields in the documents.
 </p>
-
+    
 @if (ViewBag.showDoc == true)
 {
-    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
+    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example.</p>
 }
 
 <p>
     API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
+    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes:create</a>.
 </p>
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">Eg021SmsAuthController.cs</a> on GitHub.
+    View source file <a target="_blank" href="@ViewBag.source">Eg020PhoneAuthController.cs</a> on GitHub.
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
 
     <div class="form-group">
+        <label for="signerCountryCode">Signer Country Code</label>
+        <input type="number" class="form-control" id="signerCountryCode" name="signerCountryCode"
+               aria-describedby="countryCodeHelp" placeholder="1" required />
+        <small id="countryCodeHelp" class="form-text text-muted">The country code for the phone below</small>
+    </div>
+    <div class="form-group">
         <label for="signerPhone">Signer Phone Number</label>
-        <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber"
-               aria-describedby="telHelp" placeholder="415-555-1212" required
+        <input type="tel" class="form-control" id="signerPhoneNumber" name="signerPhoneNumber"
+               aria-describedby="telHelp" placeholder="4155551212" required
                value="">
         <small id="telHelp" class="form-text text-muted">We'll never share your phone number with anyone else.</small>
     </div>
@@ -40,8 +48,9 @@
     <div class="form-group">
         <label for="signerName">Signer Name</label>
         <input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
-               value="@ViewBag.Locals.DsConfig.SignerName" required>
+               value="@ViewBag.Locals.DsConfig.SignerName" required />
     </div>
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+

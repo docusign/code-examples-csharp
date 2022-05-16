@@ -8,12 +8,14 @@ namespace DocuSign.CodeExamples.Controllers
     public class HomeController : Controller
     {
         private IRequestItemsService _requestItemsService { get; }
-        private IConfiguration _configuration { get;  }
+        private IConfiguration _configuration { get; }
+        private DSConfiguration _dsConfiguration { get; }
 
-        public HomeController(IRequestItemsService requestItemsService, IConfiguration configuration)
+        public HomeController(IRequestItemsService requestItemsService, DSConfiguration dsConfiguration, IConfiguration configuration)
         {
             _requestItemsService = requestItemsService;
             _configuration = configuration;
+            _dsConfiguration = dsConfiguration;
         }
 
         public IActionResult Index(string egName)
@@ -24,6 +26,11 @@ namespace DocuSign.CodeExamples.Controllers
                 {
                     _configuration["quickstart"] = "false";
                 }
+                return Redirect("eg001");
+            }
+
+            if (_dsConfiguration.QuickACG == "true")
+            {
                 return Redirect("eg001");
             }
             if (egName == "home")
@@ -51,7 +58,11 @@ namespace DocuSign.CodeExamples.Controllers
 
         [Route("/dsReturn")]
         public IActionResult DsReturn(string state, string @event, string envelopeId)
-        {            
+        {
+            if (_dsConfiguration.QuickACG == "true")
+            {
+                return Redirect("eg001");
+            }
             ViewBag.title = "Return from DocuSign";
             ViewBag._event = @event;
             ViewBag.state = state;

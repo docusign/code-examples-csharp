@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Runtime.InteropServices;
 
 namespace DocuSign.CodeExamples.Common
 {
@@ -6,7 +7,7 @@ namespace DocuSign.CodeExamples.Common
     {
         internal static string PrepareFullPrivateKeyFilePath(string fileName)
         {
-            const string DefaultRSAPrivateKeyFileName = "docusign_private_key.txt";
+            const string DefaultRSAPrivateKeyFileName = "private.key";
 
             var fileNameOnly = Path.GetFileName(fileName);
             if (string.IsNullOrEmpty(fileNameOnly))
@@ -18,6 +19,12 @@ namespace DocuSign.CodeExamples.Common
             if (string.IsNullOrEmpty(filePath))
             {
                 filePath = Directory.GetCurrentDirectory();
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                fileNameOnly = DefaultRSAPrivateKeyFileName;
+                filePath = Path.GetFullPath(Path.Combine(filePath, @"../../.."));
             }
 
             return Path.Combine(filePath, fileNameOnly);

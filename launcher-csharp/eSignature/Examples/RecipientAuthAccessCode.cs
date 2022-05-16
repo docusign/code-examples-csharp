@@ -28,7 +28,7 @@ namespace eSignature.Examples
         {
             EnvelopeIdStamping = "true",
             EmailSubject = "Please Sign",
-            EmailBlurb = "Sample text for email body",
+            EmailBlurb = "Sample text for email body <a href='www.google.com''>link</a>",
             Status = "Sent"
         };
 

@@ -4,7 +4,7 @@
 <form class="eg" asp-action="Create" method="post" data-busy="form">
     <div class="form-group">
         <label asp-for="ProfileName">Profile name</label>
-        <input type="input" class="form-control" asp-for="ProfileName" placeholder="Profile name" required>
+        <input type="input" class="form-control" asp-for="ProfileName" placeholder="Profile name" required />
     </div>
     @Html.HiddenFor(Model => Model.ProfileId)
     @Html.HiddenFor(Model => Model.AccountRoleSettingsModel.AllowApiAccess)

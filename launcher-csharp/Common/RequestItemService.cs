@@ -1,6 +1,5 @@
 ﻿using DocuSign.eSign.Client;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Http;
@@ -40,63 +39,8 @@ namespace DocuSign.CodeExamples.Common
 
         public void UpdateUserFromJWT()
         {
-            var apiType = Enum.Parse<ExamplesAPIType>(this._configuration["ExamplesAPI"]);
-            var scopes = new List<string>
-                {
-                    "signature",
-                    "impersonation",
-                };
-            if (apiType == ExamplesAPIType.Rooms)
-            {
-                scopes.AddRange(new List<string> {
-                "dtr.rooms.read",
-                    "dtr.rooms.write",
-                    "dtr.documents.read",
-                    "dtr.documents.write",
-                    "dtr.profile.read",
-                    "dtr.profile.write",
-                    "dtr.company.read",
-                    "dtr.company.write",
-                    "room_forms"});
-            }
-
-            if (apiType == ExamplesAPIType.Click)
-            {
-                scopes.AddRange(new List<string> {
-                    "click.manage",
-                    "click.send"
-            });
-            }
-
-            if (apiType == ExamplesAPIType.Monitor)
-            {
-                scopes.AddRange(new List<string>
-                {
-                    "signature",
-                    "impersonation"
-                });
-            }
-
-            if (apiType == ExamplesAPIType.Admin)
-            {
-                scopes.AddRange(new List<string> {
-                    "user_read",
-                    "user_write",
-                    "account_read",
-                    "organization_read",
-                    "group_read",
-                    "permission_read",
-                    "identity_provider_read",
-                    "domain_read"
-            });
-            }
-
-
-            this._authToken = _apiClient.RequestJWTUserToken(
-                this._configuration["DocuSignJWT:ClientId"],
-                this._configuration["DocuSignJWT:ImpersonatedUserId"],
-                this._configuration["DocuSignJWT:AuthServer"],
-                DSHelper.ReadFileContent(DSHelper.PrepareFullPrivateKeyFilePath(this._configuration["DocuSignJWT:PrivateKeyFile"])), 1, scopes);
+            _authToken = Authentication.JWTAuth.AuthenticateWithJWT(_configuration["ExamplesAPI"], _configuration["DocuSignJWT:ClientId"], _configuration["DocuSignJWT:ImpersonatedUserId"],
+                                                        _configuration["DocuSignJWT:AuthServer"], _configuration["DocuSignJWT:PrivateKeyFile"]);
             _account = GetAccountInfo(_authToken);
 
             this.User = new User
@@ -212,6 +156,12 @@ namespace DocuSign.CodeExamples.Common
         {
             get => _cache.Get<string>(GetKey("ClickwrapId"));
             set => _cache.Set(GetKey("ClickwrapId"), value);
+        }
+
+        public string ClickwrapName
+        {
+            get => _cache.Get<string>(GetKey("ClickwrapName"));
+            set => _cache.Set(GetKey("ClickwrapName"), value);
         }
 
         public string PausedEnvelopeId
