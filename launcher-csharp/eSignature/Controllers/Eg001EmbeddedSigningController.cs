@@ -2,6 +2,7 @@
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
+using System;
 
 namespace DocuSign.CodeExamples.Views
 {
@@ -14,13 +15,13 @@ namespace DocuSign.CodeExamples.Views
 
         public Eg001EmbeddedSigningController(DSConfiguration config, IRequestItemsService requestItemsService)
             : base(config, requestItemsService)
-        {            
+        {
             dsPingUrl = config.AppUrl + "/";
-            dsReturnUrl = config.AppUrl + "/dsReturn";           
+            dsReturnUrl = config.AppUrl + "/dsReturn";
             ViewBag.title = "Embedded Signing Ceremony";
         }
 
-        public override string EgName => "eg001";
+        public override string EgName => Convert.ToBoolean(Config.QuickACG) ? "quickEmbeddedSigning" : "eg001";
 
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName)
@@ -34,6 +35,7 @@ namespace DocuSign.CodeExamples.Views
             string accessToken = RequestItemsService.User.AccessToken;
             string basePath = RequestItemsService.Session.BasePath + "/restapi";
             string accountId = RequestItemsService.Session.AccountId;
+            string docPDF = Convert.ToBoolean(Config.QuickACG) ? @"..\\launcher-csharp\\" + Config.docPdf : Config.docPdf;
 
             // Check the token with minimal buffer time.
             bool tokenOk = CheckToken(3);
@@ -50,12 +52,13 @@ namespace DocuSign.CodeExamples.Views
 
             // Call the method from Examples API to send envelope and generate url for embedded signing
             var result = EmbeddedSigningCeremony.SendEnvelopeForEmbeddedSigning(signerEmail,
-                signerName, signerClientId, accessToken, basePath, accountId, Config.docPdf, dsReturnUrl, dsPingUrl);
+                signerName, signerClientId, accessToken, basePath, accountId, docPDF, dsReturnUrl, dsPingUrl);
 
             // Save for future use within the example launcher
             RequestItemsService.EnvelopeId = result.Item1;
 
             // Redirect the user to the Signing Ceremony
+
             return Redirect(result.Item2);
         }
     }

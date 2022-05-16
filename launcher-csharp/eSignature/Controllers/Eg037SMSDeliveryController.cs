@@ -43,7 +43,7 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
 
             RequestItemsService.EnvelopeId = envelopeId;
 
-            ViewBag.h1 = "Envelope sent";
+            ViewBag.h1 = "Request a signature by SMS delivery";
             ViewBag.message = "The envelope has been created and sent!<br />Envelope ID " + envelopeId + ".";
             return View("example_done");
         }

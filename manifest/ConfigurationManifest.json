@@ -206,7 +206,7 @@
       "packages": [
         {
           "name": "DocuSign.eSign.dll",
-          "version": "5.5.0-rc"
+          "version": "5.9.0"
         }
       ],
       "scopes": [
@@ -254,7 +254,7 @@
       "packages": [
         {
           "name": "DocuSign.Monitor",
-          "version": "1.0.0-beta"
+          "version": "1.0.0"
         }
       ],
       "scopes": [
