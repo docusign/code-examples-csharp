@@ -25,7 +25,7 @@ namespace DocuSign.Admin.Examples
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
-            UsersApi usersApi = new UsersApi(apiClient);
+            var usersApi = new UsersApi(apiClient);
             var recentlyModifiedUsers = usersApi.GetUserDSProfile(orgId, userId);
 
             return recentlyModifiedUsers;

@@ -24,15 +24,13 @@ namespace DocuSign.Admin.Examples
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
-            UsersApi usersApi = new UsersApi(apiClient);
+            var usersApi = new UsersApi(apiClient);
+            var retrieveUserOptions = new UsersApi.GetUserDSProfilesByEmailOptions
+            {
+                email = email
+            };
 
-            UsersDrilldownResponse userWithSearchedEmail = usersApi.GetUserDSProfilesByEmail(
-                orgId, 
-                new UsersApi.GetUserDSProfilesByEmailOptions
-                {
-                   email = email
-                }
-            );
+            UsersDrilldownResponse userWithSearchedEmail = usersApi.GetUserDSProfilesByEmail(orgId, retrieveUserOptions);
 
             return userWithSearchedEmail;
         }
