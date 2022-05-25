@@ -37,8 +37,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                 UsersDrilldownResponse usersData = RetrieveDocuSignProfileByUserId.
                     GetDocuSignProfileByUserId(basePath, accessToken, organizationId, userId);
 
-                ViewBag.h1 = "Get user profile data by user ID";
-                ViewBag.message = "Results from UsersApi:GetUserDSProfile method:";
+                ViewBag.h1 = "Retrieve the user's DocuSign profile using a User ID";
+                ViewBag.message = "Results from getDSUserProfile method:";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(usersData, Formatting.Indented);
 
                 return View("example_done");
