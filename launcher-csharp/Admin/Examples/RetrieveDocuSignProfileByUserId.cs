@@ -22,11 +22,15 @@ namespace DocuSign.Admin.Examples
             Guid? orgId,
             Guid userId)
         {
+            // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            // Step 2 end
 
+            // Step 3 start
             var usersApi = new UsersApi(apiClient);
             var recentlyModifiedUsers = usersApi.GetUserDSProfile(orgId, userId);
+            // Step 3 end
 
             return recentlyModifiedUsers;
         }
