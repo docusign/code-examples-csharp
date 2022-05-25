@@ -1,0 +1,443 @@
+{
+  "authenticationTypes": [
+    {
+      "name": "AuthCodeGrant",
+      "displayName": "Authorization Code Grant Java",
+      "description": "Choose this option if each user who sends DocuSign envelopes using \nthe eSignature API will login to DocuSign during each session.",
+      "shortDescription": "Users will login to DocuSign during each session to send envelopes to eSignature API",
+      "sources": [
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/controller/IndexController.java",
+          "folder": "docusign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/annahileta/JavaWithServices/master/src/main/java/com/docusign/common/ApiIndex.java",
+          "folder": "docusign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/exception/LauncherException.java",
+          "folder": "docusign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/utils/AccountsConverter.java",
+          "folder": "docusign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/WebSecurityConfig.java",
+          "folder": "docusign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/controller/GlobalControllerAdvice.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/DSConfiguration.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/common/ApiIndex.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/AuthType.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/AuthTypeItem.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/Locals.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/Session.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/Session.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/User.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/security/OAuthProperties.java",
+          "folder": "DocuSign"
+        }
+      ],
+      "parameters": [
+        {
+          "key": "authorization.code.grant.client.client-id",
+          "inputType": "PlainText",
+          "displayName": "Integration key",
+          "placeHolder": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+          "mandatory": true,
+          "validationRegEx": "^({{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}}{0,1})$",
+          "validationMessage": "A correct integration key should be a GUID",
+          "help": {
+            "hint": "How to get an integration key?",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+          }
+        },
+        {
+          "key": "authorization.code.grant.sso.redirect-url",
+          "inputType": "PlainText",
+          "contentType": "URI",
+          "displayName": "Redirect URI",
+          "placeHolder": "http://example.com",
+          "mandatory": true,
+          "validationRegEx": "",
+          "validationMessage": "A correct redirect URI should be a URI",
+          "help": {
+            "hint": "How to define a redirect URI?",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+          }
+        },
+        {
+          "key": "authorization.code.grant.client.client-secret",
+          "inputType": "PlainText",
+          "displayName": "Secret key",
+          "placeHolder": "",
+          "mandatory": true,
+          "validationRegEx": "",
+          "help": {
+            "hint": "How to get a secret key?",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+          }
+        },
+        {
+          "key": "DS_SIGNER_NAME",
+          "placeHolder": "USER_FULLNAME",
+          "displayInWizard": false
+        },
+        {
+          "key": "DS_SIGNER_EMAIL",
+          "placeHolder": "USER_EMAIL",
+          "displayInWizard": false
+        },
+        {
+          "key": "DS_BASE_PATH",
+          "defaultValue": "https://demo.docusign.net",
+          "displayInWizard": false
+        },
+        {
+          "key": "DS_ROOMS_BASE_PATH",
+          "defaultValue": "https://demo.rooms.docusign.com",
+          "displayInWizard": false
+        },
+        {
+          "key": "DS_CLICK_BASE_PATH",
+          "defaultValue": "https://demo.docusign.net",
+          "displayInWizard": false
+        },
+        {
+          "key": "DS_MONITOR_BASE_PATH",
+          "defaultValue": "https://lens-d.docusign.net",
+          "displayInWizard": false
+        },
+        {
+          "key": "DS_ADMIN_BASE_PATH",
+          "defaultValue": "https://api-d.docusign.net",
+          "displayInWizard": false
+        },
+        {
+          "key": "production",
+          "defaultValue": "false",
+          "displayInWizard": false
+        }
+      ],
+      "help": {
+        "hint": "How do I use Authorization Code Grant?",
+        "displayText": "Learn more",
+        "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant"
+      },
+      "applicableProjectType": "Web"
+    },
+    {
+      "name": "JWT",
+      "displayName": "JSON Web Token (JWT) Java",
+      "description": "Choose this option if a single login will be used to send all envelopes.",
+      "sources": [
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/controller/IndexController.java",
+          "folder": "docusign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/annahileta/JavaWithServices/master/src/main/java/com/docusign/common/ApiIndex.java",
+          "folder": "docusign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/exception/LauncherException.java",
+          "folder": "docusign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/utils/AccountsConverter.java",
+          "folder": "docusign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/WebSecurityConfig.java",
+          "folder": "docusign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/controller/GlobalControllerAdvice.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/DSConfiguration.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/common/ApiIndex.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/AuthType.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/AuthTypeItem.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/Locals.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/Session.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/Session.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/User.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/security/OAuthProperties.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/security/jwt/JWTAuthorizationCodeResourceDetails.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/security/jwt/JWTOAuth2RestTemplate.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/security/jwt/JWTUserInfoTokenService.java",
+          "folder": "DocuSign"
+        }
+      ],
+      "parameters": [
+        {
+          "key": "jwt.grant.client.client-id",
+          "inputType": "PlainText",
+          "displayName": "Integration key",
+          "placeHolder": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+          "mandatory": true,
+          "validationRegEx": "^({{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}}{0,1})$",
+          "validationMessage": "A correct integration key should be a GUID",
+          "help": {
+            "hint": "How to get an integration key?",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken#prerequisites"
+          }
+        },
+        {
+          "key": "jwt.grant.client.impersonated-user-guid",
+          "inputType": "PlainText",
+          "displayName": "DocuSign User ID",
+          "placeHolder": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+          "mandatory": true,
+          "validationRegEx": "^({{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}}{0,1})$",
+          "validationMessage": "A correct userId should be a GUID",
+          "help": {
+            "hint": "How to find the DocuSign userId",
+            "displayText": "Learn more",
+            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken#prerequisites"
+          }
+        },
+        {
+          "key": "DS_SIGNER_NAME",
+          "placeHolder": "USER_FULLNAME",
+          "displayInWizard": false
+        },
+        {
+          "key": "DS_SIGNER_EMAIL",
+          "placeHolder": "USER_EMAIL",
+          "displayInWizard": false
+        },
+        {
+          "key": "DS_BASE_PATH",
+          "defaultValue": "https://demo.docusign.net",
+          "displayInWizard": false
+        },
+        {
+          "key": "DS_ROOMS_BASE_PATH",
+          "defaultValue": "https://demo.rooms.docusign.com",
+          "displayInWizard": false
+        },
+        {
+          "key": "DS_CLICK_BASE_PATH",
+          "defaultValue": "https://demo.docusign.net",
+          "displayInWizard": false
+        },
+        {
+          "key": "DS_MONITOR_BASE_PATH",
+          "defaultValue": "https://lens-d.docusign.net",
+          "displayInWizard": false
+        },
+        {
+          "key": "DS_ADMIN_BASE_PATH",
+          "defaultValue": "https://api-d.docusign.net",
+          "displayInWizard": false
+        },
+        {
+          "key": "jwt.grant.client.private-key-path",
+          "defaultValue": "src/main/resources/private.key",
+          "displayInWizard": false
+        },
+        {
+          "key": "production",
+          "defaultValue": "false",
+          "displayInWizard": false
+        }
+      ],
+      "help": {
+        "hint": "How do I use JSON Web Token (JWT) Grant?",
+        "displayText": "Learn more",
+        "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken"
+      },
+      "preferredConfigFile": "AppConfig"
+    }
+  ],
+  "packages": [
+    {
+      "group": "org.springframework.boot",
+      "name": "spring-boot-starter-security",
+      "version": "LATEST"
+    },
+    {
+      "group": "org.springframework.boot",
+      "name": "spring-boot-starter-web",
+      "version": "LATEST"
+    },
+    {
+      "group": "org.springframework.security.oauth.boot",
+      "name": "spring-security-oauth2-autoconfigure",
+      "version": "2.5.2"
+    },
+    {
+      "group": "org.apache.commons",
+      "name": "commons-lang3",
+      "version": "LATEST"
+    },
+    {
+      "group": "org.freemarker",
+      "name": "freemarker",
+      "version": "LATEST"
+    },
+    {
+      "group": "com.google.code.gson",
+      "name": "gson",
+      "version": "LATEST"
+    },
+    {
+      "group": "com.fasterxml.jackson.datatype",
+      "name": "jackson-datatype-joda",
+      "version": "LATEST"
+    },
+    {
+      "group": "commons-io",
+      "name": "commons-io",
+      "version": "LATEST"
+    },
+    {
+      "group": "org.apache.tomcat.embed",
+      "name": "tomcat-embed-jasper",
+      "version": "LATEST"
+    }
+  ],
+  "supportedAPIs": [
+    {
+      "apiType": "ESignature",
+      "displayName": "ESignature",
+      "packages": [
+        {
+          "group": "com.docusign",
+          "name": "docusign-esign-java",
+          "version": "3.17.1"
+        }
+      ],
+      "scopes": [
+        "signature"
+      ]
+    },
+    {
+      "apiType": "Rooms",
+      "displayName": "Rooms",
+      "packages": [
+        {
+          "group": "com.docusign",
+          "name": "docusign-rooms-java",
+          "version": "1.1.0"
+        }
+      ],
+      "scopes": [
+        "signature",
+        "dtr.rooms.read",
+        "dtr.rooms.write",
+        "dtr.documents.read",
+        "dtr.documents.write",
+        "dtr.profile.read",
+        "dtr.profile.write",
+        "dtr.company.read",
+        "dtr.company.write",
+        "room_forms"
+      ]
+    },
+    {
+      "apiType": "Click",
+      "displayName": "Click",
+      "packages": [
+        {
+          "group": "com.docusign",
+          "name": "docusign-click-java",
+          "version": "1.0.0-BETA"
+        }
+      ],
+      "scopes": [
+        "click.manage",
+        "click.send"
+      ]
+    },
+    {
+      "apiType": "Monitor",
+      "displayName": "Monitor",
+      "packages": [
+        {
+          "group": "com.docusign",
+          "name": "docusign-monitor-java",
+          "version": "1.0.0-BETA"
+        }
+      ],
+      "scopes": [
+        "signature",
+        "impersonation"
+      ]
+    }
+  ],
+  "help": {
+    "hint": "How do I identify OAuth Authentication Type?",
+    "displayText": "Learn more",
+    "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication"
+  }
+}
