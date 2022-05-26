@@ -38,7 +38,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                     GetDocuSignProfileByUserId(basePath, accessToken, organizationId, userId);
 
                 ViewBag.h1 = "Retrieve the user's DocuSign profile using a User ID";
-                ViewBag.message = "Results from getDSUserProfile method:";
+                ViewBag.message = "Results from MultiProductUserManagement:getUserDSProfile method:";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(usersData, Formatting.Indented);
 
                 return View("example_done");

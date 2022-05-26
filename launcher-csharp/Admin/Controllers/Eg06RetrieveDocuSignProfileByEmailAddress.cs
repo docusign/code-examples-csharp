@@ -38,7 +38,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                     GetDocuSignProfileByEmailAdress(basePath, accessToken, organizationId, email);
 
                 ViewBag.h1 = "Retrieve the user's DocuSign profile using an email address";
-                ViewBag.message = "Results from getDSUserProfile_Email method:";
+                ViewBag.message = "Results from MultiProductUserManagement:getUserDSProfilesByEmail method:";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(profileWithSearchedEmail, Formatting.Indented);
 
                 return View("example_done");
