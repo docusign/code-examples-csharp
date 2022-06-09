@@ -89,6 +89,9 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             try
             {
                 var newUser = CreateCLMESignUser.Create(userName, firstName, lastName, email, cLMPermissionProfileId, eSignPermissionProfileId, Guid.Parse(dsGroupId), clmProductId, eSignProductId, basePath, accessToken, Guid.Parse(accountId), orgId);
+
+                RequestItemsService.EmailAddress = newUser.Email;
+
                 ViewBag.h1 = "Create a new active user for CLM and eSignature";
                 ViewBag.message = "Results from MultiProductUserManagement:addOrUpdateUser method:";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(newUser, Formatting.Indented);

@@ -22,6 +22,8 @@ namespace DocuSign.CodeExamples
         string PausedEnvelopeId { get; set; }
         string Status { get; set; }
 
+        string EmailAddress { get; set; }
+
         public void UpdateUserFromJWT();
         public void Logout();
         public bool CheckToken(int bufferMin);
