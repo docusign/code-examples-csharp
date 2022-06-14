@@ -9,7 +9,7 @@ namespace DocuSign.Admin.Examples
     public class DeleteUserProductPermissionProfileById
     {
         /// <summary>
-        /// Delete user product permission profiles using an email address
+        /// Delete user product permission profiles using an email address.
         /// </summary>
         /// <param name="basePath">BasePath for API calls (URI)</param>
         /// <param name="accessToken">Access Token for API call (OAuth)</param>
@@ -43,7 +43,7 @@ namespace DocuSign.Admin.Examples
         }
 
         /// <summary>
-        /// Get permission profiles by email
+        /// Get permission profiles by email.
         /// </summary>
         /// <param name="basePath">BasePath for API calls (URI)</param>
         /// <param name="accessToken">Access Token for API call (OAuth)</param>

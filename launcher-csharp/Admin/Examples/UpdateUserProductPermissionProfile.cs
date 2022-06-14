@@ -9,7 +9,7 @@ namespace DocuSign.Admin.Examples
     public class UpdateUserProductPermissionProfileByEmail
     {
         /// <summary>
-        /// Update user product permission profile by email address
+        /// Update user product permission profile by email address.
         /// </summary>
         /// <param name="basePath">BasePath for API calls (URI)</param>
         /// <param name="accessToken">Access Token for API call (OAuth)</param>
@@ -53,7 +53,7 @@ namespace DocuSign.Admin.Examples
         }
 
         /// <summary>
-        /// Get permission profiles
+        /// Get permission profiles.
         /// </summary>
         /// <param name="basePath">BasePath for API calls (URI)</param>
         /// <param name="accessToken">Access Token for API call (OAuth)</param>

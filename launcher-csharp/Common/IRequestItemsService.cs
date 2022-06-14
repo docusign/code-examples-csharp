@@ -7,22 +7,23 @@ namespace DocuSign.CodeExamples
 {
     public interface IRequestItemsService
     {        
-        string EgName { get; set; }
+        public string EgName { get; set; }
 
-        Session Session { get; set; }
+        public Session Session { get; set; }
 
-        User User { get; set; }
+        public User User { get; set; }
         public Guid? OrganizationId { get; set; }
         string EnvelopeId { get; set; }
-        string DocumentId { get; set; }
-        string ClickwrapId { get; set; }
-        string ClickwrapName { get; set; }
-        EnvelopeDocuments EnvelopeDocuments { get; set; }
-        string TemplateId { get; set; }
-        string PausedEnvelopeId { get; set; }
-        string Status { get; set; }
+        public string DocumentId { get; set; }
+        public string ClickwrapId { get; set; }
+        public string ClickwrapName { get; set; }
 
-        string EmailAddress { get; set; }
+        public EnvelopeDocuments EnvelopeDocuments { get; set; }
+        public string TemplateId { get; set; }
+        public string PausedEnvelopeId { get; set; }
+        public string Status { get; set; }
+
+        public string EmailAddress { get; set; }
 
         public void UpdateUserFromJWT();
         public void Logout();
