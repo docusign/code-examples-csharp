@@ -49,7 +49,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
             products.TryAdd(
                 productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "ESign").ProductId,
-                "ESignature"
+                "eSignature"
             );
 
             ViewBag.Products = products;
