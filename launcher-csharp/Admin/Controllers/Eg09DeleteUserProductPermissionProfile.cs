@@ -17,7 +17,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("[area]/Eg09")]
     public class Eg09DeleteUserProductPermissionProfile : EgController
     {
-        public static Dictionary<Guid?, string> products = new Dictionary<Guid?, string>();
+        public static Dictionary<Guid?, string> products;
 
         public static Guid clmProductId = Guid.Parse("37f013eb-7012-4588-8028-357b39fdbd00");
 
@@ -42,6 +42,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             string accessToken = RequestItemsService.User.AccessToken;
             string basePath = RequestItemsService.Session.AdminApiBasePath;
             Guid accountId = Guid.Parse(RequestItemsService.Session.AccountId);
+            products = new Dictionary<Guid?, string>();
 
             if (RequestItemsService.EmailAddress != null)
             {
