@@ -69,7 +69,7 @@ namespace DocuSign.CodeExamples.Monitor.Examples
                     new 
                     {
                         aggregationName = "Raw",
-                        limit = "1",
+                        limit = "100",
                         orderby = new string[] { "Timestamp, desc" }
                     }
             
