@@ -171,6 +171,11 @@ namespace DocuSign.CodeExamples.Common
         }
 
         public string Status { get; set; }
+        public string EmailAddress 
+        { 
+            get => _cache.Get<string>(GetKey("EmailAddress"));
+            set => _cache.Set(GetKey("EmailAddress"), value);
+        }
 
         private Account GetAccountInfo(OAuthToken authToken)
         {
