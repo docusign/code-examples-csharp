@@ -26,10 +26,13 @@ namespace DocuSign.Admin.Examples
             string emailAddress,
             Guid? productId)
         {
+            // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             var productPermissionProfilesApi = new ProductPermissionProfilesApi(apiClient);
+            // Step 2 end
             
+            // Step 4 start
             var userProductProfileDeleteRequest = new UserProductProfileDeleteRequest
             {
                 ProductIds = new List<Guid?>
@@ -38,8 +41,11 @@ namespace DocuSign.Admin.Examples
                 },
                 UserEmail = emailAddress
             };
+            // Step 4 end
 
+            // Step 5 start
             return productPermissionProfilesApi.RemoveUserProductPermission(orgId, accountId, userProductProfileDeleteRequest);
+            // Step 5 end
         }
 
         /// <summary>
@@ -61,6 +67,7 @@ namespace DocuSign.Admin.Examples
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
+            // Step 3 start
             var productPermissionProfileApi = new ProductPermissionProfilesApi(apiClient);
 
             var getUserProductPermission = new ProductPermissionProfilesApi.GetUserProductPermissionProfilesByEmailOptions
@@ -69,6 +76,7 @@ namespace DocuSign.Admin.Examples
             };
 
             return productPermissionProfileApi.GetUserProductPermissionProfilesByEmail(orgId, accountId, getUserProductPermission);
+            // Step 3 end
         }
     }
 }

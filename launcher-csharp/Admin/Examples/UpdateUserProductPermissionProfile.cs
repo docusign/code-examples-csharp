@@ -28,10 +28,13 @@ namespace DocuSign.Admin.Examples
             Guid? productId,
             string permissionProfileId)
         {
+            // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             var productPermissionProfilesApi = new ProductPermissionProfilesApi(apiClient);
-            
+            // Step 2 end
+
+            // Step 3 start
             var userProductPermissionProfilesRequest = new UserProductPermissionProfilesRequest
             {
                 Email = emailAddress,
@@ -44,12 +47,15 @@ namespace DocuSign.Admin.Examples
                     }
                 }
             };
+            // Step 3 end
 
+            // Step 4 start
             return productPermissionProfilesApi.AddUserProductPermissionProfilesByEmail(
                 orgId, 
                 accountId, 
                 userProductPermissionProfilesRequest
             );
+            // Step 4 end
         }
 
         /// <summary>
