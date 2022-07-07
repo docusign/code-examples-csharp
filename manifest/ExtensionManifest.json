@@ -154,14 +154,6 @@
     },
     {
       "number": "20",
-      "name": "Requiring SMS authentication for a recipient",
-      "description": "This example sends an envelope that requires entering in a six digit code from an text message for the purpose of multi-factor authentication.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/RecipientAuthSMS.cs",
-      "method": "SendEnvelopeForEmbeddedSigning",
-      "apiType": "ESignature"
-    },
-    {
-      "number": "21",
       "name": "Requiring phone authentication for a recipient",
       "description": "This example sends an envelope that requires entering in a voice-based response code for the purpose of multi-factor authentication.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/RecipientAuthPhone.cs",
@@ -169,7 +161,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "22",
+      "number": "21",
       "name": "Requiring Knowledge-Based Authentication (KBA) for a recipient",
       "description": "This example sends an envelope that requires passing a Public records check to validate identity for the purpose of multi-factor authentication.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/RecipientAuthKBA.cs",
@@ -177,7 +169,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "23",
+      "number": "22",
       "name": "Requiring ID Verification (IDV) for a recipient",
       "description": "This example sends an envelope that requires submitting a photo of a government issued ID for the purpose of multi-factor authentication.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/RecipientAuthIDV.cs",
@@ -185,7 +177,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "24",
+      "number": "23",
       "name": "Creating a permission profile",
       "description": "This example creates a new permission profile that can be assigned to users in the DocuSign account.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/CreatePermissionProfile.cs",
@@ -193,7 +185,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "25",
+      "number": "24",
       "name": "Setting a permission profile",
       "description": "This example applies an existing permission profile to a group of users in the DocuSign account.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/SetUserGroupPermission.cs",
@@ -201,7 +193,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "26",
+      "number": "25",
       "name": "Updating individual permission settings",
       "description": "This example updates the settings of an existing permission profile.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/ChangePermissionSingleSetting.cs",
@@ -209,7 +201,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "27",
+      "number": "26",
       "name": "Deleting a permission profile",
       "description": "This example deletes a permission profile.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/DeletePermission.cs",
@@ -217,7 +209,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "28",
+      "number": "27",
       "name": "Creating a brand",
       "description": "This example creates a new brand that can be used to customize the user experience of envelopes in the DocuSign account.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/CreateBrand.cs",
@@ -225,7 +217,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "29",
+      "number": "28",
       "name": "Applying a brand to an envelope",
       "description": "This example creates a new envelope and applies an existing brand to that envelope.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/ApplyBrandToEnvelope.cs",
@@ -233,7 +225,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "30",
+      "number": "29",
       "name": "Applying a brand and template to an envelope",
       "description": "This example creates a new envelope from a template and also applies an existing brand to it.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/ApplyBrandToTemplate.cs",
@@ -241,7 +233,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "31",
+      "number": "30",
       "name": "Bulk sending envelopes to multiple recipients",
       "description": "This example sends an envelope to multiple recipients by using the DocuSign Bulk Send feature.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/SendBulkEnvelopes.cs",
@@ -249,7 +241,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "32",
+      "number": "31",
       "name": "Pause a signature workflow",
       "description": "This example creates and envelope and then pauses the signature workflow",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/PauseSignatureWorkflow.cs",
@@ -257,7 +249,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "33",
+      "number": "32",
       "name": "Unpause a signature workflow",
       "description": "This example unpauses a signature workflow for the previously created envelope that was paused.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/UnpauseSignatureWorkflow.cs",
@@ -265,7 +257,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "34",
+      "number": "33",
       "name": "Conditional recipients",
       "description": "This example creates an envelope that is routed to different recipients based on a predefined condition.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/ConditionalRecipientsWorkflow.cs",
@@ -273,7 +265,23 @@
       "apiType": "ESignature"
     },
     {
+      "number": "34",
+      "name": "Schedule an envelope",
+      "description": "Demonstrates how to schedule an envelope using the scheduled sending feature.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/ScheduledSending.cs",
+      "method": "ScheduleEnvelope",
+      "apiType": "ESignature"
+    },
+    {
       "number": "35",
+      "name": "Send an envelope with delayed routing",
+      "description": "Demonstrates how to delay an envelope’s delivery between recipients using the delayed routing feature.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/DelayedRouting.cs",
+      "method": "SendEnvelopeWithDelayedRouting",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "36",
       "name": "Request Signature by SMS",
       "description": "This example demonstrates how to send a signature request for a signer (and CC) to read and sign via an SMS message.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/SMSDelivery.cs",
@@ -281,7 +289,15 @@
       "apiType": "ESignature"
     },
     {
-      "number": "36",
+      "number": "37",
+      "name": "Create a signable HTML document",
+      "description": "Demonstrates how to create an HTML document for responsive signing.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/eSignature/Examples/ResponsiveSigning.cs",
+      "method": "CreateEnvelopeFromHTML",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "38",
       "name": "Create Clickwraps",
       "description": "This example shows how to create a clickwrap.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/Click/Examples/CreateClickwrap.cs",
@@ -289,7 +305,7 @@
       "apiType": "Click"
     },
     {
-      "number": "37",
+      "number": "39",
       "name": "Activate Clickwrap",
       "description": "This example shows how to activate a clickwrap.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/Click/Examples/ActivateClickwrap.cs",
@@ -297,7 +313,7 @@
       "apiType": "Click"
     },
     {
-      "number": "38",
+      "number": "40",
       "name": "Clickwrap Versioning",
       "description": "This example shows how to create a new clickwrap version.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/Click/Examples/CreateNewClickwrapVersion.cs",
@@ -305,7 +321,7 @@
       "apiType": "Click"
     },
     {
-      "number": "39",
+      "number": "41",
       "name": "Retrieve Clickwraps",
       "description": "This example shows how to get a list of clickwraps.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/Click/Examples/RetrieveClickwraps.cs",
@@ -313,7 +329,7 @@
       "apiType": "Click"
     },
     {
-      "number": "40",
+      "number": "42",
       "name": "Get Clickwrap Responses",
       "description": "This example shows how to get clickwrap responses.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/Click/Examples/GetClickwrapResponses.cs",
@@ -321,7 +337,7 @@
       "apiType": "Click"
     },
     {
-      "number": "41",
+      "number": "43",
       "name": "Create a room with data",
       "description": "This example creates a room using specified data.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/Rooms/Examples/CreateRoomWithData.cs",
@@ -329,7 +345,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "42",
+      "number": "44",
       "name": "Create a room from template",
       "description": "This example creates a room from a template.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/Rooms/Examples/CreateRoomFromTemplate.cs",
@@ -337,7 +353,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "43",
+      "number": "45",
       "name": "Export data from a room",
       "description": "This example exports data from a room.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/Rooms/Examples/ExportDataFromRoom.cs",
@@ -345,7 +361,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "44",
+      "number": "46",
       "name": "Add form to a room",
       "description": "This example adds form to a room.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/Rooms/Examples/AddingFormToRoom.cs",
@@ -353,7 +369,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "45",
+      "number": "47",
       "name": "Get filtered rooms",
       "description": "This example returns rooms by filter.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/Rooms/Examples/GetRoomsWithFilters.cs",
@@ -361,7 +377,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "46",
+      "number": "48",
       "name": "Create external form fill session",
       "description": "This is an example of creating external form fill session.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/Rooms/Examples/CreateExternalFormFillSession.cs",
@@ -369,7 +385,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "47",
+      "number": "49",
       "name": "Create a form group",
       "description": "This is an example of creating a form group for your DocuSign Rooms for Real Estate account.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/Rooms/Examples/CreateFormGroups.cs",
@@ -377,7 +393,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "48",
+      "number": "50",
       "name": "Grants office access to a form group",
       "description": "This is an example of granting office access to a form group.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/Rooms/Examples/GrantOfficeAccessToFormGroup.cs",
@@ -385,7 +401,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "49",
+      "number": "51",
       "name": "Assign a form to a form group",
       "description": "This is an example of assigning a form to a form group.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/Rooms/Examples/AssignFormToFormGroups.cs",
@@ -393,11 +409,19 @@
       "apiType": "Rooms"
     },
     {
-      "number": "50",
+      "number": "52",
       "name": "Getting the monitoring data",
-      "description": "Getting the monitoring data",
+      "description": "Demonstrates how to get and display all of your organization’s monitoring data.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/Monitor/Examples/GetMonitoringData.cs",
       "method": "GetMonitoringData",
+      "apiType": "Monitor"
+    },
+    {
+      "number": "53",
+      "name": "Query monitoring data with filters",
+      "description": "Demonstrates how to query an organization's data based on specified filters and aggregations.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/launcher-csharp/Monitor/Examples/WebQueryEndpointFunc.cs",
+      "method": "Invoke",
       "apiType": "Monitor"
     }
   ],
