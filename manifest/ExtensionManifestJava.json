@@ -1,4 +1,4 @@
-{
+﻿{
   "codeExamples": [
     {
       "number": "1",
@@ -411,7 +411,7 @@
     {
       "number": "52",
       "name": "Getting the monitoring data",
-      "description": "Getting the monitoring data",
+      "description": "Demonstrates how to get and display all of your organization’s monitoring data.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/monitor/services/GetMonitoringDataService.java",
       "method": "getMonitoringData",
       "apiType": "Monitor"

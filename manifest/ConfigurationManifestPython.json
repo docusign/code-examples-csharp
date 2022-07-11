@@ -221,7 +221,7 @@
       "packages": [
         {
           "name": "docusign-esign",
-          "version": "3.14.0"
+          "version": "3.17.0"
         }
       ],
       "scopes": [
@@ -269,7 +269,7 @@
       "packages": [
         {
           "name": "docusign-monitor",
-          "version": "1.0.0"
+          "version": "1.1.0"
         }
       ]
     }

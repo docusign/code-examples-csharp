@@ -1,4 +1,4 @@
-{
+﻿{
   "codeExamples": [
     {
       "number": "1",
@@ -275,7 +275,7 @@
     {
       "number": "35",
       "name": "Send an envelope with delayed routing",
-      "description": "Demonstrates how to delay an envelope�s delivery between recipients using the delayed routing feature.",
+      "description": "Demonstrates how to delay an envelope's delivery between recipients using the delayed routing feature.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/eSignature/DelayedRoutingService.php",
       "method": "SendWithDelayedRouting",
       "apiType": "ESignature"

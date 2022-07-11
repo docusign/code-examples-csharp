@@ -161,7 +161,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "22",
+      "number": "21",
       "name": "Requiring Knowledge-Based Authentication (KBA) for a Recipient",
       "description": "This example sends an envelope that requires passing a Public records check to validate identity for the purpose of multi-factor authentication.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg022_kba_authentication_service.rb",
@@ -169,7 +169,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "23",
+      "number": "22",
       "name": "Requiring ID Verification (IDV) for a recipient",
       "description": "This example sends an envelope that requires submitting a photo of a government issued id for the purpose of multi-factor authentication.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg023_idv_authentication_service.rb",
@@ -177,7 +177,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "24",
+      "number": "23",
       "name": "Creating a permission profile",
       "description": "This example creates a new permission profile that can be assigned to users in the DocuSign account.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg024_permission_create_service.rb",
@@ -185,7 +185,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "25",
+      "number": "24",
       "name": "Setting a permission profile",
       "description": "This example applies an existing permission profile to a group of users in the DocuSign account.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg025_permissions_set_user_group_service.rb",
@@ -193,7 +193,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "26",
+      "number": "25",
       "name": "Updating individual permission settings",
       "description": "This example updates the settings of an existing permission profile.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg026_permissions_change_single_setting_service.rb",
@@ -201,7 +201,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "27",
+      "number": "26",
       "name": "Deleting a permission profile",
       "description": "This example deletes a permission profile.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg027_permissions_delete_service.rb",
@@ -209,7 +209,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "28",
+      "number": "27",
       "name": "Creating a brand",
       "description": "This example creates a new brand that can be used to customize the user experience of envelopes in the DocuSign account.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg028_brands_creating_service.rb",
@@ -217,7 +217,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "29",
+      "number": "28",
       "name": "Applying a brand to an envelope",
       "description": "This example creates a new envelope and applies an existing brand to that envelope.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg029_brands_apply_to_envelope_service.rb",
@@ -225,7 +225,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "30",
+      "number": "29",
       "name": "Applying a brand and template to an envelope",
       "description": "This example creates a new envelope from a template and also applies an existing brand to it.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg030_brands_apply_to_template_service.rb",
@@ -233,7 +233,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "31",
+      "number": "30",
       "name": "Bulk sending envelopes to multiple recipients",
       "description": "This example sends an envelope to multiple recipients by using the DocuSign Bulk Send feature.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg031_bulk_sending_envelopes_service.rb",
@@ -241,7 +241,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "32",
+      "number": "31",
       "name": "Pause a signature workflow",
       "description": "This example creates and envelope and then pauses the signature workflow",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg032_pauses_signature_workflow_service.rb",
@@ -249,7 +249,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "33",
+      "number": "32",
       "name": "Unpause a signature workflow",
       "description": "This example unpauses a signature workflow for the previously created envelope that was paused.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg033_unpauses_signature_workflow_service.rb",
@@ -257,7 +257,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "34",
+      "number": "33",
       "name": "Conditional recipients",
       "description": "This example creates an envelope that is routed to different recipients based on a predefined condition.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg034_use_conditional_recipients_service.rb",
@@ -265,7 +265,23 @@
       "apiType": "ESignature"
     },
     {
+      "number": "34",
+      "name": "Schedule an envelope",
+      "description": "Demonstrates how to schedule sending an envelope using the scheduled sending feature.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg035_scheduled_sending_service.rb",
+      "method": "worker",
+      "apiType": "ESignature"
+    },
+    {
       "number": "35",
+      "name": "Send an envelope with delayed routing",
+      "description": "Demonstrates how to delay an envelope’s delivery between recipients using the delayed routing feature.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg036_delayed_routing_service.rb",
+      "method": "worker",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "36",
       "name": "Request Signature by SMS",
       "description": "This example demonstrates how to send a signature request for a signer (and CC) to read and sign via an SMS message.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg035_sms_delivery_service.rb",
@@ -273,7 +289,15 @@
       "apiType": "ESignature"
     },
     {
-      "number": "36",
+      "number": "37",
+      "name": "Create a signable HTML document",
+      "description": "Demonstrates how to create an HTML document for responsive signing.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg038_responsive_signing_service.rb",
+      "method": "worker",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "38",
       "name": "Create Clickwraps",
       "description": "This example shows how to create a clickwrap.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/clickwrap/eg001_create_clickwrap_service.rb",
@@ -281,7 +305,7 @@
       "apiType": "Click"
     },
     {
-      "number": "37",
+      "number": "39",
       "name": "Activate Clickwrap",
       "description": "This example shows how to activate a clickwrap.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/clickwrap/eg002_activate_clickwrap_service.rb",
@@ -289,7 +313,7 @@
       "apiType": "Click"
     },
     {
-      "number": "38",
+      "number": "40",
       "name": "Clickwrap Versioning",
       "description": "This example shows how to create a new clickwrap version.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/clickwrap/eg003_create_new_clickwrap_version_service.rb",
@@ -297,7 +321,7 @@
       "apiType": "Click"
     },
     {
-      "number": "39",
+      "number": "41",
       "name": "Retrieve Clickwraps",
       "description": "This example shows how to get a list of clickwraps.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/clickwrap/eg004_list_clickwraps_service.rb",
@@ -305,7 +329,7 @@
       "apiType": "Click"
     },
     {
-      "number": "40",
+      "number": "42",
       "name": "Get Clickwrap Responses",
       "description": "This example shows how to get clickwrap responses.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/clickwrap/eg005_clickwrap_responses_service.rb",
@@ -313,7 +337,7 @@
       "apiType": "Click"
     },
     {
-      "number": "41",
+      "number": "43",
       "name": "Create a room with data",
       "description": "This example creates a room using specified data.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/room_api/eg001_create_room_with_data_service.rb",
@@ -321,7 +345,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "42",
+      "number": "44",
       "name": "Create a room from template",
       "description": "This example creates a room from a template.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/room_api/eg002_create_room_with_template_service.rb",
@@ -329,7 +353,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "43",
+      "number": "45",
       "name": "Export data from a room",
       "description": "This example exports data from a room.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/room_api/eg003_export_data_from_room_service.rb",
@@ -337,7 +361,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "44",
+      "number": "46",
       "name": "Add form to a room",
       "description": "This example adds form to a room.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/room_api/eg004_add_forms_to_room_service.rb",
@@ -345,7 +369,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "45",
+      "number": "47",
       "name": "Get filtered rooms",
       "description": "This example returns rooms by filter.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/room_api/eg005_get_rooms_with_filters_service.rb",
@@ -353,7 +377,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "46",
+      "number": "48",
       "name": "Create external form fill session",
       "description": "This is an example of creating external form fill session.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/room_api/eg006_create_an_external_form_fill_session_service.rb",
@@ -361,7 +385,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "47",
+      "number": "49",
       "name": "Create a form group",
       "description": "This is an example of creating a form group for your DocuSign Rooms for Real Estate account.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/room_api/eg007_create_form_group_service.rb",
@@ -369,7 +393,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "48",
+      "number": "50",
       "name": "Grants office access to a form group",
       "description": "This is an example of granting office access to a form group.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/room_api/eg008_grant_office_access_to_form_group_service.rb",
@@ -377,7 +401,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "49",
+      "number": "51",
       "name": "Assign a form to a form group",
       "description": "This is an example of assigning a form to a form group.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/room_api/eg009_assign_form_to_form_group_service.rb",
@@ -385,11 +409,19 @@
       "apiType": "Rooms"
     },
     {
-      "number": "50",
+      "number": "52",
       "name": "Getting the monitoring data",
-      "description": "Getting the monitoring data",
+      "description": "Demonstrates how to get and display all of your organization’s monitoring data.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/monitor_api/eg001_get_monitoring_dataset_service.rb",
       "method": "GetMonitoringData",
+      "apiType": "Monitor"
+    },
+    {
+      "number": "53",
+      "name": "Query monitoring data with filters",
+      "description": "Demonstrates how to query an organization's data based on specified filters and aggregations.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg004_envelope_info_service.rb",
+      "method": "worker",
       "apiType": "Monitor"
     }
   ],
