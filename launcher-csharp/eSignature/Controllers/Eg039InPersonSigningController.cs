@@ -10,14 +10,14 @@ namespace DocuSign.CodeExamples.Views
     [Route("Eg039")]
     public class Eg039InPersonSigningController : EgController
     {
-        private string dsPingUrl;
-        private string dsReturnUrl;
+        private string DsPingUrl { get; set; }
+        private string DsReturnUrl { get; set; }
 
         public Eg039InPersonSigningController(DSConfiguration config, IRequestItemsService requestItemsService)
             : base(config, requestItemsService)
         {
-            dsPingUrl = config.AppUrl + "/";
-            dsReturnUrl = config.AppUrl + "/dsReturn";           
+            DsPingUrl = config.AppUrl + "/";
+            DsReturnUrl = config.AppUrl + "/dsReturn";           
             ViewBag.title = "In Person Signing";
         }
 
@@ -41,7 +41,7 @@ namespace DocuSign.CodeExamples.Views
             try
             {
                 redirectUrl = InPersonSigning.SendEnvelopeForInPersonSigning(hostEmail, hostName, signerName, accessToken, 
-                    basePath, accountId, Config.docPdf, dsReturnUrl, dsPingUrl);
+                    basePath, accountId, Config.docPdf, DsReturnUrl, DsPingUrl);
             } 
             catch (ApiException apiException) 
             {
