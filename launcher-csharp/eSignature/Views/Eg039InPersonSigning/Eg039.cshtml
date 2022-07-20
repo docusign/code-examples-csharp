@@ -14,13 +14,6 @@
 
 <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
-        <label for="hostEmail">Host Email</label>
-        <input type="email" class="form-control" id="hostEmail" name="hostEmail"
-               aria-describedby="emailHelp" placeholder="pat@example.com" required
-               value="@ViewBag.Locals.DsConfig.SignerEmail">
-        <small id="emailHelp" class="form-text text-muted">Enter the email address associated with the host's DocuSign account. We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
         <label for="hostName">Host Name</label>
         <input type="text" class="form-control" id="hostName" placeholder="Pat Johnson" name="hostName"
                value="@ViewBag.Locals.DsConfig.SignerName" required />
