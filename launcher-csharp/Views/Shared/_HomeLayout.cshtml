@@ -75,9 +75,10 @@
             <p id="download-continue" class="feedback"><a href="/">Continue</a></p>
 
             <section id="content" style="margin-top:-60px!important; padding-top:30px!important;">
-
-                @RenderBody()
+                <content>
+                    @RenderBody()
                 </content>
+            </section>
         </div>
     <!-- The opening div for the container is in head.ejs -->
     <!-- Bootstrap core JavaScript
@@ -92,6 +93,7 @@
 
     <script src="~/js/notify.min.js"></script> <!-- see https://notifyjs.jpillora.com/ -->
     <script src="~/js/eg_03.js"></script>
+    <script src="~/js/site.js"></script>
 
     @*if (false) {
     <!-- For debugging: showing local values including session -->
