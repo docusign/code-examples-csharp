@@ -21,6 +21,7 @@ namespace DocuSign.CodeExamples.Common
         protected static ApiClient _apiClient { get; private set; }
         private static Account _account { get; set; }
         private static Guid? _organizationId { get; set; }
+        private static String? _authenticatedUserEmail { get; set; }
 
         public RequestItemsService(IHttpContextAccessor httpContextAccessor, IMemoryCache cache, IConfiguration configuration)
         {
@@ -101,6 +102,7 @@ namespace DocuSign.CodeExamples.Common
             get => _cache.Get<User>(GetKey("User"));
             set => _cache.Set(GetKey("User"), value);
         }
+
         public Guid? OrganizationId
         {
             get
@@ -126,6 +128,25 @@ namespace DocuSign.CodeExamples.Common
             {
                 _organizationId = value;
             }
+        }
+
+        public string AuthenticatedUserEmail 
+        { 
+            get
+            {
+                if (_authenticatedUserEmail == null)
+                {
+                    _apiClient.SetOAuthBasePath(this._configuration["DocuSignJWT:AuthServer"]);
+                    UserInfo userInfo = _apiClient.GetUserInfo(this.User.AccessToken);
+
+                    _authenticatedUserEmail = userInfo.Email;
+                }
+                return _authenticatedUserEmail;
+            }
+            set
+            {
+                _authenticatedUserEmail = value;
+            } 
         }
 
         public string EnvelopeId

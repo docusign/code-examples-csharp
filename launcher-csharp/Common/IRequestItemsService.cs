@@ -13,6 +13,7 @@ namespace DocuSign.CodeExamples
 
         public User User { get; set; }
         public Guid? OrganizationId { get; set; }
+        public string AuthenticatedUserEmail{ get; set; }
         string EnvelopeId { get; set; }
         public string DocumentId { get; set; }
         public string ClickwrapId { get; set; }
