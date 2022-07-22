@@ -26,12 +26,15 @@ namespace eSignature.Examples
         {
             EnvelopeDefinition envelopeDefinition = PrepareEnvelope(hostEmail, hostName, signerEmail, docPdf);
                   
+            // Step 3 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
 
             EnvelopeSummary envelopeSummary = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
+            // Step 3 end
+            // Step 4 start
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(hostEmail, hostName, returnUrl, pingUrl);
             ViewUrl viewUrl = envelopesApi.CreateRecipientView(accountId, envelopeSummary.EnvelopeId, viewRequest);
             
@@ -59,7 +62,9 @@ namespace eSignature.Examples
             }
             return recipientViewRequest;
         }
+        // Step 4 end
 
+        // Step 2 start
         private static EnvelopeDefinition PrepareEnvelope(string hostEmail, string hostName, string signerName, string docPdf)
         {
             byte[] fileContentInBytes = System.IO.File.ReadAllBytes(docPdf);
@@ -112,5 +117,6 @@ namespace eSignature.Examples
 
             return envelopeDefinition;
         }
+        // Step 2 end
     }
 }
