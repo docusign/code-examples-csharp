@@ -34,13 +34,15 @@ namespace eSignature.Examples
 
             EnvelopeSummary envelopeSummary = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
             // Step 3 end
-            // Step 4 start
+            // Step 5 start
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(hostEmail, hostName, returnUrl, pingUrl);
             ViewUrl viewUrl = envelopesApi.CreateRecipientView(accountId, envelopeSummary.EnvelopeId, viewRequest);
-            
+            // Step 5 end
+
             return viewUrl.Url;
         }
 
+        // Step 4 start
         private static RecipientViewRequest MakeRecipientViewRequest(
             string hostEmail, 
             string hostName, 
