@@ -24,12 +24,13 @@ namespace DocuSign.CodeExamples.Views
         public override string EgName => "Eg039";
 
         [HttpPost]
-        public IActionResult Create(string hostName, string signerName)
+        public IActionResult Create(string signerName)
         {
             string accessToken = RequestItemsService.User.AccessToken;
             string basePath = RequestItemsService.Session.BasePath + "/restapi";
             string accountId = RequestItemsService.Session.AccountId;
             string hostEmail = RequestItemsService.AuthenticatedUserEmail;
+            string hostName = RequestItemsService.User.Name;
             string redirectUrl = string.Empty;
 
             bool tokenOk = CheckToken(3);
