@@ -47,11 +47,8 @@ namespace DocuSign.CodeExamples.Views
                     "How to set document visibility for envelope recipients</a> in the DocuSign Developer Center " +
                     "for instructions on how to enable document visibility in your developer account.";
                 } 
-                else
-                {
-                    ViewBag.errorCode = apiException.ErrorCode;
-                    ViewBag.errorMessage = apiException.Message;
-                }
+                ViewBag.errorCode = apiException.ErrorCode;
+                ViewBag.errorMessage = apiException.Message;
                 
                 return View("Error");
             }
