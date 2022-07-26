@@ -50,8 +50,10 @@ namespace eSignature.Examples
                 Documents = PrepareDocumentsForTemplate(docPdf, docDocx, docHTML)
             };
 
-            Signer signer1 = PrepareSigner(signer1Email, signer1Name, "1", "1", new List<string> { "2", "3" }, "**signature_1**", "pixels", "20", "10");
-            Signer signer2 = PrepareSigner(signer2Email, signer2Name, "2", "1", new List<string> { "1" }, "/sn1/", "pixels", "20", "10");
+            Signer signer1 = PrepareSigner(signer1Email, signer1Name, "1", "1", new List<string> { "2", "3" }, 
+                "**signature_1**", "pixels", "20", "10");
+            Signer signer2 = PrepareSigner(signer2Email, signer2Name, "2", "1", new List<string> { "1" }, 
+                "/sn1/", "pixels", "20", "10");
 
             CarbonCopy carbonCopy = new CarbonCopy
             {
@@ -72,8 +74,9 @@ namespace eSignature.Examples
             return envelopeDefinition;
         }
 
-        private static Signer PrepareSigner(string signerEmail, string signerName, string recipientId, string routingOrder, List<string> excludedDocuments,
-            string tabsAnchorString, string tabsAnchorUnits, string tabsAnchorXOffset, string tabsAnchorYOffset)
+        private static Signer PrepareSigner(string signerEmail, string signerName, string recipientId, string routingOrder, 
+            List<string> excludedDocuments, string tabsAnchorString, string tabsAnchorUnits, string tabsAnchorXOffset, 
+            string tabsAnchorYOffset)
         {
             return new Signer
             {
