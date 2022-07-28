@@ -62,7 +62,7 @@ namespace DocuSign.CodeExamples.Controllers
             if (ControllerContext.RouteData.Values["area"] != null)
             {
                 uri = $"{uri}/{ControllerContext.RouteData.Values["area"]}";
-                return $"{uri}/Controllers/{this.GetType().Name}.cs";
+                return $"{uri}/Examples/{this.GetType().Name}.cs";
             }
             else if (this.EgName == "monitorExample001")
             {
@@ -71,7 +71,7 @@ namespace DocuSign.CodeExamples.Controllers
             else if (this.EgName != "eg001") // eg001 is at the top level
             {
                 uri = $"{uri}/eSignature";
-                return $"{uri}/Controllers/{this.GetType().Name}.cs";
+                return $"{uri}/Examples/{this.GetType().Name}.cs";
             }
             else
             {
