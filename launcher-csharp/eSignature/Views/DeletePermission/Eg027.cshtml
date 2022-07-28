@@ -1,0 +1,33 @@
+﻿<h4>27. Delete a permission profile</h4>
+
+<p>
+    This example lists all available permissions profiles and allows you to delete any without associated users. <strong>Note:</strong> You cannot remove "Everyone" nor "Administrator" permission profiles.
+</p>
+
+@if (ViewBag.showDoc)
+{
+    <p><a target="_blank" href="@ViewBag.documentation">Documentation</a> about this example</p>
+}
+
+<p>
+    API method used:
+    <a target="_blank" href="https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/delete/">AccountPermissionProfiles::delete</a>.
+</p>
+
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">DeletePermission.cs</a> on GitHub.
+</p>
+
+<form action="" class="eg" method="post" data-busy="form">
+
+    <div class="form-group">
+        <label for="permissionProfileId">Permission profile</label>
+        @Html.DropDownList(
+            "permissionProfileId", 
+            ViewBag.PermissionProfiles, 
+            "Select permission profile", 
+            new {@class = "custom-select", required = "required" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

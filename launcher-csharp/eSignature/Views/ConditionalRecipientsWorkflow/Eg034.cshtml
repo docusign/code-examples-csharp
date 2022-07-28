@@ -1,0 +1,67 @@
+﻿@using Microsoft.AspNetCore.Html
+@functions
+{
+    IHtmlContent GetTextInputMarkup(string id, string title, string type)
+    {
+        return Html.Raw($@"
+<div class='form-group'>
+    <label for= '{id}'>{title}</label >
+    <input type = '{type}' name = '{id}' id = '{id}' placeholder = '{title}' required class='form-control'/>
+</div>");
+    }
+}
+
+<h4>34. Use conditional recipients</h4>
+
+<p>
+    This example creates an envelope whose workflow routes it to different recipients based on the value of a transaction.
+</p>
+
+@if (ViewBag.showDoc)
+{
+    <p><a target="_blank" href="@ViewBag.documentation">Documentation</a> about this example</p>
+}
+
+<p>
+    API method used:
+    <a target="_blank" href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes:create</a>
+</p>
+
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">ConditionalRecipientsWorkflow.cs</a> on GitHub.
+</p>
+
+<form action="" class="eg" method="post" data-busy="form">
+
+    <h5 class="mt-4">Signer 1</h5>
+    <div class="row">
+        <div class="col-md-6 column">
+            <div class="form-group">
+                @GetTextInputMarkup("recipient1.Email", "Signer Email", "email")
+                @GetTextInputMarkup("recipient1.Name", "Signer name", "text")
+            </div>
+        </div>
+    </div>
+
+    <h5 class="mt-4">Conditional signer 2 when unchecked</h5>
+    <div class="row">
+        <div class="col-md-6 column ">
+            <div class="form-group">
+                @GetTextInputMarkup("conditionalRecipient1.Email", "Signer Email", "email")
+                @GetTextInputMarkup("conditionalRecipient1.Name", "Signer name", "text")
+            </div>
+        </div>
+    </div>
+
+    <h5 class="mt-4">Conditional signer 2 when checked</h5>
+    <div class="row">
+        <div class="col-md-6 column ">
+            <div class="form-group">
+                @GetTextInputMarkup("conditionalRecipient2.Email", "Signer Email", "email")
+                @GetTextInputMarkup("conditionalRecipient2.Name", "Signer name", "text")
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
