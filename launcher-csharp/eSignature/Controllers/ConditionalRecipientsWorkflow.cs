@@ -12,8 +12,8 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
     [Route("Eg034")]
     public class ConditionalRecipientsWorkflow : EgController
     {
-        public ConditionalRecipientsWorkflow(DSConfiguration config, IRequestItemsService requestItemsService) 
-            : base(config, requestItemsService)
+        public ConditionalRecipientsWorkflow(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
         }
 

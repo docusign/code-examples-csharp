@@ -13,9 +13,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     public class Eg02CreateRoomFromTemplateController : EgController
     {
 
-        public Eg02CreateRoomFromTemplateController(
-            DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService) : base(dsConfig, requestItemsService)
+        public Eg02CreateRoomFromTemplateController(DSConfiguration dsConfig, LauncherTexts launcherTexts, IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
         {}
 
         public override string EgName => "Eg02";

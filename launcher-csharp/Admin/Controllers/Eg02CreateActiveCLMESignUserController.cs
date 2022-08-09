@@ -18,8 +18,9 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         private static Guid? eSignProductId;
         public Eg02CreateActiveCLMESignUserController(
             DSConfiguration dsConfig,
+            LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService)
-            : base(dsConfig, requestItemsService)
+            : base(dsConfig, launcherTexts, requestItemsService)
         {
         }
 

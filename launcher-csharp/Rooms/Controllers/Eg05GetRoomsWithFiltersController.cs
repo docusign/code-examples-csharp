@@ -18,7 +18,8 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     {
         public Eg05GetRoomsWithFiltersController(
             DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService) : base(dsConfig, requestItemsService)
+            LauncherTexts launcherTexts,
+            IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
         {
         }
 

@@ -11,9 +11,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg01")]
     public class Eg01CreateRoomWithDataController : EgController
     {
-        public Eg01CreateRoomWithDataController(
-            DSConfiguration dsConfig, 
-            IRequestItemsService requestItemsService) : base(dsConfig, requestItemsService)
+        public Eg01CreateRoomWithDataController(DSConfiguration dsConfig, LauncherTexts launcherTexts, IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
         {
         }
 

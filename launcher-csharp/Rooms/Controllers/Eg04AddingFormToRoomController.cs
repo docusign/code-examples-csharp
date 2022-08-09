@@ -17,7 +17,8 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     {
         public Eg04AddingFormToRoomController(
             DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService) : base(dsConfig, requestItemsService)
+            LauncherTexts launcherTexts,
+            IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
         {
         }
 

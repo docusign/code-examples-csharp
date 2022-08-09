@@ -9,8 +9,8 @@ namespace DocuSign.CodeExamples.Controllers
 	[Route("Eg024")]
 	public class CreatePermissionProfile : EgController
 	{
-		public CreatePermissionProfile(DSConfiguration config, IRequestItemsService requestItemsService) :
-			base(config, requestItemsService)
+		public CreatePermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+			: base(config, launcherTexts, requestItemsService)
 		{
 		}
 

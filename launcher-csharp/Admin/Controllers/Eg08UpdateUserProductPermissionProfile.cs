@@ -20,10 +20,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         public static Dictionary<Guid?, string> products = new Dictionary<Guid?, string>();
 
-        public Eg08UpdateUserProductPermissionProfile(
-            DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService)
-            : base(dsConfig, requestItemsService)
+        public Eg08UpdateUserProductPermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
         }
 

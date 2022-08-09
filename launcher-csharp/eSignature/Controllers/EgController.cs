@@ -7,14 +7,18 @@ namespace DocuSign.CodeExamples.Controllers
     public abstract class EgController : Controller
     {
         public abstract string EgName { get; }
+
         protected DSConfiguration Config { get; }
+
+        protected LauncherTexts LauncherTexts { get; }
         protected IRequestItemsService RequestItemsService { get; }
 
-        public EgController(DSConfiguration config, IRequestItemsService requestItemsService)
+        public EgController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
         {
             Config = config;
             RequestItemsService = requestItemsService;
             ViewBag.csrfToken = "";
+            LauncherTexts = launcherTexts;
         }
 
         [HttpGet]

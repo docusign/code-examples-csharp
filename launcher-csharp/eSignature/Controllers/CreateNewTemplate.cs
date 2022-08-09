@@ -8,8 +8,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg008")]
     public class CreateNewTemplate : EgController
     {
-        public CreateNewTemplate(DSConfiguration config, IRequestItemsService requestItemsService) 
-            : base(config, requestItemsService)
+        public CreateNewTemplate(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             ViewBag.title = "Create a template";
         }

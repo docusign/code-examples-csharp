@@ -9,8 +9,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg018")]
     public class GetCustomFields : EgController
     {
-        public GetCustomFields(DSConfiguration config, IRequestItemsService requestItemsService) 
-            : base(config, requestItemsService)
+        public GetCustomFields(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             ViewBag.title = "Get custom field data";
         }

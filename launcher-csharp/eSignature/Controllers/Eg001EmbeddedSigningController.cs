@@ -13,8 +13,8 @@ namespace DocuSign.CodeExamples.Views
         private string signerClientId = "1000";
         private string dsReturnUrl;
 
-        public Eg001EmbeddedSigningController(DSConfiguration config, IRequestItemsService requestItemsService)
-            : base(config, requestItemsService)
+        public Eg001EmbeddedSigningController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             dsPingUrl = config.AppUrl + "/";
             dsReturnUrl = config.AppUrl + "/dsReturn";
@@ -37,6 +37,7 @@ namespace DocuSign.CodeExamples.Views
             string accountId = RequestItemsService.Session.AccountId;
             string docPDF = Convert.ToBoolean(Config.QuickACG) ? @"..\\launcher-csharp\\" + Config.docPdf : Config.docPdf;
 
+            var a = LauncherTexts.ManifestStructure;
             // Check the token with minimal buffer time.
             bool tokenOk = CheckToken(3);
             if (!tokenOk)

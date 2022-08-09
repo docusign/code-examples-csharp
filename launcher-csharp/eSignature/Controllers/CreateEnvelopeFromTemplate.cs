@@ -8,8 +8,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg009")]
     public class CreateEnvelopeFromTemplate : EgController
     {
-        public CreateEnvelopeFromTemplate(DSConfiguration config, IRequestItemsService requestItemsService) 
-            : base(config, requestItemsService)
+        public CreateEnvelopeFromTemplate(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
         }
 

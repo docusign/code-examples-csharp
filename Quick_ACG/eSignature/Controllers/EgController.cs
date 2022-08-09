@@ -11,13 +11,15 @@ namespace DocuSign.CodeExamples.Controllers
     {
         public abstract string EgName { get; }
         public DSConfiguration Config { get; }
+        public LauncherTexts LauncherTexts { get; }
         public IRequestItemsService RequestItemsService { get; }
 
-        public EgController(DSConfiguration config, IRequestItemsService requestItemsService)
+        public EgController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
         {
             Config = config;
             RequestItemsService = requestItemsService;
             ViewBag.csrfToken = "";
+            LauncherTexts = launcherTexts;
         }
 
         [Route("/")]

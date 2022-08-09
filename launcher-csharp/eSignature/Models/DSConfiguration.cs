@@ -16,6 +16,16 @@
 
         public string GatewayDisplayName { get; set; }
 
+        public string ESignatureManifest { get; set; }
+
+        public string ClickManifest { get; set; }
+
+        public string RoomsManifest { get; set; }
+
+        public string MonitorManifest { get; set; }
+
+        public string AdminManifest { get; set; }
+
         public bool production = false;
         public bool debug = true; // Send debugging statements to console
         public string sessionSecret = "12345"; // Secret for encrypting session cookie content

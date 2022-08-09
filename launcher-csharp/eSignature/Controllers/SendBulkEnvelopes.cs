@@ -10,8 +10,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("Eg031")]
     public class SendBulkEnvelopes : EgController
     {
-        public SendBulkEnvelopes(DSConfiguration config, IRequestItemsService requestItemsService) :
-            base(config, requestItemsService)
+        public SendBulkEnvelopes(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
         }
 

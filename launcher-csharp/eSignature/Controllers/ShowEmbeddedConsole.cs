@@ -9,8 +9,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg012")]
     public class ShowEmbeddedConsole : EgController
     {
-        public ShowEmbeddedConsole(DSConfiguration config, IRequestItemsService requestItemsService) 
-            : base(config, requestItemsService)
+        public ShowEmbeddedConsole(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
         }
 

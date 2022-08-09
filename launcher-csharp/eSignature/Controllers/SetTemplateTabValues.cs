@@ -13,8 +13,8 @@ namespace DocuSign.CodeExamples.Controllers
         private readonly string signerClientId = "1000";
         private string dsReturnUrl;
 
-        public SetTemplateTabValues(DSConfiguration config, IRequestItemsService requestItemsService)
-            : base(config, requestItemsService)
+        public SetTemplateTabValues(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             ViewBag.title = "SetTabValues";
             dsPingUrl = config.AppUrl + "/";

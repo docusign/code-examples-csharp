@@ -8,8 +8,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg002")]
     public class SigningViaEmail : EgController
     {
-        public SigningViaEmail(DSConfiguration config, IRequestItemsService requestItemsService) 
-            : base(config, requestItemsService)
+        public SigningViaEmail(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             ViewBag.title = "Signing request by email";
         }

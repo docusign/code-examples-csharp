@@ -8,8 +8,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg022")]
     public class RecipientAuthKBA : EgController
     {
-        public RecipientAuthKBA(DSConfiguration config, IRequestItemsService requestItemsService)
-            : base(config, requestItemsService)
+        public RecipientAuthKBA(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             ViewBag.title = "Knowledge Based Authentication";
         }

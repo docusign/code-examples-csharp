@@ -13,8 +13,8 @@ namespace DocuSign.CodeExamples.Controllers
 	[Route("Eg026")]
 	public class ChangePermissionSingleSetting : EgController
 	{
-		public ChangePermissionSingleSetting(DSConfiguration config, IRequestItemsService requestItemsService) :
-			base(config, requestItemsService)
+		public ChangePermissionSingleSetting(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+			: base(config, launcherTexts, requestItemsService)
 		{
 		}
 

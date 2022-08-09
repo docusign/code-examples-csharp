@@ -14,10 +14,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("[area]/Eg07")]
     public class Eg07RetrieveDocuSignProfileByUserId : EgController
     {
-        public Eg07RetrieveDocuSignProfileByUserId(
-            DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService)
-            : base(dsConfig, requestItemsService)
+        public Eg07RetrieveDocuSignProfileByUserId(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
         }
 

@@ -9,8 +9,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg028")]
     public class CreateBrand : EgController
     {
-        public CreateBrand(DSConfiguration config, IRequestItemsService requestItemsService)
-            : base(config, requestItemsService)
+        public CreateBrand(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             ViewBag.title = "Create a new brand";
         }

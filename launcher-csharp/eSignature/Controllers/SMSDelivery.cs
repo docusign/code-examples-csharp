@@ -9,8 +9,8 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
     [Route("Eg037")]
     public class SMSDelivery : EgController
     {
-        public SMSDelivery(DSConfiguration config, IRequestItemsService requestItemsService) 
-            : base(config, requestItemsService)
+        public SMSDelivery(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
         }
 

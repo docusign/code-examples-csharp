@@ -9,8 +9,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg020")]
     public class RecipientAuthPhone : EgController
     {
-        public RecipientAuthPhone(DSConfiguration config, IRequestItemsService requestItemsService)
-            : base(config, requestItemsService)
+        public RecipientAuthPhone(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             ViewBag.title = "Phone Authenticatication";
         }

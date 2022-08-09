@@ -27,10 +27,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         public const string ESIGN_PROFILES_NOT_FOUND = "No eSignature permission profiles are connected to this user";
 
-        public Eg09DeleteUserProductPermissionProfile(
-            DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService)
-            : base(dsConfig, requestItemsService)
+        public Eg09DeleteUserProductPermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
         }
 

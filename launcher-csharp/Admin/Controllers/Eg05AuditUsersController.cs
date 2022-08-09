@@ -13,10 +13,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("[area]/Eg05")]
     public class Eg05AuditUsersController : EgController
     {
-        public Eg05AuditUsersController(
-            DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService)
-            : base(dsConfig, requestItemsService)
+        public Eg05AuditUsersController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
         }
 

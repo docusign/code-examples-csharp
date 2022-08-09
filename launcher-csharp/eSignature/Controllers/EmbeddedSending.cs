@@ -9,8 +9,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg011")]
     public class EmbeddedSending : EgController
     {
-        public EmbeddedSending(DSConfiguration config, IRequestItemsService requestItemsService) 
-            : base(config, requestItemsService)
+        public EmbeddedSending(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             ViewBag.title = "Embedded Sending";
         }

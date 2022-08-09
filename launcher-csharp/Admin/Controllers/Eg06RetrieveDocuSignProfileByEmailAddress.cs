@@ -14,10 +14,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("[area]/Eg06")]
     public class Eg06RetrieveDocuSignProfileByEmailAddress : EgController
     {
-        public Eg06RetrieveDocuSignProfileByEmailAddress(
-            DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService)
-            : base(dsConfig, requestItemsService)
+        public Eg06RetrieveDocuSignProfileByEmailAddress(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
         }
 

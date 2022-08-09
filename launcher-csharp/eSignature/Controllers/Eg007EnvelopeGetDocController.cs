@@ -10,8 +10,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg007")]
     public class Eg007EnvelopeGetDocController : EgController
     {
-        public Eg007EnvelopeGetDocController(DSConfiguration config, IRequestItemsService requestItemsService) 
-            : base(config, requestItemsService)
+        public Eg007EnvelopeGetDocController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             ViewBag.title = "Download a document";
         }

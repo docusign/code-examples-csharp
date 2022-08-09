@@ -14,8 +14,8 @@ namespace DocuSign.CodeExamples.Controllers
 
         private readonly GetMonitoringDataFunc _getMonitoringDataFunc = new GetMonitoringDataFunc();
 
-        public Eg001GetMonitoringDataController(DSConfiguration config, IRequestItemsService requestItemsService)
-            : base(config, requestItemsService)
+        public Eg001GetMonitoringDataController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             ViewBag.title = "How to get monitoring data";
             _requestItemsService = requestItemsService;

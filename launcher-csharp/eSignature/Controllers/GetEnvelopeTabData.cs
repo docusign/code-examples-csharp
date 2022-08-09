@@ -10,8 +10,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg015")]
     public class GetEnvelopeTabData : EgController
     {
-        public GetEnvelopeTabData(DSConfiguration config, IRequestItemsService requestItemsService) 
-            : base(config, requestItemsService)
+        public GetEnvelopeTabData(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             ViewBag.title = "Get Envelope Tab Information";
         }

@@ -1,0 +1,29 @@
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+
+namespace DocuSign.CodeExamples.eSignature.Models
+{
+    public class CodeExampleText
+    {
+        [JsonProperty("ExampleNumber")]
+        public int ExampleNumber { get; set; }
+
+        [JsonProperty("ExampleName")]
+        public string ExampleName { get; set; }
+
+        [JsonProperty("ExampleDescription")]
+        public string ExampleDescription { get; set; }
+
+        [JsonProperty("PageTitle")]
+        public string PageTitle { get; set; }
+
+        [JsonProperty("ResultsPageHeader")]
+        public string Method { get; set; }
+
+        [JsonProperty("ResultsPageText")]
+        public string ResultsPageText { get; set; }
+
+        [JsonProperty("LinksToAPIMethod")]
+        public List<LinkToAPIMethods> LinksToAPIMethod { get; } = new List<LinkToAPIMethods>();
+    }
+}

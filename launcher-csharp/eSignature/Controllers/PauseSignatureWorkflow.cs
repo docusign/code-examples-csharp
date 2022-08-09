@@ -10,8 +10,8 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
     [Route("Eg032")]
     public class PauseSignatureWorkflow : EgController
     {
-        public PauseSignatureWorkflow(DSConfiguration config, IRequestItemsService requestItemsService) 
-            : base(config, requestItemsService)
+        public PauseSignatureWorkflow(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             ViewBag.title = "Pause a signature workflow";
         }

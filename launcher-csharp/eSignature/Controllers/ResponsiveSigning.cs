@@ -14,9 +14,9 @@ namespace DocuSign.CodeExamples.Views
         private string signerClientId = "1000";
         private string dsReturnUrl;
 
-        public ResponsiveSigning(DSConfiguration config, IRequestItemsService requestItemsService)
-            : base(config, requestItemsService)
-        {            
+        public ResponsiveSigning(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
+        {
             dsPingUrl = config.AppUrl + "/";
             dsReturnUrl = config.AppUrl + "/dsReturn";           
             ViewBag.title = "Embedded Signing Ceremony";

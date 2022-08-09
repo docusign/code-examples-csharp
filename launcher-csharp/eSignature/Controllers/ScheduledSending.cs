@@ -10,8 +10,8 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
     [Route("Eg035")]
     public class ScheduledSending : EgController
     {
-        public ScheduledSending(DSConfiguration config, IRequestItemsService requestItemsService) 
-            : base(config, requestItemsService)
+        public ScheduledSending(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
         }
 

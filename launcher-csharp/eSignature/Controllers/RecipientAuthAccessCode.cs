@@ -8,8 +8,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg019")]
     public class RecipientAuthAccessCode : EgController
     {
-        public RecipientAuthAccessCode(DSConfiguration config, IRequestItemsService requestItemsService)
-            : base(config, requestItemsService)
+        public RecipientAuthAccessCode(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             ViewBag.title = "Access Code Authentication";
         }

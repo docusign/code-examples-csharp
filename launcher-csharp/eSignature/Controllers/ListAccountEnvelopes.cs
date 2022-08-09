@@ -17,8 +17,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg003")]
     public class ListAccountEnvelopes : EgController
     {
-        public ListAccountEnvelopes(DSConfiguration config, IRequestItemsService requestItemsService) 
-            : base(config, requestItemsService)
+        public ListAccountEnvelopes(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             ViewBag.title = "List envelopes";
         }

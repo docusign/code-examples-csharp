@@ -12,8 +12,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("Eg027")]
     public class DeletePermission : EgController
     {
-        public DeletePermission(DSConfiguration config, IRequestItemsService requestItemsService) :
-        base(config, requestItemsService)
+        public DeletePermission(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
         }
 

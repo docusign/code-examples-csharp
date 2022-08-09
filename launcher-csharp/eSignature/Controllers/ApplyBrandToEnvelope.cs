@@ -10,8 +10,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg029")]
     public class ApplyBrandToEnvelope : EgController
     {
-        public ApplyBrandToEnvelope(DSConfiguration config, IRequestItemsService requestItemsService)
-            : base(config, requestItemsService)
+        public ApplyBrandToEnvelope(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             ViewBag.title = "Apply a brand to an envelope";
         }

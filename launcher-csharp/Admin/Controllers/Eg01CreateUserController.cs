@@ -14,9 +14,10 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     public class Eg01CreateUserController: EgController
     {
         public Eg01CreateUserController(
-            DSConfiguration dsConfig,
+            DSConfiguration dsConfig, 
+            LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService)
-            : base(dsConfig, requestItemsService)
+            : base(dsConfig, launcherTexts, requestItemsService)
         {
         }
 

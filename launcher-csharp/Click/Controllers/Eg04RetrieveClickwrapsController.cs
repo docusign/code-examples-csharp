@@ -15,9 +15,8 @@ namespace DocuSign.CodeExamples.Click.Controllers
     public class Eg04RetrieveClickwrapsController : EgController
     {
         public Eg04RetrieveClickwrapsController
-            (DSConfiguration dsConfig, 
-            IRequestItemsService requestItemsService) 
-            : base(dsConfig, requestItemsService)
+            (DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
         }
 

@@ -11,8 +11,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg014")]
     public class CollectPaymentInEnvelope : EgController
     {
-        public CollectPaymentInEnvelope(DSConfiguration config, IRequestItemsService requestItemsService)
-            : base(config, requestItemsService)
+        public CollectPaymentInEnvelope(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             ViewBag.title = "Envelope sent";
         }

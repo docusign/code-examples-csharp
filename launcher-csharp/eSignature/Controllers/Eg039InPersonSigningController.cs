@@ -13,8 +13,8 @@ namespace DocuSign.CodeExamples.Views
         private string DsPingUrl { get; set; }
         private string DsReturnUrl { get; set; }
 
-        public Eg039InPersonSigningController(DSConfiguration config, IRequestItemsService requestItemsService)
-            : base(config, requestItemsService)
+        public Eg039InPersonSigningController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             DsPingUrl = config.AppUrl + "/";
             DsReturnUrl = config.AppUrl + "/dsReturn";           

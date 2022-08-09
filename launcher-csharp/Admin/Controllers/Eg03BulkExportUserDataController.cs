@@ -13,10 +13,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("[area]/Eg03")]
     public class Eg03BulkExportUserDataController : EgController
     {
-        public Eg03BulkExportUserDataController(
-            DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService)
-            : base(dsConfig, requestItemsService)
+        public Eg03BulkExportUserDataController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
         }
 

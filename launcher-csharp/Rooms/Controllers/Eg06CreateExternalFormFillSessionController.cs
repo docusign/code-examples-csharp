@@ -15,9 +15,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg06")]
     public class Eg06CreateExternalFormFillSessionController : EgController
     {
-        public Eg06CreateExternalFormFillSessionController(
-            DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService) : base(dsConfig, requestItemsService)
+        public Eg06CreateExternalFormFillSessionController(DSConfiguration dsConfig, LauncherTexts launcherTexts, IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
         {
         }
 

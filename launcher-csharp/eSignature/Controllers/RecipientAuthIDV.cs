@@ -9,8 +9,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg023")]
     public class RecipientAuthIDV : EgController
     {
-        public RecipientAuthIDV(DSConfiguration config, IRequestItemsService requestItemsService)
-            : base(config, requestItemsService)
+        public RecipientAuthIDV(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
             ViewBag.title = "ID Verification Authentication";
         }

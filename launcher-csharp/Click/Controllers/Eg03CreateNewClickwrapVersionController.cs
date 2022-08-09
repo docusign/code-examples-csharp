@@ -12,10 +12,8 @@ namespace DocuSign.CodeExamples.Click.Controllers
     [Route("[area]/Eg03")]
     public class Eg03CreateNewClickwrapVersionController : EgController
     {
-        public Eg03CreateNewClickwrapVersionController(
-            DSConfiguration dsConfig, 
-            IRequestItemsService requestItemsService) 
-            : base(dsConfig, requestItemsService)
+        public Eg03CreateNewClickwrapVersionController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
         }
 
