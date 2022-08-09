@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using DocuSign.CodeExamples.Admin.Examples;
 using DocuSign.Admin.Client;
 using System;
+using DocuSign.CodeExamples.eSignature.Models;
+using System.Linq;
 
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
@@ -13,13 +15,19 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("[area]/Eg01")]
     public class Eg01CreateUserController: EgController
     {
+        private CodeExampleText codeExampleText;
+
         public Eg01CreateUserController(
             DSConfiguration dsConfig, 
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 1;
 
         public override string EgName => "Eg01";
 
@@ -62,8 +70,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                     organizationId, firstName, lastName, userName, email, Int64.Parse(permissionProfileId), Int64.Parse(groupId));
 
                 //Show results
-                ViewBag.h1 = "Create a new eSignature user";
-                ViewBag.message = "Results from eSignUserManagement:createUser method:";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText;
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(user, Formatting.Indented);
 
                 return View("example_done");

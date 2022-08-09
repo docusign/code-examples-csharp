@@ -1,4 +1,5 @@
 ﻿using DocuSign.CodeExamples.Controllers;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Rooms.Models;
 using DocuSign.Rooms.Client;
@@ -13,12 +14,18 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg07")]
     public class Eg07CreateFormGroupController : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public Eg07CreateFormGroupController(
             DSConfiguration dsConfig,
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 7;
 
         public override string EgName => "Eg07";
 
@@ -45,9 +52,9 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             {
                 // Call the Rooms API to create form group
                 FormGroup formGroup = CreateFormGroups.CreateGroup(basePath, accessToken, accountId, formGroupModel.Name);
-                
-                ViewBag.h1 = "The form group was successfully created";
-                ViewBag.message = $"The form group was successfully created, FormGroupId: '{formGroup.FormGroupId}'";
+
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText.Replace("\"{0}\"", formGroup.FormGroupId.ToString());
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(formGroup, Formatting.Indented);
 
                 return View("example_done");

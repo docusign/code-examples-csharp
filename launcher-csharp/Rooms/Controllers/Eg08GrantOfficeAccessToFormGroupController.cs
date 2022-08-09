@@ -1,4 +1,5 @@
 ﻿using DocuSign.CodeExamples.Controllers;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Rooms.Models;
 using DocuSign.Rooms.Client;
@@ -12,12 +13,17 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg08")]
     public class Eg08GrantOfficeAccessToFormGroupController : EgController
     {
+        private CodeExampleText codeExampleText;
         public Eg08GrantOfficeAccessToFormGroupController(
             DSConfiguration dsConfig,
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 8;
 
         public override string EgName => "Eg08";
 
@@ -74,9 +80,9 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             {
                 // Call the Rooms API to grant office access to a form group
                 GrantOfficeAccessToFormGroup.GrantAccess(basePath, accessToken, accountId, roomDocumentModel.FormGroupId, roomDocumentModel.OfficeId);
-                
-                ViewBag.h1 = "Access is granted for the office";
-                ViewBag.message = $"To the office with Id'{roomDocumentModel.OfficeId}' granted access for the form group with id '{roomDocumentModel.FormGroupId}'";
+
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText.Replace("\"{0}\"", roomDocumentModel.OfficeId.ToString()).Replace("\"{1}\"", roomDocumentModel.FormGroupId.ToString());
 
                 return View("example_done");
             }

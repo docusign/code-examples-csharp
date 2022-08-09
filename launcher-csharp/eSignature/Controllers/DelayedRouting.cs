@@ -1,4 +1,5 @@
 ﻿using DocuSign.CodeExamples.Controllers;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using eSignature.Examples;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,16 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
     [Route("Eg036")]
     public class DelayedRouting : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public DelayedRouting(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 36;
 
         public override string EgName => "Eg036";
 
@@ -41,8 +48,8 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
 
             RequestItemsService.EnvelopeId = envelopeId;
 
-            ViewBag.h1 = "Envelope sent";
-            ViewBag.message = "The envelope has been created and sent!<br />Envelope ID " + envelopeId + ".";
+            ViewBag.h1 = codeExampleText.ResultsPageHeader;
+            ViewBag.message = codeExampleText.ResultsPageHeader + envelopeId + ".";
             return View("example_done");
         }
     }

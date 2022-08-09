@@ -1,6 +1,7 @@
 ﻿using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -8,11 +9,15 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg002")]
     public class SigningViaEmail : EgController
     {
+        private CodeExampleText codeExampleText;
         public SigningViaEmail(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "Signing request by email";
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 2;
 
         public override string EgName => "eg002";
 
@@ -42,8 +47,8 @@ namespace DocuSign.CodeExamples.Controllers
 
             RequestItemsService.EnvelopeId = envelopeId;
 
-            ViewBag.h1 = "Envelope sent";
-            ViewBag.message = "The envelope has been created and sent!<br />Envelope ID " + envelopeId + ".";
+            ViewBag.h1 = codeExampleText.ResultsPageHeader;
+            ViewBag.message = codeExampleText.ResultsPageHeader + " " + envelopeId + ".";
             return View("example_done");
         }
     }

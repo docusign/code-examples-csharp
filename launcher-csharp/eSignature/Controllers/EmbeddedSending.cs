@@ -2,6 +2,7 @@
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -9,11 +10,16 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg011")]
     public class EmbeddedSending : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public EmbeddedSending(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "Embedded Sending";
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 11;
 
         public override string EgName => "eg011";
 

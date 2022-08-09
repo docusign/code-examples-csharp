@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using DocuSign.CodeExamples.Controllers;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Rooms.Models;
 using DocuSign.Rooms.Client;
@@ -13,12 +14,18 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg03")]
     public class Eg03ExportDataFromRoomController : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public Eg03ExportDataFromRoomController(
             DSConfiguration dsConfig,
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 3;
 
         public override string EgName => "Eg03";
 
@@ -76,8 +83,8 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 var fieldData = ExportDataFromRoom.Export(basePath, accessToken, accountId, model.RoomId);
 
                 // Show results
-                ViewBag.h1 = "The room data was successfully exported";
-                ViewBag.message = $"Results from the Rooms::GetRoomFieldData method RoomId: {model.RoomId} :";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText + $"method RoomId: {model.RoomId} :";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(fieldData, Formatting.Indented);
 
                 return View("example_done");

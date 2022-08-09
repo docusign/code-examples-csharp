@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using eSignature.Examples;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -9,11 +10,16 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg018")]
     public class GetCustomFields : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public GetCustomFields(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "Get custom field data";
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 18;
         public override string EgName => "eg018";
 
         [HttpPost]
@@ -41,8 +47,8 @@ namespace DocuSign.CodeExamples.Controllers
             var results = global::eSignature.Examples.GetCustomFields.ListAllCustomFieldsForEnvelope(accessToken, basePath, accountId, envelopeId);
 
             // Process results
-            ViewBag.h1 = "Envelope custom field data";
-            ViewBag.message = "Results from the EnvelopeCustomFields::list method:";
+            ViewBag.h1 = codeExampleText.ResultsPageHeader;
+            ViewBag.message = codeExampleText.ResultsPageText;
             ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
             return View("example_done");
         }

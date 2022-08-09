@@ -7,6 +7,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
@@ -14,10 +15,16 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("[area]/Eg06")]
     public class Eg06RetrieveDocuSignProfileByEmailAddress : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public Eg06RetrieveDocuSignProfileByEmailAddress(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 6;
 
         public override string EgName => "Eg06";
 
@@ -35,8 +42,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                 UsersDrilldownResponse profileWithSearchedEmail = RetrieveDocuSignProfileByEmailAddress.
                     GetDocuSignProfileByEmailAdress(basePath, accessToken, organizationId, email);
 
-                ViewBag.h1 = "Retrieve the user's DocuSign profile using an email address";
-                ViewBag.message = "Results from MultiProductUserManagement:getUserDSProfilesByEmail method:";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText;
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(profileWithSearchedEmail, Formatting.Indented);
 
                 return View("example_done");

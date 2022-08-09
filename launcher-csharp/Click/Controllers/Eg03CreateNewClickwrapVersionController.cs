@@ -2,6 +2,7 @@
 using DocuSign.Click.Examples;
 using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Controllers;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -12,10 +13,16 @@ namespace DocuSign.CodeExamples.Click.Controllers
     [Route("[area]/Eg03")]
     public class Eg03CreateNewClickwrapVersionController : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public Eg03CreateNewClickwrapVersionController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 3;
 
         public override string EgName => "Eg03";
 
@@ -46,8 +53,8 @@ namespace DocuSign.CodeExamples.Click.Controllers
                 var clickWrap = CreateNewClickwrapVersion.Create(clickwrapId, basePath, accessToken, accountId, clickwrapName);
 
                 // Show results
-                ViewBag.h1 = "Create a new clickwrap version";
-                ViewBag.message = $"Version {clickWrap.VersionNumber} of clickwrap {clickWrap.ClickwrapName} has been created.";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText.Replace("{0}", clickWrap.VersionNumber).Replace("\"{1}\"", clickWrap.ClickwrapName);
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(clickWrap, Formatting.Indented);
 
                 return View("example_done");

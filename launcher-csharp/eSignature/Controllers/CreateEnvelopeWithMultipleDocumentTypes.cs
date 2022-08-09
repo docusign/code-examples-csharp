@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using eSignature.Examples;
 using Microsoft.AspNetCore.Mvc;
@@ -9,11 +10,15 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg010")]
     public class CreateEnvelopeWithMultipleDocumentTypes : EgController
     {
+        private CodeExampleText codeExampleText;
         public CreateEnvelopeWithMultipleDocumentTypes(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "Send envelope with multipart mime";
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 10;
 
         public override string EgName => "eg010";
 
@@ -50,8 +55,8 @@ namespace DocuSign.CodeExamples.Controllers
             if (statusOk)
             {
                 RequestItemsService.EnvelopeId = envelopeId;
-                ViewBag.h1 = "Envelope sent";
-                ViewBag.message = "The envelope has been created and sent!<br/>Envelope ID " + envelopeId + ".";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageHeader + envelopeId + ".";
                 return View("example_done");
             }
             else

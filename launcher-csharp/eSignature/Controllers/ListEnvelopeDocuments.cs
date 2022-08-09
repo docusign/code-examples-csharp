@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using eSignature.Examples;
 using System.Linq;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -11,11 +12,15 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg006")]
     public class ListEnvelopeDocuments : EgController
     {
+        private CodeExampleText codeExampleText;
         public ListEnvelopeDocuments(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "List envelope documents";
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 6;
 
         public override string EgName => "eg006";
 
@@ -58,8 +63,8 @@ namespace DocuSign.CodeExamples.Controllers
 
             // Process results
             ViewBag.envelopeDocuments = mappedEnvelopeDocuments;
-            ViewBag.h1 = "List envelope documents result";
-            ViewBag.message = "Results from the EnvelopeDocuments::list method:";
+            ViewBag.h1 = codeExampleText.ResultsPageHeader;
+            ViewBag.message = codeExampleText.ResultsPageText;
             ViewBag.Locals.Json = JsonConvert.SerializeObject(mappedEnvelopeDocuments, Formatting.Indented);
             return View("example_done");
         }

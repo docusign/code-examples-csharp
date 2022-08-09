@@ -1,4 +1,5 @@
 ﻿using DocuSign.CodeExamples.Controllers;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using DocuSign.Rooms.Client;
 using DocuSign.Rooms.Examples;
@@ -11,9 +12,15 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg01")]
     public class Eg01CreateRoomWithDataController : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public Eg01CreateRoomWithDataController(DSConfiguration dsConfig, LauncherTexts launcherTexts, IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 1;
 
         public override string EgName => "Eg01";
 
@@ -50,8 +57,8 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 var room = CreateRoomWithData.CreateRoom(basePath, accessToken, accountId, mappedRoomModel);
 
                 // Show results
-                ViewBag.h1 = "The room was successfully created";
-                ViewBag.message = $"The room was created! Room ID: {room.RoomId}, Name: {room.Name}.";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText.Replace("\"{0}\"", room.RoomId.ToString()).Replace("{1}", room.Name);
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(room, Formatting.Indented);
 
                 return View("example_done");

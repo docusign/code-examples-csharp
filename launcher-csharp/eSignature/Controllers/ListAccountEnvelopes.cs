@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using static DocuSign.eSign.Api.EnvelopesApi;
 using eSignature.Examples;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -17,12 +18,16 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg003")]
     public class ListAccountEnvelopes : EgController
     {
+        private CodeExampleText codeExampleText;
         public ListAccountEnvelopes(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "List envelopes";
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
-   
+
+        public const int EgNumber = 3;
+
         public override string EgName => "eg003";
 
         [HttpPost]
@@ -50,8 +55,8 @@ namespace DocuSign.CodeExamples.Controllers
             var results = global::eSignature.Examples.ListAccountEnvelopes.ListAllEnvelope(accessToken, basePath, accountId);
 
             // Process results
-            ViewBag.h1 = "List envelopes results";
-            ViewBag.message = "Results from the Envelopes::listStatusChanges method:";
+            ViewBag.h1 = codeExampleText.ResultsPageHeader;
+            ViewBag.message = codeExampleText.ResultsPageText;
             ViewBag.Locals.Json = JsonConvert.SerializeObject(results,Formatting.Indented);
             return View("example_done");
         }

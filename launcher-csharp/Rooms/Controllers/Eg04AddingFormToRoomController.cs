@@ -1,5 +1,6 @@
 ﻿using System;
 using DocuSign.CodeExamples.Controllers;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Rooms.Models;
 using DocuSign.Rooms.Client;
@@ -15,12 +16,18 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg04")]
     public class Eg04AddingFormToRoomController : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public Eg04AddingFormToRoomController(
             DSConfiguration dsConfig,
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 4;
 
         public override string EgName => "Eg04";
 
@@ -85,8 +92,8 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                     roomFormModel.RoomId,
                     roomFormModel.FormId);
 
-                ViewBag.h1 = "The form was successfully added to a room";
-                ViewBag.message = $"Results from the Rooms: AddFormToRoom method. RoomId: {roomFormModel.RoomId}, FormId: {roomFormModel.FormId} :";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText + $" RoomId: {roomFormModel.RoomId}, FormId: {roomFormModel.FormId} :";
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(roomDocument, Formatting.Indented);
 
                 return View("example_done");

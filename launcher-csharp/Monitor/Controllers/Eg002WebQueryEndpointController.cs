@@ -1,4 +1,5 @@
 ﻿using DocuSign.CodeExamples.Common;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Monitor.Examples;
 using DocuSign.CodeExamples.Monitor.Models;
@@ -16,12 +17,18 @@ namespace DocuSign.CodeExamples.Controllers
 
         private readonly WebQueryEndpointFunc _webQueryEndpointFunc = new WebQueryEndpointFunc();
 
+        private CodeExampleText codeExampleText;
+
         public Eg002WebQueryEndpointController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "Post web query";
             _requestItemsService = requestItemsService;
+            
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 2;
 
         public override string EgName => "monitorExample002";
 
@@ -57,8 +64,8 @@ namespace DocuSign.CodeExamples.Controllers
                 filterEndDate);
 
             // Process results
-            ViewBag.h1 = "Query monitoring data with filters";
-            ViewBag.message = "Results from DataSet:postWebQuery method:";
+            ViewBag.h1 = codeExampleText.ResultsPageHeader;
+            ViewBag.message = codeExampleText.ResultsPageText;
             ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
             return View("example_done");
         }

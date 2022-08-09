@@ -3,6 +3,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
 using DocuSign.eSign.Client;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Views
 {
@@ -10,6 +11,7 @@ namespace DocuSign.CodeExamples.Views
     [Route("Eg039")]
     public class Eg039InPersonSigningController : EgController
     {
+        private CodeExampleText codeExampleText;
         private string DsPingUrl { get; set; }
         private string DsReturnUrl { get; set; }
 
@@ -17,9 +19,12 @@ namespace DocuSign.CodeExamples.Views
             : base(config, launcherTexts, requestItemsService)
         {
             DsPingUrl = config.AppUrl + "/";
-            DsReturnUrl = config.AppUrl + "/dsReturn";           
-            ViewBag.title = "In Person Signing";
+            DsReturnUrl = config.AppUrl + "/dsReturn";
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 39;
 
         public override string EgName => "Eg039";
 

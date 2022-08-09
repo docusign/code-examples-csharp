@@ -1,6 +1,7 @@
 ﻿using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -8,11 +9,16 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg019")]
     public class RecipientAuthAccessCode : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public RecipientAuthAccessCode(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "Access Code Authentication";
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 19;
 
         public override string EgName => "eg019";
 
@@ -45,8 +51,8 @@ namespace DocuSign.CodeExamples.Controllers
                 signerName, accessToken, basePath, accountId, accessCode);
 
             // Process results
-            ViewBag.h1 = "Envelope sent";
-            ViewBag.message = "The envelope has been created and sent!<br />Envelope ID " + envelopeId + ".";
+            ViewBag.h1 = codeExampleText.ResultsPageHeader;
+            ViewBag.message = codeExampleText.ResultsPageHeader + envelopeId + ".";
             return View("example_done");
         }
     }

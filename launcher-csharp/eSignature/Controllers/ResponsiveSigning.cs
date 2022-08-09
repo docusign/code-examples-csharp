@@ -3,6 +3,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
 using DocuSign.eSign.Client;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Views
 {
@@ -13,14 +14,18 @@ namespace DocuSign.CodeExamples.Views
         private string dsPingUrl;
         private string signerClientId = "1000";
         private string dsReturnUrl;
+        private CodeExampleText codeExampleText;
 
         public ResponsiveSigning(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
             dsPingUrl = config.AppUrl + "/";
-            dsReturnUrl = config.AppUrl + "/dsReturn";           
-            ViewBag.title = "Embedded Signing Ceremony";
+            dsReturnUrl = config.AppUrl + "/dsReturn";
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 38;
 
         public override string EgName => "Eg038";
 

@@ -2,6 +2,7 @@
 using DocuSign.Click.Examples;
 using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Controllers;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -13,10 +14,16 @@ namespace DocuSign.CodeExamples.Click.Controllers
     [Route("[area]/Eg02")]
     public class Eg02ActivateClickwrapController : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public Eg02ActivateClickwrapController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 2;
 
         public override string EgName => "Eg02";
 
@@ -53,8 +60,8 @@ namespace DocuSign.CodeExamples.Click.Controllers
                 var clickWrap = ActivateClickwrap.Update(clickwrapId, clickwrapVersion, basePath, accessToken, accountId);
 
                 // Show results
-                ViewBag.h1 = "Activate a clickwrap";
-                ViewBag.message = $"The clickwrap {clickWrap.ClickwrapName} has been activated.";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText;
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(clickWrap, Formatting.Indented);
 
                 return View("example_done");

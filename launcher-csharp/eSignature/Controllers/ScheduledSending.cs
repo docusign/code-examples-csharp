@@ -1,5 +1,6 @@
 ﻿using System;
 using DocuSign.CodeExamples.Controllers;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using eSignature.Examples;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,16 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
     [Route("Eg035")]
     public class ScheduledSending : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public ScheduledSending(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 35;
 
         public override string EgName => "Eg035";
 
@@ -42,8 +49,8 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
 
             RequestItemsService.EnvelopeId = envelopeId;
 
-            ViewBag.h1 = "Envelope scheduled";
-            ViewBag.message = "The envelope has been created and scheduled!<br />Envelope ID " + envelopeId + ".";
+            ViewBag.h1 = codeExampleText.ResultsPageHeader;
+            ViewBag.message = codeExampleText.ResultsPageHeader + envelopeId + ".";
             return View("example_done");
         }
     }

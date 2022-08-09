@@ -1,4 +1,5 @@
-﻿using DocuSign.CodeExamples.Models;
+﻿using DocuSign.CodeExamples.eSignature.Models;
+using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Views;
 using Microsoft.AspNetCore.Mvc;
 
@@ -81,6 +82,21 @@ namespace DocuSign.CodeExamples.Controllers
             {
                 return $"{uri}/{this.GetType().Name}.cs";
             }
+        }
+
+        protected CodeExampleText GetExampleText(int number)
+        {
+            var groups = LauncherTexts.ManifestStructure.Groups;
+            foreach (var group in groups)
+            {
+                var example = group.Examples.Find((example) => example.ExampleNumber == number);
+
+                if (example != null)
+                {
+                    return example;
+                }
+            }
+            return null;
         }
 
         protected bool CheckToken(int bufferMin = 60)

@@ -2,6 +2,7 @@
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -9,10 +10,16 @@ namespace DocuSign.CodeExamples.Controllers
 	[Route("Eg024")]
 	public class CreatePermissionProfile : EgController
 	{
+		private CodeExampleText codeExampleText;
+
 		public CreatePermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
 			: base(config, launcherTexts, requestItemsService)
 		{
+			codeExampleText = GetExampleText(EgNumber);
+			ViewBag.title = codeExampleText.PageTitle;
 		}
+
+		public const int EgNumber = 24;
 
 		public override string EgName => "Eg024";
 
@@ -81,8 +88,8 @@ namespace DocuSign.CodeExamples.Controllers
 				var result = global::eSignature.Examples.CreatePermissionProfile.Create(permissionProfileModel.ProfileName,
                     accountRoleSettings, accessToken, basePath, accountId);
 
-				ViewBag.h1 = "The permission profile was updated";
-				ViewBag.message = $"The permission profile was created!<br />Permission profile ID: {result.PermissionProfileId}, name:{result.PermissionProfileName}.";
+				ViewBag.h1 = codeExampleText.ResultsPageHeader;
+				ViewBag.message = codeExampleText.ResultsPageHeader.Replace("{PermissionProfileId}", result.PermissionProfileId).Replace("{PermissionProfileName}", result.PermissionProfileName);
 				return View("example_done");
 			}
 			catch (ApiException apiException)

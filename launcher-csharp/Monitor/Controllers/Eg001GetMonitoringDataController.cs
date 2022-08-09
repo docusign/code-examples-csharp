@@ -1,4 +1,5 @@
 ﻿using DocuSign.CodeExamples.Common;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Monitor.Examples;
 using Microsoft.AspNetCore.Mvc;
@@ -14,12 +15,18 @@ namespace DocuSign.CodeExamples.Controllers
 
         private readonly GetMonitoringDataFunc _getMonitoringDataFunc = new GetMonitoringDataFunc();
 
+        private CodeExampleText codeExampleText;
+
         public Eg001GetMonitoringDataController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "How to get monitoring data";
             _requestItemsService = requestItemsService;
+            
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 1;
 
         public override string EgName => "monitorExample001";
 
@@ -38,8 +45,8 @@ namespace DocuSign.CodeExamples.Controllers
             var results = _getMonitoringDataFunc.Invoke(accessToken, requestPath);
 
             // Process results
-            ViewBag.h1 = "Get monitoring data";
-            ViewBag.message = "Results from DataSet:getStream method:";
+            ViewBag.h1 = codeExampleText.ResultsPageHeader;
+            ViewBag.message = codeExampleText.ResultsPageText;
             ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
             return View("example_done");
         }

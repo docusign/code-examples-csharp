@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using eSignature.Examples;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -9,11 +10,15 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg005")]
     public class ListEnvelopeRecipients : EgController
     {
+        private CodeExampleText codeExampleText;
         public ListEnvelopeRecipients(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "List envelope recipients";
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 5;
 
         public override string EgName => "eg005";
 

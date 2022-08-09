@@ -1,4 +1,5 @@
 ﻿using DocuSign.CodeExamples.Controllers;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Rooms.Models;
 using DocuSign.Rooms.Client;
@@ -13,12 +14,18 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg09")]
     public class Eg09AssignFormToFormGroupController : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public Eg09AssignFormToFormGroupController(
             DSConfiguration dsConfig,
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 9;
 
         public override string EgName => "Eg09";
 
@@ -77,8 +84,8 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 var formGroupFormToAssign = AssignFormToFormGroups.AssignForm(basePath, accessToken, accountId,
                     formFormGroupModel.FormGroupId, new FormGroupFormToAssign() { FormId = formFormGroupModel.FormId });
 
-                ViewBag.h1 = "The form was assigned to the form group successfully";
-                ViewBag.message = $"The form ('{formGroupFormToAssign.FormId}') was assigned to the form group ('{formFormGroupModel.FormGroupId}') successfully";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText.Replace("\"{0}\"", formGroupFormToAssign.FormId.ToString()).Replace("\"{1}\"", formFormGroupModel.FormGroupId.ToString());
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(formGroupFormToAssign, Formatting.Indented);
 
                 return View("example_done");

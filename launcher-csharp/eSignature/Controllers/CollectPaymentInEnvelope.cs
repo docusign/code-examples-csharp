@@ -4,6 +4,7 @@ using DocuSign.eSign.Model;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -11,11 +12,16 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg014")]
     public class CollectPaymentInEnvelope : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public CollectPaymentInEnvelope(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "Envelope sent";
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 14;
 
         public override string EgName => "eg014";
 
@@ -49,8 +55,8 @@ namespace DocuSign.CodeExamples.Controllers
 
             // Process results
             Console.WriteLine("Envelope was created.EnvelopeId " + envelopeId);
-            ViewBag.h1 = "Envelope sent";
-            ViewBag.message = "The envelope has been created and sent!<br/>Envelope ID " + envelopeId + ".";
+            ViewBag.h1 = codeExampleText.ResultsPageHeader;
+            ViewBag.message = codeExampleText.ResultsPageHeader + envelopeId + ".";
             return View("example_done");
         }
     }

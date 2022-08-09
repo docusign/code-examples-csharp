@@ -1,6 +1,7 @@
 ﻿using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -12,14 +13,19 @@ namespace DocuSign.CodeExamples.Controllers
         private string dsPingUrl;
         private readonly string signerClientId = "1000";
         private string dsReturnUrl;
+        private CodeExampleText codeExampleText;
 
         public SetEnvelopeTabValue(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "SetTabValues";
             dsPingUrl = config.AppUrl + "/";
             dsReturnUrl = config.AppUrl + "/dsReturn";
+            
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 16;
         public override string EgName => "eg016";
 
         [HttpPost]

@@ -3,6 +3,7 @@ using DocuSign.eSign.Client;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -10,12 +11,16 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("Eg030")]
     public class ApplyBrandToTemplate : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public ApplyBrandToTemplate(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "Apply a brand to an envelope created from a template";
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
 
+        public const int EgNumber = 30;
         public override string EgName => "Eg030";
 
         protected override void InitializeInternal()
@@ -64,8 +69,8 @@ namespace DocuSign.CodeExamples.Controllers
             var results = global::eSignature.Examples.ApplyBrandToTemplate.CreateEnvelopeFromTemplateWithBrand(signerEmail, signerName, ccEmail,
                 cCName, brandId, RequestItemsService.TemplateId, accessToken, basePath, accountId, RequestItemsService.Status);
 
-            ViewBag.h1 = "Envelope sent";
-            ViewBag.message = "The envelope has been created and sent!<br />Envelope ID " + results.EnvelopeId + ".";
+            ViewBag.h1 = codeExampleText.ResultsPageHeader;
+            ViewBag.message = codeExampleText.ResultsPageText + results.EnvelopeId + ".";
             return View("example_done");
         }
     }

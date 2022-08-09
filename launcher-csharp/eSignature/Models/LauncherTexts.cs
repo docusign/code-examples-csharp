@@ -12,13 +12,13 @@ namespace DocuSign.CodeExamples.Models
 {
     public class LauncherTexts
     {
-        protected DSConfiguration Config { get; }
+        protected DSConfiguration DSConfig { get; }
 
-        private IConfiguration _configuration { get; }
+        private IConfiguration Configuration { get; }
         public LauncherTexts(DSConfiguration dsconfiguration, IConfiguration configuration)
         {
-            Config = dsconfiguration;
-            _configuration = configuration;
+            DSConfig = dsconfiguration;
+            Configuration = configuration;
         }
 
         private ManifestStructure manifestStructure;
@@ -28,21 +28,48 @@ namespace DocuSign.CodeExamples.Models
             get {
                 if (manifestStructure == null)
                 {
-                    manifestStructure = SetupManifestData(Config.ESignatureManifest);
+                    manifestStructure = SetupManifestData(GetTextManifestDependingOnCurrentAPI());
                 }
                 return manifestStructure;
             }
         }
 
-        public ManifestStructure SetupManifestData(string fileName)
+        private string GetTextManifestDependingOnCurrentAPI()
         {
-            var a = LoadFileContentAsync(fileName).Result;
+            string linkToManifest = string.Empty;
+
+            if (Configuration["ExamplesAPI"] == ExamplesAPIType.ESignature.ToString())
+            {
+                linkToManifest = DSConfig.ESignatureManifest;
+            }
+            else if (Configuration["ExamplesAPI"] == ExamplesAPIType.Click.ToString())
+            {
+                linkToManifest = DSConfig.ClickManifest;
+            }
+            else if (Configuration["ExamplesAPI"] == ExamplesAPIType.Rooms.ToString())
+            {
+                linkToManifest = DSConfig.RoomsManifest;
+            }
+            else if (Configuration["ExamplesAPI"] == ExamplesAPIType.Monitor.ToString())
+            {
+                linkToManifest = DSConfig.MonitorManifest;
+            }
+            else if (Configuration["ExamplesAPI"] == ExamplesAPIType.Admin.ToString())
+            {
+                linkToManifest = DSConfig.AdminManifest;
+            }
+
+            return linkToManifest;
+        }
+
+        private ManifestStructure SetupManifestData(string fileName)
+        {
             return JsonConvert.DeserializeObject<ManifestStructure>(
                     LoadFileContentAsync(fileName).Result,
                     new JsonSerializerSettings { Formatting = Formatting.Indented });
         }
 
-        public async Task<string> LoadFileContentAsync(string fileDownloadLink)
+        private async Task<string> LoadFileContentAsync(string fileDownloadLink)
         {
             HttpClient _httpClient = new HttpClient();
 
@@ -61,7 +88,13 @@ namespace DocuSign.CodeExamples.Models
             }
             catch (Exception exception)
             {
-                throw new Exception(string.Format(CultureInfo.InvariantCulture, "Could not load file: {0}.", fileDownloadLink), exception);
+                throw new Exception(
+                    string.Format(
+                        CultureInfo.InvariantCulture, 
+                        "Could not load file: {0}.", 
+                        fileDownloadLink
+                    ), 
+                    exception);
             }
         }
     }

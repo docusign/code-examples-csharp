@@ -7,6 +7,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
@@ -14,10 +15,16 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("[area]/Eg07")]
     public class Eg07RetrieveDocuSignProfileByUserId : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public Eg07RetrieveDocuSignProfileByUserId(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 7;
 
         public override string EgName => "Eg07";
 
@@ -35,8 +42,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                 UsersDrilldownResponse usersData = RetrieveDocuSignProfileByUserId.
                     GetDocuSignProfileByUserId(basePath, accessToken, organizationId, userId);
 
-                ViewBag.h1 = "Retrieve the user's DocuSign profile using a User ID";
-                ViewBag.message = "Results from MultiProductUserManagement:getUserDSProfile method:";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText;
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(usersData, Formatting.Indented);
 
                 return View("example_done");

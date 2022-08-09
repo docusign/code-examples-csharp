@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using DocuSign.CodeExamples.Admin.Examples;
 using DocuSign.Admin.Client;
 using System.IO;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
@@ -13,10 +14,16 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("[area]/Eg03")]
     public class Eg03BulkExportUserDataController : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public Eg03BulkExportUserDataController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 3;
 
         public override string EgName => "Eg03";
 
@@ -41,8 +48,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                     accessToken, basePath, organizationId, filePath);
 
                 //Show results
-                ViewBag.h1 = "Bulk export user data";
-                ViewBag.message = $"User data exported to {filePath}.<br/> Results from UserExport:getUserListExport method:";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText.Replace("{0}", filePath);
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(organizationExportsResponse, Formatting.Indented);
 
                 return View("example_done");

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using eSignature.Examples;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -12,10 +13,15 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("Eg025")]
     public class SetUserGroupPermission : EgController
     {
+        private CodeExampleText codeExampleText;
         public SetUserGroupPermission(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 25;
 
         public override string EgName => "Eg025";
 
@@ -82,8 +88,8 @@ namespace DocuSign.CodeExamples.Controllers
 
             if (errorDetails is null)
             {
-                ViewBag.h1 = "The permission profile was successfully set to the user group";
-                ViewBag.message = "The permission profile was successfully set to the user group!";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText;
             }
             else
             {

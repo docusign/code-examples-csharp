@@ -7,6 +7,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
@@ -16,13 +17,19 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     {
         private static Guid? clmProductId;
         private static Guid? eSignProductId;
+        private CodeExampleText codeExampleText;
+
         public Eg02CreateActiveCLMESignUserController(
             DSConfiguration dsConfig,
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 2;
 
         public override string EgName => "Eg02";
 
@@ -93,8 +100,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
                 RequestItemsService.EmailAddress = newUser.Email;
 
-                ViewBag.h1 = "Create a new active user for CLM and eSignature";
-                ViewBag.message = "Results from MultiProductUserManagement:addOrUpdateUser method:";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText;
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(newUser, Formatting.Indented);
                 return View("example_done");           
             }

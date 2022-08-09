@@ -2,6 +2,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
 using DocuSign.eSign.Client;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -9,11 +10,15 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg020")]
     public class RecipientAuthPhone : EgController
     {
+        private CodeExampleText codeExampleText;
         public RecipientAuthPhone(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "Phone Authenticatication";
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 20;
 
         public override string EgName => "eg020";
 
@@ -48,8 +53,8 @@ namespace DocuSign.CodeExamples.Controllers
                     accessToken, basePath, accountId, signerCountryCode, signerPhoneNumber, Config.docPdf);
 
                 // Process results
-                ViewBag.h1 = "Envelope sent";
-                ViewBag.message = "The envelope has been created and sent!<br />Envelope ID " + envelopeId + ".";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageHeader + envelopeId + ".";
                 return View("example_done");
             }
             catch (ApiException apiException)

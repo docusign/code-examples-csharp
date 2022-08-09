@@ -2,6 +2,7 @@
 using DocuSign.Click.Examples;
 using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Controllers;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -12,10 +13,16 @@ namespace DocuSign.CodeExamples.Click.Controllers
     [Route("[area]/Eg05")]
     public class Eg05GetClickwrapResponsesController : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public Eg05GetClickwrapResponsesController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 5;
 
         public override string EgName => "Eg05";
         protected override void InitializeInternal()
@@ -47,8 +54,8 @@ namespace DocuSign.CodeExamples.Click.Controllers
                 var clickWrapAgreements = GetClickwrapResponses.GetAgreements(clickwrapId, basePath, accessToken, accountId);
 
                 // Show results
-                ViewBag.h1 = "Get clickwrap responses";
-                ViewBag.message = $"Results from the ClickWraps::getClickwrapAgreements method:";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText;
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(clickWrapAgreements, Formatting.Indented);
 
                 return View("example_done");

@@ -1,4 +1,5 @@
 ﻿using DocuSign.CodeExamples.Controllers;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using eSignature.Examples;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +11,15 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
     [Route("Eg032")]
     public class PauseSignatureWorkflow : EgController
     {
+        private CodeExampleText codeExampleText;
         public PauseSignatureWorkflow(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "Pause a signature workflow";
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 32;
 
         public override string EgName => "Eg032";
 
@@ -46,8 +51,8 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
 
             // Process results
             RequestItemsService.PausedEnvelopeId = results.EnvelopeId;
-            ViewBag.h1 = "The envelope was created successfully!";
-            ViewBag.message = "Results from the Envelopes::create method:";
+            ViewBag.h1 = codeExampleText.ResultsPageHeader;
+            ViewBag.message = codeExampleText.ResultsPageText;
             ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
             return View("example_done");
         }

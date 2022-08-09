@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
@@ -27,10 +28,16 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         public const string ESIGN_PROFILES_NOT_FOUND = "No eSignature permission profiles are connected to this user";
 
+        private CodeExampleText codeExampleText;
+
         public Eg09DeleteUserProductPermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 9;
 
         public override string EgName => "Eg09";
 
@@ -101,8 +108,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                     Guid.Parse(productId)
                 );
 
-                ViewBag.h1 = "Delete user product permission profiles using an email address";
-                ViewBag.message = "Results from MultiProductUserManagement:removeUserProductPermission method:";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText;
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(response, Formatting.Indented);
 
                 return View("example_done");

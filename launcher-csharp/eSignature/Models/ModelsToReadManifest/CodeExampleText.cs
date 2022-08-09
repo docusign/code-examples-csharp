@@ -18,12 +18,15 @@ namespace DocuSign.CodeExamples.eSignature.Models
         public string PageTitle { get; set; }
 
         [JsonProperty("ResultsPageHeader")]
-        public string Method { get; set; }
+        public string ResultsPageHeader { get; set; }
 
         [JsonProperty("ResultsPageText")]
         public string ResultsPageText { get; set; }
 
         [JsonProperty("LinksToAPIMethod")]
         public List<LinkToAPIMethods> LinksToAPIMethod { get; } = new List<LinkToAPIMethods>();
+
+        [JsonProperty("AdditionalPage")]
+        public List<AdditionalPage> AdditionalPages { get; } = new List<AdditionalPage>();
     }
 }

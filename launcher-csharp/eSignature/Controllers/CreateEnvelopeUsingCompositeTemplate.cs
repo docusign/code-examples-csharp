@@ -1,6 +1,7 @@
 ﻿using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -9,11 +10,16 @@ namespace DocuSign.CodeExamples.Controllers
     public class CreateEnvelopeUsingCompositeTemplate : EgController
     {
         private string signerClientId = "1000";
+        private CodeExampleText codeExampleText;
 
         public CreateEnvelopeUsingCompositeTemplate(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 13;
 
         public override string EgName => "eg013";
 

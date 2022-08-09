@@ -4,6 +4,7 @@ using DocuSign.Click.Client;
 using DocuSign.Click.Examples;
 using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Controllers;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -14,11 +15,17 @@ namespace DocuSign.CodeExamples.Click.Controllers
     [Route("[area]/Eg04")]
     public class Eg04RetrieveClickwrapsController : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public Eg04RetrieveClickwrapsController
             (DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 4;
 
         public override string EgName => "Eg04";
         protected override void InitializeInternal()
@@ -47,8 +54,8 @@ namespace DocuSign.CodeExamples.Click.Controllers
                 clickwraps.Clickwraps.ForEach(cw => messageBuilder.AppendLine($"Clickwrap ID:{cw.ClickwrapId}, Clickwrap Version: {cw.VersionNumber}"));
 
                 // Show results
-                ViewBag.h1 = "Get a list of clickwraps";
-                ViewBag.message = $"Results from the Click::getClickwraps method:";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText;
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(clickwraps.Clickwraps, Formatting.Indented);
 
                 return View("example_done");

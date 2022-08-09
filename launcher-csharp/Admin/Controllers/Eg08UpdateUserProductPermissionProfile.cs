@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
@@ -20,10 +21,16 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         public static Dictionary<Guid?, string> products = new Dictionary<Guid?, string>();
 
+        private CodeExampleText codeExampleText;
+
         public Eg08UpdateUserProductPermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 8;
 
         public override string EgName => "Eg08";
 
@@ -84,8 +91,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                     permissionProfileId
                 );
 
-                ViewBag.h1 = "Update user product permission profiles using an email address";
-                ViewBag.message = "Results from MultiProductUserManagement:addUserProductPermissionProfilesByEmail method:";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText;
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(response, Formatting.Indented);
 
                 return View("example_done");

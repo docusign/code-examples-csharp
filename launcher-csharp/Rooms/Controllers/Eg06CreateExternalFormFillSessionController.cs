@@ -1,5 +1,6 @@
 ﻿using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Controllers;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Rooms.Models;
 using DocuSign.Rooms.Api;
@@ -15,9 +16,15 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg06")]
     public class Eg06CreateExternalFormFillSessionController : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public Eg06CreateExternalFormFillSessionController(DSConfiguration dsConfig, LauncherTexts launcherTexts, IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 6;
 
         public override string EgName => "Eg06";
 
@@ -106,8 +113,8 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                     new ExternalFormFillSessionForCreate(roomDocumentModel.DocumentId.ToString(),
                         roomDocumentModel.RoomId));
 
-                ViewBag.h1 = "External form fill sessions was successfully created";
-                ViewBag.message = $"To fill the form, navigate following URL: <a href='{url.Url}' target='_blank'>Fill the form</a>";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText.Replace("{0}", url.Url);
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(url, Formatting.Indented);
 
                 return View("example_done");

@@ -3,6 +3,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using eSignature.Examples;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -10,11 +11,17 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg015")]
     public class GetEnvelopeTabData : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public GetEnvelopeTabData(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "Get Envelope Tab Information";
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 15;
+
         public override string EgName => "eg015";
 
         [HttpPost]
@@ -42,8 +49,8 @@ namespace DocuSign.CodeExamples.Controllers
             EnvelopeFormData results = global::eSignature.Examples.GetEnvelopeTabData.GetEnvelopeFormData(accessToken, basePath, accountId, envelopeId);
 
             // Process results
-            ViewBag.h1 = "Get envelope tab data information";
-            ViewBag.message = "Results from the Envelopes::get method:";
+            ViewBag.h1 = codeExampleText.ResultsPageHeader;
+            ViewBag.message = codeExampleText.ResultsPageText;
             ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
             return View("example_done");
         }

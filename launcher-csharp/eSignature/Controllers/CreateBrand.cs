@@ -2,6 +2,7 @@
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -9,11 +10,16 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg028")]
     public class CreateBrand : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public CreateBrand(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "Create a new brand";
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 28;
 
         public override string EgName => "eg028";
 
@@ -44,8 +50,8 @@ namespace DocuSign.CodeExamples.Controllers
             {
                 // Call the Examples API method to create a new brand
                 var results = global::eSignature.Examples.CreateBrand.Create(brandName, defaultBrandLanguage, accessToken, basePath, accountId);
-                ViewBag.h1 = "New brand created";
-                ViewBag.message = "The brand has been created!<br />Brand ID:" + results.Brands[0].BrandId + ".";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageHeader + results.Brands[0].BrandId + ".";
             }
             catch (ApiException apiException)
             {

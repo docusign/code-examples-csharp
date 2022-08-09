@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using eSignature.Examples;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -10,10 +11,16 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("Eg031")]
     public class SendBulkEnvelopes : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public SendBulkEnvelopes(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 31;
 
         public override string EgName => "Eg031";
 
@@ -48,8 +55,8 @@ namespace DocuSign.CodeExamples.Controllers
                     carbonCopy1.Email, signer2.Name, signer2.Email, carbonCopy2.Name, carbonCopy2.Email, accessToken,
                     basePath, accountId, Config.docPdf, envelopeIdStamping, emailSubject);
 
-                ViewBag.h1 = "Bulk send envelopes";
-                ViewBag.message = "Results from BulkSend:getBulkSendBatchStatus method:";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText;
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(status, Formatting.Indented);
             }
             catch (Exception ex)

@@ -3,6 +3,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
 using System.Linq;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -10,11 +11,16 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg007")]
     public class Eg007EnvelopeGetDocController : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public Eg007EnvelopeGetDocController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "Download a document";
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 7;
 
         public override string EgName => "eg007";
 

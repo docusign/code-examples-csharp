@@ -6,6 +6,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
@@ -13,10 +14,16 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("[area]/Eg05")]
     public class Eg05AuditUsersController : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public Eg05AuditUsersController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 5;
 
         public override string EgName => "Eg05";
         protected override void InitializeInternal()
@@ -38,8 +45,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                 var accountId = RequestItemsService.Session.AccountId;
                 var usersData = AuditUsers.GetRecentlyModifiedUsersData(basePath, accessToken, Guid.Parse(accountId), organizationId);
                 // Process results
-                ViewBag.h1 = "Audit users";
-                ViewBag.message = "Results from eSignUserManagement:getUserProfiles method:";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText;
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(usersData, Formatting.Indented);
                 return View("example_done");
             }

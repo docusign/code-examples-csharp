@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Controllers;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Rooms.Models;
 using DocuSign.Rooms.Api;
@@ -16,12 +17,18 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg05")]
     public class Eg05GetRoomsWithFiltersController : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public Eg05GetRoomsWithFiltersController(
             DSConfiguration dsConfig,
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 5;
 
         public override string EgName => "Eg05";
 
@@ -57,10 +64,10 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                     fieldDataChangedStartDate,
                     fieldDataChangedEndDate);
 
-                ViewBag.h1 = "The rooms with filters was loaded";
-                ViewBag.message = $"Results from the Rooms: GetRooms method. FieldDataChangedStartDate: " +
-                                  $"{ roomFilterModel.FieldDataChangedStartDate.Date.ToShortDateString() }, " +
-                                  $"FieldDataChangedEndDate: { roomFilterModel.FieldDataChangedEndDate.Date.ToShortDateString() } :";
+                ViewBag.h1 = codeExampleText.ResultsPageHeader;
+                ViewBag.message = codeExampleText.ResultsPageText
+                    .Replace("{0}", roomFilterModel.FieldDataChangedStartDate.Date.ToShortDateString())
+                    .Replace("{1}", roomFilterModel.FieldDataChangedEndDate.Date.ToShortDateString());
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(rooms, Formatting.Indented);
 
                 return View("example_done");

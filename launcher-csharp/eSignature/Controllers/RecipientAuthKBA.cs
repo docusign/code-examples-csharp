@@ -1,6 +1,7 @@
 ﻿using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -8,11 +9,16 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg022")]
     public class RecipientAuthKBA : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public RecipientAuthKBA(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "Knowledge Based Authentication";
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 22;
         public override string EgName => "eg022";
 
         [HttpPost]
@@ -44,8 +50,8 @@ namespace DocuSign.CodeExamples.Controllers
                 accessToken, basePath, accountId);
 
             // Process results
-            ViewBag.h1 = "Envelope sent";
-            ViewBag.message = "The envelope has been created and sent!<br />Envelope ID " + envelopeId + ".";
+            ViewBag.h1 = codeExampleText.ResultsPageHeader;
+            ViewBag.message = codeExampleText.ResultsPageHeader + envelopeId + ".";
             return View("example_done");
         }
     }

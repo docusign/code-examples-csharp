@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using eSignature.Examples;
+using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -12,10 +13,15 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("Eg027")]
     public class DeletePermission : EgController
     {
+        private CodeExampleText codeExampleText;
         public DeletePermission(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 27;
 
         public override string EgName => "Eg027";
 
@@ -75,8 +81,8 @@ namespace DocuSign.CodeExamples.Controllers
                 return View("example_done");
             }
 
-            ViewBag.h1 = "The permission profile is deleted";
-            ViewBag.message = "The permission profile is deleted!";
+            ViewBag.h1 = codeExampleText.ResultsPageHeader;
+            ViewBag.message = codeExampleText.ResultsPageText;
             return View("example_done");
         }
     }

@@ -1,4 +1,5 @@
 ﻿using DocuSign.CodeExamples.Controllers;
+using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
@@ -12,10 +13,16 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
     [Route("Eg034")]
     public class ConditionalRecipientsWorkflow : EgController
     {
+        private CodeExampleText codeExampleText;
+
         public ConditionalRecipientsWorkflow(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
+            codeExampleText = GetExampleText(EgNumber);
+            ViewBag.title = codeExampleText.PageTitle;
         }
+
+        public const int EgNumber = 34;
 
         public override string EgName => "Eg034";
 
@@ -69,8 +76,8 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
             }
 
             // Process results
-            ViewBag.h1 = "Use conditional recipients";
-            ViewBag.message = $"Envelope ID {results.EnvelopeId} with conditional routing criteria has been created and sent to the first recipient!";
+            ViewBag.h1 = codeExampleText.ResultsPageHeader;
+            ViewBag.message = codeExampleText.ResultsPageHeader.Replace("{envelopeId", results.EnvelopeId);
             return View("example_done");
         }
     }
