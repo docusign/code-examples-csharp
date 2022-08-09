@@ -41,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="eSignature\Views\Eg031BulkSendEnvelopes\Eg031.cshtml">
+    <Content Update="eSignature\Views\SendBulkEnvelopes\Eg031.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Shared\_HomeLayout.cshtml">

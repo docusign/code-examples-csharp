@@ -1,0 +1,40 @@
+﻿<h4>Embedded DocuSign UI</h4>
+<p>Redirect the user to the DocuSign UI.</p>
+<p>
+    Use this API call to open the DocuSign UI with the user already logged in. The starting view can be either an envelope's documents or the web tool's front page.</p>
+<p>
+    The user does not necessarily return from the DocuSign UI, so using this API call is often a final
+    step for your application; or you can open the DocuSign UI in a new tab for the user.
+</p>
+
+@if (ViewBag.showDoc) {
+<p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
+}
+
+<p>
+    API method used:
+    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createconsole/">EnvelopeViews::createConsole</a>.
+</p>
+
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">ShowEmbeddedConsole.cs</a> on GitHub.
+</p>
+
+@if (!ViewBag.envelopeOk) {
+<p>
+    <b>Optional:</b> To use the <i>envelope's Documents view,</i> please first create an envelope using
+    <a href="eg002">Send an envelope with a remote (email) signer and cc recipient</a>.
+</p>
+}
+
+<form class="eg" action="" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="startingView">Starting view</label>
+        <select id="startingView" name="startingView" class="form-control">
+            <option value="frontPage" selected>Front page</option>
+            <!option value="envelope" @ViewBag.envelopeOk ? "" : 'disabled="true"'> The envelope's Documents view</!option>
+        </select>
+    </div>
+    <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
+    <button type="submit" class="btn btn-primary">Continue</button>
+</form>

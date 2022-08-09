@@ -1,0 +1,23 @@
+@model DocuSign.CodeExamples.Controllers.ChangePermissionSingleSetting
+<h4>Update individual permission profile settings</h4>
+
+<h4>26. Update individual permission profile settings</h4>
+
+<p>
+	This example updates an individual setting on a user group’s permission profile.
+</p>
+
+@if (ViewBag.showDoc == true)
+{
+	<p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
+}
+<p>
+	API method used:
+	<a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/update/">AccountPermissionProfiles::update</a>.
+</p>
+
+<p>
+	View source file <a target="_blank" href="@ViewBag.source">ChangePermissionSingleSetting.cs</a> on GitHub.
+</p>
+
+<partial name="PermissionProfileView" model="Model.ProfileModel" />
