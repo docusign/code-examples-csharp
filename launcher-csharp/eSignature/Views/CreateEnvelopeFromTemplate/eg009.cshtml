@@ -1,6 +1,6 @@
-﻿<h4>Send an envelope using a template</h4>
+﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    The envelope is defined by the template. The signer and cc recipient name and email are used to fill in the template's <i>roles</i>.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
 
 <p>
@@ -10,9 +10,7 @@
     avoiding the need to make software changes.
 </p>
 
-@if (ViewBag.showDoc) {
-<p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
-}
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
     API method used:

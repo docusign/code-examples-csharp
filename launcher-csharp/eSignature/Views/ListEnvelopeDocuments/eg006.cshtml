@@ -1,4 +1,4 @@
-﻿<h4>List an envelope's documents</h4>
+﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
     This example lists the envelope's documents. A <i>Certificate of Completion</i> document is also associated with every envelope.
 </p>
@@ -12,10 +12,7 @@
 <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
 }
 
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocuments/list/">EnvelopeDocuments::list</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">ListEnvelopeDocuments.cs</a> on GitHub.

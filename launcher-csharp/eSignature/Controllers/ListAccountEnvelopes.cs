@@ -17,8 +17,7 @@ namespace DocuSign.CodeExamples.Controllers
     [Area("eSignature")]
     [Route("eg003")]
     public class ListAccountEnvelopes : EgController
-    {
-        private CodeExampleText codeExampleText;
+    {        
         public ListAccountEnvelopes(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {

@@ -10,7 +10,7 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg004")]
     public class GetEnvelopeInformation : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public GetEnvelopeInformation(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)

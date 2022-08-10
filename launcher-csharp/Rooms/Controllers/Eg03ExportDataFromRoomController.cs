@@ -14,7 +14,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg03")]
     public class Eg03ExportDataFromRoomController : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public Eg03ExportDataFromRoomController(
             DSConfiguration dsConfig,
@@ -34,6 +34,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
             RoomsListModel = new RoomsListModel();
         }
 

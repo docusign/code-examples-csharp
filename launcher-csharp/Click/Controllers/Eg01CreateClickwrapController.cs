@@ -13,7 +13,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
     [Route("[area]/Eg01")]
     public class Eg01CreateClickwrapController : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public Eg01CreateClickwrapController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)

@@ -17,7 +17,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     {
         private static Guid? clmProductId;
         private static Guid? eSignProductId;
-        private CodeExampleText codeExampleText;
+        
 
         public Eg02CreateActiveCLMESignUserController(
             DSConfiguration dsConfig,
@@ -35,6 +35,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
             var organizationId = RequestItemsService.OrganizationId;
             var accessToken = RequestItemsService.User.AccessToken;
             var basePath = RequestItemsService.Session.AdminApiBasePath;

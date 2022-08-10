@@ -1,6 +1,6 @@
-﻿<h4>Get an envelope's basic information and status</h4>
+﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    This example lists the basic information about an envelope, including its overall status. Additional API/SDK methods may be used to get additional information about the envelope, its documents, recipients, and more.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
 
 <p>
@@ -11,10 +11,7 @@
 <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
 }
 
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/get/">Envelopes::get</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">GetEnvelopeInformation.cs</a> on GitHub.

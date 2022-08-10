@@ -12,7 +12,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg01")]
     public class Eg01CreateRoomWithDataController : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public Eg01CreateRoomWithDataController(DSConfiguration dsConfig, LauncherTexts launcherTexts, IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
         {
@@ -29,6 +29,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
             RoomModel = new Models.RoomModel();
         }
 

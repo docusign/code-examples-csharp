@@ -17,7 +17,7 @@ namespace DocuSign.CodeExamples.Controllers
 
         private readonly WebQueryEndpointFunc _webQueryEndpointFunc = new WebQueryEndpointFunc();
 
-        private CodeExampleText codeExampleText;
+        
 
         public Eg002WebQueryEndpointController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
@@ -37,6 +37,8 @@ namespace DocuSign.CodeExamples.Controllers
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
+
             MonitorFilterModel = new MonitorFilterModel();
         }
 

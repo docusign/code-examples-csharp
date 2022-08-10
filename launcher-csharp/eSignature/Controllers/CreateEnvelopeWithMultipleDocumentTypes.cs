@@ -10,7 +10,7 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg010")]
     public class CreateEnvelopeWithMultipleDocumentTypes : EgController
     {
-        private CodeExampleText codeExampleText;
+        
         public CreateEnvelopeWithMultipleDocumentTypes(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {

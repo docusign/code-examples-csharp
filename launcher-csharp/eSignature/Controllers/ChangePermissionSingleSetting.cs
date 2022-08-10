@@ -14,7 +14,6 @@ namespace DocuSign.CodeExamples.Controllers
 	[Route("Eg026")]
 	public class ChangePermissionSingleSetting : EgController
 	{
-		private CodeExampleText codeExampleText;
 		public ChangePermissionSingleSetting(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
 			: base(config, launcherTexts, requestItemsService)
 		{
@@ -34,6 +33,8 @@ namespace DocuSign.CodeExamples.Controllers
 
 		protected override void InitializeInternal()
 		{
+			base.InitializeInternal();
+
 			// Data for this method
 			// signerEmail 
 			// signerName

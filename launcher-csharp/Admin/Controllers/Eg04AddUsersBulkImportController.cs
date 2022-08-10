@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("[area]/Eg04")]
     public class Eg04AddUsersBulkImportController : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public Eg04AddUsersBulkImportController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)

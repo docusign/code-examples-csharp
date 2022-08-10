@@ -23,6 +23,9 @@ namespace DocuSign.CodeExamples.eSignature.Models
         [JsonProperty("ResultsPageText")]
         public string ResultsPageText { get; set; }
 
+        [JsonProperty("SkipForLanguages")]
+        public string SkipForLanguages { get; set; }
+
         [JsonProperty("LinksToAPIMethod")]
         public List<LinkToAPIMethods> LinksToAPIMethod { get; } = new List<LinkToAPIMethods>();
 

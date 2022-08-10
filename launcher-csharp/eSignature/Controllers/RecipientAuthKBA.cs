@@ -9,7 +9,7 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg022")]
     public class RecipientAuthKBA : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public RecipientAuthKBA(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)

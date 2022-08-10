@@ -16,7 +16,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg04")]
     public class Eg04AddingFormToRoomController : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public Eg04AddingFormToRoomController(
             DSConfiguration dsConfig,
@@ -36,6 +36,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
             RoomFormModel = new RoomFormModel();
         }
 

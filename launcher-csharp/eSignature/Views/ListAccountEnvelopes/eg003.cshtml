@@ -1,4 +1,4 @@
-﻿<h4>List envelopes whose status has changed</h4>
+﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>This example lists the envelopes whose status has changes within the last 30 days.</p>
 <p>This example demonstrates how to query DocuSign about envelopes sent by the current user.</p>
 
@@ -6,10 +6,7 @@
    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
 }
 
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/">Envelopes::listStatusChanges</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">ListAccountEnvelopes.cs</a> on GitHub.
 </p>

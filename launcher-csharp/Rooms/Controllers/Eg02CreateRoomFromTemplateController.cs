@@ -13,7 +13,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg02")]
     public class Eg02CreateRoomFromTemplateController : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public Eg02CreateRoomFromTemplateController(DSConfiguration dsConfig, LauncherTexts launcherTexts, IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
         {
@@ -30,6 +30,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
             RoomModel = new RoomModel();
         }
 

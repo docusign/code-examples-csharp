@@ -28,7 +28,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         public const string ESIGN_PROFILES_NOT_FOUND = "No eSignature permission profiles are connected to this user";
 
-        private CodeExampleText codeExampleText;
+        
 
         public Eg09DeleteUserProductPermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
@@ -43,6 +43,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
             Guid? organizationId = RequestItemsService.OrganizationId;
             string accessToken = RequestItemsService.User.AccessToken;
             string basePath = RequestItemsService.Session.AdminApiBasePath;

@@ -9,7 +9,7 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg008")]
     public class CreateNewTemplate : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public CreateNewTemplate(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)

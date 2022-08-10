@@ -1,6 +1,8 @@
-﻿<h4>Create a template</h4>
+﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    This example creates a template with two roles, <b>signer</b> and <b>cc</b>.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+<p>
     The template includes three documents.
 </p>
 
@@ -17,11 +19,7 @@
     <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
 } 
 
-<p>
-    API methods used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/templates/templates/list/">Templates::list</a>,
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/templates/templates/create/">Templates::create</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">CreateNewTemplate.cs</a> on GitHub.

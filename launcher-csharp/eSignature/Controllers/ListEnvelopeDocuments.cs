@@ -12,7 +12,6 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg006")]
     public class ListEnvelopeDocuments : EgController
     {
-        private CodeExampleText codeExampleText;
         public ListEnvelopeDocuments(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {

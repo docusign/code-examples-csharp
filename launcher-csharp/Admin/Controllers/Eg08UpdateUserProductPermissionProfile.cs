@@ -21,7 +21,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         public static Dictionary<Guid?, string> products = new Dictionary<Guid?, string>();
 
-        private CodeExampleText codeExampleText;
+        
 
         public Eg08UpdateUserProductPermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
@@ -36,6 +36,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();  
             Guid? organizationId = RequestItemsService.OrganizationId;
             string accessToken = RequestItemsService.User.AccessToken;
             string basePath = RequestItemsService.Session.AdminApiBasePath;

@@ -11,7 +11,6 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("Eg030")]
     public class ApplyBrandToTemplate : EgController
     {
-        private CodeExampleText codeExampleText;
 
         public ApplyBrandToTemplate(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
@@ -25,6 +24,8 @@ namespace DocuSign.CodeExamples.Controllers
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
+
             // Data for this method
             // signerEmail 
             // signerName

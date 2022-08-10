@@ -10,12 +10,14 @@ namespace DocuSign.CodeExamples.Controllers
         private IRequestItemsService _requestItemsService { get; }
         private IConfiguration _configuration { get; }
         private DSConfiguration _dsConfiguration { get; }
+        private LauncherTexts _launcherTexts { get; }
 
-        public HomeController(IRequestItemsService requestItemsService, DSConfiguration dsConfiguration, IConfiguration configuration)
+        public HomeController(IRequestItemsService requestItemsService, LauncherTexts launcherTexts, DSConfiguration dsConfiguration, IConfiguration configuration)
         {
             _requestItemsService = requestItemsService;
             _configuration = configuration;
             _dsConfiguration = dsConfiguration;
+            _launcherTexts = launcherTexts;
         }
 
         public IActionResult Index(string egName)
@@ -35,6 +37,7 @@ namespace DocuSign.CodeExamples.Controllers
             }
             if (egName == "home")
             {
+                ViewBag.APITexts = _launcherTexts.ManifestStructure.Groups;
                 return View();
             }
             if (string.IsNullOrEmpty(egName))
@@ -47,6 +50,7 @@ namespace DocuSign.CodeExamples.Controllers
                 return Redirect(egName);
             }
 
+            ViewBag.APITexts = _launcherTexts.ManifestStructure.Groups;
             return View();
         }
 

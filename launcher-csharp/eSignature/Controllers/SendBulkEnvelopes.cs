@@ -11,7 +11,7 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("Eg031")]
     public class SendBulkEnvelopes : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public SendBulkEnvelopes(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)

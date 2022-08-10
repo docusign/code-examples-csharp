@@ -10,7 +10,7 @@ namespace DocuSign.CodeExamples.Controllers
 	[Route("Eg024")]
 	public class CreatePermissionProfile : EgController
 	{
-		private CodeExampleText codeExampleText;
+		
 
 		public CreatePermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
 			: base(config, launcherTexts, requestItemsService)
@@ -26,7 +26,12 @@ namespace DocuSign.CodeExamples.Controllers
 		[BindProperty]
 		public PermissionProfileModel ProfileModel { get; set; }
 
-		protected override void InitializeInternal() => ProfileModel = new PermissionProfileModel();
+		protected override void InitializeInternal() 
+		{
+			base.InitializeInternal();
+
+			ProfileModel = new PermissionProfileModel();
+		}
 
 		[HttpPost]
 		[Route("Create")]

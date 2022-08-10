@@ -13,7 +13,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg08")]
     public class Eg08GrantOfficeAccessToFormGroupController : EgController
     {
-        private CodeExampleText codeExampleText;
+        
         public Eg08GrantOfficeAccessToFormGroupController(
             DSConfiguration dsConfig,
             LauncherTexts launcherTexts,
@@ -32,6 +32,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
             OfficeAccessModel = new OfficeAccessModel();
         }
 

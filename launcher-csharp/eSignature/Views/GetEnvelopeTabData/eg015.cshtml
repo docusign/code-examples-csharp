@@ -1,5 +1,7 @@
-﻿<h4>Get the tab data from an envelope</h4>
-<p>Get the tab (field) values from an envelope for all of the envelope's recipients.</p>
+﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
 
 <p>
     This method is used to read the updated tab values from
@@ -11,11 +13,7 @@
 <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
 }
 
-
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeformdata/get/">EnvelopeFormData::get</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">GetEnvelopeTabData.cs</a> on GitHub.

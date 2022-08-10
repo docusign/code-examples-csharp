@@ -1,5 +1,7 @@
-﻿<h4>Download a document from an envelope</h4>
-<p>An envelope's documents can be downloaded one by one or as a complete set.</p>
+﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
 <p>Document download options:</p>
 <ul>
     <li>
@@ -15,13 +17,10 @@
 </ul>
 
 @if (ViewBag.showDoc) {
-<p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
+    <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
 }
 
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocuments/get/">EnvelopeDocuments::get</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">GetDocumentFromEnvelope.cs</a> on GitHub.

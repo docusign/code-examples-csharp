@@ -13,7 +13,7 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("Eg027")]
     public class DeletePermission : EgController
     {
-        private CodeExampleText codeExampleText;
+        
         public DeletePermission(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -27,6 +27,7 @@ namespace DocuSign.CodeExamples.Controllers
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
             // Data for this method
             // permission profiles
             var basePath = RequestItemsService.Session.BasePath + "/restapi";

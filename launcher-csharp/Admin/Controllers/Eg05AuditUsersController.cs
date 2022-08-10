@@ -14,7 +14,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("[area]/Eg05")]
     public class Eg05AuditUsersController : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public Eg05AuditUsersController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
@@ -28,6 +28,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         public override string EgName => "Eg05";
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
             ViewBag.AccountId = RequestItemsService.Session.AccountId;
         }
 

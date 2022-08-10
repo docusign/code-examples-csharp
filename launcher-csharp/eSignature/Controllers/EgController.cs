@@ -9,9 +9,12 @@ namespace DocuSign.CodeExamples.Controllers
     {
         public abstract string EgName { get; }
 
+        protected CodeExampleText codeExampleText { get; set; }
+
         protected DSConfiguration Config { get; }
 
         protected LauncherTexts LauncherTexts { get; }
+
         protected IRequestItemsService RequestItemsService { get; }
 
         public EgController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
@@ -59,6 +62,7 @@ namespace DocuSign.CodeExamples.Controllers
 
         protected virtual void InitializeInternal()
         {
+            ViewBag.CodeExampleText = codeExampleText;
         }
 
         public dynamic CreateSourcePath()

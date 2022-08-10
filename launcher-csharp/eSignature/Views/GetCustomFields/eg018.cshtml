@@ -1,4 +1,4 @@
-﻿<h4>List envelope custom metadata field values</h4>
+﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
     Get the data values associated with the envelope itself. The custom data fields enable you to
     add additional metadata to the envelope. The custom data fields can be set by the <b>Sender</b>
@@ -14,12 +14,7 @@
 <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
 }
 
-
-
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopecustomfields/list/">EnvelopeCustomFields::list</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">GetCustomFields.cs</a> on GitHub.

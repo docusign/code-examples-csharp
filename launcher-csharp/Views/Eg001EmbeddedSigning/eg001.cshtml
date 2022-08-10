@@ -1,21 +1,15 @@
-﻿<h4>Request a signature through your app (embedded signing)</h4>
-<p>This example sends an envelope and then uses embedded signing for the first signer.
-With embedded signing, the DocuSign signing experience is initiated from your website.</p>
+﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>@Html.Raw(ViewBag.CodeExampleText.ExampleDescription)</p>
 
 @if (ViewBag.showDoc == true)
 {
     <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
 }
 
+<partial name="../Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+
 <p>
-    API methods used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes:create</a>
-    and
-    <a target='_blank'
-       href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/">EnvelopeViews:createRecipient</a>
-</p>
-<p>
-    View source file <a target="_blank" href="https://github.com/docusign/code-examples-csharp/blob/master/launcher-csharp/EmbeddedSigningCeremony.cs">EmbeddedSigningCeremony.cs</a> on GitHub.
+    View source file <a target="_blank" href="@ViewBag.source">EmbeddedSigningCeremony.cs</a> on GitHub.
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">

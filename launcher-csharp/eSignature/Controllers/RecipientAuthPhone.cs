@@ -10,7 +10,7 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg020")]
     public class RecipientAuthPhone : EgController
     {
-        private CodeExampleText codeExampleText;
+        
         public RecipientAuthPhone(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {

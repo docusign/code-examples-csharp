@@ -1,18 +1,15 @@
-﻿<h4>Delete a permission profile</h4>
-
+﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    This example lists all available permissions profiles and allows you to delete any without associated users. <strong>Note:</strong> You cannot remove "Everyone" nor "Administrator" permission profiles.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
 
-@if (ViewBag.showDoc)
+@if (ViewBag.showDoc == true)
 {
-    <p><a target="_blank" href="@ViewBag.documentation">Documentation</a> about this example</p>
+    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
 }
 
-<p>
-    API method used:
-    <a target="_blank" href="https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/delete/">AccountPermissionProfiles::delete</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+
 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">DeletePermission.cs</a> on GitHub.

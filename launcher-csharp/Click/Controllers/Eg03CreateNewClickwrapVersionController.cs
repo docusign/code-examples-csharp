@@ -13,7 +13,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
     [Route("[area]/Eg03")]
     public class Eg03CreateNewClickwrapVersionController : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public Eg03CreateNewClickwrapVersionController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
@@ -28,6 +28,8 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
+
             // Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken;
             var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
@@ -54,7 +56,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
                 // Show results
                 ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = codeExampleText.ResultsPageText.Replace("{0}", clickWrap.VersionNumber).Replace("\"{1}\"", clickWrap.ClickwrapName);
+                ViewBag.message = codeExampleText.ResultsPageText.Replace("{0}", clickWrap.VersionNumber).Replace("{1}", clickWrap.ClickwrapName);
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(clickWrap, Formatting.Indented);
 
                 return View("example_done");

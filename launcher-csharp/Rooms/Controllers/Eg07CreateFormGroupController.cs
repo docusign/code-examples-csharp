@@ -14,7 +14,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg07")]
     public class Eg07CreateFormGroupController : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public Eg07CreateFormGroupController(
             DSConfiguration dsConfig,
@@ -34,6 +34,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
             FormGroupModel = new FormGroupModel();
         }
 

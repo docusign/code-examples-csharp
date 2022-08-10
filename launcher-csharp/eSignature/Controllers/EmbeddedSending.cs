@@ -10,7 +10,7 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg011")]
     public class EmbeddedSending : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public EmbeddedSending(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)

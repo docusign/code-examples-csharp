@@ -11,6 +11,8 @@ namespace DocuSign.CodeExamples.Controllers
     public abstract class EgController : Controller
     {
         public abstract string EgName { get; }
+
+        protected CodeExampleText codeExampleText { get; set; }
         public DSConfiguration Config { get; }
         public LauncherTexts LauncherTexts { get; }
         public IRequestItemsService RequestItemsService { get; }

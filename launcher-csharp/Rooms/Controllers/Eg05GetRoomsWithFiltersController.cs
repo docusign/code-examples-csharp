@@ -17,7 +17,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg05")]
     public class Eg05GetRoomsWithFiltersController : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public Eg05GetRoomsWithFiltersController(
             DSConfiguration dsConfig,
@@ -37,6 +37,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
             RoomFilterModel = new RoomFilterModel();
         }
 

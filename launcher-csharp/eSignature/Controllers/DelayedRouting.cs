@@ -10,7 +10,7 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
     [Route("Eg036")]
     public class DelayedRouting : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public DelayedRouting(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)

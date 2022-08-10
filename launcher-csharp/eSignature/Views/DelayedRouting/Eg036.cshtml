@@ -1,7 +1,6 @@
-﻿
-<h4>Send an envelope with delayed routing</h4>
+﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    Demonstrates how to delay an envelope’s delivery between recipients using the delayed routing feature.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
 
 @if (ViewBag.showDoc == true)
@@ -9,10 +8,8 @@
     <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
 }
 
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+
 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">DelayedRouting.cs</a> on GitHub.

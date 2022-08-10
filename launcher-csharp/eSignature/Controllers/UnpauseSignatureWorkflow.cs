@@ -11,7 +11,7 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
     [Route("Eg033")]
     public class UnpauseSignatureWorkflow : EgController
     {
-        private CodeExampleText codeExampleText;
+        
         public UnpauseSignatureWorkflow(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {

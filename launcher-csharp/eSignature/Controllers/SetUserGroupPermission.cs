@@ -13,7 +13,7 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("Eg025")]
     public class SetUserGroupPermission : EgController
     {
-        private CodeExampleText codeExampleText;
+        
         public SetUserGroupPermission(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -27,6 +27,7 @@ namespace DocuSign.CodeExamples.Controllers
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
             // Data for this method
             // Permission profiles
             // User groups

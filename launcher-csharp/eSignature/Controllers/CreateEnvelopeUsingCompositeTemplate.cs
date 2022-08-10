@@ -10,7 +10,7 @@ namespace DocuSign.CodeExamples.Controllers
     public class CreateEnvelopeUsingCompositeTemplate : EgController
     {
         private string signerClientId = "1000";
-        private CodeExampleText codeExampleText;
+        
 
         public CreateEnvelopeUsingCompositeTemplate(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)

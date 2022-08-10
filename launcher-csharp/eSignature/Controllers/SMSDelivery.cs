@@ -10,7 +10,7 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
     [Route("Eg037")]
     public class SMSDelivery : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public SMSDelivery(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)

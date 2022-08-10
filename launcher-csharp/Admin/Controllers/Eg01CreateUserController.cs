@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("[area]/Eg01")]
     public class Eg01CreateUserController: EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public Eg01CreateUserController(
             DSConfiguration dsConfig, 
@@ -33,6 +33,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
+
             try
             {
                 var accessToken = RequestItemsService.User.AccessToken;

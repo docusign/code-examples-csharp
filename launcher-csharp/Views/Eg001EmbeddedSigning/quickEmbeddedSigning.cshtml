@@ -1,6 +1,6 @@
 ﻿@{
     Layout = null;
-    ViewBag.Title = "Embedded Signing Ceremony";
+    ViewBag.Title = ViewBag.CodeExampleText.PageTitle;
 }
 
 <!doctype html>
@@ -45,17 +45,39 @@
 
     <div class="container" style="margin-top: 100px">
 
-      <h4>Use embedded signing</h4>
-      <p>This example sends an envelope, and then uses embedded signing for the first signer.</p>
-      <p>Embedded signing provides a smoother user experience for the signer: the DocuSign signing is initiated from your website.</p>
+      <h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+      <p>@Html.Raw(ViewBag.CodeExampleText.ExampleDescription)</p>
 
-      <p>API methods used:
-        <a target ='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a> and
-        <a target ='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/">EnvelopeViews::createRecipient</a>.
-      </p>
-      <p>
+     <p>
+        @if(ViewBag.CodeExampleText.LinksToAPIMethod.Count == 1)
+        {
+            <span>API method used:</span>
+        } 
+        else
+        {
+            <span>API methods used:</span>
+        }
+
+        @for(int i = 0; i < ViewBag.CodeExampleText.LinksToAPIMethod.Count; ++i)
+        {
+            <a target='_blank' href="@ViewBag.CodeExampleText.LinksToAPIMethod[i].Path">@Html.Raw(ViewBag.CodeExampleText.LinksToAPIMethod[i].PathName)</a>
+            @if(i + 1 == ViewBag.CodeExampleText.LinksToAPIMethod.Count)
+            {
+                <span>.</span>
+            }
+            else if(i + 1 == ViewBag.CodeExampleText.LinksToAPIMethod.Count - 1)
+            {
+                <span> and </span>
+            }
+            else
+            {
+                <span>, </span>
+            }
+        }
+    </p>
+    <p>
         View source file <a target="_blank" href="@ViewBag.source">Eg001EmbeddedSigningController.cs</a> on GitHub.
-      </p>
+    </p>
 
     <form class="eg" action="" method="post" data-busy="form">
         <div class="form-group">

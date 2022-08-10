@@ -11,10 +11,9 @@
     }
 }
 
-<h4>Use conditional recipients</h4>
-
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    This example creates an envelope whose workflow routes it to different recipients based on the value of a transaction.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
 
 @if (ViewBag.showDoc)
@@ -22,10 +21,7 @@
     <p><a target="_blank" href="@ViewBag.documentation">Documentation</a> about this example</p>
 }
 
-<p>
-    API method used:
-    <a target="_blank" href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes:create</a>
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">ConditionalRecipientsWorkflow.cs</a> on GitHub.

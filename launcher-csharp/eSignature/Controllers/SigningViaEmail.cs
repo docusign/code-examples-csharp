@@ -9,7 +9,7 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg002")]
     public class SigningViaEmail : EgController
     {
-        private CodeExampleText codeExampleText;
+        
         public SigningViaEmail(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {

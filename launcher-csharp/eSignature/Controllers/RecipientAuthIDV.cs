@@ -10,7 +10,7 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg023")]
     public class RecipientAuthIDV : EgController
     {
-        private CodeExampleText codeExampleText;
+        
         public RecipientAuthIDV(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {

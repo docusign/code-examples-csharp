@@ -1,4 +1,4 @@
-﻿<h4>Embedded Sending</h4>
+﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
     An envelope will be created in draft mode. The DocuSign UI will then be shown, enabling further updates to the envelope before it is sent.
 </p>
@@ -15,11 +15,7 @@
 <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
 }
 
-<p>
-    API methods used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a> and
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createsender/">EnvelopeViews::createSender</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">EmbeddedSending.cs</a> on GitHub.

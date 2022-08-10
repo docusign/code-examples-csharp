@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
     [Route("[area]/Eg04")]
     public class Eg04RetrieveClickwrapsController : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public Eg04RetrieveClickwrapsController
             (DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
@@ -30,6 +30,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
         public override string EgName => "Eg04";
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
             ViewBag.ClickwrapId = RequestItemsService.ClickwrapId;
             ViewBag.AccountId = RequestItemsService.Session.AccountId;
         }

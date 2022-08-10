@@ -10,7 +10,7 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg018")]
     public class GetCustomFields : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public GetCustomFields(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)

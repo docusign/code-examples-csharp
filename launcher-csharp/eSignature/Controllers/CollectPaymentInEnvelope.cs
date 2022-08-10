@@ -12,8 +12,6 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg014")]
     public class CollectPaymentInEnvelope : EgController
     {
-        private CodeExampleText codeExampleText;
-
         public CollectPaymentInEnvelope(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {

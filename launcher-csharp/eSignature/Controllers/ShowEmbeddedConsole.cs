@@ -10,7 +10,7 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg012")]
     public class ShowEmbeddedConsole : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public ShowEmbeddedConsole(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)

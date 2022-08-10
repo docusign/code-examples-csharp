@@ -16,7 +16,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg06")]
     public class Eg06CreateExternalFormFillSessionController : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public Eg06CreateExternalFormFillSessionController(DSConfiguration dsConfig, LauncherTexts launcherTexts, IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
         {
@@ -33,6 +33,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
             RoomDocumentModel = new RoomDocumentModel();
         }
 

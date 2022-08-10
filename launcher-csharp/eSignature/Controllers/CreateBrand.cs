@@ -10,7 +10,7 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg028")]
     public class CreateBrand : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public CreateBrand(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)

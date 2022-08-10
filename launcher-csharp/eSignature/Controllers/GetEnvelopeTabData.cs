@@ -10,8 +10,7 @@ namespace DocuSign.CodeExamples.Controllers
     [Area("eSignature")]
     [Route("eg015")]
     public class GetEnvelopeTabData : EgController
-    {
-        private CodeExampleText codeExampleText;
+    {         
 
         public GetEnvelopeTabData(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)

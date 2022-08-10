@@ -38,7 +38,7 @@ namespace DocuSign.CodeExamples.Models
         {
             string linkToManifest = string.Empty;
 
-            if (Configuration["ExamplesAPI"] == ExamplesAPIType.ESignature.ToString())
+            if (Configuration["ExamplesAPI"] == ExamplesAPIType.ESignature.ToString() || DSConfig.QuickACG == "true")
             {
                 linkToManifest = DSConfig.ESignatureManifest;
             }

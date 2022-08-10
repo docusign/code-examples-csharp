@@ -8,8 +8,7 @@ namespace DocuSign.CodeExamples.Controllers
     [Area("eSignature")]
     [Route("eg019")]
     public class RecipientAuthAccessCode : EgController
-    {
-        private CodeExampleText codeExampleText;
+    {       
 
         public RecipientAuthAccessCode(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)

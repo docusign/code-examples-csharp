@@ -14,7 +14,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
     [Route("[area]/Eg02")]
     public class Eg02ActivateClickwrapController : EgController
     {
-        private CodeExampleText codeExampleText;
+        
 
         public Eg02ActivateClickwrapController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
@@ -29,6 +29,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
             // Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken;
             var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path

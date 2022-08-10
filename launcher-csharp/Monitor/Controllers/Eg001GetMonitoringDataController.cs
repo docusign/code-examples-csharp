@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Controllers
 
         private readonly GetMonitoringDataFunc _getMonitoringDataFunc = new GetMonitoringDataFunc();
 
-        private CodeExampleText codeExampleText;
+        
 
         public Eg001GetMonitoringDataController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)

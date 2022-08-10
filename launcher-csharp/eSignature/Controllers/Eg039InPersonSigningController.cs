@@ -11,7 +11,7 @@ namespace DocuSign.CodeExamples.Views
     [Route("Eg039")]
     public class Eg039InPersonSigningController : EgController
     {
-        private CodeExampleText codeExampleText;
+        
         private string DsPingUrl { get; set; }
         private string DsReturnUrl { get; set; }
 
