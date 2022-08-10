@@ -1,13 +1,11 @@
 ﻿@model DocuSign.CodeExamples.Click.Controllers.Eg05GetClickwrapResponsesController
 
-<h4 id="example05">5. Get clickwrap responses</h4>
+<h4>5. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    Gets user responses to your clickwrap agreements.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 </p>
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwrapagreements">ClickWraps::getClickwrapAgreements</a>.
-</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">Eg05GetClickwrapResponsesController.cs</a> on GitHub.
 </p>

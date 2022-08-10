@@ -2,6 +2,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
 using DocuSign.CodeExamples.eSignature.Models;
+using System;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -9,8 +10,6 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg008")]
     public class CreateNewTemplate : EgController
     {
-        
-
         public CreateNewTemplate(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -51,7 +50,7 @@ namespace DocuSign.CodeExamples.Controllers
             string msg = createdNewTemplate ?
                     "The template has been created!" :
                     "The template already exists in your account.";
-            ViewBag.message = msg + "<br/>Template name: " + resultsTemplateName + ", ID " + templateId + ".";
+            ViewBag.message = msg + String.Format(codeExampleText.ResultsPageText, resultsTemplateName, templateId);
 
             return View("example_done");
         }

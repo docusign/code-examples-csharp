@@ -13,7 +13,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg08")]
     public class Eg08GrantOfficeAccessToFormGroupController : EgController
     {
-        
         public Eg08GrantOfficeAccessToFormGroupController(
             DSConfiguration dsConfig,
             LauncherTexts launcherTexts,
@@ -83,7 +82,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 GrantOfficeAccessToFormGroup.GrantAccess(basePath, accessToken, accountId, roomDocumentModel.FormGroupId, roomDocumentModel.OfficeId);
 
                 ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = codeExampleText.ResultsPageText.Replace("\"{0}\"", roomDocumentModel.OfficeId.ToString()).Replace("\"{1}\"", roomDocumentModel.FormGroupId.ToString());
+                ViewBag.message = string.Format(codeExampleText.ResultsPageText, roomDocumentModel.OfficeId, roomDocumentModel.FormGroupId);
 
                 return View("example_done");
             }

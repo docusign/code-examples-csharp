@@ -1,14 +1,11 @@
 ﻿@model DocuSign.CodeExamples.Click.Controllers.Eg02ActivateClickwrapController
 
-<h4 id="example02">2. Activate a clickwrap</h4>
+<h4>2. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    Activates a new clickwrap that you have already created. By default, new clickwraps are 
-    inactive. You must activate your clickwrap before you can use it.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 </p>
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/updateclickwrapversion/">ClickWraps::updateClickwrapVersion</a>.
-</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">Eg02ActivateClickwrapController.cs</a> on GitHub.
 </p>

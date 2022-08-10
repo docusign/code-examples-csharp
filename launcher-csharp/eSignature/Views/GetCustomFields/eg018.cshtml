@@ -1,15 +1,6 @@
 ﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
-<p>
-    Get the data values associated with the envelope itself. The custom data fields enable you to
-    add additional metadata to the envelope. The custom data fields can be set by the <b>Sender</b>
-    via the DocuSign UI, or can be set programmatically. The data can be included in the
-    envelope's certificate of completion.
-</p>
+@Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 
-<p>
-    This method is used to read the custom field values from
-    an envelope.
-</p>
 @if (ViewBag.showDoc) {
 <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
 }

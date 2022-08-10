@@ -17,8 +17,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg05")]
     public class Eg05GetRoomsWithFiltersController : EgController
     {
-        
-
         public Eg05GetRoomsWithFiltersController(
             DSConfiguration dsConfig,
             LauncherTexts launcherTexts,

@@ -1,16 +1,10 @@
 ﻿@model DocuSign.CodeExamples.Click.Controllers.Eg03CreateNewClickwrapVersionController
-<h4 id="example03">3. Create a new clickwrap version</h4>
+<h4>3. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    Creates a new version of a clickwrap.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 </p>
-<p>
-    You can specify whether you require users who have previously accepted the clickwrap 
-    to accept the new version when they return to your website.
-</P>
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createclickwrapversion/">ClickWraps::createClickwrapVersion</a>.
-</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">Eg03CreateNewClickwrapVersionController.cs</a> on GitHub.
 </p>

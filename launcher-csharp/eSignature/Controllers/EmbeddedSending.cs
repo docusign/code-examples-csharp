@@ -10,8 +10,6 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg011")]
     public class EmbeddedSending : EgController
     {
-        
-
         public EmbeddedSending(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -53,7 +51,7 @@ namespace DocuSign.CodeExamples.Controllers
             var redirectUrl = global::eSignature.Examples.EmbeddedSending.SendEnvelopeUsingEmbeddedSending(signerEmail, signerName, ccEmail, ccName,
                 Config.docDocx, Config.docPdf, accessToken, basePath, accountId, startingView, dsReturnUrl);
 
-            Console.WriteLine("Sender view URL: " + redirectUrl);
+            Console.WriteLine(String.Format(codeExampleText.ResultsPageText, redirectUrl));
             return Redirect(redirectUrl);
         }
     }

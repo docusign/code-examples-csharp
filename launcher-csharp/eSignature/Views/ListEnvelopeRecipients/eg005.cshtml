@@ -1,6 +1,6 @@
 ﻿
 <h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
-<p>This example lists the envelope's recipients, including their current status.</p>
+@Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 
 @if (ViewBag.showDoc) {
 <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>

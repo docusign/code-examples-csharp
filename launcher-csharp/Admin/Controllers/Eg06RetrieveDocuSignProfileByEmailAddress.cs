@@ -12,11 +12,9 @@ using DocuSign.CodeExamples.eSignature.Models;
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("[area]/Eg06")]
+    [Route("Aeg06")]
     public class Eg06RetrieveDocuSignProfileByEmailAddress : EgController
     {
-        
-
         public Eg06RetrieveDocuSignProfileByEmailAddress(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -26,7 +24,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         public const int EgNumber = 6;
 
-        public override string EgName => "Eg06";
+        public override string EgName => "Aeg06";
 
         [MustAuthenticate]
         [HttpPost]

@@ -7,6 +7,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
 using DocuSign.CodeExamples.eSignature.Models;
+using System;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -87,7 +88,7 @@ namespace DocuSign.CodeExamples.Controllers
                     profileModel.ProfileId, accessToken, basePath, accountId);
 
 				ViewBag.h1 = codeExampleText.ResultsPageHeader;
-				ViewBag.message = codeExampleText.ResultsPageText + results.PermissionProfileId + ".";
+				ViewBag.message = String.Format(codeExampleText.ResultsPageText, results.PermissionProfileId);
 				return View("example_done");
 			}
 			catch(ApiException apiException)

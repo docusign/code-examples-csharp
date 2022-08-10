@@ -16,8 +16,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg06")]
     public class Eg06CreateExternalFormFillSessionController : EgController
     {
-        
-
         public Eg06CreateExternalFormFillSessionController(DSConfiguration dsConfig, LauncherTexts launcherTexts, IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
         {
             codeExampleText = GetExampleText(EgNumber);
@@ -115,7 +113,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                         roomDocumentModel.RoomId));
 
                 ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = codeExampleText.ResultsPageText.Replace("{0}", url.Url);
+                ViewBag.message = string.Format(codeExampleText.ResultsPageText, url.Url);
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(url, Formatting.Indented);
 
                 return View("example_done");

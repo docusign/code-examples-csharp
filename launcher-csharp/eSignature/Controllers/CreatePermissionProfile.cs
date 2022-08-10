@@ -3,6 +3,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
 using DocuSign.CodeExamples.eSignature.Models;
+using System;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -10,8 +11,6 @@ namespace DocuSign.CodeExamples.Controllers
 	[Route("Eg024")]
 	public class CreatePermissionProfile : EgController
 	{
-		
-
 		public CreatePermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
 			: base(config, launcherTexts, requestItemsService)
 		{
@@ -94,7 +93,7 @@ namespace DocuSign.CodeExamples.Controllers
                     accountRoleSettings, accessToken, basePath, accountId);
 
 				ViewBag.h1 = codeExampleText.ResultsPageHeader;
-				ViewBag.message = codeExampleText.ResultsPageHeader.Replace("{PermissionProfileId}", result.PermissionProfileId).Replace("{PermissionProfileName}", result.PermissionProfileName);
+				ViewBag.message = String.Format(codeExampleText.ResultsPageHeader, result.PermissionProfileId, result.PermissionProfileName);
 				return View("example_done");
 			}
 			catch (ApiException apiException)

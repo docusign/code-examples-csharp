@@ -1,13 +1,10 @@
 ﻿@model DocuSign.CodeExamples.Rooms.Controllers.Eg05GetRoomsWithFiltersController
 
-<h4>5. Gets filtered rooms.</h4>
+<h4>5. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    This example returns rooms by filter
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 </p>
-<p>
-    API methods used:
-    <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRooms">Rooms: GetRooms</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">Eg05GetRoomsWithFiltersController.cs</a> on GitHub.
 </p>

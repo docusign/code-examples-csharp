@@ -12,10 +12,9 @@ using DocuSign.CodeExamples.eSignature.Models;
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("[area]/Eg07")]
+    [Route("Aeg07")]
     public class Eg07RetrieveDocuSignProfileByUserId : EgController
     {
-
         public Eg07RetrieveDocuSignProfileByUserId(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -25,7 +24,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         public const int EgNumber = 7;
 
-        public override string EgName => "Eg07";
+        public override string EgName => "Aeg07";
 
         [MustAuthenticate]
         [HttpPost]

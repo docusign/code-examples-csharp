@@ -4,6 +4,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
 using DocuSign.CodeExamples.eSignature.Models;
+using System;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -11,7 +12,6 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("Eg030")]
     public class ApplyBrandToTemplate : EgController
     {
-
         public ApplyBrandToTemplate(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -71,7 +71,7 @@ namespace DocuSign.CodeExamples.Controllers
                 cCName, brandId, RequestItemsService.TemplateId, accessToken, basePath, accountId, RequestItemsService.Status);
 
             ViewBag.h1 = codeExampleText.ResultsPageHeader;
-            ViewBag.message = codeExampleText.ResultsPageText + results.EnvelopeId + ".";
+            ViewBag.message = String.Format(codeExampleText.ResultsPageText, results.EnvelopeId);
             return View("example_done");
         }
     }

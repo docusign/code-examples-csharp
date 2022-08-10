@@ -11,7 +11,6 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg015")]
     public class GetEnvelopeTabData : EgController
     {         
-
         public GetEnvelopeTabData(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {

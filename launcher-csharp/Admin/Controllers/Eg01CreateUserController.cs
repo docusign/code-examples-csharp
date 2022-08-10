@@ -12,11 +12,9 @@ using System.Linq;
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("[area]/Eg01")]
+    [Route("Aeg01")]
     public class Eg01CreateUserController: EgController
     {
-        
-
         public Eg01CreateUserController(
             DSConfiguration dsConfig, 
             LauncherTexts launcherTexts,
@@ -29,7 +27,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         public const int EgNumber = 1;
 
-        public override string EgName => "Eg01";
+        public override string EgName => "Aeg01";
 
         protected override void InitializeInternal()
         {

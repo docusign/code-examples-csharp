@@ -6,6 +6,7 @@ using DocuSign.eSign.Model;
 using eSignature.Examples;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 
 namespace DocuSign.CodeExamples.eSignature.Controllers
 {
@@ -75,7 +76,7 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
 
             // Process results
             ViewBag.h1 = codeExampleText.ResultsPageHeader;
-            ViewBag.message = codeExampleText.ResultsPageHeader.Replace("{envelopeId", results.EnvelopeId);
+            ViewBag.message = String.Format(codeExampleText.ResultsPageHeader, results.EnvelopeId);
             return View("example_done");
         }
     }

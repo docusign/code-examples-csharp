@@ -12,11 +12,9 @@ using DocuSign.CodeExamples.eSignature.Models;
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("[area]/Eg04")]
+    [Route("Aeg04")]
     public class Eg04AddUsersBulkImportController : EgController
     {
-        
-
         public Eg04AddUsersBulkImportController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -26,7 +24,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         public const int EgNumber = 4;
 
-        public override string EgName => "Eg04";
+        public override string EgName => "Aeg04";
 
         [MustAuthenticate]
         [Route("Create")]

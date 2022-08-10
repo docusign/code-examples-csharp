@@ -14,8 +14,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg07")]
     public class Eg07CreateFormGroupController : EgController
     {
-        
-
         public Eg07CreateFormGroupController(
             DSConfiguration dsConfig,
             LauncherTexts launcherTexts,
@@ -55,7 +53,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 FormGroup formGroup = CreateFormGroups.CreateGroup(basePath, accessToken, accountId, formGroupModel.Name);
 
                 ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = codeExampleText.ResultsPageText.Replace("\"{0}\"", formGroup.FormGroupId.ToString());
+                ViewBag.message = string.Format(codeExampleText.ResultsPageText, formGroup.FormGroupId.ToString());
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(formGroup, Formatting.Indented);
 
                 return View("example_done");

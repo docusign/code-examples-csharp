@@ -1,8 +1,8 @@
 ﻿@*@model DocuSign.CodeExamples.Admin.Controllers.Eg01CreateUserController*@
 
-<h4>1. Create a new active eSignature user</h4>
+<h4>1. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    Demonstrates how to create a new eSignature user and activate their account automatically.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 </p>
 
 @if (ViewBag.showDoc == true)
@@ -10,15 +10,7 @@
     <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example.</p>
 }
 
-<p>
-    API methods used:
-    <a target='_blank' rel='noopener noreferrer' 
-        href='https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/list/'>AccountPermissionProfiles:list</a>,
-    <a target='_blank' rel='noopener noreferrer' 
-        href='https://developers.docusign.com/docs/esign-rest-api/reference/usergroups/groups/list/'>Groups:list</a>,
-    <a target='_blank' rel='noopener noreferrer' 
-        href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/createuser/">eSignUserManagement:createUser</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">Eg01CreateUserController.cs</a> on GitHub.

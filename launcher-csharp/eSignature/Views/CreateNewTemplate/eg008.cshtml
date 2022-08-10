@@ -1,18 +1,6 @@
 ﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
-</p>
-<p>
-    The template includes three documents.
-</p>
-
-<p>
-    Templates are usually created using the DocuSign web tool. This example creates
-    a template that will later be used by other examples in this launcher.
-</p>
-
-<p>
-    This example first lists the user's templates and only creates a new template if one does not already exist in your account.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 </p>
 
 @if (ViewBag.showDoc) {

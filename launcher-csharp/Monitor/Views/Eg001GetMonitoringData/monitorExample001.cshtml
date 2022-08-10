@@ -1,5 +1,7 @@
-﻿<h4>1. Get monitoring data</h4>
-<p>Demonstrates how to get and display all of your organization’s monitoring data.</p>
+﻿<h4>1. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
+</p>
 
 @if (@ViewBag.showDoc)
 {
@@ -7,10 +9,7 @@
 }
 
 
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/monitor-api/reference/monitor/dataset/getstream/">DataSet:getStream</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">GetMonitoringData.cs</a> on GitHub.
 </p>

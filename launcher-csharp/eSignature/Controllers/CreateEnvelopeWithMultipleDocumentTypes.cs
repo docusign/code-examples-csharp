@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using eSignature.Examples;
@@ -10,7 +11,6 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg010")]
     public class CreateEnvelopeWithMultipleDocumentTypes : EgController
     {
-        
         public CreateEnvelopeWithMultipleDocumentTypes(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -56,7 +56,7 @@ namespace DocuSign.CodeExamples.Controllers
             {
                 RequestItemsService.EnvelopeId = envelopeId;
                 ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = codeExampleText.ResultsPageHeader + envelopeId + ".";
+                ViewBag.message = String.Format(codeExampleText.ResultsPageHeader, envelopeId);
                 return View("example_done");
             }
             else

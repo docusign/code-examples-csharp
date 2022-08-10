@@ -1,15 +1,5 @@
 ﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
-<p>
-    An envelope will be created in draft mode. The DocuSign UI will then be shown, enabling further updates to the envelope before it is sent.
-</p>
-<p>
-    The envelope includes three documents: one each in PDF, Word, and HTML format. Anchor text
-    (<a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">AutoPlace</a>)
-    is used to position the signing fields in the documents.
-</p>
-<p>
-    DocuSign recommends that you enhance your application as needed to avoid the need for the embedded sender view.  For example, if the sender view is used to optionally add additional documents to the envelope, enhance your app to provide the needed feature (see example 13 for adding additional documents programmatically).
-</p>
+@Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 
 @if (ViewBag.showDoc) {
 <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>

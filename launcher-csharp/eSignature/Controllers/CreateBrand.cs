@@ -3,6 +3,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
 using DocuSign.CodeExamples.eSignature.Models;
+using System;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -10,8 +11,6 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg028")]
     public class CreateBrand : EgController
     {
-        
-
         public CreateBrand(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -51,7 +50,7 @@ namespace DocuSign.CodeExamples.Controllers
                 // Call the Examples API method to create a new brand
                 var results = global::eSignature.Examples.CreateBrand.Create(brandName, defaultBrandLanguage, accessToken, basePath, accountId);
                 ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = codeExampleText.ResultsPageHeader + results.Brands[0].BrandId + ".";
+                ViewBag.message = String.Format(codeExampleText.ResultsPageHeader, results.Brands[0].BrandId);
             }
             catch (ApiException apiException)
             {

@@ -7,15 +7,14 @@ using DocuSign.CodeExamples.Admin.Examples;
 using DocuSign.Admin.Client;
 using System.IO;
 using DocuSign.CodeExamples.eSignature.Models;
+using System;
 
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("[area]/Eg03")]
+    [Route("Aeg03")]
     public class Eg03BulkExportUserDataController : EgController
     {
-        
-
         public Eg03BulkExportUserDataController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -25,7 +24,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         public const int EgNumber = 3;
 
-        public override string EgName => "Eg03";
+        public override string EgName => "Aeg03";
 
         [MustAuthenticate]
         [Route("Create")]
@@ -49,7 +48,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
                 //Show results
                 ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = codeExampleText.ResultsPageText.Replace("{0}", filePath);
+                ViewBag.message = String.Format(codeExampleText.ResultsPageText, filePath);
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(organizationExportsResponse, Formatting.Indented);
 
                 return View("example_done");

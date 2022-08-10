@@ -1,15 +1,6 @@
 ﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 
-<h5 style="color: purple;">
-    Note: This example will only work if the sender's DocuSign account
-    is set up with a DocuSign payment gateway. Since the Payment Gateway ID
-    is set in the configuration file, you will need to run your
-    own instance of this project to set it.
-</h5>
-
-<p>
-    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
-</p>
+@Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 
 @if (ViewBag.showDoc == true)
 {

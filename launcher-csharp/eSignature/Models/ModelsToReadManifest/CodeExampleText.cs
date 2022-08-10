@@ -14,6 +14,9 @@ namespace DocuSign.CodeExamples.eSignature.Models
         [JsonProperty("ExampleDescription")]
         public string ExampleDescription { get; set; }
 
+        [JsonProperty("ExampleDescriptionExtended")]
+        public string ExampleDescriptionExtended { get; set; }
+
         [JsonProperty("PageTitle")]
         public string PageTitle { get; set; }
 

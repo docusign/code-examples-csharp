@@ -1,0 +1,15 @@
+﻿@model DocuSign.CodeExamples.Admin.Controllers.Eg05AuditUsersController
+
+<h4>5. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
+</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">Eg05AuditUsersController.cs</a> on GitHub.
+</p>
+
+<form class="eg" asp-action="Audit" method="post" data-busy="form">
+    <button type="submit" class="btn btn-primary">Continue</button>
+</form>

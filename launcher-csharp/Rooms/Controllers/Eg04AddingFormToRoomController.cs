@@ -16,8 +16,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg04")]
     public class Eg04AddingFormToRoomController : EgController
     {
-        
-
         public Eg04AddingFormToRoomController(
             DSConfiguration dsConfig,
             LauncherTexts launcherTexts,

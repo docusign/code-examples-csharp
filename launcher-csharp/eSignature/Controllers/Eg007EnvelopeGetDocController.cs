@@ -11,8 +11,6 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg007")]
     public class Eg007EnvelopeGetDocController : EgController
     {
-        
-
         public Eg007EnvelopeGetDocController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {

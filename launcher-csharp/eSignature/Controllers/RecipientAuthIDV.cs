@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
 using DocuSign.eSign.Client;
 using DocuSign.CodeExamples.eSignature.Models;
+using System;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -10,7 +11,6 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg023")]
     public class RecipientAuthIDV : EgController
     {
-        
         public RecipientAuthIDV(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -53,7 +53,7 @@ namespace DocuSign.CodeExamples.Controllers
 
                 // Process results
                 ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = codeExampleText.ResultsPageHeader + envelopeId + ".";
+                ViewBag.message = String.Format(codeExampleText.ResultsPageHeader, envelopeId);
                 return View("example_done");
             }
             catch (ApiException apiException)

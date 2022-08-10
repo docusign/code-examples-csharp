@@ -3,6 +3,7 @@ using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using eSignature.Examples;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace DocuSign.CodeExamples.eSignature.Controllers
 {
@@ -10,8 +11,6 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
     [Route("Eg037")]
     public class SMSDelivery : EgController
     {
-        
-
         public SMSDelivery(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -51,7 +50,7 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
             RequestItemsService.EnvelopeId = envelopeId;
 
             ViewBag.h1 = codeExampleText.ResultsPageHeader;
-            ViewBag.message = codeExampleText.ResultsPageHeader + envelopeId + ".";
+            ViewBag.message = String.Format(codeExampleText.ResultsPageHeader, envelopeId);
             return View("example_done");
         }
     }

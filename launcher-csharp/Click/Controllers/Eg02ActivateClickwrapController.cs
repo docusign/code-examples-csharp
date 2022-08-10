@@ -11,11 +11,9 @@ using System;
 namespace DocuSign.CodeExamples.Click.Controllers
 {
     [Area("Click")]
-    [Route("[area]/Eg02")]
+    [Route("ClickEg02")]
     public class Eg02ActivateClickwrapController : EgController
     {
-        
-
         public Eg02ActivateClickwrapController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -25,7 +23,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
         public const int EgNumber = 2;
 
-        public override string EgName => "Eg02";
+        public override string EgName => "ClickEg02";
 
         protected override void InitializeInternal()
         {

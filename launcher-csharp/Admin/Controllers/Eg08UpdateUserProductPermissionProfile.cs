@@ -14,14 +14,12 @@ using DocuSign.CodeExamples.eSignature.Models;
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("[area]/Eg08")]
+    [Route("Aeg08")]
     public class Eg08UpdateUserProductPermissionProfile : EgController
     {
         private static ProductPermissionProfilesResponse productPermissionProfiles;
 
         public static Dictionary<Guid?, string> products = new Dictionary<Guid?, string>();
-
-        
 
         public Eg08UpdateUserProductPermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
@@ -32,7 +30,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         public const int EgNumber = 8;
 
-        public override string EgName => "Eg08";
+        public override string EgName => "Aeg08";
 
         protected override void InitializeInternal()
         {

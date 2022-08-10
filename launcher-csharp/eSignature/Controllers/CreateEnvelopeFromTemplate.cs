@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
 using DocuSign.CodeExamples.eSignature.Models;
+using System;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -9,8 +10,6 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg009")]
     public class CreateEnvelopeFromTemplate : EgController
     {
-        
-
         public CreateEnvelopeFromTemplate(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -53,7 +52,7 @@ namespace DocuSign.CodeExamples.Controllers
 
             // Process results
             RequestItemsService.EnvelopeId = envelopeId;
-            ViewBag.message = codeExampleText.ResultsPageHeader + envelopeId + ".";
+            ViewBag.message = String.Format(codeExampleText.ResultsPageHeader, envelopeId);
             return View("example_done");
         }
     }

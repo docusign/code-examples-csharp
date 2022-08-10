@@ -1,9 +1,6 @@
-﻿
-    <h4>Send an envelope with Access Code Authentication</h4>
+﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    This example sends an envelope requiring the recipient to enter an access code for multifactor authentication. The envelope includes a PDF document. Anchor text
-    (<a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">AutoPlace</a>)
-    is used to position the signing fields in the documents.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 </p>
 
  @if (ViewBag.showDoc == true)
@@ -11,10 +8,7 @@
      <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
  }
 
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">RecipientAuthAccessCode.cs</a> on GitHub.

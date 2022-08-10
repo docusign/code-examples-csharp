@@ -1,22 +1,15 @@
 ﻿
-<h4>Set template tab values</h4>
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    This example sets the <a target="_blank" href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/">tab</a> (field) values for a template being used by an envelope. It includes setting radio button and checkbox tabs.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 </p>
-<p>The example also sets custom metadata in the envelope via the envelope custom fields feature.</p>
+
 @if (ViewBag.showDoc == true)
 {
 <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
 }
 
-<p>
-  API methods used:
-  <a target='_blank'
-    href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>
-  and
-  <a target='_blank'
-    href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/">EnvelopeViews::createRecipient</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">SetTemplateTabValues.cs</a> on GitHub.

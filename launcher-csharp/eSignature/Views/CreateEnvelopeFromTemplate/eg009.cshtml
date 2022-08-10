@@ -1,21 +1,15 @@
 ﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 </p>
 
-<p>
-    This example demonstrates a common pattern for DocuSign integrations: envelopes will
-    be sent programmatically, based on a template. If the template definition needs to be
-    updated, the DocuSign web UI can be used to easily update the template, thus
-    avoiding the need to make software changes.
-</p>
+@if (ViewBag.showDoc == true)
+{
+    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
+}
 
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
-</p>
 <p>
     View source file <a target="_blank" href="@ViewBag.source">CreateEnvelopeFromTemplate.cs</a> on GitHub.
 </p>

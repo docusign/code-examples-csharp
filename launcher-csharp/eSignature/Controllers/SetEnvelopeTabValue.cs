@@ -13,7 +13,6 @@ namespace DocuSign.CodeExamples.Controllers
         private string dsPingUrl;
         private readonly string signerClientId = "1000";
         private string dsReturnUrl;
-        
 
         public SetEnvelopeTabValue(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)

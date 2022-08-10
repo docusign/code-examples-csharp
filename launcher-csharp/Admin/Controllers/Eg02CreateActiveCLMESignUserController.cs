@@ -12,13 +12,12 @@ using DocuSign.CodeExamples.eSignature.Models;
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("[area]/Eg02")]
+    [Route("Aeg02")]
     public class Eg02CreateActiveCLMESignUserController : EgController
     {
         private static Guid? clmProductId;
         private static Guid? eSignProductId;
         
-
         public Eg02CreateActiveCLMESignUserController(
             DSConfiguration dsConfig,
             LauncherTexts launcherTexts,
@@ -31,7 +30,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         public const int EgNumber = 2;
 
-        public override string EgName => "Eg02";
+        public override string EgName => "Aeg02";
 
         protected override void InitializeInternal()
         {
@@ -73,7 +72,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             try
             {
                 base.Get();
-                return View("Eg02", this);
+                return View("Aeg02", this);
             }
             catch (ApiException apiException)
             {

@@ -1,20 +1,13 @@
-﻿<h4>Embedded DocuSign UI</h4>
-<p>Redirect the user to the DocuSign UI.</p>
+﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    Use this API call to open the DocuSign UI with the user already logged in. The starting view can be either an envelope's documents or the web tool's front page.</p>
-<p>
-    The user does not necessarily return from the DocuSign UI, so using this API call is often a final
-    step for your application; or you can open the DocuSign UI in a new tab for the user.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 </p>
 
 @if (ViewBag.showDoc) {
 <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
 }
 
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createconsole/">EnvelopeViews::createConsole</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">ShowEmbeddedConsole.cs</a> on GitHub.

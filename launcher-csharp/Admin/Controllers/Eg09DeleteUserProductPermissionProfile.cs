@@ -15,7 +15,7 @@ using DocuSign.CodeExamples.eSignature.Models;
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("[area]/Eg09")]
+    [Route("Aeg09")]
     public class Eg09DeleteUserProductPermissionProfile : EgController
     {
         public static Dictionary<Guid?, string> products;
@@ -28,8 +28,6 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         public const string ESIGN_PROFILES_NOT_FOUND = "No eSignature permission profiles are connected to this user";
 
-        
-
         public Eg09DeleteUserProductPermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -39,7 +37,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         public const int EgNumber = 9;
 
-        public override string EgName => "Eg09";
+        public override string EgName => "Aeg09";
 
         protected override void InitializeInternal()
         {

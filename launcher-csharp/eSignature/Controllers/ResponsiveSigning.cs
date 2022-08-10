@@ -15,7 +15,6 @@ namespace DocuSign.CodeExamples.Views
         private string signerClientId = "1000";
         private string dsReturnUrl;
         
-
         public ResponsiveSigning(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {

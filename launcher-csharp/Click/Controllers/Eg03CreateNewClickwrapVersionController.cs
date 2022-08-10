@@ -10,11 +10,9 @@ using Newtonsoft.Json;
 namespace DocuSign.CodeExamples.Click.Controllers
 {
     [Area("Click")]
-    [Route("[area]/Eg03")]
+    [Route("ClickEg03")]
     public class Eg03CreateNewClickwrapVersionController : EgController
     {
-        
-
         public Eg03CreateNewClickwrapVersionController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -24,7 +22,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
         public const int EgNumber = 3;
 
-        public override string EgName => "Eg03";
+        public override string EgName => "ClickEg03";
 
         protected override void InitializeInternal()
         {
@@ -56,7 +54,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
                 // Show results
                 ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = codeExampleText.ResultsPageText.Replace("{0}", clickWrap.VersionNumber).Replace("{1}", clickWrap.ClickwrapName);
+                ViewBag.message = string.Format(codeExampleText.ResultsPageText, clickWrap.VersionNumber, clickWrap.ClickwrapName);
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(clickWrap, Formatting.Indented);
 
                 return View("example_done");

@@ -12,8 +12,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg01")]
     public class Eg01CreateRoomWithDataController : EgController
     {
-        
-
         public Eg01CreateRoomWithDataController(DSConfiguration dsConfig, LauncherTexts launcherTexts, IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
         {
             codeExampleText = GetExampleText(EgNumber);
@@ -59,7 +57,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 // Show results
                 ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = codeExampleText.ResultsPageText.Replace("\"{0}\"", room.RoomId.ToString()).Replace("{1}", room.Name);
+                ViewBag.message = string.Format(codeExampleText.ResultsPageText, room.RoomId.ToString(), room.Name);
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(room, Formatting.Indented);
 
                 return View("example_done");

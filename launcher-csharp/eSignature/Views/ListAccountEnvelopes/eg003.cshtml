@@ -1,6 +1,5 @@
 ﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
-<p>This example lists the envelopes whose status has changes within the last 30 days.</p>
-<p>This example demonstrates how to query DocuSign about envelopes sent by the current user.</p>
+@Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 
 @if (@ViewBag.showDoc) {
    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>

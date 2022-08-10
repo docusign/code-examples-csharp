@@ -10,8 +10,6 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg012")]
     public class ShowEmbeddedConsole : EgController
     {
-        
-
         public ShowEmbeddedConsole(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -50,7 +48,7 @@ namespace DocuSign.CodeExamples.Controllers
             string redirectUrl = global::eSignature.Examples.ShowEmbeddedConsole.CreateEmbeddedConsoleView(accessToken, basePath,
                 accountId, startingView, dsReturnUrl, envelopeId);
 
-            Console.WriteLine("NDSE view URL: " + redirectUrl);
+            Console.WriteLine(String.Format(codeExampleText.ResultsPageText, redirectUrl));
 
             return Redirect(redirectUrl);
         }

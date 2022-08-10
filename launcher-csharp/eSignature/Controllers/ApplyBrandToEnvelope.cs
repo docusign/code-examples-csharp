@@ -4,6 +4,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
 using DocuSign.CodeExamples.eSignature.Models;
+using System;
 
 namespace DocuSign.CodeExamples.Controllers
 {
@@ -69,7 +70,7 @@ namespace DocuSign.CodeExamples.Controllers
                 basePath, accountId, RequestItemsService.Status, Config.docPdf);
             
             ViewBag.h1 = codeExampleText.ResultsPageHeader;
-            ViewBag.message = codeExampleText.ResultsPageText + results.EnvelopeId + ".";
+            ViewBag.message = String.Format(codeExampleText.ResultsPageText, results.EnvelopeId);
             return View("example_done");
         }
     }

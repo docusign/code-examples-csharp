@@ -17,8 +17,6 @@ namespace DocuSign.CodeExamples.Controllers
 
         private readonly WebQueryEndpointFunc _webQueryEndpointFunc = new WebQueryEndpointFunc();
 
-        
-
         public Eg002WebQueryEndpointController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {

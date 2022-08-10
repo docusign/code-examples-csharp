@@ -1,13 +1,11 @@
 ﻿@model DocuSign.CodeExamples.Click.Controllers.Eg04RetrieveClickwrapsController
 
-<h4 id="example04">4. Get a list of clickwraps</h4>
+<h4>4. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    Gets a list of clickwraps associated with a specific DocuSign user.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 </p>
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwraps/">ClickWraps::getClickwraps</a>.
-</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">Eg04RetrieveClickwrapsController.cs</a> on GitHub.
 </p>

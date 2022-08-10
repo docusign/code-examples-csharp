@@ -13,7 +13,6 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("Eg025")]
     public class SetUserGroupPermission : EgController
     {
-        
         public SetUserGroupPermission(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {

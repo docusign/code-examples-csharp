@@ -1,18 +1,16 @@
 ﻿
-<h4>Request a signature by SMS delivery</h4>
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    Sends a signature request via an SMS message.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 </p>
+
 
 @if (ViewBag.showDoc == true)
 {
     <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
 }
 
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">SMSDelivery.cs</a> on GitHub.

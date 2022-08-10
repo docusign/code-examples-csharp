@@ -8,10 +8,12 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     public class HomeController : Controller
     {
         private IRequestItemsService _requestItemsService { get; }
+        private LauncherTexts _launcherTexts { get; }
 
-        public HomeController(IRequestItemsService requestItemsService)
+        public HomeController(IRequestItemsService requestItemsService, LauncherTexts launcherTexts)
         {
             _requestItemsService = requestItemsService;
+            _launcherTexts = launcherTexts;
         }
 
         public IActionResult Index(string egName)
@@ -26,6 +28,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 return Redirect(egName);
             }
 
+            ViewBag.APITexts = _launcherTexts.ManifestStructure.Groups;
             return View();
         }
 

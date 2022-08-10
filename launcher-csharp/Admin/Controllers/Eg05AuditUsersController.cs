@@ -11,11 +11,9 @@ using DocuSign.CodeExamples.eSignature.Models;
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("[area]/Eg05")]
+    [Route("Aeg05")]
     public class Eg05AuditUsersController : EgController
     {
-        
-
         public Eg05AuditUsersController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -25,7 +23,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         public const int EgNumber = 5;
 
-        public override string EgName => "Eg05";
+        public override string EgName => "Aeg05";
         protected override void InitializeInternal()
         {
             base.InitializeInternal();

@@ -1,13 +1,6 @@
 ﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
-<p>
-    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
-</p>
 
-<p>
-    This method is used to read the updated tab values from
-    the envelope. The method can be used after the envelope is complete or while it is
-    still in progress.
-</p>
+@Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 
 @if (ViewBag.showDoc) {
 <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>

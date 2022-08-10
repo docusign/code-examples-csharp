@@ -1,11 +1,6 @@
 ﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
-<p>
-    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
-</p>
 
-<p>
-    This example demonstrates how to obtain the latest information about an envelope from DocuSign. Often an alternative is to use <a target='_blank' href="https://developers.docusign.com/platform/webhooks/connect/">Connect</a> to enable DocuSign to send your application updates proactively when the status of an envelope changes.
-</p>
+@Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 
 @if (ViewBag.showDoc) {
 <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>

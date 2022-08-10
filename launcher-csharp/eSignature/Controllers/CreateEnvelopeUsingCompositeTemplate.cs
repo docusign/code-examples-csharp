@@ -11,7 +11,6 @@ namespace DocuSign.CodeExamples.Controllers
     {
         private string signerClientId = "1000";
         
-
         public CreateEnvelopeUsingCompositeTemplate(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {

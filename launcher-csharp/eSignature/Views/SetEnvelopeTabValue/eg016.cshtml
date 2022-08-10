@@ -1,22 +1,15 @@
 ﻿
-<h4>Set tab values for a envelope</h4>
-
-<p>This example sets the <a target="_blank"
-    href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/">tab</a> (field) values for an
-  envelope, including tabs that can and cannot be changed by the signer.</p>
-
-<p>The example also sets custom metadata in the envelope via the envelope custom fields feature.</p>
-
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
+</p>
 
 @if (ViewBag.showDoc == true)
 {
     <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
 }
 
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">SetEnvelopeTabValue.cs</a> on GitHub.

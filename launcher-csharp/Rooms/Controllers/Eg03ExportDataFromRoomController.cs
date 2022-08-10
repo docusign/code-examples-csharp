@@ -14,8 +14,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg03")]
     public class Eg03ExportDataFromRoomController : EgController
     {
-        
-
         public Eg03ExportDataFromRoomController(
             DSConfiguration dsConfig,
             LauncherTexts launcherTexts,

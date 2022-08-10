@@ -1,15 +1,10 @@
 ﻿@model DocuSign.CodeExamples.Rooms.Controllers.Eg08GrantOfficeAccessToFormGroupController
 
-<h4>8. Grants office access to a form group</h4>
+<h4>8. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    This is an example of granting office access to a form group
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
 </p>
-<p>
-    API methods used:
-    <a target='_blank' href="https://developers.docusign.com/docs/rooms-api/reference/offices/offices/getoffices/">Offices: GetOffices</a>,
-    <a target='_blank' href="https://developers.docusign.com/docs/rooms-api/reference/forms/formgroups/getformgroups/">FormGroups: GetFormGroups</a>,
-    <a target='_blank' href="https://developers.docusign.com/docs/rooms-api/reference/forms/formgroups/grantofficeaccesstoformgroup/">FormGroups: GrantOfficeAccessToFormGroup</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
     View source file <a target="_blank" href="@ViewBag.source">Eg08GrantOfficeAccessToFormGroupController.cs</a> on GitHub.
 </p>

@@ -10,11 +10,9 @@ using Newtonsoft.Json;
 namespace DocuSign.CodeExamples.Click.Controllers
 {
     [Area("Click")]
-    [Route("[area]/Eg05")]
+    [Route("ClickEg05")]
     public class Eg05GetClickwrapResponsesController : EgController
     {
-        
-
         public Eg05GetClickwrapResponsesController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -24,7 +22,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
         public const int EgNumber = 5;
 
-        public override string EgName => "Eg05";
+        public override string EgName => "ClickEg05";
         protected override void InitializeInternal()
         {
             base.InitializeInternal();

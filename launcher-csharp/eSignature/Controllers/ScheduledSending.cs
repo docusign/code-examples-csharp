@@ -11,8 +11,6 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
     [Route("Eg035")]
     public class ScheduledSending : EgController
     {
-        
-
         public ScheduledSending(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -50,7 +48,7 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
             RequestItemsService.EnvelopeId = envelopeId;
 
             ViewBag.h1 = codeExampleText.ResultsPageHeader;
-            ViewBag.message = codeExampleText.ResultsPageHeader + envelopeId + ".";
+            ViewBag.message = String.Format(codeExampleText.ResultsPageHeader, envelopeId);
             return View("example_done");
         }
     }
