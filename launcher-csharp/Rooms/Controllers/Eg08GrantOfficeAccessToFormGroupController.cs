@@ -82,7 +82,10 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 GrantOfficeAccessToFormGroup.GrantAccess(basePath, accessToken, accountId, roomDocumentModel.FormGroupId, roomDocumentModel.OfficeId);
 
                 ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = string.Format(codeExampleText.ResultsPageText, roomDocumentModel.OfficeId, roomDocumentModel.FormGroupId);
+                ViewBag.message = string.Format(
+                    codeExampleText.ResultsPageText, 
+                    roomDocumentModel.OfficeId, 
+                    roomDocumentModel.FormGroupId);
 
                 return View("example_done");
             }

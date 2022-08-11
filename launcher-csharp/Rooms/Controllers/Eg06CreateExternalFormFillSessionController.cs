@@ -53,6 +53,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 RoomDocumentModel = new RoomDocumentModel { Rooms = rooms.Rooms };
 
+                base.InitializeInternal();
                 return View("Eg06", this);
             }
             catch (ApiException apiException)
@@ -81,6 +82,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 RoomDocumentModel.Documents = documents.Documents;
 
+                base.InitializeInternal();
                 return View("Eg06", this);
             }
             catch (ApiException apiException)
@@ -106,11 +108,12 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             try
             {
                 // Call the Rooms API to create external form fill session
-                var url = CreateExternalFormFillSession.CreateSession(basePath,
+                var url = CreateExternalFormFillSession.CreateSession(
+                    basePath,
                     accessToken,
                     accountId,
                     new ExternalFormFillSessionForCreate(roomDocumentModel.DocumentId.ToString(),
-                        roomDocumentModel.RoomId));
+                    roomDocumentModel.RoomId));
 
                 ViewBag.h1 = codeExampleText.ResultsPageHeader;
                 ViewBag.message = string.Format(codeExampleText.ResultsPageText, url.Url);

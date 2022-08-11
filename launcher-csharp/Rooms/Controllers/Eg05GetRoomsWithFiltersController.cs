@@ -64,9 +64,10 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                     fieldDataChangedEndDate);
 
                 ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = codeExampleText.ResultsPageText
-                    .Replace("{0}", roomFilterModel.FieldDataChangedStartDate.Date.ToShortDateString())
-                    .Replace("{1}", roomFilterModel.FieldDataChangedEndDate.Date.ToShortDateString());
+                ViewBag.message = string.Format(
+                    codeExampleText.ResultsPageText,
+                    roomFilterModel.FieldDataChangedStartDate.Date.ToShortDateString(), 
+                    roomFilterModel.FieldDataChangedEndDate.Date.ToShortDateString());
                 ViewBag.Locals.Json = JsonConvert.SerializeObject(rooms, Formatting.Indented);
 
                 return View("example_done");

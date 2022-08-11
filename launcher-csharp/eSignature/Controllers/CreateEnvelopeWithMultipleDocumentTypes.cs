@@ -56,7 +56,7 @@ namespace DocuSign.CodeExamples.Controllers
             {
                 RequestItemsService.EnvelopeId = envelopeId;
                 ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = String.Format(codeExampleText.ResultsPageHeader, envelopeId);
+                ViewBag.message = String.Format(codeExampleText.ResultsPageText, envelopeId);
                 return View("example_done");
             }
             else

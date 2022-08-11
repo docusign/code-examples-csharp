@@ -21,10 +21,15 @@ namespace DocuSign.CodeExamples.Click.Controllers
             {
                 egName = _requestItemsService.EgName;
             }
+            if (egName == "home")
+            {
+                ViewBag.APITexts = _launcherTexts.ManifestStructure.Groups;
+                return View();
+            }
             if (!string.IsNullOrWhiteSpace(egName))
             {
                 _requestItemsService.EgName = null;
-                return Redirect($"Click/{egName}");
+                return Redirect($"/{egName}");
             }
 
             ViewBag.APITexts = _launcherTexts.ManifestStructure.Groups;

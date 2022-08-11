@@ -31,7 +31,7 @@
                 @if(example?.SkipForLanguages == null || !example?.SkipForLanguages.ToLower().Contains("c#"))
                 {
                     <h4 id="@String.Format("monitorExample{0}", String.Format("{0:D3}", @example.ExampleNumber))">
-                        @example.ExampleNumber.
+                        @Html.Raw(example.ExampleNumber).
                         <a href="@String.Format("monitorExample{0}", String.Format("{0:D3}", @example.ExampleNumber))">
                             @Html.Raw(example.ExampleName)
                         </a>

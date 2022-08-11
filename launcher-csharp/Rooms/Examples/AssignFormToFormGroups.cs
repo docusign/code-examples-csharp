@@ -51,7 +51,7 @@ namespace DocuSign.Rooms.Examples
         /// <param name="formGroupId">The Id of the specified form group</param>
         /// <param name="formToAssign">The form to be assigned to form group</param>
         /// <returns>The form to be assigned to form group</returns>
-        public static FormGroupFormToAssign AssignForm(
+        public static FormGroupFormToAssign? AssignForm(
             string basePath,
             string accessToken,
             string accountId,

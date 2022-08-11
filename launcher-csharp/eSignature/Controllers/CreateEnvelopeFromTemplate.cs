@@ -52,7 +52,7 @@ namespace DocuSign.CodeExamples.Controllers
 
             // Process results
             RequestItemsService.EnvelopeId = envelopeId;
-            ViewBag.message = String.Format(codeExampleText.ResultsPageHeader, envelopeId);
+            ViewBag.message = String.Format(codeExampleText.ResultsPageText, envelopeId);
             return View("example_done");
         }
     }

@@ -76,7 +76,7 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
 
             // Process results
             ViewBag.h1 = codeExampleText.ResultsPageHeader;
-            ViewBag.message = String.Format(codeExampleText.ResultsPageHeader, results.EnvelopeId);
+            ViewBag.message = String.Format(codeExampleText.ResultsPageText, results.EnvelopeId);
             return View("example_done");
         }
     }
