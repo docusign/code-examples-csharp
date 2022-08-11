@@ -1,6 +1,5 @@
 ﻿using System;
 using DocuSign.CodeExamples.Controllers;
-using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Rooms.Models;
 using DocuSign.Rooms.Client;

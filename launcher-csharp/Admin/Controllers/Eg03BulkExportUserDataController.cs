@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 using DocuSign.CodeExamples.Admin.Examples;
 using DocuSign.Admin.Client;
 using System.IO;
-using DocuSign.CodeExamples.eSignature.Models;
 using System;
 
 namespace DocuSign.CodeExamples.Admin.Controllers

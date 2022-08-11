@@ -2,8 +2,6 @@
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using eSignature.Examples;
-using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Controllers
 {

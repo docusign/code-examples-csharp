@@ -1,5 +1,4 @@
-﻿using DocuSign.Admin.Api;
-using DocuSign.Admin.Client;
+﻿using DocuSign.Admin.Client;
 using DocuSign.Admin.Examples;
 using DocuSign.Admin.Model;
 using DocuSign.CodeExamples.Common;
@@ -10,7 +9,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Admin.Controllers
 {

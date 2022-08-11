@@ -1,10 +1,8 @@
 ﻿using System.Text;
-using DocuSign.Click.Api;
 using DocuSign.Click.Client;
 using DocuSign.Click.Examples;
 using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Controllers;
-using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;

@@ -7,7 +7,6 @@ using DocuSign.CodeExamples.Admin.Examples;
 using DocuSign.Admin.Client;
 using DocuSign.Admin.Model;
 using System;
-using DocuSign.CodeExamples.eSignature.Models;
 
 namespace DocuSign.CodeExamples.Admin.Controllers
 {

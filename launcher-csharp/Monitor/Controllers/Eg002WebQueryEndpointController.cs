@@ -1,5 +1,4 @@
 ﻿using DocuSign.CodeExamples.Common;
-using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Monitor.Examples;
 using DocuSign.CodeExamples.Monitor.Models;

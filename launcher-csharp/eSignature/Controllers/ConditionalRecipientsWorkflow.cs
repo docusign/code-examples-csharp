@@ -1,11 +1,8 @@
 ﻿using DocuSign.CodeExamples.Controllers;
-using DocuSign.CodeExamples.eSignature.Models;
 using DocuSign.CodeExamples.Models;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
-using eSignature.Examples;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System;
 
 namespace DocuSign.CodeExamples.eSignature.Controllers
