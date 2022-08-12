@@ -1,10 +1,14 @@
-using DocuSign.CodeExamples.Controllers;
-using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+// <copyright file="UnpauseSignatureWorkflow.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace DocuSign.CodeExamples.eSignature.Controllers
+namespace DocuSign.CodeExamples.ESignature.Controllers
 {
+    using DocuSign.CodeExamples.Controllers;
+    using DocuSign.CodeExamples.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+
     [Area("eSignature")]
     [Route("Eg033")]
     public class UnpauseSignatureWorkflow : EgController
@@ -12,11 +16,11 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
         public UnpauseSignatureWorkflow(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            codeExampleText = GetExampleText(EgNumber);
-            ViewBag.title = codeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.ViewBag.title = this.CodeExampleText.PageTitle;
         }
 
-        public const int EgNumber = 33;
+        public override int EgNumber => 33;
 
         public override string EgName => "Eg033";
 
@@ -24,34 +28,37 @@ namespace DocuSign.CodeExamples.eSignature.Controllers
         public IActionResult Update()
         {
             // Check the token with minimal buffer time.
-            bool tokenOk = CheckToken(3);
+            bool tokenOk = this.CheckToken(3);
 
             if (!tokenOk)
             {
-                // We could store the parameters of the requested operation 
+                // We could store the parameters of the requested operation
                 // so it could be restarted automatically.
                 // But since it should be rare to have a token issue here,
-                // we'll make the user re-enter the form data after 
+                // we'll make the user re-enter the form data after
                 // authentication.
-                RequestItemsService.EgName = EgName;
-                return Redirect("/ds/mustAuthenticate");
+                this.RequestItemsService.EgName = this.EgName;
+                return this.Redirect("/ds/mustAuthenticate");
             }
 
-            string basePath = RequestItemsService.Session.BasePath + "/restapi";
+            string basePath = this.RequestItemsService.Session.BasePath + "/restapi";
 
             // Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken;
-            string accountId = RequestItemsService.Session.AccountId;
+            string accessToken = this.RequestItemsService.User.AccessToken;
+            string accountId = this.RequestItemsService.Session.AccountId;
 
             // Call the eSignature API
-            var results = global::eSignature.Examples.UnpauseSignatureWorkflow.UnpauseWorkflow(accessToken, basePath, accountId,
-                RequestItemsService.PausedEnvelopeId);
+            var results = global::ESignature.Examples.UnpauseSignatureWorkflow.UnpauseWorkflow(
+                accessToken,
+                basePath,
+                accountId,
+                this.RequestItemsService.PausedEnvelopeId);
 
             // Process results
-            ViewBag.h1 = codeExampleText.ResultsPageHeader;
-            ViewBag.message = codeExampleText.ResultsPageText;
-            ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
-            return View("example_done");
+            this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+            this.ViewBag.message = this.CodeExampleText.ResultsPageText;
+            this.ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return this.View("example_done");
         }
     }
 }

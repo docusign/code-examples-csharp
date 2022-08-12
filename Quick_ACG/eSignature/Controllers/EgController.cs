@@ -1,4 +1,4 @@
-﻿using DocuSign.CodeExamples.eSignature.Models;
+﻿using DocuSign.CodeExamples.ESignature.Models;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Views;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +12,9 @@ namespace DocuSign.CodeExamples.Controllers
     {
         public abstract string EgName { get; }
 
-        protected CodeExampleText codeExampleText { get; set; }
+        public abstract int EgNumber { get; }
+
+        protected CodeExampleText CodeExampleText { get; set; }
         public DSConfiguration Config { get; }
         public LauncherTexts LauncherTexts { get; }
         public IRequestItemsService RequestItemsService { get; }
@@ -68,14 +70,14 @@ namespace DocuSign.CodeExamples.Controllers
                 ViewBag.envelopeOk = RequestItemsService.EnvelopeId != null;
                 ViewBag.gatewayOk = Config.GatewayAccountId != null && Config.GatewayAccountId.Length > 25;
                 ViewBag.source = CreateSourcePath();
-                ViewBag.documentation = Config.documentation + EgName;
-                ViewBag.showDoc = Config.documentation != null;
+                ViewBag.documentation = Config.Documentation + EgName;
+                ViewBag.showDoc = Config.Documentation != null;
                 ViewBag.User = RequestItemsService.User;
                 ViewBag.Session = RequestItemsService.Session;
                 ViewBag.DsConfig = Config;
                 InitializeInternal();
 
-                if (Config.QuickACG == "true" &&  !(this is Eg001EmbeddedSigningController))
+                if (Config.QuickACG == "true" && !(this is Eg001EmbeddedSigningController))
                 {
                     return Redirect("eg001");
                 }
@@ -92,7 +94,7 @@ namespace DocuSign.CodeExamples.Controllers
 
         public dynamic CreateSourcePath()
         {
-            var uri = Config.githubExampleUrl;
+            var uri = Config.GithubExampleUrl;
             uri = $"{uri}/eSignature";
             return $"{uri}/Controllers/{this.GetType().Name}.cs";
         }

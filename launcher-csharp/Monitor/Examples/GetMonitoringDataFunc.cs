@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using DocuSign.Monitor.Api;
-using DocuSign.Monitor.Client;
-using static DocuSign.Monitor.Api.DataSetApi;
+﻿// <copyright file="GetMonitoringDataFunc.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Monitor.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using DocuSign.Monitor.Api;
+    using DocuSign.Monitor.Client;
+    using static DocuSign.Monitor.Api.DataSetApi;
+
     public class GetMonitoringDataFunc
     {
         /// <summary>
@@ -14,24 +18,25 @@ namespace DocuSign.CodeExamples.Monitor.Examples
         /// <param name="requestPath">Request path, used for API calls (URI)</param>
         /// <param name="accessToken">Access Token for API call (JWT OAuth)</param>
         /// <returns>The list of JObjects, containing data from monitor</returns>
-        public virtual IEnumerable<Object> Invoke(string accessToken, string requestPath)
+        public virtual IEnumerable<object> Invoke(string accessToken, string requestPath)
         {
             ApiClient apiClient = new ApiClient(ApiClient.Demo_REST_BasePath);
-            
-            //  Construct API headers
+
+            // Construct API headers
             // step 2 start
             apiClient.SetBasePath(ApiClient.Demo_REST_BasePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", String.Format("Bearer {0}", accessToken));
+            apiClient.Configuration.DefaultHeader.Add("Authorization", string.Format("Bearer {0}", accessToken));
             apiClient.Configuration.DefaultHeader.Add("Content-Type", "application/json");
+
             // step 2 end
 
             // Declare variables
             // step 3 start
             bool complete = false;
-            string cursorValue = "";
+            string cursorValue = string.Empty;
             int limit = 2; // Amount of records you want to read in one request
             List<object> functionResult = new List<object>();
-            
+
             DataSetApi dataSetApi = new DataSetApi(apiClient);
             GetStreamOptions options = new GetStreamOptions();
 
@@ -41,7 +46,9 @@ namespace DocuSign.CodeExamples.Monitor.Examples
             do
             {
                 if (!string.IsNullOrEmpty(cursorValue))
+                {
                     options.cursor = cursorValue;
+                }
 
                 var cursoredResult = dataSetApi.GetStreamWithHttpInfo("2.0", "monitor", options);
 
@@ -58,12 +65,11 @@ namespace DocuSign.CodeExamples.Monitor.Examples
                     cursorValue = endCursor;
                     functionResult.Add(cursoredResult.Data);
                 }
-            } 
+            }
             while (!complete);
-            // step 3 end
 
+            // step 3 end
             return functionResult;
         }
     }
 }
-

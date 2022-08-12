@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿// <copyright file="SetUserGroupPermission.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System.Collections.Generic;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public static class SetUserGroupPermission
     {
         /// <summary>
@@ -17,7 +21,7 @@ namespace eSignature.Examples
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// <returns>A group information</returns>
         public static GroupInformation GetGroupInformation(string permissionProfileId, string userGroupId, string accessToken, string basePath, string accountId)
-		{
+        {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
@@ -27,9 +31,10 @@ namespace eSignature.Examples
             var editedGroup = new Group
             {
                 GroupId = userGroupId,
-                PermissionProfileId = permissionProfileId
+                PermissionProfileId = permissionProfileId,
             };
             var requestBody = new GroupInformation { Groups = new List<Group> { editedGroup } };
+
             // Call the eSignature REST API
             return groupsApi.UpdateGroups(accountId, requestBody);
         }

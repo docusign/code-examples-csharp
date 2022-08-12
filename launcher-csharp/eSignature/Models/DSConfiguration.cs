@@ -1,4 +1,8 @@
-﻿namespace DocuSign.CodeExamples.Models
+﻿// <copyright file="DSConfiguration.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
+
+namespace DocuSign.CodeExamples.Models
 {
     public class DSConfiguration
     {
@@ -26,20 +30,21 @@
 
         public string AdminManifest { get; set; }
 
-        public bool production = false;
-        public bool debug = true; // Send debugging statements to console
-        public string sessionSecret = "12345"; // Secret for encrypting session cookie content
-        public bool allowSilentAuthentication = true; // a user can be silently authenticated if they have an
-                                                      // active login session on another tab of the same browser
-                                                      // Set if you want a specific DocuSign AccountId, If null, the user's default account will be used.
-        public string targetAccountId = null;
-        public string demoDocPath = "demo_documents";
-        public string docDocx = "World_Wide_Corp_Battle_Plan_Trafalgar.docx";
-        public string tabsDocx = "World_Wide_Corp_salary.docx";
-        public string docPdf = "World_Wide_Corp_lorem.pdf";
-        public string docCsv = "UserData.csv";
-        public string exportUsersPath = @"..\..\..\ExportedUserData.csv";
-        public string githubExampleUrl = "https://github.com/docusign/code-examples-csharp/blob/master/launcher-csharp";
-        public string documentation = null;
+        public bool Production = false;
+        public bool Debug = true; // Send debugging statements to console
+        public string SessionSecret = "12345"; // Secret for encrypting session cookie content
+        public bool AllowSilentAuthentication = true; // a user can be silently authenticated if they have an
+
+        // active login session on another tab of the same browser
+        // Set if you want a specific DocuSign AccountId, If null, the user's default account will be used.
+        public string TargetAccountId = null;
+        public string DemoDocPath = "demo_documents";
+        public string DocDocx = "World_Wide_Corp_Battle_Plan_Trafalgar.docx";
+        public string TabsDocx = "World_Wide_Corp_salary.docx";
+        public string DocPdf = "World_Wide_Corp_lorem.pdf";
+        public string DocCsv = "UserData.csv";
+        public string ExportUsersPath = @"..\..\..\ExportedUserData.csv";
+        public string GithubExampleUrl = "https://github.com/docusign/code-examples-csharp/blob/master/launcher-csharp";
+        public string Documentation = null;
     }
 }

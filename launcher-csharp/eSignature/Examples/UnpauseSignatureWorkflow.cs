@@ -1,10 +1,14 @@
-﻿using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
-using static DocuSign.eSign.Api.EnvelopesApi;
+﻿// <copyright file="UnpauseSignatureWorkflow.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+    using static DocuSign.eSign.Api.EnvelopesApi;
+
     public class UnpauseSignatureWorkflow
     {
         /// <summary>
@@ -37,8 +41,8 @@ namespace eSignature.Examples
             {
                 Workflow = new Workflow()
                 {
-                    WorkflowStatus = "in_progress"
-                }
+                    WorkflowStatus = "in_progress",
+                },
             };
         }
     }

@@ -1,8 +1,12 @@
-﻿using System.IO;
-using System.Runtime.InteropServices;
+﻿// <copyright file="DSHelper.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Common
 {
+    using System.IO;
+    using System.Runtime.InteropServices;
+
     internal class DSHelper
     {
         internal static string PrepareFullPrivateKeyFilePath(string fileName)

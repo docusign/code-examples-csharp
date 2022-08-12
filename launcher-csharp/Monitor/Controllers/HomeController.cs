@@ -1,34 +1,40 @@
-﻿using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿// <copyright file="HomeController.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Monitor.Controllers
 {
+    using DocuSign.CodeExamples.Models;
+    using Microsoft.AspNetCore.Mvc;
+
     [Area("Monitor")]
     public class HomeController : Controller
     {
-        private IRequestItemsService _requestItemsService { get; }
-        private LauncherTexts _launcherTexts { get; }
+        private IRequestItemsService RequestItemsService { get; }
+
+        private LauncherTexts LauncherTexts { get; }
 
         public HomeController(IRequestItemsService requestItemsService, LauncherTexts launcherTexts)
         {
-            _requestItemsService = requestItemsService;
-            _launcherTexts = launcherTexts;
+            this.RequestItemsService = requestItemsService;
+            this.LauncherTexts = launcherTexts;
         }
 
         public IActionResult Index(string egName)
         {
             if (string.IsNullOrEmpty(egName))
             {
-                egName = _requestItemsService.EgName;
-            }
-            if (!string.IsNullOrWhiteSpace(egName))
-            {
-                _requestItemsService.EgName = null;
-                return Redirect($"/{egName}");
+                egName = this.RequestItemsService.EgName;
             }
 
-            ViewBag.APITexts = _launcherTexts.ManifestStructure.Groups;
-            return View();
+            if (!string.IsNullOrWhiteSpace(egName))
+            {
+                this.RequestItemsService.EgName = null;
+                return this.Redirect($"/{egName}");
+            }
+
+            this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.Groups;
+            return this.View();
         }
     }
 }

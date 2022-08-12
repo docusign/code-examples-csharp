@@ -1,100 +1,104 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
-using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿// <copyright file="ChangePermissionSingleSetting.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Controllers
 {
-	[Area("eSignature")]
-	[Route("Eg026")]
-	public class ChangePermissionSingleSetting : EgController
-	{
-		public ChangePermissionSingleSetting(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
-			: base(config, launcherTexts, requestItemsService)
-		{
-			codeExampleText = GetExampleText(EgNumber);
-			ViewBag.title = codeExampleText.PageTitle;
-		}
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using DocuSign.CodeExamples.Models;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+    using Microsoft.AspNetCore.Mvc;
 
-		public const int EgNumber = 26;
+    [Area("eSignature")]
+    [Route("Eg026")]
+    public class ChangePermissionSingleSetting : EgController
+    {
+        public ChangePermissionSingleSetting(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
+        {
+            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.ViewBag.title = this.CodeExampleText.PageTitle;
+        }
 
-		public override string EgName => "Eg026";
+        public override int EgNumber => 26;
 
-		[BindProperty]
-		public List<PermissionProfile> PermissionProfiles { get; set; }
+        public override string EgName => "Eg026";
 
-		[BindProperty]
-		public PermissionProfileModel ProfileModel { get; set; }
+        [BindProperty]
+        public List<PermissionProfile> PermissionProfiles { get; set; }
 
-		protected override void InitializeInternal()
-		{
-			base.InitializeInternal();
+        [BindProperty]
+        public PermissionProfileModel ProfileModel { get; set; }
 
-			// Data for this method
-			// signerEmail 
-			// signerName
-			var basePath = RequestItemsService.Session.BasePath + "/restapi";
-			var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-			var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
-			var apiClient = new ApiClient(basePath);
-			apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
 
-			var accountsApi = new AccountsApi(apiClient);
-			var permissions = accountsApi.ListPermissions(accountId);
-			PermissionProfiles = permissions.PermissionProfiles;
-			var permissionProfile = permissions.PermissionProfiles.FirstOrDefault();
-			ProfileModel = new PermissionProfileModel
-			{
-				ProfileId = permissionProfile.PermissionProfileId,
-				ProfileName = permissionProfile.PermissionProfileName,
-				AccountRoleSettingsModel = new AccountRoleSettingsModel(permissionProfile.Settings)
-			};
-		}
+            // Data for this method
+            // signerEmail
+            // signerName
+            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
+            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
-		[HttpPost]
-		[Route("Create")]
-		public IActionResult Create(PermissionProfileModel profileModel)
-		{
-			// Check the token with minimal buffer time.
-			bool tokenOk = CheckToken(3);
-			if (!tokenOk)
-			{
-				// We could store the parameters of the requested operation so it could be 
-				// restarted automatically. But since it should be rare to have a token issue
-				// here, we'll make the user re-enter the form data after authentication.
-				RequestItemsService.EgName = EgName;
-				return Redirect("/ds/mustAuthenticate");
-			}
+            var accountsApi = new AccountsApi(apiClient);
+            var permissions = accountsApi.ListPermissions(accountId);
+            this.PermissionProfiles = permissions.PermissionProfiles;
+            var permissionProfile = permissions.PermissionProfiles.FirstOrDefault();
+            this.ProfileModel = new PermissionProfileModel
+            {
+                ProfileId = permissionProfile.PermissionProfileId,
+                ProfileName = permissionProfile.PermissionProfileName,
+                AccountRoleSettingsModel = new AccountRoleSettingsModel(permissionProfile.Settings),
+            };
+        }
 
-			// Data for this method
-			// signerEmail 
-			// signerName
-			var basePath = RequestItemsService.Session.BasePath + "/restapi";
+        [HttpPost]
+        [Route("Create")]
+        public IActionResult Create(PermissionProfileModel profileModel)
+        {
+            // Check the token with minimal buffer time.
+            bool tokenOk = this.CheckToken(3);
+            if (!tokenOk)
+            {
+                // We could store the parameters of the requested operation so it could be
+                // restarted automatically. But since it should be rare to have a token issue
+                // here, we'll make the user re-enter the form data after authentication.
+                this.RequestItemsService.EgName = this.EgName;
+                return this.Redirect("/ds/mustAuthenticate");
+            }
 
-			// Obtain your OAuth token
-			var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-			var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
-			
-			try
-			{
-				// Call the eSignature REST API
-				var results = global::eSignature.Examples.ChangePermissionSingleSetting.UpdatePermissionProfile(
+            // Data for this method
+            // signerEmail
+            // signerName
+            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
+
+            // Obtain your OAuth token
+            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+
+            try
+            {
+                // Call the eSignature REST API
+                var results = global::ESignature.Examples.ChangePermissionSingleSetting.UpdatePermissionProfile(
                     profileModel.ProfileId, accessToken, basePath, accountId);
 
-				ViewBag.h1 = codeExampleText.ResultsPageHeader;
-				ViewBag.message = String.Format(codeExampleText.ResultsPageText, results.PermissionProfileId);
-				return View("example_done");
-			}
-			catch(ApiException apiException)
-			{
-				ViewBag.errorCode = apiException.ErrorCode;
-				ViewBag.errorMessage = apiException.Message;
-				return View("Error");
-			}
-		}
-	}
+                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, results.PermissionProfileId);
+                return this.View("example_done");
+            }
+            catch (ApiException apiException)
+            {
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
+                return this.View("Error");
+            }
+        }
+    }
 }

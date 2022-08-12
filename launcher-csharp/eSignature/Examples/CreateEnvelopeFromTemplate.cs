@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿// <copyright file="CreateEnvelopeFromTemplate.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System.Collections.Generic;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public static class CreateEnvelopeFromTemplate
     {
         /// <summary>
@@ -29,16 +33,19 @@ namespace eSignature.Examples
             return result.EnvelopeId;
         }
 
-        private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName,
-            string ccEmail, string ccName, string templateId)
+        private static EnvelopeDefinition MakeEnvelope(
+            string signerEmail,
+            string signerName,
+            string ccEmail,
+            string ccName,
+            string templateId)
         {
             // Data for this method
-            // signerEmail 
+            // signerEmail
             // signerName
             // ccEmail
             // ccName
             // templateId
-
             EnvelopeDefinition env = new EnvelopeDefinition();
             env.TemplateId = templateId;
 

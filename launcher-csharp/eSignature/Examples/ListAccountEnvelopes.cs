@@ -1,11 +1,15 @@
-﻿using System;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
-using static DocuSign.eSign.Api.EnvelopesApi;
+﻿// <copyright file="ListAccountEnvelopes.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+    using static DocuSign.eSign.Api.EnvelopesApi;
+
     public static class ListAccountEnvelopes
     {
         /// <summary>
@@ -21,12 +25,12 @@ namespace eSignature.Examples
             // accessToken
             // basePath
             // accountId
-
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
             ListStatusChangesOptions options = new ListStatusChangesOptions();
             options.fromDate = DateTime.Now.AddDays(-30).ToString("yyyy/MM/dd");
+
             // Call the API method:
             EnvelopesInformation results = envelopesApi.ListStatusChanges(accountId, options);
             return results;

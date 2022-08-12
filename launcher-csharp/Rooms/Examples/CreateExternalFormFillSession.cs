@@ -1,9 +1,13 @@
-﻿using DocuSign.Rooms.Api;
-using DocuSign.Rooms.Client;
-using DocuSign.Rooms.Model;
+﻿// <copyright file="CreateExternalFormFillSession.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.Rooms.Examples
 {
+    using DocuSign.Rooms.Api;
+    using DocuSign.Rooms.Client;
+    using DocuSign.Rooms.Model;
+
     public class CreateExternalFormFillSession
     {
         /// <summary>

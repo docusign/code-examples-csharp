@@ -1,21 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using DocuSign.Rooms.Api;
-using DocuSign.Rooms.Client;
-using DocuSign.Rooms.Model;
+﻿// <copyright file="AssignFormToFormGroups.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.Rooms.Examples
 {
+    using System;
+    using System.Linq;
+    using DocuSign.Rooms.Api;
+    using DocuSign.Rooms.Client;
+    using DocuSign.Rooms.Model;
+
     public class AssignFormToFormGroups
     {
         /// <summary>
-        /// Gets the list of forms and form group
+        /// Gets the list of forms and form group.
         /// </summary>
-        /// <param name="basePath">BasePath for API calls (URI)</param>
-        /// <param name="accessToken">Access Token for API call (OAuth)</param>
-        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
-        /// <returns>The tuple of forms and form group lists</returns>
+        /// <param name="basePath">BasePath for API calls (URI).</param>
+        /// <param name="accessToken">Access Token for API call (OAuth).</param>
+        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made.</param>
+        /// <returns>The tuple of forms and form group lists.</returns>
         public static (FormSummaryList forms, FormGroupSummaryList formGroups) GetFormsAndFormGroups(
             string basePath,
             string accessToken,
@@ -43,15 +46,15 @@ namespace DocuSign.Rooms.Examples
         }
 
         /// <summary>
-        /// Grants office access to a form group
+        /// Grants office access to a form group.
         /// </summary>
-        /// <param name="basePath">BasePath for API calls (URI)</param>
-        /// <param name="accessToken">Access Token for API call (OAuth)</param>
-        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
-        /// <param name="formGroupId">The Id of the specified form group</param>
-        /// <param name="formToAssign">The form to be assigned to form group</param>
-        /// <returns>The form to be assigned to form group</returns>
-        public static FormGroupFormToAssign? AssignForm(
+        /// <param name="basePath">BasePath for API calls (URI).</param>
+        /// <param name="accessToken">Access Token for API call (OAuth).</param>
+        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made.</param>
+        /// <param name="formGroupId">The Id of the specified form group.</param>
+        /// <param name="formToAssign">The form to be assigned to form group.</param>
+        /// <returns>The form to be assigned to form group.</returns>
+        public static FormGroupFormToAssign AssignForm(
             string basePath,
             string accessToken,
             string accountId,

@@ -1,11 +1,15 @@
-﻿namespace DocuSign.CodeExamples.Common
+﻿// <copyright file="ExamplesAPIType.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
+
+namespace DocuSign.CodeExamples.Common
 {
     public enum ExamplesAPIType
     {
-        Rooms,
-        ESignature,
-        Click,
-        Monitor,
-        Admin
+        Rooms = 0,
+        ESignature = 1,
+        Click = 2,
+        Monitor = 3,
+        Admin = 4,
     }
 }

@@ -1,10 +1,14 @@
-﻿using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
-using System.Collections.Generic;
+﻿// <copyright file="PauseSignatureWorkflow.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System.Collections.Generic;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public class PauseSignatureWorkflow
     {
         /// <summary>
@@ -40,14 +44,14 @@ namespace eSignature.Examples
                 DocumentBase64 = "DQoNCg0KDQoJCVdlbGNvbWUgdG8gdGhlIERvY3VTaWduIFJlY3J1aXRpbmcgRXZlbnQNCgkJDQoJCQ0KCQlQbGVhc2UgU2lnbiBpbiENCgkJDQoJCQ0KCQk=",
                 DocumentId = "1",
                 FileExtension = "txt",
-                Name = "Welcome"
+                Name = "Welcome",
             };
 
             var workflowStep = new WorkflowStep()
             {
                 Action = "pause_before",
                 TriggerOnItem = "routing_order",
-                ItemId = "2"
+                ItemId = "2",
             };
 
             var signer1 = new Signer()
@@ -66,10 +70,10 @@ namespace eSignature.Examples
                             PageNumber = "1",
                             TabLabel = "Sign Here",
                             XPosition = "200",
-                            YPosition = "200"
-                        }
-                    }
-                }
+                            YPosition = "200",
+                        },
+                    },
+                },
             };
 
             var signer2 = new Signer()
@@ -88,10 +92,10 @@ namespace eSignature.Examples
                             PageNumber = "1",
                             TabLabel = "Sign Here",
                             XPosition = "300",
-                            YPosition = "200"
-                        }
-                    }
-                }
+                            YPosition = "200",
+                        },
+                    },
+                },
             };
 
             var envelopeDefinition = new EnvelopeDefinition()
@@ -100,7 +104,7 @@ namespace eSignature.Examples
                 EmailSubject = "EnvelopeWorkflowTest",
                 Workflow = new Workflow { WorkflowSteps = new List<WorkflowStep> { workflowStep } },
                 Recipients = new Recipients { Signers = new List<Signer> { signer1, signer2 } },
-                Status = "Sent"
+                Status = "Sent",
             };
 
             return envelopeDefinition;

@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿// <copyright file="SetTemplateTabValues.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System.Collections.Generic;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public static class SetTemplateTabValues
     {
         /// <summary>
@@ -22,8 +26,18 @@ namespace eSignature.Examples
         /// <param name="returnUrl">URL user will be redirected to after they sign</param>
         /// <param name="pingUrl">URL that DocuSign will be able to ping to incdicate signing session is active</param>
         /// <returns>The envelopeId (GUID) of the resulting Envelope and the URL for the embedded signing</returns>
-        public static (string,string) CreateEnvelopeFromTempalteAndUpdateTabValues(string signerEmail, string signerName, string ccEmail, string ccName, string signerClientId,
-            string accessToken, string basePath, string accountId, string templateId, string returnUrl, string pingUrl = null)
+        public static (string, string) CreateEnvelopeFromTempalteAndUpdateTabValues(
+            string signerEmail,
+            string signerName,
+            string ccEmail,
+            string ccName,
+            string signerClientId,
+            string accessToken,
+            string basePath,
+            string accountId,
+            string templateId,
+            string returnUrl,
+            string pingUrl = null)
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);
@@ -37,32 +51,33 @@ namespace eSignature.Examples
                 Value = "green",
                 DocumentId = "1",
                 PageNumber = "1",
-                TabLabel = "list"
+                TabLabel = "list",
             };
 
             // Checkboxes
             Checkbox ckAuthorization = new Checkbox
             {
                 TabLabel = "ckAuthorization",
-                Selected = "true"
+                Selected = "true",
             };
             Checkbox ckAgreement = new Checkbox
             {
                 TabLabel = "ckAgreement",
-                Selected = "true"
+                Selected = "true",
             };
 
             RadioGroup radioGroup = new RadioGroup
             {
                 GroupName = "radio1",
+
                 // You only need to provide the readio entry for the entry you're selecting
-                Radios = new List<Radio> { new Radio { Value = "white", Selected = "true" } }
+                Radios = new List<Radio> { new Radio { Value = "white", Selected = "true" } },
             };
 
             Text includedOnTemplate = new Text
             {
                 TabLabel = "text",
-                Value = "Jabberywocky!"
+                Value = "Jabberywocky!",
             };
 
             // We can also add a new tab (field) to the ones already in the template
@@ -81,7 +96,7 @@ namespace eSignature.Examples
                 Bold = "true",
                 Value = signerName,
                 Locked = "false",
-                TabId = "name"
+                TabId = "name",
             };
 
             // Add the tabs model (including the SignHere tab) to the signer.
@@ -92,7 +107,7 @@ namespace eSignature.Examples
                 CheckboxTabs = new List<Checkbox> { ckAuthorization, ckAgreement },
                 RadioGroupTabs = new List<RadioGroup> { radioGroup },
                 TextTabs = new List<Text> { includedOnTemplate, addedField },
-                ListTabs = new List<List> { colorPicker }
+                ListTabs = new List<List> { colorPicker },
             };
 
             // Create a signer recipient to sign the document, identified by name and email
@@ -103,14 +118,14 @@ namespace eSignature.Examples
                 Name = signerName,
                 RoleName = "signer",
                 ClientUserId = signerClientId, // Change the signer to be embedded
-                Tabs = tabs //Set tab values
+                Tabs = tabs, // Set tab values
             };
 
             TemplateRole cc = new TemplateRole
             {
                 Email = ccEmail,
                 Name = ccName,
-                RoleName = "cc"
+                RoleName = "cc",
             };
 
             // Create an envelope custom field to save our application's
@@ -120,12 +135,12 @@ namespace eSignature.Examples
                 Name = "app metadata item",
                 Required = "false",
                 Show = "true", // Yes, include in the CoC
-                Value = "1234567"
+                Value = "1234567",
             };
 
             CustomFields cf = new CustomFields
             {
-                TextCustomFields = new List<TextCustomField> { customField }
+                TextCustomFields = new List<TextCustomField> { customField },
             };
 
             // Create the envelope definition
@@ -134,12 +149,13 @@ namespace eSignature.Examples
                 // Uses the template ID received from example 08
                 TemplateId = templateId,
                 Status = "Sent",
+
                 // Add the TemplateRole objects to utilize a pre-defined
                 // document and signing/routing order on an envelope.
                 // Template role names need to match what is available on
                 // the correlated templateID or else an error will occur
                 TemplateRoles = new List<TemplateRole> { signer, cc },
-                CustomFields = cf
+                CustomFields = cf,
             };
 
             // Call the eSignature REST API
@@ -149,6 +165,7 @@ namespace eSignature.Examples
 
             // Create the View Request
             RecipientViewRequest viewRequest = new RecipientViewRequest();
+
             // Set the URL where you want the recipient to go once they are done signing;
             // this should typically be a callback route somewhere in your app.
             // The query parameter is included as an example of how
@@ -174,13 +191,15 @@ namespace eSignature.Examples
             // parameter. It causes the DocuSign Signing Ceremony web page
             // (not the DocuSign server) to send pings via AJAX to your app
             viewRequest.PingFrequency = "600"; // seconds
-                                               // NOTE: The pings will only be sent if the pingUrl is an HTTPS address
+
+            // NOTE: The pings will only be sent if the pingUrl is an HTTPS address
             viewRequest.PingUrl = pingUrl; // Optional setting
 
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, results.EnvelopeId, viewRequest);
-            //***********
+
+            // ***********
             // Don't use an iframe with embedded signing requests!
-            //***********
+            // ***********
             // State can be stored/recovered using the framework's session or a
             // query parameter on the return URL (see the makeRecipientViewRequest method)
             return (envelopeId, results1.Url);

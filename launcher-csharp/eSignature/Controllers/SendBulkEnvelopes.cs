@@ -1,10 +1,14 @@
-﻿using DocuSign.CodeExamples.Models;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿// <copyright file="SendBulkEnvelopes.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    using System;
+    using DocuSign.CodeExamples.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+
     [Area("eSignature")]
     [Route("Eg031")]
     public class SendBulkEnvelopes : EgController
@@ -12,56 +16,67 @@ namespace DocuSign.CodeExamples.Controllers
         public SendBulkEnvelopes(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            codeExampleText = GetExampleText(EgNumber);
-            ViewBag.title = codeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.ViewBag.title = this.CodeExampleText.PageTitle;
         }
 
-        public const int EgNumber = 31;
+        public override int EgNumber => 31;
 
         public override string EgName => "Eg031";
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult SetProfile(RecipientModel signer1, RecipientModel carbonCopy1, RecipientModel signer2, RecipientModel carbonCopy2)
         {
             // Check the minimal buffer time.
-            bool tokenOk = CheckToken(3);
+            bool tokenOk = this.CheckToken(3);
             if (!tokenOk)
             {
-                // We could store the parameters of the requested operation so it could be 
+                // We could store the parameters of the requested operation so it could be
                 // restarted automatically. But since it should be rare to have a token issue
                 // here, we'll make the user re-enter the form data after authentication.
-                RequestItemsService.EgName = EgName;
-                return Redirect("/ds/mustAuthenticate");
+                this.RequestItemsService.EgName = this.EgName;
+                return this.Redirect("/ds/mustAuthenticate");
             }
 
-            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
 
             // Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
-                // Confirm successful batch send 
+                // Confirm successful batch send
                 var envelopeIdStamping = "true";
                 var emailSubject = "Please sign this document sent from the C# SDK";
-                var status = global::eSignature.Examples.SendBulkEnvelopes.GetStatus(signer1.Name, signer1.Email, carbonCopy1.Name,
-                    carbonCopy1.Email, signer2.Name, signer2.Email, carbonCopy2.Name, carbonCopy2.Email, accessToken,
-                    basePath, accountId, Config.docPdf, envelopeIdStamping, emailSubject);
+                var status = global::ESignature.Examples.SendBulkEnvelopes.GetStatus(
+                    signer1.Name,
+                    signer1.Email,
+                    carbonCopy1.Name,
+                    carbonCopy1.Email,
+                    signer2.Name,
+                    signer2.Email,
+                    carbonCopy2.Name,
+                    carbonCopy2.Email,
+                    accessToken,
+                    basePath,
+                    accountId,
+                    this.Config.DocPdf,
+                    envelopeIdStamping,
+                    emailSubject);
 
-                ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = codeExampleText.ResultsPageText;
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(status, Formatting.Indented);
+                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.message = this.CodeExampleText.ResultsPageText;
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(status, Formatting.Indented);
             }
             catch (Exception ex)
             {
-                ViewBag.h1 = "Bulk send envelope failed.";
-                ViewBag.message = $@"Bulk request failed to send. Reason: {ex}.";
+                this.ViewBag.h1 = "Bulk send envelope failed.";
+                this.ViewBag.message = $@"Bulk request failed to send. Reason: {ex}.";
             }
 
-            return View("example_done");
+            return this.View("example_done");
         }
     }
 }

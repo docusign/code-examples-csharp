@@ -1,15 +1,21 @@
-﻿using DocuSign.CodeExamples.eSignature.Models;
-using DocuSign.CodeExamples.Models;
-using DocuSign.CodeExamples.Views;
-using Microsoft.AspNetCore.Mvc;
+﻿// <copyright file="EgController.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    using DocuSign.CodeExamples.ESignature.Models;
+    using DocuSign.CodeExamples.Models;
+    using DocuSign.CodeExamples.Views;
+    using Microsoft.AspNetCore.Mvc;
+
     public abstract class EgController : Controller
     {
         public abstract string EgName { get; }
 
-        protected CodeExampleText codeExampleText { get; set; }
+        public abstract int EgNumber { get; }
+
+        protected CodeExampleText CodeExampleText { get; set; }
 
         protected DSConfiguration Config { get; }
 
@@ -19,10 +25,10 @@ namespace DocuSign.CodeExamples.Controllers
 
         public EgController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
         {
-            Config = config;
-            RequestItemsService = requestItemsService;
-            ViewBag.csrfToken = "";
-            LauncherTexts = launcherTexts;
+            this.Config = config;
+            this.RequestItemsService = requestItemsService;
+            this.ViewBag.csrfToken = string.Empty;
+            this.LauncherTexts = launcherTexts;
         }
 
         [HttpGet]
@@ -31,46 +37,46 @@ namespace DocuSign.CodeExamples.Controllers
             // Check that the token is valid and will remain valid for awhile to enable the
             // user to fill out the form. If the token is not available, now is the time
             // to have the user authenticate or re-authenticate.
-            bool tokenOk = CheckToken();
+            bool tokenOk = this.CheckToken();
 
             if (tokenOk)
             {
-                //addSpecialAttributes(model);
-                ViewBag.envelopeOk = RequestItemsService.EnvelopeId != null;
-                ViewBag.documentsOk = RequestItemsService.EnvelopeDocuments != null;
-                ViewBag.documentOptions = RequestItemsService.EnvelopeDocuments?.Documents;
-                ViewBag.gatewayOk = Config.GatewayAccountId != null && Config.GatewayAccountId.Length > 25;
-                ViewBag.templateOk = RequestItemsService.TemplateId != null;
-                ViewBag.source = CreateSourcePath();
-                ViewBag.documentation = Config.documentation + EgName;
-                ViewBag.showDoc = Config.documentation != null;
-                ViewBag.pausedEnvelopeOk = RequestItemsService.PausedEnvelopeId != null;
-                InitializeInternal();
+                // addSpecialAttributes(model);
+                this.ViewBag.envelopeOk = this.RequestItemsService.EnvelopeId != null;
+                this.ViewBag.documentsOk = this.RequestItemsService.EnvelopeDocuments != null;
+                this.ViewBag.documentOptions = this.RequestItemsService.EnvelopeDocuments?.Documents;
+                this.ViewBag.gatewayOk = this.Config.GatewayAccountId != null && this.Config.GatewayAccountId.Length > 25;
+                this.ViewBag.templateOk = this.RequestItemsService.TemplateId != null;
+                this.ViewBag.source = this.CreateSourcePath();
+                this.ViewBag.documentation = this.Config.Documentation + this.EgName;
+                this.ViewBag.showDoc = this.Config.Documentation != null;
+                this.ViewBag.pausedEnvelopeOk = this.RequestItemsService.PausedEnvelopeId != null;
+                this.InitializeInternal();
 
-                if (Config.QuickACG == "true" && !(this is Eg001EmbeddedSigningController))
+                if (this.Config.QuickACG == "true" && !(this is Eg001EmbeddedSigningController))
                 {
-                    return Redirect("eg001");
+                    return this.Redirect("eg001");
                 }
 
-                return View(EgName, this);
+                return this.View(this.EgName, this);
             }
 
-            RequestItemsService.EgName = EgName;
+            this.RequestItemsService.EgName = this.EgName;
 
-            return Redirect("/ds/mustAuthenticate");
+            return this.Redirect("/ds/mustAuthenticate");
         }
 
         protected virtual void InitializeInternal()
         {
-            ViewBag.CodeExampleText = codeExampleText;
+            this.ViewBag.CodeExampleText = this.CodeExampleText;
         }
 
         public dynamic CreateSourcePath()
         {
-            var uri = Config.githubExampleUrl;
-            if (ControllerContext.RouteData.Values["area"] != null)
+            var uri = this.Config.GithubExampleUrl;
+            if (this.ControllerContext.RouteData.Values["area"] != null)
             {
-                uri = $"{uri}/{ControllerContext.RouteData.Values["area"]}";
+                uri = $"{uri}/{this.ControllerContext.RouteData.Values["area"]}";
                 return $"{uri}/Examples/{this.GetType().Name}.cs";
             }
             else if (this.EgName == "monitorExample001")
@@ -90,7 +96,7 @@ namespace DocuSign.CodeExamples.Controllers
 
         protected CodeExampleText GetExampleText(int number)
         {
-            var groups = LauncherTexts.ManifestStructure.Groups;
+            var groups = this.LauncherTexts.ManifestStructure.Groups;
             foreach (var group in groups)
             {
                 var example = group.Examples.Find((example) => example.ExampleNumber == number);
@@ -100,12 +106,13 @@ namespace DocuSign.CodeExamples.Controllers
                     return example;
                 }
             }
+
             return null;
         }
 
         protected bool CheckToken(int bufferMin = 60)
         {
-            return RequestItemsService.CheckToken(bufferMin);
+            return this.RequestItemsService.CheckToken(bufferMin);
         }
     }
 }

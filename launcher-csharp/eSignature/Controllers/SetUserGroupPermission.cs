@@ -1,12 +1,16 @@
-﻿using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿// <copyright file="SetUserGroupPermission.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    using System.Linq;
+    using DocuSign.CodeExamples.Models;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+
     [Area("eSignature")]
     [Route("Eg025")]
     public class SetUserGroupPermission : EgController
@@ -14,23 +18,24 @@ namespace DocuSign.CodeExamples.Controllers
         public SetUserGroupPermission(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            codeExampleText = GetExampleText(EgNumber);
-            ViewBag.title = codeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.ViewBag.title = this.CodeExampleText.PageTitle;
         }
 
-        public const int EgNumber = 25;
+        public override int EgNumber => 25;
 
         public override string EgName => "Eg025";
 
         protected override void InitializeInternal()
         {
             base.InitializeInternal();
+
             // Data for this method
             // Permission profiles
             // User groups
-            var basePath = RequestItemsService.Session.BasePath + "/restapi";
-            var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
+            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
@@ -40,19 +45,19 @@ namespace DocuSign.CodeExamples.Controllers
             var userGroups = groupsApi.ListGroups(accountId);
 
             // List all available permission profiles
-            ViewBag.PermissionProfiles =
+            this.ViewBag.PermissionProfiles =
                 permissions.PermissionProfiles.Select(pr => new SelectListItem
                 {
                     Text = pr.PermissionProfileName,
-                    Value = pr.PermissionProfileId
+                    Value = pr.PermissionProfileId,
                 });
 
             // List all available user groups
-            ViewBag.UserGroups =
+            this.ViewBag.UserGroups =
                 userGroups.Groups.Select(pr => new SelectListItem
                 {
                     Text = $"{pr.GroupName}",
-                    Value = pr.GroupId
+                    Value = pr.GroupId,
                 });
         }
 
@@ -61,42 +66,46 @@ namespace DocuSign.CodeExamples.Controllers
         public IActionResult SetProfile(string permissionProfileId, string userGroupId)
         {
             // Check the minimal buffer time.
-            bool tokenOk = CheckToken(3);
+            bool tokenOk = this.CheckToken(3);
             if (!tokenOk)
             {
-                // We could store the parameters of the requested operation so it could be 
+                // We could store the parameters of the requested operation so it could be
                 // restarted automatically. But since it should be rare to have a token issue
                 // here, we'll make the user re-enter the form data after authentication.
-                RequestItemsService.EgName = EgName;
-                return Redirect("/ds/mustAuthenticate");
+                this.RequestItemsService.EgName = this.EgName;
+                return this.Redirect("/ds/mustAuthenticate");
             }
 
             // Uri of rest api
-            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
 
             // Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             // Call the Examples API method to set permissions to the specified user group
-            var result = global::eSignature.Examples.SetUserGroupPermission.GetGroupInformation(permissionProfileId, userGroupId, 
-                accessToken, basePath, accountId);
+            var result = global::ESignature.Examples.SetUserGroupPermission.GetGroupInformation(
+                permissionProfileId,
+                userGroupId,
+                accessToken,
+                basePath,
+                accountId);
 
             var errorDetails = result.Groups.FirstOrDefault()?.ErrorDetails;
 
             if (errorDetails is null)
             {
-                ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = codeExampleText.ResultsPageText;
+                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.message = this.CodeExampleText.ResultsPageText;
             }
             else
             {
-                ViewBag.h1 = "The permission profile failed to set to the user group";
-                ViewBag.message = "The permission profile failed to set to the user group.<br /> " +
+                this.ViewBag.h1 = "The permission profile failed to set to the user group";
+                this.ViewBag.message = "The permission profile failed to set to the user group.<br /> " +
                                   $"Reason: {errorDetails.Message}";
             }
 
-            return View("example_done");
+            return this.View("example_done");
         }
     }
 }

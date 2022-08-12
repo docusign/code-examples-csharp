@@ -1,13 +1,17 @@
-﻿using DocuSign.Click.Client;
-using DocuSign.Click.Examples;
-using DocuSign.CodeExamples.Common;
-using DocuSign.CodeExamples.Controllers;
-using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+﻿// <copyright file="Eg05GetClickwrapResponsesController.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Click.Controllers
 {
+    using DocuSign.Click.Client;
+    using DocuSign.Click.Examples;
+    using DocuSign.CodeExamples.Common;
+    using DocuSign.CodeExamples.Controllers;
+    using DocuSign.CodeExamples.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+
     [Area("Click")]
     [Route("ClickEg05")]
     public class Eg05GetClickwrapResponsesController : EgController
@@ -15,25 +19,27 @@ namespace DocuSign.CodeExamples.Click.Controllers
         public Eg05GetClickwrapResponsesController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            codeExampleText = GetExampleText(EgNumber);
-            ViewBag.title = codeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.ViewBag.title = this.CodeExampleText.PageTitle;
         }
 
-        public const int EgNumber = 5;
+        public override int EgNumber => 5;
 
         public override string EgName => "ClickEg05";
+
         protected override void InitializeInternal()
         {
             base.InitializeInternal();
+
             // Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
-            var accountId = RequestItemsService.Session.AccountId;
-            ViewBag.ClickwrapsData = RetrieveClickwraps.GetClickwraps(basePath, accessToken, accountId);
-            ViewBag.AccountId = RequestItemsService.Session.AccountId;
+            var accessToken = this.RequestItemsService.User.AccessToken;
+            var basePath = $"{this.RequestItemsService.Session.BasePath}/clickapi"; // Base API path
+            var accountId = this.RequestItemsService.Session.AccountId;
+            this.ViewBag.ClickwrapsData = RetrieveClickwraps.GetClickwraps(basePath, accessToken, accountId);
+            this.ViewBag.AccountId = this.RequestItemsService.Session.AccountId;
         }
-    
-    [MustAuthenticate]
+
+        [MustAuthenticate]
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -41,29 +47,29 @@ namespace DocuSign.CodeExamples.Click.Controllers
         {
 
             // Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
+            var accessToken = this.RequestItemsService.User.AccessToken;
+            var basePath = $"{this.RequestItemsService.Session.BasePath}/clickapi"; // Base API path
 
             try
             {
-                var accountId = RequestItemsService.Session.AccountId;
+                var accountId = this.RequestItemsService.Session.AccountId;
 
                 // Call the Click API to get a clickwrap agreements
                 var clickWrapAgreements = GetClickwrapResponses.GetAgreements(clickwrapId, basePath, accessToken, accountId);
 
                 // Show results
-                ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = codeExampleText.ResultsPageText;
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(clickWrapAgreements, Formatting.Indented);
+                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.message = this.CodeExampleText.ResultsPageText;
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(clickWrapAgreements, Formatting.Indented);
 
-                return View("example_done");
+                return this.View("example_done");
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
 
-                return View("Error");
+                return this.View("Error");
             }
         }
     }

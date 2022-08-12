@@ -3,7 +3,7 @@
 namespace DocuSign.CodeExamples
 {
     public interface IRequestItemsService
-    {        
+    {
         public string EgName { get; set; }
 
         public Session Session { get; set; }

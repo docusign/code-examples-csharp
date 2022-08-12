@@ -1,32 +1,34 @@
-﻿using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// <copyright file="SMSDelivery.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public class SMSDelivery
     {
         /// <summary>
-        /// Creates an envelope that would include two documents and add a signer and cc recipients to be notified via SMS
+        /// Creates an envelope that would include two documents and add a signer and cc recipients to be notified via SMS.
         /// </summary>
-        /// <param name="accessToken">Access Token for API call (OAuth)</param>
-        /// <param name="basePath">BasePath for API calls (URI)</param>
+        /// <param name="accessToken">Access Token for API call (OAuth).</param>
+        /// <param name="basePath">BasePath for API calls (URI).</param>
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
-        /// <param name="signerEmail">Email address for the signer</param>
-        /// <param name="signerName">Full name of the signer</param>
-        /// <param name="signerCountryCode">Country code of the signer</param>
-        /// <param name="signerPhoneNumber">Phone number of the signer</param>
-        /// <param name="ccEmail">Email address for the cc recipient</param>
-        /// <param name="ccName">Name of the cc recipient</param>
-        /// <param name="ccCountryCode">Country code of the cc recipient</param>
-        /// <param name="ccPhoneNumber">Phone number of the cc recipient</param>
-        /// <param name="docPdf">String of bytes representing the document (pdf)</param>
-        /// <param name="docDocx">String of bytes representing the Word document (docx)</param>
-        /// <param name="envStatus">Status to set the envelope to</param>
-        /// <returns>EnvelopeId for the new envelope</returns>
+        /// <param name="signerName">Full name of the signer.</param>
+        /// <param name="signerCountryCode">Country code of the signer.</param>
+        /// <param name="signerPhoneNumber">Phone number of the signer.</param>
+        /// <param name="ccName">Name of the cc recipient.</param>
+        /// <param name="ccCountryCode">Country code of the cc recipient.</param>
+        /// <param name="ccPhoneNumber">Phone number of the cc recipient.</param>
+        /// <param name="docPdf">String of bytes representing the document (pdf).</param>
+        /// <param name="docDocx">String of bytes representing the Word document (docx).</param>
+        /// <param name="envStatus">Status to set the envelope to.</param>
+        /// <returns>EnvelopeId for the new envelope.</returns>
         public static string SendRequestViaSMS(string accessToken, string basePath, string accountId, string signerName, string signerCountryCode, string signerPhoneNumber, string ccName, string ccCountryCode, string ccPhoneNumber, string docDocx, string docPdf, string envStatus)
         {
             EnvelopeDefinition env = MakeEnvelope(signerName, signerCountryCode, signerPhoneNumber, ccName, ccCountryCode, ccPhoneNumber, docDocx, docPdf, envStatus);
@@ -37,6 +39,7 @@ namespace eSignature.Examples
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
 
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+
             // Step 3 end
             return results.EnvelopeId;
         }
@@ -55,7 +58,6 @@ namespace eSignature.Examples
             // docPdf
             // envStatus -- the envelope status ('created' or 'sent')
 
-
             // document 1 (html) has tag **signature_1**
             // document 2 (docx) has tag /sn1/
             // document 3 (pdf) has tag /sn1/
@@ -69,13 +71,14 @@ namespace eSignature.Examples
             // The reads could raise an exception if the file is not available!
             string doc2DocxBytes = Convert.ToBase64String(System.IO.File.ReadAllBytes(docDocx));
             string doc3PdfBytes = Convert.ToBase64String(System.IO.File.ReadAllBytes(docPdf));
+
             // create the envelope definition
             EnvelopeDefinition env = new EnvelopeDefinition();
             env.EmailSubject = "Please sign this document set";
 
             // Create document objects, one per document
             Document doc1 = new Document();
-            string b64 = Convert.ToBase64String(document1(signerPhoneNumber, signerName, ccPhoneNumber, ccName));
+            string b64 = Convert.ToBase64String(Document1(signerPhoneNumber, signerName, ccPhoneNumber, ccName));
             doc1.DocumentBase64 = b64;
             doc1.Name = "Order acknowledgement"; // can be different from actual file name
             doc1.FileExtension = "html"; // Source data format. Signed docs are always pdf.
@@ -85,15 +88,16 @@ namespace eSignature.Examples
                 DocumentBase64 = doc2DocxBytes,
                 Name = "Battle Plan", // can be different from actual file name
                 FileExtension = "docx",
-                DocumentId = "2"
+                DocumentId = "2",
             };
             Document doc3 = new Document
             {
                 DocumentBase64 = doc3PdfBytes,
                 Name = "Lorem Ipsum", // can be different from actual file name
                 FileExtension = "pdf",
-                DocumentId = "3"
+                DocumentId = "3",
             };
+
             // The order in the docs array determines the order in the envelope
             env.Documents = new List<Document> { doc1, doc2, doc3 };
 
@@ -107,7 +111,7 @@ namespace eSignature.Examples
                 PhoneNumber = new RecipientPhoneNumber
                 {
                     CountryCode = signerCountryCode,
-                    Number = signerPhoneNumber
+                    Number = signerPhoneNumber,
                 },
             };
 
@@ -125,7 +129,7 @@ namespace eSignature.Examples
                 PhoneNumber = new RecipientPhoneNumber
                 {
                     CountryCode = ccCountryCode,
-                    Number = ccPhoneNumber
+                    Number = ccPhoneNumber,
                 },
             };
 
@@ -141,7 +145,7 @@ namespace eSignature.Examples
                 AnchorString = "**signature_1**",
                 AnchorUnits = "pixels",
                 AnchorYOffset = "10",
-                AnchorXOffset = "20"
+                AnchorXOffset = "20",
             };
 
             SignHere signHere2 = new SignHere
@@ -149,13 +153,13 @@ namespace eSignature.Examples
                 AnchorString = "/sn1/",
                 AnchorUnits = "pixels",
                 AnchorYOffset = "10",
-                AnchorXOffset = "20"
+                AnchorXOffset = "20",
             };
 
             // Tabs are set per recipient / signer
             Tabs signer1Tabs = new Tabs
             {
-                SignHereTabs = new List<SignHere> { signHere1, signHere2 }
+                SignHereTabs = new List<SignHere> { signHere1, signHere2 },
             };
             signer1.Tabs = signer1Tabs;
 
@@ -163,9 +167,10 @@ namespace eSignature.Examples
             Recipients recipients = new Recipients
             {
                 Signers = new List<Signer> { signer1 },
-                CarbonCopies = new List<CarbonCopy> { cc1 }
+                CarbonCopies = new List<CarbonCopy> { cc1 },
             };
             env.Recipients = recipients;
+
             // Request that the envelope be sent by setting |status| to "sent".
             // To request that the envelope be created as a draft, set to "created"
             env.Status = envStatus;
@@ -173,14 +178,13 @@ namespace eSignature.Examples
             return env;
         }
 
-        private static byte[] document1(string signerPhone, string signerName, string ccPhone, string ccName)
+        private static byte[] Document1(string signerPhone, string signerName, string ccPhone, string ccName)
         {
             // Data for this method
             // signerEmail
             // signerPhone
             // ccPhone
             // ccName
-
             return Encoding.UTF8.GetBytes(
             " <!DOCTYPE html>\n" +
                 "    <html>\n" +
@@ -195,16 +199,16 @@ namespace eSignature.Examples
                 "          color: darkblue;\">Order Processing Division</h2>\n" +
                 "        <h4>Ordered by " + signerName + "</h4>\n" +
                 "        <p style=\"margin-top:0em; margin-bottom:0em;\">Phone Number: " + signerPhone + "</p>\n" +
-                "        <p style=\"margin-top:0em; margin-bottom:0em;\">Copy to: " + ccName + ", " + ccPhone+ "</p>\n" +
+                "        <p style=\"margin-top:0em; margin-bottom:0em;\">Copy to: " + ccName + ", " + ccPhone + "</p>\n" +
                 "        <p style=\"margin-top:3em;\">\n" +
                 "  Candy bonbon pastry jujubes lollipop wafer biscuit biscuit. Topping brownie sesame snaps sweet roll pie. Croissant danish biscuit soufflé caramels jujubes jelly. Dragée danish caramels lemon drops dragée. Gummi bears cupcake biscuit tiramisu sugar plum pastry. Dragée gummies applicake pudding liquorice. Donut jujubes oat cake jelly-o. Dessert bear claw chocolate cake gummies lollipop sugar plum ice cream gummies cheesecake.\n" +
                 "        </p>\n" +
                 "        <!-- Note the anchor tag for the signature field is in white. -->\n" +
                 "        <h3 style=\"margin-top:3em;\">Agreed: <span style=\"color:white;\">**signature_1**/</span></h3>\n" +
                 "        </body>\n" +
-                "    </html>"
-                );
+                "    </html>");
         }
+
         // Step 2 end
     }
 }

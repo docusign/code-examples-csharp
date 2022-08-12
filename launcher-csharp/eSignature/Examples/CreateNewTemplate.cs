@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿// <copyright file="CreateNewTemplate.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public static class CreateNewTemplate
     {
         private static string templateName = "Example Signer and CC template";
@@ -51,7 +55,6 @@ namespace eSignature.Examples
                 templateId = templateResults.EnvelopeTemplates[0].TemplateId;
                 resultsTemplateName = templateResults.EnvelopeTemplates[0].Name;
                 createdNewTemplate = true;
-
             }
 
             return (createdNewTemplate: createdNewTemplate,
@@ -62,7 +65,6 @@ namespace eSignature.Examples
         {
             // Data for this method
             // resultsTemplateName
-
 
             // document 1 (pdf) has tag /sn1/
             //
@@ -87,6 +89,7 @@ namespace eSignature.Examples
             signer1.RoleName = "signer";
             signer1.RecipientId = "1";
             signer1.RoutingOrder = "1";
+
             // routingOrder (lower means earlier) determines the order of deliveries
             // to the recipients. Parallel routing order is supported by using the
             // same integer as the order for two or more recipients.
@@ -97,6 +100,7 @@ namespace eSignature.Examples
             cc1.RoleName = "cc";
             cc1.RoutingOrder = "2";
             cc1.RecipientId = "2";
+
             // Create fields using absolute positioning:
             SignHere signHere = new SignHere();
             signHere.DocumentId = "1";
@@ -143,14 +147,15 @@ namespace eSignature.Examples
             list1.Required = "false";
             list1.ListItems = new List<ListItem>
             {
-                new ListItem {Text = "Red", Value = "Red"},
-                new ListItem {Text = "Orange", Value = "Orange"},
-                new ListItem {Text = "Yellow", Value = "Yellow"},
-                new ListItem {Text = "Green", Value = "Green"},
-                new ListItem {Text = "Blue", Value = "Blue"},
-                new ListItem {Text = "Indigo", Value = "Indigo"},
-                new ListItem {Text = "Violet", Value = "Violet"},
+                new ListItem { Text = "Red", Value = "Red" },
+                new ListItem { Text = "Orange", Value = "Orange" },
+                new ListItem { Text = "Yellow", Value = "Yellow" },
+                new ListItem { Text = "Green", Value = "Green" },
+                new ListItem { Text = "Blue", Value = "Blue" },
+                new ListItem { Text = "Indigo", Value = "Indigo" },
+                new ListItem { Text = "Violet", Value = "Violet" },
             };
+
             // The SDK can't create a number tab at this time. Bug DCM-2732
             // Until it is fixed, use a text tab instead.
             //   , number = docusign.Number.constructFromObject({
@@ -175,9 +180,9 @@ namespace eSignature.Examples
 
             radioGroup.Radios = new List<Radio>
             {
-                new Radio {PageNumber="1", Value="white", XPosition="142", YPosition="384", Required = "false"},
-                new Radio {PageNumber="1", Value="red", XPosition="74", YPosition="384", Required = "false"},
-                new Radio {PageNumber="1", Value="blue", XPosition="220", YPosition="384", Required = "false"}
+                new Radio { PageNumber = "1", Value = "white", XPosition = "142", YPosition = "384", Required = "false" },
+                new Radio { PageNumber = "1", Value = "red", XPosition = "74", YPosition = "384", Required = "false" },
+                new Radio { PageNumber = "1", Value = "blue", XPosition = "220", YPosition = "384", Required = "false" },
             };
 
             Text text = new Text();
@@ -196,10 +201,11 @@ namespace eSignature.Examples
             Tabs signer1Tabs = new Tabs();
             signer1Tabs.CheckboxTabs = new List<Checkbox>
             {
-                check1, check2, check3, check4
+                check1, check2, check3, check4,
             };
 
             signer1Tabs.ListTabs = new List<List> { list1 };
+
             // numberTabs: [number],
             signer1Tabs.RadioGroupTabs = new List<RadioGroup> { radioGroup };
             signer1Tabs.SignHereTabs = new List<SignHere> { signHere };
@@ -212,9 +218,9 @@ namespace eSignature.Examples
             recipients.Signers = new List<Signer> { signer1 };
             recipients.CarbonCopies = new List<CarbonCopy> { cc1 };
 
-
             // create the overall template definition
             EnvelopeTemplate template = new EnvelopeTemplate();
+
             // The order in the docs array determines the order in the env
             template.Description = "Example template created via the API";
             template.Name = resultsTemplateName;

@@ -117,6 +117,7 @@ namespace DocuSign.QuickACG
             });
         }
 
+        #nullable enable
         private string? ExtractDefaultAccountValue(JsonElement obj, string key)
         {
             if (!obj.TryGetProperty("accounts", out var accounts))
@@ -139,6 +140,7 @@ namespace DocuSign.QuickACG
 
             return keyValue;
         }
+        #nullable disable
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

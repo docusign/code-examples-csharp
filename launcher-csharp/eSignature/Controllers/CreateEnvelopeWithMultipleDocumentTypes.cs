@@ -1,10 +1,14 @@
-﻿using System;
-using System.Net;
-using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿// <copyright file="CreateEnvelopeWithMultipleDocumentTypes.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    using System;
+    using System.Net;
+    using DocuSign.CodeExamples.Models;
+    using Microsoft.AspNetCore.Mvc;
+
     [Area("eSignature")]
     [Route("eg010")]
     public class CreateEnvelopeWithMultipleDocumentTypes : EgController
@@ -12,11 +16,11 @@ namespace DocuSign.CodeExamples.Controllers
         public CreateEnvelopeWithMultipleDocumentTypes(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            codeExampleText = GetExampleText(EgNumber);
-            ViewBag.title = codeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.ViewBag.title = this.CodeExampleText.PageTitle;
         }
 
-        public const int EgNumber = 10;
+        public override int EgNumber => 10;
 
         public override string EgName => "eg010";
 
@@ -24,44 +28,52 @@ namespace DocuSign.CodeExamples.Controllers
         public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName)
         {
             // Data for this method
-            // signerEmail 
+            // signerEmail
             // signerName
             // ccEmail
             // ccName
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = RequestItemsService.Session.BasePath + "/restapi";
-            var accountId = RequestItemsService.Session.AccountId;
+            var accessToken = this.RequestItemsService.User.AccessToken;
+            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
+            var accountId = this.RequestItemsService.Session.AccountId;
 
-            bool tokenOk = CheckToken(3);
+            bool tokenOk = this.CheckToken(3);
             if (!tokenOk)
             {
-                // We could store the parameters of the requested operation 
+                // We could store the parameters of the requested operation
                 // so it could be restarted automatically.
                 // But since it should be rare to have a token issue here,
-                // we'll make the user re-enter the form data after 
+                // we'll make the user re-enter the form data after
                 // authentication.
-                RequestItemsService.EgName = EgName;
-                return Redirect("/ds/mustAuthenticate");
+                this.RequestItemsService.EgName = this.EgName;
+                return this.Redirect("/ds/mustAuthenticate");
             }
 
             // Call the Examples API method to create the envelope multiple types of documents and send it
-            (bool statusOk, string envelopeId, string errorCode, string errorMessage, WebException webEx) =
-                global::eSignature.Examples.CreateEnvelopeWithMultipleDocumentTypes.CreateAndSendEnvelope(signerEmail, signerName, ccEmail, ccName,
-                    Config.docDocx, Config.docPdf, accessToken, basePath, accountId);
+            (bool statusOk, string envelopeId, string errorCode, string errorMessage, _) =
+                global::ESignature.Examples.CreateEnvelopeWithMultipleDocumentTypes.CreateAndSendEnvelope(
+                    signerEmail,
+                    signerName,
+                    ccEmail,
+                    ccName,
+                    this.Config.DocDocx,
+                    this.Config.DocPdf,
+                    accessToken,
+                    basePath,
+                    accountId);
 
             // Process results
             if (statusOk)
             {
-                RequestItemsService.EnvelopeId = envelopeId;
-                ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = String.Format(codeExampleText.ResultsPageText, envelopeId);
-                return View("example_done");
+                this.RequestItemsService.EnvelopeId = envelopeId;
+                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, envelopeId);
+                return this.View("example_done");
             }
             else
             {
-                ViewBag.errorCode = errorCode;
-                ViewBag.errorMessage = errorMessage;
-                return View("error");
+                this.ViewBag.errorCode = errorCode;
+                this.ViewBag.errorMessage = errorMessage;
+                return this.View("error");
             }
         }
     }

@@ -1,7 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿// <copyright file="LinkToAPIMethods.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace DocuSign.CodeExamples.eSignature.Models
+namespace DocuSign.CodeExamples.ESignature.Models
 {
+    using Newtonsoft.Json;
+
     public class LinkToAPIMethods
     {
         [JsonProperty("Path")]

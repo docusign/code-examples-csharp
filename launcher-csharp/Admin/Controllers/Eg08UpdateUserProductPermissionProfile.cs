@@ -1,68 +1,70 @@
-﻿using DocuSign.Admin.Api;
-using DocuSign.Admin.Client;
-using DocuSign.Admin.Examples;
-using DocuSign.Admin.Model;
-using DocuSign.CodeExamples.Common;
-using DocuSign.CodeExamples.Controllers;
-using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿// <copyright file="Eg08UpdateUserProductPermissionProfile.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using DocuSign.Admin.Api;
+    using DocuSign.Admin.Client;
+    using DocuSign.Admin.Examples;
+    using DocuSign.Admin.Model;
+    using DocuSign.CodeExamples.Common;
+    using DocuSign.CodeExamples.Controllers;
+    using DocuSign.CodeExamples.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+
     [Area("Admin")]
     [Route("Aeg08")]
     public class Eg08UpdateUserProductPermissionProfile : EgController
     {
         private static ProductPermissionProfilesResponse productPermissionProfiles;
 
-        public static Dictionary<Guid?, string> products = new Dictionary<Guid?, string>();
+        private static Dictionary<Guid?, string> products = new Dictionary<Guid?, string>();
 
         public Eg08UpdateUserProductPermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            codeExampleText = GetExampleText(EgNumber);
-            ViewBag.title = codeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.ViewBag.title = this.CodeExampleText.PageTitle;
         }
 
-        public const int EgNumber = 8;
+        public override int EgNumber => 8;
 
         public override string EgName => "Aeg08";
 
         protected override void InitializeInternal()
         {
-            base.InitializeInternal();  
-            Guid? organizationId = RequestItemsService.OrganizationId;
-            string accessToken = RequestItemsService.User.AccessToken;
-            string basePath = RequestItemsService.Session.AdminApiBasePath;
-            Guid accountId = Guid.Parse(RequestItemsService.Session.AccountId);
+            base.InitializeInternal();
+            Guid? organizationId = this.RequestItemsService.OrganizationId;
+            string accessToken = this.RequestItemsService.User.AccessToken;
+            string basePath = this.RequestItemsService.Session.AdminApiBasePath;
+            Guid accountId = Guid.Parse(this.RequestItemsService.Session.AccountId);
 
             productPermissionProfiles = UpdateUserProductPermissionProfileByEmail
                 .GetPermissionProfiles(basePath, accessToken, organizationId, accountId);
 
-            ViewBag.CLMPermissionProfiles = productPermissionProfiles.ProductPermissionProfiles
+            this.ViewBag.CLMPermissionProfiles = productPermissionProfiles.ProductPermissionProfiles
                 .Find(x => x.ProductName == "CLM").PermissionProfiles;
 
             products.TryAdd(
                 productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "CLM").ProductId,
-                "CLM"
-            );
+                "CLM");
 
             products.TryAdd(
                 productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "ESign").ProductId,
-                "eSignature"
-            );
+                "eSignature");
 
-            ViewBag.Products = products;
-            ViewBag.EmailAddress = RequestItemsService.EmailAddress;
+            this.ViewBag.Products = products;
+            this.ViewBag.EmailAddress = this.RequestItemsService.EmailAddress;
         }
 
         [Route("/getPermissionProfiles")]
         public IActionResult getPermissionProfiles(Guid? productId)
         {
-            return Json(productPermissionProfiles.ProductPermissionProfiles
+            return this.Json(productPermissionProfiles.ProductPermissionProfiles
                 .Find(x => x.ProductId == productId)?.PermissionProfiles);
         }
 
@@ -73,34 +75,33 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         {
             try
             {
-                Guid? organizationId = RequestItemsService.OrganizationId;
-                string accessToken = RequestItemsService.User.AccessToken;
-                string basePath = RequestItemsService.Session.AdminApiBasePath;
-                Guid accountId = Guid.Parse(RequestItemsService.Session.AccountId);
-                string email = RequestItemsService.EmailAddress;
+                Guid? organizationId = this.RequestItemsService.OrganizationId;
+                string accessToken = this.RequestItemsService.User.AccessToken;
+                string basePath = this.RequestItemsService.Session.AdminApiBasePath;
+                Guid accountId = Guid.Parse(this.RequestItemsService.Session.AccountId);
+                string email = this.RequestItemsService.EmailAddress;
 
                 UserProductPermissionProfilesResponse response = UpdateUserProductPermissionProfileByEmail.UpdateUserProductPermissionProfile(
-                    basePath, 
-                    accessToken, 
-                    organizationId, 
-                    accountId, 
-                    email, 
-                    Guid.Parse(productId), 
-                    permissionProfileId
-                );
+                    basePath,
+                    accessToken,
+                    organizationId,
+                    accountId,
+                    email,
+                    Guid.Parse(productId),
+                    permissionProfileId);
 
-                ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = codeExampleText.ResultsPageText;
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(response, Formatting.Indented);
+                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.message = this.CodeExampleText.ResultsPageText;
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(response, Formatting.Indented);
 
-                return View("example_done");
+                return this.View("example_done");
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
 
-                return View("Error");
+                return this.View("Error");
             }
         }
     }

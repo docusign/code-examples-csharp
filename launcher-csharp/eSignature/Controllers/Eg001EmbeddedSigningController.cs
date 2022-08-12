@@ -1,70 +1,80 @@
-﻿using DocuSign.CodeExamples.Controllers;
-using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
-using eSignature.Examples;
-using System;
+﻿// <copyright file="Eg001EmbeddedSigningController.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Views
 {
+    using System;
+    using DocuSign.CodeExamples.Controllers;
+    using DocuSign.CodeExamples.Models;
+    using global::ESignature.Examples;
+    using Microsoft.AspNetCore.Mvc;
+
     [Route("eg001")]
     public class Eg001EmbeddedSigningController : EgController
     {
-        private string dsPingUrl;
-        private string signerClientId = "1000";
-        private string dsReturnUrl;
+        private readonly string dsPingUrl;
+        private readonly string signerClientId = "1000";
+        private readonly string dsReturnUrl;
 
         public Eg001EmbeddedSigningController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            dsPingUrl = config.AppUrl + "/";
-            dsReturnUrl = config.AppUrl + "/dsReturn";
+            this.dsPingUrl = config.AppUrl + "/";
+            this.dsReturnUrl = config.AppUrl + "/dsReturn";
 
-            codeExampleText = GetExampleText(EgNumber);
-            ViewBag.title = codeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.ViewBag.title = this.CodeExampleText.PageTitle;
         }
 
-        public const int EgNumber = 1;
+        public override int EgNumber => 1;
 
-        public override string EgName => Convert.ToBoolean(Config.QuickACG) ? "quickEmbeddedSigning" : "eg001";
+        public override string EgName => Convert.ToBoolean(this.Config.QuickACG) ? "quickEmbeddedSigning" : "eg001";
 
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName)
         {
             // Data for this method
-            // signerEmail 
+            // signerEmail
             // signerName
             // dsPingUrl -- class global
             // signerClientId -- class global
             // dsReturnUrl -- class global
-            string accessToken = RequestItemsService.User.AccessToken;
-            string basePath = RequestItemsService.Session.BasePath + "/restapi";
-            string accountId = RequestItemsService.Session.AccountId;
-            string docPDF = Convert.ToBoolean(Config.QuickACG) ? @"..\\launcher-csharp\\" + Config.docPdf : Config.docPdf;
+            string accessToken = this.RequestItemsService.User.AccessToken;
+            string basePath = this.RequestItemsService.Session.BasePath + "/restapi";
+            string accountId = this.RequestItemsService.Session.AccountId;
+            string docPDF = Convert.ToBoolean(this.Config.QuickACG) ? @"..\\launcher-csharp\\" + this.Config.DocPdf : this.Config.DocPdf;
 
-            var a = LauncherTexts.ManifestStructure;
             // Check the token with minimal buffer time.
-            bool tokenOk = CheckToken(3);
+            bool tokenOk = this.CheckToken(3);
             if (!tokenOk)
             {
-                // We could store the parameters of the requested operation 
+                // We could store the parameters of the requested operation
                 // so it could be restarted automatically.
                 // But since it should be rare to have a token issue here,
-                // we'll make the user re-enter the form data after 
+                // we'll make the user re-enter the form data after
                 // authentication.
-                RequestItemsService.EgName = EgName;
-                return Redirect("/ds/mustAuthenticate");
+                this.RequestItemsService.EgName = this.EgName;
+                return this.Redirect("/ds/mustAuthenticate");
             }
 
             // Call the method from Examples API to send envelope and generate url for embedded signing
-            var result = EmbeddedSigningCeremony.SendEnvelopeForEmbeddedSigning(signerEmail,
-                signerName, signerClientId, accessToken, basePath, accountId, docPDF, dsReturnUrl, dsPingUrl);
+            var result = EmbeddedSigningCeremony.SendEnvelopeForEmbeddedSigning(
+                signerEmail,
+                signerName,
+                this.signerClientId,
+                accessToken,
+                basePath,
+                accountId,
+                docPDF,
+                this.dsReturnUrl,
+                this.dsPingUrl);
 
             // Save for future use within the example launcher
-            RequestItemsService.EnvelopeId = result.Item1;
+            this.RequestItemsService.EnvelopeId = result.Item1;
 
             // Redirect the user to the Signing Ceremony
-
-            return Redirect(result.Item2);
+            return this.Redirect(result.Item2);
         }
     }
 }

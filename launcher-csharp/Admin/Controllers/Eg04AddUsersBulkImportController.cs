@@ -1,15 +1,19 @@
-﻿using DocuSign.CodeExamples.Common;
-using DocuSign.CodeExamples.Controllers;
-using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using DocuSign.CodeExamples.Admin.Examples;
-using DocuSign.Admin.Client;
-using DocuSign.Admin.Model;
-using System;
+﻿// <copyright file="Eg04AddUsersBulkImportController.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
+    using System;
+    using DocuSign.Admin.Client;
+    using DocuSign.Admin.Model;
+    using DocuSign.CodeExamples.Admin.Examples;
+    using DocuSign.CodeExamples.Common;
+    using DocuSign.CodeExamples.Controllers;
+    using DocuSign.CodeExamples.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+
     [Area("Admin")]
     [Route("Aeg04")]
     public class Eg04AddUsersBulkImportController : EgController
@@ -17,11 +21,11 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         public Eg04AddUsersBulkImportController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            codeExampleText = GetExampleText(EgNumber);
-            ViewBag.title = codeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.ViewBag.title = this.CodeExampleText.PageTitle;
         }
 
-        public const int EgNumber = 4;
+        public override int EgNumber => 4;
 
         public override string EgName => "Aeg04";
 
@@ -32,32 +36,32 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         public ActionResult Create()
         {
             // Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = RequestItemsService.Session.AdminApiBasePath;
-            var accountId = RequestItemsService.Session.AccountId;
-            var organizationId = RequestItemsService.OrganizationId;
-       
+            var accessToken = this.RequestItemsService.User.AccessToken;
+            var basePath = this.RequestItemsService.Session.AdminApiBasePath;
+            var accountId = this.RequestItemsService.Session.AccountId;
+            var organizationId = this.RequestItemsService.OrganizationId;
+
             try
             {
                 // Call the Admin API to create a new user
                 OrganizationImportResponse organizationImportResponse = ImportUser.CreateBulkImportRequest(
-                    accessToken, basePath, accountId, organizationId, Config.docCsv);
+                    accessToken, basePath, accountId, organizationId, this.Config.DocCsv);
 
-                //Show results
-                ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = codeExampleText.ResultsPageText;
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(organizationImportResponse, Formatting.Indented);
-                ViewBag.AdditionalLinkText = codeExampleText.AdditionalPages[0].Name;
-                ViewBag.AdditionalLink = "CheckStatus?id=" + organizationImportResponse.Id;
+                // Show results
+                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.message = this.CodeExampleText.ResultsPageText;
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(organizationImportResponse, Formatting.Indented);
+                this.ViewBag.AdditionalLinkText = this.CodeExampleText.AdditionalPages[0].Name;
+                this.ViewBag.AdditionalLink = "CheckStatus?id=" + organizationImportResponse.Id;
 
-                return View("example_done");
+                return this.View("example_done");
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
 
-                return View("Error");
+                return this.View("Error");
             }
         }
 
@@ -69,23 +73,23 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             try
             {
                 // Obtain your OAuth token
-                var accessToken = RequestItemsService.User.AccessToken;
-                var basePath = RequestItemsService.Session.AdminApiBasePath;
-                var organizationId = RequestItemsService.OrganizationId;
+                var accessToken = this.RequestItemsService.User.AccessToken;
+                var basePath = this.RequestItemsService.Session.AdminApiBasePath;
+                var organizationId = this.RequestItemsService.OrganizationId;
                 OrganizationImportResponse organizationImportResponse = ImportUser.CheckkStatus(accessToken, basePath, organizationId, Guid.Parse(id));
 
-                //Show results
-                ViewBag.h1 = codeExampleText.AdditionalPages[0].ResultsPageHeader;
-                ViewBag.message = codeExampleText.AdditionalPages[0].ResultsPageText;
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(organizationImportResponse, Formatting.Indented);
-                return View("example_done");
+                // Show results
+                this.ViewBag.h1 = this.CodeExampleText.AdditionalPages[0].ResultsPageHeader;
+                this.ViewBag.message = this.CodeExampleText.AdditionalPages[0].ResultsPageText;
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(organizationImportResponse, Formatting.Indented);
+                return this.View("example_done");
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
 
-                return View("Error");
+                return this.View("Error");
             }
         }
     }

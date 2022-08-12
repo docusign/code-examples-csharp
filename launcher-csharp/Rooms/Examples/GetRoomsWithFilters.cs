@@ -1,9 +1,13 @@
-﻿using DocuSign.Rooms.Api;
-using DocuSign.Rooms.Client;
-using DocuSign.Rooms.Model;
+﻿// <copyright file="GetRoomsWithFilters.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.Rooms.Examples
 {
+    using DocuSign.Rooms.Api;
+    using DocuSign.Rooms.Client;
+    using DocuSign.Rooms.Model;
+
     public class GetRoomsWithFilters
     {
         /// <summary>
@@ -26,14 +30,14 @@ namespace DocuSign.Rooms.Examples
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var roomsApi = new RoomsApi(apiClient);
-            
+
             // Call the Rooms API to get room field data
             var rooms = roomsApi.GetRooms(accountId, new RoomsApi.GetRoomsOptions
             {
                 fieldDataChangedStartDate = fieldDataChangedStartDate,
-                fieldDataChangedEndDate = fieldDataChangedEndDate
+                fieldDataChangedEndDate = fieldDataChangedEndDate,
             });
-            
+
             return rooms;
         }
     }

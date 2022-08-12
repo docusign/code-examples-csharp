@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿// <copyright file="SetEnvelopeTabValue.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public static class SetEnvelopeTabValue
     {
         /// <summary>
-        /// Creates a new envelope and sets the tab values 
+        /// Creates a new envelope and sets the tab values
         /// </summary>
         /// <param name="signerEmail">Email address for the signer</param>
         /// <param name="signerName">Full name of the signer</param>
@@ -21,8 +25,16 @@ namespace eSignature.Examples
         /// <param name="returnUrl">URL user will be redirected to after they sign</param>
         /// <param name="pingUrl">URL that DocuSign will be able to ping to incdicate signing session is active</param>
         /// <returns>The envelopeId (GUID) of the resulting Envelope and the URL for the embedded signing</returns>
-        public static (string, string) CreateEnvelopeAndUpdateTabData(string signerEmail, string signerName, string signerClientId,
-            string accessToken, string basePath, string accountId, string docDocx, string returnUrl, string pingUrl = null)
+        public static (string, string) CreateEnvelopeAndUpdateTabData(
+            string signerEmail,
+            string signerName,
+            string signerClientId,
+            string accessToken,
+            string basePath,
+            string accountId,
+            string docDocx,
+            string returnUrl,
+            string pingUrl = null)
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);
@@ -34,7 +46,7 @@ namespace eSignature.Examples
                 AnchorString = "/sn1/",
                 AnchorUnits = "pixels",
                 AnchorYOffset = "10",
-                AnchorXOffset = "20"
+                AnchorXOffset = "20",
             };
 
             Text textLegal = new Text
@@ -64,7 +76,7 @@ namespace eSignature.Examples
                 Value = signerName,
                 Locked = "false",
                 TabId = "familiar_name",
-                TabLabel = "Familiar name"
+                TabLabel = "Familiar name",
             };
 
             // The salary is set both as a readable number in the /salary/ text field,
@@ -81,11 +93,12 @@ namespace eSignature.Examples
                 FontSize = "size11",
                 Bold = "true",
                 Locked = "true",
-                // Convert number to String: 'C2' sets the string 
+
+                // Convert number to String: 'C2' sets the string
                 // to currency format with two decimal places
                 Value = salary.ToString("C2"),
                 TabId = "salary",
-                TabLabel = "Salary"
+                TabLabel = "Salary",
             };
 
             TextCustomField salaryCustomField = new TextCustomField
@@ -93,12 +106,12 @@ namespace eSignature.Examples
                 Name = "salary",
                 Required = "false",
                 Show = "true", // Yes, include in the CoC
-                Value = salary.ToString()
+                Value = salary.ToString(),
             };
 
             CustomFields cf = new CustomFields
             {
-                TextCustomFields = new List<TextCustomField> { salaryCustomField }
+                TextCustomFields = new List<TextCustomField> { salaryCustomField },
             };
 
             // Create a signer recipient to sign the document, identified by name and email
@@ -109,7 +122,7 @@ namespace eSignature.Examples
                 Name = signerName,
                 RecipientId = "1",
                 RoutingOrder = "1",
-                ClientUserId = signerClientId
+                ClientUserId = signerClientId,
             };
 
             // Add the tabs model (including the SignHere tab) to the signer.
@@ -118,12 +131,12 @@ namespace eSignature.Examples
             Tabs signer1Tabs = new Tabs
             {
                 SignHereTabs = new List<SignHere> { signHere },
-                TextTabs = new List<Text> { textLegal, textFamiliar, textSalary }
+                TextTabs = new List<Text> { textLegal, textFamiliar, textSalary },
             };
             signer1.Tabs = signer1Tabs;
             Recipients recipients = new Recipients
             {
-                Signers = new List<Signer> { signer1 }
+                Signers = new List<Signer> { signer1 },
             };
 
             string doc1b64 = Convert.ToBase64String(System.IO.File.ReadAllBytes(docDocx));
@@ -134,7 +147,7 @@ namespace eSignature.Examples
                 DocumentBase64 = doc1b64,
                 Name = "Lorem Ipsum", // Can be different from actual file name
                 FileExtension = "docx",
-                DocumentId = "1"
+                DocumentId = "1",
             };
 
             // Create the envelope definition
@@ -146,7 +159,7 @@ namespace eSignature.Examples
                 Status = "Sent",
                 Recipients = recipients,
                 CustomFields = cf,
-                Documents = new List<Document> { doc1 }
+                Documents = new List<Document> { doc1 },
             };
 
             // Call the eSignature REST API
@@ -156,6 +169,7 @@ namespace eSignature.Examples
 
             // Create the View Request
             RecipientViewRequest viewRequest = new RecipientViewRequest();
+
             // Set the URL where you want the recipient to go once they are done signing;
             // this should typically be a callback route somewhere in your app.
             // The query parameter is included as an example of how
@@ -181,13 +195,15 @@ namespace eSignature.Examples
             // parameter. It causes the DocuSign Signing Ceremony web page
             // (not the DocuSign server) to send pings via AJAX to your app
             viewRequest.PingFrequency = "600"; // seconds
-                                               // NOTE: The pings will only be sent if the pingUrl is an HTTPS address
+
+            // NOTE: The pings will only be sent if the pingUrl is an HTTPS address
             viewRequest.PingUrl = pingUrl; // Optional setting
 
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, results.EnvelopeId, viewRequest);
-            //***********
+
+            // ***********
             // Don't use an iframe with embedded signing requests!
-            //***********
+            // ***********
             // State can be stored/recovered using the framework's session or a
             // query parameter on the return URL (see the makeRecipientViewRequest method)
             return (envelopeId, results1.Url);

@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using DocuSign.Rooms.Api;
-using DocuSign.Rooms.Client;
-using DocuSign.Rooms.Model;
+﻿// <copyright file="AddingFormToRoom.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.Rooms.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using DocuSign.Rooms.Api;
+    using DocuSign.Rooms.Client;
+    using DocuSign.Rooms.Model;
+
     public class AddingFormToRoom
     {
         /// <summary>
@@ -30,7 +34,7 @@ namespace DocuSign.Rooms.Examples
             // Get Forms Libraries
             FormLibrarySummaryList formLibraries = formLibrariesApi.GetFormLibraries(accountId);
 
-            // Get Forms 
+            // Get Forms
             FormSummaryList forms = new FormSummaryList(new List<FormSummary>());
             if (formLibraries.FormsLibrarySummaries.Any())
             {
@@ -39,7 +43,7 @@ namespace DocuSign.Rooms.Examples
                     formLibraries.FormsLibrarySummaries.First().FormsLibraryId);
             }
 
-            // Get Rooms 
+            // Get Rooms
             RoomSummaryList rooms = roomsApi.GetRooms(accountId);
 
             // Call the Rooms API to create a room

@@ -1,16 +1,20 @@
-﻿using System;
-using DocuSign.CodeExamples.Controllers;
-using DocuSign.CodeExamples.Models;
-using DocuSign.CodeExamples.Rooms.Models;
-using DocuSign.Rooms.Client;
-using DocuSign.Rooms.Examples;
-using DocuSign.Rooms.Model;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using ApiError = DocuSign.Rooms.Model.ApiError;
+﻿// <copyright file="Eg04AddingFormToRoomController.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Rooms.Controllers
 {
+    using System;
+    using DocuSign.CodeExamples.Controllers;
+    using DocuSign.CodeExamples.Models;
+    using DocuSign.CodeExamples.Rooms.Models;
+    using DocuSign.Rooms.Client;
+    using DocuSign.Rooms.Examples;
+    using DocuSign.Rooms.Model;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+    using ApiError = DocuSign.Rooms.Model.ApiError;
+
     [Area("Rooms")]
     [Route("Eg04")]
     public class Eg04AddingFormToRoomController : EgController
@@ -18,13 +22,14 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         public Eg04AddingFormToRoomController(
             DSConfiguration dsConfig,
             LauncherTexts launcherTexts,
-            IRequestItemsService requestItemsService) : base(dsConfig, launcherTexts, requestItemsService)
+            IRequestItemsService requestItemsService)
+            : base(dsConfig, launcherTexts, requestItemsService)
         {
-            codeExampleText = GetExampleText(EgNumber);
-            ViewBag.title = codeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.ViewBag.title = this.CodeExampleText.PageTitle;
         }
 
-        public const int EgNumber = 4;
+        public override int EgNumber => 4;
 
         public override string EgName => "Eg04";
 
@@ -34,7 +39,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         protected override void InitializeInternal()
         {
             base.InitializeInternal();
-            RoomFormModel = new RoomFormModel();
+            this.RoomFormModel = new RoomFormModel();
         }
 
         [MustAuthenticate]
@@ -42,31 +47,33 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         public override IActionResult Get()
         {
             base.Get();
+
             // Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-            string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            string accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var basePath = $"{this.RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
+            string accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
                 // Get Rooms and forms
                 (FormSummaryList forms, RoomSummaryList rooms) = AddingFormToRoom.GetFormsAndRooms(basePath, accessToken, accountId);
 
-                RoomFormModel = new RoomFormModel { Forms = forms.Forms, Rooms = rooms.Rooms };
+                this.RoomFormModel = new RoomFormModel { Forms = forms.Forms, Rooms = rooms.Rooms };
 
-                return View("Eg04", this);
+                return this.View("Eg04", this);
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
 
                 ApiError error = JsonConvert.DeserializeObject<ApiError>(apiException.ErrorContent);
                 if (error.ErrorCode.Equals("FORMS_INTEGRATION_NOT_ENABLED", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    return View("ExampleNotAvailable");
+                    return this.View("ExampleNotAvailable");
                 }
-                return View("Error");
+
+                return this.View("Error");
             }
         }
 
@@ -75,11 +82,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ExportData(RoomFormModel roomFormModel)
-        {     
+        {
             // Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-            string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            string accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var basePath = $"{this.RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
+            string accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
@@ -90,18 +97,18 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                     roomFormModel.RoomId,
                     roomFormModel.FormId);
 
-                ViewBag.h1 = codeExampleText.ResultsPageHeader;
-                ViewBag.message = codeExampleText.ResultsPageText + $" RoomId: {roomFormModel.RoomId}, FormId: {roomFormModel.FormId} :";
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(roomDocument, Formatting.Indented);
+                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.message = this.CodeExampleText.ResultsPageText + $" RoomId: {roomFormModel.RoomId}, FormId: {roomFormModel.FormId} :";
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(roomDocument, Formatting.Indented);
 
-                return View("example_done");
+                return this.View("example_done");
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
 
-                return View("Error");
+                return this.View("Error");
             }
         }
     }

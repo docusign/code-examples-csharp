@@ -1,11 +1,15 @@
-﻿using DocuSign.Admin.Model;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Model;
-using System;
-using System.Collections.Generic;
+﻿// <copyright file="CreateUser.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Admin.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using DocuSign.Admin.Model;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Model;
+
     public class CreateUser
     {
         /// <summary>
@@ -23,21 +27,37 @@ namespace DocuSign.CodeExamples.Admin.Examples
         /// <param name="groupId">The group ID that will be used for a new user</param>
         /// <returns>The response of creating a new user</returns>
         public static NewUserResponse CreateNewUser(
-            string accessToken, string basePath, Guid accountId, Guid? organizationId, string firstName, string lastName,
-            string userName, string email, long permissionProfileId, long groupId)
+            string accessToken,
+            string basePath,
+            Guid accountId,
+            Guid? organizationId,
+            string firstName,
+            string lastName,
+            string userName,
+            string email,
+            long permissionProfileId,
+            long groupId)
         {
             // Construct your API headers
             // Step 2 start
             var apiClient = new DocuSign.Admin.Client.ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+
             // Step 2 end
 
             // Step 4 start
             var usersApi = new DocuSign.Admin.Api.UsersApi(apiClient);
-            NewUserRequest newUserRequest = ConstructNewUserRequest(permissionProfileId, groupId, accountId, email,
-                firstName, lastName, userName);
+            NewUserRequest newUserRequest = ConstructNewUserRequest(
+                permissionProfileId,
+                groupId,
+                accountId,
+                email,
+                firstName,
+                lastName,
+                userName);
 
             return usersApi.CreateUser(organizationId, newUserRequest);
+
             // Step 4 end
         }
 
@@ -75,7 +95,12 @@ namespace DocuSign.CodeExamples.Admin.Examples
         /// <param name="groupId">The group ID that will be used for a new user</param>
         /// <returns>The request for creating a new user</returns>
         private static NewUserRequest ConstructNewUserRequest(
-            long permissionProfileId, long groupId, Guid accountId, string email, string firstName, string lastName,
+            long permissionProfileId,
+            long groupId,
+            Guid accountId,
+            string email,
+            string firstName,
+            string lastName,
             string userName)
         {
             return new NewUserRequest
@@ -92,18 +117,19 @@ namespace DocuSign.CodeExamples.Admin.Examples
                         Id = accountId,
                         PermissionProfile = new PermissionProfileRequest
                         {
-                            Id = permissionProfileId
+                            Id = permissionProfileId,
                         },
                         Groups = new List<GroupRequest>
                         {
                             new GroupRequest
                             {
-                                Id = groupId
-                            }
-                        }
-                    }
+                                Id = groupId,
+                            },
+                        },
+                    },
                 },
-                AutoActivateMemberships = true
+                AutoActivateMemberships = true,
+
                 // Step 3 end
             };
         }

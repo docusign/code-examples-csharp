@@ -1,20 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿// <copyright file="DelayedRouting.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public static class DelayedRouting
     {
         /// <summary>
         /// Creates an envelope that would include two documents and add a signer and cc recipients to be notified via email
         /// </summary>
-        /// <param name="signerEmail">Email address for the signer</param>
-        /// <param name="signerName">Full name of the signer</param>
-        /// <param name="accessToken">Access Token for API call (OAuth)</param>
-        /// <param name="basePath">BasePath for API calls (URI)</param>
+        /// <param name="signer1Email">Email address for the signer.</param>
+        /// <param name="signer1Name">Full name of the signer.</param>
+        /// <param name="signer2Email">Email address for the signer.</param>
+        /// <param name="signer2Name">Full name of the signer.</param>
+        /// <param name="accessToken">Access Token for API call (OAuth).</param>
+        /// <param name="basePath">BasePath for API calls (URI).</param>
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// <param name="docPdf">String of bytes representing the document (pdf)</param>
         /// <returns>EnvelopeId for the new envelope</returns>
@@ -23,9 +29,11 @@ namespace eSignature.Examples
             EnvelopeDefinition env = MakeEnvelope(signer1Email, signer1Name, signer2Email, signer2Name, docPdf, delay);
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+
             // Step 3 start
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+
             // Step 3 end
             return results.EnvelopeId;
         }
@@ -38,7 +46,6 @@ namespace eSignature.Examples
             // docPdf
             // resumeDate
 
-
             // document 1 (pdf) has tag /sn1/
             //
             // Step 2 start
@@ -47,6 +54,7 @@ namespace eSignature.Examples
             // read file from a local directory
             // The reads could raise an exception if the file is not available!
             string docPdfBytes = Convert.ToBase64String(System.IO.File.ReadAllBytes(docPdf));
+
             // create the envelope definition
             EnvelopeDefinition env = new EnvelopeDefinition();
             env.EmailSubject = "Please sign this document set";
@@ -57,8 +65,9 @@ namespace eSignature.Examples
                 DocumentBase64 = docPdfBytes,
                 Name = "Lorem Ipsum", // can be different from actual file name
                 FileExtension = "pdf",
-                DocumentId = "1"
+                DocumentId = "1",
             };
+
             // The order in the docs array determines the order in the envelope
             env.Documents = new List<Document> { doc };
 
@@ -69,7 +78,7 @@ namespace eSignature.Examples
                 Email = signer1Email,
                 Name = signer1Name,
                 RecipientId = "1",
-                RoutingOrder = "1"
+                RoutingOrder = "1",
             };
 
             Signer signer2 = new Signer
@@ -77,7 +86,7 @@ namespace eSignature.Examples
                 Email = signer2Email,
                 Name = signer2Name,
                 RecipientId = "2",
-                RoutingOrder = "2"
+                RoutingOrder = "2",
             };
 
             // Add the workflow step that sets a delay for the second signer
@@ -109,7 +118,7 @@ namespace eSignature.Examples
                 AnchorString = "/sn1/",
                 AnchorUnits = "pixels",
                 AnchorYOffset = "10",
-                AnchorXOffset = "20"
+                AnchorXOffset = "20",
             };
 
             SignHere signHere2 = new SignHere
@@ -117,18 +126,18 @@ namespace eSignature.Examples
                 AnchorString = "/sn1/",
                 AnchorUnits = "pixels",
                 AnchorYOffset = "10",
-                AnchorXOffset = "120"
+                AnchorXOffset = "120",
             };
 
             // Tabs are set per recipient / signer
             Tabs signer1Tabs = new Tabs
             {
-                SignHereTabs = new List<SignHere> { signHere1 }
+                SignHereTabs = new List<SignHere> { signHere1 },
             };
             signer1.Tabs = signer1Tabs;
             Tabs signer2Tabs = new Tabs
             {
-                SignHereTabs = new List<SignHere> { signHere2 }
+                SignHereTabs = new List<SignHere> { signHere2 },
             };
             signer2.Tabs = signer2Tabs;
 
@@ -138,11 +147,12 @@ namespace eSignature.Examples
                 Signers = new List<Signer> { signer1, signer2 },
             };
             env.Recipients = recipients;
+
             // Request that the envelope be sent by setting |status| to "sent".
             // To request that the envelope be created as a draft, set to "created"
             env.Status = "sent";
-            // Step 2 end
 
+            // Step 2 end
             return env;
         }
     }

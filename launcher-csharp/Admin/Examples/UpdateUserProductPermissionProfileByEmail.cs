@@ -1,11 +1,15 @@
-﻿using DocuSign.Admin.Api;
-using DocuSign.Admin.Client;
-using DocuSign.Admin.Model;
-using System;
-using System.Collections.Generic;
+﻿// <copyright file="UpdateUserProductPermissionProfileByEmail.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.Admin.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using DocuSign.Admin.Api;
+    using DocuSign.Admin.Client;
+    using DocuSign.Admin.Model;
+
     public class UpdateUserProductPermissionProfileByEmail
     {
         /// <summary>
@@ -20,8 +24,8 @@ namespace DocuSign.Admin.Examples
         /// <param name="permissionProfileId">The DocuSign Permission profile Id (GUID)</param>
         /// <returns>Result of the user update method</returns>
         public static UserProductPermissionProfilesResponse UpdateUserProductPermissionProfile(
-            string basePath, 
-            string accessToken, 
+            string basePath,
+            string accessToken,
             Guid? orgId,
             Guid accountId,
             string emailAddress,
@@ -32,6 +36,7 @@ namespace DocuSign.Admin.Examples
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             var productPermissionProfilesApi = new ProductPermissionProfilesApi(apiClient);
+
             // Step 2 end
 
             // Step 3 start
@@ -43,18 +48,19 @@ namespace DocuSign.Admin.Examples
                     new ProductPermissionProfileRequest
                     {
                         PermissionProfileId = permissionProfileId,
-                        ProductId = productId
-                    }
-                }
+                        ProductId = productId,
+                    },
+                },
             };
+
             // Step 3 end
 
             // Step 4 start
             return productPermissionProfilesApi.AddUserProductPermissionProfilesByEmail(
-                orgId, 
-                accountId, 
-                userProductPermissionProfilesRequest
-            );
+                orgId,
+                accountId,
+                userProductPermissionProfilesRequest);
+
             // Step 4 end
         }
 
@@ -67,9 +73,9 @@ namespace DocuSign.Admin.Examples
         /// <param name="accountId">The DocuSign account Id (GUID)</param>
         /// <returns>Product permission profiles</returns>
         public static ProductPermissionProfilesResponse GetPermissionProfiles(
-            string basePath, 
-            string accessToken, 
-            Guid? orgId, 
+            string basePath,
+            string accessToken,
+            Guid? orgId,
             Guid accountId)
         {
             var apiClient = new ApiClient(basePath);

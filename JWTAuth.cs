@@ -1,11 +1,15 @@
-﻿using DocuSign.CodeExamples.Common;
-using DocuSign.eSign.Client;
-using static DocuSign.eSign.Client.Auth.OAuth;
-using System.Collections.Generic;
-using System;
+﻿// <copyright file="JWTAuth.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Authentication
 {
+    using System;
+    using System.Collections.Generic;
+    using DocuSign.CodeExamples.Common;
+    using DocuSign.eSign.Client;
+    using static DocuSign.eSign.Client.Auth.OAuth;
+
     public static class JWTAuth
     {
         /// <summary>
@@ -23,8 +27,9 @@ namespace DocuSign.CodeExamples.Authentication
                 };
             if (apiType == ExamplesAPIType.Rooms)
             {
-                scopes.AddRange(new List<string> {
-                "dtr.rooms.read",
+                scopes.AddRange(new List<string>
+                {
+                    "dtr.rooms.read",
                     "dtr.rooms.write",
                     "dtr.documents.read",
                     "dtr.documents.write",
@@ -32,15 +37,17 @@ namespace DocuSign.CodeExamples.Authentication
                     "dtr.profile.write",
                     "dtr.company.read",
                     "dtr.company.write",
-                    "room_forms"});
+                    "room_forms",
+                });
             }
 
             if (apiType == ExamplesAPIType.Click)
             {
-                scopes.AddRange(new List<string> {
+                scopes.AddRange(new List<string>
+                {
                     "click.manage",
-                    "click.send"
-            });
+                    "click.send",
+                });
             }
 
             if (apiType == ExamplesAPIType.Monitor)
@@ -48,13 +55,14 @@ namespace DocuSign.CodeExamples.Authentication
                 scopes.AddRange(new List<string>
                 {
                     "signature",
-                    "impersonation"
+                    "impersonation",
                 });
             }
 
             if (apiType == ExamplesAPIType.Admin)
             {
-                scopes.AddRange(new List<string> {
+                scopes.AddRange(new List<string>
+                {
                     "user_read",
                     "user_write",
                     "account_read",
@@ -62,14 +70,17 @@ namespace DocuSign.CodeExamples.Authentication
                     "group_read",
                     "permission_read",
                     "identity_provider_read",
-                    "domain_read"
+                    "domain_read",
             });
             }
 
-
             return apiClient.RequestJWTUserToken(
-                clientId, impersonatedUserId, authServer,
-                DSHelper.ReadFileContent(DSHelper.PrepareFullPrivateKeyFilePath(privateKeyFile)), 1, scopes);
+                clientId,
+                impersonatedUserId,
+                authServer,
+                DSHelper.ReadFileContent(DSHelper.PrepareFullPrivateKeyFilePath(privateKeyFile)),
+                1,
+                scopes);
         }
     }
 }
