@@ -8,9 +8,9 @@ namespace DocuSign.CodeExamples.Controllers
 {
     [Area("eSignature")]
     [Route("eg007")]
-    public class Eg007EnvelopeGetDocController : EgController
+    public class GetDocumentFromEnvelope : EgController
     {
-        public Eg007EnvelopeGetDocController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public GetDocumentFromEnvelope(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
             codeExampleText = GetExampleText(EgNumber);
@@ -31,9 +31,9 @@ namespace DocuSign.CodeExamples.Controllers
             var accountId = RequestItemsService.Session.AccountId;
             var envelopeId = RequestItemsService.EnvelopeId;
             // documents data for the envelope. See example EG006
-            List<GetDocumentFromEnvelope.EnvelopeDocItem> documents =
+            List<global::eSignature.Examples.GetDocumentFromEnvelope.EnvelopeDocItem> documents =
                 RequestItemsService.EnvelopeDocuments.Documents.Select(docItems => 
-                    new GetDocumentFromEnvelope.EnvelopeDocItem{ DocumentId = docItems.DocumentId, Name = docItems.Name, Type = docItems.Type }).ToList();
+                    new global::eSignature.Examples.GetDocumentFromEnvelope.EnvelopeDocItem{ DocumentId = docItems.DocumentId, Name = docItems.Name, Type = docItems.Type }).ToList();
 
             bool tokenOk = CheckToken(3);
             if (!tokenOk)
@@ -48,8 +48,8 @@ namespace DocuSign.CodeExamples.Controllers
             }
 
             // Call the Examples API method to download the specified document from the envelope
-            var result = GetDocumentFromEnvelope.DownloadDocument(accessToken, basePath, accountId,
-                envelopeId, documents, docSelect);
+            var result = global::eSignature.Examples.GetDocumentFromEnvelope.DownloadDocument(accessToken, basePath, accountId,
+                envelopeId, (List<global::eSignature.Examples.GetDocumentFromEnvelope.EnvelopeDocItem>)documents, docSelect);
             return File(result.Item1, result.Item2, result.Item3);
         }
     }
