@@ -39,10 +39,10 @@ namespace DocuSign.CodeExamples.Controllers
             bool tokenOk = this.CheckToken(3);
             if (!tokenOk)
             {
-                // We could store the parameters of the requested operation
+                // We could store the parameters of the requested operation 
                 // so it could be restarted automatically.
                 // But since it should be rare to have a token issue here,
-                // we'll make the user re-enter the form data after
+                // we'll make the user re-enter the form data after 
                 // authentication.
                 this.RequestItemsService.EgName = this.EgName;
                 return this.Redirect("/ds/mustAuthenticate");
@@ -62,14 +62,21 @@ namespace DocuSign.CodeExamples.Controllers
 
             // Save the envelopeId and its list of documents in the session so
             // they can be used in example 7 (download a document)
-            this.RequestItemsService.EnvelopeDocuments = mappedEnvelopeDocuments;
+            RequestItemsService.EnvelopeDocuments = mappedEnvelopeDocuments;
 
             // Process results
-            this.ViewBag.envelopeDocuments = mappedEnvelopeDocuments;
-            this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
-            this.ViewBag.message = this.CodeExampleText.ResultsPageText;
-            this.ViewBag.Locals.Json = JsonConvert.SerializeObject(mappedEnvelopeDocuments, Formatting.Indented);
-            return this.View("example_done");
+            ViewBag.envelopeDocuments = mappedEnvelopeDocuments;
+            ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+            ViewBag.message = this.CodeExampleText.ResultsPageText;
+            ViewBag.Locals.Json = JsonConvert.SerializeObject(mappedEnvelopeDocuments, Formatting.Indented);
+
+            // Save the envelopeId and its list of documents in the session so
+            // they can be used in example 7 (download a document)
+            RequestItemsService.EnvelopeDocuments = mappedEnvelopeDocuments;
+            // Add PDF Portfolio which is not coming from the GET call
+            mappedEnvelopeDocuments.Documents.Add(new EnvelopeDocItem { DocumentId = "portfolio", Name = "PDF Portfolio", Type = "content" });
+
+            return View("example_done");
         }
     }
 }
