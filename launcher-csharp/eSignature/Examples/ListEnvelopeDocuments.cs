@@ -31,11 +31,17 @@ namespace eSignature.Examples
         /// <returns>An object containing information about all the documents in the envelopes</returns>
         public static EnvelopeDocuments GetDocuments(string accessToken, string basePath, string accountId, string envelopeId)
         {
+            // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            // Step 2 end
+
+            // Step 1 start
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
             EnvelopeDocumentsResult results = envelopesApi.ListDocuments(accountId, envelopeId);
+            // Step 1 end
 
+            // Step 3 start
             List<EnvelopeDocItem> envelopeDocItems = new List<EnvelopeDocItem>
             {
                 new EnvelopeDocItem { Name = "Combined", Type = "content", DocumentId = "combined" },
@@ -59,6 +65,7 @@ namespace eSignature.Examples
             };
 
             return envelopeDocuments;
+            // Step 3 end
         }
     }
 }

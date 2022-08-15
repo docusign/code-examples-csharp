@@ -25,12 +25,15 @@ namespace eSignature.Examples
         /// <returns>EnvelopeId for the new envelope</returns>
         public static string SendEnvelopeViaEmail(string signerEmail, string signerName, string ccEmail, string ccName, string accessToken, string basePath, string accountId, string docDocx, string docPdf, string envStatus)
         {
+            // Step 1 start
             EnvelopeDefinition env = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, docDocx, docPdf, envStatus);
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
             return results.EnvelopeId;
+            // Step 1 end
         }
 
         private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string envStatus)
@@ -56,9 +59,12 @@ namespace eSignature.Examples
             // After it is signed, a copy is sent to the cc person.
             // read files from a local directory
             // The reads could raise an exception if the file is not available!
+            // Step 2 start
             string doc2DocxBytes = Convert.ToBase64String(System.IO.File.ReadAllBytes(docDocx));
             string doc3PdfBytes = Convert.ToBase64String(System.IO.File.ReadAllBytes(docPdf));
-            // create the envelope definition
+            // Step 2 end
+
+            // Step 3 start
             EnvelopeDefinition env = new EnvelopeDefinition();
             env.EmailSubject = "Please sign this document set";
 
@@ -152,6 +158,7 @@ namespace eSignature.Examples
             env.Status = envStatus;
 
             return env;
+            // Step 3 end
         }
 
         private static byte[] document1(string signerEmail, string signerName, string ccEmail, string ccName)

@@ -22,14 +22,19 @@ namespace eSignature.Examples
             // basePath
             // accountId
 
+            // Step 1 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            // Step 1 end
+
+            // Step 2 start
             ListStatusChangesOptions options = new ListStatusChangesOptions();
             options.fromDate = DateTime.Now.AddDays(-30).ToString("yyyy/MM/dd");
             // Call the API method:
             EnvelopesInformation results = envelopesApi.ListStatusChanges(accountId, options);
             return results;
+            // Step 2 end
         }
     }
 }
