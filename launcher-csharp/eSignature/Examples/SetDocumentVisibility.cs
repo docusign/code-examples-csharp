@@ -31,32 +31,24 @@ namespace eSignature.Examples
             EnvelopeDefinition envelopeDefinition = PrepareEnvelope(signer1Email, signer1Name, signer2Email,
                     signer2Name, ccEmail, ccName, docPdf, docDocx, docHTML);
                   
-<<<<<<< HEAD
+
             // Step 2 start
-=======
->>>>>>> 199eb9e11c1d8e7631a1851ba3539d30ffc302ca
+
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
-<<<<<<< HEAD
             // Step 2 end
 
             // Step 4 start
             EnvelopeSummary envelopeSummary = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
             // Step 4 end
-=======
-
-            EnvelopeSummary envelopeSummary = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
->>>>>>> 199eb9e11c1d8e7631a1851ba3539d30ffc302ca
             
             return envelopeSummary.EnvelopeId;
         }
 
-<<<<<<< HEAD
         // Step 3 start
-=======
->>>>>>> 199eb9e11c1d8e7631a1851ba3539d30ffc302ca
+
         private static EnvelopeDefinition PrepareEnvelope(string signer1Email, string signer1Name, string signer2Email, 
             string signer2Name, string ccEmail, string ccName, string docPdf, string docDocx, string docHTML)
         {
@@ -148,9 +140,6 @@ namespace eSignature.Examples
                 }
             };
         }
-<<<<<<< HEAD
         // Step 3 end
-=======
->>>>>>> 199eb9e11c1d8e7631a1851ba3539d30ffc302ca
     }
 }
