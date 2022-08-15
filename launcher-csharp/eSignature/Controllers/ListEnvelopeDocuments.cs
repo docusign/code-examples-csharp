@@ -52,15 +52,18 @@ namespace DocuSign.CodeExamples.Controllers
                                                        .ToList()
             };
 
-            // Save the envelopeId and its list of documents in the session so
-            // they can be used in example 7 (download a document)
-            RequestItemsService.EnvelopeDocuments = mappedEnvelopeDocuments;
-
             // Process results
             ViewBag.envelopeDocuments = mappedEnvelopeDocuments;
             ViewBag.h1 = "List envelope documents result";
             ViewBag.message = "Results from the EnvelopeDocuments::list method:";
             ViewBag.Locals.Json = JsonConvert.SerializeObject(mappedEnvelopeDocuments, Formatting.Indented);
+
+            // Save the envelopeId and its list of documents in the session so
+            // they can be used in example 7 (download a document)
+            RequestItemsService.EnvelopeDocuments = mappedEnvelopeDocuments;
+            // Add PDF Portfolio which is not coming from the GET call
+            mappedEnvelopeDocuments.Documents.Add(new EnvelopeDocItem { DocumentId = "portfolio", Name = "PDF Portfolio", Type = "content" });
+
             return View("example_done");
         }
     }

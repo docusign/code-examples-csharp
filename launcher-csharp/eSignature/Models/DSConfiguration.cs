@@ -25,6 +25,7 @@
         public string targetAccountId = null;
         public string demoDocPath = "demo_documents";
         public string docDocx = "World_Wide_Corp_Battle_Plan_Trafalgar.docx";
+        public string docHTML = "doc_1.html";
         public string tabsDocx = "World_Wide_Corp_salary.docx";
         public string docPdf = "World_Wide_Corp_lorem.pdf";
         public string docCsv = "UserData.csv";
