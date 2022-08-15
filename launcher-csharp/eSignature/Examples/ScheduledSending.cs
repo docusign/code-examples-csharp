@@ -21,14 +21,19 @@ namespace eSignature.Examples
         /// <returns>EnvelopeId for the new envelope</returns>
         public static string ScheduleEnvelope(string signerEmail, string signerName, string accessToken, string basePath, string accountId, string docPdf, DateTime resumeDate)
         {
+            // Step 1 start
             EnvelopeDefinition env = MakeEnvelope(signerEmail, signerName, docPdf, resumeDate);
+            // Step 1 end
+
+            // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            // Step 3 start
+         
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
-            // Step 3 end
+            
             return results.EnvelopeId;
+            // Step 2 end
         }
 
         private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string docPdf, DateTime resumeDate)
@@ -42,7 +47,7 @@ namespace eSignature.Examples
 
             // document 1 (pdf) has tag /sn1/
             //
-            // Step 2 start
+            // Step 3 start
             // The envelope has a single recipient.
             // recipient 1 - signer
             // read file from a local directory
@@ -113,7 +118,7 @@ namespace eSignature.Examples
             // Request that the envelope be sent by setting |status| to "sent".
             // To request that the envelope be created as a draft, set to "created"
             env.Status = "sent";
-            // Step 2 end
+            // Step 3 end
 
             return env;
         }

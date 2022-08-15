@@ -27,9 +27,12 @@ namespace eSignature.Examples
         public static (string, string) SendEnvelopeForEmbeddedSigning(string signerEmail, string signerName, string signerClientId,
             string accessToken, string basePath, string accountId, string docPdf, string returnUrl, string pingUrl = null)
         {
+            // Step 1 start
             // Step 1. Create the envelope definition
             EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, signerClientId, docPdf);
+            // Step 1 end
 
+            // Step 2 start
             // Step 2. Call DocuSign to create the envelope                   
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
@@ -37,12 +40,16 @@ namespace eSignature.Examples
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
             string envelopeId = results.EnvelopeId;
+            // Step 2 end
 
+            // Step 3 start
             // Step 3. create the recipient view, the Signing Ceremony
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, returnUrl, signerClientId, pingUrl);
             // call the CreateRecipientView API
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
+            // Step 3 end
 
+            // Step 4 start
             // Step 4. Redirect the user to the Signing Ceremony
             // Don't use an iFrame!
             // State can be stored/recovered using the framework's session or a
@@ -50,6 +57,7 @@ namespace eSignature.Examples
             string redirectUrl = results1.Url;
             // returning both the envelopeId as well as the url to be used for embedded signing
             return (envelopeId, redirectUrl);
+            // Step 4 end
         }
 
         private static RecipientViewRequest MakeRecipientViewRequest(string signerEmail, string signerName, string returnUrl, string signerClientId, string pingUrl = null)
