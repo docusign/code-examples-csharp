@@ -44,11 +44,14 @@ namespace ESignature.Examples
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
 
+            // Step 1 start
             // Step 1. EnvelopeDocuments::get.
             // Exceptions will be caught by the calling function
             Stream results = envelopesApi.GetDocument(accountId, envelopeId, documentId);
+            // Step 1 end
 
-            // Step 2. Look up the document from the list of documents
+            // Step 2 start
+            // Step 2. Look up the document from the list of documents 
             EnvelopeDocItem docItem = documents.FirstOrDefault(d => documentId.Equals(d.DocumentId));
 
             // Process results. Determine the file name and mimetype
@@ -87,6 +90,7 @@ namespace ESignature.Examples
             }
 
             return (results, mimetype, docName);
+            // Step 2 end
         }
     }
 }

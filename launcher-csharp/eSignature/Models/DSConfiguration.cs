@@ -43,6 +43,7 @@ namespace DocuSign.CodeExamples.Models
         public string TabsDocx = "World_Wide_Corp_salary.docx";
         public string DocPdf = "World_Wide_Corp_lorem.pdf";
         public string DocCsv = "UserData.csv";
+        public string DocHTML = "doc_1.html";
         public string ExportUsersPath = @"..\..\..\ExportedUserData.csv";
         public string GithubExampleUrl = "https://github.com/docusign/code-examples-csharp/blob/master/launcher-csharp";
         public string Documentation = null;
