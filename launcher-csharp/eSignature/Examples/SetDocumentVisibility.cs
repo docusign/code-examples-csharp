@@ -31,9 +31,7 @@ namespace eSignature.Examples
             EnvelopeDefinition envelopeDefinition = PrepareEnvelope(signer1Email, signer1Name, signer2Email,
                     signer2Name, ccEmail, ccName, docPdf, docDocx, docHTML);
                   
-
             // Step 2 start
-
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
@@ -48,7 +46,6 @@ namespace eSignature.Examples
         }
 
         // Step 3 start
-
         private static EnvelopeDefinition PrepareEnvelope(string signer1Email, string signer1Name, string signer2Email, 
             string signer2Name, string ccEmail, string ccName, string docPdf, string docDocx, string docHTML)
         {
