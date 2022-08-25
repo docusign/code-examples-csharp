@@ -23,7 +23,7 @@
 <div class="container" style="margin-top: 40px" id="index-page">
 
     
-    <h4 id="example01">1. <a asp-action="Get" asp-controller="Eg01CreateUser" asp-area="Admin">Create a new active eSignature user</a></h4>
+    <h4 id="example01">1. <a asp-action="Get" asp-controller="CreateUser" asp-area="Admin">Create a new active eSignature user</a></h4>
     <p>
         Demonstrates how to create a new eSignature user and activate their account automatically.
     </p>
@@ -37,7 +37,7 @@
             href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/createuser/">eSignUserManagement:createUser</a>
     </p>
 
-    <h4 id="example02">2. <a asp-action="Get" asp-controller="Eg02CreateActiveCLMESignUser" asp-area="Admin">Create a new active user for CLM and eSignature</a></h4>
+    <h4 id="example02">2. <a asp-action="Get" asp-controller="CreateCLMESignUser" asp-area="Admin">Create a new active user for CLM and eSignature</a></h4>
     <p>
         Demonstrates how to create a new DocuSign user (valid for both CLM and eSignature APIs) and activate their account automatically.
     </p>
@@ -52,7 +52,7 @@
     </p>
 
 
-    <h4 id="example03">3. <a asp-action="Get" asp-controller="Eg03BulkExportUserData" asp-area="Admin">Bulk export user data</a></h4>
+    <h4 id="example03">3. <a asp-action="Get" asp-controller="BulkExportUserData" asp-area="Admin">Bulk export user data</a></h4>
     <p>
         Demonstrates how to bulk export user accounts within an organization into a CSV (comma-separated value) file.
     </p>
@@ -64,7 +64,7 @@
             href="https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userexport/getuserlistexport/">UserExport:getUserListExport</a>
     </p>
 
-    <h4 id="example04">4. <a asp-action="Get" asp-controller="Eg04AddUsersBulkImport" asp-area="Admin">Add users via bulk import</a></h4>
+    <h4 id="example04">4. <a asp-action="Get" asp-controller="ImportUser" asp-area="Admin">Add users via bulk import</a></h4>
     <p>
         Demonstrates how to bulk import users and add user data from an example CSV (comma-separated value) file into a DocuSign Admin organization.
     </p>
@@ -76,7 +76,7 @@
             href='https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userimport/getbulkuserimportrequest/'>UserImport:getBulkUserImportRequest</a>
     </p>
 
-    <h4 id="example05">5. <a asp-action="Get" asp-controller="Eg05AuditUsers" asp-area="Admin">Audit Users</a></h4>
+    <h4 id="example05">5. <a asp-action="Get" asp-controller="AuditUsers" asp-area="Admin">Audit Users</a></h4>
     <p>
         Demonstrates how to audit the users in your account by retrieving the profiles of users that were modified after a specified date.
     </p>
@@ -88,7 +88,7 @@
             href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/getuserprofiles/">eSignUserManagement:getUserProfiles</a>
     </p>
 
-    <h4 id="example06">6. <a asp-action="Get" asp-controller="Eg06RetrieveDocuSignProfileByEmailAddress" asp-area="Admin">Retrieve the user's DocuSign profile using an email address</a></h4>
+    <h4 id="example06">6. <a asp-action="Get" asp-controller="RetrieveDocuSignProfileByEmailAddress" asp-area="Admin">Retrieve the user's DocuSign profile using an email address</a></h4>
     <p>
         Demonstrates how to obtain the user’s DocuSign profile information across all DocuSign accounts by specifying the user’s email address.
     </p>
@@ -98,7 +98,7 @@
             href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/getuserdsprofilesbyemail/">MultiProductUserManagement:getUserDSProfilesByEmail</a>
     </p>
 
-    <h4 id="example07">7. <a asp-action="Get" asp-controller="Eg07RetrieveDocuSignProfileByUserId" asp-area="Admin">Retrieve the user's DocuSign profile using a User ID</a></h4>
+    <h4 id="example07">7. <a asp-action="Get" asp-controller="RetrieveDocuSignProfileByUserId" asp-area="Admin">Retrieve the user's DocuSign profile using a User ID</a></h4>
     <p>Demonstrates how to obtain the user’s DocuSign profile information across all DocuSign accounts by specifying the user’s User ID.</p>
     <p>
         API method used:
@@ -106,7 +106,7 @@
             href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/getuserdsprofile/">MultiProductUserManagement:getUserDSProfile</a>
     </p>
 
-    <h4 id="example08">8. <a asp-action="Get" asp-controller="Eg08UpdateUserProductPermissionProfile" asp-area="Admin">Update user product permission profiles using an email address</a></h4>
+    <h4 id="example08">8. <a asp-action="Get" asp-controller="UpdateUserProductPermissionProfile" asp-area="Admin">Update user product permission profiles using an email address</a></h4>
     <p>Demonstrates how to update user product permission profiles. There may only be one permission profile assigned to a user per product.</p>
     <p>
         API methods used:
@@ -116,7 +116,7 @@
             href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/adduserproductpermissionprofilesbyemail/">MultiProductUserManagement:addUserProductPermissionProfilesByEmail</a>
     </p>
 
-    <h4 id="example09">9. <a asp-action="Get" asp-controller="Eg09DeleteUserProductPermissionProfile" asp-area="Admin">Delete user product permission profiles using an email address</a></h4>
+    <h4 id="example09">9. <a asp-action="Get" asp-controller="DeleteUserProductPermissionProfile" asp-area="Admin">Delete user product permission profiles using an email address</a></h4>
     <p>Demonstrates how to list and delete DocuSign Admin user product permission profiles.</p>
     <p>
         API methods used:

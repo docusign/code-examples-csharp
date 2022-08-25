@@ -1,0 +1,36 @@
+﻿@model DocuSign.CodeExamples.Click.Controllers.ActivateClickwrap
+
+<h4 id="example02">2. Activate a clickwrap</h4>
+<p>
+    Activates a new clickwrap that you have already created. By default, new clickwraps are 
+    inactive. You must activate your clickwrap before you can use it.
+</p>
+<p>
+    API method used:
+    <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/updateclickwrapversion/">ClickWraps::updateClickwrapVersion</a>.
+</p>
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">ActivateClickwrap.cs</a> on GitHub.
+</p>
+
+@if (ViewBag.ClickwrapsData.Clickwraps.Count > 0) {
+    <p>Please choose a clickwrap to activate</p>
+    <form class="eg" asp-action="Activate" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="clickwrapData">Clickwrap</label>
+            <select class="custom-select" id="clickwrapData"
+                    name="clickwrapData">
+                @foreach (var clickwrap in ViewBag.ClickwrapsData.Clickwraps) {
+                    <option value=@Html.Raw(clickwrap.ClickwrapId):@Html.Raw(clickwrap.VersionNumber)>@Html.Raw(clickwrap.ClickwrapName)</option>
+                }
+            </select>
+        </div>
+        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+} else { 
+    <p class="">
+        Problem: You do not have clickwraps to activate. Go to example#1 and create one: <a
+            href="eg01">create clickwrap.</a> <br/>
+    </p>
+} 

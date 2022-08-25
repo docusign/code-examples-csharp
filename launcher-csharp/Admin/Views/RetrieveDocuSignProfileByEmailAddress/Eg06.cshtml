@@ -1,0 +1,22 @@
+﻿<h4 id="example05">6. Retrieve the user's DocuSign profile using an email address</h4>
+<p>Demonstrates how to obtain the user’s DocuSign profile information across all DocuSign accounts by specifying the user’s email address.</p>
+
+<p>
+    API method used:
+    <a target="_blank" rel='noopener noreferrer' 
+        href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/getuserdsprofilesbyemail/">MultiProductUserManagement:getUserDSProfilesByEmail</a>
+</p>
+
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">RetrieveDocuSignProfileByEmailAddress.cs</a> on GitHub.
+</p>
+
+<form class="eg" asp-action="RetriveProfileByEmail" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="example@example.com" required>
+    </div>
+    
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <button type="submit" class="btn btn-primary">Continue</button>
+</form>
