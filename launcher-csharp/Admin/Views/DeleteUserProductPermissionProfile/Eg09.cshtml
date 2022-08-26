@@ -1,0 +1,33 @@
+﻿<h4 id="example09">9. Delete user product permission profiles using an email address</h4>
+<p>Demonstrates how to list and delete DocuSign Admin user product permission profiles.</p>
+
+<p>
+    API methods used:
+    <a target="_blank" rel='noopener noreferrer' 
+        href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/getuserproductpermissionprofilesbyemail/">MultiProductUserManagement:getUserProductPermissionProfilesByEmail</a>,
+    <a target="_blank" rel='noopener noreferrer' 
+        href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/removeuserproductpermission/">MultiProductUserManagement:removeUserProductPermission</a>.
+</p>
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">DeleteUserProductPermissionProfile.cs</a> on GitHub.
+</p>
+
+@if (ViewBag.EmailAddress != null) {
+    <p>Delete user product permission profile for the following email: <b>@ViewBag.EmailAddress</b></p>
+
+    <form class="eg" asp-action="DeleteUserProductProfile" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="Products">Choose which product permission profile you would like to delete</label>
+            @Html.DropDownList("ProductId", new SelectList(ViewBag.Products, "Key", "Value"), new { @class = "form-control" })
+        </div>
+
+        <input type="hidden" name="csrf_token" value="<%- csrfToken %>"/>
+        <button type="submit" class="btn btn-primary">Continue</button>
+    </form>
+} else { 
+    <p class="">
+        Problem: You do not have the user to change permissions for. Go to example#2 and create one: 
+        <a asp-action="Get" asp-controller="CreateCLMESignUser" asp-area="Admin">create active CLM/eSign User.</a> <br/>
+    </p>
+} 
+

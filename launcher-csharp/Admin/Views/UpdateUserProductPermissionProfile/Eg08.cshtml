@@ -1,0 +1,39 @@
+﻿<h4 id="example08">8. Update user product permission profiles using an email address</h4>
+<p>Demonstrates how to update user product permission profiles. There may only be one permission profile assigned to a user per product.</p>
+
+<p>
+    API methods used:
+    <a target='_blank' rel='noopener noreferrer' 
+        href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/getproductpermissionprofiles/">MultiProductUserManagement:getProductPermissionProfiles</a>,
+    <a target="_blank" rel='noopener noreferrer' 
+        href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/adduserproductpermissionprofilesbyemail/">MultiProductUserManagement:addUserProductPermissionProfilesByEmail</a>.
+</p>
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">UpdateUserProductPermissionProfile.cs</a> on GitHub.
+</p>
+
+@if (ViewBag.EmailAddress != null) {
+    <p>Update user product permission profile for the following email: <b>@ViewBag.EmailAddress</b></p>
+
+    <form class="eg" asp-action="UpdateUserProductPermissionProfile" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="Products">Choose a product for which you want to update the permission profile</label>
+            @Html.DropDownList("ProductId", new SelectList(ViewBag.Products, "Key", "Value"), new { @class = "form-control", @id = "Products" })
+        </div>
+
+        <div class="form-group">
+            <label for="PermissionProfiles">Choose a permission profile</label>
+            @Html.DropDownList("PermissionProfileId", new SelectList(ViewBag.CLMPermissionProfiles, "PermissionProfileId", "PermissionProfileName"), 
+            new { @class = "form-control", @id = "PermissionProfilesFiltered" })
+        </div>
+
+        <input type="hidden" name="csrf_token" value="<%- csrfToken %>"/>
+        <button type="submit" class="btn btn-primary">Continue</button>
+    </form>
+} else { 
+    <p class="">
+        Problem: You do not have the user to change permissions for. Go to example#2 and create one:
+        <a asp-action="Get" asp-controller="CreateCLMESignUser" asp-area="Admin">create active CLM/eSign User.</a> <br />
+    </p>
+} 
+

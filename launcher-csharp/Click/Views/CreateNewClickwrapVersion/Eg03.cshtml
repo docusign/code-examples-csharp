@@ -1,0 +1,40 @@
+﻿@model DocuSign.CodeExamples.Click.Controllers.CreateNewClickwrapVersion
+<h4 id="example03">3. Create a new clickwrap version</h4>
+<p>
+    Creates a new version of a clickwrap.
+</p>
+<p>
+    You can specify whether you require users who have previously accepted the clickwrap 
+    to accept the new version when they return to your website.
+</P>
+<p>
+    API method used:
+    <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createclickwrapversion/">ClickWraps::createClickwrapVersion</a>.
+</p>
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">CreateNewClickwrapVersion.cs</a> on GitHub.
+</p>
+@if (ViewBag.ClickwrapsData.Clickwraps.Count > 0) {
+    <form class="eg" asp-action="Create" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="clickwrapId">Clickwrap</label>
+            <select class="custom-select" id="clickwrapId"
+                    name="clickwrapId">
+                @foreach (var clickwrap in ViewBag.ClickwrapsData.Clickwraps) {
+                    <option value=@Html.Raw(clickwrap.ClickwrapId)>@Html.Raw(clickwrap.ClickwrapName)</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="clickwrapName">New Name</label>
+            <input type="text" class="form-control" id="clickwrapName" name="clickwrapName" required/>
+        </div>
+        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+} else { 
+    <p class="">
+        Problem: You do not have clickwraps. Go to example#1 and create one: <a
+            href="eg01">create clickwrap.</a> <br/>
+    </p>
+} 

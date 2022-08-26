@@ -19,7 +19,7 @@ namespace DocuSign.Admin.Examples
         /// <param name="productId">The DocuSign Product Id (GUID)</param>
         /// <param name="permissionProfileId">The DocuSign Permission profile Id (GUID)</param>
         /// <returns>Result of the user update method</returns>
-        public static UserProductPermissionProfilesResponse UpdateUserProductPermissionProfile(
+        public static UserProductPermissionProfilesResponse UpdateUsersProductPermissionProfile(
             string basePath, 
             string accessToken, 
             Guid? orgId,

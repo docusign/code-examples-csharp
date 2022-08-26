@@ -1,0 +1,20 @@
+﻿@model DocuSign.CodeExamples.Admin.Controllers.AuditUsers
+
+<h4 id="example05">5. Audit users</h4>
+<p>
+    Demonstrates how to audit the users in your account by retrieving the profiles of users that were modified after a specified date.
+</p>
+<p>
+    API methods used:
+    <a target="_blank" rel='noopener noreferrer' 
+        href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/users/getusers/">Users:getUsers</a>,
+    <a target="_blank" rel='noopener noreferrer' 
+        href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/getuserprofiles/">eSignUserManagement:getUserProfiles</a>.
+</p>
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">AuditUsers.cs</a> on GitHub.
+</p>
+
+<form class="eg" asp-action="Audit" method="post" data-busy="form">
+    <button type="submit" class="btn btn-primary">Continue</button>
+</form>
