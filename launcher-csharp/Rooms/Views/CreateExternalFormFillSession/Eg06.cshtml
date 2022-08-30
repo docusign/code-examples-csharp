@@ -1,0 +1,20 @@
+﻿@model DocuSign.CodeExamples.Rooms.Controllers.CreateExternalFormFillSession
+
+<h4>6. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
+</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">CreateExternalFormFillSession.cs</a> on GitHub.
+</p>
+
+@if (Model.RoomDocumentModel.RoomId == null)
+{
+    <partial name="Shared/SelectRoomView" model="Model.RoomDocumentModel" />
+}
+else
+{
+    <partial name="Shared/CreateExternalFormFillSessionView" model="Model.RoomDocumentModel" />
+}

@@ -1,0 +1,34 @@
+﻿@model DocuSign.CodeExamples.Click.Controllers.GetClickwrapResponses
+
+<h4>5. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
+</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">GetClickwrapResponses.cs</a> on GitHub.
+</p>
+
+@if (ViewBag.ClickwrapsData.Clickwraps.Count > 0) {
+    <p>Please choose a clickwrap</p>
+
+    <form class="eg" asp-action="Create" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="clickwrapId">Clickwrap</label>
+            <select class="custom-select" id="clickwrapId"
+                    name="clickwrapId">
+                @foreach (var clickwrap in ViewBag.ClickwrapsData.Clickwraps) {
+                    <option value=@Html.Raw(clickwrap.ClickwrapId)>@Html.Raw(clickwrap.ClickwrapName)</option>
+                }
+            </select>
+        </div>
+        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+} else { 
+    <p class="">
+        Problem: You do not have clickwraps. Go to example#1 and create one: <a
+            href="eg01">create clickwrap.</a> <br/>
+    </p>
+} 

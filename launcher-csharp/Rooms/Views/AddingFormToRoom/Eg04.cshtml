@@ -1,0 +1,13 @@
+﻿@model DocuSign.CodeExamples.Rooms.Controllers.AddingFormToRoom
+
+<h4>4. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
+</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<p>
+    View source file <a target="_blank" href="@ViewBag.source">AddingFormToRoom.cs</a> on GitHub.
+</p>
+
+<partial name="Shared/AddFormView" model="Model.RoomFormModel" />
