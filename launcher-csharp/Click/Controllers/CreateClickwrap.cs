@@ -20,7 +20,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
             : base(config, launcherTexts, requestItemsService)
         {
             this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override int EgNumber => 1;
@@ -44,7 +44,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
                 var clickWrap = DocuSign.Click.Examples.CreateClickwrap.Create(name, basePath, accessToken, accountId);
 
                 // Show results
-                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = this.CodeExampleText.ResultsPageText.Replace("{0}", clickWrap.ClickwrapName);
                 this.ViewBag.Locals.Json = JsonConvert.SerializeObject(clickWrap, Formatting.Indented);
 

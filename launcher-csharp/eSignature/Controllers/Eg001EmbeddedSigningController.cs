@@ -24,7 +24,7 @@ namespace DocuSign.CodeExamples.Views
             this.dsReturnUrl = config.AppUrl + "/dsReturn";
 
             this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override int EgNumber => 1;

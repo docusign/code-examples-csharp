@@ -25,7 +25,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             : base(dsConfig, launcherTexts, requestItemsService)
         {
             this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "Eg08";

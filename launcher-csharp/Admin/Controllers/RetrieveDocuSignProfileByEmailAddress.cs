@@ -22,7 +22,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             : base(config, launcherTexts, requestItemsService)
         {
             this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override int EgNumber => 6;
@@ -43,7 +43,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                 UsersDrilldownResponse profileWithSearchedEmail = DocuSign.Admin.Examples.RetrieveDocuSignProfileByEmailAddress.
                     GetDocuSignProfileByEmailAdress(basePath, accessToken, organizationId, email);
 
-                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = this.CodeExampleText.ResultsPageText;
                 this.ViewBag.Locals.Json = JsonConvert.SerializeObject(profileWithSearchedEmail, Formatting.Indented);
 

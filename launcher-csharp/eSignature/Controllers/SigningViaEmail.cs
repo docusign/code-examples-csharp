@@ -16,7 +16,7 @@ namespace DocuSign.CodeExamples.Controllers
             : base(config, launcherTexts, requestItemsService)
         {
             this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override int EgNumber => 2;
@@ -58,7 +58,7 @@ namespace DocuSign.CodeExamples.Controllers
 
             this.RequestItemsService.EnvelopeId = envelopeId;
 
-            this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+            this.ViewBag.h1 = this.CodeExampleText.ExampleName;
             this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, envelopeId);
             return this.View("example_done");
         }

@@ -20,7 +20,7 @@ namespace DocuSign.CodeExamples.Controllers
             : base(config, launcherTexts, requestItemsService)
         {
             this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override int EgNumber => 6;
@@ -66,7 +66,7 @@ namespace DocuSign.CodeExamples.Controllers
 
             // Process results
             ViewBag.envelopeDocuments = mappedEnvelopeDocuments;
-            ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+            ViewBag.h1 = this.CodeExampleText.ExampleName;
             ViewBag.message = this.CodeExampleText.ResultsPageText;
             ViewBag.Locals.Json = JsonConvert.SerializeObject(mappedEnvelopeDocuments, Formatting.Indented);
 

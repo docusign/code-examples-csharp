@@ -20,9 +20,17 @@
     <Compile Include="..\launcher-csharp\eSignature\Models\LauncherTexts.cs" Link="eSignature\ModelsForManifest\LauncherTexts.cs" />
     <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\AdditionalPage.cs" Link="eSignature\ModelsForManifest\AdditionalPage.cs" />
     <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\CodeExampleText.cs" Link="eSignature\ModelsForManifest\CodeExampleText.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\CustomErrorTexts.cs" Link="eSignature\ModelsForManifest\CustomErrorTexts.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\Forms.cs" Link="eSignature\ModelsForManifest\Forms.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\HelpingTexts.cs" Link="eSignature\ModelsForManifest\HelpingTexts.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\Inputs.cs" Link="eSignature\ModelsForManifest\Inputs.cs" />
     <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\LinkToAPIMethods.cs" Link="eSignature\ModelsForManifest\LinkToAPIMethods.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\LoginPage.cs" Link="eSignature\ModelsForManifest\LoginPage.cs" />
     <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\ManifestGroup.cs" Link="eSignature\ModelsForManifest\ManifestGroup.cs" />
     <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\ManifestStructure.cs" Link="eSignature\ModelsForManifest\ManifestStructure.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\RedirectsToOtherCodeExamples.cs" Link="eSignature\ModelsForManifest\RedirectsToOtherCodeExamples.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\SelectAPIPage.cs" Link="eSignature\ModelsForManifest\SelectAPIPage.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\SupportingTexts.cs" Link="eSignature\ModelsForManifest\SupportingTexts.cs" />
     <Compile Include="..\launcher-csharp\eSignature\Models\Session.cs" Link="eSignature\Models\Session.cs" />
     <Compile Include="..\launcher-csharp\eSignature\Models\User.cs" Link="eSignature\Models\User.cs" />
   </ItemGroup>

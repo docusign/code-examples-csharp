@@ -26,7 +26,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             : base(dsConfig, launcherTexts, requestItemsService)
         {
             this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override int EgNumber => 4;
@@ -97,7 +97,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                     roomFormModel.RoomId,
                     roomFormModel.FormId);
 
-                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = this.CodeExampleText.ResultsPageText + $" RoomId: {roomFormModel.RoomId}, FormId: {roomFormModel.FormId} :";
                 this.ViewBag.Locals.Json = JsonConvert.SerializeObject(roomDocument, Formatting.Indented);
 

@@ -26,7 +26,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             : base(dsConfig, launcherTexts, requestItemsService)
         {
             this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "Aeg01";
@@ -72,7 +72,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                     organizationId, firstName, lastName, userName, email, Int64.Parse(permissionProfileId), Int64.Parse(groupId));
 
                 // Show results
-                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = this.CodeExampleText.ResultsPageText;
                 this.ViewBag.Locals.Json = JsonConvert.SerializeObject(user, Formatting.Indented);
 

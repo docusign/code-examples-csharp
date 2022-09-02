@@ -21,7 +21,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             : base(dsConfig, launcherTexts, requestItemsService)
         {
             this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override int EgNumber => 6;
@@ -116,7 +116,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                     new ExternalFormFillSessionForCreate(roomDocumentModel.DocumentId.ToString(),
                     roomDocumentModel.RoomId));
 
-                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, url.Url);
                 this.ViewBag.Locals.Json = JsonConvert.SerializeObject(url, Formatting.Indented);
 

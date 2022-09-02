@@ -26,7 +26,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             : base(dsConfig, launcherTexts, requestItemsService)
         {
             this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "Eg09";
@@ -81,7 +81,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 var formGroupFormToAssign = DocuSign.Rooms.Examples.AssignFormToFormGroups.AssignForm(basePath, accessToken, accountId,
                     formFormGroupModel.FormGroupId, new FormGroupFormToAssign() { FormId = formFormGroupModel.FormId });
 
-                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = string.Format(
                     this.CodeExampleText.ResultsPageText,
                     formGroupFormToAssign.FormId,

@@ -17,7 +17,7 @@ namespace DocuSign.CodeExamples.Controllers
             : base(config, launcherTexts, requestItemsService)
         {
             this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override int EgNumber => 15;
@@ -49,7 +49,7 @@ namespace DocuSign.CodeExamples.Controllers
             EnvelopeFormData results = global::ESignature.Examples.GetEnvelopeTabData.GetEnvelopeFormData(accessToken, basePath, accountId, envelopeId);
 
             // Process results
-            this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+            this.ViewBag.h1 = this.CodeExampleText.ExampleName;
             this.ViewBag.message = this.CodeExampleText.ResultsPageText;
             this.ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
             return this.View("example_done");
