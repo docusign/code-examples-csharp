@@ -333,7 +333,7 @@
     {
       "group": "org.springframework.security.oauth.boot",
       "name": "spring-security-oauth2-autoconfigure",
-      "version": "2.5.2"
+      "version": "2.5.6"
     },
     {
       "group": "org.apache.commons",
@@ -374,7 +374,7 @@
         {
           "group": "com.docusign",
           "name": "docusign-esign-java",
-          "version": "3.17.1"
+          "version": "3.19.0"
         }
       ],
       "scopes": [
@@ -411,7 +411,7 @@
         {
           "group": "com.docusign",
           "name": "docusign-click-java",
-          "version": "1.0.0-BETA"
+          "version": "1.1.0"
         }
       ],
       "scopes": [
@@ -426,7 +426,7 @@
         {
           "group": "com.docusign",
           "name": "docusign-monitor-java",
-          "version": "1.0.0-BETA"
+          "version": "1.1.0"
         }
       ],
       "scopes": [
