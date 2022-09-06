@@ -1,4 +1,4 @@
-{
+﻿{
   "codeExamples": [
     {
       "number": "1",
@@ -275,7 +275,7 @@
     {
       "number": "35",
       "name": "Send an envelope with delayed routing",
-      "description": "Demonstrates how to delay an envelope�s delivery between recipients using the delayed routing feature.",
+      "description": "Demonstrates how to delay an envelope's delivery between recipients using the delayed routing feature.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/eSignature/DelayedRoutingService.php",
       "method": "SendWithDelayedRouting",
       "apiType": "ESignature"
@@ -290,6 +290,14 @@
     },
     {
       "number": "37",
+      "name": "Create a signable HTML document",
+      "description": "Demonstrates how to create an HTML document for responsive signing.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/eSignature/ResponsiveSigningService.php",
+      "method": "worker",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "38",
       "name": "Create Clickwraps",
       "description": "This example shows how to create a clickwrap.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/Click/CreateClickwrapService.php",
@@ -297,7 +305,7 @@
       "apiType": "Click"
     },
     {
-      "number": "38",
+      "number": "39",
       "name": "Activate Clickwrap",
       "description": "This example shows how to activate a clickwrap.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/Click/ActivateClickwrapService.php",
@@ -305,7 +313,7 @@
       "apiType": "Click"
     },
     {
-      "number": "39",
+      "number": "40",
       "name": "Clickwrap Versioning",
       "description": "This example shows how to create a new clickwrap version.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/Click/CreateNewClickwrapVersionService.php",
@@ -313,7 +321,7 @@
       "apiType": "Click"
     },
     {
-      "number": "40",
+      "number": "41",
       "name": "Retrieve Clickwraps",
       "description": "This example shows how to get a list of clickwraps.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/Click/GetClickwrapsService.php",
@@ -321,7 +329,7 @@
       "apiType": "Click"
     },
     {
-      "number": "41",
+      "number": "42",
       "name": "Get Clickwrap Responses",
       "description": "This example shows how to get clickwrap responses.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/Click/GetClickwrapResponseService.php",
@@ -329,7 +337,7 @@
       "apiType": "Click"
     },
     {
-      "number": "42",
+      "number": "43",
       "name": "Create a room with data",
       "description": "This example creates a room using specified data.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/Rooms/CreateRoomsWithDataService.php",
@@ -337,7 +345,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "43",
+      "number": "44",
       "name": "Create a room from template",
       "description": "This example creates a room from a template.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/Rooms/CreateRoomWithTemplatesService.php",
@@ -345,7 +353,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "44",
+      "number": "45",
       "name": "Export data from a room",
       "description": "This example exports data from a room.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/Rooms/ExportDataFromRoomService.php",
@@ -353,7 +361,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "45",
+      "number": "46",
       "name": "Add form to a room",
       "description": "This example adds form to a room.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/Rooms/AddFormsToRoomService.php",
@@ -361,7 +369,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "46",
+      "number": "47",
       "name": "Get filtered rooms",
       "description": "This example returns rooms by filter.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/Rooms/GetRoomsWithFiltersService.php",
@@ -369,7 +377,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "47",
+      "number": "48",
       "name": "Create external form fill session",
       "description": "This is an example of creating external form fill session.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/Rooms/CreateExternalFormFillSessionService.php",
@@ -377,7 +385,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "48",
+      "number": "49",
       "name": "Create a form group",
       "description": "This is an example of creating a form group for your DocuSign Rooms for Real Estate account.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/Rooms/CreateFormGroupService.php",
@@ -385,7 +393,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "49",
+      "number": "50",
       "name": "Grants office access to a form group",
       "description": "This is an example of granting office access to a form group.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/Rooms/GrantOfficeAccessToFormGroupService.php",
@@ -393,7 +401,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "50",
+      "number": "51",
       "name": "Assign a form to a form group",
       "description": "This is an example of assigning a form to a form group.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/Rooms/AssignFormToFormGroupService.php",
@@ -401,11 +409,19 @@
       "apiType": "Rooms"
     },
     {
-      "number": "51",
+      "number": "52",
       "name": "Getting the monitoring data",
-      "description": "Getting the monitoring data",
+      "description": "Demonstrates how to get and display all of your organization’s monitoring data.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/Monitor/GetMonitoringDataService.php",
       "method": "GetMonitoringData",
+      "apiType": "Monitor"
+    },
+    {
+      "number": "53",
+      "name": "Query monitoring data with filters",
+      "description": "Demonstrates how to query an organization's data based on specified filters and aggregations.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-php/master/src/Services/Examples/Monitor/WebQueryEndpointService.php",
+      "method": "postWebQueryMethod",
       "apiType": "Monitor"
     }
   ],
