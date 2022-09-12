@@ -13,7 +13,7 @@
 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">CreateBrand.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">CreateBrand.cs</a>"))
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
@@ -31,5 +31,5 @@
         @Html.DropDownList("defaultBrandLanguage", new SelectList(Languages.SupportedLanguages, "Key", "Value", "en"), new { @class = "form-control", @required = "required" })
     </div>
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

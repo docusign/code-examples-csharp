@@ -13,7 +13,7 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">SMSDelivery.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">SMSDelivery.cs</a>"))
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
@@ -27,7 +27,7 @@
         <label for="signerPhoneNumber">Signer Phone Number</label>
         <input type="tel" class="form-control" id="signerPhoneNumber" name="signerPhoneNumber"
                aria-describedby="phoneNumberHelp" placeholder="415-555-1212" required />
-        <small id="phoneNumberHelp" class="form-text text-muted">This phone number will receive a notification. We'll never share your phone number.</small>
+        <small id="phoneNumberHelp" class="form-text text-muted">@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.PhoneNumberWillBeNotified) We'll never share your phone number.</small>
     </div>
     <div class="form-group">
         <label for="signerName">Signer Name</label>
@@ -44,7 +44,7 @@
         <label for="ccPhoneNumber">CC Phone Number</label>
         <input type="tel" class="form-control" id="ccPhoneNumber" name="ccPhoneNumber"
                aria-describedby="phoneNumberHelp" placeholder="415-555-1212" required />
-        <small id="phoneNumberHelp" class="form-text text-muted">This phone number will receive a notification. We'll never share your phone number.</small>
+        <small id="phoneNumberHelp" class="form-text text-muted">@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.PhoneNumberWillBeNotified) We'll never share your phone number.</small>
     </div>
     <div class="form-group">
         <label for="ccName">CC Name</label>
@@ -52,5 +52,5 @@
                required />
     </div>
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

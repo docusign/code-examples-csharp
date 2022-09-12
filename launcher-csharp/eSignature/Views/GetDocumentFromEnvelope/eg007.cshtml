@@ -9,7 +9,7 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">GetDocumentFromEnvelope.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">GetDocumentFromEnvelope.cs</a>"))
 </p>
 
 @if (!ViewBag.envelopeOk) {
@@ -20,7 +20,7 @@
 </p>
 
 <form class="eg" action="eg002" method="get">
-    <button type="submit" class="btn btn-primary">Continue</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
 </form>
 } else if (!ViewBag.documentsOk) {
 <p>
@@ -30,7 +30,7 @@
 </p>
 
 <form class="eg" action="eg006" method="get">
-    <button type="submit" class="btn btn-primary">Continue</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
 </form>
 } else {
 <p>
@@ -49,6 +49,6 @@
         </select>
     </div>
     <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
-    <button type="submit" class="btn btn-primary">Continue</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
 </form>
 }

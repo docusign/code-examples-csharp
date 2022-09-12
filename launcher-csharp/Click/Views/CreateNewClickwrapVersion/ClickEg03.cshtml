@@ -8,7 +8,7 @@
 
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">CreateNewClickwrapVersion.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">CreateNewClickwrapVersion.cs</a>"))
 </p>
 @if (ViewBag.ClickwrapsData.Clickwraps.Count > 0) {
     <form class="eg" asp-action="Create" method="post" data-busy="form">

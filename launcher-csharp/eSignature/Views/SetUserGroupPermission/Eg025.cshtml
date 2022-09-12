@@ -6,13 +6,13 @@
 
 @if (ViewBag.showDoc)
 {
-    <p><a target="_blank" href="@ViewBag.documentation">Documentation</a> about this example</p>
+    <p><a target='_blank' href="@ViewBag.documentation">Documentation</a> about this example</p>
 }
 
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">SetUserGroupPermission.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">SetUserGroupPermission.cs</a>"))
 </p>
 
 <form action="" class="eg" method="post" data-busy="form">
@@ -35,5 +35,5 @@
             new { @class = "custom-select", required = "required" })
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

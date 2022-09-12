@@ -13,7 +13,7 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">BulkExportUserData.cs</a> on GitHub.
+    @Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">BulkExportUserData.cs</a>"))
 </p>
 
 <form class="eg" asp-action="Create" asp-controller="BulkExportUserData" asp-area="Admin" method="post" data-busy="form">

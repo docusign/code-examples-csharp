@@ -10,7 +10,7 @@ namespace DocuSign.CodeExamples.ESignature.Models
     public class ManifestStructure
     {
         [JsonProperty("SupportingTexts")]
-        public SupportingTexts SupportingTexts { get; }
+        public SupportingTexts SupportingTexts { get; set; }
 
         [JsonProperty("Groups")]
         public List<ManifestGroup> Groups { get; } = new List<ManifestGroup>();

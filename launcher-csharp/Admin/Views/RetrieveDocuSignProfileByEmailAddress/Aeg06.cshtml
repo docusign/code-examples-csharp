@@ -6,7 +6,7 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">RetrieveDocuSignProfileByEmailAddress.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">RetrieveDocuSignProfileByEmailAddress.cs</a>"))
 </p>
 
 <form class="eg" asp-action="RetriveProfileByEmail" method="post" data-busy="form">
@@ -16,5 +16,5 @@
     </div>
     
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <button type="submit" class="btn btn-primary">Continue</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
 </form>

@@ -12,7 +12,7 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">SetEnvelopeTabValue.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">SetEnvelopeTabValue.cs</a>"))
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
@@ -21,7 +21,7 @@
         <input type="email" class="form-control" id="signerEmail" name="signerEmail"
                aria-describedby="emailHelp" placeholder="pat@example.com" required
                value="@ViewBag.Locals.DsConfig.SignerEmail">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <small id="emailHelp" class="form-text text-muted">@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)</small>
     </div>
     <div class="form-group">
         <label for="signerName">Signer Name</label>
@@ -29,5 +29,5 @@
                value="@ViewBag.Locals.DsConfig.SignerName" required />
     </div>
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

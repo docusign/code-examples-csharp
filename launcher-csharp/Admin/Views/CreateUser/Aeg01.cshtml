@@ -13,7 +13,7 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">CreateUser.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">CreateUser.cs</a>"))
 </p>
 
 <form class="eg" asp-action="Create" asp-controller="CreateUser" asp-area="Admin" method="post" data-busy="form">
@@ -36,7 +36,7 @@
         <label for="email">Email</label>
         <input type="email" class="form-control" id="email" name="email"
                aria-describedby="emailHelp" placeholder="pat@example.com" required />
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <small id="emailHelp" class="form-text text-muted">@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)</small>
     </div>
     <div class="form-group">
         <label for="PermissionProfiles">eSignature permission profile</label>

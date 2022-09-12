@@ -7,7 +7,7 @@
 
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">RetrieveClickwraps.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">RetrieveClickwraps.cs</a>"))
 </p>
 
 <form class="eg" asp-action="Retrieve" method="post" data-busy="form">

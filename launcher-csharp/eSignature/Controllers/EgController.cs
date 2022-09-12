@@ -69,6 +69,7 @@ namespace DocuSign.CodeExamples.Controllers
         protected virtual void InitializeInternal()
         {
             this.ViewBag.CodeExampleText = this.CodeExampleText;
+            this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
         }
 
         public dynamic CreateSourcePath()

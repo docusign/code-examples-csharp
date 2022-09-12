@@ -15,7 +15,7 @@
             </select>
         </div>
         <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
     </form>
 }
 else
@@ -24,5 +24,5 @@ else
         Problem: selected rooms does not has any documents. Please first add form to a room using <a href="eg04">example 4.</a> <br />
         Thank you.
     </p>
-    <a href="/" class="btn btn-primary">Continue</a> 
+    <a href="/" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a> 
 }

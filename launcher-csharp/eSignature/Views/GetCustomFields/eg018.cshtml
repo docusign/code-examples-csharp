@@ -8,7 +8,7 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">GetCustomFields.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">GetCustomFields.cs</a>"))
 </p>
 
 @if (ViewBag.envelopeOk) {
@@ -19,7 +19,7 @@
 
 <form class="eg" action="" method="post" data-busy="form">
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">Continue</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
 </form>
 } else {
 <p>
@@ -27,7 +27,7 @@
 </p>
 
 <form class="eg" action="eg016" method="get">
-    <button type="submit" class="btn btn-primary">Continue</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
 </form>
 
 }

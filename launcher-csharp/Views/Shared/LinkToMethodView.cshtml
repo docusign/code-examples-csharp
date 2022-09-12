@@ -2,11 +2,11 @@
 <p>
     @if(Model.LinksToAPIMethod.Count == 1)
     {
-        <span>API method used:</span>
+        <span>@Html.Raw(ViewBag.SupportingTexts.APIMethodUsed)</span>
     } 
     else
     {
-        <span>API methods used:</span>
+        <span>@Html.Raw(ViewBag.SupportingTexts.APIMethodUsedPlural)</span>
     }
 
     @for(int i = 0; i < Model.LinksToAPIMethod.Count; ++i)

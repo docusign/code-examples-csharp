@@ -5,7 +5,7 @@
 
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">UpdateUserProductPermissionProfile.cs</a> on GitHub.
+    @Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">UpdateUserProductPermissionProfile.cs</a>"))
 </p>
 
 @if (ViewBag.EmailAddress != null) {
@@ -24,7 +24,7 @@
         </div>
 
         <input type="hidden" name="csrf_token" value="<%- csrfToken %>"/>
-        <button type="submit" class="btn btn-primary">Continue</button>
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
     </form>
 } else { 
     <p class="">

@@ -19,17 +19,17 @@
 
 @if (ViewBag.showDoc)
 {
-<p><a target="_blank" href="@ViewBag.documentation">Documentation</a> about this example</p>}
+<p><a target='_blank' href="@ViewBag.documentation">Documentation</a> about this example</p>}
 
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">UnpauseSignatureWorkflow.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">UnpauseSignatureWorkflow.cs</a>"))
 </p>
 
 @if (ViewBag.pausedEnvelopeOk) {
 <form action="" class="eg" method="post" data-busy="form">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>
 }else {
 <p>
@@ -37,6 +37,6 @@
 </p>
 
 <form class="eg" action="eg032" method="get">
-    <button type="submit" class="btn btn-primary">Continue</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
 </form>
 }

@@ -3,6 +3,8 @@
     @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
 
+@Html.Raw(ViewBag.CodeExampleText.Notes)
+
 @if (ViewBag.showDoc == true)
 {
     <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
@@ -12,7 +14,7 @@
 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">DeletePermission.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">DeletePermission.cs</a>"))
 </p>
 
 <form action="" class="eg" method="post" data-busy="form">
@@ -26,5 +28,5 @@
             new {@class = "custom-select", required = "required" })
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

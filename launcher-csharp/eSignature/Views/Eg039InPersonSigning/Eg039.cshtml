@@ -9,7 +9,7 @@
 
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">Eg039InPersonSigningController.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">Eg039InPersonSigningController.cs</a>"))
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
@@ -19,5 +19,5 @@
                required />
     </div>
     <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

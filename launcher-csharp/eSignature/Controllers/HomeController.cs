@@ -32,6 +32,8 @@ namespace DocuSign.CodeExamples.Controllers
 
         public IActionResult Index(string egName)
         {
+            this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
+
             if (this.Configuration["quickstart"] == "true")
             {
                 if (this.User.Identity.IsAuthenticated)

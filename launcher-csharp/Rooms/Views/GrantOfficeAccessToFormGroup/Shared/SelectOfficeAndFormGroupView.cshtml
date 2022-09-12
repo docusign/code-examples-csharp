@@ -41,7 +41,7 @@
             Problem: please first create a form group using <a href="eg07">example 7.</a> <br />
             Thank you.
         </p>
-        <a href="/" class="btn btn-primary">Continue</a>
+        <a href="/" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a>
     }
 }
 else
@@ -49,5 +49,5 @@ else
     <p>
         Problem: please first create an office
     </p>
-    <a href="/" class="btn btn-primary">Continue</a>
+    <a href="/" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a>
 }
