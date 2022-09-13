@@ -43,9 +43,15 @@
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>
 } else {
-<p>
-    Prerequisite: Please first create the template using <a href="eg008">Create a template</a>.
-</p>
+@Html.Raw(
+        String.Format(
+            ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                .Where(x => x.CodeExampleToRedirectTo == 8)
+                .FirstOrDefault()
+                .RedirectText,
+            "href='eg008'"
+        )
+    )
 
 <form class="eg" action="eg008" method="get">
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>

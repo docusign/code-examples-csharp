@@ -37,17 +37,20 @@
     }
     else
     {
-        <p>
-            Problem: please first create a form group using <a href="eg07">example 7.</a> <br />
-            Thank you.
-        </p>
+        @Html.Raw(
+        String.Format(
+            ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                .Where(x => x.CodeExampleToRedirectTo == 7)
+                .FirstOrDefault()
+                .RedirectText,
+            "href='eg07'"
+        )
+    )
         <a href="/" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a>
     }
 }
 else
 {
-    <p>
-        Problem: please first create an office
-    </p>
+    @Html.Raw(ViewBag.CodeExampleText.RedirectsToOtherCodeExamples[1].RedirectText)
     <a href="/" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a>
 }

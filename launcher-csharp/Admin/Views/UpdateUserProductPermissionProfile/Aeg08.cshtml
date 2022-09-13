@@ -27,9 +27,14 @@
         <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
     </form>
 } else { 
-    <p class="">
-        Problem: You do not have the user to change permissions for. Go to example#2 and create one:
-        <a asp-action="Get" asp-controller="CreateCLMESignUser" asp-area="Admin">create active CLM/eSign User.</a> <br />
-    </p>
+    @Html.Raw(
+        String.Format(
+            ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                .Where(x => x.CodeExampleToRedirectTo == 2)
+                .FirstOrDefault()
+                .RedirectText,
+            "href='Aeg02'"
+        )
+    )
 } 
 

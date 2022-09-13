@@ -22,9 +22,15 @@
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
 </form>
 } else {
-<p>
-    Problem: Please first create an envelope using <a href="eg016">Set tab values for a envelope</a>.
-</p>
+@Html.Raw(
+        String.Format(
+            ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                .Where(x => x.CodeExampleToRedirectTo == 16)
+                .FirstOrDefault()
+                .RedirectText,
+            "href='eg016'"
+        )
+    )
 
 <form class="eg" action="eg016" method="get">
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>

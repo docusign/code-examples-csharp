@@ -19,9 +19,6 @@
 }
 else
 {
-    <p>
-        Problem: you don't have any templates. Please first create a form template using <a href="https://demo.rooms.docusign.com/admin/company/roomtemplates" target='_blank'>DocuSign Admin.</a> <br />
-        Thank you.
-    </p>
+    @Html.Raw(ViewBag.CodeExampleText.RedirectsToOtherCodeExamples[0].RedirectText)
     <a href="/" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a>
 }

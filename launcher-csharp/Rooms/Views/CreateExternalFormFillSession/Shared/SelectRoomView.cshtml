@@ -25,9 +25,14 @@
 }
 else
 {
-    <p>
-        Problem: please first create a room using <a href="eg01">example 1.</a> <br />
-        Thank you.
-    </p>
+    @Html.Raw(
+        String.Format(
+            ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                .Where(x => x.CodeExampleToRedirectTo == 1)
+                .FirstOrDefault()
+                .RedirectText,
+            "href='eg01'"
+        )
+    )
     <a href="/" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a>
 }

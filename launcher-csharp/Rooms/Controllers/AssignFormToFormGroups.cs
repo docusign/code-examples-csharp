@@ -93,9 +93,8 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             catch (ApiException apiException)
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
-                this.ViewBag.errorMessage = apiException.Message.Equals("Unhandled response type.") ?
-                    "Response is empty and could not be cast to FormGroupFormToAssign. " +
-                    "Please contact DocuSign support" : apiException.Message;
+                this.ViewBag.errorMessage = apiException.Message.Equals(this.CodeExampleText.CustomErrorTexts[0].ErrorMessageCheck) ?
+                    this.CodeExampleText.CustomErrorTexts[0].ErrorMessage : apiException.Message;
 
                 return this.View("Error");
             }

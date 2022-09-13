@@ -72,8 +72,8 @@ namespace DocuSign.CodeExamples.Controllers
             }
             catch (Exception ex)
             {
-                this.ViewBag.h1 = "Bulk send envelope failed.";
-                this.ViewBag.message = $@"Bulk request failed to send. Reason: {ex}.";
+                this.ViewBag.h1 = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage;
+                this.ViewBag.message = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage + $@"Reason: {ex}.";
             }
 
             return this.View("example_done");

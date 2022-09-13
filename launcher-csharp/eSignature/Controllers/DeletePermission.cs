@@ -79,8 +79,9 @@ namespace DocuSign.CodeExamples.Controllers
             catch (ApiException ex)
             {
                 // Request failed. Display error text
-                this.ViewBag.h1 = "The permission profile failed to delete";
-                this.ViewBag.message = $"The permission profile failed to delete.<br /> Reason: <br />{ex.ErrorContent}";
+                this.ViewBag.h1 = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage;
+                this.ViewBag.message = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage
+                    + $"< br /> Reason: <br />{ex.ErrorContent}";
                 return this.View("example_done");
             }
 

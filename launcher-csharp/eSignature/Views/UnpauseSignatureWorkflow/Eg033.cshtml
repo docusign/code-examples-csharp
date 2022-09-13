@@ -32,9 +32,15 @@
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>
 }else {
-<p>
-    Prerequisite: Please first create an envelope with a paused signature workflow using <a href="eg032">Pause a signature workflow</a>.
-</p>
+@Html.Raw(
+        String.Format(
+            ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                .Where(x => x.CodeExampleToRedirectTo == 32)
+                .FirstOrDefault()
+                .RedirectText,
+            "href='eg032'"
+        )
+    )
 
 <form class="eg" action="eg032" method="get">
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>

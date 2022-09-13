@@ -68,9 +68,9 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 this.ViewBag.errorMessage = apiException.Message;
 
                 ApiError error = JsonConvert.DeserializeObject<ApiError>(apiException.ErrorContent);
-                if (error.ErrorCode.Equals("FORMS_INTEGRATION_NOT_ENABLED", StringComparison.InvariantCultureIgnoreCase))
+                if (error.ErrorCode.Equals(this.CodeExampleText.CustomErrorTexts[0].ErrorMessageCheck, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    return this.View("ExampleNotAvailable");
+                    return this.View(this.CodeExampleText.CustomErrorTexts[0].ErrorMessage);
                 }
 
                 return this.View("Error");

@@ -31,7 +31,15 @@
         <label for="brandId">Brand</label>
         @if (ViewBag.Brands == null)
         {
-            @:<p>No brands were found for this account; please <a href="Eg028">create one</a> first.</p>
+            @Html.Raw(
+                String.Format(
+                    ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                        .Where(x => x.CodeExampleToRedirectTo == 28)
+                        .FirstOrDefault()
+                        .RedirectText,
+                    "href='eg028'"
+                )
+            )
         }
         else
         {

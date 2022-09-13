@@ -68,10 +68,10 @@ namespace DocuSign.CodeExamples.Controllers
             }
             catch (ApiException apiException)
             {
-                if (apiException.Message.Contains("IDENTITY_WORKFLOW_INVALID_ID"))
+                if (apiException.Message.Contains(this.CodeExampleText.CustomErrorTexts[0].ErrorMessageCheck))
                 {
                     // This may indicate that this account is not yet enabled for the new phone auth workflow
-                    this.ViewBag.SupportMessage = "Please contact <a target='_blank' href='https://support.docusign.com'>Support</a> to enable recipient phone authentication in your account.";
+                    this.ViewBag.SupportMessage = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage;
                 }
 
                 this.ViewBag.errorCode = apiException.ErrorCode;

@@ -23,9 +23,15 @@
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
 </form>
 } else {
-<p>
-    Prerequisite: Please first create an envelope using <a href="eg009">Send an envelope using a template</a>.
-</p>
+@Html.Raw(
+        String.Format(
+            ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                .Where(x => x.CodeExampleToRedirectTo == 9)
+                .FirstOrDefault()
+                .RedirectText,
+            "href='eg009'"
+        )
+    )
 
 <form class="eg" action="eg009" method="get">
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>

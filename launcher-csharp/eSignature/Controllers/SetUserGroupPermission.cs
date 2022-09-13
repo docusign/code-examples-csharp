@@ -100,8 +100,8 @@ namespace DocuSign.CodeExamples.Controllers
             }
             else
             {
-                this.ViewBag.h1 = "The permission profile failed to set to the user group";
-                this.ViewBag.message = "The permission profile failed to set to the user group.<br /> " +
+                this.ViewBag.h1 = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage;
+                this.ViewBag.message = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage + "< br /> " +
                                   $"Reason: {errorDetails.Message}";
             }
 

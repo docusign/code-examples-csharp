@@ -21,10 +21,15 @@
 </form>
 
 } else {
-<p>
-    Problem: please first create an envelope using <a href="eg002">Send an envelope with a remote (email) signer and cc recipient</a> <br />
-    Thank you.
-</p>
+@Html.Raw(
+        String.Format(
+            ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                .Where(x => x.CodeExampleToRedirectTo == 2)
+                .FirstOrDefault()
+                .RedirectText,
+            "href='eg002'"
+        )
+    )
 
 <form class="eg" action="eg002" method="get">
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>

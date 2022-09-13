@@ -13,21 +13,29 @@
 </p>
 
 @if (!ViewBag.envelopeOk) {
-<p>
-    Problem: please first create an envelope using <a href="eg002">Send an envelope with a remote (email) signer and cc recipient.</a> <br />
-    You will then need to use List an envelope's documents to create the list of documents.<br />
-    Thank you.
-</p>
+    @Html.Raw(
+        String.Format(
+            ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                .Where(x => x.CodeExampleToRedirectTo == 2)
+                .FirstOrDefault()
+                .RedirectText,
+            "href='eg002'"
+        )
+    )
 
 <form class="eg" action="eg002" method="get">
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
 </form>
 } else if (!ViewBag.documentsOk) {
-<p>
-    Problem: please first create a list of the envelope's documents using
-    <a href="eg006">List an envelope's documents.</a> <br />
-    Thank you.
-</p>
+    @Html.Raw(
+        String.Format(
+            ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                .Where(x => x.CodeExampleToRedirectTo == 6)
+                .FirstOrDefault()
+                .RedirectText,
+            "href='eg006'"
+        )
+    )
 
 <form class="eg" action="eg006" method="get">
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>

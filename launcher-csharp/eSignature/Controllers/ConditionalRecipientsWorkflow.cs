@@ -69,10 +69,9 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
 
-                if (apiException.Message.Contains("WORKFLOW_UPDATE_RECIPIENTROUTING_NOT_ALLOWED"))
+                if (apiException.Message.Contains(this.CodeExampleText.CustomErrorTexts[0].ErrorMessageCheck))
                 {
-                    this.ViewBag.errorMessage = "Update to the workflow with recipient routing is not allowed for your account!";
-                    this.ViewBag.errorInformation = "Please contact with our <a href='https://developers.docusign.com/support/' target='_blank'>support team</a> to resolve this issue.";
+                    this.ViewBag.errorMessage = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage;
                 }
                 else
                 {
