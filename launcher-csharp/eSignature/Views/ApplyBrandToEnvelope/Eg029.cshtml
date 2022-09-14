@@ -11,44 +11,80 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">ApplyBrandToEnvelope.cs</a>"))
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">ApplyBrandToEnvelope.cs</a>"
+        )
+    )
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
-        <label for="signerEmail">Signer Email</label>
-        <input type="email" class="form-control" id="signerEmail" name="signerEmail"
-               aria-describedby="emailHelp" placeholder="pat@example.com" required
+        <label for="signerEmail">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+        </label>
+
+        <input type="email" 
+               class="form-control" 
+               id="signerEmail" 
+               name="signerEmail"
+               aria-describedby="emailHelp" 
+               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[0].InputPlaceholder" 
+               required
                value="@ViewBag.Locals.DsConfig.SignerEmail">
-        <small id="emailHelp" class="form-text text-muted">@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)</small>
+
+        <small id="emailHelp" class="form-text text-muted">
+            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)
+        </small>
     </div>
+
     <div class="form-group">
-        <label for="signerName">Signer Name</label>
-        <input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
-               value="@ViewBag.Locals.DsConfig.SignerName" required />
+        <label for="signerName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName)
+        </label>
+
+        <input type="text" 
+               class="form-control" 
+               id="signerName" 
+               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[1].InputPlaceholder"
+               name="signerName"
+               value="@ViewBag.Locals.DsConfig.SignerName" 
+               required />
     </div>
+
     <div class="form-group">
-        <label for="brandId">Brand</label>
+        <label for="brandId">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[2].InputName)
+        </label>
+
         @if (ViewBag.Brands == null)
         {
-            @Html.Raw(
-                String.Format(
-                    ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
-                        .Where(x => x.CodeExampleToRedirectTo == 28)
-                        .FirstOrDefault()
-                        .RedirectText,
-                    "href='eg028'"
+            <p>
+                @Html.Raw(
+                    String.Format(
+                        ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                            .Where(x => x.CodeExampleToRedirectTo == 28)
+                            .FirstOrDefault()
+                            .RedirectText,
+                        "href='eg028'"
+                    )
                 )
-            )
+            </p>
         }
         else
         {
-            @Html.DropDownList("brandId", new SelectList(ViewBag.Brands, "BrandId", "BrandName"), new { @class = "form-control" })
+            @Html.DropDownList(
+               "brandId", 
+               new SelectList(ViewBag.Brands, "BrandId", "BrandName"), 
+               new { @class = "form-control" }
+           )
         }
     </div>
+
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
     @if (ViewBag.Brands != null)
     {
-        @:<button type="submit" class="btn btn-primary">Submit</button>
+        @:<button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
     }
 </form>

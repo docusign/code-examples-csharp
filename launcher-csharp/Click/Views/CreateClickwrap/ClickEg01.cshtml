@@ -7,14 +7,24 @@
 
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
-@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">CreateClickwrap.cs</a>"))
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">CreateClickwrap.cs</a>"
+    )
+)
 </p>
 
 <form class="eg" asp-action="Create" method="post" data-busy="form">
     <div class="form-group">
-        <label for="Name">Name</label>
-        <input type="text" class="form-control" name="Name" placeholder="Name of the clickwrap" required />
+        <label for="Name">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+        </label>
+
+        <input type="text" class="form-control" name="Name" 
+            placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[0].InputPlaceholder" required />
     </div>
+
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

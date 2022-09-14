@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.Controllers
 {
     using System;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Models;
     using DocuSign.eSign.Client;
     using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,9 @@ namespace DocuSign.CodeExamples.Controllers
         public CreatePermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 24;
 
         public override string EgName => "Eg024";
 
@@ -35,6 +34,7 @@ namespace DocuSign.CodeExamples.Controllers
         }
 
         [HttpPost]
+        [SetViewBag]
         [Route("Create")]
         public IActionResult Create(PermissionProfileModel permissionProfileModel)
         {

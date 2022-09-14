@@ -24,11 +24,9 @@ namespace DocuSign.CodeExamples.Controllers
         {
             this.requestItemsService = requestItemsService;
 
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 2;
 
         public override string EgName => "monitorExample002";
 
@@ -43,6 +41,7 @@ namespace DocuSign.CodeExamples.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [HttpPost]
         public IActionResult Create(MonitorFilterModel monitorFilterModel)
         {

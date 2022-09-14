@@ -7,7 +7,12 @@
 
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
-@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">CreateExternalFormFillSession.cs</a>"))
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">CreateExternalFormFillSession.cs</a>"
+    )
+)
 </p>
 
 @if (Model.RoomDocumentModel.RoomId == null)

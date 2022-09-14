@@ -4,6 +4,7 @@
 
 namespace DocuSign.CodeExamples.ESignature.Controllers
 {
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
     using Microsoft.AspNetCore.Mvc;
@@ -16,15 +17,14 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
         public PauseSignatureWorkflow(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 32;
 
         public override string EgName => "Eg032";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create(RecipientModel recipient1, RecipientModel recipient2)
         {
             // Check the token with minimal buffer time.

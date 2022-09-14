@@ -13,7 +13,12 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">ChangePermissionSingleSetting.cs</a>"))
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">ChangePermissionSingleSetting.cs</a>"
+        )
+    )
 </p>
 
 <partial name="PermissionProfileView" model="Model.ProfileModel" />

@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.Controllers
 {
     using System;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Models;
     using Microsoft.AspNetCore.Mvc;
 
@@ -15,15 +16,14 @@ namespace DocuSign.CodeExamples.Controllers
         public RecipientAuthAccessCode(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 19;
 
         public override string EgName => "eg019";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create(string signerEmail, string signerName, string accessCode)
         {
             // Check the token with minimal buffer time.

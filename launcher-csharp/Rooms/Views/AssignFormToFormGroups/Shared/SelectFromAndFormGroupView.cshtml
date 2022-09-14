@@ -4,46 +4,54 @@
 {
     @if (Model.FormGroups != null && Model.FormGroups.Any())
     {
-        <p>
-            Please select an office and a form group
-        </p>
+        <p>@Html.Raw(ViewBag.CodeExampleText.Forms[0].FormName)</p>
+
         <form class="eg" asp-action="AssignFormToFormGroup" method="post" data-busy="form">
             <div class="form-group">
-                <label for="docSelect">Forms</label>
-                <select class="custom-select"
-                        asp-for="FormId"
-                        asp-items="@(new SelectList(Model.Forms, "LibraryFormId", "Name"))"
-                        data-val="true"
-                        data-val-required="The Froms field is required.">
-                    <option>Please select a form</option>
-                </select>
-            </div>
+                <label for="docSelect">
+                    @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+                </label>
 
-            <div class="form-group">
-                <label for="docSelect">Form Group</label>
                 <select class="custom-select"
                         asp-for="FormGroupId"
                         asp-items="@(new SelectList(Model.FormGroups, "FormGroupId", "Name"))"
                         data-val="true"
                         data-val-required="The Form Group field is required.">
-                    <option>Please select a form group</option>
+                    <option>@ViewBag.CodeExampleText.Forms[0].Inputs[0].InputPlaceholder</option>
                 </select>
             </div>
+
+            <div class="form-group">
+                <label for="docSelect">
+                    @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName)
+                </label>
+
+                <select class="custom-select"
+                        asp-for="FormId"
+                        asp-items="@(new SelectList(Model.Forms, "LibraryFormId", "Name"))"
+                        data-val="true"
+                        data-val-required="The Froms field is required.">
+                    <option>@ViewBag.CodeExampleText.Forms[0].Inputs[1].InputPlaceholder</option>
+                </select>
+            </div>
+
             <input type="hidden" name="_csrf" value="<%- csrfToken %>">
             <input type="submit" class="btn btn-primary" value="Add" id="btnSubmit" />
         </form>
     }
     else
     {
-        @Html.Raw(
-        String.Format(
-            ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
-                .Where(x => x.CodeExampleToRedirectTo == 7)
-                .FirstOrDefault()
-                .RedirectText,
-            "href='eg07'"
-        )
-    )
+        <p>
+            @Html.Raw(
+                String.Format(
+                    ((IEnumerable<dynamic>)ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                        .Where(x => x.CodeExampleToRedirectTo == 7)
+                        .FirstOrDefault()
+                        .RedirectText,
+                    "href='eg07'"
+                )
+            )
+        </p>
         <a href="/" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a>
     }
 }

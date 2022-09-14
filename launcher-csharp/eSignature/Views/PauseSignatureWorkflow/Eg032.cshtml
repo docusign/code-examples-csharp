@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Html
 @functions
 {
-    IHtmlContent GetTextInputMarkup(string id, string title, string type)
+    IHtmlContent GetTextInputMarkup(string id, dynamic title, string type)
     {
         return Html.Raw($@"
 <div class='form-group'>
@@ -13,7 +13,7 @@
 
 <h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 
-@Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+<p>@Html.Raw(ViewBag.CodeExampleText.ExampleDescription)</p>
 
 @if (ViewBag.showDoc)
 {
@@ -22,28 +22,28 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">PauseSignatureWorkflow.cs</a>"))
+@Html.Raw(String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">PauseSignatureWorkflow.cs</a>"))
 </p>
 
 <form action="" class="eg" method="post" data-busy="form">
 
-    <h5 class="mt-4">Signer 1</h5>
+    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[0].FormName)</p>
     <div class="row">
         <div class="col-md-6 column">
             <div class="form-group">
-                @GetTextInputMarkup("recipient1.Name", "Signer name", "text")
-                @GetTextInputMarkup("recipient1.Email", "Signer Email", "email")
+                @GetTextInputMarkup("recipient1.Name", @ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName, "text")
+                @GetTextInputMarkup("recipient1.Email", @ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName, "email")
             </div>
         </div>
     </div>
 
 
-    <h5 class="mt-4">Signer 2</h5>
+    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[1].FormName)</p>
     <div class="row">
         <div class="col-md-6 column ">
             <div class="form-group">
-                @GetTextInputMarkup("recipient2.Name", "Signer name", "text")
-                @GetTextInputMarkup("recipient2.Email", "Signer Email", "email")
+                @GetTextInputMarkup("recipient2.Name", @ViewBag.CodeExampleText.Forms[1].Inputs[0].InputName, "text")
+                @GetTextInputMarkup("recipient2.Email", @ViewBag.CodeExampleText.Forms[1].Inputs[1].InputName, "email")
             </div>
         </div>
     </div>

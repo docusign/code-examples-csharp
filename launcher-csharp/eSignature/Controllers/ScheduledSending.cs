@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.ESignature.Controllers
 {
     using System;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
     using Microsoft.AspNetCore.Mvc;
@@ -16,15 +17,14 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
         public ScheduledSending(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 35;
 
         public override string EgName => "Eg035";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create(string signerEmail, string signerName, DateTime resumeDate)
         {
             // Check the token with minimal buffer time.

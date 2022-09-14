@@ -23,11 +23,9 @@ namespace DocuSign.CodeExamples.Click.Controllers
             IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 4;
 
         public override string EgName => "ClickEg04";
 
@@ -39,6 +37,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [Route("Retrieve")]
         [HttpPost]
         [ValidateAntiForgeryToken]

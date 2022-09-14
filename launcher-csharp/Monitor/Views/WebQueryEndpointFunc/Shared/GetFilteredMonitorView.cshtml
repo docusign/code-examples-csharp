@@ -1,17 +1,26 @@
 ﻿@model DocuSign.CodeExamples.Monitor.Models.MonitorFilterModel
 
-<p>
-    Please select start and end dates.
-</p>
+<p>@Html.Raw(ViewBag.CodeExampleText.Forms[0].FormName)</p>
+
 <form class="eg" asp-action="Create" method="post" data-busy="form">
     <div class="form-group">
-        <label asp-for="FieldDataChangedStartDate">Start date</label>
-        <input type="date" class="form-control" asp-for="FieldDataChangedStartDate" value="@Model.FieldDataChangedStartDate.ToString("yyyy-MM-dd")" required />
+        <label asp-for="FieldDataChangedStartDate">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+        </label>
+
+        <input type="date" class="form-control" asp-for="FieldDataChangedStartDate" 
+            value="@Model.FieldDataChangedStartDate.ToString("yyyy-MM-dd")" required />
     </div>
+
     <div class="form-group">
-        <label asp-for="FieldDataChangedEndDate">End date</label>
-        <input type="date" class="form-control" asp-for="FieldDataChangedEndDate"value="@Model.FieldDataChangedEndDate.ToString("yyyy-MM-dd")" required />
+        <label asp-for="FieldDataChangedEndDate">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName)
+        </label>
+
+        <input type="date" class="form-control" asp-for="FieldDataChangedEndDate"
+            value="@Model.FieldDataChangedEndDate.ToString("yyyy-MM-dd")" required />
     </div>
+
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form> 

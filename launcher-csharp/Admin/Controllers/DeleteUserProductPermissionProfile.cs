@@ -33,11 +33,9 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         public DeleteUserProductPermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 9;
 
         public override string EgName => "Aeg09";
 
@@ -87,6 +85,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteUserProductProfile(string productId)

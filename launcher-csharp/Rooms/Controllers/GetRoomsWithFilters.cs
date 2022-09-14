@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.Rooms.Controllers
 {
     using System.Globalization;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
     using DocuSign.CodeExamples.Rooms.Models;
@@ -23,11 +24,9 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 5;
 
         public override string EgName => "Eg05";
 
@@ -41,6 +40,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [Route("ExportData")]
         [HttpPost]
         [ValidateAntiForgeryToken]

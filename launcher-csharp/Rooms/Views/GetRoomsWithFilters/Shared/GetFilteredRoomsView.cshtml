@@ -1,18 +1,24 @@
 ﻿@model DocuSign.CodeExamples.Rooms.Models.RoomFilterModel
  
-<h4>Getting rooms by filter</h4>
-<p>
-    Please select start date filter and end date filter
-</p>
 <form class="eg" asp-action="ExportData" method="post" data-busy="form">
     <div class="form-group">
-        <label asp-for="FieldDataChangedStartDate">Start Date</label>
-        <input type="date" class="form-control" asp-for="FieldDataChangedStartDate" value="@Model.FieldDataChangedStartDate.ToString("yyyy-MM-dd")" required />
+        <label asp-for="FieldDataChangedStartDate">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+        </label>
+
+        <input type="date" class="form-control" asp-for="FieldDataChangedStartDate" 
+               value="@Model.FieldDataChangedStartDate.ToString("yyyy-MM-dd")" required />
     </div>
+
     <div class="form-group">
-        <label asp-for="FieldDataChangedEndDate">End Date</label>
-        <input type="date" class="form-control" asp-for="FieldDataChangedEndDate"value="@Model.FieldDataChangedEndDate.ToString("yyyy-MM-dd")" required />
+        <label asp-for="FieldDataChangedEndDate">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName)
+        </label>
+
+        <input type="date" class="form-control" asp-for="FieldDataChangedEndDate"
+               value="@Model.FieldDataChangedEndDate.ToString("yyyy-MM-dd")" required />
     </div>
+
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form> 

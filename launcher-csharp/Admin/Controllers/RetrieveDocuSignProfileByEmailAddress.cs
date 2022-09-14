@@ -21,15 +21,14 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         public RetrieveDocuSignProfileByEmailAddress(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 6;
 
         public override string EgName => "Aeg06";
 
         [MustAuthenticate]
+        [SetViewBag]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult RetriveProfileByEmail(string email)

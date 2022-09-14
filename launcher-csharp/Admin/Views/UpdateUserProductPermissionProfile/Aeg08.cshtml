@@ -5,36 +5,61 @@
 
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
-    @Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">UpdateUserProductPermissionProfile.cs</a>"))
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">UpdateUserProductPermissionProfile.cs</a>"
+        )
+    )
 </p>
 
 @if (ViewBag.EmailAddress != null) {
-    <p>Update user product permission profile for the following email: <b>@ViewBag.EmailAddress</b></p>
+    <p>
+            @Html.Raw(String.Format(ViewBag.CodeExampleText.Forms[0].FormName, @ViewBag.EmailAddress))
+    </p>
 
-    <form class="eg" asp-action="UpdateUserProductPermissionProfile" method="post" data-busy="form">
+
+    <form class="eg"  asp-action="UpdateUsersProductPermissionProfile" asp-controller="UpdateUserProductPermissionProfile" asp-area="Admin" method="post" data-busy="form">
         <div class="form-group">
-            <label for="Products">Choose a product for which you want to update the permission profile</label>
-            @Html.DropDownList("ProductId", new SelectList(ViewBag.Products, "Key", "Value"), new { @class = "form-control", @id = "Products" })
+            <label for="Products">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+            </label>
+
+            @Html.DropDownList(
+                "ProductId", 
+                new SelectList(ViewBag.Products, "Key", "Value"), 
+                new { @class = "form-control", @id = "Products" }
+            )
         </div>
 
         <div class="form-group">
-            <label for="PermissionProfiles">Choose a permission profile</label>
-            @Html.DropDownList("PermissionProfileId", new SelectList(ViewBag.CLMPermissionProfiles, "PermissionProfileId", "PermissionProfileName"), 
-            new { @class = "form-control", @id = "PermissionProfilesFiltered" })
+            <label for="PermissionProfiles">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName)
+            </label>
+
+            @Html.DropDownList(
+                "PermissionProfileId", 
+                new SelectList(ViewBag.CLMPermissionProfiles, "PermissionProfileId", "PermissionProfileName"), 
+                new { @class = "form-control", @id = "PermissionProfilesFiltered" }
+            )
         </div>
 
         <input type="hidden" name="csrf_token" value="<%- csrfToken %>"/>
         <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
     </form>
-} else { 
-    @Html.Raw(
-        String.Format(
-            ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
-                .Where(x => x.CodeExampleToRedirectTo == 2)
-                .FirstOrDefault()
-                .RedirectText,
-            "href='Aeg02'"
+}
+else
+{ 
+    <p>
+        @Html.Raw(
+            String.Format(
+                ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                    .Where(x => x.CodeExampleToRedirectTo == 2)
+                    .FirstOrDefault()
+                    .RedirectText,
+                "href='Aeg02'"
+            )
         )
-    )
+    </p>
 } 
 

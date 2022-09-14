@@ -8,18 +8,18 @@ namespace DocuSign.CodeExamples.Controllers
     using DocuSign.CodeExamples.Models;
     using DocuSign.CodeExamples.Views;
     using Microsoft.AspNetCore.Mvc;
+    using System;
+    using System.Text.RegularExpressions;
 
     public abstract class EgController : Controller
     {
-        public abstract string EgName { get; }
+        public LauncherTexts LauncherTexts { get; }
 
-        public abstract int EgNumber { get; }
+        public abstract string EgName { get; }
 
         protected CodeExampleText CodeExampleText { get; set; }
 
         protected DSConfiguration Config { get; }
-
-        protected LauncherTexts LauncherTexts { get; }
 
         protected IRequestItemsService RequestItemsService { get; }
 
@@ -95,12 +95,13 @@ namespace DocuSign.CodeExamples.Controllers
             }
         }
 
-        protected CodeExampleText GetExampleText(int number)
+        protected CodeExampleText GetExampleText(string exampleName)
         {
+            int exampleNumber = int.Parse(Regex.Match(exampleName, @"\d+").Value);
             var groups = this.LauncherTexts.ManifestStructure.Groups;
             foreach (var group in groups)
             {
-                var example = group.Examples.Find((example) => example.ExampleNumber == number);
+                var example = group.Examples.Find((example) => example.ExampleNumber == exampleNumber);
 
                 if (example != null)
                 {

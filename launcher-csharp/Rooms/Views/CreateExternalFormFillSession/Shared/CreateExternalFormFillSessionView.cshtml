@@ -1,33 +1,38 @@
 ﻿@model DocuSign.CodeExamples.Rooms.Models.RoomDocumentModel
 
-<h4>Creating external form fill session</h4>
-
 @if (Model.Documents != null && Model.Documents.Any())
 {
-    <p>
-        Please select a form document
-    </p>
+    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[0].FormName)</p>
+
     <form class="eg" asp-action="ExportData" method="post" data-busy="form">
         <input type="hidden" asp-for="RoomId">
+
         <div class="form-group">
-            <label for="docSelect">Forms</label>
-            <select class="custom-select" asp-for="DocumentId" asp-items="@(new SelectList(Model.Documents, "DocuSignFormId", "Name"))" required>
+            <label for="docSelect">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+            </label>
+
+            <select class="custom-select" asp-for="DocumentId"
+                    asp-items="@(new SelectList(Model.Documents, "DocuSignFormId", "Name"))" required>
             </select>
         </div>
+
         <input type="hidden" name="_csrf" value="<%- csrfToken %>">
         <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
     </form>
 }
 else
 {
-    @Html.Raw(
-        String.Format(
-            ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
-                .Where(x => x.CodeExampleToRedirectTo == 4)
-                .FirstOrDefault()
-                .RedirectText,
-            "href='eg04'"
+    <p>
+        @Html.Raw(
+            String.Format(
+                ((IEnumerable<dynamic>)ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                    .Where(x => x.CodeExampleToRedirectTo == 4)
+                    .FirstOrDefault()
+                    .RedirectText,
+                "href='eg04'"
+            )
         )
-    )
-    <a href="/" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a> 
+    </p>
+    <a href="/" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a>
 }

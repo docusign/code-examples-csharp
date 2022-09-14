@@ -79,6 +79,7 @@ namespace DocuSign.CodeExamples.Controllers
         [Route("/dsReturn")]
         public IActionResult DsReturn(string state, string @event, string envelopeId)
         {
+            this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
             if (this.DsConfiguration.QuickACG == "true")
             {
                 return this.Redirect("eg001");

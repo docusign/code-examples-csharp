@@ -6,23 +6,40 @@
 
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
-    @Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">DeleteUserProductPermissionProfile.cs</a>"))
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">DeleteUserProductPermissionProfile.cs</a>"
+        )
+    )
 </p>
 
 @if (ViewBag.EmailAddress != null) {
-    <p>Delete user product permission profile for the following email: <b>@ViewBag.EmailAddress</b></p>
+    <p>
+        @Html.Raw(String.Format(ViewBag.CodeExampleText.Forms[0].FormName, @ViewBag.EmailAddress))
+    </p>
 
     <form class="eg" asp-action="DeleteUserProductProfile" method="post" data-busy="form">
         <div class="form-group">
-            <label for="Products">Choose which product permission profile you would like to delete</label>
-            @Html.DropDownList("ProductId", new SelectList(ViewBag.Products, "Key", "Value"), new { @class = "form-control" })
+            <label for="Products">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+            </label>
+
+            @Html.DropDownList(
+                "ProductId", 
+                new SelectList(ViewBag.Products, "Key", "Value"), 
+                new { @class = "form-control" }
+            )
         </div>
 
         <input type="hidden" name="csrf_token" value="<%- csrfToken %>"/>
         <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
     </form>
-} else { 
-    @Html.Raw(
+}
+else 
+{ 
+    <p>
+        @Html.Raw(
         String.Format(
             ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
                 .Where(x => x.CodeExampleToRedirectTo == 2)
@@ -31,5 +48,6 @@
             "href='Aeg02'"
         )
     )
+    </p>
 } 
 

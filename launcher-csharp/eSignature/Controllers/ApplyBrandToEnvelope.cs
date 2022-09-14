@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.Controllers
 {
     using System;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Models;
     using DocuSign.eSign.Api;
     using DocuSign.eSign.Client;
@@ -17,11 +18,9 @@ namespace DocuSign.CodeExamples.Controllers
         public ApplyBrandToEnvelope(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 29;
 
         public override string EgName => "eg029";
 
@@ -44,6 +43,7 @@ namespace DocuSign.CodeExamples.Controllers
             this.ViewBag.Brands = brands.Brands;
         }
 
+        [SetViewBag]
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName, string brandId)
         {

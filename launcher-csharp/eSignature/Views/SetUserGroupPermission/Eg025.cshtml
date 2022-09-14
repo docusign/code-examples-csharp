@@ -19,19 +19,23 @@
 
     <div class="form-group">
 
-        <label for="permissionProfileId">Permission profile</label>
+        <label for="permissionProfileId">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+        </label>
         @Html.DropDownList(
             "permissionProfileId",
             ViewBag.PermissionProfiles,
-            "Select permission profile",
+            @ViewBag.CodeExampleText.Forms[0].Inputs[0].InputPlaceholder,
             new { @class = "custom-select", required = "required" })
     </div>
     <div class="form-group">
-        <label for="userGroupId">User group</label>
+        <label for="userGroupId">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName)
+        </label>
         @Html.DropDownList(
             "userGroupId",
             ViewBag.UserGroups,
-            "Select user group",
+            @ViewBag.CodeExampleText.Forms[0].Inputs[1].InputPlaceholder,
             new { @class = "custom-select", required = "required" })
     </div>
 

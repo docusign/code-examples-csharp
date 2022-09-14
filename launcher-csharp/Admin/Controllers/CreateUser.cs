@@ -17,15 +17,13 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("Aeg01")]
     public class CreateUser : EgController
     {
-        public override int EgNumber => 1;
-
         public CreateUser(
             DSConfiguration dsConfig,
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -54,6 +52,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]

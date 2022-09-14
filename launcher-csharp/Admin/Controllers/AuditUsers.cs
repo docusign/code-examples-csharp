@@ -23,11 +23,9 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 5;
 
         public override string EgName => "Aeg05";
 
@@ -38,6 +36,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Audit()

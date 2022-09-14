@@ -4,10 +4,10 @@
 
 namespace DocuSign.CodeExamples.Rooms.Controllers
 {
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
     using DocuSign.Rooms.Client;
-    using DocuSign.Rooms.Examples;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
 
@@ -21,11 +21,9 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 1;
 
         public override string EgName => "Eg01";
 
@@ -39,6 +37,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -64,7 +63,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 // Show results
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;
-                this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, room.RoomId.ToString(), room.Name);
+                this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, room.Name, room.RoomId.ToString());
                 this.ViewBag.Locals.Json = JsonConvert.SerializeObject(room, Formatting.Indented);
 
                 return this.View("example_done");

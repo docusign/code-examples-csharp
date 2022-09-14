@@ -18,7 +18,6 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("Aeg02")]
     public class CreateCLMESignUser : EgController
     {
-        public override int EgNumber => 2;
         private static Guid? clmProductId;
         private static Guid? eSignProductId;
         public CreateCLMESignUser(
@@ -27,7 +26,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -69,6 +68,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [HttpGet]
         public override IActionResult Get()
         {
@@ -87,6 +87,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(string userName, string firstName, string lastName, string email, string cLMPermissionProfileId, string eSignPermissionProfileId, string dsGroupId)

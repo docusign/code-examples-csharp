@@ -12,10 +12,15 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-    @Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">Eg04AddUsersBulkImportController.cs</a>"))
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">Eg04AddUsersBulkImportController.cs</a>"
+        )
+    )
 </p>
 
-<form class="eg" asp-action="Create" asp-controller="Eg04AddUsersBulkImport" asp-area="Admin" method="post" data-busy="form">
+<form class="eg" asp-action="Create" asp-controller="ImportUser" asp-area="Admin" method="post" data-busy="form">
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

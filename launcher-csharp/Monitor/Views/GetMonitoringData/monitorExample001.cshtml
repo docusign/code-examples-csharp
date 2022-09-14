@@ -11,7 +11,12 @@
 
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
-@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">GetMonitoringData.cs</a>"))
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">GetMonitoringData.cs</a>"
+    )
+)
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">

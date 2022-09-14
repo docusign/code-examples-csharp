@@ -31,33 +31,34 @@
 <form action="" class="eg" method="post" data-busy="form">
     <div class="row">
         <div class="col-md-6">
-            <h5 class="mt-4">Bulk copy #1</h5>
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].FormName)
             <div class="form-group">
-                @GetTextInputMarkup("signer1.Email", "Signer Email", "email")
+                @GetTextInputMarkup("signer1.Email", @ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName, "email")
             </div>
             <div class="form-group">
-                @GetTextInputMarkup("signer1.Name", "Signer Name", "text")
+                @GetTextInputMarkup("signer1.Name", @ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName, "text")
             </div>
             <div class="form-group">
-                @GetTextInputMarkup("carbonCopy1.Email", "CC Email", "email")
+                @GetTextInputMarkup("carbonCopy1.Email", @ViewBag.CodeExampleText.Forms[0].Inputs[2].InputName, "email")
             </div>
             <div class="form-group">
-                @GetTextInputMarkup("carbonCopy1.Name", "CC Name", "text")
+                @GetTextInputMarkup("carbonCopy1.Name", @ViewBag.CodeExampleText.Forms[0].Inputs[3].InputName, "text")
             </div>
         </div>
+
         <div class="col-md-6">
-            <h5 class="mt-4">Bulk copy #2</h5>
+            @Html.Raw(ViewBag.CodeExampleText.Forms[1].FormName)
             <div class="form-group">
-                @GetTextInputMarkup("signer2.Email", "Signer Email", "email")
+                @GetTextInputMarkup("signer2.Email", @ViewBag.CodeExampleText.Forms[1].Inputs[0].InputName, "email")
             </div>
             <div class="form-group">
-                @GetTextInputMarkup("signer2.Name", "Signer name", "text")
+                @GetTextInputMarkup("signer2.Name", @ViewBag.CodeExampleText.Forms[1].Inputs[1].InputName, "text")
             </div>
             <div class="form-group">
-                @GetTextInputMarkup("carbonCopy2.Email", "CC Email", "email")
+                @GetTextInputMarkup("carbonCopy2.Email", @ViewBag.CodeExampleText.Forms[1].Inputs[2].InputName, "email")
             </div>
             <div class="form-group">
-                @GetTextInputMarkup("carbonCopy2.Name", "CC Name", "text")
+                @GetTextInputMarkup("carbonCopy2.Name", @ViewBag.CodeExampleText.Forms[1].Inputs[3].InputName, "text")
             </div>
         </div>
     </div>

@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <Compile Include="..\ExamplesAPIType.cs" Link="ExamplesAPIType.cs" />
+    <Compile Include="..\launcher-csharp\Common\SetViewBagAttribute.cs" Link="Common\SetViewBagAttribute.cs" />
     <Compile Include="..\launcher-csharp\EmbeddedSigningCeremony.cs" Link="EmbeddedSigningCeremony.cs" />
     <Compile Include="..\launcher-csharp\eSignature\Controllers\Eg001EmbeddedSigningController.cs" Link="eSignature\Controllers\Eg001EmbeddedSigningController.cs" />
     <Compile Include="..\launcher-csharp\eSignature\Models\DSConfiguration.cs" Link="eSignature\Models\DSConfiguration.cs" />
@@ -55,7 +56,6 @@
 
   <ItemGroup>
     <Folder Include="eSignature\ModelsForManifest\" />
-    <Folder Include="Views\Eg001EmbeddedSigning\" />
     <Folder Include="wwwroot\css\" />
   </ItemGroup>
 

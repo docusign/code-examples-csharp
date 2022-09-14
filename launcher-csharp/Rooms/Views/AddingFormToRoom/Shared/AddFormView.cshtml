@@ -1,37 +1,44 @@
 ﻿@model DocuSign.CodeExamples.Rooms.Models.RoomFormModel
 
-<h4>Adding form to a room</h4>
-
 @if (Model.Rooms.Any())
 {
-    <p>
-        Please select a room and a form
-    </p>
     <form class="eg" asp-action="ExportData" method="post" data-busy="form">
         <div class="form-group">
-            <label for="docSelect">Rooms</label>
-            <select class="custom-select" asp-for="RoomId" asp-items="@(new SelectList(Model.Rooms, "RoomId", "Name"))" required>
+            <label for="docSelect">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+            </label>
+
+            <select class="custom-select" asp-for="RoomId" 
+                    asp-items="@(new SelectList(Model.Rooms, "RoomId", "Name"))" required>
             </select>
         </div>
         <div class="form-group">
-            <label for="docSelect">Forms</label>
-            <select class="custom-select" asp-for="FormId" asp-items="@(new SelectList(Model.Forms, "LibraryFormId", "Name"))" required>
+            <label for="docSelect">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName)
+            </label>
+
+            <select class="custom-select" asp-for="FormId" 
+                    asp-items="@(new SelectList(Model.Forms, "LibraryFormId", "Name"))" required>
             </select>
         </div>
+
         <input type="hidden" name="_csrf" value="<%- csrfToken %>">
         <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
     </form>
 }
 else
 {
-    @Html.Raw(
-        String.Format(
-            ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
-                .Where(x => x.CodeExampleToRedirectTo == 1)
-                .FirstOrDefault()
-                .RedirectText,
-            "href='eg01'"
+    <p>
+        @Html.Raw(
+            String.Format(
+                ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                    .Where(x => x.CodeExampleToRedirectTo == 1)
+                    .FirstOrDefault()
+                    .RedirectText,
+                "href='eg01'"
+            )
         )
-    )
+    </p>
+
     <a href="/" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a>
 }

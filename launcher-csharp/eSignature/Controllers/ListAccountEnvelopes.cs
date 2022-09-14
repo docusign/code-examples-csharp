@@ -4,6 +4,7 @@
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Models;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
@@ -15,15 +16,14 @@ namespace DocuSign.CodeExamples.Controllers
         public ListAccountEnvelopes(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 3;
 
         public override string EgName => "eg003";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create(string signerEmail, string signerName)
         {
             // Data for this method

@@ -6,6 +6,7 @@ namespace DocuSign.CodeExamples.Controllers
 {
     using System;
     using System.Net;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Models;
     using Microsoft.AspNetCore.Mvc;
 
@@ -16,15 +17,14 @@ namespace DocuSign.CodeExamples.Controllers
         public CreateEnvelopeWithMultipleDocumentTypes(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 10;
 
         public override string EgName => "eg010";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName)
         {
             // Data for this method

@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.Views
 {
     using System;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
     using global::ESignature.Examples;
@@ -23,15 +24,14 @@ namespace DocuSign.CodeExamples.Views
             this.dsPingUrl = config.AppUrl + "/";
             this.dsReturnUrl = config.AppUrl + "/dsReturn";
 
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText("eg001");
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 1;
 
         public override string EgName => Convert.ToBoolean(this.Config.QuickACG) ? "quickEmbeddedSigning" : "eg001";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create(string signerEmail, string signerName)
         {
             // Data for this method

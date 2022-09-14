@@ -3,7 +3,9 @@
     @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
 
-@Html.Raw(ViewBag.CodeExampleText.Notes)
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.Notes)
+</p>
 
 @if (ViewBag.showDoc == true)
 {
@@ -14,17 +16,25 @@
 
 
 <p>
-@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">DeletePermission.cs</a>"))
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">DeletePermission.cs</a>"
+        )
+    )
 </p>
 
 <form action="" class="eg" method="post" data-busy="form">
 
     <div class="form-group">
-        <label for="permissionProfileId">Permission profile</label>
+        <label for="permissionProfileId">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+        </label>
+
         @Html.DropDownList(
-            "permissionProfileId", 
-            ViewBag.PermissionProfiles, 
-            "Select permission profile", 
+            "permissionProfileId",
+            ViewBag.PermissionProfiles,
+            @ViewBag.CodeExampleText.Forms[0].Inputs[0].InputPlaceholder,
             new {@class = "custom-select", required = "required" })
     </div>
 

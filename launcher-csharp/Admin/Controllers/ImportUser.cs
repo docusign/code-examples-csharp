@@ -21,15 +21,14 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         public ImportUser(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 4;
 
         public override string EgName => "Aeg04";
 
         [MustAuthenticate]
+        [SetViewBag]
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -66,6 +65,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [HttpGet]
         [Route("CheckStatus")]
         public ActionResult CheckStatus(string id)

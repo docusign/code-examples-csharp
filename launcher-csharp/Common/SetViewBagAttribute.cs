@@ -2,19 +2,16 @@
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
-namespace DocuSign.CodeExamples.Rooms
+namespace DocuSign.CodeExamples.Common
 {
     using System;
     using DocuSign.CodeExamples.Controllers;
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Filters;
-    using Microsoft.Extensions.DependencyInjection;
 
-    public class MustAuthenticateAttribute : ActionFilterAttribute
+    public class SetViewBagAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            var requestItemsService = context.HttpContext.RequestServices.GetService<IRequestItemsService>();
             var egController = context.Controller as EgController;
 
             if (egController == null)
@@ -22,12 +19,7 @@ namespace DocuSign.CodeExamples.Rooms
                 throw new InvalidOperationException("Controller is not of type EgController, attribute is not applicable.");
             }
 
-            bool tokenOk = requestItemsService.CheckToken(3);
-            if (!tokenOk)
-            {
-                requestItemsService.EgName = egController.EgName;
-                context.Result = new RedirectResult("/ds/mustAuthenticate");
-            }
+            egController.ViewBag.SupportingTexts = egController.LauncherTexts.ManifestStructure.SupportingTexts;
         }
     }
 }

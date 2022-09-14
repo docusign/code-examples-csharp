@@ -18,18 +18,17 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("Aeg07")]
     public class RetrieveDocuSignProfileByUserId : EgController
     {
-        public override int EgNumber => 7;
-
         public RetrieveDocuSignProfileByUserId(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "Aeg07";
 
         [MustAuthenticate]
+        [SetViewBag]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult RetriveProfileById(Guid userId)

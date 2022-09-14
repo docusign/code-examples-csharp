@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.Controllers
 {
     using System.Linq;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Models;
     using DocuSign.eSign.Api;
     using DocuSign.eSign.Client;
@@ -18,11 +19,9 @@ namespace DocuSign.CodeExamples.Controllers
         public SetUserGroupPermission(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 25;
 
         public override string EgName => "Eg025";
 
@@ -62,6 +61,7 @@ namespace DocuSign.CodeExamples.Controllers
         }
 
         [HttpPost]
+        [SetViewBag]
         [ValidateAntiForgeryToken]
         public IActionResult SetProfile(string permissionProfileId, string userGroupId)
         {

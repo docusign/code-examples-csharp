@@ -1,14 +1,12 @@
 ﻿@model DocuSign.CodeExamples.Rooms.Models.RoomsListModel
 
-<h4>Room data</h4>
 @if (Model.Rooms.Any())
 {
-    <p>
-        Please select a room
-    </p>
     <form class="eg" asp-action="ExportData" method="post" data-busy="form">
         <div class="form-group">
-            <label for="docSelect">Rooms</label>
+            <label for="docSelect">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+            </label>
             <select class="custom-select" asp-for="RoomId" asp-items="@(new SelectList(Model.Rooms, "RoomId","Name"))" required>
             </select>
         </div>
@@ -18,14 +16,16 @@
 }
 else
 {
-    @Html.Raw(
-        String.Format(
-            ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
-                .Where(x => x.CodeExampleToRedirectTo == 1)
-                .FirstOrDefault()
-                .RedirectText,
-            "href='eg01'"
+    <p>
+        @Html.Raw(
+            String.Format(
+                ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                    .Where(x => x.CodeExampleToRedirectTo == 1)
+                    .FirstOrDefault()
+                    .RedirectText,
+                "href='eg01'"
+            )
         )
-    )
+    </p>
     <a href="/" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a>
 }

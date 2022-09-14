@@ -17,29 +17,65 @@
 
 <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
-        <label for="signer1Email">Signer 1 Email</label>
-        <input type="email" class="form-control" id="signer1Email" name="signer1Email"
-               aria-describedby="emailHelp" placeholder="pat@example.com" required
+        <label for="signer1Email">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+        </label>
+
+        <input type="email"
+               class="form-control" 
+               id="signer1Email" 
+               name="signer1Email"
+               aria-describedby="emailHelp" 
+               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[0].InputPlaceholder" 
+               required
                value="@ViewBag.Locals.DsConfig.SignerEmail" />
-        <small id="emailHelp" class="form-text text-muted">@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)</small>
+
+        <small id="emailHelp" class="form-text text-muted">
+            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)
+        </small>
     </div>
     <div class="form-group">
-        <label for="signer1Name">Signer 1 Name</label>
-        <input type="text" class="form-control" id="signer1Name" placeholder="Pat Johnson" name="signer1Name"
-               value="@ViewBag.Locals.DsConfig.SignerName" required />
-    </div>
-    <div class="form-group">
-        <label for="signer2Email">Signer 2 Email</label>
-        <input type="email" class="form-control" id="signer2Email" name="signer2Email"
-               aria-describedby="emailHelp" placeholder="dana@example.com" required />
-    </div>
-    <div class="form-group">
-        <label for="signer2Name">Signer 2 Name</label>
-        <input type="text" class="form-control" id="signer2Name" placeholder="Dana Paxon" name="signer2Name"
+        <label for="signer1Name">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName)
+        </label>
+
+        <input type="text" 
+               class="form-control" 
+               id="signer1Name" 
+               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[1].InputPlaceholder"
+               name="signer1Name"
+               value="@ViewBag.Locals.DsConfig.SignerName" 
                required />
     </div>
     <div class="form-group">
-        <label for="delay">Delay (in hours)</label>
+        <label for="signer2Email">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[2].InputName)
+        </label>
+
+        <input type="email" 
+               class="form-control" 
+               id="signer2Email" 
+               name="signer2Email"
+               aria-describedby="emailHelp"
+               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[2].InputPlaceholder" 
+               required />
+    </div>
+    <div class="form-group">
+        <label for="signer2Name">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[3].InputName)
+        </label>
+
+        <input type="text" 
+               class="form-control" 
+               id="signer2Name" 
+               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[3].InputPlaceholder" 
+               name="signer2Name"
+               required />
+    </div>
+    <div class="form-group">
+        <label for="delay">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[4].InputName)
+        </label>
         <input type="number" class="form-control" id="delay" name="delay"
                required />
     </div>

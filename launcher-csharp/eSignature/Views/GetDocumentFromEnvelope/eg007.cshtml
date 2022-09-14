@@ -1,62 +1,73 @@
 ﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
-@Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+<p>@Html.Raw(ViewBag.CodeExampleText.ExampleDescription)</p>
 
 
-@if (ViewBag.showDoc) {
+@if (ViewBag.showDoc)
+{
     <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
 }
 
-<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" />
 
 <p>
-@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">GetDocumentFromEnvelope.cs</a>"))
+    @Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">GetDocumentFromEnvelope.cs</a>"))
 </p>
 
-@if (!ViewBag.envelopeOk) {
-    @Html.Raw(
-        String.Format(
-            ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
-                .Where(x => x.CodeExampleToRedirectTo == 2)
-                .FirstOrDefault()
-                .RedirectText,
-            "href='eg002'"
+@if (!ViewBag.envelopeOk)
+{
+    <p>
+        @Html.Raw(
+            String.Format(
+                ((IEnumerable<dynamic>)ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                    .Where(x => x.CodeExampleToRedirectTo == 2)
+                    .FirstOrDefault()
+                    .RedirectText,
+                "href='eg002'"
+            )
         )
-    )
+    </p>
 
-<form class="eg" action="eg002" method="get">
-    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
-</form>
-} else if (!ViewBag.documentsOk) {
-    @Html.Raw(
-        String.Format(
-            ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
-                .Where(x => x.CodeExampleToRedirectTo == 6)
-                .FirstOrDefault()
-                .RedirectText,
-            "href='eg006'"
+    <form class="eg" action="eg002" method="get">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+    </form>
+}
+else if (!ViewBag.documentsOk)
+{
+    <p>
+        @Html.Raw(
+            String.Format(
+                ((IEnumerable<dynamic>)ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                    .Where(x => x.CodeExampleToRedirectTo == 6)
+                    .FirstOrDefault()
+                    .RedirectText,
+                "href='eg006'"
+            )
         )
-    )
+    </p>
 
-<form class="eg" action="eg006" method="get">
-    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
-</form>
-} else {
-<p>
-    Please choose a document.<br />
-    The document list is from your results for List an envelope's documents.
-</p>
+    <form class="eg" action="eg006" method="get">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+    </form>
+}
+else
+{
+    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[0].FormName)</p>
 
-<form class="eg" action="" method="post" data-busy="form-download">
-    <div class="form-group">
-        <label for="docSelect">Document selection</label>
-        <select class="custom-select" id="docSelect"
-                name="docSelect" aria-describedby="emailHelp">
-            @foreach (var opt in ViewBag.documentOptions) {
-                <option value="@opt.DocumentId">@opt.Name</option>
-            } 
-        </select>
-    </div>
-    <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
-    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
-</form>
+    <form class="eg" action="" method="post" data-busy="form-download">
+        <div class="form-group">
+            <label for="docSelect">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+            </label>
+
+            <select class="custom-select" id="docSelect"
+                    name="docSelect" aria-describedby="emailHelp">
+                @foreach (var opt in ViewBag.documentOptions)
+                {
+                    <option value="@opt.DocumentId">@opt.Name</option>
+                }
+            </select>
+        </div>
+        <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+    </form>
 }

@@ -4,10 +4,11 @@
     IHtmlContent GetTextInputMarkup(string id, string title, string type)
     {
         return Html.Raw($@"
-<div class='form-group'>
-    <label for= '{id}'>{title}</label >
-    <input type = '{type}' name = '{id}' id = '{id}' placeholder = '{title}' required class='form-control'/>
-</div>");
+            <div class='form-group'>
+                <label for= '{id}'>{title}</label >
+                <input type = '{type}' name = '{id}' id = '{id}' placeholder = '{title}' required class='form-control'/>
+            </div>"
+        );
     }
 }
 
@@ -29,32 +30,32 @@
 
 <form action="" class="eg" method="post" data-busy="form">
 
-    <h5 class="mt-4">Signer 1</h5>
+    @Html.Raw(ViewBag.CodeExampleText.Forms[0].FormName)
     <div class="row">
         <div class="col-md-6 column">
             <div class="form-group">
-                @GetTextInputMarkup("recipient1.Email", "Signer Email", "email")
-                @GetTextInputMarkup("recipient1.Name", "Signer name", "text")
+                @GetTextInputMarkup("recipient1.Email", @ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName, "email")
+                @GetTextInputMarkup("recipient1.Name", @ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName, "text")
             </div>
         </div>
     </div>
 
-    <h5 class="mt-4">Conditional signer 2 when unchecked</h5>
+    @Html.Raw(ViewBag.CodeExampleText.Forms[1].FormName)
     <div class="row">
         <div class="col-md-6 column ">
             <div class="form-group">
-                @GetTextInputMarkup("conditionalRecipient1.Email", "Signer Email", "email")
-                @GetTextInputMarkup("conditionalRecipient1.Name", "Signer name", "text")
+                @GetTextInputMarkup("conditionalRecipient1.Email", @ViewBag.CodeExampleText.Forms[1].Inputs[0].InputName, "email")
+                @GetTextInputMarkup("conditionalRecipient1.Name", @ViewBag.CodeExampleText.Forms[1].Inputs[1].InputName, "text")
             </div>
         </div>
     </div>
 
-    <h5 class="mt-4">Conditional signer 2 when checked</h5>
+    @Html.Raw(ViewBag.CodeExampleText.Forms[2].FormName)
     <div class="row">
         <div class="col-md-6 column ">
             <div class="form-group">
-                @GetTextInputMarkup("conditionalRecipient2.Email", "Signer Email", "email")
-                @GetTextInputMarkup("conditionalRecipient2.Name", "Signer name", "text")
+                @GetTextInputMarkup("conditionalRecipient2.Email", @ViewBag.CodeExampleText.Forms[2].Inputs[0].InputName, "email")
+                @GetTextInputMarkup("conditionalRecipient2.Name", @ViewBag.CodeExampleText.Forms[2].Inputs[1].InputName, "text")
             </div>
         </div>
     </div>

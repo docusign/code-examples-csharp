@@ -27,7 +27,7 @@
 
 <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
-        <label for="startingView">Starting view</label>
+        <label for="startingView">@Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)</label>
         <select id="startingView" name="startingView" class="form-control">
             <option value="frontPage" selected>Front page</option>
             <!option value="envelope" @ViewBag.envelopeOk ? "" : 'disabled="true"'> The envelope's Documents view</!option>

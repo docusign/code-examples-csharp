@@ -1,5 +1,7 @@
 ﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
-@Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
 
 @if (@ViewBag.showDoc) {
    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>

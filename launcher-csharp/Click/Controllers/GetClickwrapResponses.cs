@@ -19,11 +19,9 @@ namespace DocuSign.CodeExamples.Click.Controllers
         public GetClickwrapResponses(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 5;
 
         public override string EgName => "ClickEg05";
 
@@ -40,6 +38,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]

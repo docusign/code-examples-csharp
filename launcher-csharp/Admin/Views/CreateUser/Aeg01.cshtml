@@ -13,39 +13,76 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">CreateUser.cs</a>"))
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">CreateUser.cs</a>"
+    )
+)
 </p>
 
 <form class="eg" asp-action="Create" asp-controller="CreateUser" asp-area="Admin" method="post" data-busy="form">
     <div class="form-group">
-        <label for="userName">User Name</label>
-        <input type="text" class="form-control" id="userName" placeholder="PatJohnson" name="userName"
+        <label for="userName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+        </label>
+
+        <input type="text" class="form-control" id="userName" 
+            placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[0].InputPlaceholder" name="userName"
                required />
     </div>
     <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input type="text" class="form-control" id="firstName" placeholder="Pat" name="firstName"
+        <label for="firstName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName)
+        </label>
+
+        <input type="text" class="form-control" id="firstName" 
+            placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[1].InputPlaceholder" name="firstName"
                required />
     </div>
     <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input type="text" class="form-control" id="lastName" placeholder="Johnson" name="lastName"
+        <label for="lastName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[2].InputName)
+        </label>
+
+        <input type="text" class="form-control" id="lastName" 
+            placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[2].InputPlaceholder" name="lastName"
                required />
     </div>
     <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="email"
-               aria-describedby="emailHelp" placeholder="pat@example.com" required />
-        <small id="emailHelp" class="form-text text-muted">@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)</small>
+        <label for="email">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[3].InputName)
+        </label>
+
+        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" 
+            placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[3].InputPlaceholder" required />
+
+        <small id="emailHelp" class="form-text text-muted">
+            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)
+        </small>
     </div>
     <div class="form-group">
-        <label for="PermissionProfiles">eSignature permission profile</label>
-        @Html.DropDownList("PermissionProfileId", new SelectList(ViewBag.PermissionProfiles, "PermissionProfileId", "PermissionProfileName"), new { @class = "form-control" })
+        <label for="PermissionProfiles">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[4].InputName)
+        </label>
+
+        @Html.DropDownList(
+            "PermissionProfileId", 
+            new SelectList(ViewBag.PermissionProfiles, "PermissionProfileId", "PermissionProfileName"), 
+            new { @class = "form-control" }
+        )
     </div>
     <div class="form-group">
-        <label for="DSGroups">eSignature group</label>
-        @Html.DropDownList("GroupId", new SelectList(ViewBag.Groups, "GroupId", "GroupName"), new { @class = "form-control" })
+        <label for="DSGroups">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[5].InputName)
+        </label>
+
+        @Html.DropDownList(
+            "GroupId", 
+            new SelectList(ViewBag.Groups, "GroupId", "GroupName"), 
+            new { @class = "form-control" }
+        )
     </div>
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

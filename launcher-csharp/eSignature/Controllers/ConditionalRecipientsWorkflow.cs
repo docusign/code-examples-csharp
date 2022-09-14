@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.ESignature.Controllers
 {
     using System;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
     using DocuSign.eSign.Client;
@@ -18,15 +19,14 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
         public ConditionalRecipientsWorkflow(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
+            this.CodeExampleText = this.GetExampleText(EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 34;
 
         public override string EgName => "Eg034";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create(RecipientModel recipient1, RecipientModel conditionalRecipient1, RecipientModel conditionalRecipient2)
         {
             // Check the token with minimal buffer time.
