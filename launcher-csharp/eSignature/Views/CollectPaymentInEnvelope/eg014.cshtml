@@ -1,4 +1,8 @@
-﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+﻿@using System.Text.RegularExpressions;
+@{
+    var redirectToSecondCodeExample = "href='Aeg02'";
+}
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 
 <p>
     @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)

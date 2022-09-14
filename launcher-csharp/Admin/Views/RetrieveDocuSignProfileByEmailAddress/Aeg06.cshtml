@@ -6,12 +6,12 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-@Html.Raw(
-    @String.Format(
-        ViewBag.SupportingTexts.ViewSourceFile, 
-        "<a target='_blank' href=" + @ViewBag.source + ">RetrieveDocuSignProfileByEmailAddress.cs</a>"
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">RetrieveDocuSignProfileByEmailAddress.cs</a>"
+        )
     )
-)
 </p>
 
 <form class="eg" asp-action="RetriveProfileByEmail" method="post" data-busy="form">

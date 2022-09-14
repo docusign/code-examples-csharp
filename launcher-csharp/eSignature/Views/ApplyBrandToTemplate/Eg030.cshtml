@@ -1,4 +1,9 @@
-﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+﻿@using System.Text.RegularExpressions;
+@{
+    var redirectToEigthCodeExample = "href='eg008'";
+    var redirectTo28CodeExample = "href='eg028'";
+}
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
     @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
@@ -11,12 +16,12 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-@Html.Raw(
-    @String.Format(
-        ViewBag.SupportingTexts.ViewSourceFile, 
-        "<a target='_blank' href=" + @ViewBag.source + ">ApplyBrandToTemplate.cs</a>"
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">ApplyBrandToTemplate.cs</a>"
+        )
     )
-)
 </p>
 
 @if (ViewBag.templateOk)
@@ -97,10 +102,10 @@
                     @Html.Raw(
                         String.Format(
                             ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
-                                .Where(x => x.CodeExampleToRedirectTo == 28)
+                                .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectTo28CodeExample, @"\d+").Value))
                                 .FirstOrDefault()
                                 .RedirectText,
-                            "href='eg028'"
+                            redirectTo28CodeExample
                         )
                     )
                 </p>
@@ -124,10 +129,10 @@ else
         @Html.Raw(
             String.Format(
                 ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
-                    .Where(x => x.CodeExampleToRedirectTo == 8)
+                    .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToEigthCodeExample, @"\d+").Value))
                     .FirstOrDefault()
                     .RedirectText,
-                "href='eg008'"
+                redirectToEigthCodeExample
             )
         )
     </p>

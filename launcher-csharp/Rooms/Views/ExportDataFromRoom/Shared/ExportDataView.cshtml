@@ -1,4 +1,8 @@
 ﻿@model DocuSign.CodeExamples.Rooms.Models.RoomsListModel
+@using System.Text.RegularExpressions;
+@{
+    var redirectToFirstCodeExample = "href='eg01'";
+}
 
 @if (Model.Rooms.Any())
 {
@@ -20,7 +24,7 @@ else
         @Html.Raw(
             String.Format(
                 ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
-                    .Where(x => x.CodeExampleToRedirectTo == 1)
+                    .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToFirstCodeExample, @"\d+").Value))
                     .FirstOrDefault()
                     .RedirectText,
                 "href='eg01'"

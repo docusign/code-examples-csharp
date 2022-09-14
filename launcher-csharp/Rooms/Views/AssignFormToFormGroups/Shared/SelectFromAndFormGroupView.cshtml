@@ -1,4 +1,8 @@
 ﻿@model DocuSign.CodeExamples.Rooms.Models.FormFormGroupModel
+@using System.Text.RegularExpressions;
+@{
+    var redirectToSeventhCodeExample = "href='eg07'";
+}
 
 @if (Model.Forms != null && Model.Forms.Any())
 {
@@ -45,10 +49,10 @@
             @Html.Raw(
                 String.Format(
                     ((IEnumerable<dynamic>)ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
-                        .Where(x => x.CodeExampleToRedirectTo == 7)
+                        .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToSeventhCodeExample, @"\d+").Value))
                         .FirstOrDefault()
                         .RedirectText,
-                    "href='eg07'"
+                    redirectToSeventhCodeExample
                 )
             )
         </p>

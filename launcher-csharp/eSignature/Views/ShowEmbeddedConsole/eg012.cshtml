@@ -1,4 +1,9 @@
-﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+﻿@using System.Text.RegularExpressions;
+@{
+    var redirectToSecondCodeExample = "href='eg002'";
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
     @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
@@ -17,10 +22,10 @@
     @Html.Raw(
         String.Format(
             ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
-                .Where(x => x.CodeExampleToRedirectTo == 2)
+                .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToSecondCodeExample, @"\d+").Value))
                 .FirstOrDefault()
                 .RedirectText,
-            "href='eg002'"
+            redirectToSecondCodeExample
         )
     )
 }

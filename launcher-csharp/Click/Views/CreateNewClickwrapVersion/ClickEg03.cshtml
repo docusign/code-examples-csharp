@@ -1,5 +1,9 @@
 ﻿
 @model DocuSign.CodeExamples.Click.Controllers.CreateNewClickwrapVersion
+@using System.Text.RegularExpressions;
+@{
+    var redirectToFirstCodeExample = "href='eg01'";
+}
 
 <h4 id="example03">3. Create a new clickwrap version</h4>
 <p>
@@ -48,10 +52,10 @@ else
         @Html.Raw(
             String.Format(
                 ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
-                    .Where(x => x.CodeExampleToRedirectTo == 1)
+                    .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToFirstCodeExample, @"\d+").Value))
                     .FirstOrDefault()
                     .RedirectText,
-                "href='eg01'"
+                redirectToFirstCodeExample
             )
         )
     </p>

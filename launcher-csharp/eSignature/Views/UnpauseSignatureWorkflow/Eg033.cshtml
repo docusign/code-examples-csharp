@@ -1,4 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Html
+@using System.Text.RegularExpressions;
+@{
+    var redirectTo32CodeExample = "href='eg032'";
+}
 @functions
 { 
     IHtmlContent GetTextInputMarkup(string id, string title, string type)
@@ -36,10 +40,10 @@
         @Html.Raw(
             String.Format(
                 ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
-                    .Where(x => x.CodeExampleToRedirectTo == 32)
+                    .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectTo32CodeExample, @"\d+").Value))
                     .FirstOrDefault()
                     .RedirectText,
-                "href='eg032'"
+                redirectTo32CodeExample
             )
         )
     </p>

@@ -9,7 +9,7 @@ namespace DocuSign.CodeExamples.ESignature.Models
     public class SelectAPIPage
     {
         [JsonProperty("SelectAPIcHeader")]
-        public string SelectAPIcHeader { get; set; }
+        public string SelectAPIHeader { get; set; }
 
         [JsonProperty("SelectAPIButton")]
         public string SelectAPIButton { get; set; }
