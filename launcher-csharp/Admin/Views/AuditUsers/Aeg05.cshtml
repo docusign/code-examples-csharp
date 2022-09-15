@@ -2,14 +2,19 @@
 
 <h4>5. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
 
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">AuditUsers.cs</a> on GitHub.
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">AuditUsers.cs</a>"
+        )
+    )
 </p>
 
 <form class="eg" asp-action="Audit" method="post" data-busy="form">
-    <button type="submit" class="btn btn-primary">Continue</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
 </form>

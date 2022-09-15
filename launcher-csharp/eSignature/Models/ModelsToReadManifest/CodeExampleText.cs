@@ -18,14 +18,8 @@ namespace DocuSign.CodeExamples.ESignature.Models
         [JsonProperty("ExampleDescription")]
         public string ExampleDescription { get; set; }
 
-        [JsonProperty("ExampleDescriptionExtended")]
-        public string ExampleDescriptionExtended { get; set; }
-
-        [JsonProperty("PageTitle")]
-        public string PageTitle { get; set; }
-
-        [JsonProperty("ResultsPageHeader")]
-        public string ResultsPageHeader { get; set; }
+        [JsonProperty("Notes")]
+        public string Notes { get; set; }
 
         [JsonProperty("ResultsPageText")]
         public string ResultsPageText { get; set; }
@@ -35,6 +29,15 @@ namespace DocuSign.CodeExamples.ESignature.Models
 
         [JsonProperty("LinksToAPIMethod")]
         public List<LinkToAPIMethods> LinksToAPIMethod { get; } = new List<LinkToAPIMethods>();
+
+        [JsonProperty("CustomErrorTexts")]
+        public List<CustomErrorTexts> CustomErrorTexts { get; } = new List<CustomErrorTexts>();
+
+        [JsonProperty("RedirectsToOtherCodeExamples")]
+        public List<RedirectsToOtherCodeExamples> RedirectsToOtherCodeExamples { get; } = new List<RedirectsToOtherCodeExamples>();
+
+        [JsonProperty("Forms")]
+        public List<Forms> Forms { get; } = new List<Forms>();
 
         [JsonProperty("AdditionalPage")]
         public List<AdditionalPage> AdditionalPages { get; } = new List<AdditionalPage>();

@@ -11,9 +11,6 @@ namespace DocuSign.CodeExamples.ESignature.Models
         [JsonProperty("Name")]
         public string Name { get; set; }
 
-        [JsonProperty("ResultsPageHeader")]
-        public string ResultsPageHeader { get; set; }
-
         [JsonProperty("ResultsPageText")]
         public string ResultsPageText { get; set; }
     }

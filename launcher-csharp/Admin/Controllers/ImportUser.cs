@@ -21,15 +21,14 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         public ImportUser(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 4;
 
         public override string EgName => "Aeg04";
 
         [MustAuthenticate]
+        [SetViewBag]
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -48,7 +47,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                     accessToken, basePath, accountId, organizationId, Config.DocCsv);
 
                 // Show results
-                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = this.CodeExampleText.ResultsPageText;
                 this.ViewBag.Locals.Json = JsonConvert.SerializeObject(organizationImportResponse, Formatting.Indented);
                 this.ViewBag.AdditionalLinkText = this.CodeExampleText.AdditionalPages[0].Name;
@@ -66,6 +65,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [HttpGet]
         [Route("CheckStatus")]
         public ActionResult CheckStatus(string id)
@@ -79,7 +79,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                 OrganizationImportResponse organizationImportResponse = DocuSign.CodeExamples.Admin.Examples.ImportUser.CheckkStatus(accessToken, basePath, organizationId, Guid.Parse(id));
 
                 // Show results
-                this.ViewBag.h1 = this.CodeExampleText.AdditionalPages[0].ResultsPageHeader;
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = this.CodeExampleText.AdditionalPages[0].ResultsPageText;
                 this.ViewBag.Locals.Json = JsonConvert.SerializeObject(organizationImportResponse, Formatting.Indented);
                 return this.View("example_done");

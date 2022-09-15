@@ -4,6 +4,7 @@ using DocuSign.CodeExamples.Views;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DocuSign.CodeExamples.Controllers
@@ -11,8 +12,6 @@ namespace DocuSign.CodeExamples.Controllers
     public abstract class EgController : Controller
     {
         public abstract string EgName { get; }
-
-        public abstract int EgNumber { get; }
 
         protected CodeExampleText CodeExampleText { get; set; }
         public DSConfiguration Config { get; }
@@ -75,6 +74,8 @@ namespace DocuSign.CodeExamples.Controllers
                 ViewBag.User = RequestItemsService.User;
                 ViewBag.Session = RequestItemsService.Session;
                 ViewBag.DsConfig = Config;
+                ViewBag.User = RequestItemsService.User;
+                ViewBag.DsConfig = Config;
                 InitializeInternal();
 
                 if (Config.QuickACG == "true" && !(this is Eg001EmbeddedSigningController))
@@ -90,6 +91,8 @@ namespace DocuSign.CodeExamples.Controllers
 
         protected virtual void InitializeInternal()
         {
+            this.ViewBag.CodeExampleText = this.CodeExampleText;
+            this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
         }
 
         public dynamic CreateSourcePath()
@@ -104,18 +107,20 @@ namespace DocuSign.CodeExamples.Controllers
             return RequestItemsService.CheckToken(bufferMin);
         }
 
-        protected CodeExampleText GetExampleText(int number)
+        protected CodeExampleText GetExampleText(string exampleName)
         {
-            var groups = LauncherTexts.ManifestStructure.Groups;
+            int exampleNumber = int.Parse(Regex.Match(exampleName, @"\d+").Value);
+            var groups = this.LauncherTexts.ManifestStructure.Groups;
             foreach (var group in groups)
             {
-                var example = group.Examples.Find((example) => example.ExampleNumber == number);
+                var example = group.Examples.Find((example) => example.ExampleNumber == exampleNumber);
 
                 if (example != null)
                 {
                     return example;
                 }
             }
+
             return null;
         }
     }

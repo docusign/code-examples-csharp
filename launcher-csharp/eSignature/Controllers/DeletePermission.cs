@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.Controllers
 {
     using System.Linq;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Models;
     using DocuSign.eSign.Api;
     using DocuSign.eSign.Client;
@@ -18,11 +19,9 @@ namespace DocuSign.CodeExamples.Controllers
         public DeletePermission(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 27;
 
         public override string EgName => "Eg027";
 
@@ -50,6 +49,7 @@ namespace DocuSign.CodeExamples.Controllers
         }
 
         [HttpPost]
+        [SetViewBag]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(string permissionProfileId)
         {
@@ -79,12 +79,13 @@ namespace DocuSign.CodeExamples.Controllers
             catch (ApiException ex)
             {
                 // Request failed. Display error text
-                this.ViewBag.h1 = "The permission profile failed to delete";
-                this.ViewBag.message = $"The permission profile failed to delete.<br /> Reason: <br />{ex.ErrorContent}";
+                this.ViewBag.h1 = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage;
+                this.ViewBag.message = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage
+                    + $"< br /> Reason: <br />{ex.ErrorContent}";
                 return this.View("example_done");
             }
 
-            this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+            this.ViewBag.h1 = this.CodeExampleText.ExampleName;
             this.ViewBag.message = this.CodeExampleText.ResultsPageText;
             return this.View("example_done");
         }

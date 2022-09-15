@@ -1,7 +1,7 @@
 ﻿
 <h4>3. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
 
 
@@ -13,10 +13,15 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">BulkExportUserData.cs</a> on GitHub.
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">BulkExportUserData.cs</a>"
+        )
+    )
 </p>
 
 <form class="eg" asp-action="Create" asp-controller="BulkExportUserData" asp-area="Admin" method="post" data-busy="form">
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

@@ -7,6 +7,7 @@ namespace DocuSign.CodeExamples.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Models;
     using DocuSign.eSign.Api;
     using DocuSign.eSign.Client;
@@ -20,11 +21,9 @@ namespace DocuSign.CodeExamples.Controllers
         public ChangePermissionSingleSetting(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 26;
 
         public override string EgName => "Eg026";
 
@@ -60,6 +59,7 @@ namespace DocuSign.CodeExamples.Controllers
         }
 
         [HttpPost]
+        [SetViewBag]
         [Route("Create")]
         public IActionResult Create(PermissionProfileModel profileModel)
         {
@@ -89,7 +89,7 @@ namespace DocuSign.CodeExamples.Controllers
                 var results = global::ESignature.Examples.ChangePermissionSingleSetting.UpdatePermissionProfile(
                     profileModel.ProfileId, accessToken, basePath, accountId);
 
-                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, results.PermissionProfileId);
                 return this.View("example_done");
             }

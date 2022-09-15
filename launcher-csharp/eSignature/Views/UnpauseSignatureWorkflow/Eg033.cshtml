@@ -1,42 +1,54 @@
 ﻿@using Microsoft.AspNetCore.Html
+@using System.Text.RegularExpressions;
+@{
+    var redirectTo32CodeExample = "href='eg032'";
+}
 @functions
 { 
     IHtmlContent GetTextInputMarkup(string id, string title, string type)
     {
         return Html.Raw($@"
-<div class='form-group'>
-    <label for= '{id}'>{title}</label >
-    <input type = '{type}' name = '{id}' id = '{id}' placeholder = '{title}' required class='form-control'/>
-</div>");
+        <div class='form-group'>
+            <label for= '{id}'>{title}</label >
+            <input type = '{type}' name = '{id}' id = '{id}' placeholder = '{title}' required class='form-control'/>
+        </div>");
     } 
 }
 
 <h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
 
 
 @if (ViewBag.showDoc)
 {
-<p><a target="_blank" href="@ViewBag.documentation">Documentation</a> about this example</p>}
+<p><a target='_blank' href="@ViewBag.documentation">Documentation</a> about this example</p>}
 
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">UnpauseSignatureWorkflow.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">UnpauseSignatureWorkflow.cs</a>"))
 </p>
 
 @if (ViewBag.pausedEnvelopeOk) {
 <form action="" class="eg" method="post" data-busy="form">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>
 }else {
-<p>
-    Prerequisite: Please first create an envelope with a paused signature workflow using <a href="eg032">Pause a signature workflow</a>.
-</p>
+    <p>
+        @Html.Raw(
+            String.Format(
+                ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                    .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectTo32CodeExample, @"\d+").Value))
+                    .FirstOrDefault()
+                    .RedirectText,
+                redirectTo32CodeExample
+            )
+        )
+    </p>
 
 <form class="eg" action="eg032" method="get">
-    <button type="submit" class="btn btn-primary">Continue</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
 </form>
 }

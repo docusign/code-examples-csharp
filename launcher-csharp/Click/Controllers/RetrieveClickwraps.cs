@@ -23,11 +23,9 @@ namespace DocuSign.CodeExamples.Click.Controllers
             IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 4;
 
         public override string EgName => "ClickEg04";
 
@@ -39,6 +37,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [Route("Retrieve")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -58,7 +57,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
                 clickwraps.Clickwraps.ForEach(cw => messageBuilder.AppendLine($"Clickwrap ID:{cw.ClickwrapId}, Clickwrap Version: {cw.VersionNumber}"));
 
                 // Show results
-                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = this.CodeExampleText.ResultsPageText;
                 this.ViewBag.Locals.Json = JsonConvert.SerializeObject(clickwraps.Clickwraps, Formatting.Indented);
 

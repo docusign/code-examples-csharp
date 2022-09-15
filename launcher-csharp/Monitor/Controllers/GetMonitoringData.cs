@@ -23,15 +23,14 @@ namespace DocuSign.CodeExamples.Controllers
         {
             this.requestItemsService = requestItemsService;
 
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 1;
 
         public override string EgName => "monitorExample001";
 
         [MustAuthenticate]
+        [SetViewBag]
         [HttpPost]
         public IActionResult Create()
         {
@@ -46,7 +45,7 @@ namespace DocuSign.CodeExamples.Controllers
             var results = this.getMonitoringDataFunc.Invoke(accessToken, requestPath);
 
             // Process results
-            this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+            this.ViewBag.h1 = this.CodeExampleText.ExampleName;
             this.ViewBag.message = this.CodeExampleText.ResultsPageText;
             this.ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
             return this.View("example_done");

@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.Rooms.Controllers
 {
     using System.Linq;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
     using DocuSign.CodeExamples.Rooms.Models;
@@ -23,11 +24,9 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 3;
 
         public override string EgName => "Eg03";
 
@@ -70,6 +69,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [Route("ExportData")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -86,8 +86,8 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 var fieldData = DocuSign.Rooms.Examples.ExportDataFromRoom.Export(basePath, accessToken, accountId, model.RoomId);
 
                 // Show results
-                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
-                this.ViewBag.message = this.CodeExampleText.ResultsPageText + $"method RoomId: {model.RoomId} :";
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                this.ViewBag.message = this.CodeExampleText.ResultsPageText + $"<br/>RoomId: {model.RoomId} :";
                 this.ViewBag.Locals.Json = JsonConvert.SerializeObject(fieldData, Formatting.Indented);
 
                 return this.View("example_done");

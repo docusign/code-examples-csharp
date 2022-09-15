@@ -6,6 +6,7 @@ namespace DocuSign.CodeExamples.Controllers
 {
     using System;
     using DocuSign.CodeExamples.Common;
+    using DocuSign.CodeExamples.Models;
     using DocuSign.eSign.Client;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Mvc;
@@ -18,10 +19,13 @@ namespace DocuSign.CodeExamples.Controllers
 
         private IConfiguration Configuration { get; }
 
-        public AccountController(IRequestItemsService requestItemsService, IConfiguration configuration)
+        private LauncherTexts LauncherTexts { get; }
+
+        public AccountController(IRequestItemsService requestItemsService, LauncherTexts launcherTexts, IConfiguration configuration)
         {
             this.requestItemsService = requestItemsService;
             this.Configuration = configuration;
+            this.LauncherTexts = launcherTexts;
         }
 
         [HttpGet]
@@ -62,6 +66,7 @@ namespace DocuSign.CodeExamples.Controllers
                 return this.Login();
             }
 
+            this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
             return this.View();
         }
 

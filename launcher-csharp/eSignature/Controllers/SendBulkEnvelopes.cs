@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.Controllers
 {
     using System;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Models;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
@@ -16,15 +17,14 @@ namespace DocuSign.CodeExamples.Controllers
         public SendBulkEnvelopes(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 31;
 
         public override string EgName => "Eg031";
 
         [HttpPost]
+        [SetViewBag]
         [ValidateAntiForgeryToken]
         public IActionResult SetProfile(RecipientModel signer1, RecipientModel carbonCopy1, RecipientModel signer2, RecipientModel carbonCopy2)
         {
@@ -66,14 +66,14 @@ namespace DocuSign.CodeExamples.Controllers
                     envelopeIdStamping,
                     emailSubject);
 
-                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = this.CodeExampleText.ResultsPageText;
                 this.ViewBag.Locals.Json = JsonConvert.SerializeObject(status, Formatting.Indented);
             }
             catch (Exception ex)
             {
-                this.ViewBag.h1 = "Bulk send envelope failed.";
-                this.ViewBag.message = $@"Bulk request failed to send. Reason: {ex}.";
+                this.ViewBag.h1 = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage;
+                this.ViewBag.message = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage + $@"Reason: {ex}.";
             }
 
             return this.View("example_done");

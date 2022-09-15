@@ -18,7 +18,6 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("Aeg02")]
     public class CreateCLMESignUser : EgController
     {
-        public override int EgNumber => 2;
         private static Guid? clmProductId;
         private static Guid? eSignProductId;
         public CreateCLMESignUser(
@@ -27,8 +26,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "Aeg02";
@@ -64,11 +63,12 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             // Step 4 End
             if (this.ViewBag.DsGroups.Count == 0)
             {
-                throw new ApiException(0, "You do not have any groups set in your DocuSign Admin. Please go to DocuSign Admin and create a group to use this code example.");
+                throw new ApiException(0, this.CodeExampleText.CustomErrorTexts[0].ErrorMessage);
             }
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [HttpGet]
         public override IActionResult Get()
         {
@@ -87,6 +87,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(string userName, string firstName, string lastName, string email, string cLMPermissionProfileId, string eSignPermissionProfileId, string dsGroupId)
@@ -103,7 +104,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
                 this.RequestItemsService.EmailAddress = newUser.Email;
 
-                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = this.CodeExampleText.ResultsPageText;
                 this.ViewBag.Locals.Json = JsonConvert.SerializeObject(newUser, Formatting.Indented);
                 return this.View("example_done");

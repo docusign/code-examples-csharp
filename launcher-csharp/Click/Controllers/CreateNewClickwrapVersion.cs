@@ -19,11 +19,9 @@ namespace DocuSign.CodeExamples.Click.Controllers
         public CreateNewClickwrapVersion(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 3;
 
         public override string EgName => "ClickEg03";
 
@@ -40,6 +38,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -56,7 +55,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
                 var clickWrap = DocuSign.Click.Examples.CreateNewClickwrapVersion.Create(clickwrapId, basePath, accessToken, accountId, clickwrapName);
 
                 // Show results
-                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, clickWrap.VersionNumber, clickWrap.ClickwrapName);
                 this.ViewBag.Locals.Json = JsonConvert.SerializeObject(clickWrap, Formatting.Indented);
 

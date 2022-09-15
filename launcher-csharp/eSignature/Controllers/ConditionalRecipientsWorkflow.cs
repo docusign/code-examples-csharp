@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.ESignature.Controllers
 {
     using System;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
     using DocuSign.eSign.Client;
@@ -18,15 +19,14 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
         public ConditionalRecipientsWorkflow(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 34;
 
         public override string EgName => "Eg034";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create(RecipientModel recipient1, RecipientModel conditionalRecipient1, RecipientModel conditionalRecipient2)
         {
             // Check the token with minimal buffer time.
@@ -69,10 +69,9 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
 
-                if (apiException.Message.Contains("WORKFLOW_UPDATE_RECIPIENTROUTING_NOT_ALLOWED"))
+                if (apiException.Message.Contains(this.CodeExampleText.CustomErrorTexts[0].ErrorMessageCheck))
                 {
-                    this.ViewBag.errorMessage = "Update to the workflow with recipient routing is not allowed for your account!";
-                    this.ViewBag.errorInformation = "Please contact with our <a href='https://developers.docusign.com/support/' target='_blank'>support team</a> to resolve this issue.";
+                    this.ViewBag.errorMessage = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage;
                 }
                 else
                 {
@@ -83,7 +82,7 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
             }
 
             // Process results
-            this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+            this.ViewBag.h1 = this.CodeExampleText.ExampleName;
             this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, results.EnvelopeId);
             return this.View("example_done");
         }

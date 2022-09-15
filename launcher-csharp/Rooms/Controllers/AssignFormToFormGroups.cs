@@ -4,6 +4,7 @@
 
 namespace DocuSign.CodeExamples.Rooms.Controllers
 {
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
     using DocuSign.CodeExamples.Rooms.Models;
@@ -17,16 +18,14 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Route("Eg09")]
     public class AssignFormToFormGroups : EgController
     {
-        public override int EgNumber => 9;
-
         public AssignFormToFormGroups(
             DSConfiguration dsConfig,
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "Eg09";
@@ -65,6 +64,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [Route("AssignFormToFormGroup")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -81,7 +81,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 var formGroupFormToAssign = DocuSign.Rooms.Examples.AssignFormToFormGroups.AssignForm(basePath, accessToken, accountId,
                     formFormGroupModel.FormGroupId, new FormGroupFormToAssign() { FormId = formFormGroupModel.FormId });
 
-                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = string.Format(
                     this.CodeExampleText.ResultsPageText,
                     formGroupFormToAssign.FormId,
@@ -93,9 +93,8 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             catch (ApiException apiException)
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
-                this.ViewBag.errorMessage = apiException.Message.Equals("Unhandled response type.") ?
-                    "Response is empty and could not be cast to FormGroupFormToAssign. " +
-                    "Please contact DocuSign support" : apiException.Message;
+                this.ViewBag.errorMessage = apiException.Message.Equals(this.CodeExampleText.CustomErrorTexts[0].ErrorMessageCheck) ?
+                    this.CodeExampleText.CustomErrorTexts[0].ErrorMessage : apiException.Message;
 
                 return this.View("Error");
             }

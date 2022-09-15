@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.ESignature.Controllers
 {
     using System;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
     using Microsoft.AspNetCore.Mvc;
@@ -16,15 +17,14 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
         public DelayedRouting(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 36;
 
         public override string EgName => "Eg036";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create(string signer1Email, string signer1Name, string signer2Email, string signer2Name, int delay)
         {
             // Check the token with minimal buffer time.
@@ -49,7 +49,7 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
 
             this.RequestItemsService.EnvelopeId = envelopeId;
 
-            this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+            this.ViewBag.h1 = this.CodeExampleText.ExampleName;
             this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, envelopeId);
             return this.View("example_done");
         }

@@ -27,11 +27,9 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         public UpdateUserProductPermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 8;
 
         public override string EgName => "Aeg08";
 
@@ -69,6 +67,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UpdateUsersProductPermissionProfile(string productId, string permissionProfileId)
@@ -82,16 +81,16 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                 string email = this.RequestItemsService.EmailAddress;
 
                 UserProductPermissionProfilesResponse response = UpdateUserProductPermissionProfileByEmail.UpdateUserProductPermissionProfile(
-                    basePath, 
-                    accessToken, 
-                    organizationId, 
-                    accountId, 
-                    email, 
-                    Guid.Parse(productId), 
+                    basePath,
+                    accessToken,
+                    organizationId,
+                    accountId,
+                    email,
+                    Guid.Parse(productId),
                     permissionProfileId
                 );
 
-                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = this.CodeExampleText.ResultsPageText;
                 this.ViewBag.Locals.Json = JsonConvert.SerializeObject(response, Formatting.Indented);
 

@@ -22,6 +22,8 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
         public IActionResult Index(string egName)
         {
+            this.ViewBag.SupportingTexts = this._launcherTexts.ManifestStructure.SupportingTexts;
+
             if (string.IsNullOrEmpty(egName))
             {
                 egName = this._requestItemsService.EgName;

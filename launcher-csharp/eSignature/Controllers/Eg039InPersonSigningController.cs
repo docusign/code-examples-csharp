@@ -4,6 +4,7 @@
 
 namespace DocuSign.CodeExamples.Views
 {
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
     using DocuSign.eSign.Client;
@@ -23,15 +24,14 @@ namespace DocuSign.CodeExamples.Views
         {
             this.DsPingUrl = config.AppUrl + "/";
             this.DsReturnUrl = config.AppUrl + "/dsReturn";
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 39;
 
         public override string EgName => "Eg039";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create(string signerName)
         {
             string accessToken = this.RequestItemsService.User.AccessToken;

@@ -1,6 +1,6 @@
 ﻿<h4>1. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
 
 @if (@ViewBag.showDoc)
@@ -11,10 +11,15 @@
 
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">GetMonitoringData.cs</a> on GitHub.
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">GetMonitoringData.cs</a>"
+    )
+)
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
     <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
-    <button type="submit" class="btn btn-primary">Continue</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
 </form>

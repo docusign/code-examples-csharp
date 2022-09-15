@@ -4,6 +4,7 @@
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Models;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
@@ -15,15 +16,14 @@ namespace DocuSign.CodeExamples.Controllers
         public GetEnvelopeInformation(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 4;
 
         public override string EgName => "eg004";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create(string signerEmail, string signerName)
         {
             // Data for this method
@@ -49,7 +49,7 @@ namespace DocuSign.CodeExamples.Controllers
             var results = global::ESignature.Examples.GetEnvelopeInformation.GetEnvelope(accessToken, basePath, accountId, envelopeId);
 
             // Process results
-            this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+            this.ViewBag.h1 = this.CodeExampleText.ExampleName;
             this.ViewBag.message = this.CodeExampleText.ResultsPageText;
             this.ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
             return this.View("example_done");

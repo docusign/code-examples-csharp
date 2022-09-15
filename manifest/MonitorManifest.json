@@ -1,4 +1,35 @@
 {
+  "SupportingTexts": {
+    "HomePageText": "Run and explore DocuSign Monitor API code examples with JWT Grant authentication",
+    "ViewSourceFile": "View source file {0} on GitHub.",
+    "APIMethodUsed": "API method used:",
+    "APIMethodUsedPlural": "API methods used:",
+    "SubmitButton": "Submit",
+    "ContinueButton": "Continue",
+    "HomeButton": "Home",
+    "LoginButton": "Login",
+    "LogoutButton": "Logout",
+    "ChangeAPITypeButton": "Change API Type",
+    "WelcomeText": "Welcome {0} (Account: {1})",
+    "LoginPage": {
+        "LoginHeader": "<h1 class='display-4'>Please Authenticate with DocuSign</h1><label for='auth_type'>Please choose your authentication type</label>",
+        "LoginButton": "Authenticate with DocuSign",
+        "LoginHelperText": "You need to authenticate with DocuSign to continue your request."
+    },
+    "SelectAPIPage": {
+        "SelectAPIHeader": "<h1 class='display-4'>Please choose an API type</h1><label for='api_type'>Please choose an API type</label>",
+        "SelectAPIButton": "Choose your desired API"
+    },
+    "HelpingTexts": {
+        "EmailWontBeShared": "We'll never share your email with anyone else.",
+        "PhoneNumberWontBeShared": "We'll never share your phone number with anyone else.",
+        "CCEmailShouldDifferFromSigner": "The email for the cc recipient must be different from the signer's email.",
+        "AccessCodeText": "Provide this string to a recipient that is different such as in person or by mail or via different email.",
+        "CountryCodeText": "The country code for the phone below",
+        "ChooseDateInTheFuture": "Please choose a date in the future",
+        "PhoneNumberWillBeNotified": "This phone number will receive a notification."
+    }
+  },
   "Groups": [
     {
       "Name": "Monitor examples",
@@ -7,30 +38,37 @@
           "ExampleNumber": 1,
           "ExampleName": "Get monitoring data",
           "ExampleDescription": "Demonstrates how to get and display all of your organization’s monitoring data.",
-          "ExampleDescriptionExtended": "<p>Demonstrates how to get and display all of your organization’s monitoring data.</p>",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/docs/monitor-api/reference/monitor/dataset/getstream/",
               "PathName": "DataSet:getStream"
             }
           ],
-          "PageTitle": "Get monitoring data",
-          "ResultsPageHeader": "Get monitoring data",
           "ResultsPageText": "Results from DataSet:getStream method:"
         },
         {
           "ExampleNumber": 2,
           "ExampleName": "Query monitoring data with filters",
           "ExampleDescription": "<p>Demonstrates how to query an organization's data based on specified filters and aggregations.</p>",
-          "ExampleDescriptionExtended": "",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/docs/monitor-api/reference/monitor/dataset/postwebquery/",
               "PathName": "DataSet:postWebQuery"
             }
           ],
-          "PageTitle": "Query monitoring data with filters",
-          "ResultsPageHeader": "Query monitoring data with filters",
+          "Forms": [
+            {
+              "FormName": "<p>Please select start and end dates</p>",
+              "Inputs": [
+                {
+                  "InputName": "Start date"
+                },
+                {
+                  "InputName": "End date"
+                }
+              ]
+            }
+          ],
           "ResultsPageText": "Results from DataSet:postWebQuery method:"
         }
       ]

@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.Controllers
 {
     using System.Linq;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.ESignature.Models;
     using DocuSign.CodeExamples.Models;
     using DocuSign.eSign.Model;
@@ -19,15 +20,14 @@ namespace DocuSign.CodeExamples.Controllers
         public ListEnvelopeDocuments(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 6;
 
         public override string EgName => "eg006";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create(string signerEmail, string signerName)
         {
             // Data for this method
@@ -66,7 +66,7 @@ namespace DocuSign.CodeExamples.Controllers
 
             // Process results
             ViewBag.envelopeDocuments = mappedEnvelopeDocuments;
-            ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+            ViewBag.h1 = this.CodeExampleText.ExampleName;
             ViewBag.message = this.CodeExampleText.ResultsPageText;
             ViewBag.Locals.Json = JsonConvert.SerializeObject(mappedEnvelopeDocuments, Formatting.Indented);
 

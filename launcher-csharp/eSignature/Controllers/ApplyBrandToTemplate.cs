@@ -17,11 +17,9 @@ namespace DocuSign.CodeExamples.Controllers
         public ApplyBrandToTemplate(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 30;
 
         public override string EgName => "Eg030";
 
@@ -46,6 +44,7 @@ namespace DocuSign.CodeExamples.Controllers
             this.ViewBag.EnvelopeTemplates = templates.EnvelopeTemplates;
         }
 
+        [Common.SetViewBag]
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName, string ccEmail, string cCName, string brandId)
         {
@@ -82,7 +81,7 @@ namespace DocuSign.CodeExamples.Controllers
                 accountId,
                 this.RequestItemsService.Status);
 
-            this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+            this.ViewBag.h1 = this.CodeExampleText.ExampleName;
             this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, results.EnvelopeId);
             return this.View("example_done");
         }

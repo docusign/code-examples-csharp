@@ -1,8 +1,17 @@
 ﻿@*@model DocuSign.CodeExamples.Admin.Controllers.CreateUser*@
+@{
+    int formNumber = 0;
+    int userNameInputNumber = 0;
+    int firstNameInputNumber = 1;
+    int secondNameInputNumber = 2;
+    int emailInputNumber = 3;
+    int eSignPermissionInputNumber = 4;
+    int groupInputNumber = 5;
+}
 
 <h4>1. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
 
 @if (ViewBag.showDoc == true)
@@ -13,39 +22,76 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">CreateUser.cs</a> on GitHub.
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">CreateUser.cs</a>"
+    )
+)
 </p>
 
 <form class="eg" asp-action="Create" asp-controller="CreateUser" asp-area="Admin" method="post" data-busy="form">
     <div class="form-group">
-        <label for="userName">User Name</label>
-        <input type="text" class="form-control" id="userName" placeholder="PatJohnson" name="userName"
+        <label for="userName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[userNameInputNumber].InputName)
+        </label>
+
+        <input type="text" class="form-control" id="userName" 
+            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[userNameInputNumber].InputPlaceholder" name="userName"
                required />
     </div>
     <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input type="text" class="form-control" id="firstName" placeholder="Pat" name="firstName"
+        <label for="firstName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[firstNameInputNumber].InputName)
+        </label>
+
+        <input type="text" class="form-control" id="firstName" 
+            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[firstNameInputNumber].InputPlaceholder" name="firstName"
                required />
     </div>
     <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input type="text" class="form-control" id="lastName" placeholder="Johnson" name="lastName"
+        <label for="lastName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[secondNameInputNumber].InputName)
+        </label>
+
+        <input type="text" class="form-control" id="lastName" 
+            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[secondNameInputNumber].InputPlaceholder" name="lastName"
                required />
     </div>
     <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="email"
-               aria-describedby="emailHelp" placeholder="pat@example.com" required />
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <label for="email">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[emailInputNumber].InputName)
+        </label>
+
+        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" 
+            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[emailInputNumber].InputPlaceholder" required />
+
+        <small id="emailHelp" class="form-text text-muted">
+            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)
+        </small>
     </div>
     <div class="form-group">
-        <label for="PermissionProfiles">eSignature permission profile</label>
-        @Html.DropDownList("PermissionProfileId", new SelectList(ViewBag.PermissionProfiles, "PermissionProfileId", "PermissionProfileName"), new { @class = "form-control" })
+        <label for="PermissionProfiles">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[eSignPermissionInputNumber].InputName)
+        </label>
+
+        @Html.DropDownList(
+            "PermissionProfileId", 
+            new SelectList(ViewBag.PermissionProfiles, "PermissionProfileId", "PermissionProfileName"), 
+            new { @class = "form-control" }
+        )
     </div>
     <div class="form-group">
-        <label for="DSGroups">eSignature group</label>
-        @Html.DropDownList("GroupId", new SelectList(ViewBag.Groups, "GroupId", "GroupName"), new { @class = "form-control" })
+        <label for="DSGroups">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[groupInputNumber].InputName)
+        </label>
+
+        @Html.DropDownList(
+            "GroupId", 
+            new SelectList(ViewBag.Groups, "GroupId", "GroupName"), 
+            new { @class = "form-control" }
+        )
     </div>
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

@@ -4,6 +4,7 @@
 
 namespace DocuSign.CodeExamples.ESignature.Controllers
 {
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
     using Microsoft.AspNetCore.Mvc;
@@ -16,15 +17,14 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
         public UnpauseSignatureWorkflow(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 33;
 
         public override string EgName => "Eg033";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Update()
         {
             // Check the token with minimal buffer time.
@@ -55,7 +55,7 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
                 this.RequestItemsService.PausedEnvelopeId);
 
             // Process results
-            this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+            this.ViewBag.h1 = this.CodeExampleText.ExampleName;
             this.ViewBag.message = this.CodeExampleText.ResultsPageText;
             this.ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
             return this.View("example_done");

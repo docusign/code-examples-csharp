@@ -4,6 +4,7 @@
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Models;
     using DocuSign.eSign.Model;
     using Microsoft.AspNetCore.Mvc;
@@ -16,15 +17,14 @@ namespace DocuSign.CodeExamples.Controllers
         public GetEnvelopeTabData(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 15;
 
         public override string EgName => "eg015";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create()
         {
             // Check the token with minimal buffer time
@@ -49,7 +49,7 @@ namespace DocuSign.CodeExamples.Controllers
             EnvelopeFormData results = global::ESignature.Examples.GetEnvelopeTabData.GetEnvelopeFormData(accessToken, basePath, accountId, envelopeId);
 
             // Process results
-            this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+            this.ViewBag.h1 = this.CodeExampleText.ExampleName;
             this.ViewBag.message = this.CodeExampleText.ResultsPageText;
             this.ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
             return this.View("example_done");

@@ -1,7 +1,16 @@
-﻿
+﻿@{
+    int formNumber = 0;
+    int countryCodeInputNumber = 0;
+    int numberInputNumber = 1;
+    int signerNameInputNumber = 2;
+    int ccCountryCodeInputNumber = 3;
+    int ccNumberInputNumber = 4;
+    int ccSignerNameInputNumber = 5;
+}
+
 <h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
 
 
@@ -13,44 +22,110 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">SMSDelivery.cs</a> on GitHub.
+    @Html.Raw(
+        String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">SMSDelivery.cs</a>"
+        )
+    )
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
-        <label for="signerCountryCode">Signer Country Code</label>
-        <input type="number" class="form-control" id="signerCountryCode" name="signerCountryCode"
-               aria-describedby="countryCodeHelp" placeholder="1" required />
-        <small id="countryCodeHelp" class="form-text text-muted">The country code for the phone number below.</small>
+        <label for="signerCountryCode">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[countryCodeInputNumber].InputName)
+        </label>
+
+        <input type="number" 
+               class="form-control"
+               id="signerCountryCode" 
+               name="signerCountryCode"
+               aria-describedby="countryCodeHelp" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[countryCodeInputNumber].InputPlaceholder" 
+               required />
+
+        <small id="countryCodeHelp" class="form-text text-muted">
+            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.CountryCodeText)
+        </small>
     </div>
     <div class="form-group">
-        <label for="signerPhoneNumber">Signer Phone Number</label>
-        <input type="tel" class="form-control" id="signerPhoneNumber" name="signerPhoneNumber"
-               aria-describedby="phoneNumberHelp" placeholder="415-555-1212" required />
-        <small id="phoneNumberHelp" class="form-text text-muted">This phone number will receive a notification. We'll never share your phone number.</small>
+        <label for="signerPhoneNumber">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[numberInputNumber].InputName)
+        </label>
+
+        <input type="tel" 
+               class="form-control"
+               id="signerPhoneNumber" 
+               name="signerPhoneNumber"
+               aria-describedby="phoneNumberHelp"
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[numberInputNumber].InputPlaceholder" 
+               required />
+
+        <small id="phoneNumberHelp" class="form-text text-muted">
+            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.PhoneNumberWillBeNotified) 
+            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.PhoneNumberWontBeShared) 
+        </small>
     </div>
     <div class="form-group">
-        <label for="signerName">Signer Name</label>
-        <input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
-               value="@ViewBag.Locals.DsConfig.SignerName" required />
+        <label for="signerName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputName)
+        </label>
+
+        <input type="text" 
+               class="form-control"
+               id="signerName" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputPlaceholder"
+               name="signerName"
+               value="@ViewBag.Locals.DsConfig.SignerName" 
+               required />
     </div>
     <div class="form-group">
-        <label for="ccCountryCode">CC Country Code</label>
-        <input type="number" class="form-control" id="ccCountryCode" name="ccCountryCode"
-               aria-describedby="countryCodeHelp" placeholder="1" required />
-        <small id="countryCodeHelp" class="form-text text-muted">The country code for the phone number below.</small>
+        <label for="ccCountryCode">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[signerNameInputNumber].Inputs[ccCountryCodeInputNumber].InputName)
+        </label>
+
+        <input type="number" 
+               class="form-control" 
+               id="ccCountryCode" 
+               name="ccCountryCode"
+               aria-describedby="countryCodeHelp" 
+               placeholder="@ViewBag.CodeExampleText.Forms[signerNameInputNumber].Inputs[ccCountryCodeInputNumber].InputPlaceholder"
+               required />
+
+        <small id="countryCodeHelp" class="form-text text-muted">
+            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.CountryCodeText)
+        </small>
     </div>
     <div class="form-group">
-        <label for="ccPhoneNumber">CC Phone Number</label>
-        <input type="tel" class="form-control" id="ccPhoneNumber" name="ccPhoneNumber"
-               aria-describedby="phoneNumberHelp" placeholder="415-555-1212" required />
-        <small id="phoneNumberHelp" class="form-text text-muted">This phone number will receive a notification. We'll never share your phone number.</small>
+        <label for="ccPhoneNumber">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[signerNameInputNumber].Inputs[ccNumberInputNumber].InputName)
+        </label>
+
+        <input type="tel" 
+               class="form-control" 
+               id="ccPhoneNumber" 
+               name="ccPhoneNumber"
+               aria-describedby="phoneNumberHelp" 
+               placeholder="@ViewBag.CodeExampleText.Forms[signerNameInputNumber].Inputs[ccNumberInputNumber].InputPlaceholder" 
+               required />
+
+        <small id="phoneNumberHelp" class="form-text text-muted">
+            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.PhoneNumberWillBeNotified) 
+            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.PhoneNumberWontBeShared) 
+        </small>
     </div>
     <div class="form-group">
-        <label for="ccName">CC Name</label>
-        <input type="text" class="form-control" id="ccName" placeholder="Pat Johnson" name="ccName"
+        <label for="ccName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[signerNameInputNumber].Inputs[ccSignerNameInputNumber].InputName)
+        </label>
+
+        <input type="text" 
+               class="form-control" 
+               id="ccName" 
+               placeholder="@ViewBag.CodeExampleText.Forms[signerNameInputNumber].Inputs[ccSignerNameInputNumber].InputPlaceholder" 
+               name="ccName"
                required />
     </div>
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

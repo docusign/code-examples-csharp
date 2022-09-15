@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.Rooms.Controllers
 {
     using System;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
     using DocuSign.CodeExamples.Rooms.Models;
@@ -25,11 +26,9 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 4;
 
         public override string EgName => "Eg04";
 
@@ -68,9 +67,9 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 this.ViewBag.errorMessage = apiException.Message;
 
                 ApiError error = JsonConvert.DeserializeObject<ApiError>(apiException.ErrorContent);
-                if (error.ErrorCode.Equals("FORMS_INTEGRATION_NOT_ENABLED", StringComparison.InvariantCultureIgnoreCase))
+                if (error.ErrorCode.Equals(this.CodeExampleText.CustomErrorTexts[0].ErrorMessageCheck, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    return this.View("ExampleNotAvailable");
+                    return this.View(this.CodeExampleText.CustomErrorTexts[0].ErrorMessage);
                 }
 
                 return this.View("Error");
@@ -78,6 +77,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [Route("ExportData")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -97,8 +97,8 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                     roomFormModel.RoomId,
                     roomFormModel.FormId);
 
-                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
-                this.ViewBag.message = this.CodeExampleText.ResultsPageText + $" RoomId: {roomFormModel.RoomId}, FormId: {roomFormModel.FormId} :";
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                this.ViewBag.message = this.CodeExampleText.ResultsPageText + $"<br/> RoomId: {roomFormModel.RoomId}, FormId: {roomFormModel.FormId} :";
                 this.ViewBag.Locals.Json = JsonConvert.SerializeObject(roomDocument, Formatting.Indented);
 
                 return this.View("example_done");

@@ -2,7 +2,7 @@
 <h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 
 <p>
-    @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
 
 @if (ViewBag.showDoc == true)
@@ -13,7 +13,12 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-	View source file <a target="_blank" href="@ViewBag.source">ChangePermissionSingleSetting.cs</a> on GitHub.
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">ChangePermissionSingleSetting.cs</a>"
+        )
+    )
 </p>
 
 <partial name="PermissionProfileView" model="Model.ProfileModel" />

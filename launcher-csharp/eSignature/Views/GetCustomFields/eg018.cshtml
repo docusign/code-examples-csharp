@@ -1,33 +1,50 @@
-﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
-@Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
-
-@if (ViewBag.showDoc) {
-<p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
+﻿@{
+    int formNumber = 0;
+}
+@using System.Text.RegularExpressions;
+@{
+    var redirectTo16CodeExample = "href='eg016'";
 }
 
-<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>@Html.Raw(ViewBag.CodeExampleText.ExampleDescription)</p>
+
+@if (ViewBag.showDoc)
+{
+    <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
+}
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" />
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">GetCustomFields.cs</a> on GitHub.
+    @Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">GetCustomFields.cs</a>"))
 </p>
 
-@if (ViewBag.envelopeOk) {
-<p>
-    The last envelope you created with this example launcher will be queried.
-    Recommendation: Create an envelope using <a href="eg016">Set tab values for a envelope</a> then use this example in order to see an example of custom tab values.
-</p>
+@if (ViewBag.envelopeOk)
+{
+    @Html.Raw(String.Format(ViewBag.CodeExampleText.Forms[formNumber].FormName, "eg016"))
 
-<form class="eg" action="" method="post" data-busy="form">
-    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">Continue</button>
-</form>
-} else {
-<p>
-    Problem: Please first create an envelope using <a href="eg016">Set tab values for a envelope</a>.
-</p>
+    <form class="eg" action="" method="post" data-busy="form">
+        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+    </form>
+}
+else
+{
+    <p>
+        @Html.Raw(
+            String.Format(
+                ((IEnumerable<dynamic>)ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                    .Where(x => x.CodeExampleToRedirectTo ==int.Parse(Regex.Match(redirectTo16CodeExample, @"\d+").Value))
+                    .FirstOrDefault()
+                    .RedirectText,
+                redirectTo16CodeExample
+            )
+        )
+    </p>
 
-<form class="eg" action="eg016" method="get">
-    <button type="submit" class="btn btn-primary">Continue</button>
-</form>
+    <form class="eg" action="eg016" method="get">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+    </form>
 
 }

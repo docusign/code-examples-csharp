@@ -3,6 +3,7 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
 using DocuSign.eSign.Client;
+using DocuSign.CodeExamples.Common;
 
 namespace DocuSign.CodeExamples.Views
 {
@@ -16,11 +17,10 @@ namespace DocuSign.CodeExamples.Views
             ViewBag.title = "Set document visibility";
         }
 
-        public override int EgNumber => 40;
-
         public override string EgName => "Eg040";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create(string signer1Email, string signer1Name, string signer2Email, string signer2Name, 
             string ccEmail, string ccName)
         {

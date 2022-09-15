@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.Controllers
 {
     using System;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Models;
     using DocuSign.eSign.Client;
     using Microsoft.AspNetCore.Mvc;
@@ -16,15 +17,14 @@ namespace DocuSign.CodeExamples.Controllers
         public RecipientAuthIDV(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgNumber);
-            this.ViewBag.title = this.CodeExampleText.PageTitle;
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
-
-        public override int EgNumber => 23;
 
         public override string EgName => "eg023";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName)
         {
             try
@@ -54,16 +54,16 @@ namespace DocuSign.CodeExamples.Controllers
                 string envelopeId = global::ESignature.Examples.RecipientAuthIDV.CreateEnvelopeWithRecipientUsingIDVAuth(signerEmail, signerName, accessToken, basePath, accountId);
 
                 // Process results
-                this.ViewBag.h1 = this.CodeExampleText.ResultsPageHeader;
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, envelopeId);
                 return this.View("example_done");
             }
             catch (ApiException apiException)
             {
-                if (apiException.Message.Contains("IDENTITY_WORKFLOW_INVALID_ID"))
+                if (apiException.Message.Contains(this.CodeExampleText.CustomErrorTexts[0].ErrorMessageCheck))
                 {
                     // This may indicate that this account is not yet enabled for the new phone auth workflow
-                    this.ViewBag.SupportMessage = "Please contact <a target='_blank' href='https://support.docusign.com'>Support</a> to enable IDV in your account.";
+                    this.ViewBag.SupportMessage = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage;
                 }
 
                 this.ViewBag.errorCode = apiException.ErrorCode;

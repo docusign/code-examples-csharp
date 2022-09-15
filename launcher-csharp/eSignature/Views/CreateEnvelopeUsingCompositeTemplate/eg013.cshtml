@@ -1,79 +1,149 @@
-﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+﻿@using System.Text.RegularExpressions;
+@{
+    var redirectToEigthCodeExample = "href='eg008'";
+    int formNumber = 0;
+    int signerEmailInputNumber = 0;
+    int signerNameInputNumber = 1;
+    int ccEmailInputNumber = 2;
+    int ccNameInputNumber = 3;
+    int itemInputNumber = 4;
+    int quantityInputNumber = 5;
+}
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 
-@if (ViewBag.templateOk) {
-  @Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
+@if (ViewBag.templateOk)
+{
+    <p>
+        @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+    </p>
 }
 
-@if (ViewBag.showDoc) {
-<p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
+@if (ViewBag.showDoc)
+{
+    <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
 }
 
-<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" />
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">CreateEnvelopeUsingCompositeTemplate.cs</a> on GitHub.
+    @Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">CreateEnvelopeUsingCompositeTemplate.cs</a>"))
 </p>
 
-@if (ViewBag.templateOk) {
-<p>The template you created via Create a template will be used.</p>
+@if (ViewBag.templateOk)
+{
+    <p>
+        @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)
+    </p>
+    <form class="eg" action="" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="signerEmail">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputName)
+            </label>
 
-<form class="eg" action="" method="post" data-busy="form">
-    <div class="form-group">
-        <label for="signerEmail">Signer Email</label>
-        <input type="email" class="form-control" id="signerEmail" name="signerEmail"
-               aria-describedby="emailHelp" placeholder="pat@example.com" required
-               value="@ViewBag.Locals.DsConfig.SignerEmail">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-        <label for="signerName">Signer Name</label>
-        <input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
-               value="@ViewBag.Locals.DsConfig.SignerName" required />
-    </div>
-    <div class="form-group">
-        <label for="ccEmail">CC Email</label>
-        <input type="email" class="form-control" id="ccEmail" name="ccEmail"
-               aria-describedby="emailHelp" placeholder="pat@example.com" required  />
-        <small id="emailHelp" class="form-text text-muted">The email and/or name for the cc recipient must be different from the signer.</small>
-    </div>
-    <div class="form-group">
-        <label for="ccName">CC Name</label>
-        <input type="text" class="form-control" id="ccName" placeholder="Pat Johnson" name="ccName"
-               required />
-    </div>
-    <p><hr class='styled' /></p>
-    <div class="form-group">
-        <label for="item">Item</label>
-        <select id="item" name="item" class="form-control">
-            <option>Apples</option>
-            <option selected>Avocados</option>
-            <option>Oranges</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="quantity">Quantity</label>
-        <select id="quantity" name="quantity" class="form-control">
-            <option>10</option>
-            <option selected>20</option>
-            <option>30</option>
-            <option>40</option>
-            <option>50</option>
-            <option>60</option>
-            <option>70</option>
-            <option>80</option>
-            <option>90</option>
-            <option>100</option>
-        </select>
-    </div>
-    <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+            <input type="email" 
+                   class="form-control" 
+                   id="signerEmail" 
+                   name="signerEmail"
+                   aria-describedby="emailHelp" 
+                   placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputPlaceholder" 
+                   required
+                   value="@ViewBag.Locals.DsConfig.SignerEmail">
 
-} else {
-<p>
-    Prerequisite: Please first create the template using <a href="eg008">Create a template</a>.
-</p>
+            <small id="emailHelp" class="form-text text-muted">
+                @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="signerName">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputName)
+            </label>
 
-<form class="eg" action="eg008" method="get">
-    <button type="submit" class="btn btn-primary">Continue</button>
-</form>
+            <input type="text" 
+                   class="form-control" 
+                   id="signerName" 
+                   placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputPlaceholder" 
+                   name="signerName"
+                   value="@ViewBag.Locals.DsConfig.SignerName" 
+                   required />
+        </div>
+        <div class="form-group">
+            <label for="ccEmail">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[ccEmailInputNumber].InputName)
+            </label>
+
+            <input type="email" 
+                   class="form-control"
+                   id="ccEmail" 
+                   name="ccEmail"
+                   aria-describedby="emailHelp"
+                   placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[ccEmailInputNumber].InputPlaceholder" 
+                   required />
+            <small id="emailHelp" class="form-text text-muted">
+                @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.CCEmailShouldDifferFromSigner)
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="ccName">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[ccNameInputNumber].InputName)
+            </label>
+
+            <input type="text" 
+                   class="form-control" 
+                   id="ccName" 
+                   placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[ccNameInputNumber].InputPlaceholder" 
+                   name="ccName"
+                   required />
+        </div>
+        <p><hr class='styled' /></p>
+        <div class="form-group">
+            <label for="item">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[itemInputNumber].InputName)
+            </label>
+
+            <select id="item" name="item" class="form-control">
+                <option>Apples</option>
+                <option selected>Avocados</option>
+                <option>Oranges</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="quantity">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[quantityInputNumber].InputName)
+            </label>
+
+            <select id="quantity" name="quantity" class="form-control">
+                <option>10</option>
+                <option selected>20</option>
+                <option>30</option>
+                <option>40</option>
+                <option>50</option>
+                <option>60</option>
+                <option>70</option>
+                <option>80</option>
+                <option>90</option>
+                <option>100</option>
+            </select>
+        </div>
+
+        <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
+    </form>
+
+}
+else
+{
+    <p>
+        @Html.Raw(
+                String.Format(
+                    ((IEnumerable<dynamic>)ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                        .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToEigthCodeExample, @"\d+").Value))
+                        .FirstOrDefault()
+                        .RedirectText,
+                    redirectToEigthCodeExample
+                )
+        )
+    </p>    
+
+    <form class="eg" action="eg008" method="get">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+    </form>
 }

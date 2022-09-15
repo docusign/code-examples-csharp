@@ -1,5 +1,12 @@
-﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
-@Html.Raw(ViewBag.CodeExampleText.ExampleDescriptionExtended)
+﻿@{
+    int formNumber = 0;
+    int phoneNumberInputNumber = 1;
+    int emailInputNumber = 2;
+    int nameInputNumber = 3;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>@Html.Raw(ViewBag.CodeExampleText.ExampleDescription)</p>
 
  @if (ViewBag.showDoc == true)
  {
@@ -9,31 +16,62 @@
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">Eg020SmsAuthController.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">Eg020SmsAuthController.cs</a>"))
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
 
 
     <div class="form-group">
-        <label for="signerPhone">Signer Phone Number</label>
-        <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber"
-               aria-describedby="telHelp" placeholder="415-555-1212" required
+        <label for="signerPhone">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[phoneNumberInputNumber].InputName)
+        </label>
+
+        <input type="tel"
+               class="form-control" 
+               id="phoneNumber" 
+               name="phoneNumber"
+               aria-describedby="telHelp"
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[phoneNumberInputNumber].InputPlaceholder" 
+               required
                value="">
-        <small id="telHelp" class="form-text text-muted">We'll never share your phone number with anyone else.</small>
+
+        <small id="telHelp" class="form-text text-muted">
+            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.PhoneNumberWontBeShared)
+        </small>
     </div>
     <div class="form-group">
-        <label for="signerEmail">Signer Email</label>
-        <input type="email" class="form-control" id="signerEmail" name="signerEmail"
-               aria-describedby="emailHelp" placeholder="pat@example.com" required
+        <label for="signerEmail">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[emailInputNumber].InputName)
+        </label>
+
+        <input type="email" 
+               class="form-control"
+               id="signerEmail" 
+               name="signerEmail"
+               aria-describedby="emailHelp" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[emailInputNumber].InputPlaceholder" 
+               required
                value="@ViewBag.Locals.DsConfig.SignerEmail">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+
+        <small id="emailHelp" class="form-text text-muted">
+            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)
+        </small>
     </div>
     <div class="form-group">
-        <label for="signerName">Signer Name</label>
-        <input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
-               value="@ViewBag.Locals.DsConfig.SignerName" required>
+        <label for="signerName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[nameInputNumber].InputName)
+        </label>
+
+        <input type="text" 
+               class="form-control" 
+               id="signerName" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[nameInputNumber].InputPlaceholder" 
+               name="signerName"
+               value="@ViewBag.Locals.DsConfig.SignerName" 
+               required>
     </div>
+
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>
