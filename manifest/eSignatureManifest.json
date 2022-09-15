@@ -718,7 +718,7 @@
                     "ExampleNumber": 22,
                     "ExampleName": "Send an envelope with Recipient Knowledged Based Authentication",
                     "ExampleDescription": "Submit an envelope with multiple choice, public records based questions to provide multi-factor authentication.",
-                    "Note": "<p><b>Note:<b/> The access code for this example is the Signer Name.</p>",
+                    "Notes": "<p><b>Note:<b/> The access code for this example is the Signer Name.</p>",
                     "LinksToAPIMethod": 
                     [
                         {
@@ -746,7 +746,7 @@
                     "ExampleNumber": 23,
                     "ExampleName": "Send an envelope with ID Verification Authentication",
                     "ExampleDescription": "Submit an envelope that requires verification of a government issued identity.",
-                    "Note": "<p><b>Note:<b/> The access code for this example is the Signer Name.</p>",
+                    "Notes": "<p><b>Note:<b/> The access code for this example is the Signer Name.</p>",
                     "LinksToAPIMethod": 
                     [
                         {
