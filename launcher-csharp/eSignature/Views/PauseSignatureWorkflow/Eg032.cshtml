@@ -10,6 +10,14 @@
 </div>");
     } 
 }
+@{
+    int firstFormNumber = 0;
+    int secondFormNumber = 1;
+    int nameNumber = 0;
+    int emailInputNumber = 1;
+    int email2InputNumber = 0;
+    int name2InputNumber = 1;
+}
 
 <h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 
@@ -27,23 +35,23 @@
 
 <form action="" class="eg" method="post" data-busy="form">
 
-    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[0].FormName)</p>
+    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[firstFormNumber].FormName)</p>
     <div class="row">
         <div class="col-md-6 column">
             <div class="form-group">
-                @GetTextInputMarkup("recipient1.Name", @ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName, "text")
-                @GetTextInputMarkup("recipient1.Email", @ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName, "email")
+                @GetTextInputMarkup("recipient1.Name", @ViewBag.CodeExampleText.Forms[firstFormNumber].Inputs[nameNumber].InputName, "text")
+                @GetTextInputMarkup("recipient1.Email", @ViewBag.CodeExampleText.Forms[firstFormNumber].Inputs[emailInputNumber].InputName, "email")
             </div>
         </div>
     </div>
 
 
-    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[1].FormName)</p>
+    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[secondFormNumber].FormName)</p>
     <div class="row">
         <div class="col-md-6 column ">
             <div class="form-group">
-                @GetTextInputMarkup("recipient2.Name", @ViewBag.CodeExampleText.Forms[1].Inputs[0].InputName, "text")
-                @GetTextInputMarkup("recipient2.Email", @ViewBag.CodeExampleText.Forms[1].Inputs[1].InputName, "email")
+                @GetTextInputMarkup("recipient2.Name", @ViewBag.CodeExampleText.Forms[secondFormNumber].Inputs[name2InputNumber].InputName, "text")
+                @GetTextInputMarkup("recipient2.Email", @ViewBag.CodeExampleText.Forms[secondFormNumber].Inputs[email2InputNumber].InputName, "email")
             </div>
         </div>
     </div>

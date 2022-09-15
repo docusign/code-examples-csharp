@@ -2,6 +2,8 @@
 @{
     var redirectToSixthCodeExample = "href='eg006'";
     var redirectToSecondCodeExample = "href='eg002'";
+    int formNumber = 0;
+    int documentInputNumber = 0;
 }
 
 <h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
@@ -57,12 +59,12 @@ else if (!ViewBag.documentsOk)
 }
 else
 {
-    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[0].FormName)</p>
+    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)</p>
 
     <form class="eg" action="" method="post" data-busy="form-download">
         <div class="form-group">
             <label for="docSelect">
-                @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[documentInputNumber].InputName)
             </label>
 
             <select class="custom-select" id="docSelect"

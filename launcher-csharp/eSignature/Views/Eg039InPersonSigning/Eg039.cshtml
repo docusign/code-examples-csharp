@@ -1,4 +1,9 @@
-﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+﻿@{
+    int formNumber = 0;
+    int nameInputNumber = 0;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
     @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
@@ -21,13 +26,13 @@
 <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
         <label for="signerName">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[nameInputNumber].InputName)
         </label>
 
         <input type="text" 
                class="form-control" 
                id="signerName" 
-               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[0].InputPlaceholder" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[nameInputNumber].InputPlaceholder" 
                name="signerName"
                required />
     </div>

@@ -2,16 +2,18 @@
 @using System.Text.RegularExpressions;
 @{
     var redirectToFirstCodeExample = "href='eg01'";
+    int formNumber = 1;
+    int documentsInputNumber = 0;
 }
 
 @if (Model.Rooms != null && Model.Rooms.Any())
 {
-    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[1].FormName)</p>
+    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)</p>
 
     <form class="eg" asp-action="SelectRoom" method="post" data-busy="form">
         <div class="form-group">
             <label for="docSelect">
-                @Html.Raw(ViewBag.CodeExampleText.Forms[1].Inputs[0].InputName)
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[documentsInputNumber].InputName)
             </label>
 
             <select class="custom-select"
@@ -20,7 +22,7 @@
                     onchange="this.form.submit();"
                     data-val="true"
                     data-val-required="The Room field is required.">
-                <option>@ViewBag.CodeExampleText.Forms[1].Inputs[0].InputPlaceholder</option>
+                <option>@ViewBag.CodeExampleText.Forms[formNumber].Inputs[documentsInputNumber].InputPlaceholder</option>
             </select>
         </div>
         <input type="hidden" name="_csrf" value="<%- csrfToken %>">

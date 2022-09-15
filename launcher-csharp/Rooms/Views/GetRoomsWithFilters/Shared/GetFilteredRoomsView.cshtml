@@ -1,9 +1,14 @@
 ﻿@model DocuSign.CodeExamples.Rooms.Models.RoomFilterModel
- 
+@{
+    int formNumber = 0;
+    int startDateInputNumber = 0;
+    int endDateInputNumber = 1;
+}
+
 <form class="eg" asp-action="ExportData" method="post" data-busy="form">
     <div class="form-group">
         <label asp-for="FieldDataChangedStartDate">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[startDateInputNumber].InputName)
         </label>
 
         <input type="date" class="form-control" asp-for="FieldDataChangedStartDate" 
@@ -12,7 +17,7 @@
 
     <div class="form-group">
         <label asp-for="FieldDataChangedEndDate">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[endDateInputNumber].InputName)
         </label>
 
         <input type="date" class="form-control" asp-for="FieldDataChangedEndDate"

@@ -1,5 +1,8 @@
 ﻿@{
     Layout = null;
+    int formNumber = 0;
+    int signerEmailInputNumber = 0;
+    int signerNameInputNumber = 1;
 }
 
 <!doctype html>
@@ -81,7 +84,7 @@
     <form class="eg" action="" method="post" data-busy="form">
         <div class="form-group">
             <label for="signerEmail">
-                @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputName)
             </label>
 
             <input type="email" 
@@ -89,7 +92,7 @@
                 id="signerEmail" 
                 name="signerEmail"
                 aria-describedby="emailHelp" 
-                placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[0].InputPlaceholder" 
+                placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputPlaceholder" 
                 required
                 value="@ViewBag.DsConfig.SignerEmail">
 
@@ -99,13 +102,13 @@
         </div>
         <div class="form-group">
             <label for="signerName">
-                @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName)
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputName)
             </label>
 
             <input type="text" 
                 class="form-control"
                 id="signerName" 
-                placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[1].InputPlaceholder" 
+                placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputPlaceholder" 
                 name="signerName"
                 value="@ViewBag.DsConfig.SignerName" required />
         </div>

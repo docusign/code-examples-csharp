@@ -1,6 +1,10 @@
 ﻿@using System.Text.RegularExpressions;
 @{
     var redirectTo28CodeExample = "href='eg028'";
+    int formNumber = 0;
+    int signerNameInputNumber = 1;
+    int signerEmailInputNumber = 0;
+    int brandInputNumber = 2;
 }
 
 <h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
@@ -27,7 +31,7 @@
 <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
         <label for="signerEmail">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputName)
         </label>
 
         <input type="email" 
@@ -35,7 +39,7 @@
                id="signerEmail" 
                name="signerEmail"
                aria-describedby="emailHelp" 
-               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[0].InputPlaceholder" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputPlaceholder" 
                required
                value="@ViewBag.Locals.DsConfig.SignerEmail">
 
@@ -46,13 +50,13 @@
 
     <div class="form-group">
         <label for="signerName">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputName)
         </label>
 
         <input type="text" 
                class="form-control" 
                id="signerName" 
-               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[1].InputPlaceholder"
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputPlaceholder"
                name="signerName"
                value="@ViewBag.Locals.DsConfig.SignerName" 
                required />
@@ -60,7 +64,7 @@
 
     <div class="form-group">
         <label for="brandId">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[2].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[brandInputNumber].InputName)
         </label>
 
         @if (ViewBag.Brands == null)

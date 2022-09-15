@@ -1,6 +1,7 @@
 ﻿@using System.Text.RegularExpressions;
 @{
     var redirectToSecondCodeExample = "href='eg002'";
+    int formNumber = 0;
 }
 
 <h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
@@ -20,7 +21,7 @@
 
 @if (ViewBag.envelopeOk)
 {
-    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[0].FormName)</p>
+    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)</p>
 
     <form class="eg" action="" method="post" data-busy="form">
         <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">

@@ -1,4 +1,8 @@
 ﻿@model DocuSign.CodeExamples.Click.Controllers.CreateClickwrap
+@{
+    int formNumber = 0;
+    int clickwrapInputNumber = 0;
+}
 
 <h4>1. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
@@ -18,11 +22,11 @@
 <form class="eg" asp-action="Create" method="post" data-busy="form">
     <div class="form-group">
         <label for="Name">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[clickwrapInputNumber].InputName)
         </label>
 
         <input type="text" class="form-control" name="Name" 
-            placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[0].InputPlaceholder" required />
+            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[clickwrapInputNumber].InputPlaceholder" required />
     </div>
 
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">

@@ -3,6 +3,9 @@
 @using System.Text.RegularExpressions;
 @{
     var redirectToFirstCodeExample = "href='eg01'";
+    int formNumber = 0;
+    int clickwrapInputNumber = 0;
+    int clickwrapNameInputNumber = 1;
 }
 
 <h4 id="example03">3. Create a new clickwrap version</h4>
@@ -23,7 +26,7 @@
     <form class="eg" asp-action="Create" method="post" data-busy="form">
         <div class="form-group">
             <label for="clickwrapId">
-                @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[clickwrapInputNumber].InputName)
             </label>
 
             <select class="custom-select" id="clickwrapId"
@@ -37,7 +40,7 @@
 
         <div class="form-group">
             <label for="clickwrapName">
-                @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName)
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[clickwrapNameInputNumber].InputName)
             </label>
             <input type="text" class="form-control" id="clickwrapName" name="clickwrapName" required/>
         </div>

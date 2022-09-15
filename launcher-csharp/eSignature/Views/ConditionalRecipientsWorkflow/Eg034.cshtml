@@ -11,6 +11,13 @@
         );
     }
 }
+@{
+    int firstFormNumber = 0;
+    int secondFormNumber = 1;
+    int thirdFormNumber = 2;
+    int signerEmailInputNumber = 0;
+    int signerNameInputNumber = 1;
+}
 
 <h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
@@ -30,32 +37,32 @@
 
 <form action="" class="eg" method="post" data-busy="form">
 
-    @Html.Raw(ViewBag.CodeExampleText.Forms[0].FormName)
+    <b>@Html.Raw(ViewBag.CodeExampleText.Forms[firstFormNumber].FormName)</b>
     <div class="row">
         <div class="col-md-6 column">
             <div class="form-group">
-                @GetTextInputMarkup("recipient1.Email", @ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName, "email")
-                @GetTextInputMarkup("recipient1.Name", @ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName, "text")
+                @GetTextInputMarkup("recipient1.Email", @ViewBag.CodeExampleText.Forms[firstFormNumber].Inputs[signerEmailInputNumber].InputName, "email")
+                @GetTextInputMarkup("recipient1.Name", @ViewBag.CodeExampleText.Forms[firstFormNumber].Inputs[signerNameInputNumber].InputName, "text")
             </div>
         </div>
     </div>
 
-    @Html.Raw(ViewBag.CodeExampleText.Forms[1].FormName)
+    <b>@Html.Raw(ViewBag.CodeExampleText.Forms[secondFormNumber].FormName)</b>
     <div class="row">
         <div class="col-md-6 column ">
             <div class="form-group">
-                @GetTextInputMarkup("conditionalRecipient1.Email", @ViewBag.CodeExampleText.Forms[1].Inputs[0].InputName, "email")
-                @GetTextInputMarkup("conditionalRecipient1.Name", @ViewBag.CodeExampleText.Forms[1].Inputs[1].InputName, "text")
+                @GetTextInputMarkup("conditionalRecipient1.Email", @ViewBag.CodeExampleText.Forms[secondFormNumber].Inputs[signerEmailInputNumber].InputName, "email")
+                @GetTextInputMarkup("conditionalRecipient1.Name", @ViewBag.CodeExampleText.Forms[secondFormNumber].Inputs[signerNameInputNumber].InputName, "text")
             </div>
         </div>
     </div>
 
-    @Html.Raw(ViewBag.CodeExampleText.Forms[2].FormName)
+    <b>@Html.Raw(ViewBag.CodeExampleText.Forms[thirdFormNumber].FormName)</b>
     <div class="row">
         <div class="col-md-6 column ">
             <div class="form-group">
-                @GetTextInputMarkup("conditionalRecipient2.Email", @ViewBag.CodeExampleText.Forms[2].Inputs[0].InputName, "email")
-                @GetTextInputMarkup("conditionalRecipient2.Name", @ViewBag.CodeExampleText.Forms[2].Inputs[1].InputName, "text")
+                @GetTextInputMarkup("conditionalRecipient2.Email", @ViewBag.CodeExampleText.Forms[thirdFormNumber].Inputs[signerEmailInputNumber].InputName, "email")
+                @GetTextInputMarkup("conditionalRecipient2.Name", @ViewBag.CodeExampleText.Forms[thirdFormNumber].Inputs[signerNameInputNumber].InputName, "text")
             </div>
         </div>
     </div>

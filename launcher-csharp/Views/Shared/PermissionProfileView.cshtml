@@ -1,14 +1,18 @@
 ﻿@model DocuSign.CodeExamples.Models.PermissionProfileModel
+@{
+    int formNumber = 0;
+    int profileNameInputNumber = 0;
+}
 
-<p>@Html.Raw(ViewBag.CodeExampleText.Forms[0].FormName)</p>
+<p>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)</p>
 
 <form class="eg" asp-action="Create" method="post" data-busy="form">
     <div class="form-group">
         <label asp-for="ProfileName">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[profileNameInputNumber].InputName)
         </label>
         <input type="input" class="form-control" asp-for="ProfileName"
-               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[0].InputPlaceholder" required />
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[profileNameInputNumber].InputPlaceholder" required />
     </div>
 
     @Html.HiddenFor(Model => Model.ProfileId)

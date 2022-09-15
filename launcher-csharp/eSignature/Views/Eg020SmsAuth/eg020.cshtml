@@ -1,4 +1,11 @@
-﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+﻿@{
+    int formNumber = 0;
+    int phoneNumberInputNumber = 1;
+    int emailInputNumber = 2;
+    int nameInputNumber = 3;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>@Html.Raw(ViewBag.CodeExampleText.ExampleDescription)</p>
 
  @if (ViewBag.showDoc == true)
@@ -17,7 +24,7 @@
 
     <div class="form-group">
         <label for="signerPhone">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[phoneNumberInputNumber].InputName)
         </label>
 
         <input type="tel"
@@ -25,7 +32,7 @@
                id="phoneNumber" 
                name="phoneNumber"
                aria-describedby="telHelp"
-               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[1].InputPlaceholder" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[phoneNumberInputNumber].InputPlaceholder" 
                required
                value="">
 
@@ -35,7 +42,7 @@
     </div>
     <div class="form-group">
         <label for="signerEmail">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[2].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[emailInputNumber].InputName)
         </label>
 
         <input type="email" 
@@ -43,7 +50,7 @@
                id="signerEmail" 
                name="signerEmail"
                aria-describedby="emailHelp" 
-               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[2].InputPlaceholder" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[emailInputNumber].InputPlaceholder" 
                required
                value="@ViewBag.Locals.DsConfig.SignerEmail">
 
@@ -53,13 +60,13 @@
     </div>
     <div class="form-group">
         <label for="signerName">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[3].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[nameInputNumber].InputName)
         </label>
 
         <input type="text" 
                class="form-control" 
                id="signerName" 
-               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[3].InputPlaceholder" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[nameInputNumber].InputPlaceholder" 
                name="signerName"
                value="@ViewBag.Locals.DsConfig.SignerName" 
                required>

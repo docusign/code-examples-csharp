@@ -1,4 +1,9 @@
-﻿<h4>7. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+﻿@{
+    int formNumber = 0;
+    int userIdInputNumber = 0;
+}
+
+<h4>7. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
     @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
@@ -16,14 +21,14 @@
 <form class="eg" asp-action="RetriveProfileById" method="post" data-busy="form">
     <div class="form-group">
         <label for="userId">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[userIdInputNumber].InputName)
         </label>
 
         <input type="text" 
             class="form-control" 
             id="userId" 
             name="userId"
-            placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[0].InputPlaceholder" 
+            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[userIdInputNumber].InputPlaceholder" 
             required
             pattern="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}">
     </div>

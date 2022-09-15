@@ -2,6 +2,8 @@
 @using System.Text.RegularExpressions;
 @{
     var redirectToFirstCodeExample = "href='eg01'";
+    int formNumber = 0;
+    int clickwrapInputNumber = 0;
 }
 
 <h4>2. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
@@ -21,13 +23,13 @@
 
 @if (ViewBag.ClickwrapsData.Clickwraps.Count > 0) {
     <p>
-        @Html.Raw(ViewBag.CodeExampleText.Forms[0].FormName)
+        @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)
     </p>
 
     <form class="eg" asp-action="Activate" method="post" data-busy="form">
         <div class="form-group">
             <label for="clickwrapData">
-                @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[clickwrapInputNumber].InputName)
             </label>
 
             <select class="custom-select" id="clickwrapData"

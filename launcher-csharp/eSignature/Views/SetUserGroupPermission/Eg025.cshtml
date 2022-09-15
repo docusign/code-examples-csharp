@@ -1,4 +1,11 @@
-﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+﻿@{
+    int formNumber = 0;
+    int permissionInputNumber = 0;
+    int groupInputNumber = 1;
+}
+
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
     @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
@@ -20,22 +27,22 @@
     <div class="form-group">
 
         <label for="permissionProfileId">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[permissionInputNumber].InputName)
         </label>
         @Html.DropDownList(
             "permissionProfileId",
             ViewBag.PermissionProfiles,
-            @ViewBag.CodeExampleText.Forms[0].Inputs[0].InputPlaceholder,
+            @ViewBag.CodeExampleText.Forms[formNumber].Inputs[permissionInputNumber].InputPlaceholder,
             new { @class = "custom-select", required = "required" })
     </div>
     <div class="form-group">
         <label for="userGroupId">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[groupInputNumber].InputName)
         </label>
         @Html.DropDownList(
             "userGroupId",
             ViewBag.UserGroups,
-            @ViewBag.CodeExampleText.Forms[0].Inputs[1].InputPlaceholder,
+            @ViewBag.CodeExampleText.Forms[formNumber].Inputs[groupInputNumber].InputPlaceholder,
             new { @class = "custom-select", required = "required" })
     </div>
 

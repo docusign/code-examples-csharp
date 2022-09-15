@@ -2,18 +2,21 @@
 @using System.Text.RegularExpressions;
 @{
     var redirectToSeventhCodeExample = "href='eg07'";
+    int formNumber = 0;
+    int formInputNumber = 0;
+    int officeInputNumber = 1;
 }
 
 @if (Model.Offices != null && Model.Offices.Any())
 {
     @if (Model.FormGroups != null && Model.FormGroups.Any())
     {
-        <p>@Html.Raw(ViewBag.CodeExampleText.Forms[0].FormName)</p>
+        <p>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)</p>
 
         <form class="eg" asp-action="GrantAccess" method="post" data-busy="form">
             <div class="form-group">
                 <label for="formGroupSelect">
-                    @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+                    @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[formInputNumber].InputName)
                 </label>
 
                 <select class="custom-select"
@@ -23,14 +26,14 @@
                         data-val="true"
                         data-val-required="The Form Group field is required.">
                     <option>
-                        @ViewBag.CodeExampleText.Forms[0].Inputs[0].InputPlaceholder
+                        @ViewBag.CodeExampleText.Forms[formNumber].Inputs[formInputNumber].InputPlaceholder
                     </option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="officeSelect">
-                    @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName)
+                    @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[officeInputNumber].InputName)
                 </label>
 
                 <select class="custom-select"
@@ -40,7 +43,7 @@
                         data-val="true"
                         data-val-required="The Office field is required.">
                     <option>
-                        @ViewBag.CodeExampleText.Forms[0].Inputs[1].InputPlaceholder
+                        @ViewBag.CodeExampleText.Forms[formNumber].Inputs[officeInputNumber].InputPlaceholder
                     </option>
                 </select>
             </div>

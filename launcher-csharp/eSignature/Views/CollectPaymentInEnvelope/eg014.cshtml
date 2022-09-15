@@ -1,6 +1,11 @@
 ﻿@using System.Text.RegularExpressions;
 @{
     var redirectToSecondCodeExample = "href='Aeg02'";
+    int formNumber = 0;
+    int signerEmailInputNumber = 1;
+    int signerNameInputNumber = 0;
+    int ccEmailInputNumber = 3;
+    int ccNameInputNumber = 2;
 }
 <h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 
@@ -31,7 +36,7 @@
 <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
         <label for="signerEmail">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputName)
         </label>
 
         <input type="email" 
@@ -39,7 +44,7 @@
                id="signerEmail" 
                name="signerEmail"
                aria-describedby="emailHelp" 
-               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[0].InputPlaceholder" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputPlaceholder" 
                required
                value="@ViewBag.Locals.DsConfig.SignerEmail">
 
@@ -50,13 +55,13 @@
 
     <div class="form-group">
         <label for="signerName">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputName)
         </label>
 
         <input type="text" 
                class="form-control" 
                id="signerName" 
-               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[1].InputPlaceholder" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputPlaceholder" 
                name="signerName"
                value="@ViewBag.Locals.DsConfig.SignerName" 
                required />
@@ -64,7 +69,7 @@
 
     <div class="form-group">
         <label for="ccEmail">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[2].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[ccEmailInputNumber].InputName)
         </label>
 
         <input type="email" 
@@ -72,7 +77,7 @@
                id="ccEmail" 
                name="ccEmail"
                aria-describedby="emailHelp" 
-               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[2].InputPlaceholder" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[ccEmailInputNumber].InputPlaceholder" 
                required />
 
         <small id="emailHelp" class="form-text text-muted">
@@ -82,13 +87,13 @@
 
     <div class="form-group">
         <label for="ccName">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[3].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[ccNameInputNumber].InputName)
         </label>
 
         <input type="text" 
                class="form-control" 
                id="ccName" 
-               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[3].InputPlaceholder" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[ccNameInputNumber].InputPlaceholder" 
                name="ccName"
                required />
     </div>

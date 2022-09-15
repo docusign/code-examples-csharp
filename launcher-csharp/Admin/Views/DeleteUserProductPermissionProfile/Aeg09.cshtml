@@ -1,7 +1,10 @@
 ﻿@using System.Text.RegularExpressions;
 @{
     var redirectToSecondCodeExample = "href='Aeg02'";
+    int formNumber = 0;
+    int permissionInputNumber = 0;
 }
+s
 <h4>9. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
     @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
@@ -20,13 +23,13 @@
 
 @if (ViewBag.EmailAddress != null) {
     <p>
-        @Html.Raw(String.Format(ViewBag.CodeExampleText.Forms[0].FormName, @ViewBag.EmailAddress))
+        @Html.Raw(String.Format(ViewBag.CodeExampleText.Forms[formNumber].FormName, @ViewBag.EmailAddress))
     </p>
 
     <form class="eg" asp-action="DeleteUserProductProfile" method="post" data-busy="form">
         <div class="form-group">
             <label for="Products">
-                @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[permissionInputNumber].InputName)
             </label>
 
             @Html.DropDownList(

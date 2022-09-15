@@ -2,18 +2,20 @@
 @using System.Text.RegularExpressions;
 @{
     var redirectToForthCodeExample = "href='eg04'";
+    int formNumber = 0;
+    int documentsInputNumber = 0;
 }
 
 @if (Model.Documents != null && Model.Documents.Any())
 {
-    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[0].FormName)</p>
+    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)</p>
 
     <form class="eg" asp-action="ExportData" method="post" data-busy="form">
         <input type="hidden" asp-for="RoomId">
 
         <div class="form-group">
             <label for="docSelect">
-                @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[documentsInputNumber].InputName)
             </label>
 
             <select class="custom-select" asp-for="DocumentId"

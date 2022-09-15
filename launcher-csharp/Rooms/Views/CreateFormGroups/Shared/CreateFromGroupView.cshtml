@@ -1,13 +1,17 @@
 ﻿@model DocuSign.CodeExamples.Rooms.Models.FormGroupModel
+@{
+    int formNumber = 0;
+    int roomNameInputNumber = 0;
+}
 
 <form class="eg" asp-action="CreateFormGroup" method="post" data-busy="form">
     <div class="form-group">
         <label asp-for="Name">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[roomNameInputNumber].InputName)
         </label>
 
         <input type="input" class="form-control" asp-for="Name" 
-               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[0].InputPlaceholder" required>
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[roomNameInputNumber].InputPlaceholder" required>
     </div>
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>

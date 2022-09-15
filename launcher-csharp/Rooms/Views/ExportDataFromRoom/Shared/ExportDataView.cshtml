@@ -2,6 +2,8 @@
 @using System.Text.RegularExpressions;
 @{
     var redirectToFirstCodeExample = "href='eg01'";
+    int formNumber = 0;
+    int roomNameInputNumber = 0;
 }
 
 @if (Model.Rooms.Any())
@@ -9,7 +11,7 @@
     <form class="eg" asp-action="ExportData" method="post" data-busy="form">
         <div class="form-group">
             <label for="docSelect">
-                @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[roomNameInputNumber].InputName)
             </label>
             <select class="custom-select" asp-for="RoomId" asp-items="@(new SelectList(Model.Rooms, "RoomId","Name"))" required>
             </select>

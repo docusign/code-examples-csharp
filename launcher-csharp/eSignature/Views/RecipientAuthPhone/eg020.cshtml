@@ -1,4 +1,11 @@
-﻿
+﻿@{
+    int formNumber = 0;
+    int countryCodeInputNumber = 0;
+    int numberInputNumber = 1;
+    int signerEmailInputNumber = 2;
+    int signerNameInputNumber = 3;
+}
+
 <h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
     @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
@@ -19,14 +26,14 @@
 
     <div class="form-group">
         <label for="signerCountryCode">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[countryCodeInputNumber].InputName)
         </label>
         <input type="number" 
                class="form-control" 
                id="signerCountryCode" 
                name="signerCountryCode"
                aria-describedby="countryCodeHelp"
-               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[0].InputPlaceholder" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[countryCodeInputNumber].InputPlaceholder" 
                required />
         <small id="countryCodeHelp" class="form-text text-muted">
             @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.CountryCodeText)
@@ -34,14 +41,14 @@
     </div>
     <div class="form-group">
         <label for="signerPhone">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[1].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[numberInputNumber].InputName)
         </label>
         <input type="tel" 
                class="form-control" 
                id="signerPhoneNumber"
                name="signerPhoneNumber"
                aria-describedby="telHelp" 
-               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[1].InputPlaceholder"
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[numberInputNumber].InputPlaceholder"
                required
                value="">
         <small id="telHelp" class="form-text text-muted">
@@ -50,14 +57,14 @@
     </div>
     <div class="form-group">
         <label for="signerEmail">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[2].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputName)
         </label>
         <input type="email" 
                class="form-control" 
                id="signerEmail" 
                name="signerEmail"
                aria-describedby="emailHelp" 
-               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[2].InputPlaceholder" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputPlaceholder" 
                required
                value="@ViewBag.Locals.DsConfig.SignerEmail">
 
@@ -67,12 +74,12 @@
     </div>
     <div class="form-group">
         <label for="signerName">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[3].InputName)
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputName)
         </label>
         <input type="text" 
                class="form-control" 
                id="signerName" 
-               placeholder="@ViewBag.CodeExampleText.Forms[0].Inputs[3].InputPlaceholder"
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputPlaceholder"
                name="signerName"
                value="@ViewBag.Locals.DsConfig.SignerName" 
                required />

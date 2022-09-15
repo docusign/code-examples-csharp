@@ -1,6 +1,7 @@
 ﻿@using System.Text.RegularExpressions;
 @{
     var redirectToNinthCodeExample = "href='eg009'";
+    int formNumber = 0;
 }
 
 <h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
@@ -20,7 +21,7 @@
 
 @if (ViewBag.envelopeOk)
 {
-    <p>@Html.Raw(String.Format(ViewBag.CodeExampleText.Forms[0].FormName, "eg009"))</p>
+    <p>@Html.Raw(String.Format(ViewBag.CodeExampleText.Forms[formNumber].FormName, "eg009"))</p>
 
     <form class="eg" action="" method="post" data-busy="form">
         <input type="hidden" name="_csrf" value="<%- csrfToken %>">
