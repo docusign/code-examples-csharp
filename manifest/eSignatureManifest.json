@@ -33,40 +33,9 @@
     "Groups": 
     [
         {
-            "Name": "Basic examples",
+            "Name": "Requesting a signature",
             "Examples": 
             [
-                {
-                    "ExampleNumber": 1,
-                    "ExampleName": "Request a signature through your app (embedded signing)",
-                    "ExampleDescription": "Sends an envelope, then uses embedded signing for the first signer. With embedded signing, DocuSign signing is initiated from your website.",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                            "PathName": "Envelopes:create"
-                        },
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/",
-                            "PathName": "EnvelopeViews:createRecipient"
-                        }
-                    ],
-                    "Forms": [
-                        {
-                          "Inputs": [
-                            {
-                              "InputName": "Signer Email",
-                              "InputPlaceholder": "pat@example.com"
-                            },
-                            {
-                                "InputName": "Signer Name",
-                                "InputPlaceholder": "Pat Johnson"
-                            }
-                          ]
-                        }
-                    ],
-                    "ResultsPageText": ""
-                },
                 {
                     "ExampleNumber": 2,
                     "ExampleName": "Send an envelope with a remote (email) signer and cc recipient",
@@ -103,139 +72,35 @@
                     "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
                 },
                 {
-                    "ExampleNumber": 3,
-                    "ExampleName": "List envelopes in the user's account",
-                    "ExampleDescription": "List the envelopes created in the last 30 days.",
+                    "ExampleNumber": 1,
+                    "ExampleName": "Request a signature through your app (embedded signing)",
+                    "ExampleDescription": "Sends an envelope, then uses embedded signing for the first signer. With embedded signing, DocuSign signing is initiated from your website.",
                     "LinksToAPIMethod": 
                     [
                         {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/",
-                            "PathName": "Envelopes:listStatusChanges"
-                        }
-                    ],
-                    "ResultsPageText": "Results from the Envelopes::listStatusChanges method:"
-                },
-                {
-                    "ExampleNumber": 4,
-                    "ExampleName": "Get an envelope's basic information and status",
-                    "ExampleDescription": "List the basic information about an envelope, including its overall status. Additional API/SDK methods may be used to get additional information about the envelope, its documents, recipients, etc.",
-                    "LinksToAPIMethod": 
-                    [
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                            "PathName": "Envelopes:create"
+                        },
                         {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/get/",
-                            "PathName": "Envelopes:get"
-                        }
-                    ],
-                    "RedirectsToOtherCodeExamples": [
-                        {
-                            "CodeExampleToRedirectTo": 2,
-                            "RedirectText": "<p>Problem: please first create an envelope using <a {0}>Send an envelope with a remote (email) signer and cc recipient.</a> <br />You will then need to use List an envelope's documents to create the list of documents.<br />Thank you.</p>"
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/",
+                            "PathName": "EnvelopeViews:createRecipient"
                         }
                     ],
                     "Forms": [
                         {
-                            "FormName": "<p>The envelope you created via Send an envelope with a remote (email) signer and cc recipient will be queried.</p>"
-                        }
-                    ],
-                    "ResultsPageText": "Results from the Envelopes::get method:"
-                },
-                {
-                    "ExampleNumber": 5,
-                    "ExampleName": "List an envelope's recipients and their status",
-                    "ExampleDescription": "List the envelope's recipients, including their current status.",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/enveloperecipients/list/",
-                            "PathName": "EnvelopeRecipients:list"
-                        }
-                    ],
-                    "RedirectsToOtherCodeExamples": [
-                        {
-                            "CodeExampleToRedirectTo": 2,
-                            "RedirectText": "<p>Problem: please first create an envelope using <a {0}>Send an envelope with a remote (email) signer and cc recipient.</a> <br />You will then need to use List an envelope's documents to create the list of documents.<br />Thank you.</p>"
-                        }
-                    ],
-                    "Forms": [
-                        {
-                            "FormName": "<p>The envelope you created via Send an envelope with a remote (email) signer and cc recipient will be queried.</p>"
+                          "Inputs": [
+                            {
+                              "InputName": "Signer Email",
+                              "InputPlaceholder": "pat@example.com"
+                            },
+                            {
+                                "InputName": "Signer Name",
+                                "InputPlaceholder": "Pat Johnson"
+                            }
+                          ]
                         }
                     ],
                     "ResultsPageText": ""
-                },
-                {
-                    "ExampleNumber": 6,
-                    "ExampleName": "List an envelope's documents",
-                    "ExampleDescription": "List the envelope's documents. A <i>Certificate of Completion</i> document is also associated with every envelope.",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocuments/list/",
-                            "PathName": "EnvelopeDocuments:list"
-                        }
-                    ],
-                    "RedirectsToOtherCodeExamples": [
-                        {
-                            "CodeExampleToRedirectTo": 2,
-                            "RedirectText": "<p>Problem: please first create an envelope using <a {0}>Send an envelope with a remote (email) signer and cc recipient.</a> <br />You will then need to use List an envelope's documents to create the list of documents.<br />Thank you.</p>"
-                        }
-                    ],
-                    "Forms": [
-                        {
-                            "FormName": "<p>The envelope you created via Send an envelope with a remote (email) signer and cc recipient will be queried.</p>"
-                        }
-                    ],
-                    "ResultsPageText": "Results from the EnvelopeDocuments::list method:"
-                },
-                {
-                    "ExampleNumber": 7,
-                    "ExampleName": "Download a document from an envelope",
-                    "ExampleDescription": "An envelope's documents can be downloaded one by one or as a complete set.",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocuments/get/",
-                            "PathName": "EnvelopeDocuments:get"
-                        }
-                    ],
-                    "RedirectsToOtherCodeExamples": [
-                        {
-                            "CodeExampleToRedirectTo": 2,
-                            "RedirectText": "<p>Problem: please first create an envelope using <a {0}>Send an envelope with a remote (email) signer and cc recipient.</a> <br />You will then need to use List an envelope's documents to create the list of documents.<br />Thank you.</p>"
-                        },
-                        {
-                            "CodeExampleToRedirectTo": 6,
-                            "RedirectText": "<p>Problem: please first create a list of the envelope's documents using<a {0}>List an envelope's documents.</a> <br />Thank you.</p>"
-                        }
-                    ],
-                    "Forms": [
-                        {
-                            "FormName": "<p>Please choose a document.<br/>The document list is from your results for List an envelope's documents.</p>",
-                            "Inputs": [
-                                {
-                                  "InputName": "Document selection"
-                                }
-                            ]
-                        }
-                    ],
-                    "ResultsPageText": ""
-                },
-                {
-                    "ExampleNumber": 8,
-                    "ExampleName": "Create a template",
-                    "ExampleDescription": "Create a template with two roles, <b>signer</b> and <b>cc</b>.",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/templates/templates/list/",
-                            "PathName": "Templates:list"
-                        },
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/templates/templates/create/",
-                            "PathName": "Templates:create"
-                        }
-                    ],
-                    "ResultsPageText": "<br/>Template name: {0}, ID {1}."
                 },
                 {
                     "ExampleNumber": 9,
@@ -278,111 +143,6 @@
                         }
                     ],
                     "ResultsPageText": "The envelope has been created and sent!<br/>Envelope ID {0}."
-                },
-                {
-                    "ExampleNumber": 10,
-                    "ExampleName": "Send an envelope using binary document transfer",
-                    "ExampleDescription": "<p>The envelope includes a pdf, Word, and HTML document.</p><p>Multipart data transfer is used to send the documents in binary format to DocuSign. Binary transfer is 33% more efficient than base64 encoding and is recommended for documents over 15M Bytes. Binary transfer is not yet supported by the SDK.</p>",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                            "PathName": "Envelopes:create"
-                        }
-                    ],
-                    "Forms": [
-                        {
-                            "Inputs": [
-                                {
-                                  "InputName": "Signer Email",
-                                  "InputPlaceholder": "pat@example.com"
-                                },
-                                {
-                                    "InputName": "Signer Name",
-                                    "InputPlaceholder": "Pat Johnson"
-                                },
-                                {
-                                    "InputName": "CC Email",
-                                    "InputPlaceholder": "pat@example.com"
-                                },
-                                {
-                                    "InputName": "CC Name",
-                                    "InputPlaceholder": "Pat Johnson"
-                                }
-                            ]
-                        }
-                    ],
-                    "ResultsPageText": "The envelope has been created and sent!<br/>Envelope ID {0}."
-                },
-                {
-                    "ExampleNumber": 11,
-                    "ExampleName": "Embedded sending",
-                    "ExampleDescription": "An envelope will be created in draft mode. The DocuSign web tool (NDSE) will then be shown, enabling further updates to the envelope before it is sent.",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                            "PathName": "Envelopes:create"
-                        },
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createsender/",
-                            "PathName": "EnvelopeViews:createSender"
-                        }
-                    ],
-                    "Forms": [
-                        {
-                            "Inputs": [
-                                {
-                                  "InputName": "Starting View"
-                                },
-                                {
-                                    "InputName": "Signer Email",
-                                    "InputPlaceholder": "pat@example.com"
-                                },
-                                {
-                                    "InputName": "Signer Name",
-                                    "InputPlaceholder": "Pat Johnson"
-                                },
-                                {
-                                    "InputName": "CC Email",
-                                    "InputPlaceholder": "pat@example.com"
-                                },
-                                {
-                                    "InputName": "CC Name",
-                                    "InputPlaceholder": "Pat Johnson"
-                                }
-                            ]
-                        }
-                    ],
-                    "ResultsPageText": "Sender view URL: {0}"
-                },
-                {
-                    "ExampleNumber": 12,
-                    "ExampleName": "Embedded DocuSign web tool",
-                    "ExampleDescription": "Redirect the user to the DocuSign web tool.",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createconsole/",
-                            "PathName": "EnvelopeViews:createConsole"
-                        }
-                    ],
-                    "RedirectsToOtherCodeExamples": [
-                        {
-                            "CodeExampleToRedirectTo": 2,
-                            "RedirectText": "<p><b>Optional:</b> To use the <i>envelope's Documents view,</i> please first create an envelope using <a {0}>Send an envelope with a remote (email) signer and cc recipient</a>.</p>"
-                        }
-                    ],
-                    "Forms": [
-                        {
-                            "Inputs": [
-                                {
-                                  "InputName": "Starting View"
-                                }
-                            ]
-                        }
-                    ],
-                    "ResultsPageText": "NDSE view URL: {0}."
                 },
                 {
                     "ExampleNumber": 13,
@@ -437,38 +197,48 @@
                     "ResultsPageText": ""
                 },
                 {
-                    "ExampleNumber": 39,
-                    "ExampleName": "Send an envelope to an In Person Signer",
-                    "ExampleDescription": "Demonstrates how to host an In Person Signing session with embedded signing.",
+                    "ExampleNumber": 37,
+                    "ExampleName": "Request a signature by SMS delivery",
+                    "ExampleDescription": "Sends a signature request via an SMS message.",
                     "LinksToAPIMethod": 
                     [
                         {
                             "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                            "PathName": "Envelopes:create"
-                        },
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/",
-                            "PathName": "EnvelopeViews:createRecipient"
+                            "PathName": "Envelopes::create"
                         }
                     ],
                     "Forms": [
                         {
                             "Inputs": [
                                 {
-                                  "InputName": "Signer Name",
-                                  "InputPlaceholder": "Pat Johnson"
+                                  "InputName": "Signer Country Code",
+                                  "InputPlaceholder": "1"
+                                },
+                                {
+                                    "InputName": "Signer Phone Number",
+                                    "InputPlaceholder": "415-555-1212"
+                                },
+                                {
+                                    "InputName": "Signer Name",
+                                    "InputPlaceholder": "Pat Johnson"
+                                },
+                                {
+                                    "InputName": "CC Country Code",
+                                    "InputPlaceholder": "1"
+                                },
+                                {
+                                    "InputName": "CC Phone Number",
+                                    "InputPlaceholder": "415-555-1212"
+                                },
+                                {
+                                    "InputName": "CC Name",
+                                    "InputPlaceholder": "Pat Johnson"
                                 }
                             ]
                         }
                     ],
-                    "ResultsPageText": ""
-                }
-            ]
-        },
-        {
-            "Name": "Payments",
-            "Examples": 
-            [
+                    "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
+                },
                 {
                     "ExampleNumber": 14,
                     "ExampleName": "Send an envelope with an order form and payment field",
@@ -513,480 +283,142 @@
                         }
                     ],
                     "ResultsPageText": "The envelope has been created and sent!<br/>Envelope ID {0}."
-                }
-            ]
-        },
-        {
-            "Name": "Tabs",
-            "Examples": 
-            [
+                },
                 {
-                    "ExampleNumber": 15,
-                    "ExampleName": "Get the tab data from an envelope",
-                    "ExampleDescription": "This example retrieves the <strong>tab</strong> (<a target=\"_blank\" href=\"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/\">field</a>) values from an envelope.",
+                    "ExampleNumber": 39,
+                    "ExampleName": "Send an envelope to an In Person Signer",
+                    "ExampleDescription": "Demonstrates how to host an In Person Signing session with embedded signing.",
                     "LinksToAPIMethod": 
                     [
                         {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeformdata/get/",
-                            "PathName": "EnvelopeFormData:get"
-                        }
-                    ],
-                    "RedirectsToOtherCodeExamples": [
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                            "PathName": "Envelopes:create"
+                        },
                         {
-                            "CodeExampleToRedirectTo": 9,
-                            "RedirectText": "<p>Prerequisite: Please first create an envelope using <a {0}>Send an envelope using a template</a>.</p>"
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/",
+                            "PathName": "EnvelopeViews:createRecipient"
                         }
                     ],
                     "Forms": [
                         {
-                            "FormName": "<p>The last envelope you created with this example launcher will be queried. Recommendation: Use Send an envelope using a template, then this example, since Send an envelope using a template includes many tabs of different types.</p>"
+                            "Inputs": [
+                                {
+                                  "InputName": "Signer Name",
+                                  "InputPlaceholder": "Pat Johnson"
+                                }
+                            ]
+                        }
+                    ],
+                    "ResultsPageText": ""
+                }
+            ]
+        },
+        {
+            "Name": "Working with envelopes and templates",
+            "Examples": 
+            [
+                {
+                    "ExampleNumber": 4,
+                    "ExampleName": "Get an envelope's basic information and status",
+                    "ExampleDescription": "List the basic information about an envelope, including its overall status. Additional API/SDK methods may be used to get additional information about the envelope, its documents, recipients, etc.",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/get/",
+                            "PathName": "Envelopes:get"
+                        }
+                    ],
+                    "RedirectsToOtherCodeExamples": [
+                        {
+                            "CodeExampleToRedirectTo": 2,
+                            "RedirectText": "<p>Problem: please first create an envelope using <a {0}>Send an envelope with a remote (email) signer and cc recipient.</a> <br />You will then need to use List an envelope's documents to create the list of documents.<br />Thank you.</p>"
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "FormName": "<p>The envelope you created via Send an envelope with a remote (email) signer and cc recipient will be queried.</p>"
                         }
                     ],
                     "ResultsPageText": "Results from the Envelopes::get method:"
                 },
                 {
-                    "ExampleNumber": 16,
-                    "ExampleName": "Set tab values for a envelope",
-                    "ExampleDescription": "This example sets the tab (field) values for an envelope including tabs that can and cannot be changed by the signer.",
+                    "ExampleNumber": 5,
+                    "ExampleName": "List an envelope's recipients and their status",
+                    "ExampleDescription": "List the envelope's recipients, including their current status.",
                     "LinksToAPIMethod": 
                     [
                         {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                            "PathName": "Envelopes:create"
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/enveloperecipients/list/",
+                            "PathName": "EnvelopeRecipients:list"
+                        }
+                    ],
+                    "RedirectsToOtherCodeExamples": [
+                        {
+                            "CodeExampleToRedirectTo": 2,
+                            "RedirectText": "<p>Problem: please first create an envelope using <a {0}>Send an envelope with a remote (email) signer and cc recipient.</a> <br />You will then need to use List an envelope's documents to create the list of documents.<br />Thank you.</p>"
                         }
                     ],
                     "Forms": [
                         {
-                            "Inputs": [
-                                {
-                                  "InputName": "Signer Name",
-                                  "InputPlaceholder": "Pat Johnson"
-                                },
-                                {
-                                    "InputName": "Signer Email",
-                                    "InputPlaceholder": "pat@example.com"
-                                }
-                            ]
+                            "FormName": "<p>The envelope you created via Send an envelope with a remote (email) signer and cc recipient will be queried.</p>"
                         }
                     ],
                     "ResultsPageText": ""
                 },
                 {
-                    "ExampleNumber": 17,
-                    "ExampleName": "Set template tab values",
-                    "ExampleDescription": "This example sets the tab (field) values for a template being used by an envelope.",
+                    "ExampleNumber": 3,
+                    "ExampleName": "List envelopes in the user's account",
+                    "ExampleDescription": "List the envelopes created in the last 30 days.",
                     "LinksToAPIMethod": 
                     [
                         {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                            "PathName": "Envelopes:create"
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/",
+                            "PathName": "Envelopes:listStatusChanges"
                         }
                     ],
-                    "RedirectsToOtherCodeExamples": [
-                        {
-                            "CodeExampleToRedirectTo": 8,
-                            "RedirectText": "<p>Prerequisite: Please first create the template using <a {0}>Create a template</a>.</p>"
-                        }
-                    ],
-                    "Forms": [
-                        {
-                            "Inputs": [
-                                {
-                                  "InputName": "Signer Name",
-                                  "InputPlaceholder": "Pat Johnson"
-                                },
-                                {
-                                    "InputName": "Signer Email",
-                                    "InputPlaceholder": "pat@example.com"
-                                },
-                                {
-                                    "InputName": "CC Name",
-                                    "InputPlaceholder": "Pat Johnson"
-                                },
-                                {
-                                    "InputName": "CC Email",
-                                    "InputPlaceholder": "pat@example.com"
-                                }
-                            ]
-                        }
-                    ],
-                    "ResultsPageText": ""
+                    "ResultsPageText": "Results from the Envelopes::listStatusChanges method:"
                 },
                 {
-                    "ExampleNumber": 18,
-                    "ExampleName": "List envelope custom metadata field values",
-                    "ExampleDescription": "This example lists the envelope's custom metadata field values.",
+                    "ExampleNumber": 8,
+                    "ExampleName": "Create a template",
+                    "ExampleDescription": "Create a template with two roles, <b>signer</b> and <b>cc</b>.",
                     "LinksToAPIMethod": 
                     [
                         {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopecustomfields/list/",
-                            "PathName": "EnvelopeCustomFields:list"
-                        }
-                    ],
-                    "RedirectsToOtherCodeExamples": [
-                        {
-                            "CodeExampleToRedirectTo": 16,
-                            "RedirectText": "<p>Problem: Please first create an envelope using <a {0}>Set tab values for a envelope</a>.</p>"
-                        }
-                    ],
-                    "Forms": [
-                        {
-                            "FormName": "<p>The last envelope you created with this example launcher will be queried. Recommendation: Create an envelope using <a href='{0}'>Set tab values for a envelope<a/> then use this example in order to see an example of custom tab values.</p>"
-                        }
-                    ],
-                    "ResultsPageText": "Results from the EnvelopeCustomFields::list method:"
-                }
-            ]
-        },
-        {
-            "Name": "Recipient authentication",
-            "Examples": 
-            [
-                {
-                    "ExampleNumber": 19,
-                    "ExampleName": "Send an envelope with Access Code Recipient Authentication",
-                    "ExampleDescription": "Submit an envelope with an access code for multi-factor authentication.",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                            "PathName": "Envelopes:create"
-                        }
-                    ],
-                    "Forms": [
-                        {
-                            "Inputs": [
-                                {
-                                  "InputName": "Access Code",
-                                  "InputPlaceholder": "Enter a recipient access code here"
-                                },
-                                {
-                                    "InputName": "Signer Email",
-                                    "InputPlaceholder": "pat@example.com"
-                                },
-                                {
-                                    "InputName": "Signer Name",
-                                    "InputPlaceholder": "Pat Johnson"
-                                }
-                            ]
-                        }
-                    ],
-                    "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
-                },
-                {
-                    "ExampleNumber": 20,
-                    "ExampleName": "Require Phone Authentication for a Recipient",
-                    "ExampleDescription": "Sends an envelope that requires entering a six-digit code from a text message or phone call for the purpose of multifactor authentication.",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                            "PathName": "Envelopes:create"
-                        }
-                    ],
-                    "CustomErrorTexts": [
-                        {
-                            "ErrorMessageCheck": "IDENTITY_WORKFLOW_INVALID_ID",
-                            "ErrorMessage": "Please contact <a target='_blank' href='https://support.docusign.com'>Support</a> to enable recipient phone authentication in your account."
-                        }
-                    ],
-                    "Forms": [
-                        {
-                            "Inputs": [
-                                {
-                                  "InputName": "Signer Country Code",
-                                  "InputPlaceholder": "1"
-                                },
-                                {
-                                    "InputName": "Signer Phone Number",
-                                    "InputPlaceholder": "415-555-1212"
-                                },
-                                {
-                                    "InputName": "Signer Email",
-                                    "InputPlaceholder": "pat@example.com"
-                                },
-                                {
-                                    "InputName": "Signer Name",
-                                    "InputPlaceholder": "Pat Johnson"
-                                }
-                            ]
-                        }
-                    ],
-                    "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
-                },
-                {
-                    "ExampleNumber": 22,
-                    "ExampleName": "Send an envelope with Recipient Knowledged Based Authentication",
-                    "ExampleDescription": "Submit an envelope with multiple choice, public records based questions to provide multi-factor authentication.",
-                    "Notes": "<p><b>Note:<b/> The access code for this example is the Signer Name.</p>",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                            "PathName": "Envelopes:create"
-                        }
-                    ],
-                    "Forms": [
-                        {
-                            "Inputs": [
-                                {
-                                  "InputName": "Signer Email",
-                                  "InputPlaceholder": "pat@example.com"
-                                },
-                                {
-                                    "InputName": "Signer Name",
-                                    "InputPlaceholder": "Pat Johnson"
-                                }
-                            ]
-                        }
-                    ],
-                    "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
-                },
-                {
-                    "ExampleNumber": 23,
-                    "ExampleName": "Send an envelope with ID Verification Authentication",
-                    "ExampleDescription": "Submit an envelope that requires verification of a government issued identity.",
-                    "Notes": "<p><b>Note:<b/> The access code for this example is the Signer Name.</p>",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                            "PathName": "Envelopes:create"
-                        }
-                    ],
-                    "CustomErrorTexts": [
-                        {
-                            "ErrorMessageCheck": "IDENTITY_WORKFLOW_INVALID_ID",
-                            "ErrorMessage": "Please contact <a target='_blank' href='https://support.docusign.com'>Support</a> to enable IDV in your account."
-                        }
-                    ],
-                    "Forms": [
-                        {
-                            "Inputs": [
-                                {
-                                  "InputName": "Signer Email",
-                                  "InputPlaceholder": "pat@example.com"
-                                },
-                                {
-                                    "InputName": "Signer Name",
-                                    "InputPlaceholder": "Pat Johnson"
-                                }
-                            ]
-                        }
-                    ],
-                    "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
-                }
-            ]
-        },
-        {
-            "Name": "Permissions",
-            "Examples": 
-            [
-                {
-                    "ExampleNumber": 24,
-                    "ExampleName": "Create a new permission profile",
-                    "ExampleDescription": "Creating new permission profile.",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/create/",
-                            "PathName": "AccountPermissionProfiles:create"
-                        }
-                    ],
-                    "Forms": [
-                        {
-                            "FormName": "<p>Permission profile</p>",
-                            "Inputs": [
-                                {
-                                  "InputName": "Profile name",
-                                  "InputPlaceholder": "Profile name"
-                                }
-                            ]
-                        }
-                    ],
-                    "ResultsPageText": "The permission profile was created!<br />Permission profile ID: {0}, name:{1}."
-                },
-                {
-                    "ExampleNumber": 25,
-                    "ExampleName": "Setting a permission profile",
-                    "ExampleDescription": "Setting a permission profile.",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/usergroups/groups/update/",
-                            "PathName": "Groups:update"
-                        }
-                    ],
-                    "CustomErrorTexts": [
-                        {
-                            "ErrorMessage": "The permission profile failed to set to the user group"
-                        }
-                    ],
-                    "Forms": [
-                        {
-                            "Inputs": [
-                                {
-                                  "InputName": "Permission profile",
-                                  "InputPlaceholder": "Select permission profile"
-                                },
-                                {
-                                    "InputName": "User group",
-                                    "InputPlaceholder": "Select user group"
-                                }
-                            ]
-                        }
-                    ],
-                    "ResultsPageText": "The permission profile was successfully set to the user group!"
-                },
-                {
-                    "ExampleNumber": 26,
-                    "ExampleName": "Updating individual permission profile settings",
-                    "ExampleDescription": "Updating individual permissions.",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/update/",
-                            "PathName": "AccountPermissionProfiles:update"
-                        }
-                    ],
-                    "Forms": [
-                        {
-                            "FormName": "<p>Permission profile</p>",
-                            "Inputs": [
-                                {
-                                  "InputName": "Profile name",
-                                  "InputPlaceholder": "Profile name"
-                                }
-                            ]
-                        }
-                    ],
-                    "ResultsPageText": "The permission profile was updated!<br />Permission profile ID: {0}."
-                },
-                {
-                    "ExampleNumber": 27,
-                    "ExampleName": "Deleting a permission profile",
-                    "ExampleDescription": "Deleting a permission profile",
-                    "Notes": "<strong>Note:</strong> You cannot remove \"Everyone\" nor \"Administrator\" permission profiles.</p>",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/delete/",
-                            "PathName": "AccountPermissionProfiles:delete"
-                        }
-                    ],
-                    "CustomErrorTexts": [
-                        {
-                            "ErrorMessage": "The permission profile failed to delete"
-                        }
-                    ],
-                    "Forms": [
-                        {
-                            "Inputs": [
-                                {
-                                  "InputName": "Permission profile",
-                                  "InputPlaceholder": "Select permission profile"
-                                }
-                            ]
-                        }
-                    ],
-                    "ResultsPageText": "The permission profile is deleted!"
-                }
-            ]
-        },
-        {
-            "Name": "Brands",
-            "Examples": 
-            [
-                {
-                    "ExampleNumber": 28,
-                    "ExampleName": "Create a new Brand",
-                    "ExampleDescription": "Create a new Brand",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountbrands/create/",
-                            "PathName": "AccountBrands:create"
-                        }
-                    ],
-                    "Forms": [
-                        {
-                            "FormName": "<p>New brand</p>",
-                            "Inputs": [
-                                {
-                                  "InputName": "Brand name",
-                                  "InputPlaceholder": "New Brand"
-                                },
-                                {
-                                    "InputName": "Default Brand language"
-                                }
-                            ]
-                        }
-                    ],
-                    "ResultsPageText": "The brand has been created!<br />Brand ID: {0}."
-                },
-                {
-                    "ExampleNumber": 29,
-                    "ExampleName": "Applying a brand to an envelope",
-                    "ExampleDescription": "Applies brand to an envelope.",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                            "PathName": "Envelopes:create"
-                        }
-                    ],
-                    "RedirectsToOtherCodeExamples": [
-                        {
-                          "CodeExampleToRedirectTo": 28,
-                          "RedirectText": "<p>No brands were found for this account; please <a {0}>create one</a> first.</p>"
-                        }
-                    ],
-                    "Forms": [
-                        {
-                            "Inputs": [
-                                {
-                                  "InputName": "Signer Email",
-                                  "InputPlaceholder": "pat@example.com"
-                                },
-                                {
-                                    "InputName": "Signer Name",
-                                    "InputPlaceholder": "Pat Johnson"
-                                },
-                                {
-                                    "InputName": "Brand"
-                                }
-                            ]
-                        }
-                    ],
-                    "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
-                },
-                {
-                    "ExampleNumber": 30,
-                    "ExampleName": "Applying a brand to a template",
-                    "ExampleDescription": "Applies brand to a template.",
-                    "LinksToAPIMethod": 
-                    [
-                        {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                            "PathName": "Envelopes:create"
-                        }
-                    ],
-                    "RedirectsToOtherCodeExamples": [
-                        {
-                          "CodeExampleToRedirectTo": 28,
-                          "RedirectText": "<p>No brands were found for this account; please <a {0}>create one</a> first.</p>"
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/templates/templates/list/",
+                            "PathName": "Templates:list"
                         },
                         {
-                            "CodeExampleToRedirectTo": 8,
-                            "RedirectText": "<p>Prerequisite: Please first create the template using <a {0}>Create a template/a>.</p>"
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/templates/templates/create/",
+                            "PathName": "Templates:create"
+                        }
+                    ],
+                    "ResultsPageText": "<br/>Template name: {0}, ID {1}."
+                },
+                {
+                    "ExampleNumber": 11,
+                    "ExampleName": "Embedded sending",
+                    "ExampleDescription": "An envelope will be created in draft mode. The DocuSign web tool (NDSE) will then be shown, enabling further updates to the envelope before it is sent.",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                            "PathName": "Envelopes:create"
+                        },
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createsender/",
+                            "PathName": "EnvelopeViews:createSender"
                         }
                     ],
                     "Forms": [
                         {
                             "Inputs": [
                                 {
-                                  "InputName": "Signer Email",
-                                  "InputPlaceholder": "pat@example.com"
+                                  "InputName": "Starting View"
+                                },
+                                {
+                                    "InputName": "Signer Email",
+                                    "InputPlaceholder": "pat@example.com"
                                 },
                                 {
                                     "InputName": "Signer Name",
@@ -999,21 +431,12 @@
                                 {
                                     "InputName": "CC Name",
                                     "InputPlaceholder": "Pat Johnson"
-                                },
-                                {
-                                    "InputName": "Brand"
                                 }
                             ]
                         }
                     ],
-                    "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
-                }
-            ]
-        },
-        {
-            "Name": "Bulk operations",
-            "Examples": 
-            [
+                    "ResultsPageText": "Sender view URL: {0}"
+                },
                 {
                     "ExampleNumber": 31,
                     "ExampleName": "Bulk send envelopes",
@@ -1095,7 +518,7 @@
             ]
         },
         {
-            "Name": "Advanced recipient routing",
+            "Name": "Working with advanced recipient routing",
             "Examples": 
             [
                 {
@@ -1330,42 +753,91 @@
             ]
         },
         {
-            "Name": "Premium features",
+            "Name": "Working with documents",
             "Examples": 
             [
                 {
-                    "ExampleNumber": 37,
-                    "ExampleName": "Request a signature by SMS delivery",
-                    "ExampleDescription": "Sends a signature request via an SMS message.",
+                    "ExampleNumber": 6,
+                    "ExampleName": "List an envelope's documents",
+                    "ExampleDescription": "List the envelope's documents. A <i>Certificate of Completion</i> document is also associated with every envelope.",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocuments/list/",
+                            "PathName": "EnvelopeDocuments:list"
+                        }
+                    ],
+                    "RedirectsToOtherCodeExamples": [
+                        {
+                            "CodeExampleToRedirectTo": 2,
+                            "RedirectText": "<p>Problem: please first create an envelope using <a {0}>Send an envelope with a remote (email) signer and cc recipient.</a> <br />You will then need to use List an envelope's documents to create the list of documents.<br />Thank you.</p>"
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "FormName": "<p>The envelope you created via Send an envelope with a remote (email) signer and cc recipient will be queried.</p>"
+                        }
+                    ],
+                    "ResultsPageText": "Results from the EnvelopeDocuments::list method:"
+                },
+                {
+                    "ExampleNumber": 7,
+                    "ExampleName": "Download a document from an envelope",
+                    "ExampleDescription": "An envelope's documents can be downloaded one by one or as a complete set.",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocuments/get/",
+                            "PathName": "EnvelopeDocuments:get"
+                        }
+                    ],
+                    "RedirectsToOtherCodeExamples": [
+                        {
+                            "CodeExampleToRedirectTo": 2,
+                            "RedirectText": "<p>Problem: please first create an envelope using <a {0}>Send an envelope with a remote (email) signer and cc recipient.</a> <br />You will then need to use List an envelope's documents to create the list of documents.<br />Thank you.</p>"
+                        },
+                        {
+                            "CodeExampleToRedirectTo": 6,
+                            "RedirectText": "<p>Problem: please first create a list of the envelope's documents using<a {0}>List an envelope's documents.</a> <br />Thank you.</p>"
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "FormName": "<p>Please choose a document.<br/>The document list is from your results for List an envelope's documents.</p>",
+                            "Inputs": [
+                                {
+                                  "InputName": "Document selection"
+                                }
+                            ]
+                        }
+                    ],
+                    "ResultsPageText": ""
+                },
+                {
+                    "ExampleNumber": 10,
+                    "ExampleName": "Send an envelope using binary document transfer",
+                    "ExampleDescription": "<p>The envelope includes a pdf, Word, and HTML document.</p><p>Multipart data transfer is used to send the documents in binary format to DocuSign. Binary transfer is 33% more efficient than base64 encoding and is recommended for documents over 15M Bytes. Binary transfer is not yet supported by the SDK.</p>",
                     "LinksToAPIMethod": 
                     [
                         {
                             "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                            "PathName": "Envelopes::create"
+                            "PathName": "Envelopes:create"
                         }
                     ],
                     "Forms": [
                         {
                             "Inputs": [
                                 {
-                                  "InputName": "Signer Country Code",
-                                  "InputPlaceholder": "1"
-                                },
-                                {
-                                    "InputName": "Signer Phone Number",
-                                    "InputPlaceholder": "415-555-1212"
+                                  "InputName": "Signer Email",
+                                  "InputPlaceholder": "pat@example.com"
                                 },
                                 {
                                     "InputName": "Signer Name",
                                     "InputPlaceholder": "Pat Johnson"
                                 },
                                 {
-                                    "InputName": "CC Country Code",
-                                    "InputPlaceholder": "1"
-                                },
-                                {
-                                    "InputName": "CC Phone Number",
-                                    "InputPlaceholder": "415-555-1212"
+                                    "InputName": "CC Email",
+                                    "InputPlaceholder": "pat@example.com"
                                 },
                                 {
                                     "InputName": "CC Name",
@@ -1374,7 +846,7 @@
                             ]
                         }
                     ],
-                    "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
+                    "ResultsPageText": "The envelope has been created and sent!<br/>Envelope ID {0}."
                 },
                 {
                     "ExampleNumber": 38,
@@ -1414,6 +886,583 @@
                         }
                     ],
                     "ResultsPageText": ""
+                },
+                {
+                    "ExampleNumber": 40,
+                    "ExampleName": "Set document visibility for envelope recipients",
+                    "ExampleDescription": "Demonstrates how to set document visibility for envelope recipients.",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                            "PathName": "Envelopes::create"
+                        }
+                    ],
+                    "CustomErrorTexts": [
+                        {
+                            "ErrorMessageCheck": "ACCOUNT_LACKS_PERMISSIONS",
+                            "ErrorMessage": "See <a href=\"https://developers.docusign.com/docs/esign-rest-api/how-to/set-document-visibility\"> How to set document visibility for envelope recipients</a> in the DocuSign Developer Center for instructions on how to enable document visibility in your developer account."
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "Inputs": [
+                                {
+                                  "InputName": "Signer1 Email",
+                                  "InputPlaceholder": "pat@example.com"
+                                },
+                                {
+                                    "InputName": "Signer1 Name",
+                                    "InputPlaceholder": "Pat Johnson"
+                                },
+                                {
+                                    "InputName": "Signer2 Email",
+                                    "InputPlaceholder": "bob@mail.com"
+                                  },
+                                  {
+                                      "InputName": "Signer2 Name",
+                                      "InputPlaceholder": "Bob"
+                                  },
+                                {
+                                    "InputName": "CC Email",
+                                    "InputPlaceholder": "pat@example.com"
+                                },
+                                {
+                                    "InputName": "CC Name",
+                                    "InputPlaceholder": "Pat Johnson"
+                                }
+                            ]
+                        }
+                    ],
+                    "ResultsPageText": "The envelope has been created and sent! Envelope ID {0}."
+                }
+            ]
+        },
+        {
+            "Name": "Working with tabs",
+            "Examples": 
+            [
+                {
+                    "ExampleNumber": 15,
+                    "ExampleName": "Get the tab data from an envelope",
+                    "ExampleDescription": "This example retrieves the <strong>tab</strong> (<a target=\"_blank\" href=\"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/\">field</a>) values from an envelope.",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeformdata/get/",
+                            "PathName": "EnvelopeFormData:get"
+                        }
+                    ],
+                    "RedirectsToOtherCodeExamples": [
+                        {
+                            "CodeExampleToRedirectTo": 9,
+                            "RedirectText": "<p>Prerequisite: Please first create an envelope using <a {0}>Send an envelope using a template</a>.</p>"
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "FormName": "<p>The last envelope you created with this example launcher will be queried. Recommendation: Use Send an envelope using a template, then this example, since Send an envelope using a template includes many tabs of different types.</p>"
+                        }
+                    ],
+                    "ResultsPageText": "Results from the Envelopes::get method:"
+                },
+                {
+                    "ExampleNumber": 16,
+                    "ExampleName": "Set tab values for a envelope",
+                    "ExampleDescription": "This example sets the tab (field) values for an envelope including tabs that can and cannot be changed by the signer.",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                            "PathName": "Envelopes:create"
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "Inputs": [
+                                {
+                                  "InputName": "Signer Name",
+                                  "InputPlaceholder": "Pat Johnson"
+                                },
+                                {
+                                    "InputName": "Signer Email",
+                                    "InputPlaceholder": "pat@example.com"
+                                }
+                            ]
+                        }
+                    ],
+                    "ResultsPageText": ""
+                },
+                {
+                    "ExampleNumber": 17,
+                    "ExampleName": "Set template tab values",
+                    "ExampleDescription": "This example sets the tab (field) values for a template being used by an envelope.",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                            "PathName": "Envelopes:create"
+                        }
+                    ],
+                    "RedirectsToOtherCodeExamples": [
+                        {
+                            "CodeExampleToRedirectTo": 8,
+                            "RedirectText": "<p>Prerequisite: Please first create the template using <a {0}>Create a template</a>.</p>"
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "Inputs": [
+                                {
+                                  "InputName": "Signer Name",
+                                  "InputPlaceholder": "Pat Johnson"
+                                },
+                                {
+                                    "InputName": "Signer Email",
+                                    "InputPlaceholder": "pat@example.com"
+                                },
+                                {
+                                    "InputName": "CC Name",
+                                    "InputPlaceholder": "Pat Johnson"
+                                },
+                                {
+                                    "InputName": "CC Email",
+                                    "InputPlaceholder": "pat@example.com"
+                                }
+                            ]
+                        }
+                    ],
+                    "ResultsPageText": ""
+                },
+                {
+                    "ExampleNumber": 18,
+                    "ExampleName": "List envelope custom metadata field values",
+                    "ExampleDescription": "This example lists the envelope's custom metadata field values.",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopecustomfields/list/",
+                            "PathName": "EnvelopeCustomFields:list"
+                        }
+                    ],
+                    "RedirectsToOtherCodeExamples": [
+                        {
+                            "CodeExampleToRedirectTo": 16,
+                            "RedirectText": "<p>Problem: Please first create an envelope using <a {0}>Set tab values for a envelope</a>.</p>"
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "FormName": "<p>The last envelope you created with this example launcher will be queried. Recommendation: Create an envelope using <a href='{0}'>Set tab values for a envelope<a/> then use this example in order to see an example of custom tab values.</p>"
+                        }
+                    ],
+                    "ResultsPageText": "Results from the EnvelopeCustomFields::list method:"
+                }
+            ]
+        },
+        {
+            "Name": "Working with brands",
+            "Examples": 
+            [
+                {
+                    "ExampleNumber": 28,
+                    "ExampleName": "Create a new Brand",
+                    "ExampleDescription": "Create a new Brand",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountbrands/create/",
+                            "PathName": "AccountBrands:create"
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "FormName": "<p>New brand</p>",
+                            "Inputs": [
+                                {
+                                  "InputName": "Brand name",
+                                  "InputPlaceholder": "New Brand"
+                                },
+                                {
+                                    "InputName": "Default Brand language"
+                                }
+                            ]
+                        }
+                    ],
+                    "ResultsPageText": "The brand has been created!<br />Brand ID: {0}."
+                },
+                {
+                    "ExampleNumber": 29,
+                    "ExampleName": "Applying a brand to an envelope",
+                    "ExampleDescription": "Applies brand to an envelope.",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                            "PathName": "Envelopes:create"
+                        }
+                    ],
+                    "RedirectsToOtherCodeExamples": [
+                        {
+                          "CodeExampleToRedirectTo": 28,
+                          "RedirectText": "<p>No brands were found for this account; please <a {0}>create one</a> first.</p>"
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "Inputs": [
+                                {
+                                  "InputName": "Signer Email",
+                                  "InputPlaceholder": "pat@example.com"
+                                },
+                                {
+                                    "InputName": "Signer Name",
+                                    "InputPlaceholder": "Pat Johnson"
+                                },
+                                {
+                                    "InputName": "Brand"
+                                }
+                            ]
+                        }
+                    ],
+                    "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
+                },
+                {
+                    "ExampleNumber": 30,
+                    "ExampleName": "Applying a brand to a template",
+                    "ExampleDescription": "Applies brand to a template.",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                            "PathName": "Envelopes:create"
+                        }
+                    ],
+                    "RedirectsToOtherCodeExamples": [
+                        {
+                          "CodeExampleToRedirectTo": 28,
+                          "RedirectText": "<p>No brands were found for this account; please <a {0}>create one</a> first.</p>"
+                        },
+                        {
+                            "CodeExampleToRedirectTo": 8,
+                            "RedirectText": "<p>Prerequisite: Please first create the template using <a {0}>Create a template/a>.</p>"
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "Inputs": [
+                                {
+                                  "InputName": "Signer Email",
+                                  "InputPlaceholder": "pat@example.com"
+                                },
+                                {
+                                    "InputName": "Signer Name",
+                                    "InputPlaceholder": "Pat Johnson"
+                                },
+                                {
+                                    "InputName": "CC Email",
+                                    "InputPlaceholder": "pat@example.com"
+                                },
+                                {
+                                    "InputName": "CC Name",
+                                    "InputPlaceholder": "Pat Johnson"
+                                },
+                                {
+                                    "InputName": "Brand"
+                                }
+                            ]
+                        }
+                    ],
+                    "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
+                }
+            ]
+        },
+        {
+            "Name": "Working with permissions",
+            "Examples": 
+            [
+                {
+                    "ExampleNumber": 24,
+                    "ExampleName": "Create a new permission profile",
+                    "ExampleDescription": "Creating new permission profile.",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/create/",
+                            "PathName": "AccountPermissionProfiles:create"
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "FormName": "<p>Permission profile</p>",
+                            "Inputs": [
+                                {
+                                  "InputName": "Profile name",
+                                  "InputPlaceholder": "Profile name"
+                                }
+                            ]
+                        }
+                    ],
+                    "ResultsPageText": "The permission profile was created!<br />Permission profile ID: {0}, name:{1}."
+                },
+                {
+                    "ExampleNumber": 25,
+                    "ExampleName": "Setting a permission profile",
+                    "ExampleDescription": "Setting a permission profile.",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/usergroups/groups/update/",
+                            "PathName": "Groups:update"
+                        }
+                    ],
+                    "CustomErrorTexts": [
+                        {
+                            "ErrorMessage": "The permission profile failed to set to the user group"
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "Inputs": [
+                                {
+                                  "InputName": "Permission profile",
+                                  "InputPlaceholder": "Select permission profile"
+                                },
+                                {
+                                    "InputName": "User group",
+                                    "InputPlaceholder": "Select user group"
+                                }
+                            ]
+                        }
+                    ],
+                    "ResultsPageText": "The permission profile was successfully set to the user group!"
+                },
+                {
+                    "ExampleNumber": 26,
+                    "ExampleName": "Updating individual permission profile settings",
+                    "ExampleDescription": "Updating individual permissions.",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/update/",
+                            "PathName": "AccountPermissionProfiles:update"
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "FormName": "<p>Permission profile</p>",
+                            "Inputs": [
+                                {
+                                  "InputName": "Profile name",
+                                  "InputPlaceholder": "Profile name"
+                                }
+                            ]
+                        }
+                    ],
+                    "ResultsPageText": "The permission profile was updated!<br />Permission profile ID: {0}."
+                },
+                {
+                    "ExampleNumber": 27,
+                    "ExampleName": "Deleting a permission profile",
+                    "ExampleDescription": "Deleting a permission profile",
+                    "Notes": "<strong>Note:</strong> You cannot remove \"Everyone\" nor \"Administrator\" permission profiles.</p>",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/delete/",
+                            "PathName": "AccountPermissionProfiles:delete"
+                        }
+                    ],
+                    "CustomErrorTexts": [
+                        {
+                            "ErrorMessage": "The permission profile failed to delete"
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "Inputs": [
+                                {
+                                  "InputName": "Permission profile",
+                                  "InputPlaceholder": "Select permission profile"
+                                }
+                            ]
+                        }
+                    ],
+                    "ResultsPageText": "The permission profile is deleted!"
+                }
+            ]
+        },
+        {
+            "Name": "Implementing multi-factor recipient (signer) authentication",
+            "Examples": 
+            [
+                {
+                    "ExampleNumber": 23,
+                    "ExampleName": "Send an envelope with ID Verification Authentication",
+                    "ExampleDescription": "Submit an envelope that requires verification of a government issued identity.",
+                    "Notes": "<p><b>Note:<b/> The access code for this example is the Signer Name.</p>",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                            "PathName": "Envelopes:create"
+                        }
+                    ],
+                    "CustomErrorTexts": [
+                        {
+                            "ErrorMessageCheck": "IDENTITY_WORKFLOW_INVALID_ID",
+                            "ErrorMessage": "Please contact <a target='_blank' href='https://support.docusign.com'>Support</a> to enable IDV in your account."
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "Inputs": [
+                                {
+                                  "InputName": "Signer Email",
+                                  "InputPlaceholder": "pat@example.com"
+                                },
+                                {
+                                    "InputName": "Signer Name",
+                                    "InputPlaceholder": "Pat Johnson"
+                                }
+                            ]
+                        }
+                    ],
+                    "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
+                },
+                {
+                    "ExampleNumber": 22,
+                    "ExampleName": "Send an envelope with Recipient Knowledged Based Authentication",
+                    "ExampleDescription": "Submit an envelope with multiple choice, public records based questions to provide multi-factor authentication.",
+                    "Notes": "<p><b>Note:<b/> The access code for this example is the Signer Name.</p>",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                            "PathName": "Envelopes:create"
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "Inputs": [
+                                {
+                                  "InputName": "Signer Email",
+                                  "InputPlaceholder": "pat@example.com"
+                                },
+                                {
+                                    "InputName": "Signer Name",
+                                    "InputPlaceholder": "Pat Johnson"
+                                }
+                            ]
+                        }
+                    ],
+                    "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
+                },
+                {
+                    "ExampleNumber": 20,
+                    "ExampleName": "Require Phone Authentication for a Recipient",
+                    "ExampleDescription": "Sends an envelope that requires entering a six-digit code from a text message or phone call for the purpose of multifactor authentication.",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                            "PathName": "Envelopes:create"
+                        }
+                    ],
+                    "CustomErrorTexts": [
+                        {
+                            "ErrorMessageCheck": "IDENTITY_WORKFLOW_INVALID_ID",
+                            "ErrorMessage": "Please contact <a target='_blank' href='https://support.docusign.com'>Support</a> to enable recipient phone authentication in your account."
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "Inputs": [
+                                {
+                                  "InputName": "Signer Country Code",
+                                  "InputPlaceholder": "1"
+                                },
+                                {
+                                    "InputName": "Signer Phone Number",
+                                    "InputPlaceholder": "415-555-1212"
+                                },
+                                {
+                                    "InputName": "Signer Email",
+                                    "InputPlaceholder": "pat@example.com"
+                                },
+                                {
+                                    "InputName": "Signer Name",
+                                    "InputPlaceholder": "Pat Johnson"
+                                }
+                            ]
+                        }
+                    ],
+                    "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
+                },
+                {
+                    "ExampleNumber": 19,
+                    "ExampleName": "Send an envelope with Access Code Recipient Authentication",
+                    "ExampleDescription": "Submit an envelope with an access code for multi-factor authentication.",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                            "PathName": "Envelopes:create"
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "Inputs": [
+                                {
+                                  "InputName": "Access Code",
+                                  "InputPlaceholder": "Enter a recipient access code here"
+                                },
+                                {
+                                    "InputName": "Signer Email",
+                                    "InputPlaceholder": "pat@example.com"
+                                },
+                                {
+                                    "InputName": "Signer Name",
+                                    "InputPlaceholder": "Pat Johnson"
+                                }
+                            ]
+                        }
+                    ],
+                    "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
+                }
+            ]
+        },
+        {
+            "Name": "Embedded DocuSign web tool",
+            "Examples": 
+            [
+                {
+                    "ExampleNumber": 12,
+                    "ExampleName": "Embedded DocuSign web tool",
+                    "ExampleDescription": "Redirect the user to the DocuSign web tool.",
+                    "LinksToAPIMethod": 
+                    [
+                        {
+                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createconsole/",
+                            "PathName": "EnvelopeViews:createConsole"
+                        }
+                    ],
+                    "RedirectsToOtherCodeExamples": [
+                        {
+                            "CodeExampleToRedirectTo": 2,
+                            "RedirectText": "<p><b>Optional:</b> To use the <i>envelope's Documents view,</i> please first create an envelope using <a {0}>Send an envelope with a remote (email) signer and cc recipient</a>.</p>"
+                        }
+                    ],
+                    "Forms": [
+                        {
+                            "Inputs": [
+                                {
+                                  "InputName": "Starting View"
+                                }
+                            ]
+                        }
+                    ],
+                    "ResultsPageText": "NDSE view URL: {0}."
                 }
             ]
         }
