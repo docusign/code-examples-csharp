@@ -1,11 +1,15 @@
-﻿using DocuSign.Click.Api;
-using DocuSign.Click.Client;
-using DocuSign.Click.Model;
-using System;
-using System.Collections.Generic;
+﻿// <copyright file="CreateClickwrap.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.Click.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using DocuSign.Click.Api;
+    using DocuSign.Click.Client;
+    using DocuSign.Click.Model;
+
     public class CreateClickwrap
     {
         /// <summary>
@@ -39,19 +43,20 @@ namespace DocuSign.Click.Examples
                     Format = "modal",
                     MustRead = true,
                     RequireAccept = true,
-                    DocumentDisplay = "document"
+                    DocumentDisplay = "document",
                 },
-                Documents = new List<Document>(){
+                Documents = new List<Document>()
+                {
                     new Document()
                     {
-                        DocumentBase64=Convert.ToBase64String(System.IO.File.ReadAllBytes("Terms_of_service.pdf")),
-                        DocumentName="Terms of Service",
-                        FileExtension="pdf",
-                        Order= 0
-                    }
+                        DocumentBase64 = Convert.ToBase64String(System.IO.File.ReadAllBytes("Terms_of_service.pdf")),
+                        DocumentName = "Terms of Service",
+                        FileExtension = "pdf",
+                        Order = 0,
+                    },
                 },
                 Name = name,
-                RequireReacceptance = true
+                RequireReacceptance = true,
             };
 
             return clickwrapRequest;

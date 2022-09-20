@@ -1,33 +1,37 @@
-﻿using DocuSign.CodeExamples.Controllers;
-using DocuSign.CodeExamples.Models;
-using DocuSign.CodeExamples.Rooms.Models;
-using DocuSign.Rooms.Client;
-using DocuSign.Rooms.Examples;
-using DocuSign.Rooms.Model;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+﻿// <copyright file="Eg09AssignFormToFormGroupController.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Rooms.Controllers
 {
+    using DocuSign.CodeExamples.Common;
+    using DocuSign.CodeExamples.Controllers;
+    using DocuSign.CodeExamples.Models;
+    using DocuSign.CodeExamples.Rooms.Models;
+    using DocuSign.Rooms.Client;
+    using DocuSign.Rooms.Examples;
+    using DocuSign.Rooms.Model;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+
     [Area("Rooms")]
     [Route("Eg09")]
     public class AssignFormToFormGroups : EgController
     {
         public AssignFormToFormGroups(
             DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService) : base(dsConfig, requestItemsService)
+            LauncherTexts launcherTexts,
+            IRequestItemsService requestItemsService)
+            : base(dsConfig, launcherTexts, requestItemsService)
         {
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "Eg09";
 
         [BindProperty]
         public FormFormGroupModel FormFormGroupModel { get; set; }
-
-        protected override void InitializeInternal()
-        {
-            FormFormGroupModel = new FormFormGroupModel();
-        }
 
         [MustAuthenticate]
         [HttpGet]
@@ -36,9 +40,9 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             base.Get();
 
             // Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-            string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            string accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var basePath = $"{this.RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
+            string accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
@@ -46,29 +50,30 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 (FormSummaryList forms, FormGroupSummaryList formGroups) =
                     DocuSign.Rooms.Examples.AssignFormToFormGroups.GetFormsAndFormGroups(basePath, accessToken, accountId);
 
-                FormFormGroupModel = new FormFormGroupModel { Forms = forms.Forms, FormGroups = formGroups.FormGroups };
+                this.FormFormGroupModel = new FormFormGroupModel { Forms = forms.Forms, FormGroups = formGroups.FormGroups };
 
-                return View("Eg09", this);
+                return this.View("Eg09", this);
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
 
-                return View("Error");
+                return this.View("Error");
             }
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [Route("AssignFormToFormGroup")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AssignFormToFormGroup(FormFormGroupModel formFormGroupModel)
         {
             // Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-            string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            string accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var basePath = $"{this.RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
+            string accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
@@ -76,21 +81,29 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 var formGroupFormToAssign = DocuSign.Rooms.Examples.AssignFormToFormGroups.AssignForm(basePath, accessToken, accountId,
                     formFormGroupModel.FormGroupId, new FormGroupFormToAssign() { FormId = formFormGroupModel.FormId });
 
-                ViewBag.h1 = "The form was assigned to the form group successfully";
-                ViewBag.message = $"The form ('{formGroupFormToAssign.FormId}') was assigned to the form group ('{formFormGroupModel.FormGroupId}') successfully";
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(formGroupFormToAssign, Formatting.Indented);
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                this.ViewBag.message = string.Format(
+                    this.CodeExampleText.ResultsPageText,
+                    formGroupFormToAssign.FormId,
+                    formFormGroupModel.FormGroupId.ToString());
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(formGroupFormToAssign, Formatting.Indented);
 
-                return View("example_done");
+                return this.View("example_done");
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message.Equals("Unhandled response type.") ? 
-                    "Response is empty and could not be cast to FormGroupFormToAssign. " +
-                    "Please contact DocuSign support" : apiException.Message;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message.Equals(this.CodeExampleText.CustomErrorTexts[0].ErrorMessageCheck) ?
+                    this.CodeExampleText.CustomErrorTexts[0].ErrorMessage : apiException.Message;
 
-                return View("Error");
+                return this.View("Error");
             }
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+            this.FormFormGroupModel = new FormFormGroupModel();
         }
     }
 }

@@ -1,72 +1,81 @@
-﻿<h4>Download a document from an envelope</h4>
-<p>An envelope's documents can be downloaded one by one or as a complete set.</p>
-<p>Document download options:</p>
-<ul>
-    <li>
-        <b>Combined</b>: a PDF with the combined content of all documents and the
-        certificate
-    </li>
-    <li>
-        <b>ZIP archive</b>: a ZIP archive that contains all of the PDF documents,
-        the certificate, and any .WAV files used for voice authentication.
-    </li>
-    <li>
-        <b>PDF Portfolio</b>: Retrieves the envelope documents as a <a href="https://helpx.adobe.com/acrobat/using/overview-pdf-portfolios.html">PDF portfolio</a>
-    </li>
-    <li>The envelope's individual documents</li>
-    <li>The envelope's Certificate of Completion</li>
-</ul>
-
-@if (ViewBag.showDoc) {
-<p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
+﻿@using System.Text.RegularExpressions;
+@{
+    var redirectToSixthCodeExample = "href='eg006'";
+    var redirectToSecondCodeExample = "href='eg002'";
+    int formNumber = 0;
+    int documentInputNumber = 0;
 }
 
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocuments/get/">EnvelopeDocuments::get</a>.
-</p>
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>@Html.Raw(ViewBag.CodeExampleText.ExampleDescription)</p>
+
+
+@if (ViewBag.showDoc)
+{
+    <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
+}
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" />
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">GetDocumentFromEnvelope.cs</a> on GitHub.
+    @Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">GetDocumentFromEnvelope.cs</a>"))
 </p>
 
-@if (!ViewBag.envelopeOk) {
-<p>
-    Problem: please first create an envelope using <a href="eg002">Send an envelope with a remote (email) signer and cc recipient.</a> <br />
-    You will then need to use List an envelope's documents to create the list of documents.<br />
-    Thank you.
-</p>
+@if (!ViewBag.envelopeOk)
+{
+    <p>
+        @Html.Raw(
+            String.Format(
+                ((IEnumerable<dynamic>)ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                    .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToSecondCodeExample, @"\d+").Value))
+                    .FirstOrDefault()
+                    .RedirectText,
+                redirectToSecondCodeExample
+            )
+        )
+    </p>
 
-<form class="eg" action="eg002" method="get">
-    <button type="submit" class="btn btn-primary">Continue</button>
-</form>
-} else if (!ViewBag.documentsOk) {
-<p>
-    Problem: please first create a list of the envelope's documents using
-    <a href="eg006">List an envelope's documents.</a> <br />
-    Thank you.
-</p>
+    <form class="eg" action="eg002" method="get">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+    </form>
+}
+else if (!ViewBag.documentsOk)
+{
+    <p>
+        @Html.Raw(
+            String.Format(
+                ((IEnumerable<dynamic>)ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                    .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToSixthCodeExample, @"\d+").Value))
+                    .FirstOrDefault()
+                    .RedirectText,
+                redirectToSixthCodeExample
+            )
+        )
+    </p>
 
-<form class="eg" action="eg006" method="get">
-    <button type="submit" class="btn btn-primary">Continue</button>
-</form>
-} else {
-<p>
-    Please choose a document.<br />
-    The document list is from your results for List an envelope's documents.
-</p>
+    <form class="eg" action="eg006" method="get">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+    </form>
+}
+else
+{
+    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)</p>
 
-<form class="eg" action="" method="post" data-busy="form-download">
-    <div class="form-group">
-        <label for="docSelect">Document selection</label>
-        <select class="custom-select" id="docSelect"
-                name="docSelect" aria-describedby="emailHelp">
-            @foreach (var opt in ViewBag.documentOptions) {
-                <option value="@opt.DocumentId">@opt.Name</option>
-            } 
-        </select>
-    </div>
-    <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
-    <button type="submit" class="btn btn-primary">Continue</button>
-</form>
+    <form class="eg" action="" method="post" data-busy="form-download">
+        <div class="form-group">
+            <label for="docSelect">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[documentInputNumber].InputName)
+            </label>
+
+            <select class="custom-select" id="docSelect"
+                    name="docSelect" aria-describedby="emailHelp">
+                @foreach (var opt in ViewBag.documentOptions)
+                {
+                    <option value="@opt.DocumentId">@opt.Name</option>
+                }
+            </select>
+        </div>
+        <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+    </form>
 }

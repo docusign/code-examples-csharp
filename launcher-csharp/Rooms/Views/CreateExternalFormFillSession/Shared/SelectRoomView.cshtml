@@ -1,23 +1,28 @@
 ﻿@model DocuSign.CodeExamples.Rooms.Models.RoomDocumentModel
-
-<h4>Creating external form fill session</h4>
+@using System.Text.RegularExpressions;
+@{
+    var redirectToFirstCodeExample = "href='eg01'";
+    int formNumber = 1;
+    int documentsInputNumber = 0;
+}
 
 @if (Model.Rooms != null && Model.Rooms.Any())
 {
-    <p>
-        Please select a room
-    </p>
+    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)</p>
+
     <form class="eg" asp-action="SelectRoom" method="post" data-busy="form">
         <div class="form-group">
-            <label for="docSelect">Rooms</label>
-            <select 
-                class="custom-select" 
-                asp-for="RoomId" 
-                asp-items="@(new SelectList(Model.Rooms, "RoomId", "Name"))"
-                onchange="this.form.submit();"
-                data-val="true" 
-                data-val-required="The Room field is required.">
-                <option>Please select a room</option>
+            <label for="docSelect">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[documentsInputNumber].InputName)
+            </label>
+
+            <select class="custom-select"
+                    asp-for="RoomId"
+                    asp-items="@(new SelectList(Model.Rooms, "RoomId", "Name"))"
+                    onchange="this.form.submit();"
+                    data-val="true"
+                    data-val-required="The Room field is required.">
+                <option>@ViewBag.CodeExampleText.Forms[formNumber].Inputs[documentsInputNumber].InputPlaceholder</option>
             </select>
         </div>
         <input type="hidden" name="_csrf" value="<%- csrfToken %>">
@@ -26,8 +31,15 @@
 else
 {
     <p>
-        Problem: please first create a room using <a href="eg01">example 1.</a> <br />
-        Thank you.
+        @Html.Raw(
+            String.Format(
+                ((IEnumerable<dynamic>)ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                    .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToFirstCodeExample, @"\d+").Value))
+                    .FirstOrDefault()
+                    .RedirectText,
+                redirectToFirstCodeExample
+            )
+        )
     </p>
-    <a href="/" class="btn btn-primary">Continue</a>
+    <a href="/" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a>
 }

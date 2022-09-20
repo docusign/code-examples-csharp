@@ -1,108 +1,120 @@
-﻿using DocuSign.Admin.Examples;
-using DocuSign.Admin.Api;
-using DocuSign.Admin.Client;
-using DocuSign.CodeExamples.Common;
-using DocuSign.CodeExamples.Controllers;
-using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System;
+﻿// <copyright file="Eg02CreateActiveCLMESignUserController.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
+    using System;
+    using DocuSign.Admin.Api;
+    using DocuSign.Admin.Client;
+    using DocuSign.Admin.Examples;
+    using DocuSign.CodeExamples.Common;
+    using DocuSign.CodeExamples.Controllers;
+    using DocuSign.CodeExamples.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+
     [Area("Admin")]
-    [Route("[area]/Eg02")]
+    [Route("Aeg02")]
     public class CreateCLMESignUser : EgController
     {
         private static Guid? clmProductId;
         private static Guid? eSignProductId;
         public CreateCLMESignUser(
             DSConfiguration dsConfig,
+            LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService)
-            : base(dsConfig, requestItemsService)
+            : base(dsConfig, launcherTexts, requestItemsService)
         {
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Eg02";
+        public override string EgName => "Aeg02";
 
         protected override void InitializeInternal()
         {
-            var organizationId = RequestItemsService.OrganizationId;
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = RequestItemsService.Session.AdminApiBasePath;
-            var accountId = RequestItemsService.Session.AccountId;
-
+            base.InitializeInternal();
+            var organizationId = this.RequestItemsService.OrganizationId;
+            var accessToken = this.RequestItemsService.User.AccessToken;
+            var basePath = this.RequestItemsService.Session.AdminApiBasePath;
+            var accountId = this.RequestItemsService.Session.AccountId;
 
             // Step 2 Start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+
             // Step 2 End
-            
+
             // Step 3 Start
             var productPermissionProfileApi = new ProductPermissionProfilesApi(apiClient);
             var productPermissionProfiles = productPermissionProfileApi.GetProductPermissionProfiles(organizationId, Guid.Parse(accountId));
-            ViewBag.CLMPermissionProfiles = productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "CLM").PermissionProfiles;
-            ViewBag.ESignPermissionProfiles = productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "ESign").PermissionProfiles;
+            this.ViewBag.CLMPermissionProfiles = productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "CLM").PermissionProfiles;
+            this.ViewBag.ESignPermissionProfiles = productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "ESign").PermissionProfiles;
             clmProductId = productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "CLM").ProductId;
             eSignProductId = productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "ESign").ProductId;
+
             // Step 3 End
 
             // Step 4 Start
             var dsGroupsApi = new DSGroupsApi(apiClient);
-            ViewBag.DsGroups = dsGroupsApi.GetDSGroups(organizationId, Guid.Parse(accountId)).DsGroups;
+            this.ViewBag.DsGroups = dsGroupsApi.GetDSGroups(organizationId, Guid.Parse(accountId)).DsGroups;
+
             // Step 4 End
-            if (ViewBag.DsGroups.Count == 0)
+            if (this.ViewBag.DsGroups.Count == 0)
             {
-                throw new ApiException(0, "You do not have any groups set in your DocuSign Admin. Please go to DocuSign Admin and create a group to use this code example.");
+                throw new ApiException(0, this.CodeExampleText.CustomErrorTexts[0].ErrorMessage);
             }
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [HttpGet]
         public override IActionResult Get()
         {
             try
             {
                 base.Get();
-                return View("Eg02", this);
+                return this.View("Aeg02", this);
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
 
-                return View("Error");
+                return this.View("Error");
             }
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(string userName, string firstName, string lastName, string email, string cLMPermissionProfileId, string eSignPermissionProfileId, string dsGroupId)
         {
             // Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = RequestItemsService.Session.AdminApiBasePath;
-            var accountId = RequestItemsService.Session.AccountId;
-            var orgId = RequestItemsService.OrganizationId;
+            var accessToken = this.RequestItemsService.User.AccessToken;
+            var basePath = this.RequestItemsService.Session.AdminApiBasePath;
+            var accountId = this.RequestItemsService.Session.AccountId;
+            var orgId = this.RequestItemsService.OrganizationId;
 
             try
             {
                 var newUser = DocuSign.Admin.Examples.CreateCLMESignUser.Create(userName, firstName, lastName, email, cLMPermissionProfileId, eSignPermissionProfileId, Guid.Parse(dsGroupId), clmProductId, eSignProductId, basePath, accessToken, Guid.Parse(accountId), orgId);
 
-                RequestItemsService.EmailAddress = newUser.Email;
+                this.RequestItemsService.EmailAddress = newUser.Email;
 
-                ViewBag.h1 = "Create a new active user for CLM and eSignature";
-                ViewBag.message = "Results from MultiProductUserManagement:addOrUpdateUser method:";
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(newUser, Formatting.Indented);
-                return View("example_done");           
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                this.ViewBag.message = this.CodeExampleText.ResultsPageText;
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(newUser, Formatting.Indented);
+                return this.View("example_done");
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
 
-                return View("Error");
+                return this.View("Error");
             }
         }
     }

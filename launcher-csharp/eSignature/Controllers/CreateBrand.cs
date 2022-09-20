@@ -1,60 +1,67 @@
-﻿using DocuSign.eSign.Client;
-using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
-using eSignature.Examples;
+﻿// <copyright file="CreateBrand.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    using System;
+    using DocuSign.CodeExamples.Common;
+    using DocuSign.CodeExamples.Models;
+    using DocuSign.eSign.Client;
+    using Microsoft.AspNetCore.Mvc;
+
     [Area("eSignature")]
     [Route("eg028")]
     public class CreateBrand : EgController
     {
-        public CreateBrand(DSConfiguration config, IRequestItemsService requestItemsService)
-            : base(config, requestItemsService)
+        public CreateBrand(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "Create a new brand";
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "eg028";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create(string brandName, string defaultBrandLanguage)
         {
             // Check the token with minimal buffer time.
-            bool tokenOk = CheckToken(3);
+            bool tokenOk = this.CheckToken(3);
             if (!tokenOk)
             {
-                // We could store the parameters of the requested operation so it could be 
+                // We could store the parameters of the requested operation so it could be
                 // restarted automatically. But since it should be rare to have a token issue
                 // here, we'll make the user re-enter the form data after authentication.
-                RequestItemsService.EgName = EgName;
-                return Redirect("/ds/mustAuthenticate");
+                this.RequestItemsService.EgName = this.EgName;
+                return this.Redirect("/ds/mustAuthenticate");
             }
 
             // Data for this method
-            // signerEmail 
+            // signerEmail
             // signerName
-            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
 
             // Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
                 // Call the Examples API method to create a new brand
-                var results = global::eSignature.Examples.CreateBrand.Create(brandName, defaultBrandLanguage, accessToken, basePath, accountId);
-                ViewBag.h1 = "New brand created";
-                ViewBag.message = "The brand has been created!<br />Brand ID:" + results.Brands[0].BrandId + ".";
+                var results = global::ESignature.Examples.CreateBrand.Create(brandName, defaultBrandLanguage, accessToken, basePath, accountId);
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, results.Brands[0].BrandId);
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
-                return View("Error");
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
+                return this.View("Error");
             }
 
-            return View("example_done");
+            return this.View("example_done");
         }
     }
 }

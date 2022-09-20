@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿// <copyright file="SendBulkEnvelopes.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public static class SendBulkEnvelopes
     {
         /// <summary>
@@ -18,10 +22,10 @@ namespace eSignature.Examples
         /// <param name="signer1Email"> The signer recipient's email</param>
         /// <param name="carbonCopy1Name">The cc recipient's name</param>
         /// <param name="signer1Email"> The cc recipient's email</param>
-        /// <param name="signer2Name"> The signers recipient's name</param>
+        /// <param name="signer2Name"> The signers recipient's name.</param>
         /// <param name="signer2Email"> The signers recipient's email</param>
         /// <param name="carbonCopy2Name">The cc recipient's name</param>
-        /// <param name="signer2Email"> The cc recipient's email</param>
+        /// <param name="carbonCopy2Email"> The cc recipient's email</param>
         /// <param name="docDocx">The document</param>
         /// <returns>The status of sending</returns>
         public static BulkSendBatchStatus GetStatus(string signer1Name, string signer1Email, string carbonCopy1Name, string carbonCopy1Email, string signer2Name, string signer2Email, string carbonCopy2Name, string carbonCopy2Email, string accessToken, string basePath, string accountId, string docDocx, string envelopeIdStamping, string emailSubject)
@@ -29,16 +33,16 @@ namespace eSignature.Examples
             // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            // Step 2 end
 
+            // Step 2 end
             var bulkEnvelopesApi = new BulkEnvelopesApi(apiClient);
 
             // Step 3-1 start
-            var sendingList = MakeBulkSendList(signer1Name,  signer1Email, carbonCopy1Name, carbonCopy1Email, signer2Name, signer2Email, carbonCopy2Name, carbonCopy2Email);
+            var sendingList = MakeBulkSendList(signer1Name, signer1Email, carbonCopy1Name, carbonCopy1Email, signer2Name, signer2Email, carbonCopy2Name, carbonCopy2Email);
 
             var createBulkListResult = bulkEnvelopesApi.CreateBulkSendList(accountId, sendingList);
-            // Step 3-1 end
 
+            // Step 3-1 end
 
             // Step 4 start
             var envelopeDefinition = new EnvelopeDefinition
@@ -50,8 +54,8 @@ namespace eSignature.Examples
                             DocumentBase64 = Convert.ToBase64String(System.IO.File.ReadAllBytes(docDocx)),
                             Name = "Lorem Ipsum",
                             FileExtension = "pdf",
-                            DocumentId = "1"
-                        }
+                            DocumentId = "1",
+                        },
                     },
                 EnvelopeIdStamping = envelopeIdStamping,
                 EmailSubject = emailSubject,
@@ -79,11 +83,11 @@ namespace eSignature.Examples
                                         AnchorString = "/sn1/",
                                         AnchorUnits = "pixels",
                                         AnchorYOffset = "10",
-                                        AnchorXOffset = "20"
-                                    }
-                                }
-                            }
-                        }
+                                        AnchorXOffset = "20",
+                                    },
+                                },
+                            },
+                        },
                     },
                     CarbonCopies = new List<CarbonCopy>
                     {
@@ -96,15 +100,15 @@ namespace eSignature.Examples
                             Status = "created",
                             DeliveryMethod = "Email",
                             RecipientId = "2",
-                            RecipientType = "cc"
-                        }
-
-                    }
-                }
-        };
+                            RecipientType = "cc",
+                        },
+                    },
+                },
+            };
 
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
             var envelopeResults = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
+
             // Step 4 end
 
             // Attach your bulk list ID to the envelope
@@ -122,22 +126,25 @@ namespace eSignature.Examples
                             Name = "mailingListId",
                             Required = "false",
                             Show = "false",
-                            Value = createBulkListResult.ListId //Adding the BULK_LIST_ID as an Envelope Custom Field
-                        }
-                    }
+                            Value = createBulkListResult.ListId, // Adding the BULK_LIST_ID as an Envelope Custom Field
+                        },
+                    },
             };
             envelopesApi.CreateCustomFields(accountId, envelopeResults.EnvelopeId, fields);
-            // Step 5 end
 
+            // Step 5 end
 
             // Step 6 start
             var bulkRequestResult = bulkEnvelopesApi.CreateBulkSendRequest(accountId, createBulkListResult.ListId, new BulkSendRequest { EnvelopeOrTemplateId = envelopeResults.EnvelopeId });
+
             // TODO: instead of waiting 10 seconds, consider using the Asynchrnous method
             System.Threading.Thread.Sleep(10000);
+
             // Step 6 end
 
             // Step 7 start
             return bulkEnvelopesApi.GetBulkSendBatchStatus(accountId, bulkRequestResult.BatchId);
+
             // Step 7 end
         }
 
@@ -146,7 +153,8 @@ namespace eSignature.Examples
         {
             return new BulkSendingList
             {
-                BulkCopies = new List<BulkSendingCopy> {
+                BulkCopies = new List<BulkSendingCopy>
+                {
                     new BulkSendingCopy
                     {
                         Recipients = new List<BulkSendingCopyRecipient>
@@ -156,16 +164,16 @@ namespace eSignature.Examples
 
                                 Name = signer1Name,
                                 Email = signer1Email,
-                                RoleName    = "signer"
+                                RoleName = "signer",
                             },
                             new BulkSendingCopyRecipient
                             {
 
                                 Name = carbonCopy1Name,
                                 Email = carbonCopy1Email,
-                                RoleName    = "cc"
-                            }
-                        }
+                                RoleName = "cc",
+                            },
+                        },
                     },
                     new BulkSendingCopy
                     {
@@ -176,21 +184,22 @@ namespace eSignature.Examples
 
                                 Name = signer2Name,
                                 Email = signer2Email,
-                                RoleName    = "signer"
+                                RoleName = "signer",
                             },
                             new BulkSendingCopyRecipient
                             {
 
                                 Name = carbonCopy2Name,
                                 Email = carbonCopy2Email,
-                                RoleName    = "cc"
-                            }
-                        }
-                    }
+                                RoleName = "cc",
+                            },
+                        },
+                    },
                 },
-                Name = "sample.csv"
+                Name = "sample.csv",
             };
         }
+
         // step 3-2 end
     }
 }

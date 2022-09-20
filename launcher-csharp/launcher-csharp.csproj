@@ -3,14 +3,22 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
 	<LangVersion>8.0</LangVersion>
-    <RootNamespace>DocuSign.CodeExamples</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'CodeExamples' " />
+
   
   <ItemGroup>
     <Compile Remove="Common\AuthCodeGrant.cs" />
     <Compile Remove="Common\JWTAuth.cs" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Remove="stylecop.json" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
   
   <ItemGroup>
@@ -37,6 +45,10 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
   </ItemGroup>
 

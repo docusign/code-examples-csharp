@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Html
 @functions
 {
-    IHtmlContent GetTextInputMarkup(string id, string title, string type)
+    IHtmlContent GetTextInputMarkup(string id, dynamic title, string type)
     {
         return Html.Raw($@"
 <div class='form-group'>
@@ -10,48 +10,51 @@
 </div>");
     } 
 }
+@{
+    int firstFormNumber = 0;
+    int secondFormNumber = 1;
+    int nameNumber = 0;
+    int emailInputNumber = 1;
+    int email2InputNumber = 0;
+    int name2InputNumber = 1;
+}
 
-<h4>Pause a signature workflow</h4>
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 
-<p>
-    This example creates an envelope where the workflow is paused before the envelope is sent to a second recipient. The envelope includes a text document.
-</p>
+<p>@Html.Raw(ViewBag.CodeExampleText.ExampleDescription)</p>
 
 @if (ViewBag.showDoc)
 {
-<p><a target="_blank" href="@ViewBag.documentation">Documentation</a> about this example</p>}
+<p><a target='_blank' href="@ViewBag.documentation">Documentation</a> about this example</p>}
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-    API method used:
-    <a target="_blank" href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
-</p>
-
-<p>
-    View source file <a target="_blank" href="@ViewBag.source">PauseSignatureWorkflow.cs</a> on GitHub.
+@Html.Raw(String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">PauseSignatureWorkflow.cs</a>"))
 </p>
 
 <form action="" class="eg" method="post" data-busy="form">
 
-    <h5 class="mt-4">Signer 1</h5>
+    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[firstFormNumber].FormName)</p>
     <div class="row">
         <div class="col-md-6 column">
             <div class="form-group">
-                @GetTextInputMarkup("recipient1.Name", "Signer name", "text")
-                @GetTextInputMarkup("recipient1.Email", "Signer Email", "email")
+                @GetTextInputMarkup("recipient1.Name", @ViewBag.CodeExampleText.Forms[firstFormNumber].Inputs[nameNumber].InputName, "text")
+                @GetTextInputMarkup("recipient1.Email", @ViewBag.CodeExampleText.Forms[firstFormNumber].Inputs[emailInputNumber].InputName, "email")
             </div>
         </div>
     </div>
 
 
-    <h5 class="mt-4">Signer 2</h5>
+    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[secondFormNumber].FormName)</p>
     <div class="row">
         <div class="col-md-6 column ">
             <div class="form-group">
-                @GetTextInputMarkup("recipient2.Name", "Signer name", "text")
-                @GetTextInputMarkup("recipient2.Email", "Signer Email", "email")
+                @GetTextInputMarkup("recipient2.Name", @ViewBag.CodeExampleText.Forms[secondFormNumber].Inputs[name2InputNumber].InputName, "text")
+                @GetTextInputMarkup("recipient2.Email", @ViewBag.CodeExampleText.Forms[secondFormNumber].Inputs[email2InputNumber].InputName, "email")
             </div>
         </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

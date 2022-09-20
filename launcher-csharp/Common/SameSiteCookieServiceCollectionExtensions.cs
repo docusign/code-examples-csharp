@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
+﻿// <copyright file="SameSiteCookieServiceCollectionExtensions.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Common
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class SameSiteCookieServiceCollectionExtensions
     {
         /// <summary>
@@ -104,7 +108,7 @@ namespace DocuSign.CodeExamples.Common
             // This does not include:
             //   - Chrome on Mac OS X
             // because they do not use the Mac OS networking stack.
-            // Notes from Thinktecture: 
+            // Notes from Thinktecture:
             // Regarding https://caniuse.com/#search=samesite MacOS X versions lower
             // than 10.14 are not supporting SameSite at all. Starting with version
             // 10.15 unknown values are NOT treated as strict anymore. Therefore we

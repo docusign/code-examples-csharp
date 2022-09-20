@@ -1,8 +1,10 @@
-﻿using DocuSign.CodeExamples.Models;
+﻿using DocuSign.CodeExamples.ESignature.Models;
+using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Views;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DocuSign.CodeExamples.Controllers
@@ -10,14 +12,18 @@ namespace DocuSign.CodeExamples.Controllers
     public abstract class EgController : Controller
     {
         public abstract string EgName { get; }
+
+        protected CodeExampleText CodeExampleText { get; set; }
         public DSConfiguration Config { get; }
+        public LauncherTexts LauncherTexts { get; }
         public IRequestItemsService RequestItemsService { get; }
 
-        public EgController(DSConfiguration config, IRequestItemsService requestItemsService)
+        public EgController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
         {
             Config = config;
             RequestItemsService = requestItemsService;
             ViewBag.csrfToken = "";
+            LauncherTexts = launcherTexts;
         }
 
         [Route("/")]
@@ -63,14 +69,16 @@ namespace DocuSign.CodeExamples.Controllers
                 ViewBag.envelopeOk = RequestItemsService.EnvelopeId != null;
                 ViewBag.gatewayOk = Config.GatewayAccountId != null && Config.GatewayAccountId.Length > 25;
                 ViewBag.source = CreateSourcePath();
-                ViewBag.documentation = Config.documentation + EgName;
-                ViewBag.showDoc = Config.documentation != null;
+                ViewBag.documentation = Config.Documentation + EgName;
+                ViewBag.showDoc = Config.Documentation != null;
                 ViewBag.User = RequestItemsService.User;
                 ViewBag.Session = RequestItemsService.Session;
                 ViewBag.DsConfig = Config;
+                ViewBag.User = RequestItemsService.User;
+                ViewBag.DsConfig = Config;
                 InitializeInternal();
 
-                if (Config.QuickACG == "true" &&  !(this is Eg001EmbeddedSigningController))
+                if (Config.QuickACG == "true" && !(this is Eg001EmbeddedSigningController))
                 {
                     return Redirect("eg001");
                 }
@@ -83,11 +91,13 @@ namespace DocuSign.CodeExamples.Controllers
 
         protected virtual void InitializeInternal()
         {
+            this.ViewBag.CodeExampleText = this.CodeExampleText;
+            this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
         }
 
         public dynamic CreateSourcePath()
         {
-            var uri = Config.githubExampleUrl;
+            var uri = Config.GithubExampleUrl;
             uri = $"{uri}/eSignature";
             return $"{uri}/Controllers/{this.GetType().Name}.cs";
         }
@@ -95,6 +105,23 @@ namespace DocuSign.CodeExamples.Controllers
         protected bool CheckToken(int bufferMin = 60)
         {
             return RequestItemsService.CheckToken(bufferMin);
+        }
+
+        protected CodeExampleText GetExampleText(string exampleName)
+        {
+            int exampleNumber = int.Parse(Regex.Match(exampleName, @"\d+").Value);
+            var groups = this.LauncherTexts.ManifestStructure.Groups;
+            foreach (var group in groups)
+            {
+                var example = group.Examples.Find((example) => example.ExampleNumber == exampleNumber);
+
+                if (example != null)
+                {
+                    return example;
+                }
+            }
+
+            return null;
         }
     }
 }

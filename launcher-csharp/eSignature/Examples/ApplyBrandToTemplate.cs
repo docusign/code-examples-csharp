@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿// <copyright file="ApplyBrandToTemplate.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System.Collections.Generic;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public static class ApplyBrandToTemplate
     {
         /// <summary>
@@ -23,7 +27,7 @@ namespace eSignature.Examples
         /// <returns>The summary of the envelopes</returns>
         public static EnvelopeSummary CreateEnvelopeFromTemplateWithBrand(string signerEmail, string signerName, string ccEmail, string ccName, string brandId, string templateId, string accessToken, string basePath, string accountId, string status)
         {
-            //  Construct your API headers
+            // Construct your API headers
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
@@ -39,16 +43,16 @@ namespace eSignature.Examples
                     {
                         Name = signerName,
                         Email = signerEmail,
-                        RoleName = "signer"
+                        RoleName = "signer",
                     },
                     new TemplateRole
                     {
                         Name = ccName,
                         Email = ccEmail,
-                        RoleName = "cc"
-                    }
+                        RoleName = "cc",
+                    },
                 },
-                Status = status
+                Status = status,
             };
 
             // Call the eSignature REST API

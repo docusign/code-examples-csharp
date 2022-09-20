@@ -1,33 +1,47 @@
-﻿<h4>Delete a permission profile</h4>
-
-<p>
-    This example lists all available permissions profiles and allows you to delete any without associated users. <strong>Note:</strong> You cannot remove "Everyone" nor "Administrator" permission profiles.
-</p>
-
-@if (ViewBag.showDoc)
-{
-    <p><a target="_blank" href="@ViewBag.documentation">Documentation</a> about this example</p>
+﻿@{
+    int formNumber = 0;
+    int permissionInputNumber = 0;
 }
 
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    API method used:
-    <a target="_blank" href="https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/delete/">AccountPermissionProfiles::delete</a>.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">DeletePermission.cs</a> on GitHub.
+    @Html.Raw(ViewBag.CodeExampleText.Notes)
+</p>
+
+@if (ViewBag.showDoc == true)
+{
+    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
+}
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+
+
+<p>
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">DeletePermission.cs</a>"
+        )
+    )
 </p>
 
 <form action="" class="eg" method="post" data-busy="form">
 
     <div class="form-group">
-        <label for="permissionProfileId">Permission profile</label>
+        <label for="permissionProfileId">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[permissionInputNumber].InputName)
+        </label>
+
         @Html.DropDownList(
-            "permissionProfileId", 
-            ViewBag.PermissionProfiles, 
-            "Select permission profile", 
+            "permissionProfileId",
+            ViewBag.PermissionProfiles,
+            @ViewBag.CodeExampleText.Forms[formNumber].Inputs[permissionInputNumber].InputPlaceholder,
             new {@class = "custom-select", required = "required" })
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

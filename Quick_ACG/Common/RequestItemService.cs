@@ -70,6 +70,6 @@ namespace DocuSign.CodeExamples.Common
             set => _cache.Set(GetKey("EnvelopeId"), value);
         }
 
-        public string Status { get; set; }       
+        public string Status { get; set; }
     }
 }

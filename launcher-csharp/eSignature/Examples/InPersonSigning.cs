@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿// <copyright file="InPersonSigning.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public static class InPersonSigning
     {
         /// <summary>
@@ -21,11 +25,19 @@ namespace eSignature.Examples
         /// <param name="returnUrl">URL user will be redirected to after they sign</param>
         /// <param name="pingUrl">URL that DocuSign will be able to ping to incdicate signing session is active</param>
         /// <returns>The URL for the embedded signing</returns>
-        public static string SendEnvelopeForInPersonSigning(string hostEmail, string hostName, string signerEmail, string accessToken, 
-            string basePath, string accountId, string docPdf, string returnUrl, string pingUrl = null)
+        public static string SendEnvelopeForInPersonSigning(
+            string hostEmail,
+            string hostName,
+            string signerEmail,
+            string accessToken,
+            string basePath,
+            string accountId,
+            string docPdf,
+            string returnUrl,
+            string pingUrl = null)
         {
             EnvelopeDefinition envelopeDefinition = PrepareEnvelope(hostEmail, hostName, signerEmail, docPdf);
-                  
+
             // Step 3 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
@@ -33,20 +45,21 @@ namespace eSignature.Examples
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
 
             EnvelopeSummary envelopeSummary = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
+
             // Step 3 end
             // Step 5 start
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(hostEmail, hostName, returnUrl, pingUrl);
             ViewUrl viewUrl = envelopesApi.CreateRecipientView(accountId, envelopeSummary.EnvelopeId, viewRequest);
-            // Step 5 end
 
+            // Step 5 end
             return viewUrl.Url;
         }
 
         // Step 4 start
         private static RecipientViewRequest MakeRecipientViewRequest(
-            string hostEmail, 
-            string hostName, 
-            string returnUrl, 
+            string hostEmail,
+            string hostName,
+            string returnUrl,
             string pingUrl = null)
         {
             var recipientViewRequest = new RecipientViewRequest
@@ -54,16 +67,18 @@ namespace eSignature.Examples
                 ReturnUrl = returnUrl + "?state=123",
                 AuthenticationMethod = "none",
                 Email = hostEmail,
-                UserName = hostName
+                UserName = hostName,
             };
 
             if (pingUrl != null)
             {
-                recipientViewRequest.PingFrequency = "600"; 
+                recipientViewRequest.PingFrequency = "600";
                 recipientViewRequest.PingUrl = pingUrl;
             }
+
             return recipientViewRequest;
         }
+
         // Step 4 end
 
         // Step 2 start
@@ -74,15 +89,16 @@ namespace eSignature.Examples
             EnvelopeDefinition envelopeDefinition = new EnvelopeDefinition
             {
                 EmailSubject = "Please host this in-person signing session",
-                Documents = new List<Document> {
+                Documents = new List<Document>
+                {
                     new Document
                     {
                         DocumentBase64 = Convert.ToBase64String(fileContentInBytes),
                         Name = "Lorem Ipsum",
                         FileExtension = "pdf",
-                        DocumentId = "1"
-                    }
-                }
+                        DocumentId = "1",
+                    },
+                },
             };
 
             InPersonSigner inPersonSigner = new InPersonSigner
@@ -101,24 +117,25 @@ namespace eSignature.Examples
                             AnchorString = "/sn1/",
                             AnchorUnits = "pixels",
                             AnchorXOffset = "20",
-                            AnchorYOffset = "10"
-                        }
-                    }
-                }
+                            AnchorYOffset = "10",
+                        },
+                    },
+                },
             };
 
             envelopeDefinition.Recipients = new Recipients
             {
                 InPersonSigners = new List<InPersonSigner>
                 {
-                    inPersonSigner
-                }
+                    inPersonSigner,
+                },
             };
 
             envelopeDefinition.Status = "sent";
 
             return envelopeDefinition;
         }
+
         // Step 2 end
     }
 }

@@ -1,9 +1,13 @@
-﻿using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿// <copyright file="CreateBrand.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public static class CreateBrand
     {
         /// <summary>
@@ -25,7 +29,7 @@ namespace eSignature.Examples
             Brand newBrand = new Brand
             {
                 BrandName = brandName,
-                DefaultBrandLanguage = defaultBrandLanguage
+                DefaultBrandLanguage = defaultBrandLanguage,
             };
 
             // Call the eSignature REST API

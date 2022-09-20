@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿// <copyright file="RecipientAuthPhone.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public static class RecipientAuthPhone
     {
         /// <summary>
@@ -27,18 +31,20 @@ namespace eSignature.Examples
             // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            // Step 2 end
 
+            // Step 2 end
 
             // Step 3 start
             var accountsApi = new AccountsApi(apiClient);
             AccountIdentityVerificationResponse response = accountsApi.GetAccountIdentityVerification(accountId);
             var phoneAuthWorkflow = response.IdentityVerification.FirstOrDefault(x => x.DefaultName == "Phone Authentication");
+
             // Step 3 end
             if (phoneAuthWorkflow == null)
             {
                 throw new ApiException(0, "IDENTITY_WORKFLOW_INVALID_ID");
             }
+
             string workflowId = phoneAuthWorkflow.WorkflowId;
 
             // Construct your envelope JSON body
@@ -48,7 +54,7 @@ namespace eSignature.Examples
                 EnvelopeIdStamping = "true",
                 EmailSubject = "Please Sign",
                 EmailBlurb = "Sample text for email body",
-                Status = "Sent"
+                Status = "Sent",
             };
 
             byte[] buffer = System.IO.File.ReadAllBytes(docPdf);
@@ -59,7 +65,7 @@ namespace eSignature.Examples
                 DocumentId = "1",
                 FileExtension = "pdf",
                 Name = "Lorem",
-                DocumentBase64 = Convert.ToBase64String(buffer)
+                DocumentBase64 = Convert.ToBase64String(buffer),
             };
 
             // Create your signature tab
@@ -69,19 +75,20 @@ namespace eSignature.Examples
                 AnchorString = "/sn1/",
                 AnchorUnits = "pixels",
                 AnchorXOffset = "10",
-                AnchorYOffset = "20"
+                AnchorYOffset = "20",
             };
 
             // Tabs are set per recipient/signer
             Tabs signer1Tabs = new Tabs
             {
-                SignHereTabs = new List<SignHere> { signHere1 }
+                SignHereTabs = new List<SignHere> { signHere1 },
             };
 
             RecipientIdentityVerification workflow = new RecipientIdentityVerification()
             {
                 WorkflowId = workflowId,
-                InputOptions = new List<RecipientIdentityInputOption> {
+                InputOptions = new List<RecipientIdentityInputOption>
+                {
                     new RecipientIdentityInputOption
                     {
                         Name = "phone_number_list",
@@ -92,10 +99,10 @@ namespace eSignature.Examples
                             {
                                 Number = phoneNumber,
                                 CountryCode = countryAreaCode,
-                            }
-                        }
-                    }
-                }
+                            },
+                        },
+                    },
+                },
             };
 
             Signer signer1 = new Signer()
@@ -105,7 +112,7 @@ namespace eSignature.Examples
                 RoutingOrder = "1",
                 Status = "Created",
                 DeliveryMethod = "Email",
-                RecipientId = "1", //represents your {RECIPIENT_ID},
+                RecipientId = "1", // represents your {RECIPIENT_ID},
                 Tabs = signer1Tabs,
                 IdentityVerification = workflow,
             };
@@ -113,12 +120,14 @@ namespace eSignature.Examples
             Recipients recipients = new Recipients();
             recipients.Signers = new List<Signer> { signer1 };
             env.Recipients = recipients;
+
             // Step 4 end
 
             // Call the eSignature REST API
             // Step 5 start
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+
             // Step 5 end
             return results.EnvelopeId;
         }

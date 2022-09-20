@@ -1,9 +1,13 @@
-﻿
-    <h4>Send an envelope with Access Code Authentication</h4>
+﻿@{
+    int formNumber = 0;
+    int accessCodeInputNumber = 0;
+    int signerEmailInputNumber = 1;
+    int signerNameInputNumber = 2;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    This example sends an envelope requiring the recipient to enter an access code for multifactor authentication. The envelope includes a PDF document. Anchor text
-    (<a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">AutoPlace</a>)
-    is used to position the signing fields in the documents.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
 
  @if (ViewBag.showDoc == true)
@@ -11,35 +15,54 @@
      <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
  }
 
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
-</p>
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">RecipientAuthAccessCode.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">RecipientAuthAccessCode.cs</a>"))
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
 
     <div class="form-group">
-        <label for="accessCode">Access Code</label>
-        <input type="text" class="form-control" id="accessCode" name="accessCode"
-               aria-describedby="acText" placeholder="Enter a recipient access code here" required />
-        <small id="acText" class="form-text text-muted">Provide this string to a recipient that is different such as in person or by mail or via different email.</small>
+        <label for="accessCode">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[accessCodeInputNumber].InputName)
+        </label>
+        <input type="text" 
+               class="form-control" 
+               id="accessCode" 
+               name="accessCode"
+               aria-describedby="acText" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[accessCodeInputNumber].InputPlaceholder" 
+               required />
+        <small id="acText" class="form-text text-muted">@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.AccessCodeText)</small>
     </div>
     <div class="form-group">
-        <label for="signerEmail">Signer Email</label>
-        <input type="email" class="form-control" id="signerEmail" name="signerEmail"
-               aria-describedby="emailHelp" placeholder="pat@example.com" required
+        <label for="signerEmail">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputName)
+        </label>
+        <input type="email" 
+               class="form-control" 
+               id="signerEmail" 
+               name="signerEmail"
+               aria-describedby="emailHelp"
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputPlaceholder" 
+               required
                value="@ViewBag.Locals.DsConfig.SignerEmail">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <small id="emailHelp" class="form-text text-muted">@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)</small>
     </div>
     <div class="form-group">
-        <label for="signerName">Signer Name</label>
-        <input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
-               value="@ViewBag.Locals.DsConfig.SignerName" required />
+        <label for="signerName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputName)
+        </label>
+        <input type="text" 
+               class="form-control"
+               id="signerName" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputPlaceholder" 
+               name="signerName"
+               value="@ViewBag.Locals.DsConfig.SignerName" 
+               required />
     </div>
+
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

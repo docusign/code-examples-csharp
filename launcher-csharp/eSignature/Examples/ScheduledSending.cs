@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿// <copyright file="ScheduledSending.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public static class ScheduledSending
     {
         /// <summary>
@@ -28,10 +32,10 @@ namespace eSignature.Examples
             // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-         
+            // Step 3 start
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
-            
+            // Step 3 end
             return results.EnvelopeId;
             // Step 2 end
         }
@@ -44,7 +48,6 @@ namespace eSignature.Examples
             // docPdf
             // resumeDate
 
-
             // document 1 (pdf) has tag /sn1/
             //
             // Step 3 start
@@ -53,6 +56,7 @@ namespace eSignature.Examples
             // read file from a local directory
             // The reads could raise an exception if the file is not available!
             string docPdfBytes = Convert.ToBase64String(System.IO.File.ReadAllBytes(docPdf));
+
             // create the envelope definition
             EnvelopeDefinition env = new EnvelopeDefinition();
             env.EmailSubject = "Please sign this document set";
@@ -63,8 +67,9 @@ namespace eSignature.Examples
                 DocumentBase64 = docPdfBytes,
                 Name = "Lorem Ipsum", // can be different from actual file name
                 FileExtension = "pdf",
-                DocumentId = "1"
+                DocumentId = "1",
             };
+
             // The order in the docs array determines the order in the envelope
             env.Documents = new List<Document> { doc };
 
@@ -75,7 +80,7 @@ namespace eSignature.Examples
                 Email = signerEmail,
                 Name = signerName,
                 RecipientId = "1",
-                RoutingOrder = "1"
+                RoutingOrder = "1",
             };
 
             // Add the workflow rule that sets the schedule for the envelope to be sent
@@ -93,19 +98,19 @@ namespace eSignature.Examples
             // We're using anchor (autoPlace) positioning
             //
             // The DocuSign platform searches throughout your envelope's
-            // documents for matching anchor strings. 
+            // documents for matching anchor strings.
             SignHere signHere = new SignHere
             {
                 AnchorString = "/sn1/",
                 AnchorUnits = "pixels",
                 AnchorYOffset = "10",
-                AnchorXOffset = "20"
+                AnchorXOffset = "20",
             };
 
             // Tabs are set per recipient / signer
             Tabs signer1Tabs = new Tabs
             {
-                SignHereTabs = new List<SignHere> { signHere }
+                SignHereTabs = new List<SignHere> { signHere },
             };
             signer1.Tabs = signer1Tabs;
 
@@ -115,6 +120,7 @@ namespace eSignature.Examples
                 Signers = new List<Signer> { signer1 },
             };
             env.Recipients = recipients;
+
             // Request that the envelope be sent by setting |status| to "sent".
             // To request that the envelope be created as a draft, set to "created"
             env.Status = "sent";

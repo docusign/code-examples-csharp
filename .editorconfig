@@ -1,0 +1,19 @@
+﻿[*.cs]
+
+# CS1591: Missing XML comment for publicly visible type or member
+dotnet_diagnostic.CS1591.severity = silent
+
+# SA1116: Split parameters should start on line after declaration
+dotnet_diagnostic.SA1116.severity = silent
+
+# SA1612: Element parameter documentation should match element parameters
+dotnet_diagnostic.SA1612.severity = silent
+
+# SA1611: Element parameters should be documented
+dotnet_diagnostic.SA1611.severity = silent
+
+# SA1600: Elements should be documented
+dotnet_diagnostic.SA1600.severity = silent
+
+# SA1629: Documentation text should end with a period
+dotnet_diagnostic.SA1629.severity = silent

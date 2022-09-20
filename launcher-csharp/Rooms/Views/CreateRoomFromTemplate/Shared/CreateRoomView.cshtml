@@ -1,27 +1,40 @@
 ﻿@model DocuSign.CodeExamples.Rooms.Models.RoomModel
+@using System.Text.RegularExpressions;
+@{
+    var redirectToSecondCodeExample = "href='Aeg02'";
+    int formNumber = 0;
+    int roomNameInputNumber = 0;
+    int templateInputNumber = 1;
+}
 
-<h4>Room</h4>
 @if (Model.Templates != null && Model.Templates.Any())
 {
     <form class="eg" asp-action="Create" method="post" data-busy="form">
         <div class="form-group">
-            <label asp-for="Name">Name</label>
-            <input type="input" class="form-control" asp-for="Name" placeholder="Room name" required>
+            <label asp-for="Name">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[roomNameInputNumber].InputName)
+            </label>
+
+            <input type="input" class="form-control" asp-for="Name" 
+                placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[roomNameInputNumber].InputPlaceholder" required>
         </div>
+
         <div class="form-group">
-            <label for="docSelect">Template</label>
-            <select class="custom-select" asp-for="TemplateId" asp-items="@(new SelectList(Model.Templates, "RoomTemplateId", "Name"))" required>
+            <label for="docSelect">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[templateInputNumber].InputName)
+            </label>
+
+            <select class="custom-select" asp-for="TemplateId" 
+                asp-items="@(new SelectList(Model.Templates, "RoomTemplateId", "Name"))" required>
             </select>
         </div>
+
         <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
     </form>
 }
 else
 {
-    <p>
-        Problem: you don't have any templates. Please first create a form template using <a href="https://demo.rooms.docusign.com/admin/company/roomtemplates" target="_blank">DocuSign Admin.</a> <br />
-        Thank you.
-    </p>
-    <a href="/" class="btn btn-primary">Continue</a>
+    <p>@Html.Raw(ViewBag.CodeExampleText.RedirectsToOtherCodeExamples[0].RedirectText)</p>
+    <a href="/" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a>
 }

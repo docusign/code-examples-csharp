@@ -1,22 +1,31 @@
-﻿using DocuSign.CodeExamples.Controllers;
-using DocuSign.CodeExamples.Models;
-using DocuSign.CodeExamples.Rooms.Models;
-using DocuSign.Rooms.Client;
-using DocuSign.Rooms.Examples;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+﻿// <copyright file="Eg02CreateRoomFromTemplateController.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Rooms.Controllers
 {
+    using DocuSign.CodeExamples.Common;
+    using DocuSign.CodeExamples.Controllers;
+    using DocuSign.CodeExamples.Models;
+    using DocuSign.CodeExamples.Rooms.Models;
+    using DocuSign.Rooms.Client;
+    using DocuSign.Rooms.Examples;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+
     [Area("Rooms")]
     [Route("Eg02")]
     public class CreateRoomFromTemplate : EgController
     {
-
         public CreateRoomFromTemplate(
             DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService) : base(dsConfig, requestItemsService)
-        {}
+            LauncherTexts launcherTexts,
+            IRequestItemsService requestItemsService)
+            : base(dsConfig, launcherTexts, requestItemsService)
+        {
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
+        }
 
         public override string EgName => "Eg02";
 
@@ -25,7 +34,8 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
         protected override void InitializeInternal()
         {
-            RoomModel = new RoomModel();
+            base.InitializeInternal();
+            this.RoomModel = new RoomModel();
         }
 
         [MustAuthenticate]
@@ -35,38 +45,38 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             base.Get();
 
             // Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-            var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var basePath = $"{this.RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
+            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
-            {   
+            {
                 // Get Templates
                 var templates = DocuSign.Rooms.Examples.CreateRoomFromTemplate.GetTemplates(basePath, accessToken, accountId);
 
-                RoomModel = new RoomModel { Templates = templates.RoomTemplates };
+                this.RoomModel = new RoomModel { Templates = templates.RoomTemplates };
 
-                return View("Eg02", this);
-
+                return this.View("Eg02", this);
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
-                return View("Error");
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
+                return this.View("Error");
             }
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(RoomModel model)
         {
             // Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-            var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var basePath = $"{this.RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
+            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
@@ -75,7 +85,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 {
                     Name = model.Name,
                     TemplateId = model.TemplateId,
-                    Templates = model.Templates
+                    Templates = model.Templates,
                 };
 
                 // Call the Rooms API to create a room
@@ -86,17 +96,17 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                     mappedRoomModel.TemplateId);
 
                 // Show results
-                ViewBag.h1 = "The room was successfully created";
-                ViewBag.message = $"The room was created! Room ID: {room.RoomId}, name:{room.Name}.";
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(room, Formatting.Indented);
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, room.Name, room.RoomId.ToString());
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(room, Formatting.Indented);
 
-                return View("example_done");
+                return this.View("example_done");
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
-                return View("Error");
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
+                return this.View("Error");
             }
         }
     }

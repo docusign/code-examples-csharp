@@ -1,9 +1,13 @@
-﻿using DocuSign.Click.Api;
-using DocuSign.Click.Client;
-using DocuSign.Click.Model;
+﻿// <copyright file="ActivateClickwrap.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.Click.Examples
 {
+    using DocuSign.Click.Api;
+    using DocuSign.Click.Client;
+    using DocuSign.Click.Model;
+
     public class ActivateClickwrap
     {
         /// <summary>
@@ -30,7 +34,7 @@ namespace DocuSign.Click.Examples
         {
             var clickwrapRequest = new ClickwrapRequest
             {
-                Status = "active"
+                Status = "active",
             };
 
             return clickwrapRequest;
