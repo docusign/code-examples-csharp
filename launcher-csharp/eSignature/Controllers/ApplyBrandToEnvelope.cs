@@ -1,70 +1,86 @@
-﻿using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
-using eSignature.Examples;
+﻿// <copyright file="ApplyBrandToEnvelope.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    using System;
+    using DocuSign.CodeExamples.Common;
+    using DocuSign.CodeExamples.Models;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using Microsoft.AspNetCore.Mvc;
+
     [Area("eSignature")]
     [Route("eg029")]
     public class ApplyBrandToEnvelope : EgController
     {
-        public ApplyBrandToEnvelope(DSConfiguration config, IRequestItemsService requestItemsService)
-            : base(config, requestItemsService)
+        public ApplyBrandToEnvelope(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "Apply a brand to an envelope";
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "eg029";
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
+
             // Data for this method
-            // signerEmail 
+            // signerEmail
             // signerName
-            var basePath = RequestItemsService.Session.BasePath + "/restapi";
-            var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
+            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             var accountsApi = new AccountsApi(apiClient);
             var brands = accountsApi.ListBrands(accountId);
 
-            ViewBag.Brands = brands.Brands;
+            this.ViewBag.Brands = brands.Brands;
         }
 
+        [SetViewBag]
         [HttpPost]
         public IActionResult Create(string signerEmail, string signerName, string brandId)
         {
             // Check the token with minimal buffer time.
-            bool tokenOk = CheckToken(3);
+            bool tokenOk = this.CheckToken(3);
             if (!tokenOk)
             {
-                // We could store the parameters of the requested operation so it could be 
+                // We could store the parameters of the requested operation so it could be
                 // restarted automatically. But since it should be rare to have a token issue
                 // here, we'll make the user re-enter the form data after authentication.
-                RequestItemsService.EgName = EgName;
-                return Redirect("/ds/mustAuthenticate");
+                this.RequestItemsService.EgName = this.EgName;
+                return this.Redirect("/ds/mustAuthenticate");
             }
 
             // Data for this method
-            // signerEmail 
+            // signerEmail
             // signerName
-            var basePath = RequestItemsService.Session.BasePath + "/restapi";
+            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
 
             // Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             // Call the Examples API method to apply a brand to the envelope
-            var results = global::eSignature.Examples.ApplyBrandToEnvelope.CreateEnvelopeWithBranding(signerEmail, signerName, brandId, accessToken,
-                basePath, accountId, RequestItemsService.Status, Config.docPdf);
-            
-            ViewBag.h1 = "Envelope sent";
-            ViewBag.message = "The envelope has been created and sent!<br />Envelope ID " + results.EnvelopeId + ".";
-            return View("example_done");
+            var results = global::ESignature.Examples.ApplyBrandToEnvelope.CreateEnvelopeWithBranding(
+                signerEmail,
+                signerName,
+                brandId,
+                accessToken,
+                basePath,
+                accountId,
+                this.RequestItemsService.Status,
+                this.Config.DocPdf);
+
+            this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+            this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, results.EnvelopeId);
+            return this.View("example_done");
         }
     }
 }

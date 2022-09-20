@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Text;
-using Newtonsoft.Json;
+﻿// <copyright file="CreateEnvelopeWithMultipleDocumentTypes.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Net;
+    using System.Text;
+    using Newtonsoft.Json;
+
     public static class CreateEnvelopeWithMultipleDocumentTypes
     {
         /// <summary>
@@ -29,34 +33,38 @@ namespace eSignature.Examples
 
             // Step 2. Gather documents and their headeres
             // Read files from a local directory
-            // The reads could raise an exception if the file is not available! 
+            // The reads could raise an exception if the file is not available!
             dynamic doc1 = envelope["documents"][0];
             dynamic doc2 = envelope["documents"][1];
             dynamic doc3 = envelope["documents"][2];
 
-            dynamic documents = new[] {
-                new {
+            dynamic documents = new[]
+            {
+                new
+                {
                     mime = "text/html",
-                    filename = (string) doc1["name"],
-                    documentId = (string) doc1["documentId"],
-                    bytes = Encoding.ASCII.GetBytes(document1(signerEmail, signerName, ccEmail, ccName))
+                    filename = (string)doc1["name"],
+                    documentId = (string)doc1["documentId"],
+                    bytes = Encoding.ASCII.GetBytes(Document1(signerEmail, signerName, ccEmail, ccName)),
                 },
-                new {
+                new
+                {
                     mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                    filename = (string) doc2["name"],
-                    documentId = (string) doc2["documentId"],
-                    bytes = System.IO.File.ReadAllBytes(docDocx)
+                    filename = (string)doc2["name"],
+                    documentId = (string)doc2["documentId"],
+                    bytes = System.IO.File.ReadAllBytes(docDocx),
                 },
-                new {
+                new
+                {
                     mime = "application/pdf",
-                    filename = (string) doc3["name"],
-                    documentId = (string) doc3["documentId"],
-                    bytes = System.IO.File.ReadAllBytes(docPdf)
-                }
+                    filename = (string)doc3["name"],
+                    documentId = (string)doc3["documentId"],
+                    bytes = System.IO.File.ReadAllBytes(docPdf),
+                },
             };
 
             // Step 3. Create the multipart body
-            byte[] CRLF = Encoding.ASCII.GetBytes("\r\n");
+            byte[] crlf = Encoding.ASCII.GetBytes("\r\n");
             byte[] boundary = Encoding.ASCII.GetBytes("multipartboundary_multipartboundary");
             byte[] hyphens = Encoding.ASCII.GetBytes("--");
 
@@ -73,37 +81,38 @@ namespace eSignature.Examples
             {
                 buffer.Write(hyphens);
                 buffer.Write(boundary);
-                buffer.Write(CRLF);
+                buffer.Write(crlf);
                 buffer.Write(Encoding.ASCII.GetBytes("Content-Type: application/json"));
-                buffer.Write(CRLF);
+                buffer.Write(crlf);
                 buffer.Write(Encoding.ASCII.GetBytes("Content-Disposition: form-data"));
-                buffer.Write(CRLF);
-                buffer.Write(CRLF);
+                buffer.Write(crlf);
+                buffer.Write(crlf);
 
                 var json = JsonConvert.SerializeObject(envelope, Formatting.Indented);
                 buffer.Write(Encoding.ASCII.GetBytes(json));
+
                 // Loop to add the documents.
                 // See section Multipart Form Requests on page https://developers.docusign.com/esign-rest-api/guides/requests-and-responses
                 foreach (var d in documents)
                 {
-                    buffer.Write(CRLF);
+                    buffer.Write(crlf);
                     buffer.Write(hyphens);
                     buffer.Write(boundary);
-                    buffer.Write(CRLF);
+                    buffer.Write(crlf);
                     buffer.Write(Encoding.ASCII.GetBytes("Content-Type:" + d.mime));
-                    buffer.Write(CRLF);
+                    buffer.Write(crlf);
                     buffer.Write(Encoding.ASCII.GetBytes("Content-Disposition: file; filename=\"" + d.filename + ";documentid=" + d.documentId));
-                    buffer.Write(CRLF);
-                    buffer.Write(CRLF);
+                    buffer.Write(crlf);
+                    buffer.Write(crlf);
                     buffer.Write(d.bytes);
                 }
 
                 // Add closing boundary
-                buffer.Write(CRLF);
+                buffer.Write(crlf);
                 buffer.Write(hyphens);
                 buffer.Write(boundary);
                 buffer.Write(hyphens);
-                buffer.Write(CRLF);
+                buffer.Write(crlf);
                 buffer.Flush();
             }
 
@@ -119,7 +128,7 @@ namespace eSignature.Examples
                 webEx = ex;
             }
 
-            var res = "";
+            var res = string.Empty;
 
             using (var stream = response.GetResponseStream())
             {
@@ -149,15 +158,13 @@ namespace eSignature.Examples
             return (statusOk, envelopeId, errorCode, errorMessage, webEx);
         }
 
-        private static string document1(string signerEmail, string signerName, string ccEmail, string ccName)
+        private static string Document1(string signerEmail, string signerName, string ccEmail, string ccName)
         {
             // Data for this method
-            // signerEmail 
+            // signerEmail
             // signerName
             // ccEmail
             // ccName
-
-
             return " <!DOCTYPE html>\n" +
                     "    <html>\n" +
                     "        <head>\n" +
@@ -184,11 +191,10 @@ namespace eSignature.Examples
         private static Dictionary<string, dynamic> MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName)
         {
             // Data for this method
-            // signerEmail 
+            // signerEmail
             // signerName
             // ccEmail
             // ccName
-
 
             // document 1 (html) has tag **signature_1**
             // document 2 (docx) has tag /sn1/
@@ -201,24 +207,23 @@ namespace eSignature.Examples
             // After it is signed, a copy is sent to the cc person.
             // create the envelope definition
             // add the documents
-
             Dictionary<string, dynamic> doc1 = new Dictionary<string, dynamic>()
             {
-                { "name", "Order acknowledgement"}, // can be different from actual file name
-                { "fileExtension", "html"}, // Source data format. Signed docs are always pdf.
-                { "documentId", "1"} // a label used to reference the doc
+                { "name", "Order acknowledgement" }, // can be different from actual file name
+                { "fileExtension", "html" }, // Source data format. Signed docs are always pdf.
+                { "documentId", "1" }, // a label used to reference the doc
             };
             Dictionary<string, dynamic> doc2 = new Dictionary<string, dynamic>()
             {
-                { "name", "Battle Plan"}, // can be different from actual file name
+                { "name", "Battle Plan" }, // can be different from actual file name
                 { "fileExtension", "docx" },
-                { "documentId", "2" }
+                { "documentId", "2" },
             };
             Dictionary<string, dynamic> doc3 = new Dictionary<string, dynamic>()
             {
                 { "name", "Lorem Ipsum" }, // can be different from actual file name
                 { "fileExtension", "pdf" },
-                { "documentId", "3" }
+                { "documentId", "3" },
             };
 
             // create a signer recipient to sign the document, identified by name and email
@@ -228,8 +233,9 @@ namespace eSignature.Examples
                 { "email", signerEmail },
                 { "name", signerName },
                 { "recipientId", "1" },
-                { "routingOrder", "1" }
+                { "routingOrder", "1" },
             };
+
             // routingOrder (lower means earlier) determines the order of deliveries
             // to the recipients. Parallel routing order is supported by using the
             // same integer as the order for two or more recipients.
@@ -241,8 +247,9 @@ namespace eSignature.Examples
                 { "email", ccEmail },
                 { "name", ccName },
                 { "routingOrder", "2" },
-                { "recipientId", "2" }
+                { "recipientId", "2" },
             };
+
             // Create signHere fields (also known as tabs) on the documents,
             // We're using anchor (autoPlace) positioning
             //
@@ -255,19 +262,20 @@ namespace eSignature.Examples
                 { "anchorString", "**signature_1**" },
                 { "anchorYOffset", "10" },
                 { "anchorUnits", "pixels" },
-                { "anchorXOffset", "20" }
+                { "anchorXOffset", "20" },
             };
             Dictionary<string, dynamic> signHere2 = new Dictionary<string, dynamic>()
             {
                 { "anchorString", "/sn1/" },
                 { "anchorYOffset", "10" },
                 { "anchorUnits", "pixels" },
-                { "anchorXOffset", "20" }
+                { "anchorXOffset", "20" },
             };
+
             // Tabs are set per recipient / signer
             Dictionary<string, dynamic> signer1Tabs = new Dictionary<string, dynamic>()
             {
-                { "signHereTabs", new dynamic[] { signHere1, signHere2 } }
+                { "signHereTabs", new dynamic[] { signHere1, signHere2 } },
             };
             signer1.Add("tabs", signer1Tabs);
 
@@ -275,16 +283,16 @@ namespace eSignature.Examples
             Dictionary<string, dynamic> recipients = new Dictionary<string, dynamic>()
             {
                 { "signers", new dynamic[] { signer1 } },
-                { "carbonCopies", new dynamic[] { cc1 } }
+                { "carbonCopies", new dynamic[] { cc1 } },
             };
 
             // create the envelope definition
             Dictionary<string, dynamic> envelopeDefinition = new Dictionary<string, dynamic>()
             {
-                { "emailSubject", "Please sign this document set"},
-                { "documents", new dynamic[] { doc1, doc2, doc3}},
+                { "emailSubject", "Please sign this document set" },
+                { "documents", new dynamic[] { doc1, doc2, doc3 } },
                 { "recipients", recipients },
-                { "status", "sent" }
+                { "status", "sent" },
             };
 
             return envelopeDefinition;

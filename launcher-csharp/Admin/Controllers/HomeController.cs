@@ -1,31 +1,48 @@
-﻿using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿// <copyright file="HomeController.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
+    using DocuSign.CodeExamples.Models;
+    using Microsoft.AspNetCore.Mvc;
+
     [Area("Admin")]
     public class HomeController : Controller
     {
-        private IRequestItemsService _requestItemsService { get; }
+        private IRequestItemsService RequestItemsService { get; }
 
-        public HomeController(IRequestItemsService requestItemsService)
+        private LauncherTexts LauncherTexts { get; }
+
+        public HomeController(IRequestItemsService requestItemsService, LauncherTexts launcherTexts)
         {
-            _requestItemsService = requestItemsService;
+            this.RequestItemsService = requestItemsService;
+            this.LauncherTexts = launcherTexts;
         }
 
         public IActionResult Index(string egName)
         {
+            this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
+
             if (string.IsNullOrEmpty(egName))
             {
-                egName = _requestItemsService.EgName;
-            }
-            if (!string.IsNullOrWhiteSpace(egName))
-            {
-                _requestItemsService.EgName = null;
-                return Redirect($"Admin/{egName}");
+                egName = this.RequestItemsService.EgName;
             }
 
-            return View();
+            if (egName == "home")
+            {
+                this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.Groups;
+                return this.View();
+            }
+
+            if (!string.IsNullOrWhiteSpace(egName))
+            {
+                this.RequestItemsService.EgName = null;
+                return this.Redirect($"/{egName}");
+            }
+
+            this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.Groups;
+            return this.View();
         }
     }
 }

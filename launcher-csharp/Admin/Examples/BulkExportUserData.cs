@@ -1,13 +1,17 @@
-﻿using DocuSign.Admin.Api;
-using DocuSign.Admin.Client;
-using DocuSign.Admin.Model;
-using System;
-using System.IO;
-using System.Linq;
-using System.Net;
+﻿// <copyright file="BulkExportUserData.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Admin.Examples
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using DocuSign.Admin.Api;
+    using DocuSign.Admin.Client;
+    using DocuSign.Admin.Model;
+
     public class BulkExportUserData
     {
         /// <summary>
@@ -18,12 +22,16 @@ namespace DocuSign.CodeExamples.Admin.Examples
         /// <param name="organizationId">The DocuSign organization ID (GUID or short version) for which the APIs call would be made</param>
         /// <param name="filePath">Path to a file where the user data will be saved</param>
         /// <returns></returns>
-        public static OrganizationExportResponse CreateBulkExportRequest(string accessToken, string basePath,
-            Guid? organizationId, string filePath)
+        public static OrganizationExportResponse CreateBulkExportRequest(
+            string accessToken,
+            string basePath,
+            Guid? organizationId,
+            string filePath)
         {
             // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+
             // Step 2 end
 
             // Step 3 start
@@ -31,7 +39,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
 
             var organizationExportRequest = new OrganizationExportRequest
             {
-                Type = "organization_memberships_export"
+                Type = "organization_memberships_export",
             };
 
             var exportResponse = bulkExportsApi.CreateUserListExport(organizationId, organizationExportRequest);
@@ -39,7 +47,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
 
             while (retryCount >= 0)
             {
-                if(exportResponse.Results != null)
+                if (exportResponse.Results != null)
                 {
                     GetUserData(accessToken, exportResponse.Results.FirstOrDefault().Url, filePath);
                     break;
@@ -51,8 +59,8 @@ namespace DocuSign.CodeExamples.Admin.Examples
                     exportResponse = bulkExportsApi.GetUserListExport(organizationId, exportResponse.Id);
                 }
             }
-            // Step 3 end
 
+            // Step 3 end
             return exportResponse;
         }
 
@@ -66,7 +74,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
         private static void GetUserData(string accessToken, string csvUrl, string filePath)
         {
             WebHeaderCollection headers = new WebHeaderCollection();
-            headers.Add("Authorization", String.Format("Bearer {0}", accessToken));
+            headers.Add("Authorization", string.Format("Bearer {0}", accessToken));
             headers.Add("Content-Type", "application/json");
 
             HttpWebRequest request;
@@ -101,7 +109,9 @@ namespace DocuSign.CodeExamples.Admin.Examples
             catch (WebException)
             {
                 if (response != null)
+                {
                     response.Close();
+                }
             }
         }
     }

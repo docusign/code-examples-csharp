@@ -11,70 +11,64 @@
 </div>");
     }
 }
+@{
+    int firstFormNumber = 0;
+    int secondFormNumber = 0;
+    int signerEmailInputNumber = 0;
+    int signerNameInputNumber = 1;
+    int ccEmailInputNumber = 2;
+    int ccNameInputNumber = 3;
+}
 
-<h4>Bulk send envelopes</h4>
-
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    Demonstrates how to send envelopes in bulk to multiple recipients. First, this example creates a bulk-send recipients list, then creates an envelope. After that, 
-    it initiates bulk envelope sending.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
 
 @if (ViewBag.showDoc)
 {
-    <p><a target="_blank" href="@ViewBag.documentation">Documentation</a> about this example</p>
+    <p><a target='_blank' href="@ViewBag.documentation">Documentation</a> about this example</p>
 }
 
-<p>
-    API methods used:
-    <a target="_blank"
-       href="https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/createbulksendlist/">BulkSend::createBulkSendList</a>,
-    <a target="_blank"
-       href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>,
-    <a target="_blank"
-       href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopecustomfields/create/">EnvelopeCustomFields::create</a>,
-    <a target="_blank"
-       href="https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/createbulksendrequest/">BulkSend::createBulkSendRequest</a>,
-    <a target="_blank"
-       href="https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/getbulksendbatchstatus/">BulkSend::getBulkSendBatchStatus</a>
-</p>
-
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">SendBulkEnvelopes.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">SendBulkEnvelopes.cs</a>"))
 </p>
 
 <form action="" class="eg" method="post" data-busy="form">
     <div class="row">
         <div class="col-md-6">
-            <h5 class="mt-4">Bulk copy #1</h5>
+            @Html.Raw(ViewBag.CodeExampleText.Forms[firstFormNumber].FormName)
             <div class="form-group">
-                @GetTextInputMarkup("signer1.Email", "Signer Email", "email")
+                @GetTextInputMarkup("signer1.Email", @ViewBag.CodeExampleText.Forms[firstFormNumber].Inputs[signerEmailInputNumber].InputName, "email")
             </div>
             <div class="form-group">
-                @GetTextInputMarkup("signer1.Name", "Signer Name", "text")
+                @GetTextInputMarkup("signer1.Name", @ViewBag.CodeExampleText.Forms[firstFormNumber].Inputs[signerNameInputNumber].InputName, "text")
             </div>
             <div class="form-group">
-                @GetTextInputMarkup("carbonCopy1.Email", "CC Email", "email")
+                @GetTextInputMarkup("carbonCopy1.Email", @ViewBag.CodeExampleText.Forms[firstFormNumber].Inputs[ccEmailInputNumber].InputName, "email")
             </div>
             <div class="form-group">
-                @GetTextInputMarkup("carbonCopy1.Name", "CC Name", "text")
+                @GetTextInputMarkup("carbonCopy1.Name", @ViewBag.CodeExampleText.Forms[firstFormNumber].Inputs[ccNameInputNumber].InputName, "text")
             </div>
         </div>
+
         <div class="col-md-6">
-            <h5 class="mt-4">Bulk copy #2</h5>
+            @Html.Raw(ViewBag.CodeExampleText.Forms[secondFormNumber].FormName)
             <div class="form-group">
-                @GetTextInputMarkup("signer2.Email", "Signer Email", "email")
+                @GetTextInputMarkup("signer2.Email", @ViewBag.CodeExampleText.Forms[secondFormNumber].Inputs[signerEmailInputNumber].InputName, "email")
             </div>
             <div class="form-group">
-                @GetTextInputMarkup("signer2.Name", "Signer name", "text")
+                @GetTextInputMarkup("signer2.Name", @ViewBag.CodeExampleText.Forms[secondFormNumber].Inputs[signerNameInputNumber].InputName, "text")
             </div>
             <div class="form-group">
-                @GetTextInputMarkup("carbonCopy2.Email", "CC Email", "email")
+                @GetTextInputMarkup("carbonCopy2.Email", @ViewBag.CodeExampleText.Forms[secondFormNumber].Inputs[ccEmailInputNumber].InputName, "email")
             </div>
             <div class="form-group">
-                @GetTextInputMarkup("carbonCopy2.Name", "CC Name", "text")
+                @GetTextInputMarkup("carbonCopy2.Name", @ViewBag.CodeExampleText.Forms[secondFormNumber].Inputs[ccNameInputNumber].InputName, "text")
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

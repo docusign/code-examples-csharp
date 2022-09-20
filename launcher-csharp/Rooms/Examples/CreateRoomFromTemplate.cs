@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using DocuSign.Rooms.Api;
-using DocuSign.Rooms.Client;
-using DocuSign.Rooms.Model;
+﻿// <copyright file="CreateRoomFromTemplate.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.Rooms.Examples
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using DocuSign.Rooms.Api;
+    using DocuSign.Rooms.Client;
+    using DocuSign.Rooms.Model;
+
     public class CreateRoomFromTemplate
     {
         /// <summary>
@@ -81,9 +85,9 @@ namespace DocuSign.Rooms.Examples
                         { "postalCode", "11112" },
                         { "companyRoomStatus", "5" },
                         { "state", "US-NY" },
-                        { "comments", @"New room for sale." }
-                    }
-                }
+                        { "comments", @"New room for sale." },
+                    },
+                },
             };
 
             return newRoom;
@@ -92,7 +96,9 @@ namespace DocuSign.Rooms.Examples
         public class RoomModel
         {
             public string Name { get; set; }
+
             public int TemplateId { get; set; }
+
             public IEnumerable<RoomTemplate> Templates { get; set; }
         }
     }

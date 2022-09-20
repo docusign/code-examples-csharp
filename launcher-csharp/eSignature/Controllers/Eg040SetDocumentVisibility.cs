@@ -3,6 +3,8 @@ using DocuSign.CodeExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using eSignature.Examples;
 using DocuSign.eSign.Client;
+using DocuSign.CodeExamples.Common;
+using System;
 
 namespace DocuSign.CodeExamples.Views
 {
@@ -10,15 +12,17 @@ namespace DocuSign.CodeExamples.Views
     [Route("Eg040")]
     public class Eg040SetDocumentVisibility : EgController
     {
-        public Eg040SetDocumentVisibility(DSConfiguration config, IRequestItemsService requestItemsService)
-            : base(config, requestItemsService)
-        {  
-            ViewBag.title = "Set document visibility";
+        public Eg040SetDocumentVisibility(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
+        {
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "Eg040";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create(string signer1Email, string signer1Name, string signer2Email, string signer2Name, 
             string ccEmail, string ccName)
         {
@@ -37,15 +41,13 @@ namespace DocuSign.CodeExamples.Views
             try
             {
                 envelopeId = SetDocumentVisibility.SendEnvelopeWithEnvelopeVisibility(signer1Email, signer1Name, signer2Email, 
-                    signer2Name, ccEmail, ccName, accessToken, basePath, accountId, Config.docPdf, Config.docDocx, Config.docHTML);
+                    signer2Name, ccEmail, ccName, accessToken, basePath, accountId, Config.DocPdf, Config.DocDocx, Config.DocHTML);
             } 
             catch (ApiException apiException) 
             {
-                if (apiException.Message.Contains("ACCOUNT_LACKS_PERMISSIONS"))
+                if (apiException.Message.Contains(this.CodeExampleText.CustomErrorTexts[0].ErrorMessageCheck))
                 {
-                    ViewBag.fixingInstructions = "See <a href=\"https://developers.docusign.com/docs/esign-rest-api/how-to/set-document-visibility\">" +
-                    "How to set document visibility for envelope recipients</a> in the DocuSign Developer Center " +
-                    "for instructions on how to enable document visibility in your developer account.";
+                    ViewBag.fixingInstructions = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage;
                 } 
                 ViewBag.errorCode = apiException.ErrorCode;
                 ViewBag.errorMessage = apiException.Message;
@@ -53,8 +55,8 @@ namespace DocuSign.CodeExamples.Views
                 return View("Error");
             }
 
-            ViewBag.h1 = "Envelope sent";
-            ViewBag.message = "The envelope has been created and sent!<br />Envelope ID " + envelopeId + ".";
+            this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+            this.ViewBag.message = String.Format(this.CodeExampleText.ResultsPageText, envelopeId);
             return View("example_done");
         }
     }

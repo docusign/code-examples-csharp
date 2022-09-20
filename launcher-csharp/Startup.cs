@@ -1,31 +1,35 @@
-﻿using DocuSign.CodeExamples.Common;
-using DocuSign.CodeExamples.Models;
-using DocuSign.Rooms.Api;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OAuth;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Security.Claims;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿// <copyright file="Startup.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples
 {
+    using System;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Security.Claims;
+    using System.Text.Json;
+    using System.Threading.Tasks;
+    using DocuSign.CodeExamples.Common;
+    using DocuSign.CodeExamples.Models;
+    using DocuSign.Rooms.Api;
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Authentication.Cookies;
+    using Microsoft.AspNetCore.Authentication.OAuth;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc.Razor;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Newtonsoft.Json.Linq;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -55,9 +59,10 @@ namespace DocuSign.CodeExamples
             });
             DSConfiguration config = new DSConfiguration();
 
-            Configuration.Bind("DocuSign", config);
+            this.Configuration.Bind("DocuSign", config);
 
             services.AddSingleton(config);
+            services.AddSingleton(new LauncherTexts(config, this.Configuration));
             services.AddScoped<IRequestItemsService, RequestItemsService>();
             services.AddScoped<IRoomsApi, RoomsApi>();
             services.AddScoped<IRolesApi, RolesApi>();
@@ -72,12 +77,13 @@ namespace DocuSign.CodeExamples
 
             services.AddRazorPages();
             services.AddMemoryCache();
-            //services.AddCaching();// Adds a default in-memory implementation of IDistributedCache
+
+            // services.AddCaching();// Adds a default in-memory implementation of IDistributedCache
             services.AddSession();
             services.AddHttpContextAccessor();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            var apiType = Enum.Parse<ExamplesAPIType>(Configuration["ExamplesAPI"]);
+            var apiType = Enum.Parse<ExamplesAPIType>(this.Configuration["ExamplesAPI"]);
 
             services.AddAuthentication(options =>
             {
@@ -89,13 +95,13 @@ namespace DocuSign.CodeExamples
             .AddCookie()
             .AddOAuth("DocuSign", options =>
             {
-                options.ClientId = Configuration["DocuSign:ClientId"];
-                options.ClientSecret = Configuration["DocuSign:ClientSecret"];
+                options.ClientId = this.Configuration["DocuSign:ClientId"];
+                options.ClientSecret = this.Configuration["DocuSign:ClientSecret"];
                 options.CallbackPath = new PathString("/ds/callback");
 
-                options.AuthorizationEndpoint = Configuration["DocuSign:AuthorizationEndpoint"];
-                options.TokenEndpoint = Configuration["DocuSign:TokenEndpoint"];
-                options.UserInformationEndpoint = Configuration["DocuSign:UserInformationEndpoint"];
+                options.AuthorizationEndpoint = this.Configuration["DocuSign:AuthorizationEndpoint"];
+                options.TokenEndpoint = this.Configuration["DocuSign:TokenEndpoint"];
+                options.UserInformationEndpoint = this.Configuration["DocuSign:UserInformationEndpoint"];
 
                 switch (apiType)
                 {
@@ -139,9 +145,9 @@ namespace DocuSign.CodeExamples
                 options.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
                 options.ClaimActions.MapJsonKey("accounts", "accounts");
 
-                options.ClaimActions.MapCustomJson("account_id", obj => ExtractDefaultAccountValue(obj, "account_id"));
-                options.ClaimActions.MapCustomJson("account_name", obj => ExtractDefaultAccountValue(obj, "account_name"));
-                options.ClaimActions.MapCustomJson("base_uri", obj => ExtractDefaultAccountValue(obj, "base_uri"));
+                options.ClaimActions.MapCustomJson("account_id", obj => this.ExtractDefaultAccountValue(obj, "account_id"));
+                options.ClaimActions.MapCustomJson("account_name", obj => this.ExtractDefaultAccountValue(obj, "account_name"));
+                options.ClaimActions.MapCustomJson("base_uri", obj => this.ExtractDefaultAccountValue(obj, "base_uri"));
                 options.ClaimActions.MapJsonKey("access_token", "access_token");
                 options.ClaimActions.MapJsonKey("refresh_token", "refresh_token");
                 options.ClaimActions.MapJsonKey("expires_in", "expires_in");
@@ -171,7 +177,7 @@ namespace DocuSign.CodeExamples
                         context.HandleResponse();
                         context.Response.Redirect("/Home/Error?message=" + context.Failure.Message);
                         return Task.FromResult(0);
-                    }
+                    },
                 };
             });
         }
@@ -215,7 +221,6 @@ namespace DocuSign.CodeExamples
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-
             app.UseRouting();
 
             app.UseAuthentication();
@@ -227,7 +232,7 @@ namespace DocuSign.CodeExamples
                     name: "Areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-                var apiType = Enum.Parse<ExamplesAPIType>(Configuration["ExamplesAPI"]);
+                var apiType = Enum.Parse<ExamplesAPIType>(this.Configuration["ExamplesAPI"]);
                 switch (apiType)
                 {
                     case ExamplesAPIType.Rooms:

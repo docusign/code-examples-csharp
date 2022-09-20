@@ -1,15 +1,18 @@
 ﻿@model DocuSign.CodeExamples.Rooms.Controllers.CreateFormGroups
 
-    <h4>7. Creates a form group</h4>
-    <p>
-        This is an example of creating a form group for your DocuSign Rooms for Real Estate account.
-    </p>
+<h4>7. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    API methods used:
-    <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Forms/formgroups/createformgroup/">FormGroups: CreateFormGroup</a>.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
-    View source file <a target="_blank" href="@ViewBag.source">CreateFormGroups.cs</a> on GitHub.
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">CreateFormGroups.cs</a>"
+    )
+)
 </p>
 
 <partial name="Shared/CreateFromGroupView" model="Model.FormGroupModel" />

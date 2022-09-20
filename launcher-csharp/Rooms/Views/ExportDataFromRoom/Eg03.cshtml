@@ -1,16 +1,18 @@
 ﻿@model DocuSign.CodeExamples.Rooms.Controllers.ExportDataFromRoom
 
-<h4>3. Exports data from a room.</h4>
+<h4>3. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    This is an example of exporting data from a room.
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
-    API methods used:
-    <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRooms">Rooms: GetRooms</a>,
-    <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRoomFieldData">Rooms: GetRoomFieldData</a>.
-</p>
-<p>
-    View source file <a target="_blank" href="@ViewBag.source">ExportDataFromRoom.cs</a> on GitHub.
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">ExportDataFromRoom.cs</a>"
+    )
+)
 </p>
 
 <partial name="Shared/ExportDataView" model="Model.RoomsListModel" />

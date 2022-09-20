@@ -1,39 +1,48 @@
-﻿using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
-using eSignature.Examples;
+﻿// <copyright file="SetEnvelopeTabValue.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    using DocuSign.CodeExamples.Common;
+    using DocuSign.CodeExamples.Models;
+    using Microsoft.AspNetCore.Mvc;
+
     [Area("eSignature")]
     [Route("eg016")]
     public class SetEnvelopeTabValue : EgController
     {
+        private readonly string signerClientId = "1000";
+
         // Set up the Ping Url, signer client ID, and the return (callback) URL for embedded signing
         private string dsPingUrl;
-        private readonly string signerClientId = "1000";
         private string dsReturnUrl;
 
-        public SetEnvelopeTabValue(DSConfiguration config, IRequestItemsService requestItemsService)
-            : base(config, requestItemsService)
+        public SetEnvelopeTabValue(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "SetTabValues";
-            dsPingUrl = config.AppUrl + "/";
-            dsReturnUrl = config.AppUrl + "/dsReturn";
+            this.dsPingUrl = config.AppUrl + "/";
+            this.dsReturnUrl = config.AppUrl + "/dsReturn";
+
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
+
         public override string EgName => "eg016";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create(string signerEmail, string signerName)
         {
             // Check the token with minimal buffer time
-            bool tokenOk = CheckToken(3);
+            bool tokenOk = this.CheckToken(3);
             if (!tokenOk)
             {
-                // We could store the parameters of the requested operation so it could be 
+                // We could store the parameters of the requested operation so it could be
                 // restarted automatically. But since it should be rare to have a token issue
                 // here, we'll make the user re-enter the form data after authentication
-                RequestItemsService.EgName = EgName;
-                return Redirect("/ds/mustAuthenticate");
+                this.RequestItemsService.EgName = this.EgName;
+                return this.Redirect("/ds/mustAuthenticate");
             }
 
             // The envelope will be sent first to the signer; after it is signed,
@@ -41,16 +50,24 @@ namespace DocuSign.CodeExamples.Controllers
             //
             // Read files from a local directory
             // The reads could raise an exception if the file is not available!
-            var basePath = RequestItemsService.Session.BasePath + "/restapi";
-            var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
+            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             // Call the Examples API method to create an envelope and set the tab values
-            (string envelopeId, string redirectUrl) = global::eSignature.Examples.SetEnvelopeTabValue.CreateEnvelopeAndUpdateTabData(signerEmail, signerName, signerClientId,
-                accessToken, basePath, accountId, Config.tabsDocx, dsReturnUrl, dsPingUrl);
+            (string envelopeId, string redirectUrl) = global::ESignature.Examples.SetEnvelopeTabValue.CreateEnvelopeAndUpdateTabData(
+                signerEmail,
+                signerName,
+                this.signerClientId,
+                accessToken,
+                basePath,
+                accountId,
+                this.Config.TabsDocx,
+                this.dsReturnUrl,
+                this.dsPingUrl);
 
-            RequestItemsService.EnvelopeId = envelopeId;
-            return Redirect(redirectUrl);
+            this.RequestItemsService.EnvelopeId = envelopeId;
+            return this.Redirect(redirectUrl);
         }
     }
 }

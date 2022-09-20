@@ -1,12 +1,16 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using DocuSign.Admin.Api;
-using DocuSign.Admin.Client;
-using DocuSign.Admin.Model;
+﻿// <copyright file="ImportUser.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Admin.Examples
 {
+    using System;
+    using System.IO;
+    using System.Text;
+    using DocuSign.Admin.Api;
+    using DocuSign.Admin.Client;
+    using DocuSign.Admin.Model;
+
     public class ImportUser
     {
         /// <summary>
@@ -22,6 +26,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
             // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+
             // Step 2 end
 
             // Step 3 start
@@ -33,8 +38,10 @@ namespace DocuSign.CodeExamples.Admin.Examples
             var bytes = Encoding.UTF8.GetBytes(csvFileData);
 
             return bulkImportsApi.CreateBulkImportAddUsersRequest(organizationId, bytes);
+
             // Step 3 end
         }
+
         /// <summary>
         /// Checks the status of an existing bulk import requests
         /// </summary>
@@ -42,7 +49,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
         /// <param name="basePath">BasePath for API calls (URI)</param>
         /// <param name="organizationId">The DocuSign organization ID (GUID or short version) for which the APIs call would be made</param>
         /// <param name="importId">Unique ID of the bulk user import request</param>
-        /// <returns></returns>
+        /// <returns>OrganizationImportResponse</returns>
         public static OrganizationImportResponse CheckkStatus(string accessToken, string basePath, Guid? organizationId, Guid? importId)
         {
             var apiClient = new ApiClient(basePath);

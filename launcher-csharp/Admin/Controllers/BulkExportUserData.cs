@@ -1,40 +1,46 @@
-﻿using DocuSign.CodeExamples.Common;
-using DocuSign.CodeExamples.Controllers;
-using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using DocuSign.CodeExamples.Admin.Examples;
-using DocuSign.Admin.Client;
-using System.IO;
+﻿// <copyright file="Eg03BulkExportUserDataController.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Admin.Controllers
 {
+    using System;
+    using System.IO;
+    using DocuSign.Admin.Client;
+    using DocuSign.CodeExamples.Admin.Examples;
+    using DocuSign.CodeExamples.Common;
+    using DocuSign.CodeExamples.Controllers;
+    using DocuSign.CodeExamples.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+
     [Area("Admin")]
-    [Route("[area]/Eg03")]
+    [Route("Aeg03")]
     public class BulkExportUserData : EgController
     {
-        public BulkExportUserData(
-            DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService)
-            : base(dsConfig, requestItemsService)
+        public BulkExportUserData(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Eg03";
+        public override string EgName => "Aeg03";
 
         [MustAuthenticate]
+        [SetViewBag]
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create()
         {
             // Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = RequestItemsService.Session.AdminApiBasePath;
-            var organizationId = RequestItemsService.OrganizationId;
+            var accessToken = this.RequestItemsService.User.AccessToken;
+            var basePath = this.RequestItemsService.Session.AdminApiBasePath;
+            var organizationId = this.RequestItemsService.OrganizationId;
             var filePath = Path.GetFullPath(Path.Combine(
                 Path.GetFullPath(System.AppDomain.CurrentDomain.BaseDirectory),
-                Config.exportUsersPath));
+                this.Config.ExportUsersPath));
 
             try
             {
@@ -42,19 +48,19 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                 var organizationExportsResponse = Examples.BulkExportUserData.CreateBulkExportRequest(
                     accessToken, basePath, organizationId, filePath);
 
-                //Show results
-                ViewBag.h1 = "Bulk export user data";
-                ViewBag.message = $"User data exported to {filePath}.<br/> Results from UserExport:getUserListExport method:";
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(organizationExportsResponse, Formatting.Indented);
+                // Show results
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, filePath);
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(organizationExportsResponse, Formatting.Indented);
 
-                return View("example_done");
+                return this.View("example_done");
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
 
-                return View("Error");
+                return this.View("Error");
             }
         }
     }

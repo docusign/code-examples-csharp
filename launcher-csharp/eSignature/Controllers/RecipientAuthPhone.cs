@@ -1,68 +1,83 @@
-using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
-using eSignature.Examples;
-using DocuSign.eSign.Client;
+// <copyright file="RecipientAuthPhone.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    using System;
+    using DocuSign.CodeExamples.Common;
+    using DocuSign.CodeExamples.Models;
+    using DocuSign.eSign.Client;
+    using Microsoft.AspNetCore.Mvc;
+
     [Area("eSignature")]
     [Route("eg020")]
     public class RecipientAuthPhone : EgController
     {
-        public RecipientAuthPhone(DSConfiguration config, IRequestItemsService requestItemsService)
-            : base(config, requestItemsService)
+        public RecipientAuthPhone(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
-            ViewBag.title = "Phone Authenticatication";
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "eg020";
 
         [HttpPost]
+        [SetViewBag]
         public IActionResult Create(string signerEmail, string signerName, string signerCountryCode, string signerPhoneNumber)
         {
             try
             {
                 // Check the token with minimal buffer time.
-                bool tokenOk = CheckToken(3);
+                bool tokenOk = this.CheckToken(3);
                 if (!tokenOk)
                 {
-                    // We could store the parameters of the requested operation so it could be 
+                    // We could store the parameters of the requested operation so it could be
                     // restarted automatically. But since it should be rare to have a token issue
                     // here, we'll make the user re-enter the form data after authentication.
-                    RequestItemsService.EgName = EgName;
-                    return Redirect("/ds/mustAuthenticate");
+                    this.RequestItemsService.EgName = this.EgName;
+                    return this.Redirect("/ds/mustAuthenticate");
                 }
 
                 // Data for this method:
-                // signerEmail 
-                // signerName            
-                var basePath = RequestItemsService.Session.BasePath + "/restapi";
+                // signerEmail
+                // signerName
+                var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
 
                 // Obtain your OAuth token
-                var accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-                var accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+                var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+                var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
-                // Call the Examples API method to create an envelope and 
+                // Call the Examples API method to create an envelope and
                 // add recipient that is to be authenticated with phone call
-                string envelopeId = global::eSignature.Examples.RecipientAuthPhone.CreateEnvelopeWithRecipientUsingPhoneAuth(signerEmail, signerName,
-                    accessToken, basePath, accountId, signerCountryCode, signerPhoneNumber, Config.docPdf);
+                string envelopeId = global::ESignature.Examples.RecipientAuthPhone.CreateEnvelopeWithRecipientUsingPhoneAuth(
+                    signerEmail,
+                    signerName,
+                    accessToken,
+                    basePath,
+                    accountId,
+                    signerCountryCode,
+                    signerPhoneNumber,
+                    this.Config.DocPdf);
 
                 // Process results
-                ViewBag.h1 = "Envelope sent";
-                ViewBag.message = "The envelope has been created and sent!<br />Envelope ID " + envelopeId + ".";
-                return View("example_done");
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, envelopeId);
+                return this.View("example_done");
             }
             catch (ApiException apiException)
             {
-                if (apiException.Message.Contains("IDENTITY_WORKFLOW_INVALID_ID"))
+                if (apiException.Message.Contains(this.CodeExampleText.CustomErrorTexts[0].ErrorMessageCheck))
                 {
                     // This may indicate that this account is not yet enabled for the new phone auth workflow
-                    ViewBag.SupportMessage = "Please contact <a target='_blank' href='https://support.docusign.com'>Support</a> to enable recipient phone authentication in your account.";
+                    this.ViewBag.SupportMessage = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage;
                 }
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
 
-                return View("Error");
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
+
+                return this.View("Error");
             }
         }
     }

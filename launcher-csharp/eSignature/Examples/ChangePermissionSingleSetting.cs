@@ -1,11 +1,14 @@
-﻿using System.Linq;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿// <copyright file="ChangePermissionSingleSetting.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System.Linq;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public static class ChangePermissionSingleSetting
     {
         /// <summary>
@@ -25,7 +28,7 @@ namespace eSignature.Examples
 
             // Construct the request body
             var permission = accountsApi.ListPermissions(accountId).PermissionProfiles.
-                FirstOrDefault(profile => profile.PermissionProfileId == profileId);         
+                FirstOrDefault(profile => profile.PermissionProfileId == profileId);
 
             // Call the eSignature REST API
             return accountsApi.UpdatePermissionProfile(accountId, profileId, permission);

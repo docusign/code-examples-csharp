@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿// <copyright file="CollectPaymentInEnvelope.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public static class CollectPaymentInEnvelope
     {
         /// <summary>
@@ -22,17 +26,27 @@ namespace eSignature.Examples
         /// <param name="envStatus">Status to set the envelope to</param>
         /// <param name="paymentDetails">Object containing all the necassary information to process payments</param>
         /// <returns>EnvelopeId for the new envelope</returns>
-        public static string CreateEnvelopeWithPayment(string signerEmail, string signerName, string ccEmail,
-            string ccName, string accessToken, string basePath, string accountId, string envStatus, string gatawayAccountId, string gatewayName, string gatewayDisplayName)
+        public static string CreateEnvelopeWithPayment(
+            string signerEmail,
+            string signerName,
+            string ccEmail,
+            string ccName,
+            string accessToken,
+            string basePath,
+            string accountId,
+            string envStatus,
+            string gatawayAccountId,
+            string gatewayName,
+            string gatewayDisplayName)
         {
             // Data for this method
-            // signerEmail 
+            // signerEmail
             // signerName
             // ccEmail
             // ccName
             // accessToken
-            // basePath 
-            // accountId 
+            // basePath
+            // accountId
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
@@ -46,20 +60,26 @@ namespace eSignature.Examples
             return results.EnvelopeId;
         }
 
-        private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail,
-            string ccName, string envStatus, string gatewayAccountId, string gatewayName, string gatewayDisplayName)
+        private static EnvelopeDefinition MakeEnvelope(
+            string signerEmail,
+            string signerName,
+            string ccEmail,
+            string ccName,
+            string envStatus,
+            string gatewayAccountId,
+            string gatewayName,
+            string gatewayDisplayName)
         {
             // Data for this method
-            // signerEmail 
+            // signerEmail
             // signerName
             // ccEmail
             // ccName
             // envStatus
 
-
             // document 1 (html) has multiple tags:
             // /l1q/ and /l2q/ -- quantities: drop down
-            // /l1e/ and /l2e/ -- extended: payment lines 
+            // /l1e/ and /l2e/ -- extended: payment lines
             // /l3t/ -- total -- formula
             //
             // The envelope has two recipients.
@@ -83,8 +103,8 @@ namespace eSignature.Examples
             int l2Price = 150;
             int currencyMultiplier = 100;
             string l1Name = "Harmonica";
-            string l1Description = $"${l1Price} each"
-                 , l2Name = "Xylophone";
+            string l1Description = $"${l1Price} each",
+                 l2Name = "Xylophone";
             string l2Description = $"${l2Price} each";
 
             // Payment line items
@@ -92,13 +112,13 @@ namespace eSignature.Examples
             {
                 Name = l1Name,
                 Description = l1Description,
-                AmountReference = "l1e"
+                AmountReference = "l1e",
             },
             paymentLineIteml2 = new PaymentLineItem
             {
                 Name = l2Name,
                 Description = l2Description,
-                AmountReference = "l2e"
+                AmountReference = "l2e",
             };
             PaymentDetails paymentDetails = new PaymentDetails
             {
@@ -106,12 +126,13 @@ namespace eSignature.Examples
                 CurrencyCode = "USD",
                 GatewayName = gatewayName,
                 GatewayDisplayName = gatewayDisplayName,
-                LineItems = new List<PaymentLineItem> { paymentLineIteml1, paymentLineIteml2 }
+                LineItems = new List<PaymentLineItem> { paymentLineIteml1, paymentLineIteml2 },
             };
 
             // read file from a local directory
             // The read could raise an exception if the file is not available!
             string doc1HTML1 = System.IO.File.ReadAllText("order_form.html");
+
             // Substitute values into the HTML
             // Substitute for: {signerName}, {signerEmail}, {ccName}, {ccEmail}
             var doc1HTML2 = doc1HTML1.Replace("{signerName}", signerName)
@@ -122,7 +143,7 @@ namespace eSignature.Examples
             // create the envelope definition
             EnvelopeDefinition env = new EnvelopeDefinition
             {
-                EmailSubject = "Please complete your order"
+                EmailSubject = "Please complete your order",
             };
 
             // add the documents
@@ -132,7 +153,7 @@ namespace eSignature.Examples
                 DocumentBase64 = doc1b64,
                 Name = "Order form", // can be different from actual file name
                 FileExtension = "html", // Source data format. Signed docs are always pdf.
-                DocumentId = "1" // a label used to reference the doc
+                DocumentId = "1", // a label used to reference the doc
             };
             env.Documents = new List<Document> { doc1 };
 
@@ -143,8 +164,9 @@ namespace eSignature.Examples
                 Email = signerEmail,
                 Name = signerName,
                 RecipientId = "1",
-                RoutingOrder = "1"
+                RoutingOrder = "1",
             };
+
             // routingOrder (lower means earlier) determines the order of deliveries
             // to the recipients. Parallel routing order is supported by using the
             // same integer as the order for two or more recipients.
@@ -156,7 +178,7 @@ namespace eSignature.Examples
                 Email = ccEmail,
                 Name = ccName,
                 RoutingOrder = "2",
-                RecipientId = "2"
+                RecipientId = "2",
             };
 
             // Create signHere fields (also known as tabs) on the documents,
@@ -166,19 +188,19 @@ namespace eSignature.Examples
                 AnchorString = "/sn1/",
                 AnchorYOffset = "10",
                 AnchorUnits = "pixels",
-                AnchorXOffset = "20"
+                AnchorXOffset = "20",
             };
-            ListItem listItem0 = new ListItem { Text = "none", Value = "0" }
-                   , listItem1 = new ListItem { Text = "1", Value = "1" }
-                   , listItem2 = new ListItem { Text = "2", Value = "2" }
-                   , listItem3 = new ListItem { Text = "3", Value = "3" }
-                   , listItem4 = new ListItem { Text = "4", Value = "4" }
-                   , listItem5 = new ListItem { Text = "5", Value = "5" }
-                   , listItem6 = new ListItem { Text = "6", Value = "6" }
-                   , listItem7 = new ListItem { Text = "7", Value = "7" }
-                   , listItem8 = new ListItem { Text = "8", Value = "8" }
-                   , listItem9 = new ListItem { Text = "9", Value = "9" }
-                   , listItem10 = new ListItem { Text = "10", Value = "10" }
+            ListItem listItem0 = new ListItem { Text = "none", Value = "0" },
+                   listItem1 = new ListItem { Text = "1", Value = "1" },
+                   listItem2 = new ListItem { Text = "2", Value = "2" },
+                   listItem3 = new ListItem { Text = "3", Value = "3" },
+                   listItem4 = new ListItem { Text = "4", Value = "4" },
+                   listItem5 = new ListItem { Text = "5", Value = "5" },
+                   listItem6 = new ListItem { Text = "6", Value = "6" },
+                   listItem7 = new ListItem { Text = "7", Value = "7" },
+                   listItem8 = new ListItem { Text = "8", Value = "8" },
+                   listItem9 = new ListItem { Text = "9", Value = "9" },
+                   listItem10 = new ListItem { Text = "10", Value = "10" }
                    ;
             List listl1q = new List
             {
@@ -188,11 +210,14 @@ namespace eSignature.Examples
                 AnchorYOffset = "-10",
                 AnchorUnits = "pixels",
                 AnchorXOffset = "0",
-                ListItems = new List<ListItem> {listItem0, listItem1, listItem2,
-                listItem3, listItem4, listItem5, listItem6,
-                listItem7, listItem8, listItem9, listItem10 },
+                ListItems = new List<ListItem>
+                {
+                    listItem0, listItem1, listItem2,
+                    listItem3, listItem4, listItem5, listItem6,
+                    listItem7, listItem8, listItem9, listItem10,
+                },
                 Required = "true",
-                TabLabel = "l1q"
+                TabLabel = "l1q",
             },
             listl2q = new List
             {
@@ -202,11 +227,22 @@ namespace eSignature.Examples
                 AnchorYOffset = "-10",
                 AnchorUnits = "pixels",
                 AnchorXOffset = "0",
-                ListItems = new List<ListItem> {listItem0, listItem1, listItem2,
-                listItem3, listItem4, listItem5, listItem6,
-                listItem7, listItem8, listItem9, listItem10 },
+                ListItems = new List<ListItem>
+                {
+                    listItem0,
+                    listItem1,
+                    listItem2,
+                    listItem3,
+                    listItem4,
+                    listItem5,
+                    listItem6,
+                    listItem7,
+                    listItem8,
+                    listItem9,
+                    listItem10,
+                },
                 Required = "true",
-                TabLabel = "l2q"
+                TabLabel = "l2q",
             };
 
             // create two formula tabs for the extended price on the line items
@@ -240,7 +276,8 @@ namespace eSignature.Examples
                 Locked = "true",
                 DisableAutoSize = "false",
             },
-            // Formula for the total 
+
+            // Formula for the total
             formulal3t = new FormulaTab
             {
                 Font = "helvetica",
@@ -271,7 +308,7 @@ namespace eSignature.Examples
                 DocumentId = "1",
                 PageNumber = "1",
                 XPosition = "0",
-                YPosition = "0"
+                YPosition = "0",
             };
 
             // Tabs are set per recipient / signer
@@ -279,7 +316,7 @@ namespace eSignature.Examples
             {
                 SignHereTabs = new List<SignHere> { signHere1 },
                 ListTabs = new List<List> { listl1q, listl2q },
-                FormulaTabs = new List<FormulaTab> { formulal1e, formulal2e, formulal3t, formulaPayment }
+                FormulaTabs = new List<FormulaTab> { formulal1e, formulal2e, formulal3t, formulaPayment },
             };
             signer1.Tabs = signer1Tabs;
 
@@ -287,7 +324,7 @@ namespace eSignature.Examples
             Recipients recipients = new Recipients
             {
                 Signers = new List<Signer> { signer1 },
-                CarbonCopies = new List<CarbonCopy> { cc1 }
+                CarbonCopies = new List<CarbonCopy> { cc1 },
             };
             env.Recipients = recipients;
 

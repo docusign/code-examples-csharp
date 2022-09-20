@@ -1,11 +1,15 @@
-﻿using DocuSign.Admin.Api;
-using DocuSign.Admin.Client;
-using DocuSign.Admin.Model;
-using System;
-using System.Collections.Generic;
+﻿// <copyright file="CreateCLMESignUser.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.Admin.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using DocuSign.Admin.Api;
+    using DocuSign.Admin.Client;
+    using DocuSign.Admin.Model;
+
     public class CreateCLMESignUser
     {
         /// <summary>
@@ -43,12 +47,13 @@ namespace DocuSign.Admin.Examples
             newMultiProductUserAddRequest.DsGroups = new List<DSGroupRequest>();
             newMultiProductUserAddRequest.DsGroups.Add(new DSGroupRequest { DsGroupId = dsGroupId });
             newMultiProductUserAddRequest.AutoActivateMemberships = true;
+
             // Step 5 End
             // Step 6 Start
             AddUserResponse response = usersApi.AddOrUpdateUser(orgId, accountId, newMultiProductUserAddRequest);
+
             // Step 6 End
             return response;
         }
-
     }
 }

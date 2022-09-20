@@ -1,28 +1,42 @@
-﻿<h4>Send an envelope to an In Person Signer</h4>
+﻿@{
+    int formNumber = 0;
+    int nameInputNumber = 0;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-   Demonstrates how to host an In Person Signing session with embedded signing.
-<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
 @if (ViewBag.showDoc == true)
 {
     <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
 }
 
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
-    API methods used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes:create</a>,
-    <a target='_blank'
-       href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/">EnvelopeViews:createRecipient</a>.
-</p>
-<p>
-    View source file <a target="_blank" href="@ViewBag.source">Eg039InPersonSigningController.cs</a> on GitHub.
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">Eg039InPersonSigningController.cs</a>"
+        )
+    )
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
-        <label for="signerName">Signer Name</label>
-        <input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
+        <label for="signerName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[nameInputNumber].InputName)
+        </label>
+
+        <input type="text" 
+               class="form-control" 
+               id="signerName" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[nameInputNumber].InputPlaceholder" 
+               name="signerName"
                required />
     </div>
+
     <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

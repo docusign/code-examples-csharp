@@ -1,36 +1,55 @@
-﻿<h4>Request a signature through your app (embedded signing)</h4>
-<p>This example sends an envelope and then uses embedded signing for the first signer.
-With embedded signing, the DocuSign signing experience is initiated from your website.</p>
+﻿@{
+    int formNumber = 0;
+    int signerEmailInputNumber = 0;
+    int signerNameInputNumber = 1;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>@Html.Raw(ViewBag.CodeExampleText.ExampleDescription)</p>
 
 @if (ViewBag.showDoc == true)
 {
     <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
 }
 
+<partial name="../Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+
 <p>
-    API methods used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes:create</a>
-    and
-    <a target='_blank'
-       href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/">EnvelopeViews:createRecipient</a>
-</p>
-<p>
-    View source file <a target="_blank" href="https://github.com/docusign/code-examples-csharp/blob/master/launcher-csharp/EmbeddedSigningCeremony.cs">EmbeddedSigningCeremony.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">EmbeddedSigningCeremony.cs</a>"))
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
-        <label for="signerEmail">Signer Email</label>
-        <input type="email" class="form-control" id="signerEmail" name="signerEmail"
-               aria-describedby="emailHelp" placeholder="pat@example.com" required
-               value="@ViewBag.Locals.DsConfig.SignerEmail">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <label for="signerEmail">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputName)
+        </label>
+
+        <input type="email"
+            class="form-control" 
+            id="signerEmail" 
+            name="signerEmail"
+            aria-describedby="emailHelp" 
+            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputPlaceholder" 
+            required
+            value="@ViewBag.Locals.DsConfig.SignerEmail">
+
+        <small id="emailHelp" class="form-text text-muted">
+            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)
+        </small>
     </div>
     <div class="form-group">
-        <label for="signerName">Signer Name</label>
-        <input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
-               value="@ViewBag.Locals.DsConfig.SignerName" required />
+        <label for="signerName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputName)
+        </label>
+
+        <input type="text" 
+            class="form-control" 
+            id="signerName" 
+            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputPlaceholder" 
+            name="signerName"
+            value="@ViewBag.Locals.DsConfig.SignerName"
+            required />
     </div>
     <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

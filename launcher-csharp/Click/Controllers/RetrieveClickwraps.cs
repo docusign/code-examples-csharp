@@ -1,43 +1,52 @@
-﻿using System.Text;
-using DocuSign.Click.Api;
-using DocuSign.Click.Client;
-using DocuSign.Click.Examples;
-using DocuSign.CodeExamples.Common;
-using DocuSign.CodeExamples.Controllers;
-using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+﻿// <copyright file="Eg04RetrieveClickwrapsController.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Click.Controllers
 {
+    using System.Text;
+    using DocuSign.Click.Client;
+    using DocuSign.Click.Examples;
+    using DocuSign.CodeExamples.Common;
+    using DocuSign.CodeExamples.Controllers;
+    using DocuSign.CodeExamples.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+
     [Area("Click")]
-    [Route("[area]/Eg04")]
+    [Route("ClickEg04")]
     public class RetrieveClickwraps : EgController
     {
-        public RetrieveClickwraps
-            (DSConfiguration dsConfig, 
-            IRequestItemsService requestItemsService) 
-            : base(dsConfig, requestItemsService)
+        public RetrieveClickwraps(
+            DSConfiguration config,
+            LauncherTexts launcherTexts,
+            IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Eg04";
+        public override string EgName => "ClickEg04";
+
         protected override void InitializeInternal()
         {
-            ViewBag.ClickwrapId = RequestItemsService.ClickwrapId;
-            ViewBag.AccountId = RequestItemsService.Session.AccountId;
+            base.InitializeInternal();
+            this.ViewBag.ClickwrapId = this.RequestItemsService.ClickwrapId;
+            this.ViewBag.AccountId = this.RequestItemsService.Session.AccountId;
         }
-    
-    [MustAuthenticate]
+
+        [MustAuthenticate]
+        [SetViewBag]
         [Route("Retrieve")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Retrieve()
         {
             // Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
-            var accountId = RequestItemsService.Session.AccountId;
+            var accessToken = this.RequestItemsService.User.AccessToken;
+            var basePath = $"{this.RequestItemsService.Session.BasePath}/clickapi"; // Base API path
+            var accountId = this.RequestItemsService.Session.AccountId;
 
             try
             {
@@ -48,18 +57,18 @@ namespace DocuSign.CodeExamples.Click.Controllers
                 clickwraps.Clickwraps.ForEach(cw => messageBuilder.AppendLine($"Clickwrap ID:{cw.ClickwrapId}, Clickwrap Version: {cw.VersionNumber}"));
 
                 // Show results
-                ViewBag.h1 = "Get a list of clickwraps";
-                ViewBag.message = $"Results from the Click::getClickwraps method:";
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(clickwraps.Clickwraps, Formatting.Indented);
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                this.ViewBag.message = this.CodeExampleText.ResultsPageText;
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(clickwraps.Clickwraps, Formatting.Indented);
 
-                return View("example_done");
+                return this.View("example_done");
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
 
-                return View("Error");
+                return this.View("Error");
             }
         }
     }

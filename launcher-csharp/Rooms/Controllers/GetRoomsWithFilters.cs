@@ -1,25 +1,31 @@
-﻿using System.Globalization;
-using DocuSign.CodeExamples.Common;
-using DocuSign.CodeExamples.Controllers;
-using DocuSign.CodeExamples.Models;
-using DocuSign.CodeExamples.Rooms.Models;
-using DocuSign.Rooms.Api;
-using DocuSign.Rooms.Client;
-using DocuSign.Rooms.Examples;
-using DocuSign.Rooms.Model;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+﻿// <copyright file="Eg05GetRoomsWithFiltersController.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Rooms.Controllers
 {
+    using System.Globalization;
+    using DocuSign.CodeExamples.Common;
+    using DocuSign.CodeExamples.Controllers;
+    using DocuSign.CodeExamples.Models;
+    using DocuSign.CodeExamples.Rooms.Models;
+    using DocuSign.Rooms.Client;
+    using DocuSign.Rooms.Examples;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+
     [Area("Rooms")]
     [Route("Eg05")]
     public class GetRoomsWithFilters : EgController
     {
         public GetRoomsWithFilters(
             DSConfiguration dsConfig,
-            IRequestItemsService requestItemsService) : base(dsConfig, requestItemsService)
+            LauncherTexts launcherTexts,
+            IRequestItemsService requestItemsService)
+            : base(dsConfig, launcherTexts, requestItemsService)
         {
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "Eg05";
@@ -29,19 +35,21 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
         protected override void InitializeInternal()
         {
-            RoomFilterModel = new RoomFilterModel();
+            base.InitializeInternal();
+            this.RoomFilterModel = new RoomFilterModel();
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [Route("ExportData")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ExportData(RoomFilterModel roomFilterModel)
         {
             // Obtain your OAuth token
-            string accessToken = RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var basePath = $"{RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
-            string accountId = RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            string accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var basePath = $"{this.RequestItemsService.Session.RoomsApiBasePath}/restapi"; // Base API path
+            string accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             try
             {
@@ -56,20 +64,21 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                     fieldDataChangedStartDate,
                     fieldDataChangedEndDate);
 
-                ViewBag.h1 = "The rooms with filters was loaded";
-                ViewBag.message = $"Results from the Rooms: GetRooms method. FieldDataChangedStartDate: " +
-                                  $"{ roomFilterModel.FieldDataChangedStartDate.Date.ToShortDateString() }, " +
-                                  $"FieldDataChangedEndDate: { roomFilterModel.FieldDataChangedEndDate.Date.ToShortDateString() } :";
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(rooms, Formatting.Indented);
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                this.ViewBag.message = string.Format(
+                    this.CodeExampleText.ResultsPageText,
+                    roomFilterModel.FieldDataChangedStartDate.Date.ToShortDateString(),
+                    roomFilterModel.FieldDataChangedEndDate.Date.ToShortDateString());
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(rooms, Formatting.Indented);
 
-                return View("example_done");
+                return this.View("example_done");
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
 
-                return View("Error");
+                return this.View("Error");
             }
         }
     }

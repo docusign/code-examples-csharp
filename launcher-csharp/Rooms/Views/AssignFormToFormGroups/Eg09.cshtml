@@ -1,17 +1,18 @@
 ﻿@model DocuSign.CodeExamples.Rooms.Controllers.AssignFormToFormGroups
 
-    <h4>9. Assigns a form to a form group</h4>
+<h4>9. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    This is an example of assigning a form to a form group
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
-    API methods used:
-    <a target='_blank' href="https://developers.docusign.com/docs/rooms-api/reference/forms/formgroups/getformgroups/">FormGroups: GetFormGroups</a>,
-    <a target='_blank' href="https://developers.docusign.com/docs/rooms-api/reference/forms/formlibraries/getformlibraryforms/">FormLibraries: GetFormLibraryForms</a>,
-    <a target='_blank' href="https://developers.docusign.com/docs/rooms-api/reference/forms/formgroups/assignformgroupform/">FormGroups: AssignFormGroupForm</a>.
-</p>
-<p>
-    View source file <a target="_blank" href="@ViewBag.source">AssignFormToFormGroups.cs</a> on GitHub.
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">AssignFormToFormGroups.cs</a>"
+    )
+)
 </p>
 
 <partial name="Shared/SelectFromAndFormGroupView" model="Model.FormFormGroupModel" />

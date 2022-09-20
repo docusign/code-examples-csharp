@@ -1,10 +1,14 @@
-﻿using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
-using System.Collections.Generic;
+﻿// <copyright file="ConditionalRecipientsWorkflow.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System.Collections.Generic;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public class ConditionalRecipientsWorkflow
     {
         /// <summary>
@@ -27,8 +31,13 @@ namespace eSignature.Examples
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             // Construct request body
-            var envelope = MakeEnvelope(recipient1Email, recipient1Name, conditionalRecipient1Email,
-                conditionalRecipient1Name, conditionalRecipient2Email, conditionalRecipient2Name);
+            var envelope = MakeEnvelope(
+                recipient1Email,
+                recipient1Name,
+                conditionalRecipient1Email,
+                conditionalRecipient1Name,
+                conditionalRecipient2Email,
+                conditionalRecipient2Name);
 
             // Call the eSignature REST API
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
@@ -43,7 +52,7 @@ namespace eSignature.Examples
                 DocumentBase64 = "VGhhbmtzIGZvciByZXZpZXdpbmcgdGhpcyEKCldlJ2xsIG1vdmUgZm9yd2FyZCBhcyBzb29uIGFzIHdlIGhlYXIgYmFjay4=",
                 DocumentId = "1",
                 FileExtension = "txt",
-                Name = "Welcome"
+                Name = "Welcome",
             };
 
             var conditionalRecipientRule = new ConditionalRecipientRule()
@@ -57,8 +66,8 @@ namespace eSignature.Examples
                     Recipients = new List<RecipientOption>()
                     {
                         new RecipientOption(conditionalRecipient1Email, conditionalRecipient1Name, "signer2a", "Signer when not checked"),
-                        new RecipientOption(conditionalRecipient2Email, conditionalRecipient2Name, "signer2b", "Signer when not checked")
-                    }
+                        new RecipientOption(conditionalRecipient2Email, conditionalRecipient2Name, "signer2b", "Signer when not checked"),
+                    },
                 },
                 Conditions = new List<ConditionalRecipientRuleCondition>
                 {
@@ -76,9 +85,9 @@ namespace eSignature.Examples
                                 Operator = "equals",
                                 Value = "false",
                                 TabLabel = "ApproveWhenChecked",
-                                TabType = "checkbox"
-                            }
-                        }
+                                TabType = "checkbox",
+                            },
+                        },
                     },
                     new ConditionalRecipientRuleCondition
                     {
@@ -94,11 +103,11 @@ namespace eSignature.Examples
                                 Operator = "equals",
                                 Value = "true",
                                 TabLabel = "ApproveWhenChecked",
-                                TabType = "checkbox"
-                            }
-                        }
-                    }
-                }
+                                TabType = "checkbox",
+                            },
+                        },
+                    },
+                },
             };
 
             var workflowStep = new WorkflowStep()
@@ -113,10 +122,10 @@ namespace eSignature.Examples
                     {
                         ConditionalRecipients = new List<ConditionalRecipientRule>
                         {
-                            conditionalRecipientRule
-                        }
-                    }
-                }
+                            conditionalRecipientRule,
+                        },
+                    },
+                },
             };
 
             var signer1 = new Signer()
@@ -137,8 +146,8 @@ namespace eSignature.Examples
                             PageNumber = "1",
                             TabLabel = "PurchaserSignature",
                             XPosition = "200",
-                            YPosition = "200"
-                        }
+                            YPosition = "200",
+                        },
                     },
                     CheckboxTabs = new List<Checkbox>()
                     {
@@ -150,10 +159,10 @@ namespace eSignature.Examples
                             PageNumber = "1",
                             TabLabel = "ApproveWhenChecked",
                             XPosition = "50",
-                            YPosition = "50"
-                        }
-                    }
-                }
+                            YPosition = "50",
+                        },
+                    },
+                },
             };
 
             var signer2 = new Signer()
@@ -175,19 +184,19 @@ namespace eSignature.Examples
                             RecipientId = "2",
                             TabLabel = "ApproverSignature",
                             XPosition = "300",
-                            YPosition = "200"
-                        }
-                    }
-                }
+                            YPosition = "200",
+                        },
+                    },
+                },
             };
 
             var envelopeDefinition = new EnvelopeDefinition()
             {
-                Documents = new List<Document> { document },
+                Documents = new List<Document> { document, },
                 EmailSubject = "ApproveIfChecked",
-                Workflow = new Workflow { WorkflowSteps = new List<WorkflowStep> { workflowStep } },
+                Workflow = new Workflow { WorkflowSteps = new List<WorkflowStep> { workflowStep, } },
                 Recipients = new Recipients { Signers = new List<Signer> { signer1, signer2 } },
-                Status = "Sent"
+                Status = "Sent",
             };
 
             return envelopeDefinition;

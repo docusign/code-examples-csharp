@@ -1,31 +1,48 @@
-﻿using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿// <copyright file="HomeController.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Click.Controllers
 {
+    using DocuSign.CodeExamples.Models;
+    using Microsoft.AspNetCore.Mvc;
+
     [Area("Click")]
     public class HomeController : Controller
     {
         private IRequestItemsService _requestItemsService { get; }
 
-        public HomeController(IRequestItemsService requestItemsService)
+        private LauncherTexts _launcherTexts { get; }
+
+        public HomeController(IRequestItemsService requestItemsService, LauncherTexts launcherTexts)
         {
-            _requestItemsService = requestItemsService;
+            this._requestItemsService = requestItemsService;
+            this._launcherTexts = launcherTexts;
         }
 
         public IActionResult Index(string egName)
         {
+            this.ViewBag.SupportingTexts = this._launcherTexts.ManifestStructure.SupportingTexts;
+
             if (string.IsNullOrEmpty(egName))
             {
-                egName = _requestItemsService.EgName;
-            }
-            if (!string.IsNullOrWhiteSpace(egName))
-            {
-                _requestItemsService.EgName = null;
-                return Redirect($"Click/{egName}");
+                egName = this._requestItemsService.EgName;
             }
 
-            return View();
+            if (egName == "home")
+            {
+                this.ViewBag.APITexts = this._launcherTexts.ManifestStructure.Groups;
+                return this.View();
+            }
+
+            if (!string.IsNullOrWhiteSpace(egName))
+            {
+                this._requestItemsService.EgName = null;
+                return this.Redirect($"/{egName}");
+            }
+
+            this.ViewBag.APITexts = this._launcherTexts.ManifestStructure.Groups;
+            return this.View();
         }
     }
 }

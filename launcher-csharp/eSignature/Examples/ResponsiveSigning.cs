@@ -1,24 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿// <copyright file="ResponsiveSigning.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public static class ResponsiveSigning
     {
         public static string CreateEnvelopeFromHTML(
-            string signerEmail, 
-            string signerName, 
-            string ccEmail, 
-            string ccName, 
-            string signerClientId, 
-            string accessToken, 
-            string basePath, 
-            string accountId, 
-            string returnUrl, 
+            string signerEmail,
+            string signerName,
+            string ccEmail,
+            string ccName,
+            string signerClientId,
+            string accessToken,
+            string basePath,
+            string accountId,
+            string returnUrl,
             string pingUrl = null)
         {
             EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, signerClientId);
@@ -38,10 +42,10 @@ namespace eSignature.Examples
         }
 
         private static RecipientViewRequest MakeRecipientViewRequest(
-            string signerEmail, 
-            string signerName, 
-            string returnUrl, 
-            string signerClientId, 
+            string signerEmail,
+            string signerName,
+            string returnUrl,
+            string signerClientId,
             string pingUrl = null)
         {
             RecipientViewRequest viewRequest = new RecipientViewRequest();
@@ -62,10 +66,10 @@ namespace eSignature.Examples
         }
 
         private static EnvelopeDefinition MakeEnvelope(
-            string signerEmail, 
-            string signerName, 
-            string ccEmail, 
-            string ccName, 
+            string signerEmail,
+            string signerName,
+            string ccEmail,
+            string ccName,
             string signerClientId)
         {
             Signer signer = new Signer
@@ -75,7 +79,7 @@ namespace eSignature.Examples
                 ClientUserId = signerClientId,
                 RecipientId = "1",
                 RoutingOrder = "1",
-                RoleName = "Signer"
+                RoleName = "Signer",
             };
 
             CarbonCopy cc = new CarbonCopy
@@ -83,7 +87,7 @@ namespace eSignature.Examples
                 Email = ccEmail,
                 Name = ccName,
                 RecipientId = "2",
-                RoutingOrder = "1"
+                RoutingOrder = "1",
             };
 
             string htmlMarkup = System.IO.File.ReadAllText("order_form.html");
@@ -107,16 +111,16 @@ namespace eSignature.Examples
                         DocumentId = "1",
                         HtmlDefinition = new DocumentHtmlDefinition
                         {
-                            Source = htmlWithData
-                        }
-                    }
+                            Source = htmlWithData,
+                        },
+                    },
                 },
                 Recipients = new Recipients
                 {
                     Signers = new List<Signer> { signer },
-                    CarbonCopies = new List<CarbonCopy> { cc }
+                    CarbonCopies = new List<CarbonCopy> { cc },
                 },
-                Status = "sent"
+                Status = "sent",
             };
         }
     }

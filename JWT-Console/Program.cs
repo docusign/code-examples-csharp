@@ -2,7 +2,7 @@
 using DocuSign.eSign.Client;
 using static DocuSign.eSign.Client.Auth.OAuth;
 using static DocuSign.eSign.Client.Auth.OAuth.UserInfo;
-using eSignature.Examples;
+using ESignature.Examples;
 using System;
 using System.Diagnostics;
 using System.Configuration;

@@ -1,9 +1,13 @@
-﻿using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿// <copyright file="ShowEmbeddedConsole.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public static class ShowEmbeddedConsole
     {
         /// <summary>
@@ -16,14 +20,21 @@ namespace eSignature.Examples
         /// <param name="returnUrl">Url user will be redirected to after they sign</param>
         /// <param name="envelopeId">The required envelopeId</param>
         /// <returns>URL for the embedded console for this envelope</returns>
-        public static string CreateEmbeddedConsoleView(string accessToken, string basePath,
-            string accountId, string startingView, string returnUrl, string envelopeId)
+        public static string CreateEmbeddedConsoleView(
+            string accessToken,
+            string basePath,
+            string accountId,
+            string startingView,
+            string returnUrl,
+            string envelopeId)
         {
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
-            ConsoleViewRequest viewRequest = MakeConsoleViewRequest(returnUrl,
-                startingView, envelopeId);
+            ConsoleViewRequest viewRequest = MakeConsoleViewRequest(
+                returnUrl,
+                startingView,
+                envelopeId);
 
             // Step 1. create the NDSE view
             // Call the CreateSenderView API
@@ -33,15 +44,17 @@ namespace eSignature.Examples
             return redirectUrl;
         }
 
-        private static ConsoleViewRequest MakeConsoleViewRequest(string dsReturnUrl, string startingView,
+        private static ConsoleViewRequest MakeConsoleViewRequest(
+            string dsReturnUrl,
+            string startingView,
             string envelopeId)
         {
             // Data for this method
             // dsReturnUrl
             // startingView
             // envelopeId
-
             ConsoleViewRequest viewRequest = new ConsoleViewRequest();
+
             // Set the URL where you want the recipient to go once they are done
             // with the NDSE. It is usually the case that the
             // user will never "finish" with the NDSE.

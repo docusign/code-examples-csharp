@@ -1,21 +1,19 @@
-﻿<h4>List envelopes whose status has changed</h4>
-<p>This example lists the envelopes whose status has changes within the last 30 days.</p>
-<p>This example demonstrates how to query DocuSign about envelopes sent by the current user.</p>
+﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
 
 @if (@ViewBag.showDoc) {
    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
 }
 
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/">Envelopes::listStatusChanges</a>.
-</p>
-<p>
-    View source file <a target="_blank" href="@ViewBag.source">ListAccountEnvelopes.cs</a> on GitHub.
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">ListAccountEnvelopes.cs</a>"))
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
     <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
-    <button type="submit" class="btn btn-primary">Continue</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
 </form>
 

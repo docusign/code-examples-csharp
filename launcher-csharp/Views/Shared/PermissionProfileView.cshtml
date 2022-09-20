@@ -1,13 +1,23 @@
 ﻿@model DocuSign.CodeExamples.Models.PermissionProfileModel
+@{
+    int formNumber = 0;
+    int profileNameInputNumber = 0;
+}
 
-<h4>Permission profile</h4>
+<p>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)</p>
+
 <form class="eg" asp-action="Create" method="post" data-busy="form">
     <div class="form-group">
-        <label asp-for="ProfileName">Profile name</label>
-        <input type="input" class="form-control" asp-for="ProfileName" placeholder="Profile name" required />
+        <label asp-for="ProfileName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[profileNameInputNumber].InputName)
+        </label>
+        <input type="input" class="form-control" asp-for="ProfileName"
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[profileNameInputNumber].InputPlaceholder" required />
     </div>
+
     @Html.HiddenFor(Model => Model.ProfileId)
     @Html.HiddenFor(Model => Model.AccountRoleSettingsModel.AllowApiAccess)
+
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

@@ -1,10 +1,14 @@
-﻿using DocuSign.Admin.Api;
-using DocuSign.Admin.Client;
-using DocuSign.Admin.Model;
-using System;
+﻿// <copyright file="RetrieveDocuSignProfileByEmailAddress.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.Admin.Examples
 {
+    using System;
+    using DocuSign.Admin.Api;
+    using DocuSign.Admin.Client;
+    using DocuSign.Admin.Model;
+
     public class RetrieveDocuSignProfileByEmailAddress
     {
         /// <summary>
@@ -18,24 +22,25 @@ namespace DocuSign.Admin.Examples
         public static UsersDrilldownResponse GetDocuSignProfileByEmailAdress(
             string basePath,
             string accessToken,
-            Guid? orgId, 
+            Guid? orgId,
             string email)
         {
             // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+
             // Step 2 end
 
             // Step 3 start
             var usersApi = new UsersApi(apiClient);
             var retrieveUserOptions = new UsersApi.GetUserDSProfilesByEmailOptions
             {
-                email = email
+                email = email,
             };
 
             UsersDrilldownResponse userWithSearchedEmail = usersApi.GetUserDSProfilesByEmail(orgId, retrieveUserOptions);
-            // Step 3 end
 
+            // Step 3 end
             return userWithSearchedEmail;
         }
     }

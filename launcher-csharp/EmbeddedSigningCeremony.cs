@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿// <copyright file="EmbeddedSigningCeremony.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     /// <summary>
     /// Used to generate an envelope and allow user to sign it directly from the app without having to open an email.
     /// </summary>
@@ -24,8 +28,16 @@ namespace eSignature.Examples
         /// <param name="returnUrl">URL user will be redirected to after they sign</param>
         /// <param name="pingUrl">URL that DocuSign will be able to ping to incdicate signing session is active</param>
         /// <returns>The envelopeId (GUID) of the resulting Envelope and the URL for the embedded signing</returns>
-        public static (string, string) SendEnvelopeForEmbeddedSigning(string signerEmail, string signerName, string signerClientId,
-            string accessToken, string basePath, string accountId, string docPdf, string returnUrl, string pingUrl = null)
+        public static (string, string) SendEnvelopeForEmbeddedSigning(
+            string signerEmail,
+            string signerName,
+            string signerClientId,
+            string accessToken,
+            string basePath,
+            string accountId,
+            string docPdf,
+            string returnUrl,
+            string pingUrl = null)
         {
             // Step 1 start
             // Step 1. Create the envelope definition
@@ -45,6 +57,7 @@ namespace eSignature.Examples
             // Step 3 start
             // Step 3. create the recipient view, the Signing Ceremony
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, returnUrl, signerClientId, pingUrl);
+
             // call the CreateRecipientView API
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
             // Step 3 end
@@ -55,6 +68,7 @@ namespace eSignature.Examples
             // State can be stored/recovered using the framework's session or a
             // query parameter on the returnUrl (see the makeRecipientViewRequest method)
             string redirectUrl = results1.Url;
+
             // returning both the envelopeId as well as the url to be used for embedded signing
             return (envelopeId, redirectUrl);
             // Step 4 end
@@ -63,14 +77,13 @@ namespace eSignature.Examples
         private static RecipientViewRequest MakeRecipientViewRequest(string signerEmail, string signerName, string returnUrl, string signerClientId, string pingUrl = null)
         {
             // Data for this method
-            // signerEmail 
+            // signerEmail
             // signerName
             // dsPingUrl -- class global
             // signerClientId -- class global
             // dsReturnUrl -- class global
-
-
             RecipientViewRequest viewRequest = new RecipientViewRequest();
+
             // Set the url where you want the recipient to go once they are done signing
             // should typically be a callback route somewhere in your app.
             // The query parameter is included as an example of how
@@ -110,19 +123,17 @@ namespace eSignature.Examples
         private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string signerClientId, string docPdf)
         {
             // Data for this method
-            // signerEmail 
+            // signerEmail
             // signerName
             // signerClientId -- class global
             // Config.docPdf
-
-
             byte[] buffer = System.IO.File.ReadAllBytes(docPdf);
 
             EnvelopeDefinition envelopeDefinition = new EnvelopeDefinition();
             envelopeDefinition.EmailSubject = "Please sign this document";
             Document doc1 = new Document();
 
-            String doc1b64 = Convert.ToBase64String(buffer);
+            string doc1b64 = Convert.ToBase64String(buffer);
 
             doc1.DocumentBase64 = doc1b64;
             doc1.Name = "Lorem Ipsum"; // can be different from actual file name
@@ -140,7 +151,7 @@ namespace eSignature.Examples
                 Email = signerEmail,
                 Name = signerName,
                 ClientUserId = signerClientId,
-                RecipientId = "1"
+                RecipientId = "1",
             };
 
             // Create signHere fields (also known as tabs) on the documents,
@@ -153,19 +164,20 @@ namespace eSignature.Examples
                 AnchorString = "/sn1/",
                 AnchorUnits = "pixels",
                 AnchorXOffset = "10",
-                AnchorYOffset = "20"
+                AnchorYOffset = "20",
             };
+
             // Tabs are set per recipient / signer
             Tabs signer1Tabs = new Tabs
             {
-                SignHereTabs = new List<SignHere> { signHere1 }
+                SignHereTabs = new List<SignHere> { signHere1 },
             };
             signer1.Tabs = signer1Tabs;
 
             // Add the recipient to the envelope object
             Recipients recipients = new Recipients
             {
-                Signers = new List<Signer> { signer1 }
+                Signers = new List<Signer> { signer1 },
             };
             envelopeDefinition.Recipients = recipients;
 

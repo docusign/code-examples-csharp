@@ -1,34 +1,47 @@
-﻿
-<h4>List an envelope's recipients and their status</h4>
-<p>This example lists the envelope's recipients, including their current status.</p>
-
-@if (ViewBag.showDoc) {
-<p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
+﻿@using System.Text.RegularExpressions;
+@{
+    var redirectToSecondCodeExample = "href='eg002'";
+    int formNumber = 0;
 }
 
-<p>
-    API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/enveloperecipients/list/">EnvelopeRecipients::list</a>.
-</p>
-<p>
-    View source file <a target="_blank" href="@ViewBag.source">ListEnvelopeRecipients.cs</a> on GitHub.
-</p>
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>@Html.Raw(ViewBag.CodeExampleText.ExampleDescription)</p>
 
-@if (ViewBag.envelopeOk) { 
-<p>The envelope you created via Send an envelope with a remote (email) signer and cc recipient will be queried.</p>
+@if (ViewBag.showDoc)
+{
+    <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
+}
 
-<form class="eg" action="" method="post" data-busy="form">
-    <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
-    <button type="submit" class="btn btn-primary">Continue</button>
-</form>
-
-} else {
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" />
 <p>
-    Problem: please first create an envelope using <a href="eg002">Send an envelope with a remote (email) signer and cc recipient</a> <br />
-    Thank you.
+    @Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">ListEnvelopeRecipients.cs</a>"))
 </p>
 
-<form class="eg" action="eg002" method="get">
-    <button type="submit" class="btn btn-primary">Continue</button>
-</form>
+@if (ViewBag.envelopeOk)
+{
+    <p>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)</p>
+
+    <form class="eg" action="" method="post" data-busy="form">
+        <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+    </form>
+
+}
+else
+{
+    <p>
+        @Html.Raw(
+            String.Format(
+                ((IEnumerable<dynamic>)ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                    .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToSecondCodeExample, @"\d+").Value))
+                    .FirstOrDefault()
+                    .RedirectText,
+                "href='eg002'"
+            )
+        )
+    </p>
+
+    <form class="eg" action="eg002" method="get">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+    </form>
 }

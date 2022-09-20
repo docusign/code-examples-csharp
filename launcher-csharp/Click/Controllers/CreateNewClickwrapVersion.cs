@@ -1,28 +1,34 @@
-﻿using DocuSign.Click.Client;
-using DocuSign.Click.Examples;
-using DocuSign.CodeExamples.Common;
-using DocuSign.CodeExamples.Controllers;
-using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+﻿// <copyright file="Eg03CreateNewClickwrapVersionController.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Click.Controllers
 {
+    using DocuSign.Click.Client;
+    using DocuSign.Click.Examples;
+    using DocuSign.CodeExamples.Common;
+    using DocuSign.CodeExamples.Controllers;
+    using DocuSign.CodeExamples.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+
     [Area("Click")]
-    [Route("[area]/Eg03")]
+    [Route("ClickEg03")]
     public class CreateNewClickwrapVersion : EgController
     {
-        public CreateNewClickwrapVersion(
-            DSConfiguration dsConfig, 
-            IRequestItemsService requestItemsService) 
-            : base(dsConfig, requestItemsService)
+        public CreateNewClickwrapVersion(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+            : base(config, launcherTexts, requestItemsService)
         {
+            this.CodeExampleText = this.GetExampleText(EgName);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Eg03";
+        public override string EgName => "ClickEg03";
 
         protected override void InitializeInternal()
         {
+            base.InitializeInternal();
+
             // Obtain your OAuth token
             var accessToken = RequestItemsService.User.AccessToken;
             var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
@@ -32,15 +38,16 @@ namespace DocuSign.CodeExamples.Click.Controllers
         }
 
         [MustAuthenticate]
+        [SetViewBag]
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(string clickwrapId, string clickwrapName)
         {
             // Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
-            var accountId = RequestItemsService.Session.AccountId;
+            var accessToken = this.RequestItemsService.User.AccessToken;
+            var basePath = $"{this.RequestItemsService.Session.BasePath}/clickapi"; // Base API path
+            var accountId = this.RequestItemsService.Session.AccountId;
 
             try
             {
@@ -48,18 +55,18 @@ namespace DocuSign.CodeExamples.Click.Controllers
                 var clickWrap = DocuSign.Click.Examples.CreateNewClickwrapVersion.Create(clickwrapId, basePath, accessToken, accountId, clickwrapName);
 
                 // Show results
-                ViewBag.h1 = "Create a new clickwrap version";
-                ViewBag.message = $"Version {clickWrap.VersionNumber} of clickwrap {clickWrap.ClickwrapName} has been created.";
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(clickWrap, Formatting.Indented);
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, clickWrap.VersionNumber, clickWrap.ClickwrapName);
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(clickWrap, Formatting.Indented);
 
-                return View("example_done");
+                return this.View("example_done");
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
 
-                return View("Error");
+                return this.View("Error");
             }
         }
     }

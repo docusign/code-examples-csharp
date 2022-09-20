@@ -1,38 +1,49 @@
-﻿using System.Diagnostics;
-using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿// <copyright file="HomeController.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Rooms.Controllers
 {
+    using System.Diagnostics;
+    using DocuSign.CodeExamples.Models;
+    using Microsoft.AspNetCore.Mvc;
+
     [Area("Rooms")]
     public class HomeController : Controller
     {
-        private IRequestItemsService _requestItemsService { get; }
+        private IRequestItemsService RequestItemsService { get; }
 
-        public HomeController(IRequestItemsService requestItemsService)
+        private LauncherTexts LauncherTexts { get; }
+
+        public HomeController(IRequestItemsService requestItemsService, LauncherTexts launcherTexts)
         {
-            _requestItemsService = requestItemsService;
+            this.RequestItemsService = requestItemsService;
+            this.LauncherTexts = launcherTexts;
         }
 
         public IActionResult Index(string egName)
         {
+            this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
+
             if (string.IsNullOrEmpty(egName))
             {
-                egName = _requestItemsService.EgName;
-            }
-            if (!string.IsNullOrWhiteSpace(egName))
-            {
-                _requestItemsService.EgName = null;
-                return Redirect(egName);
+                egName = this.RequestItemsService.EgName;
             }
 
-            return View();
+            if (!string.IsNullOrWhiteSpace(egName))
+            {
+                this.RequestItemsService.EgName = null;
+                return this.Redirect(egName);
+            }
+
+            this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.Groups;
+            return this.View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        } 
+            return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
+        }
     }
 }
