@@ -103,42 +103,36 @@ namespace DocuSign.CodeExamples
                 options.TokenEndpoint = this.Configuration["DocuSign:TokenEndpoint"];
                 options.UserInformationEndpoint = this.Configuration["DocuSign:UserInformationEndpoint"];
 
-                switch (apiType)
-                {
-                    case ExamplesAPIType.ESignature:
-                        options.Scope.Add("signature");
-                        break;
-                    case ExamplesAPIType.Rooms:
-                        options.Scope.Add("dtr.rooms.read");
-                        options.Scope.Add("dtr.rooms.write");
-                        options.Scope.Add("dtr.documents.read");
-                        options.Scope.Add("dtr.documents.write");
-                        options.Scope.Add("dtr.profile.read");
-                        options.Scope.Add("dtr.profile.write");
-                        options.Scope.Add("dtr.company.read");
-                        options.Scope.Add("dtr.company.write");
-                        options.Scope.Add("room_forms");
-                        break;
-                    case ExamplesAPIType.Click:
-                        options.Scope.Add("click.manage");
-                        options.Scope.Add("click.send");
-                        break;
-                    case ExamplesAPIType.Monitor:
-                        options.Scope.Add("signature");
-                        options.Scope.Add("impersonation");
-                        options.Scope.Add("room_forms");
-                        break;
-                    case ExamplesAPIType.Admin:
-                        options.Scope.Add("signature");
-                        options.Scope.Add("user_read");
-                        options.Scope.Add("user_write");
-                        options.Scope.Add("account_read");
-                        options.Scope.Add("organization_read");
-                        options.Scope.Add("group_read");
-                        options.Scope.Add("permission_read");
-                        options.Scope.Add("identity_provider_read");
-                        break;
-                }
+                // eSignature scopes
+                options.Scope.Add("signature");
+
+                // Rooms scopes
+                options.Scope.Add("dtr.rooms.read");
+                options.Scope.Add("dtr.rooms.write");
+                options.Scope.Add("dtr.documents.read");
+                options.Scope.Add("dtr.documents.write");
+                options.Scope.Add("dtr.profile.read");
+                options.Scope.Add("dtr.profile.write");
+                options.Scope.Add("dtr.company.read");
+                options.Scope.Add("dtr.company.write");
+                options.Scope.Add("room_forms");
+
+                // Click scopes
+                options.Scope.Add("click.manage");
+                options.Scope.Add("click.send");
+
+                // Monitor scopes
+                options.Scope.Add("impersonation");
+                options.Scope.Add("room_forms");
+
+                // Admin scopes
+                options.Scope.Add("user_read");
+                options.Scope.Add("user_write");
+                options.Scope.Add("account_read");
+                options.Scope.Add("organization_read");
+                options.Scope.Add("group_read");
+                options.Scope.Add("permission_read");
+                options.Scope.Add("identity_provider_read");
 
                 options.SaveTokens = true;
                 options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "sub");
@@ -232,40 +226,28 @@ namespace DocuSign.CodeExamples
                     name: "Areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-                var apiType = Enum.Parse<ExamplesAPIType>(this.Configuration["ExamplesAPI"]);
-                switch (apiType)
-                {
-                    case ExamplesAPIType.Rooms:
-                        endpoints.MapControllerRoute(
-                            name: "default",
-                            pattern: "{area=Rooms}/{controller=Home}/{action=Index}/{id?}");
-                        endpoints.MapAreaControllerRoute(
-                            name: "default",
-                            areaName: "Rooms",
-                            pattern: "{controller=Home}/{action=Index}/{id?}");
-                        break;
-                    case ExamplesAPIType.ESignature:
-                        endpoints.MapControllerRoute(
-                            name: "default",
-                            pattern: "{controller=Home}/{action=Index}/{id?}");
-                        break;
-                    case ExamplesAPIType.Click:
-                        endpoints.MapControllerRoute(
-                            name: "default",
-                            pattern: "{area=Click}/{controller=Home}/{action=Index}/{id?}");
-                        break;
-                    case ExamplesAPIType.Monitor:
-                        endpoints.MapAreaControllerRoute(
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{area=Rooms}/{controller=Home}/{action=Index}/{id?}");
+         
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{area=Click}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
                             name: "default",
                             areaName: "Monitor",
                             pattern: "{controller=Home}/{action=Index}/{id?}");
-                        break;
-                    case ExamplesAPIType.Admin:
-                        endpoints.MapControllerRoute(
+
+                endpoints.MapControllerRoute(
                             name: "default",
                             pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}");
-                        break;
-                }
+
             });
         }
     }

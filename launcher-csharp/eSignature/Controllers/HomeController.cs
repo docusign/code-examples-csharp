@@ -51,7 +51,7 @@ namespace DocuSign.CodeExamples.Controllers
 
             if (egName == "home")
             {
-                this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.Groups;
+                this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.APIs;
                 return this.View();
             }
 
@@ -66,7 +66,7 @@ namespace DocuSign.CodeExamples.Controllers
                 return this.Redirect(egName);
             }
 
-            this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.Groups;
+            this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.APIs;
             return this.View();
         }
 

@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using Newtonsoft.Json;
 
     [Area("Rooms")]
-    [Route("Eg09")]
+    [Route("Reg09")]
     public class AssignFormToFormGroups : EgController
     {
         public AssignFormToFormGroups(
@@ -24,11 +24,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Rooms);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Eg09";
+        public override string EgName => "Reg09";
 
         [BindProperty]
         public FormFormGroupModel FormFormGroupModel { get; set; }
@@ -52,7 +52,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 this.FormFormGroupModel = new FormFormGroupModel { Forms = forms.Forms, FormGroups = formGroups.FormGroups };
 
-                return this.View("Eg09", this);
+                return this.View("Reg09", this);
             }
             catch (ApiException apiException)
             {

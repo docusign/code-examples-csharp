@@ -84,21 +84,19 @@ namespace DocuSign.CodeExamples.Controllers
         /// <returns>Consent URL</returns>
         private string BuildConsentURL()
         {
+            // ESignature scopes
             var scopes = "signature impersonation";
             var apiType = Enum.Parse<ExamplesAPIType>(this.Configuration["ExamplesAPI"]);
-            if (apiType == ExamplesAPIType.Rooms)
-            {
-                scopes += " dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write "
+
+            // Rooms scopes
+            scopes += " dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write "
                 + "dtr.profile.read dtr.profile.write dtr.company.read dtr.company.write room_forms";
-            }
-            else if (apiType == ExamplesAPIType.Click)
-            {
-                scopes += " click.manage click.send";
-            }
-            else if (apiType == ExamplesAPIType.Admin)
-            {
-                scopes += " user_read user_write organization_read account_read group_read permission_read identity_provider_read domain_read";
-            }
+            
+            // Click scopes
+            scopes += " click.manage click.send";
+
+            // Admin scopes
+            scopes += " user_read user_write organization_read account_read group_read permission_read identity_provider_read domain_read";
 
             return this.Configuration["DocuSign:AuthorizationEndpoint"] + "?response_type=code" +
                 "&scope=" + scopes +

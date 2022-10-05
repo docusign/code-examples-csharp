@@ -17,7 +17,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using ApiError = DocuSign.Rooms.Model.ApiError;
 
     [Area("Rooms")]
-    [Route("Eg04")]
+    [Route("Reg04")]
     public class AddingFormToRoom : EgController
     {
         public AddingFormToRoom(
@@ -26,11 +26,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Rooms);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Eg04";
+        public override string EgName => "Reg04";
 
         [BindProperty]
         public RoomFormModel RoomFormModel { get; set; }
@@ -59,7 +59,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 this.RoomFormModel = new RoomFormModel { Forms = forms.Forms, Rooms = rooms.Rooms };
 
-                return this.View("Eg04", this);
+                return this.View("Reg04", this);
             }
             catch (ApiException apiException)
             {

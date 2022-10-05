@@ -23,7 +23,17 @@
     </div>
 
     <div class="container" style="margin-top: 40px" id="index-page">
-        @foreach(var exampleGroup in ViewBag.APITexts)
+          <div class="input-group">
+    <input type="text" class="form-control" placeholder="Search this blog">
+    <div class="input-group-append">
+      <button class="btn btn-secondary" type="button">
+       <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </div>
+  </div>
+  @foreach(var apis in ViewBag.APITexts)
+        {
+        @foreach(var exampleGroup in apis.Groups)
         {
             <h2>@Html.Raw(exampleGroup.Name)</h2>
 
@@ -45,6 +55,7 @@
                     <partial name="../Shared/LinkToMethodView" model="example" />
                 }
             }
+        }
         }
 
         <!-- anchor-js is only for the index page -->

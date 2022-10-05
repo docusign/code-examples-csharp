@@ -23,7 +23,7 @@ namespace DocuSign.CodeExamples.Controllers
         {
             this.requestItemsService = requestItemsService;
 
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Monitor);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

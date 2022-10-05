@@ -15,17 +15,17 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using Newtonsoft.Json;
 
     [Area("Rooms")]
-    [Route("Eg06")]
+    [Route("Reg06")]
     public class CreateExternalFormFillSession : EgController
     {
         public CreateExternalFormFillSession(DSConfiguration dsConfig, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Rooms);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Eg06";
+        public override string EgName => "Reg06";
 
         [BindProperty]
         public RoomDocumentModel RoomDocumentModel { get; set; }
@@ -55,7 +55,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 this.RoomDocumentModel = new RoomDocumentModel { Rooms = rooms.Rooms };
 
                 base.InitializeInternal();
-                return this.View("Eg06", this);
+                return this.View("Reg06", this);
             }
             catch (ApiException apiException)
             {
@@ -85,7 +85,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 this.RoomDocumentModel.Documents = documents.Documents;
 
                 base.InitializeInternal();
-                return this.View("Eg06", this);
+                return this.View("Reg06", this);
             }
             catch (ApiException apiException)
             {

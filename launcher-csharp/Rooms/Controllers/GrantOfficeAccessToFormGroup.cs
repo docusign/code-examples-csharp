@@ -14,7 +14,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using Microsoft.AspNetCore.Mvc;
 
     [Area("Rooms")]
-    [Route("Eg08")]
+    [Route("Reg08")]
     public class GrantOfficeAccessToFormGroup : EgController
     {
         public GrantOfficeAccessToFormGroup(
@@ -23,11 +23,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Rooms);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Eg08";
+        public override string EgName => "Reg08";
 
         [BindProperty]
         public OfficeAccessModel OfficeAccessModel { get; set; }
@@ -51,7 +51,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 this.OfficeAccessModel = new OfficeAccessModel { Offices = offices.OfficeSummaries, FormGroups = formGroups.FormGroups };
 
-                return this.View("Eg08", this);
+                return this.View("Reg08", this);
             }
             catch (ApiException apiException)
             {

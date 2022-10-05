@@ -43,30 +43,7 @@ namespace DocuSign.CodeExamples.Models
 
         private string GetTextManifestDependingOnCurrentAPI()
         {
-            string linkToManifest = string.Empty;
-
-            if (this.Configuration["ExamplesAPI"] == ExamplesAPIType.ESignature.ToString() || this.DSConfig.QuickACG == "true")
-            {
-                linkToManifest = this.DSConfig.ESignatureManifest;
-            }
-            else if (this.Configuration["ExamplesAPI"] == ExamplesAPIType.Click.ToString())
-            {
-                linkToManifest = this.DSConfig.ClickManifest;
-            }
-            else if (this.Configuration["ExamplesAPI"] == ExamplesAPIType.Rooms.ToString())
-            {
-                linkToManifest = this.DSConfig.RoomsManifest;
-            }
-            else if (this.Configuration["ExamplesAPI"] == ExamplesAPIType.Monitor.ToString())
-            {
-                linkToManifest = this.DSConfig.MonitorManifest;
-            }
-            else if (this.Configuration["ExamplesAPI"] == ExamplesAPIType.Admin.ToString())
-            {
-                linkToManifest = this.DSConfig.AdminManifest;
-            }
-
-            return linkToManifest;
+            return this.DSConfig.CodeExamplesManifest;
         }
 
         private ManifestStructure SetupManifestData(string fileName)
