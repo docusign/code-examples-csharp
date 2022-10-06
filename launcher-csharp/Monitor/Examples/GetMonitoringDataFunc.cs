@@ -20,56 +20,63 @@ namespace DocuSign.CodeExamples.Monitor.Examples
         /// <returns>The list of JObjects, containing data from monitor</returns>
         public virtual IEnumerable<object> Invoke(string accessToken, string requestPath)
         {
-            ApiClient apiClient = new ApiClient(ApiClient.Demo_REST_BasePath);
-
-            // Construct API headers
-            // step 2 start
-            apiClient.SetBasePath(ApiClient.Demo_REST_BasePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", string.Format("Bearer {0}", accessToken));
-            apiClient.Configuration.DefaultHeader.Add("Content-Type", "application/json");
-
-            // step 2 end
-
-            // Declare variables
-            // step 3 start
-            bool complete = false;
-            string cursorValue = string.Empty;
-            int limit = 2; // Amount of records you want to read in one request
-            List<object> functionResult = new List<object>();
-
-            DataSetApi dataSetApi = new DataSetApi(apiClient);
-            GetStreamOptions options = new GetStreamOptions();
-
-            options.limit = limit;
-
-            // Get monitoring data
-            do
+            try
             {
-                if (!string.IsNullOrEmpty(cursorValue))
-                {
-                    options.cursor = cursorValue;
-                }
+                ApiClient apiClient = new ApiClient(ApiClient.Demo_REST_BasePath);
 
-                var cursoredResult = dataSetApi.GetStreamWithHttpInfo("2.0", "monitor", options);
+                // Construct API headers
+                // step 2 start
+                apiClient.SetBasePath(ApiClient.Demo_REST_BasePath);
+                apiClient.Configuration.DefaultHeader.Add("Authorization", string.Format("Bearer {0}", accessToken));
+                apiClient.Configuration.DefaultHeader.Add("Content-Type", "application/json");
 
-                string endCursor = cursoredResult.Data.EndCursor;
+                // step 2 end
 
-                // If the endCursor from the response is the same as the one that you already have,
-                // it means that you have reached the end of the records
-                if (endCursor == cursorValue)
+                // Declare variables
+                // step 3 start
+                bool complete = false;
+                string cursorValue = string.Empty;
+                int limit = 2; // Amount of records you want to read in one request
+                List<object> functionResult = new List<object>();
+
+                DataSetApi dataSetApi = new DataSetApi(apiClient);
+                GetStreamOptions options = new GetStreamOptions();
+
+                options.limit = limit;
+
+                // Get monitoring data
+                do
                 {
-                    complete = true;
+                    if (!string.IsNullOrEmpty(cursorValue))
+                    {
+                        options.cursor = cursorValue;
+                    }
+
+                    var cursoredResult = dataSetApi.GetStreamWithHttpInfo("2.0", "monitor", options);
+
+                    string endCursor = cursoredResult.Data.EndCursor;
+
+                    // If the endCursor from the response is the same as the one that you already have,
+                    // it means that you have reached the end of the records
+                    if (endCursor == cursorValue)
+                    {
+                        complete = true;
+                    }
+                    else
+                    {
+                        cursorValue = endCursor;
+                        functionResult.Add(cursoredResult.Data);
+                    }
                 }
-                else
-                {
-                    cursorValue = endCursor;
-                    functionResult.Add(cursoredResult.Data);
-                }
+                while (!complete);
+
+                // step 3 end
+                return functionResult;
             }
-            while (!complete);
-
-            // step 3 end
-            return functionResult;
+            catch (ApiException)
+            {
+                return new string[] { "ERROR", "You do not have Monitor enabled for your account, follow <a target='_blank' href='https://developers.docusign.com/docs/monitor-api/how-to/enable-monitor/'>How to enable Monitor for your account</a> to get it enabled."};
+            }
         }
     }
 }

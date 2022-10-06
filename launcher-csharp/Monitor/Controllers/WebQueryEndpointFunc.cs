@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.Controllers
 {
     using System.Globalization;
+    using System.Linq;
     using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Models;
     using DocuSign.CodeExamples.Monitor.Examples;
@@ -64,11 +65,20 @@ namespace DocuSign.CodeExamples.Controllers
                 filterStartDate,
                 filterEndDate);
 
-            // Process results
-            this.ViewBag.h1 = this.CodeExampleText.ExampleName;
-            this.ViewBag.message = this.CodeExampleText.ResultsPageText;
-            this.ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
-            return this.View("example_done");
+            if ((string)results.FirstOrDefault() == "ERROR")
+            {
+                this.ViewBag.fixingInstructions = (string)results.LastOrDefault();
+                this.ViewBag.errorCode = "No Monitor Enabled";
+                return this.View("Error");
+            }
+            else
+            {
+                // Process results
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                this.ViewBag.message = this.CodeExampleText.ResultsPageText;
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
+                return this.View("example_done");
+            }
         }
     }
 }
