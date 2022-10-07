@@ -46,7 +46,7 @@ namespace DocuSign.CodeExamples.Controllers
             // Getting monitoring data
             var results = this.getMonitoringDataFunc.Invoke(accessToken, requestPath);
 
-            if ((string)results.FirstOrDefault() == "ERROR")
+            if (results.FirstOrDefault() as string == "ERROR")
             {
                 this.ViewBag.fixingInstructions = (string)results.LastOrDefault();
                 this.ViewBag.errorCode = "No Monitor Enabled";

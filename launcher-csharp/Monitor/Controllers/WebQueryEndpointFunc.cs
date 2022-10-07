@@ -65,7 +65,7 @@ namespace DocuSign.CodeExamples.Controllers
                 filterStartDate,
                 filterEndDate);
 
-            if ((string)results.FirstOrDefault() == "ERROR")
+            if (results.FirstOrDefault() as string == "ERROR")
             {
                 this.ViewBag.fixingInstructions = (string)results.LastOrDefault();
                 this.ViewBag.errorCode = "No Monitor Enabled";
