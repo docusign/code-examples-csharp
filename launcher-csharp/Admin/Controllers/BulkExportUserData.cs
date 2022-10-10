@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     using Newtonsoft.Json;
 
     [Area("Admin")]
-    [Route("Aeg03")]
+    [Route("Aeg003")]
     public class BulkExportUserData : EgController
     {
         public BulkExportUserData(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
@@ -25,7 +25,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Aeg03";
+        public override string EgName => "Aeg003";
 
         [MustAuthenticate]
         [SetViewBag]

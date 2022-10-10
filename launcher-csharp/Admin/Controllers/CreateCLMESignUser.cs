@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     using Newtonsoft.Json;
 
     [Area("Admin")]
-    [Route("Aeg02")]
+    [Route("Aeg002")]
     public class CreateCLMESignUser : EgController
     {
         private static Guid? clmProductId;
@@ -30,7 +30,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Aeg02";
+        public override string EgName => "Aeg002";
 
         protected override void InitializeInternal()
         {
@@ -75,7 +75,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             try
             {
                 base.Get();
-                return this.View("Aeg02", this);
+                return this.View("Aeg002", this);
             }
             catch (ApiException apiException)
             {

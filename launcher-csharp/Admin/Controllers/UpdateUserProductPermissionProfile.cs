@@ -17,7 +17,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     using Newtonsoft.Json;
 
     [Area("Admin")]
-    [Route("Aeg08")]
+    [Route("Aeg008")]
     public class UpdateUserProductPermissionProfile : EgController
     {
         private static ProductPermissionProfilesResponse productPermissionProfiles;
@@ -31,7 +31,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Aeg08";
+        public override string EgName => "Aeg008";
 
         protected override void InitializeInternal()
         {

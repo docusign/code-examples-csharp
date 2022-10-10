@@ -20,6 +20,9 @@ namespace DocuSign.CodeExamples.ESignature.Models
         [JsonProperty("APIMethodUsedPlural")]
         public string APIMethodUsedPlural { get; set; }
 
+        [JsonProperty("SearchFailed")]
+        public string SearchFailed { get; set; }
+
         [JsonProperty("SubmitButton")]
         public string SubmitButton { get; set; }
 

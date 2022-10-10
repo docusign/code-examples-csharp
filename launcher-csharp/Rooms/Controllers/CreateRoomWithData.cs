@@ -12,7 +12,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using Newtonsoft.Json;
 
     [Area("Rooms")]
-    [Route("Reg01")]
+    [Route("Reg001")]
     public class CreateRoomWithData : EgController
     {
         public CreateRoomWithData(
@@ -25,7 +25,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Reg01";
+        public override string EgName => "Reg001";
 
         [BindProperty]
         public Models.RoomModel RoomModel { get; set; }

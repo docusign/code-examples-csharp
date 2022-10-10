@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using Newtonsoft.Json;
 
     [Area("Rooms")]
-    [Route("Reg03")]
+    [Route("Reg003")]
     public class ExportDataFromRoom : EgController
     {
         public ExportDataFromRoom(
@@ -28,7 +28,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Reg03";
+        public override string EgName => "Reg003";
 
         [BindProperty]
         public RoomsListModel RoomsListModel { get; set; }
@@ -57,7 +57,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 this.RoomsListModel = new RoomsListModel { Rooms = rooms.Rooms.ToList() };
 
-                return this.View("Reg03", this);
+                return this.View("Reg003", this);
             }
             catch (ApiException apiException)
             {

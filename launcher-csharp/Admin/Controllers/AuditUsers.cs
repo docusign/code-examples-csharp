@@ -14,7 +14,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     using Newtonsoft.Json;
 
     [Area("Admin")]
-    [Route("Aeg05")]
+    [Route("Aeg005")]
     public class AuditUsers : EgController
     {
         public AuditUsers(
@@ -27,7 +27,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Aeg05";
+        public override string EgName => "Aeg005";
 
         protected override void InitializeInternal()
         {

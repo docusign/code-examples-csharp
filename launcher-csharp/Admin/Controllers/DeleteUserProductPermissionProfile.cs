@@ -17,7 +17,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     using Newtonsoft.Json;
 
     [Area("Admin")]
-    [Route("Aeg09")]
+    [Route("Aeg009")]
     public class DeleteUserProductPermissionProfile : EgController
     {
         public const string CLMPROFILESNOTFOUND = "No CLM permission profiles are connected to this user";
@@ -37,7 +37,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Aeg09";
+        public override string EgName => "Aeg009";
 
         protected override void InitializeInternal()
         {

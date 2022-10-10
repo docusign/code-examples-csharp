@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     using Newtonsoft.Json;
 
     [Area("Admin")]
-    [Route("Aeg06")]
+    [Route("Aeg006")]
     public class RetrieveDocuSignProfileByEmailAddress : EgController
     {
         public RetrieveDocuSignProfileByEmailAddress(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
@@ -25,7 +25,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Aeg06";
+        public override string EgName => "Aeg006";
 
         [MustAuthenticate]
         [SetViewBag]

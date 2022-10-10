@@ -5,9 +5,11 @@
 namespace DocuSign.CodeExamples.Controllers
 {
     using System.Diagnostics;
+    using DocuSign.CodeExamples.ESignature.Models;
     using DocuSign.CodeExamples.Models;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
+    using Newtonsoft.Json;
 
     public class HomeController : Controller
     {
@@ -51,6 +53,8 @@ namespace DocuSign.CodeExamples.Controllers
 
             if (egName == "home")
             {
+                this.ViewBag.APIData = JsonConvert.SerializeObject(this.LauncherTexts.ManifestStructure);
+                
                 this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.APIs;
                 return this.View();
             }
@@ -66,6 +70,7 @@ namespace DocuSign.CodeExamples.Controllers
                 return this.Redirect(egName);
             }
 
+            this.ViewBag.APIData = JsonConvert.SerializeObject(this.LauncherTexts.ManifestStructure);
             this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.APIs;
             return this.View();
         }

@@ -14,7 +14,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
     using Newtonsoft.Json;
 
     [Area("Click")]
-    [Route("ClickEg04")]
+    [Route("ClickEg004")]
     public class RetrieveClickwraps : EgController
     {
         public RetrieveClickwraps(
@@ -27,7 +27,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "ClickEg04";
+        public override string EgName => "ClickEg004";
 
         protected override void InitializeInternal()
         {

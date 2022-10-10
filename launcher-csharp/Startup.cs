@@ -62,7 +62,7 @@ namespace DocuSign.CodeExamples
             this.Configuration.Bind("DocuSign", config);
 
             services.AddSingleton(config);
-            services.AddSingleton(new LauncherTexts(config, this.Configuration));
+            services.AddSingleton(new LauncherTexts(config));
             services.AddScoped<IRequestItemsService, RequestItemsService>();
             services.AddScoped<IRoomsApi, RoomsApi>();
             services.AddScoped<IRolesApi, RolesApi>();
