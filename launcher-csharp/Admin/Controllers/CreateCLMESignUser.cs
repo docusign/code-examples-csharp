@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg02CreateActiveCLMESignUserController.cs" company="DocuSign">
+﻿// <copyright file="CreateCLMESignUser.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 

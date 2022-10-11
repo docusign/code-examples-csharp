@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg03BulkExportUserDataController.cs" company="DocuSign">
+﻿// <copyright file="BulkExportUserData.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 

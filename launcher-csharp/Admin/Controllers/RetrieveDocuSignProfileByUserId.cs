@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg07RetrieveDocuSignProfileByUserId.cs" company="DocuSign">
+﻿// <copyright file="RetrieveDocuSignProfileByUserId.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 

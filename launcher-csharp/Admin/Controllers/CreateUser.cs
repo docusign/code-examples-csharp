@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg01CreateUserController.cs" company="DocuSign">
+﻿// <copyright file="CreateUser.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -67,8 +67,17 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             try
             {
                 // Call the Admin API to create a new user
-                var user = DocuSign.CodeExamples.Admin.Examples.CreateUser.CreateNewUser(accessToken, basePath, Guid.Parse(accountId), 
-                    organizationId, firstName, lastName, userName, email, Int64.Parse(permissionProfileId), Int64.Parse(groupId));
+                var user = DocuSign.CodeExamples.Admin.Examples.CreateUser.CreateNewUser(
+                    accessToken,
+                    basePath,
+                    Guid.Parse(accountId),
+                    organizationId,
+                    firstName,
+                    lastName,
+                    userName,
+                    email,
+                    long.Parse(permissionProfileId),
+                    long.Parse(groupId));
 
                 // Show results
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;

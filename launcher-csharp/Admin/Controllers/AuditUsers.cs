@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg05AuditUsersController.cs" company="DocuSign">
+﻿// <copyright file="AuditUsers.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -48,6 +48,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                 var basePath = RequestItemsService.Session.AdminApiBasePath;
                 var accountId = RequestItemsService.Session.AccountId;
                 var usersData = DocuSign.Admin.Examples.AuditUsers.GetRecentlyModifiedUsersData(basePath, accessToken, Guid.Parse(accountId), organizationId);
+
                 // Process results
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = this.CodeExampleText.ResultsPageText;

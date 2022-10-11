@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg06RetrieveDocuSignProfileByEmailAddress.cs" company="DocuSign">
+﻿// <copyright file="RetrieveDocuSignProfileByEmailAddress.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
