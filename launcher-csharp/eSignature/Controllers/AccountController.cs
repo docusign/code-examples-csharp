@@ -31,6 +31,15 @@ namespace DocuSign.CodeExamples.Controllers
         [HttpGet]
         public IActionResult Login(string authType = "CodeGrant", string returnUrl = "/")
         {
+            this.Configuration["FirstLaunch"] = "false";
+            this.Configuration["quickstart"] = "false";
+            this.Configuration["API"] = this.Configuration["APIPlanned"];
+
+            if (this.Configuration["API"] != this.requestItemsService.IdentifyAPIOfCodeExample(this.requestItemsService.EgName))
+            {
+                this.requestItemsService.EgName = string.Empty;
+            }
+
             if (authType == "CodeGrant")
             {
                 returnUrl += "?egName=" + this.requestItemsService.EgName;
@@ -55,7 +64,12 @@ namespace DocuSign.CodeExamples.Controllers
 
         public IActionResult MustAuthenticate()
         {
-            if (this.Configuration["ExamplesAPI"] == "Monitor")
+            if (this.Configuration["API"] == null)
+            {
+                this.Configuration["APIPlanned"] = ExamplesAPIType.ESignature.ToString();
+            }
+
+            if (this.Configuration["APIPlanned"] == "Monitor")
             {
                 // Monitor API supports JWT only
                 return this.Login("JWT");
@@ -74,7 +88,6 @@ namespace DocuSign.CodeExamples.Controllers
         {
             await AuthenticationHttpContextExtensions.SignOutAsync(this.HttpContext);
             this.requestItemsService.Logout();
-            this.Configuration["quickstart"] = "false";
             return this.LocalRedirect("/?egName=home");
         }
 
@@ -84,19 +97,21 @@ namespace DocuSign.CodeExamples.Controllers
         /// <returns>Consent URL</returns>
         private string BuildConsentURL()
         {
-            // ESignature scopes
             var scopes = "signature impersonation";
-            var apiType = Enum.Parse<ExamplesAPIType>(this.Configuration["ExamplesAPI"]);
-
-            // Rooms scopes
-            scopes += " dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write "
+            var apiType = Enum.Parse<ExamplesAPIType>(this.Configuration["API"]);
+            if (apiType == ExamplesAPIType.Rooms)
+            {
+                scopes += " dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write "
                 + "dtr.profile.read dtr.profile.write dtr.company.read dtr.company.write room_forms";
-            
-            // Click scopes
-            scopes += " click.manage click.send";
-
-            // Admin scopes
-            scopes += " user_read user_write organization_read account_read group_read permission_read identity_provider_read domain_read";
+            }
+            else if (apiType == ExamplesAPIType.Click)
+            {
+                scopes += " click.manage click.send";
+            }
+            else if (apiType == ExamplesAPIType.Admin)
+            {
+                scopes += " user_read user_write organization_read account_read group_read permission_read identity_provider_read domain_read";
+            }
 
             return this.Configuration["DocuSign:AuthorizationEndpoint"] + "?response_type=code" +
                 "&scope=" + scopes +

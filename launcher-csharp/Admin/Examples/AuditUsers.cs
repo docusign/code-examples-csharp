@@ -6,6 +6,7 @@ namespace DocuSign.Admin.Examples
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using DocuSign.Admin.Api;
     using DocuSign.Admin.Client;
     using DocuSign.Admin.Model;
@@ -26,7 +27,12 @@ namespace DocuSign.Admin.Examples
             // Step 2 end
             // Step 3 start
             UsersApi usersApi = new UsersApi(apiClient);
-            var getUsersOptions = new UsersApi.GetUsersOptions { accountId = accountId, lastModifiedSince = DateTime.Today.AddDays(-10).ToShortDateString() };
+            var getUsersOptions = new UsersApi.GetUsersOptions
+            {
+                accountId = accountId,
+                lastModifiedSince = DateTime.Today.AddDays(-10).ToString("yyyy-MM-dd"),
+            };
+
             var recentlyModifiedUsers = usersApi.GetUsers(orgId, getUsersOptions);
 
             // Step 3 end

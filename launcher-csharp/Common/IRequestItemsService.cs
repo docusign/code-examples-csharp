@@ -6,6 +6,7 @@ namespace DocuSign.CodeExamples
 {
     using System;
     using DocuSign.CodeExamples.Models;
+    using Microsoft.Extensions.Configuration;
 
     public interface IRequestItemsService
     {
@@ -14,6 +15,8 @@ namespace DocuSign.CodeExamples
         public Session Session { get; set; }
 
         public User User { get; set; }
+
+        public IConfiguration Configuration { get; set; }
 
         public Guid? OrganizationId { get; set; }
 
@@ -38,6 +41,8 @@ namespace DocuSign.CodeExamples
         public string EmailAddress { get; set; }
 
         public void UpdateUserFromJWT();
+
+        public string IdentifyAPIOfCodeExample(string eg);
 
         public void Logout();
 

@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.Controllers
 {
     using System.Diagnostics;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.ESignature.Models;
     using DocuSign.CodeExamples.Models;
     using Microsoft.AspNetCore.Mvc;
@@ -34,6 +35,17 @@ namespace DocuSign.CodeExamples.Controllers
 
         public IActionResult Index(string egName)
         {
+            if (this.User.Identity.IsAuthenticated && this.Configuration["FirstLaunch"] == "true")
+            {
+                this.Configuration["FirstLaunch"] = "false";
+                this.Configuration["API"] = ExamplesAPIType.ESignature.ToString();
+
+                return this.Redirect("/ds/Logout");
+            }
+
+            this.ViewBag.APIData = JsonConvert.SerializeObject(this.LauncherTexts.ManifestStructure);
+
+            this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.APIs;
             this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
             if (this.Configuration["quickstart"] == "true")
@@ -53,9 +65,6 @@ namespace DocuSign.CodeExamples.Controllers
 
             if (egName == "home")
             {
-                this.ViewBag.APIData = JsonConvert.SerializeObject(this.LauncherTexts.ManifestStructure);
-                
-                this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.APIs;
                 return this.View();
             }
 
@@ -70,14 +79,14 @@ namespace DocuSign.CodeExamples.Controllers
                 return this.Redirect(egName);
             }
 
-            this.ViewBag.APIData = JsonConvert.SerializeObject(this.LauncherTexts.ManifestStructure);
-            this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.APIs;
             return this.View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            this.ViewBag.APIData = JsonConvert.SerializeObject(this.LauncherTexts.ManifestStructure);
+            this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.APIs;
             return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
 

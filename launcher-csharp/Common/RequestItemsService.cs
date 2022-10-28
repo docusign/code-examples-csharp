@@ -27,7 +27,7 @@ namespace DocuSign.CodeExamples.Common
 
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        private readonly IConfiguration configuration;
+        public IConfiguration Configuration { get; set; }
 
         private readonly IMemoryCache cache;
 
@@ -40,7 +40,7 @@ namespace DocuSign.CodeExamples.Common
         public RequestItemsService(IHttpContextAccessor httpContextAccessor, IMemoryCache cache, IConfiguration configuration)
         {
             this.httpContextAccessor = httpContextAccessor;
-            this.configuration = configuration;
+            Configuration = configuration;
             this.cache = cache;
             this.Status = "sent";
             ApiClient ??= new ApiClient();
@@ -109,7 +109,7 @@ namespace DocuSign.CodeExamples.Common
             {
                 if (authenticatedUserEmail == null)
                 {
-                    ApiClient.SetOAuthBasePath(this.configuration["DocuSignJWT:AuthServer"]);
+                    ApiClient.SetOAuthBasePath(this.Configuration["DocuSignJWT:AuthServer"]);
                     UserInfo userInfo = ApiClient.GetUserInfo(this.User?.AccessToken);
 
                     authenticatedUserEmail = userInfo.Email;
@@ -179,11 +179,11 @@ namespace DocuSign.CodeExamples.Common
         public void UpdateUserFromJWT()
         {
             this.authToken = Authentication.JWTAuth.AuthenticateWithJWT(
-                this.configuration["ExamplesAPI"],
-                this.configuration["DocuSignJWT:ClientId"],
-                this.configuration["DocuSignJWT:ImpersonatedUserId"],
-                this.configuration["DocuSignJWT:AuthServer"],
-                this.configuration["DocuSignJWT:PrivateKeyFile"]);
+                this.Configuration["API"],
+                this.Configuration["DocuSignJWT:ClientId"],
+                this.Configuration["DocuSignJWT:ImpersonatedUserId"],
+                this.Configuration["DocuSignJWT:AuthServer"],
+                this.Configuration["DocuSignJWT:PrivateKeyFile"]);
             account = this.GetAccountInfo(this.authToken);
 
             this.User = new User
@@ -204,8 +204,8 @@ namespace DocuSign.CodeExamples.Common
                 AccountId = account.AccountId,
                 AccountName = account.AccountName,
                 BasePath = account.BaseUri,
-                RoomsApiBasePath = this.configuration["DocuSign:RoomsApiEndpoint"],
-                AdminApiBasePath = this.configuration["DocuSign:AdminApiEndpoint"],
+                RoomsApiBasePath = this.Configuration["DocuSign:RoomsApiEndpoint"],
+                AdminApiBasePath = this.Configuration["DocuSign:AdminApiEndpoint"],
             };
         }
 
@@ -234,7 +234,7 @@ namespace DocuSign.CodeExamples.Common
 
         private Account GetAccountInfo(OAuthToken authToken)
         {
-            ApiClient.SetOAuthBasePath(this.configuration["DocuSignJWT:AuthServer"]);
+            ApiClient.SetOAuthBasePath(this.Configuration["DocuSignJWT:AuthServer"]);
             UserInfo userInfo = ApiClient.GetUserInfo(authToken.access_token);
             Account acct = userInfo.Accounts.FirstOrDefault();
             if (acct == null)
@@ -243,6 +243,37 @@ namespace DocuSign.CodeExamples.Common
             }
 
             return acct;
+        }
+
+        public string IdentifyAPIOfCodeExample(string eg)
+        {
+            if (eg == null)
+                return ExamplesAPIType.ESignature.ToString();
+
+            var currentAPIType = string.Empty;
+            if (eg.Contains("Reg"))
+            {
+                currentAPIType = ExamplesAPIType.Rooms.ToString();
+            }
+            else if (eg.Contains("ClickEg"))
+            {
+                currentAPIType = ExamplesAPIType.Click.ToString();
+
+            }
+            else if (eg.Contains("monitorExample"))
+            {
+                currentAPIType = ExamplesAPIType.Monitor.ToString();
+            }
+            else if (eg.Contains("Aeg"))
+            {
+                currentAPIType = ExamplesAPIType.Admin.ToString();
+            }
+            else
+            {
+                currentAPIType = ExamplesAPIType.ESignature.ToString();
+            }
+
+            return currentAPIType;
         }
     }
 }

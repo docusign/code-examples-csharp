@@ -86,7 +86,7 @@ namespace ESignature.Examples
             // Add the workflow rule that sets the schedule for the envelope to be sent
             Workflow workflow = new Workflow { ScheduledSending = new DocuSign.eSign.Model.ScheduledSending() };
             var rule = new EnvelopeDelayRule();
-            rule.ResumeDate = resumeDate.ToString();
+            rule.ResumeDate = resumeDate.ToString("yyyy-MM-dd");
             workflow.ScheduledSending.Rules = new List<EnvelopeDelayRule> { rule };
             env.Workflow = workflow;
 
