@@ -1,0 +1,94 @@
+﻿@model DocuSign.CodeExamples.Click.Controllers.EmbedClickwrap
+@using System.Text.RegularExpressions;
+@{
+    var redirectToFirstCodeExample = "href='eg01'";
+    int formNumber = 0;
+    int clickwrapInputNumber = 0;
+}
+
+<h4>5. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<p>
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">GetClickwrapResponses.cs</a>"
+    )
+)
+</p>
+
+@if (ViewBag.ClickwrapsData.Clickwraps.Count > 0) {
+    <p>
+        @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)
+    </p>
+
+    <form class="eg" asp-action="Embed" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="clickwrapId">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[clickwrapInputNumber].InputName)
+            </label>
+
+            <select class="custom-select" id="clickwrapId"
+                    name="clickwrapId">
+
+            @foreach (var clickwrap in ViewBag.ClickwrapsData.Clickwraps) {
+                <option value=@Html.Raw(clickwrap.ClickwrapId)>@Html.Raw(clickwrap.ClickwrapName)</option>
+            }
+            </select>
+        </div>
+
+        <p>Please provide values for the dynamic content fields to be showed on the clickwrap agreement</p>
+        <p>Note: The clickwrap must be modified to include these fileds. This can only be done in the web app using the editor</p>
+        <div class="form-group">
+            <label>Full name</label>
+            <input id="fullName"
+               name="fullName"
+               class="form-control" type="text" />
+        </div>
+        <div class="form-group">
+            <label>Email Address</label>
+            <input id="email"
+               name="email"
+               class="form-control" type="text" />
+        </div>
+        <div class="form-group">
+            <label>Company</label>
+            <input id="company"
+               name="company"
+               class="form-control" type="text" />
+        </div>
+        <div class="form-group">
+            <label>Job Title</label>
+            <input id="title"
+               name="title"
+               class="form-control" type="text" />
+        </div>
+        <div class="form-group">
+            <label>Date</label>
+            <input id="date"
+               name="date"
+               class="form-control" type="date" />
+        </div>
+
+        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
+    </form>
+}
+else
+{ 
+    <p>
+        @Html.Raw(
+            String.Format(
+                ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                    .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToFirstCodeExample, @"\d+").Value))
+                    .FirstOrDefault()
+                    .RedirectText,
+                redirectToFirstCodeExample
+            )
+        )
+    </p>
+} 

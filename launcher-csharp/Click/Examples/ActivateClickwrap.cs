@@ -40,6 +40,13 @@ namespace DocuSign.Click.Examples
             return clickwrapRequest;
         }
 
+        /// <summary>
+        /// Gets a list of inactive clickwraps
+        /// </summary>
+        /// <param name="basePath"></param>
+        /// <param name="accessToken"></param>
+        /// <param name="accountId"></param>
+        /// <returns></returns>
         public static ClickwrapVersionsResponse GetInactiveClickwraps(string basePath, string accessToken, string accountId)
         {
             var apiClient = new ApiClient(basePath);
@@ -47,6 +54,24 @@ namespace DocuSign.Click.Examples
             var clickAccountApi = new AccountsApi(apiClient);
             var options = new AccountsApi.GetClickwrapsOptions();
             options.status = "inactive";
+
+            return clickAccountApi.GetClickwraps(accountId, options);
+        }
+
+        /// <summary>
+        /// Gets a list of active clickwraps
+        /// </summary>
+        /// <param name="basePath"></param>
+        /// <param name="accessToken"></param>
+        /// <param name="accountId"></param>
+        /// <returns></returns>
+        public static ClickwrapVersionsResponse GetActiveClickwraps(string basePath, string accessToken, string accountId)
+        {
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var clickAccountApi = new AccountsApi(apiClient);
+            var options = new AccountsApi.GetClickwrapsOptions();
+            options.status = "active";
 
             return clickAccountApi.GetClickwraps(accountId, options);
         }
