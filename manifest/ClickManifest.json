@@ -90,23 +90,19 @@
           "ExampleDescription": "Creates a unique URL for an active clickwraps and embeds an existing clickwrap in your page",
           "LinksToAPIMethod": [
             {
-              "Path": "https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/updateclickwrapversion",
-              "PathName": "ClickWraps::updateClickwrapVersion"
+              "Path": "https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createhasagreed/",
+              "PathName": "ClickWraps::createHasAgreed"
             }
           ],
           "RedirectsToOtherCodeExamples": [
             {
               "CodeExampleToRedirectTo": 1,
               "RedirectText": "<p>Problem: You did not create a clickwrap. Go to example#1 and create one: <a {0}>create clickwrap.</a> <br/></p>"
-            },
-            {
-              "CodeExampleToRedirectTo": 2,
-              "RedirectText": "<p>Problem: You do not activate a clickwrap. Go to example#1 and create one: <a {0}>create clickwrap.</a> <br/></p>"
             }
           ],
           "Forms": [
             {
-              "FormName": "<p>Please choose a clickwrap to activate</p>",
+              "FormName": "<p>Please choose a clickwrap to embed</p>",
               "Inputs": [
                 {
                   "InputName": "Clickwrap"
