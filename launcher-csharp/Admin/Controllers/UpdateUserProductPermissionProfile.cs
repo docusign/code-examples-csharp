@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg08UpdateUserProductPermissionProfile.cs" company="DocuSign">
+﻿// <copyright file="UpdateUserProductPermissionProfile.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -87,8 +87,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                     accountId,
                     email,
                     Guid.Parse(productId),
-                    permissionProfileId
-                );
+                    permissionProfileId);
 
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = this.CodeExampleText.ResultsPageText;

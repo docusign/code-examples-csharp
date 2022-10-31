@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg01CreateClickwrapController.cs" company="DocuSign">
+﻿// <copyright file="CreateClickwrap.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
