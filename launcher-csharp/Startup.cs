@@ -28,15 +28,15 @@ namespace DocuSign.CodeExamples
 
     public class Startup
     {
-        private readonly Dictionary<ExamplesAPIType, List<string>> apiTypes = new Dictionary<ExamplesAPIType, List<string>>();
+        private readonly Dictionary<ExamplesAPIType, List<string>> _apiTypes = new Dictionary<ExamplesAPIType, List<string>>();
 
         public Startup(IConfiguration configuration)
         {
             this.Configuration = configuration;
 
-            this.apiTypes.Add(ExamplesAPIType.ESignature, new List<string> { "signature" });
+            this._apiTypes.Add(ExamplesAPIType.ESignature, new List<string> { "signature" });
 
-            this.apiTypes.Add(ExamplesAPIType.Rooms, new List<string>
+            this._apiTypes.Add(ExamplesAPIType.Rooms, new List<string>
             {
                     "dtr.rooms.read",
                     "dtr.rooms.write",
@@ -49,19 +49,19 @@ namespace DocuSign.CodeExamples
                     "room_forms",
             });
 
-            this.apiTypes.Add(ExamplesAPIType.Click, new List<string>
+            this._apiTypes.Add(ExamplesAPIType.Click, new List<string>
             {
                     "click.manage",
                     "click.send",
             });
 
-            this.apiTypes.Add(ExamplesAPIType.Monitor, new List<string>
+            this._apiTypes.Add(ExamplesAPIType.Monitor, new List<string>
             {
                     "signature",
                     "impersonation",
             });
 
-            this.apiTypes.Add(ExamplesAPIType.Admin, new List<string>
+            this._apiTypes.Add(ExamplesAPIType.Admin, new List<string>
             {
                     "signature",
                     "user_read",
@@ -143,11 +143,11 @@ namespace DocuSign.CodeExamples
                 options.TokenEndpoint = this.Configuration["DocuSign:TokenEndpoint"];
                 options.UserInformationEndpoint = this.Configuration["DocuSign:UserInformationEndpoint"];
 
-                foreach (var apiType in this.apiTypes)
+                foreach (var apiType in this._apiTypes)
                 {
                     foreach (var scope in apiType.Value)
                     {
-                        if (!options.Scope.Contains(scope))
+                        if (!options.Scope.Contains(scope.ToLower()))
                         {
                             options.Scope.Add(scope);
                         }
@@ -168,9 +168,9 @@ namespace DocuSign.CodeExamples
                 {
                     OnRedirectToAuthorizationEndpoint = redirectContext =>
                     {
-                        List<string> scopesForCurrentAPI = this.apiTypes.GetValueOrDefault(Enum.Parse<ExamplesAPIType>(this.Configuration["API"]));
+                        List<string> scopesForCurrentAPI = this._apiTypes.GetValueOrDefault(Enum.Parse<ExamplesAPIType>(this.Configuration["API"]));
 
-                        foreach (var api in this.apiTypes)
+                        foreach (var api in this._apiTypes)
                         {
                             if (this.Configuration["API"] != api.Key.ToString())
                             {

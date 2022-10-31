@@ -1,4 +1,5 @@
 ﻿@using DocuSign.CodeExamples.ESignature.Models;
+@using DocuSign.CodeExamples.Common;
 @{
     var locals = ViewData["locals"] as Locals;//ViewBag.Locals;
     bool showDoc;
@@ -36,11 +37,11 @@
             @foreach(var api in ViewBag.APITexts)
             {
 
-                var linkToCodeExample = ((APIs) api).Name == "eSignature" ? "eg"
-                    : ((APIs) api).Name == "Click" ? "ClickEg"
-                    : ((APIs) api).Name == "Monitor" ? "monitorExample"
-                    : ((APIs) api).Name == "Rooms" ? "Reg"
-                    : "Aeg";
+                var linkToCodeExample = ((APIs) api).Name == ExamplesAPIType.ESignature.ToString() ? ExamplesAPIType.ESignature.ToKeywordString()
+                    : ((APIs) api).Name == ExamplesAPIType.Click.ToString() ? ExamplesAPIType.Click.ToKeywordString()
+                    : ((APIs) api).Name == ExamplesAPIType.Monitor.ToString() ? ExamplesAPIType.Monitor.ToKeywordString()
+                    : ((APIs) api).Name == ExamplesAPIType.Rooms.ToString() ? ExamplesAPIType.Rooms.ToKeywordString()
+                    : ExamplesAPIType.Admin.ToKeywordString();
 
                 @foreach(var exampleGroup in api.Groups)
                 {

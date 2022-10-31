@@ -27,8 +27,6 @@ namespace DocuSign.CodeExamples.Common
 
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        public IConfiguration Configuration { get; set; }
-
         private readonly IMemoryCache cache;
 
         #nullable enable
@@ -36,6 +34,8 @@ namespace DocuSign.CodeExamples.Common
         #nullable disable
 
         private OAuthToken authToken;
+
+        public IConfiguration Configuration { get; set; }
 
         public RequestItemsService(IHttpContextAccessor httpContextAccessor, IMemoryCache cache, IConfiguration configuration)
         {
@@ -247,24 +247,26 @@ namespace DocuSign.CodeExamples.Common
 
         public string IdentifyAPIOfCodeExample(string eg)
         {
-            if (eg == null)
+            if (string.IsNullOrEmpty(eg))
+            {
                 return ExamplesAPIType.ESignature.ToString();
+            }
 
             var currentAPIType = string.Empty;
-            if (eg.Contains("Reg"))
+            if (eg.Contains(ExamplesAPIType.Rooms.ToKeywordString()))
             {
                 currentAPIType = ExamplesAPIType.Rooms.ToString();
             }
-            else if (eg.Contains("ClickEg"))
+            else if (eg.Contains(ExamplesAPIType.Click.ToKeywordString()))
             {
                 currentAPIType = ExamplesAPIType.Click.ToString();
 
             }
-            else if (eg.Contains("monitorExample"))
+            else if (eg.Contains(ExamplesAPIType.Monitor.ToKeywordString()))
             {
                 currentAPIType = ExamplesAPIType.Monitor.ToString();
             }
-            else if (eg.Contains("Aeg"))
+            else if (eg.Contains(ExamplesAPIType.Admin.ToKeywordString()))
             {
                 currentAPIType = ExamplesAPIType.Admin.ToString();
             }

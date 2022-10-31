@@ -27,10 +27,11 @@ namespace DocuSign.Admin.Examples
             // Step 2 end
             // Step 3 start
             UsersApi usersApi = new UsersApi(apiClient);
+            int tenDaysAgo = -10;
             var getUsersOptions = new UsersApi.GetUsersOptions
             {
                 accountId = accountId,
-                lastModifiedSince = DateTime.Today.AddDays(-10).ToString("yyyy-MM-dd"),
+                lastModifiedSince = DateTime.Today.AddDays(tenDaysAgo).ToString("yyyy-MM-dd"),
             };
 
             var recentlyModifiedUsers = usersApi.GetUsers(orgId, getUsersOptions);
