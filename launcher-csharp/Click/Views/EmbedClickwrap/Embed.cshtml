@@ -1,14 +1,14 @@
 ﻿<h2>@ViewBag.h1</h2>
 <p>@Html.Raw(ViewBag.message)</p>
 <p>
-    Agreement URL received back from API call: 
+    @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmbedClickwrapURL)
     <code>
         @ViewBag.AgreementUrl
     </code>
 </p>
 
 <p id="agreementStatus">
-    NOT AGREED
+    @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.NOTAGREED)
 </p>
 
 <p><a href="/">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a></p>
@@ -20,7 +20,7 @@
         agreementUrl: "@ViewBag.AgreementUrl",
         onAgreed: function () {
             // Triggered if the user has just agreed
-            document.getElementById("agreementStatus").innerHTML = "AGREED!";
+            document.getElementById("agreementStatus").innerHTML = "@ViewBag.SupportingTexts.HelpingTexts.AGREED";
         }
     }, "#ds-terms-of-service");
 </script>

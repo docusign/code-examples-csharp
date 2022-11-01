@@ -4,6 +4,11 @@
     var redirectToFirstCodeExample = "href='eg01'";
     int formNumber = 0;
     int clickwrapInputNumber = 0;
+    int fullNameInputNumber = 1;
+    int emailAddressInputNumber = 2;
+    int companyInputNumber = 3;
+    int jobTitleInputNumber = 4;
+    int dateInputNumber = 5;
 }
 
 <h4>5. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
@@ -41,35 +46,35 @@
             </select>
         </div>
 
-        <p>Please provide values for the dynamic content fields to be showed on the clickwrap agreement</p>
-        <p>Note: The clickwrap must be modified to include these fileds. This can only be done in the web app using the editor</p>
+            <p>@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.DynamicContentValue)</p>
+            <p>@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.DynamicContentNote)</p>
         <div class="form-group">
-            <label>Full name</label>
-            <input required id="fullName"
+                <label>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[fullNameInputNumber].InputName)</label>
+                <input required id="fullName"
                name="fullName"
                class="form-control" type="text" />
         </div>
         <div class="form-group">
-            <label>Email Address</label>
+            <label>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[emailAddressInputNumber].InputName)</label>
             <input required id="email"
                name="email"
                class="form-control" type="email" />
         </div>
         <div class="form-group">
-            <label>Company</label>
-            <input required id="company"
+                <label>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[companyInputNumber].InputName)</label>
+                <input required id="company"
                name="company"
                class="form-control" type="text" />
         </div>
         <div class="form-group">
-            <label>Job Title</label>
-            <input required id="title"
+                <label>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[jobTitleInputNumber].InputName)</label>
+                <input required id="title"
                name="title"
                class="form-control" type="text" />
         </div>
         <div class="form-group">
-            <label>Date</label>
-            <input required id="date"
+                <label>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[dateInputNumber].InputName)</label>
+                <input required id="date"
                name="date"
                class="form-control" type="date" />
         </div>

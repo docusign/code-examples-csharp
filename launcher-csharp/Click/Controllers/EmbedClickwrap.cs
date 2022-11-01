@@ -29,7 +29,7 @@
             var accessToken = RequestItemsService.User.AccessToken;
             var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
             var accountId = RequestItemsService.Session.AccountId;
-            ViewBag.ClickwrapsData = DocuSign.Click.Examples.ActivateClickwrap.GetActiveClickwraps(basePath, accessToken, accountId);
+            ViewBag.ClickwrapsData = DocuSign.Click.Examples.EmbedClickwrap.GetActiveClickwraps(basePath, accessToken, accountId);
             ViewBag.AccountId = RequestItemsService.Session.AccountId;
         }
 

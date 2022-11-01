@@ -8,6 +8,19 @@ namespace DocuSign.Click.Examples
 
     public class EmbedClickwrap
     {
+        /// <summary>
+        /// Create a unique agreement URL for this clickwrap
+        /// </summary>
+        /// <param name="clickwrapId"></param>
+        /// <param name="fullName"></param>
+        /// <param name="email"></param>
+        /// <param name="company"></param>
+        /// <param name="title"></param>
+        /// <param name="date"></param>
+        /// <param name="basePath"></param>
+        /// <param name="accessToken"></param>
+        /// <param name="accountId"></param>
+        /// <returns></returns>
         public static UserAgreementResponse CreateHasAgreed(string clickwrapId, string fullName, string email, string company, string title, string date, string basePath, string accessToken, string accountId)
         {
             var apiClient = new ApiClient(basePath);
@@ -33,5 +46,22 @@ namespace DocuSign.Click.Examples
             return userAgreementRequest;
         }
 
+        /// <summary>
+        /// Gets a list of active clickwraps
+        /// </summary>
+        /// <param name="basePath"></param>
+        /// <param name="accessToken"></param>
+        /// <param name="accountId"></param>
+        /// <returns></returns>
+        public static ClickwrapVersionsResponse GetActiveClickwraps(string basePath, string accessToken, string accountId)
+        {
+            var apiClient = new ApiClient(basePath);
+            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var clickAccountApi = new AccountsApi(apiClient);
+            var options = new AccountsApi.GetClickwrapsOptions();
+            options.status = "active";
+
+            return clickAccountApi.GetClickwraps(accountId, options);
+        }
     }
 }

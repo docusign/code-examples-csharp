@@ -21,13 +21,18 @@
         "SelectAPIButton": "Choose your desired API"
     },
     "HelpingTexts": {
-        "EmailWontBeShared": "We'll never share your email with anyone else.",
-        "PhoneNumberWontBeShared": "We'll never share your phone number with anyone else.",
-        "CCEmailShouldDifferFromSigner": "The email for the cc recipient must be different from the signer's email.",
-        "AccessCodeText": "Provide this string to a recipient that is different such as in person or by mail or via different email.",
-        "CountryCodeText": "The country code for the phone below",
-        "ChooseDateInTheFuture": "Please choose a date in the future",
-        "PhoneNumberWillBeNotified": "This phone number will receive a notification."
+      "EmailWontBeShared": "We'll never share your email with anyone else.",
+      "PhoneNumberWontBeShared": "We'll never share your phone number with anyone else.",
+      "CCEmailShouldDifferFromSigner": "The email for the cc recipient must be different from the signer's email.",
+      "AccessCodeText": "Provide this string to a recipient that is different such as in person or by mail or via different email.",
+      "CountryCodeText": "The country code for the phone below",
+      "ChooseDateInTheFuture": "Please choose a date in the future",
+      "PhoneNumberWillBeNotified": "This phone number will receive a notification.",
+      "DynamicContentValue": "Please provide values for the dynamic content fields to be showed on the clickwrap agreement",
+      "DynamicContentNote": "Note: The clickwrap must be modified to include these fileds. This can only be done in the web app using the editor",
+      "EmbedClickwrapURL": "Agreement URL received back from API call:",
+      "NOTAGREED": "NOT AGREED",
+      "AGREED": "AGREED"
     }
   },
   "Groups": [
@@ -110,6 +115,21 @@
               "Inputs": [
                 {
                   "InputName": "Clickwrap"
+                },
+                {
+                  "InputName": "Full Name"
+                },
+                {
+                  "InputName": "Email Address"
+                },
+                {
+                  "InputName": "Company"
+                },
+                {
+                  "InputName": "Job Title"
+                },
+                {
+                  "InputName": "Date"
                 }
               ]
             }
