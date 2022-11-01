@@ -37,10 +37,10 @@
             @foreach(var api in ViewBag.APITexts)
             {
 
-                var linkToCodeExample = ((APIs) api).Name == ExamplesAPIType.ESignature.ToString() ? ExamplesAPIType.ESignature.ToKeywordString()
-                    : ((APIs) api).Name == ExamplesAPIType.Click.ToString() ? ExamplesAPIType.Click.ToKeywordString()
-                    : ((APIs) api).Name == ExamplesAPIType.Monitor.ToString() ? ExamplesAPIType.Monitor.ToKeywordString()
-                    : ((APIs) api).Name == ExamplesAPIType.Rooms.ToString() ? ExamplesAPIType.Rooms.ToKeywordString()
+                var linkToCodeExample = ((APIs) api).Name.ToLower() == ExamplesAPIType.ESignature.ToString().ToLower() ? ExamplesAPIType.ESignature.ToKeywordString()
+                    : ((APIs) api).Name.ToLower() == ExamplesAPIType.Click.ToString().ToLower()  ? ExamplesAPIType.Click.ToKeywordString()
+                    : ((APIs) api).Name.ToLower() == ExamplesAPIType.Monitor.ToString().ToLower()  ? ExamplesAPIType.Monitor.ToKeywordString()
+                    : ((APIs) api).Name.ToLower() == ExamplesAPIType.Rooms.ToString().ToLower() ? ExamplesAPIType.Rooms.ToKeywordString()
                     : ExamplesAPIType.Admin.ToKeywordString();
 
                 @foreach(var exampleGroup in api.Groups)
