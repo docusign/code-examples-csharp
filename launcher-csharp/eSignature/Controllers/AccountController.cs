@@ -59,14 +59,21 @@ namespace DocuSign.CodeExamples.Controllers
                 }
             }
 
-            return this.View(returnUrl);
+            returnUrl += "?egName=" + this.requestItemsService.EgName;
+            return this.Redirect(returnUrl);
         }
 
         public IActionResult MustAuthenticate()
         {
-            if (this.Configuration["API"] == null)
+            var apiTypeBasedOnExample = this.requestItemsService.IdentifyAPIOfCodeExample(this.requestItemsService.EgName);
+
+            if (this.Configuration["API"] == null && (ExamplesAPIType.ESignature.ToString() == apiTypeBasedOnExample || this.requestItemsService.EgName == null))
             {
                 this.Configuration["APIPlanned"] = ExamplesAPIType.ESignature.ToString();
+            }
+            else
+            {
+                this.Configuration["APIPlanned"] = apiTypeBasedOnExample;
             }
 
             if (this.Configuration["APIPlanned"] == "Monitor")
