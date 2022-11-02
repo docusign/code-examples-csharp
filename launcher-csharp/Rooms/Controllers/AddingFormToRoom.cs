@@ -65,6 +65,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 ApiError error = JsonConvert.DeserializeObject<ApiError>(apiException.ErrorContent);
                 if (error.ErrorCode.Equals(this.CodeExampleText.CustomErrorTexts[0].ErrorMessageCheck, StringComparison.InvariantCultureIgnoreCase))
@@ -107,6 +108,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return this.View("Error");
             }

@@ -65,6 +65,7 @@ namespace DocuSign.CodeExamples.Views
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return this.View("Error");
             }

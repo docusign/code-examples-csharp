@@ -87,6 +87,7 @@ namespace DocuSign.CodeExamples.Controllers
         {
             this.ViewBag.APIData = JsonConvert.SerializeObject(this.LauncherTexts.ManifestStructure);
             this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.APIs;
+            this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
             return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
 

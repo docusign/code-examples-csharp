@@ -68,6 +68,7 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
             catch (ApiException apiException)
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 if (apiException.Message.Contains(this.CodeExampleText.CustomErrorTexts[0].ErrorMessageCheck))
                 {

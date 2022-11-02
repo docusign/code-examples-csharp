@@ -59,7 +59,7 @@ namespace DocuSign.CodeExamples.Controllers
                 }
             }
 
-            return this.LocalRedirect(returnUrl);
+            return this.View(returnUrl);
         }
 
         public IActionResult MustAuthenticate()

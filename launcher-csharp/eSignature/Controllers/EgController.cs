@@ -74,8 +74,9 @@ namespace DocuSign.CodeExamples.Controllers
             }
 
             this.RequestItemsService.EgName = this.EgName;
+            this.Response.Redirect("/ds/mustAuthenticate");
 
-            return this.Redirect("/ds/mustAuthenticate");
+            return this.LocalRedirect("/ds/mustAuthenticate");
         }
 
         protected virtual void InitializeInternal()
