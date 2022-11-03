@@ -1,0 +1,80 @@
+﻿@{
+    int formNumber = 0;
+    int signerEmailInputNumber = 0;
+    int signerNameInputNumber = 1;
+    int ccEmailInputNumber = 2;
+    int ccNameInputNumber = 3;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+ @if (ViewBag.showDoc == true)
+ {
+     <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
+ }
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+
+<p>
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">SigningViaEmail.cs</a>"))
+</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="signerEmail">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputName)
+        </label>
+        <input type="email" 
+               class="form-control"
+               id="signerEmail" 
+               name="signerEmail"
+               aria-describedby="emailHelp" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputPlaceholder" 
+               required
+               value="@ViewBag.Locals.DsConfig.SignerEmail" />
+        <small id="emailHelp" class="form-text text-muted">@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)</small>
+    </div>
+    <div class="form-group">
+        <label for="signerName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputName)
+        </label>
+        <input type="text" 
+               class="form-control" 
+               id="signerName" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputPlaceholder" 
+               name="signerName"
+               value="@ViewBag.Locals.DsConfig.SignerName" 
+               required />
+    </div>
+    <div class="form-group">
+        <label for="ccEmail">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[ccEmailInputNumber].InputName)
+        </label>
+        <input type="email"
+               class="form-control"
+               id="ccEmail" 
+               name="ccEmail"
+               aria-describedby="emailHelp"
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[ccEmailInputNumber].InputPlaceholder" 
+               required />
+        <small id="emailHelp" class="form-text text-muted">
+            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.CCEmailShouldDifferFromSigner)
+        </small>
+    </div>
+    <div class="form-group">
+        <label for="ccName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[ccNameInputNumber].InputName)
+        </label>
+        <input type="text" 
+               class="form-control"
+               id="ccName" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[ccNameInputNumber].InputPlaceholder"
+               name="ccName"
+               required />
+    </div>
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
+</form>
