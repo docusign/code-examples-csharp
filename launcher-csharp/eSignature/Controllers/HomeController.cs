@@ -69,10 +69,17 @@ namespace DocuSign.CodeExamples.Controllers
             this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.Groups;
             if (this.RequestItemsService.Session != null)
             {
-                var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
-                var accessToken = this.RequestItemsService.User.AccessToken;
-                var accountId = this.RequestItemsService.Session.AccountId;
-                this.ViewBag.CFRPart11 = global::ESignature.Examples.CFRPart11EmbeddedSending.IsCFRPart11Account(accessToken, basePath, accountId);
+                try
+                {
+                    var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
+                    var accessToken = this.RequestItemsService.User.AccessToken;
+                    var accountId = this.RequestItemsService.Session.AccountId;
+                    this.ViewBag.CFRPart11 = global::ESignature.Examples.CFRPart11EmbeddedSending.IsCFRPart11Account(accessToken, basePath, accountId);
+                }
+                catch
+                {
+                    // ignore this for now, as we're just checking the CFR-11 status
+                }
             }
             return this.View();
         }
