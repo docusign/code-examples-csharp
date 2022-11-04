@@ -2,6 +2,7 @@
 @using System.Text.RegularExpressions;
 @{
     var redirectToFirstCodeExample = "href='clickeg01'";
+    var redirectToSecondCodeExample = "href='clickeg02'";
     int formNumber = 0;
     int clickwrapInputNumber = 0;
     int fullNameInputNumber = 1;
@@ -84,16 +85,34 @@
     </form>
 }
 else
-{ 
-    <p>
-        @Html.Raw(
-            String.Format(
-                ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
-                    .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToFirstCodeExample, @"\d+").Value))
-                    .FirstOrDefault()
-                    .RedirectText,
-                redirectToFirstCodeExample
+{
+    if (ViewBag.InactiveClickwrapsData.Clickwraps.Count > 0)
+    {
+        <p>
+            @Html.Raw(
+                String.Format(
+                    ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                        .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToSecondCodeExample, @"\d+").Value))
+                        .FirstOrDefault()
+                        .RedirectText,
+                    redirectToSecondCodeExample
+                )
             )
-        )
-    </p>
+        </p>
+    }
+    else
+    {
+        <p>
+            @Html.Raw(
+                String.Format(
+                    ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                        .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToFirstCodeExample, @"\d+").Value))
+                        .FirstOrDefault()
+                        .RedirectText,
+                    redirectToFirstCodeExample
+                )
+            )
+        </p>
+
+    }
 } 

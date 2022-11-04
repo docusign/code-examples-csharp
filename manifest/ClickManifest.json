@@ -90,6 +90,53 @@
           "ResultsPageText": "The clickwrap has been activated!"
         },
         {
+          "ExampleNumber": 6,
+          "ExampleName": "Embed a clickwrap",
+          "ExampleDescription": "Creates a unique URL for an active clickwraps and embeds an existing clickwrap in your page",
+          "LinksToAPIMethod": [
+            {
+              "Path": "https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createhasagreed/",
+              "PathName": "ClickWraps::createHasAgreed"
+            }
+          ],
+          "RedirectsToOtherCodeExamples": [
+            {
+              "CodeExampleToRedirectTo": 1,
+              "RedirectText": "<p>Problem: You did not create a clickwrap. Go to example#1 and create one: <a {0}>Create clickwrap.</a> <br/></p>"
+            },
+            {
+              "CodeExampleToRedirectTo": 2,
+              "RedirectText": "<p>Problem: You do not activate a clickwrap. Go to example#2 and create one: <a {0}>Activate clickwrap.</a> <br/></p>"
+            }
+          ],
+          "Forms": [
+            {
+              "FormName": "<p>Please choose a clickwrap to embed</p>",
+              "Inputs": [
+                {
+                  "InputName": "Clickwrap"
+                },
+                {
+                  "InputName": "Full Name"
+                },
+                {
+                  "InputName": "Email Address"
+                },
+                {
+                  "InputName": "Company"
+                },
+                {
+                  "InputName": "Job Title"
+                },
+                {
+                  "InputName": "Date"
+                }
+              ]
+            }
+          ],
+          "ResultsPageText": "See embedded clickwrap on this page:"
+        },
+        {
           "ExampleNumber": 3,
           "ExampleName": "Create a new clickwrap version",
           "ExampleDescription": "Creates a new version of a clickwrap.",
@@ -158,53 +205,6 @@
             }
           ],
           "ResultsPageText": "Results from the ClickWraps::getClickwrapAgreements method:"
-        },
-        {
-          "ExampleNumber": 6,
-          "ExampleName": "Embed a clickwrap",
-          "ExampleDescription": "Creates a unique URL for an active clickwraps and embeds an existing clickwrap in your page",
-          "LinksToAPIMethod": [
-            {
-              "Path": "https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createhasagreed/",
-              "PathName": "ClickWraps::createHasAgreed"
-            }
-          ],
-          "RedirectsToOtherCodeExamples": [
-            {
-              "CodeExampleToRedirectTo": 1,
-              "RedirectText": "<p>Problem: You did not create a clickwrap. Go to example#1 and create one: <a {0}>create clickwrap.</a> <br/></p>"
-            },
-            {
-              "CodeExampleToRedirectTo": 2,
-              "RedirectText": "<p>Problem: You do not activate a clickwrap. Go to example#1 and create one: <a {0}>create clickwrap.</a> <br/></p>"
-            }
-          ],
-          "Forms": [
-            {
-              "FormName": "<p>Please choose a clickwrap to embed</p>",
-              "Inputs": [
-                {
-                  "InputName": "Clickwrap"
-                },
-                {
-                  "InputName": "Full Name"
-                },
-                {
-                  "InputName": "Email Address"
-                },
-                {
-                  "InputName": "Company"
-                },
-                {
-                  "InputName": "Job Title"
-                },
-                {
-                  "InputName": "Date"
-                }
-              ]
-            }
-          ],
-          "ResultsPageText": "See embedded clickwrap on this page:"
         }
       ]
     }
