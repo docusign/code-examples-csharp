@@ -30,7 +30,8 @@
             @foreach(var example in exampleGroup.Examples)
             {
 
-            @if ((example?.SkipForLanguages == null || !example?.SkipForLanguages.ToLower().Contains("c#")) && ((example.CFREnabled == "True") == (ViewBag.CFRPart11 == true)))
+            @if ((example?.SkipForLanguages == null || !example?.SkipForLanguages.ToLower().Contains("c#")) &&
+                ((example.CFREnabled == "AllAccounts") || ((ViewBag.CFRPart11 == true) && (example.CFREnabled == "CFROnly")) || ((ViewBag.CFRPart11 != true) && (example.CFREnabled == "NonCFR"))))
                 {
                     <h4 id="@String.Format("example{0}", String.Format("{0:D3}", @example.ExampleNumber))">
                         <a href="@String.Format("eg{0}", String.Format("{0:D3}", @example.ExampleNumber))">
