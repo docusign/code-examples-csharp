@@ -56,12 +56,22 @@
                 // Call the Click API to activate a clickwrap
                 var clickWrap = DocuSign.Click.Examples.EmbedClickwrap.CreateHasAgreed(clickwrapId, fullName, email, company, title, date, basePath, accessToken, accountId);
 
-                // Show results
-                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
-                this.ViewBag.message = this.CodeExampleText.ResultsPageText;
-                this.ViewBag.agreementURL = clickWrap.AgreementUrl;
+                if (clickWrap.AgreementUrl == "Already Agreed")
+                {
+                    this.ViewBag.errorCode = 200;
+                    this.ViewBag.errorMessage = "The email address you provided was already use to agree to this elastic template, please provide a different email address if you want to view the agreement and agree to it";
 
-                return this.View("embed");
+                    return this.View("Error");
+                }
+                else
+                {
+                    // Show results
+                    this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                    this.ViewBag.message = this.CodeExampleText.ResultsPageText;
+                    this.ViewBag.agreementURL = clickWrap.AgreementUrl;
+
+                    return this.View("embed");
+                }
             }
             catch (ApiException apiException)
             {
