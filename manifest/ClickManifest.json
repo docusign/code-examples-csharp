@@ -24,13 +24,13 @@
       "EmailWontBeShared": "We'll never share your email with anyone else.",
       "PhoneNumberWontBeShared": "We'll never share your phone number with anyone else.",
       "CCEmailShouldDifferFromSigner": "The email for the cc recipient must be different from the signer's email.",
-      "AccessCodeText": "Provide this string to a recipient that is different such as in person or by mail or via different email.",
-      "CountryCodeText": "The country code for the phone below",
-      "ChooseDateInTheFuture": "Please choose a date in the future",
+      "AccessCodeText": "Provide this string to a recipient that is different such as in person or by mail or via a different email.",
+      "CountryCodeText": "The country code for the phone number below.",
+      "ChooseDateInTheFuture": "Please choose a future date.",
       "PhoneNumberWillBeNotified": "This phone number will receive a notification.",
-      "DynamicContentValue": "Please provide values for the dynamic content fields to be showed on the clickwrap agreement",
-      "DynamicContentNote": "Note: The clickwrap must be modified to include these fileds. This can only be done in the web app using the editor",
-      "EmbedClickwrapURL": "Agreement URL received back from API call:",
+      "DynamicContentValue": "Provide values for the dynamic content fields shown on the clickwrap agreement.",
+      "DynamicContentNote": "Note: The clickwrap must be manually modified through the Clickwraps UI to include these dynamic content fields.",
+      "EmbedClickwrapURL": "Agreement URL returned in the JSON response:",
       "NOTAGREED": "NOT AGREED",
       "AGREED": "AGREED"
     }
@@ -74,12 +74,12 @@
           "RedirectsToOtherCodeExamples": [
             {
               "CodeExampleToRedirectTo": 1,
-              "RedirectText": "<p>Problem: You do not have clickwraps to activate. Go to example#1 and create one: <a {0}>create clickwrap.</a> <br/></p>"
+              "RedirectText": "<p>Problem: You do not have an active clickwrap. <a {0}>Create a clickwrap.</a> <br/></p>"
             }
           ],
           "Forms": [
             {
-              "FormName": "<p>Please choose a clickwrap to activate</p>",
+              "FormName": "<p>Choose a clickwrap to activate</p>",
               "Inputs": [
                 {
                   "InputName": "Clickwrap"
@@ -90,9 +90,9 @@
           "ResultsPageText": "The clickwrap has been activated!"
         },
         {
-          "ExampleNumber": 6,
+          "ExampleNumber": 3,
           "ExampleName": "Embed a clickwrap",
-          "ExampleDescription": "Creates a unique URL for an active clickwrap and embeds an existing clickwrap in your page",
+          "ExampleDescription": "Creates a unique URL for an active clickwrap and embeds the clickwrap on your page.",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createhasagreed/",
@@ -102,11 +102,11 @@
           "RedirectsToOtherCodeExamples": [
             {
               "CodeExampleToRedirectTo": 1,
-              "RedirectText": "<p>Problem: You did not create a clickwrap. Go to example#1 and create one: <a {0}>Create clickwrap.</a> <br/></p>"
+              "RedirectText": "<p>Problem: You do not have an active clickwrap. <a {0}>Create a clickwrap.</a> <br/></p>"
             },
             {
               "CodeExampleToRedirectTo": 2,
-              "RedirectText": "<p>Problem: You do not activate a clickwrap. Go to example#2 and create one: <a {0}>Activate clickwrap.</a> <br/></p>"
+              "RedirectText": "<p>Problem: Your clickwrap is inactive. <a {0}>Activate a clickwrap.</a> <br/></p>"
             }
           ],
           "Forms": [
@@ -120,7 +120,7 @@
                   "InputName": "Full Name"
                 },
                 {
-                  "InputName": "Email Address"
+                  "InputName": "Email"
                 },
                 {
                   "InputName": "Company"
@@ -134,10 +134,10 @@
               ]
             }
           ],
-          "ResultsPageText": "See embedded clickwrap on this page:"
+          "ResultsPageText": "See the embedded clickwrap in the dialog box."
         },
         {
-          "ExampleNumber": 3,
+          "ExampleNumber": 4,
           "ExampleName": "Create a new clickwrap version",
           "ExampleDescription": "Creates a new version of a clickwrap.",
           "LinksToAPIMethod": [
@@ -149,7 +149,7 @@
           "RedirectsToOtherCodeExamples": [
             {
               "CodeExampleToRedirectTo": 1,
-              "RedirectText": "<p>Problem: You do not have clickwraps. Go to example#1 and create one: <a {0}>create clickwrap.</a> <br/></p>"
+              "RedirectText": "<p>Problem: You do not have an active clickwrap. <a {0}>Create a clickwrap.</a> <br/></p>"
             }
           ],
           "Forms": [
@@ -167,7 +167,7 @@
           "ResultsPageText": "Version {0} of clickwrap \"{1}\" has been created."
         },
         {
-          "ExampleNumber": 4,
+          "ExampleNumber": 5,
           "ExampleName": "Get a list of clickwraps",
           "ExampleDescription": "Gets a list of clickwraps associated with a specific DocuSign user.",
           "LinksToAPIMethod": [
@@ -179,7 +179,7 @@
           "ResultsPageText": "Results from the ClickWraps::getClickwraps method:"
         },
         {
-          "ExampleNumber": 5,
+          "ExampleNumber": 6,
           "ExampleName": "Get clickwrap responses",
           "ExampleDescription": "Gets user responses to your clickwrap agreements.",
           "LinksToAPIMethod": [
@@ -191,7 +191,7 @@
           "RedirectsToOtherCodeExamples": [
             {
               "CodeExampleToRedirectTo": 1,
-              "RedirectText": "<p>Problem: You do not have clickwraps. Go to example#1 and create one: <a {0}>create clickwrap.</a> <br/></p>"
+              "RedirectText": "<p>Problem: You do not have an active clickwrap. <a {0}>Create a clickwrap.</a> <br/></p>"
             }
           ],
           "Forms": [
