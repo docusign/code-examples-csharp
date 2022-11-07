@@ -90,7 +90,7 @@
           "ResultsPageText": "The clickwrap has been activated!"
         },
         {
-          "ExampleNumber": 3,
+          "ExampleNumber": 6,
           "ExampleName": "Embed a clickwrap",
           "ExampleDescription": "Creates a unique URL for an active clickwrap and embeds the clickwrap on your page.",
           "LinksToAPIMethod": [
@@ -137,7 +137,7 @@
           "ResultsPageText": "See the embedded clickwrap in the dialog box."
         },
         {
-          "ExampleNumber": 4,
+          "ExampleNumber": 3,
           "ExampleName": "Create a new clickwrap version",
           "ExampleDescription": "Creates a new version of a clickwrap.",
           "LinksToAPIMethod": [
@@ -167,7 +167,7 @@
           "ResultsPageText": "Version {0} of clickwrap \"{1}\" has been created."
         },
         {
-          "ExampleNumber": 5,
+          "ExampleNumber": 4,
           "ExampleName": "Get a list of clickwraps",
           "ExampleDescription": "Gets a list of clickwraps associated with a specific DocuSign user.",
           "LinksToAPIMethod": [
@@ -179,7 +179,7 @@
           "ResultsPageText": "Results from the ClickWraps::getClickwraps method:"
         },
         {
-          "ExampleNumber": 6,
+          "ExampleNumber": 5,
           "ExampleName": "Get clickwrap responses",
           "ExampleDescription": "Gets user responses to your clickwrap agreements.",
           "LinksToAPIMethod": [
