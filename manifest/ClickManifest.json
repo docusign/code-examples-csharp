@@ -111,7 +111,7 @@
           ],
           "Forms": [
             {
-              "FormName": "<p>Please choose a clickwrap to embed</p>",
+              "FormName": "<p>Choose a clickwrap to embed:</p>",
               "Inputs": [
                 {
                   "InputName": "Clickwrap"
