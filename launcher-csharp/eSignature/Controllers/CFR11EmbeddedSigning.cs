@@ -8,6 +8,7 @@ namespace DocuSign.CodeExamples.Controllers
     using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Models;
     using Microsoft.AspNetCore.Mvc;
+    using static Org.BouncyCastle.Math.EC.ECCurve;
 
     [Area("eSignature")]
     [Route("eg041")]
@@ -24,7 +25,7 @@ namespace DocuSign.CodeExamples.Controllers
 
         [HttpPost]
         [SetViewBag]
-        public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName, string startingView)
+        public IActionResult Create(string signerEmail, string signerName, string signerCountryCode, string signerPhoneNumber)
         {
             // Data for this method
             // signerEmail
@@ -50,21 +51,20 @@ namespace DocuSign.CodeExamples.Controllers
             }
 
             // Call the Examples API method to create the envelope and send it using embedded sending
-            var redirectUrl = global::ESignature.Examples.EmbeddedSending.SendEnvelopeUsingEmbeddedSending(
+            var redirectUrl = global::ESignature.Examples.CFRPart11EmbeddedSending.EmbeddedSigning(
                 signerEmail,
                 signerName,
-                ccEmail,
-                ccName,
-                this.Config.DocDocx,
-                this.Config.DocPdf,
                 accessToken,
                 basePath,
                 accountId,
-                startingView,
-                dsReturnUrl);
+                signerCountryCode,
+            signerPhoneNumber,
+                this.Config.DocPdf, base.Config.AppUrl + "/dsReturn");
 
             Console.WriteLine(string.Format(this.CodeExampleText.ResultsPageText, redirectUrl));
-            return this.Redirect(redirectUrl);
+
+            return Redirect(redirectUrl);
         }
+
     }
 }
