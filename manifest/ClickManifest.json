@@ -92,7 +92,7 @@
         {
           "ExampleNumber": 6,
           "ExampleName": "Embed a clickwrap",
-          "ExampleDescription": "Creates a unique URL for an active clickwraps and embeds an existing clickwrap in your page",
+          "ExampleDescription": "Creates a unique URL for an active clickwrap and embeds an existing clickwrap in your page",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createhasagreed/",
