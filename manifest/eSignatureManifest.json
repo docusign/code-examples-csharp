@@ -11,6 +11,7 @@
         "LogoutButton": "Logout",
         "ChangeAPITypeButton": "Change API Type",
         "WelcomeText": "Welcome {0} (Account: {1})",
+        "CFRError": "This example is not compatible with your CFR Part 11 account. Please return to the homepage to run one of the examples that is compatible or authenticate with a different account.",
         "LoginPage": {
             "LoginHeader": "<h1 class='display-4'>Please Authenticate with DocuSign</h1><label for='auth_type'>Please choose your authentication type</label>",
             "LoginButton": "Authenticate with DocuSign",
@@ -122,11 +123,6 @@
                         {
                             "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/",
                             "PathName": "EnvelopeViews:createRecipient"
-                        }
-                    ],
-                    "CustomErrorTexts": [
-                        {
-                            "ErrorMessage": "This example is not compatible with your CFR Part 11 account. Please return to the homepage to run one of the examples that is compatible or authenticate with a different account."
                         }
                     ],
                     "Forms": [
