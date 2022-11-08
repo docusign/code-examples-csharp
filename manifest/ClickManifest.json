@@ -196,7 +196,7 @@
           ],
           "Forms": [
             {
-              "FormName": "<p>Please choose a clickwrap</p>",
+              "FormName": "<p>Choose a clickwrap:</p>",
               "Inputs": [
                 {
                   "InputName": "Clickwrap"
