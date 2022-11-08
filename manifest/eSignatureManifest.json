@@ -523,7 +523,8 @@
                     ],
                     "CustomErrorTexts": [
                         {
-                            "ErrorMessage": "Bulk send envelope failed."
+                            "ErrorMessage": "Bulk send envelope failed.",
+                            "CFRError": "This example is not compatible with your CFR Part 11 account. Please return to the homepage to run one of the examples that is compatible or authenticate with a different account."
                         }
                     ],
                     "Forms": [
