@@ -5,8 +5,11 @@
 namespace DocuSign.CodeExamples.Controllers
 {
     using System.Diagnostics;
+    using System.Linq;
+    using DocuSign.CodeExamples.ESignature.Models;
     using DocuSign.CodeExamples.Models;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore.Internal;
     using Microsoft.Extensions.Configuration;
 
     public class HomeController : Controller
@@ -18,6 +21,25 @@ namespace DocuSign.CodeExamples.Controllers
         private DSConfiguration DsConfiguration { get; }
 
         private LauncherTexts LauncherTexts { get; }
+
+
+        private void CheckIfThisIsCFR11Account()
+        {
+            try
+            {
+                if (this.RequestItemsService.Session != null)
+                {
+                    var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
+                    var accessToken = this.RequestItemsService.User.AccessToken;
+                    var accountId = this.RequestItemsService.Session.AccountId;
+                    this.ViewBag.CFRPart11 = global::ESignature.Examples.CFRPart11EmbeddedSending.IsCFRPart11Account(accessToken, basePath, accountId);
+                }
+            }
+            catch
+            {
+                // ignore this for now, as we're just checking the CFR-11 status
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HomeController"/> class.
@@ -41,12 +63,28 @@ namespace DocuSign.CodeExamples.Controllers
                     this.Configuration["quickstart"] = "false";
                 }
 
-                return this.Redirect("eg001");
+                CheckIfThisIsCFR11Account();
+                if (ViewBag.CFRPart11 == true)
+                {
+                    return this.Redirect("eg041");
+                }
+                else
+                {
+                    return this.Redirect("eg001");
+                }
             }
 
             if (this.DsConfiguration.QuickACG == "true")
             {
-                return this.Redirect("eg001");
+                CheckIfThisIsCFR11Account();
+                if (ViewBag.CFRPart11 == true)
+                {
+                    return this.Redirect("eg041");
+                }
+                else
+                {
+                    return this.Redirect("eg001");
+                }
             }
 
             if (egName == "home")
@@ -62,6 +100,25 @@ namespace DocuSign.CodeExamples.Controllers
 
             if (!string.IsNullOrWhiteSpace(egName))
             {
+                CheckIfThisIsCFR11Account();
+                if (ViewBag.CFRPart11 == true)
+                {
+                    foreach (var manifestGroup in this.LauncherTexts.ManifestStructure.Groups)
+                    {
+                        var example = manifestGroup.Examples.Find((example) => example.ExampleNumber == int.Parse(egName.Substring(2)));
+                        if (example != null)
+                        {
+                            // we found the example we're supposed to redirect to, this is a CFR account, if example is NonCFR - show error page
+                            if (example.CFREnabled == "NonCFR")
+                            {
+                                this.ViewBag.errorCode = 0;
+                                this.ViewBag.errorMessage = this.LauncherTexts.ManifestStructure.SupportingTexts.CFRError;
+
+                                return this.View("Error");
+                            }
+                        }
+                    }
+                }
                 this.RequestItemsService.EgName = null;
                 return this.Redirect(egName);
             }
@@ -69,17 +126,7 @@ namespace DocuSign.CodeExamples.Controllers
             this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.Groups;
             if (this.RequestItemsService.Session != null)
             {
-                try
-                {
-                    var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
-                    var accessToken = this.RequestItemsService.User.AccessToken;
-                    var accountId = this.RequestItemsService.Session.AccountId;
-                    this.ViewBag.CFRPart11 = global::ESignature.Examples.CFRPart11EmbeddedSending.IsCFRPart11Account(accessToken, basePath, accountId);
-                }
-                catch
-                {
-                    // ignore this for now, as we're just checking the CFR-11 status
-                }
+                CheckIfThisIsCFR11Account();
             }
             return this.View();
         }
