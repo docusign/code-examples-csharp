@@ -95,8 +95,8 @@
             {
                 AnchorString = "/sn1/",
                 AnchorUnits = "pixels",
-                AnchorXOffset = "10",
-                AnchorYOffset = "20",
+                AnchorXOffset = "20",
+                AnchorYOffset = "-30",
             };
 
             // Tabs are set per recipient/signer
