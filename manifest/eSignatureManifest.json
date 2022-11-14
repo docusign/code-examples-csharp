@@ -114,7 +114,7 @@
                     [
                         {
                             "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/getenvelopeworkflowdefinition/",
-                            "PathName": "EnvelopeWorkflowDefinition: getEnvelopeWorkflowDefinition"
+                            "PathName": "EnvelopeWorkflowDefinition:getEnvelopeWorkflowDefinition"
                         },
                         {
                             "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
