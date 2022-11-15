@@ -40,7 +40,7 @@ namespace ESignature.Examples
             // Step 1 end
         }
 
-        private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string envStatus)
+        public static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string envStatus)
         {
             // Data for this method
             // signerEmail

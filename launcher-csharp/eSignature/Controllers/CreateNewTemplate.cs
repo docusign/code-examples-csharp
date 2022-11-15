@@ -45,7 +45,7 @@ namespace DocuSign.CodeExamples.Controllers
 
             // Call the Examples API method to create a new DocuSign template
             (bool createdNewTemplate, string templateId, string resultsTemplateName) = global::ESignature.Examples.CreateNewTemplate.CreateTemplate(
-                 accessToken, basePath, accountId);
+                 accessToken, basePath, accountId, this.Config.DocPdf);
 
             // Save the templateId
             this.RequestItemsService.TemplateId = templateId;

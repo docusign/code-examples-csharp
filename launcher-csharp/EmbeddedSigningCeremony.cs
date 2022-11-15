@@ -74,7 +74,7 @@ namespace ESignature.Examples
             // Step 4 end
         }
 
-        private static RecipientViewRequest MakeRecipientViewRequest(string signerEmail, string signerName, string returnUrl, string signerClientId, string pingUrl = null)
+        public static RecipientViewRequest MakeRecipientViewRequest(string signerEmail, string signerName, string returnUrl, string signerClientId, string pingUrl = null)
         {
             // Data for this method
             // signerEmail
@@ -120,7 +120,7 @@ namespace ESignature.Examples
             return viewRequest;
         }
 
-        private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string signerClientId, string docPdf)
+        public static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string signerClientId, string docPdf)
         {
             // Data for this method
             // signerEmail

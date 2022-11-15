@@ -62,7 +62,7 @@ namespace ESignature.Examples
             return results1.Url;
         }
 
-        private static RecipientViewRequest MakeRecipientViewRequest(
+        public static RecipientViewRequest MakeRecipientViewRequest(
             string signerEmail,
             string signerName,
             string dsReturnUrl,
@@ -96,7 +96,7 @@ namespace ESignature.Examples
             return viewRequest;
         }
 
-        private static EnvelopeDefinition MakeEnvelope(
+        public static EnvelopeDefinition MakeEnvelope(
             string signerEmail,
             string signerName,
             string ccEmail,

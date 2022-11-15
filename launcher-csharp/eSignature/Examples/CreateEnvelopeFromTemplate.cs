@@ -38,7 +38,7 @@ namespace ESignature.Examples
             // Step 2 end
         }
 
-        private static EnvelopeDefinition MakeEnvelope(
+        public static EnvelopeDefinition MakeEnvelope(
             string signerEmail,
             string signerName,
             string ccEmail,
