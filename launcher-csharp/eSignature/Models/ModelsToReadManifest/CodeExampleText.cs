@@ -18,6 +18,9 @@ namespace DocuSign.CodeExamples.ESignature.Models
         [JsonProperty("ExampleDescription")]
         public string ExampleDescription { get; set; }
 
+        [JsonProperty("CFREnabled")]
+        public string CFREnabled { get; set; }
+
         [JsonProperty("Notes")]
         public string Notes { get; set; }
 

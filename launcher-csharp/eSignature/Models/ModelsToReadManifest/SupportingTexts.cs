@@ -41,6 +41,9 @@ namespace DocuSign.CodeExamples.ESignature.Models
         [JsonProperty("WelcomeText")]
         public string WelcomeText { get; set; }
 
+        [JsonProperty("CFRError")]
+        public string CFRError { get; set; }
+
         [JsonProperty("LoginPage")]
         public LoginPage LoginPage { get; set; }
 
@@ -49,5 +52,6 @@ namespace DocuSign.CodeExamples.ESignature.Models
 
         [JsonProperty("HelpingTexts")]
         public HelpingTexts HelpingTexts { get; set; }
+
     }
 }
