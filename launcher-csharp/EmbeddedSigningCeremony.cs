@@ -2,6 +2,9 @@
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
+
+using System.Runtime.CompilerServices;
+
 namespace ESignature.Examples
 {
     using System;

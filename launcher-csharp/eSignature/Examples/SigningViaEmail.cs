@@ -166,7 +166,7 @@ namespace ESignature.Examples
             // Step 3 end
         }
 
-        private static byte[] Document1(string signerEmail, string signerName, string ccEmail, string ccName)
+        public static byte[] Document1(string signerEmail, string signerName, string ccEmail, string ccName)
         {
             // Data for this method
             // signerEmail

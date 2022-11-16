@@ -239,7 +239,7 @@ namespace ESignature.Examples
             return env;
         }
 
-        private static byte[] Document1(
+        public static byte[] Document1(
             string signerEmail,
             string signerName,
             string ccEmail,

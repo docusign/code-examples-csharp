@@ -18,6 +18,10 @@ namespace launcher_csharp.Tests
     {
         private const string RedirectUrl = "https://developers.docusign.com/platform/auth/consent";
 
+        private const string RerunUnitTests = "Please, rerun the unit tests once consent has been provided.";
+
+        private const string ConsentRequired = "consent_required";
+
         private readonly ITestConfig _testConfig;
 
         public JwtLoginMethodUnitTest() : this(TestConfig.Instance) { }
@@ -35,34 +39,36 @@ namespace launcher_csharp.Tests
         [InlineData(ExamplesAPIType.Rooms)]
         public void RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType apiType)
         {
-            string clientId = _testConfig.ClientId;
-            string impersonatedUserId = _testConfig.ImpersonatedUserId;
-            string basePath = _testConfig.OAuthBasePath;
-            string privateKey = _testConfig.PrivateKey;
+            // Arrange
+            _testConfig.ApiClient = new ApiClient(_testConfig.Host);
 
             try
             {
+                // Act
                OAuth.OAuthToken tokenInfo = JWTAuth.AuthenticateWithJWT(
                     apiType.ToString(),
-                    clientId,
-                    impersonatedUserId,
-                    basePath,
-                    privateKey
+                    _testConfig.ClientId,
+                    _testConfig.ImpersonatedUserId,
+                    _testConfig.OAuthBasePath,
+                    _testConfig.PrivateKey
                     );
 
-                _testConfig.ApiClient = new ApiClient(_testConfig.Host);
                 OAuth.UserInfo userInfo = _testConfig.ApiClient.GetUserInfo(tokenInfo.access_token);
 
+                // Assert
                 Assert.NotNull(userInfo?.Accounts);
+
+                var basePathAddition = "/restapi";
+                var accountIsDefault = "true";
 
                 foreach (OAuth.UserInfo.Account item in userInfo.Accounts)
                 {
-                    if (item.IsDefault == "true")
+                    if (item.IsDefault == accountIsDefault)
                     {
                         _testConfig.AccountId = item.AccountId;
                         _testConfig.BasePath = item.BaseUri;
                         _testConfig.AccessToken = tokenInfo.access_token;
-                        _testConfig.ApiClient.SetBasePath(item.BaseUri + "/restapi");
+                        _testConfig.ApiClient.SetBasePath(item.BaseUri + basePathAddition);
                         break;
                     }
                 }
@@ -73,11 +79,11 @@ namespace launcher_csharp.Tests
             }
             catch (Exception e)
             {
-                if (e.Message.ToLowerInvariant().Contains("consent_required"))
+                if (e.Message.ToLowerInvariant().Contains(ConsentRequired))
                 {
                     _testConfig?.OpenUrlUsingConsoleWindow(BuildConsentUrl(apiType));
 
-                    throw new Xunit.Sdk.XunitException("Please, rerun the unit tests once consent has been provided.");
+                    throw new Xunit.Sdk.XunitException(RerunUnitTests);
                 }
             }
         }
