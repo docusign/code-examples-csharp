@@ -59,7 +59,7 @@
                 if (clickWrap.AgreementUrl == "Already Agreed")
                 {
                     this.ViewBag.errorCode = 200;
-                    this.ViewBag.errorMessage = "The email address you provided was already use to agree to this elastic template, please provide a different email address if you want to view the agreement and agree to it";
+                    this.ViewBag.errorMessage = "The email address was already used to agree to this elastic template. Provide a different email address if you want to view the agreement and agree to it.";
 
                     return this.View("Error");
                 }
