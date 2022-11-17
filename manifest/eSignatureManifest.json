@@ -1220,7 +1220,7 @@
                         },
                         {
                             "CodeExampleToRedirectTo": 8,
-                            "RedirectText": "<p>Prerequisite: Please first create the template using <a {0}>Create a template/a>.</p>"
+                            "RedirectText": "<p>Prerequisite: Please first create the template using <a {0}>Create a template</a>.</p>"
                         }
                     ],
                     "Forms": [
