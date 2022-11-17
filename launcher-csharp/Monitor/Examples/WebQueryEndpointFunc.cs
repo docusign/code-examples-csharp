@@ -28,25 +28,32 @@ namespace DocuSign.CodeExamples.Monitor.Examples
             string filterStartDate,
             string filterEndDate)
         {
-            ApiClient apiClient = new ApiClient(ApiClient.Demo_REST_BasePath);
+            try
+            {
+                ApiClient apiClient = new ApiClient(ApiClient.Demo_REST_BasePath);
 
-            // Construct API headers
-            // step 2 start
-            apiClient.SetBasePath(ApiClient.Demo_REST_BasePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", string.Format("Bearer {0}", accessToken));
-            apiClient.Configuration.DefaultHeader.Add("Content-Type", "application/json");
+                // Construct API headers
+                // step 2 start
+                apiClient.SetBasePath(ApiClient.Demo_REST_BasePath);
+                apiClient.Configuration.DefaultHeader.Add("Authorization", string.Format("Bearer {0}", accessToken));
+                apiClient.Configuration.DefaultHeader.Add("Content-Type", "application/json");
 
-            // step 2 end
+                // step 2 end
 
-            // Declare variables
-            // step 4 start
-            DataSetApi dataSetApi = new DataSetApi(apiClient);
-            WebQuery options = this.PrepareWebQuery(filterStartDate, filterEndDate, accountId);
+                // Declare variables
+                // step 4 start
+                DataSetApi dataSetApi = new DataSetApi(apiClient);
+                WebQuery options = this.PrepareWebQuery(filterStartDate, filterEndDate, accountId);
 
-            var cursoredResult = dataSetApi.PostWebQuery("2.0", "monitor", options);
+                var cursoredResult = dataSetApi.PostWebQuery("2.0", "monitor", options);
 
-            // step 4 end
-            return cursoredResult.Result;
+                // step 4 end
+                return cursoredResult.Result;
+            }
+            catch (ApiException)
+            {
+                return new string[] { "ERROR", "You do not have Monitor enabled for your account, follow <a target='_blank' href='https://developers.docusign.com/docs/monitor-api/how-to/enable-monitor/'>How to enable Monitor for your account</a> to get it enabled." };
+            }
         }
 
         // Step 3 start
