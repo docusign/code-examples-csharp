@@ -7,6 +7,8 @@ using DocuSign.CodeExamples.Common;
 namespace DocuSign.CodeExamples.Controllers
 {
     using System.Diagnostics;
+    using System.Linq;
+    using DocuSign.CodeExamples.ESignature.Models;
     using DocuSign.CodeExamples.Models;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore.Internal;
@@ -34,7 +36,6 @@ namespace DocuSign.CodeExamples.Controllers
                     var accessToken = this.RequestItemsService.User.AccessToken;
                     var accountId = this.RequestItemsService.Session.AccountId;
                     this.ViewBag.CFRPart11 = global::ESignature.Examples.CFRPart11EmbeddedSending.IsCFRPart11Account(accessToken, basePath, accountId);
-                    var a = global::ESignature.Examples.CFRPart11EmbeddedSending.IsCFRPart11Account(accessToken, basePath, accountId);
                 }
             }
             catch
