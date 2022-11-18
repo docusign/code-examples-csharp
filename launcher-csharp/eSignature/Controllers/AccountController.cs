@@ -32,7 +32,6 @@ namespace DocuSign.CodeExamples.Controllers
         public IActionResult Login(string authType = "CodeGrant", string returnUrl = "/")
         {
             this.Configuration["FirstLaunch"] = "false";
-            this.Configuration["quickstart"] = "false";
             this.Configuration["API"] = this.Configuration["APIPlanned"];
 
             if (this.Configuration["API"] != this.requestItemsService.IdentifyAPIOfCodeExample(this.requestItemsService.EgName))

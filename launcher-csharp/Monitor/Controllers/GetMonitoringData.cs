@@ -9,6 +9,8 @@ namespace DocuSign.CodeExamples.Controllers
     using DocuSign.CodeExamples.Monitor.Examples;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
+    using Org.BouncyCastle.Crypto.Modes;
+    using System.Linq;
 
     [Area("Monitor")]
     [Route("monitorExample001")]
@@ -44,11 +46,20 @@ namespace DocuSign.CodeExamples.Controllers
             // Getting monitoring data
             var results = this.getMonitoringDataFunc.Invoke(accessToken, requestPath);
 
-            // Process results
-            this.ViewBag.h1 = this.CodeExampleText.ExampleName;
-            this.ViewBag.message = this.CodeExampleText.ResultsPageText;
-            this.ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
-            return this.View("example_done");
+            if (results.FirstOrDefault() as string == "ERROR")
+            {
+                this.ViewBag.fixingInstructions = (string)results.LastOrDefault();
+                this.ViewBag.errorCode = "No Monitor Enabled";
+                return this.View("Error");
+            }
+            else
+            {
+                // Process results
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                this.ViewBag.message = this.CodeExampleText.ResultsPageText;
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(results, Formatting.Indented);
+                return this.View("example_done");
+            }
         }
     }
 }

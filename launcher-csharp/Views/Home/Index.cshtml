@@ -32,6 +32,7 @@
          
 
         <div id="api_json_data" class="hidden">@ViewBag.APIData</div>
+        <div id="cfr11_data" class="hidden">@ViewBag.CFRPart11</div>
 
         <div id="filtered_code_examples" class="container" style="margin-top: 10px; padding-left: 0px;">
             @foreach(var api in ViewBag.APITexts)
@@ -51,17 +52,23 @@
                     {
                         @if (example?.SkipForLanguages == null || !example?.SkipForLanguages.ToLower().Contains("c#"))
                         {
-                            <h4 id="@String.Format("example{0}", String.Format("{0:D3}", @example.ExampleNumber))">
-                                <a href="@String.Format(linkToCodeExample + "{0}", String.Format("{0:D3}", @example.ExampleNumber))">
-                                    @Html.Raw(example.ExampleName)
-                                </a>
-                            </h4>
+                            @if (api.Name.ToLower() != ExamplesAPIType.ESignature.ToString().ToLower() ||
+                                 ((example.CFREnabled == "AllAccounts") ||
+                                  ((ViewBag.CFRPart11 == true) && (example.CFREnabled == "CFROnly")) ||
+                                  ((ViewBag.CFRPart11 != true) && (example.CFREnabled == "NonCFR"))))
+                            {
+                                <h4 id="@String.Format("example{0}", String.Format("{0:D3}", @example.ExampleNumber))">
+                                    <a href="@String.Format(linkToCodeExample + "{0}", String.Format("{0:D3}", @example.ExampleNumber))">
+                                        @Html.Raw(example.ExampleName)
+                                    </a>
+                                </h4>
 
-                            <p>
-                                @Html.Raw(example.ExampleDescription)
-                            </p>
+                                <p>
+                                    @Html.Raw(example.ExampleDescription)
+                                </p>
 
-                            <partial name="../Shared/LinkToMethodView" model="example" />
+                                <partial name="../Shared/LinkToMethodView" model="example" />
+                            }
                         }
                     }
                 }

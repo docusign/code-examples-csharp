@@ -14,6 +14,12 @@
         return json;
     }
 
+    let processCFR11Value = function () {
+        let json_raw = $("#cfr11_data").text();
+        console.log(json_raw);
+        return json_raw;
+    }
+
     function checkIfExampleMatches(example, matches) {
         const name = example.ExampleName;
         const description = example.ExampleDescription;
@@ -115,7 +121,8 @@
         }
     }
     
-    let addCodeExampleToHomepage = function(codeExamples) {
+    let addCodeExampleToHomepage = function (codeExamples) {
+        var cfrPart11 = processCFR11Value();
         codeExamples.forEach(
             element => {
                 let linkToCodeExample = getLinkForApiType(element.Name.toLowerCase());
@@ -128,54 +135,54 @@
                             example => {
                                 if (!example.SkipForLanguages || !example.SkipForLanguages.toLowerCase().includes("c#")) 
                                 {
-                                    $("#filtered_code_examples").append(
-                                        "<h4 id="
-                                        + "example".concat("0".repeat(3 - example.ExampleNumber.toString().length)).concat(example.ExampleNumber) + ">"
-                                        + "<a href = "
-                                        + linkToCodeExample.concat("0".repeat(3 - example.ExampleNumber.toString().length)).concat(example.ExampleNumber)
-                                        + " >"
-                                        + example.ExampleName
-                                        + "</a ></h4 >"
-                                    );
-        
-                                    $("#filtered_code_examples").append("<p>" + example.ExampleDescription + "</p>");
-        
-                                    $("#filtered_code_examples").append("<p>");
-        
-                                    if (example.LinksToAPIMethod.length == 1)
-                                    {
-                                        $("#filtered_code_examples").append(processJSONData().SupportingTexts.APIMethodUsed);
-                                    }
-                                    else
-                                    {
-                                        $("#filtered_code_examples").append(processJSONData().SupportingTexts.APIMethodUsedPlural);
-                                    }
-                                    
-                                    for (let index = 0; index < example.LinksToAPIMethod.length; index++) {
+                                    if (element.Name.toLowerCase() !== API_TYPES.ESIGNATURE.toLowerCase() ||
+                                        ((example.CFREnabled == "AllAccounts") ||
+                                            ((cfrPart11 == "True") && (example.CFREnabled == "CFROnly")) ||
+                                            ((cfrPart11 != "True") && (example.CFREnabled == "NonCFR")))) {
                                         $("#filtered_code_examples").append(
-                                            " <a target='_blank' href='" 
-                                            + example.LinksToAPIMethod[index].Path 
-                                            + "'>"
-                                            + example.LinksToAPIMethod[index].PathName
-                                            + "</a>"
+                                            "<h4 id="
+                                            + "example".concat("0".repeat(3 - example.ExampleNumber.toString().length)).concat(example.ExampleNumber) + ">"
+                                            + "<a href = "
+                                            + linkToCodeExample.concat("0".repeat(3 - example.ExampleNumber.toString().length)).concat(example.ExampleNumber)
+                                            + " >"
+                                            + example.ExampleName
+                                            + "</a ></h4 >"
                                         );
-        
-                                        if (index + 1 === example.LinksToAPIMethod.length)
-                                        {
-                                            $("#filtered_code_examples").append("<span></span>");
-                                        } 
-                                        else if (index + 1 === example.LinksToAPIMethod.length - 1)
-                                        {
-                                            $("#filtered_code_examples").append("<span> and </span>");
+
+                                        $("#filtered_code_examples").append("<p>" + example.ExampleDescription + "</p>");
+
+                                        $("#filtered_code_examples").append("<p>");
+
+                                        if (example.LinksToAPIMethod.length == 1) {
+                                            $("#filtered_code_examples").append(processJSONData().SupportingTexts.APIMethodUsed);
                                         }
-                                        else 
-                                        {
-                                            $("#filtered_code_examples").append("<span>, </span>");
+                                        else {
+                                            $("#filtered_code_examples").append(processJSONData().SupportingTexts.APIMethodUsedPlural);
                                         }
-                                        
+
+                                        for (let index = 0; index < example.LinksToAPIMethod.length; index++) {
+                                            $("#filtered_code_examples").append(
+                                                " <a target='_blank' href='"
+                                                + example.LinksToAPIMethod[index].Path
+                                                + "'>"
+                                                + example.LinksToAPIMethod[index].PathName
+                                                + "</a>"
+                                            );
+
+                                            if (index + 1 === example.LinksToAPIMethod.length) {
+                                                $("#filtered_code_examples").append("<span></span>");
+                                            }
+                                            else if (index + 1 === example.LinksToAPIMethod.length - 1) {
+                                                $("#filtered_code_examples").append("<span> and </span>");
+                                            }
+                                            else {
+                                                $("#filtered_code_examples").append("<span>, </span>");
+                                            }
+
+                                        }
+
+                                        $("#filtered_code_examples").append("</p> ");
                                     }
-    
-                                    $("#filtered_code_examples").append("</p> ");
                                 }
                             }
                         );

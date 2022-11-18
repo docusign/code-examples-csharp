@@ -21,13 +21,18 @@
         "SelectAPIButton": "Choose your desired API"
     },
     "HelpingTexts": {
-        "EmailWontBeShared": "We'll never share your email with anyone else.",
-        "PhoneNumberWontBeShared": "We'll never share your phone number with anyone else.",
-        "CCEmailShouldDifferFromSigner": "The email for the cc recipient must be different from the signer's email.",
-        "AccessCodeText": "Provide this string to a recipient that is different such as in person or by mail or via different email.",
-        "CountryCodeText": "The country code for the phone below",
-        "ChooseDateInTheFuture": "Please choose a date in the future",
-        "PhoneNumberWillBeNotified": "This phone number will receive a notification."
+      "EmailWontBeShared": "We'll never share your email with anyone else.",
+      "PhoneNumberWontBeShared": "We'll never share your phone number with anyone else.",
+      "CCEmailShouldDifferFromSigner": "The email for the cc recipient must be different from the signer's email.",
+      "AccessCodeText": "Provide this string to a recipient that is different such as in person or by mail or via a different email.",
+      "CountryCodeText": "The country code for the phone number below.",
+      "ChooseDateInTheFuture": "Please choose a future date.",
+      "PhoneNumberWillBeNotified": "This phone number will receive a notification.",
+      "DynamicContentValue": "Provide values for the dynamic content fields shown on the clickwrap agreement.",
+      "DynamicContentNote": "Note: The clickwrap must be manually modified through the Clickwraps UI to include these dynamic content fields.",
+      "EmbedClickwrapURL": "Agreement URL returned in the JSON response:",
+      "NOTAGREED": "NOT AGREED",
+      "AGREED": "AGREED"
     }
   },
   "Groups": [
@@ -68,13 +73,13 @@
           ],
           "RedirectsToOtherCodeExamples": [
             {
-                "CodeExampleToRedirectTo": 1,
-                "RedirectText": "<p>Problem: You do not have clickwraps to activate. Go to example#1 and create one: <a {0}>create clickwrap.</a> <br/></p>"
+              "CodeExampleToRedirectTo": 1,
+              "RedirectText": "<p>Problem: You do not have an active clickwrap. <a {0}>Create a clickwrap.</a> <br/></p>"
             }
           ],
           "Forms": [
             {
-              "FormName": "<p>Please choose a clickwrap to activate</p>",
+              "FormName": "<p>Choose a clickwrap to activate</p>",
               "Inputs": [
                 {
                   "InputName": "Clickwrap"
@@ -83,6 +88,53 @@
             }
           ],
           "ResultsPageText": "The clickwrap has been activated!"
+        },
+        {
+          "ExampleNumber": 6,
+          "ExampleName": "Embed a clickwrap",
+          "ExampleDescription": "Creates a unique URL for an active clickwrap and embeds the clickwrap on your page.",
+          "LinksToAPIMethod": [
+            {
+              "Path": "https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createhasagreed/",
+              "PathName": "ClickWraps::createHasAgreed"
+            }
+          ],
+          "RedirectsToOtherCodeExamples": [
+            {
+              "CodeExampleToRedirectTo": 1,
+              "RedirectText": "<p>Problem: You do not have an active clickwrap. <a {0}>Create a clickwrap.</a> <br/></p>"
+            },
+            {
+              "CodeExampleToRedirectTo": 2,
+              "RedirectText": "<p>Problem: Your clickwrap is inactive. <a {0}>Activate a clickwrap.</a> <br/></p>"
+            }
+          ],
+          "Forms": [
+            {
+              "FormName": "<p>Choose a clickwrap to embed:</p>",
+              "Inputs": [
+                {
+                  "InputName": "Clickwrap"
+                },
+                {
+                  "InputName": "Full Name"
+                },
+                {
+                  "InputName": "Email"
+                },
+                {
+                  "InputName": "Company"
+                },
+                {
+                  "InputName": "Job Title"
+                },
+                {
+                  "InputName": "Date"
+                }
+              ]
+            }
+          ],
+          "ResultsPageText": "See the embedded clickwrap in the dialog box."
         },
         {
           "ExampleNumber": 3,
@@ -96,8 +148,8 @@
           ],
           "RedirectsToOtherCodeExamples": [
             {
-                "CodeExampleToRedirectTo": 1,
-                "RedirectText": "<p>Problem: You do not have clickwraps. Go to example#1 and create one: <a {0}>create clickwrap.</a> <br/></p>"
+              "CodeExampleToRedirectTo": 1,
+              "RedirectText": "<p>Problem: You do not have an active clickwrap. <a {0}>Create a clickwrap.</a> <br/></p>"
             }
           ],
           "Forms": [
@@ -138,13 +190,13 @@
           ],
           "RedirectsToOtherCodeExamples": [
             {
-                "CodeExampleToRedirectTo": 1,
-                "RedirectText": "<p>Problem: You do not have clickwraps. Go to example#1 and create one: <a {0}>create clickwrap.</a> <br/></p>"
+              "CodeExampleToRedirectTo": 1,
+              "RedirectText": "<p>Problem: You do not have an active clickwrap. <a {0}>Create a clickwrap.</a> <br/></p>"
             }
           ],
           "Forms": [
             {
-              "FormName": "<p>Please choose a clickwrap</p>",
+              "FormName": "<p>Choose a clickwrap:</p>",
               "Inputs": [
                 {
                   "InputName": "Clickwrap"
