@@ -28,8 +28,8 @@
       "CountryCodeText": "The country code for the phone number below.",
       "ChooseDateInTheFuture": "Please choose a future date.",
       "PhoneNumberWillBeNotified": "This phone number will receive a notification.",
-      "DynamicContentValue": "Provide values for the dynamic content fields shown on the clickwrap agreement.",
-      "DynamicContentNote": "Note: The clickwrap must be manually modified through the Clickwraps UI to include these dynamic content fields.",
+      "DynamicContentValue": "Provide values for the dynamic content fields shown on the elastic template agreement.",
+      "DynamicContentNote": "Note: The elastic template must be manually modified through the elastic templates UI to include these dynamic content fields.",
       "EmbedClickwrapURL": "Agreement URL returned in the JSON response:",
       "NOTAGREED": "NOT AGREED",
       "AGREED": "AGREED"
@@ -37,12 +37,12 @@
   },
   "Groups": [
     {
-      "Name": "Click examples",
+      "Name": "Elastic Signing examples",
       "Examples": [
         {
           "ExampleNumber": 1,
-          "ExampleName": "Create a clickwrap",
-          "ExampleDescription": "Creates a clickwrap that you can embed in your website or app.",
+          "ExampleName": "Create an elastic template",
+          "ExampleDescription": "Creates an elastic template that you can embed in your website or app.",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createclickwrap/",
@@ -54,17 +54,17 @@
               "Inputs": [
                 {
                   "InputName": "Name",
-                  "InputPlaceholder": "Name of the clickwrap"
+                  "InputPlaceholder": "Name of the elastic template"
                 }
               ]
             }
           ],
-          "ResultsPageText": "The clickwrap {0} has been created!"
+          "ResultsPageText": "The elastic template {0} has been created!"
         },
         {
           "ExampleNumber": 2,
-          "ExampleName": "Activate a clickwrap",
-          "ExampleDescription": "Activates a new clickwrap that you have already created.",
+          "ExampleName": "Activate an elastic template",
+          "ExampleDescription": "Activates a new elastic template that you have already created.",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/updateclickwrapversion",
@@ -74,25 +74,25 @@
           "RedirectsToOtherCodeExamples": [
             {
               "CodeExampleToRedirectTo": 1,
-              "RedirectText": "<p>Problem: You do not have an active clickwrap. <a {0}>Create a clickwrap.</a> <br/></p>"
+              "RedirectText": "<p>Problem: You do not have an active elastic template. <a {0}>Create an elastic template.</a> <br/></p>"
             }
           ],
           "Forms": [
             {
-              "FormName": "<p>Choose a clickwrap to activate</p>",
+              "FormName": "<p>Choose a elastic template to activate</p>",
               "Inputs": [
                 {
-                  "InputName": "Clickwrap"
+                  "InputName": "Elastic Template"
                 }
               ]
             }
           ],
-          "ResultsPageText": "The clickwrap has been activated!"
+          "ResultsPageText": "The elastic template has been activated!"
         },
         {
           "ExampleNumber": 6,
-          "ExampleName": "Embed a clickwrap",
-          "ExampleDescription": "Creates a unique URL for an active clickwrap and embeds the clickwrap on your page.",
+          "ExampleName": "Embed an elastic template",
+          "ExampleDescription": "Creates a unique URL for an active elastic template and embeds the elastic template on your page.",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createhasagreed/",
@@ -102,19 +102,19 @@
           "RedirectsToOtherCodeExamples": [
             {
               "CodeExampleToRedirectTo": 1,
-              "RedirectText": "<p>Problem: You do not have an active clickwrap. <a {0}>Create a clickwrap.</a> <br/></p>"
+              "RedirectText": "<p>Problem: You do not have an active elastic template. <a {0}>Create an elastic template.</a> <br/></p>"
             },
             {
               "CodeExampleToRedirectTo": 2,
-              "RedirectText": "<p>Problem: Your clickwrap is inactive. <a {0}>Activate a clickwrap.</a> <br/></p>"
+              "RedirectText": "<p>Problem: Your elastic template is inactive. <a {0}>Activate an elastic template.</a> <br/></p>"
             }
           ],
           "Forms": [
             {
-              "FormName": "<p>Choose a clickwrap to embed:</p>",
+              "FormName": "<p>Choose an elastic template to embed:</p>",
               "Inputs": [
                 {
-                  "InputName": "Clickwrap"
+                  "InputName": "Elastic Template"
                 },
                 {
                   "InputName": "Full Name"
@@ -134,12 +134,12 @@
               ]
             }
           ],
-          "ResultsPageText": "See the embedded clickwrap in the dialog box."
+          "ResultsPageText": "See the embedded elastic template in the dialog box."
         },
         {
           "ExampleNumber": 3,
-          "ExampleName": "Create a new clickwrap version",
-          "ExampleDescription": "Creates a new version of a clickwrap.",
+          "ExampleName": "Create a new elastic template version",
+          "ExampleDescription": "Creates a new version of an elastic template.",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createclickwrapversion/",
@@ -149,14 +149,14 @@
           "RedirectsToOtherCodeExamples": [
             {
               "CodeExampleToRedirectTo": 1,
-              "RedirectText": "<p>Problem: You do not have an active clickwrap. <a {0}>Create a clickwrap.</a> <br/></p>"
+              "RedirectText": "<p>Problem: You do not have an active elastic template. <a {0}>Create an elastic template.</a> <br/></p>"
             }
           ],
           "Forms": [
             {
               "Inputs": [
                 {
-                  "InputName": "Clickwrap"
+                  "InputName": "Elastic Template"
                 },
                 {
                   "InputName": "New Name"
@@ -164,12 +164,12 @@
               ]
             }
           ],
-          "ResultsPageText": "Version {0} of clickwrap \"{1}\" has been created."
+          "ResultsPageText": "Version {0} of elastic template \"{1}\" has been created."
         },
         {
           "ExampleNumber": 4,
-          "ExampleName": "Get a list of clickwraps",
-          "ExampleDescription": "Gets a list of clickwraps associated with a specific DocuSign user.",
+          "ExampleName": "Get a list of elastic templates",
+          "ExampleDescription": "Gets a list of elastic templates associated with a specific DocuSign user.",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwraps",
@@ -180,8 +180,8 @@
         },
         {
           "ExampleNumber": 5,
-          "ExampleName": "Get clickwrap responses",
-          "ExampleDescription": "Gets user responses to your clickwrap agreements.",
+          "ExampleName": "Get elastic template responses",
+          "ExampleDescription": "Gets user responses to your elastic template agreements.",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwrapagreements",
@@ -191,15 +191,15 @@
           "RedirectsToOtherCodeExamples": [
             {
               "CodeExampleToRedirectTo": 1,
-              "RedirectText": "<p>Problem: You do not have an active clickwrap. <a {0}>Create a clickwrap.</a> <br/></p>"
+              "RedirectText": "<p>Problem: You do not have an active elastic template. <a {0}>Create an elastic template.</a> <br/></p>"
             }
           ],
           "Forms": [
             {
-              "FormName": "<p>Choose a clickwrap:</p>",
+              "FormName": "<p>Choose an elastic template:</p>",
               "Inputs": [
                 {
-                  "InputName": "Clickwrap"
+                  "InputName": "Elastic Template"
                 }
               ]
             }
