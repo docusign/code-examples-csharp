@@ -1,0 +1,26 @@
+﻿<h2>@ViewBag.h1</h2>
+<p>@Html.Raw(ViewBag.message)</p>
+<p>
+    @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmbedClickwrapURL)
+    <code>
+        @ViewBag.AgreementUrl
+    </code>
+</p>
+
+<p id="agreementStatus">
+    @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.NOTAGREED)
+</p>
+
+<p><a href="/">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a></p>
+
+<div id="ds-terms-of-service"></div>
+<script src="https://stage.docusign.net/clickapi/sdk/latest/docusign-click.js"></script>
+<script>
+    docuSignClick.Clickwrap.render({
+        agreementUrl: "@ViewBag.AgreementUrl",
+        onAgreed: function () {
+            // Triggered if the user has just agreed
+            document.getElementById("agreementStatus").innerHTML = "@ViewBag.SupportingTexts.HelpingTexts.AGREED";
+        }
+    }, "#ds-terms-of-service");
+</script>

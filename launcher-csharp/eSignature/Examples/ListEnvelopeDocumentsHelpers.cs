@@ -22,9 +22,9 @@ namespace ESignature.Examples
         /// <returns>An object containing information about all the documents in the envelopes</returns>
         public static EnvelopeDocuments GetDocuments(string accessToken, string basePath, string accountId, string envelopeId)
         {
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeDocumentsResult results = envelopesApi.ListDocuments(accountId, envelopeId);
 
             List<EnvelopeDocItem> envelopeDocItems = new List<EnvelopeDocItem>

@@ -31,11 +31,11 @@ namespace ESignature.Examples
         public static BulkSendBatchStatus GetStatus(string signer1Name, string signer1Email, string carbonCopy1Name, string carbonCopy1Email, string signer2Name, string signer2Email, string carbonCopy2Name, string carbonCopy2Email, string accessToken, string basePath, string accountId, string docDocx, string envelopeIdStamping, string emailSubject)
         {
             // Step 2 start
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             // Step 2 end
-            var bulkEnvelopesApi = new BulkEnvelopesApi(apiClient);
+            var bulkEnvelopesApi = new BulkEnvelopesApi(docuSignClient);
 
             // Step 3-1 start
             var sendingList = MakeBulkSendList(signer1Name, signer1Email, carbonCopy1Name, carbonCopy1Email, signer2Name, signer2Email, carbonCopy2Name, carbonCopy2Email);
@@ -106,7 +106,7 @@ namespace ESignature.Examples
                 },
             };
 
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             var envelopeResults = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
 
             // Step 4 end

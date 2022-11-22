@@ -22,9 +22,9 @@ namespace DocuSign.Click.Examples
         /// <returns>The summary response of a newly created clickwrap</returns>
         public static ClickwrapVersionSummaryResponse Create(string name, string basePath, string accessToken, string accountId)
         {
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var clickAccountApi = new AccountsApi(apiClient);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var clickAccountApi = new AccountsApi(docuSignClient);
 
             var clickwrapRequest = BuildClickwraprequest(name);
 

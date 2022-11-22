@@ -21,9 +21,9 @@ namespace DocuSign.Click.Examples
         /// <returns>The summary response of the activated clickwrap</returns>
         public static ClickwrapVersionSummaryResponse Update(string clickwrapId, string clickwrapVersion, string basePath, string accessToken, string accountId)
         {
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var clickAccountApi = new AccountsApi(apiClient);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var clickAccountApi = new AccountsApi(docuSignClient);
 
             var clickwrapRequest = BuildUpdateClickwrapVersionRequest();
 
@@ -40,11 +40,18 @@ namespace DocuSign.Click.Examples
             return clickwrapRequest;
         }
 
+        /// <summary>
+        /// Gets a list of inactive clickwraps
+        /// </summary>
+        /// <param name="basePath"></param>
+        /// <param name="accessToken"></param>
+        /// <param name="accountId"></param>
+        /// <returns></returns>
         public static ClickwrapVersionsResponse GetInactiveClickwraps(string basePath, string accessToken, string accountId)
         {
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var clickAccountApi = new AccountsApi(apiClient);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var clickAccountApi = new AccountsApi(docuSignClient);
             var options = new AccountsApi.GetClickwrapsOptions();
             options.status = "inactive";
 

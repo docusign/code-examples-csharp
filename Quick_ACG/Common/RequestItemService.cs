@@ -13,14 +13,14 @@ namespace DocuSign.CodeExamples.Common
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMemoryCache _cache;
         private readonly string _id;
-        public ApiClient _apiClient { get; private set; }
+        public DocuSignClient _docuSignClient { get; private set; }
 
         public RequestItemsService(IHttpContextAccessor httpContextAccessor, IMemoryCache cache, IConfiguration configuration)
         {
             _httpContextAccessor = httpContextAccessor;
             _cache = cache;
             Status = "sent";
-            _apiClient ??= new ApiClient();
+            _docuSignClient ??= new DocuSignClient();
             var identity = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
 
             if (identity != null && identity.IsAuthenticated)

@@ -19,9 +19,9 @@ namespace ESignature.Examples
         public static void DeletePermissionProfile(string permissionProfileId, string accessToken, string basePath, string accountId)
         {
             // Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            AccountsApi accountsApi = new AccountsApi(apiClient);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            AccountsApi accountsApi = new AccountsApi(docuSignClient);
 
             // Call the eSignature REST API
             accountsApi.DeletePermissionProfile(accountId, permissionProfileId);

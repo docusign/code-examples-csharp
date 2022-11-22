@@ -24,9 +24,9 @@ namespace ESignature.Examples
         public static (bool createdNewTemplate, string templateId, string resultsTemplateName) CreateTemplate(string accessToken, string basePath, string accountId, string documentPDF)
         {
             // Step 1. List templates to see if ours exists already
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            TemplatesApi templatesApi = new TemplatesApi(apiClient);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            TemplatesApi templatesApi = new TemplatesApi(docuSignClient);
             TemplatesApi.ListTemplatesOptions options = new TemplatesApi.ListTemplatesOptions();
             options.searchText = "Example Signer and CC template";
             EnvelopeTemplateResults results = templatesApi.ListTemplates(accountId, options);

@@ -1,8 +1,4 @@
-﻿// <copyright file="RecipientAuthPhone.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
-// </copyright>
-
-namespace ESignature.Examples
+﻿namespace ESignature.Examples
 {
     using System;
     using System.Collections.Generic;
@@ -11,8 +7,33 @@ namespace ESignature.Examples
     using DocuSign.eSign.Client;
     using DocuSign.eSign.Model;
 
-    public static class RecipientAuthPhone
+    public static class CFRPart11EmbeddedSending
     {
+
+        static string _clientUserId = "12345";
+
+        /// <summary>
+        /// Checks if account is CFR Part 11 enabled
+        /// </summary>
+        /// <param name="accessToken">Access Token to make API calls</param>
+        /// <param name="basePath">BasePath to make API calls</param>
+        /// <param name="accountId">AccountId (GUID) for this account</param>
+        /// <returns>True if CFR Part 11, false otherwise</returns>
+        public static bool IsCFRPart11Account(string accessToken, string basePath, string accountId)
+        {
+            // Construct your API headers
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+
+            // Call the eSignature REST API
+            AccountsApi accountsApi = new AccountsApi(docuSignClient);
+
+            var accountSettingsInformation = accountsApi.ListSettings(accountId);
+
+            return (accountSettingsInformation.Require21CFRpt11Compliance == "true");
+        }
+
+
         /// <summary>
         /// Creates an envelope and adds a recipient that is to be authenticated using either a phone call or an SMS (text) message.
         /// </summary>
@@ -24,8 +45,8 @@ namespace ESignature.Examples
         /// <param name="countryAreaCode">Country code for the phone number used to verify the recipient/param>
         /// <param name="phoneNumber">Phone number used to verify the recipient</param>
         /// <param name="docPdf">String of bytes representing the document (pdf)</param>
-        /// <returns>EnvelopeId for the new envelope</returns>
-        public static string CreateEnvelopeWithRecipientUsingPhoneAuth(string signerEmail, string signerName, string accessToken, string basePath, string accountId, string countryAreaCode, string phoneNumber, string docPdf)
+        /// <returns>URL for embedded signing</returns>
+        public static string EmbeddedSigning(string signerEmail, string signerName, string accessToken, string basePath, string accountId, string countryAreaCode, string phoneNumber, string docPdf, string redirectUrl)
         {
             // Construct your API headers
             // Step 2 start
@@ -37,7 +58,7 @@ namespace ESignature.Examples
             // Step 3 start
             var accountsApi = new AccountsApi(docuSignClient);
             AccountIdentityVerificationResponse response = accountsApi.GetAccountIdentityVerification(accountId);
-            var phoneAuthWorkflow = response.IdentityVerification.FirstOrDefault(x => x.DefaultName == "Phone Authentication");
+            var phoneAuthWorkflow = response.IdentityVerification.FirstOrDefault(x => x.DefaultName == "SMS for access & signatures");
 
             // Step 3 end
             if (phoneAuthWorkflow == null)
@@ -74,8 +95,8 @@ namespace ESignature.Examples
             {
                 AnchorString = "/sn1/",
                 AnchorUnits = "pixels",
-                AnchorXOffset = "10",
-                AnchorYOffset = "20",
+                AnchorXOffset = "20",
+                AnchorYOffset = "-30",
             };
 
             // Tabs are set per recipient/signer
@@ -115,6 +136,7 @@ namespace ESignature.Examples
                 RecipientId = "1", // represents your {RECIPIENT_ID},
                 Tabs = signer1Tabs,
                 IdentityVerification = workflow,
+                ClientUserId = _clientUserId
             };
 
             Recipients recipients = new Recipients();
@@ -129,7 +151,57 @@ namespace ESignature.Examples
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
 
             // Step 5 end
-            return results.EnvelopeId;
+            RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, redirectUrl, _clientUserId);
+
+            // call the CreateRecipientView API
+            ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, results.EnvelopeId, viewRequest);
+
+            return results1.Url;
+        }
+        private static RecipientViewRequest MakeRecipientViewRequest(string signerEmail, string signerName, string returnUrl, string signerClientId, string pingUrl = null)
+        {
+            // Data for this method
+            // signerEmail
+            // signerName
+            // dsPingUrl -- class global
+            // signerClientId -- class global
+            // dsReturnUrl -- class global
+            RecipientViewRequest viewRequest = new RecipientViewRequest();
+
+            // Set the url where you want the recipient to go once they are done signing
+            // should typically be a callback route somewhere in your app.
+            // The query parameter is included as an example of how
+            // to save/recover state information during the redirect to
+            // the DocuSign signing ceremony. It's usually better to use
+            // the session mechanism of your web framework. Query parameters
+            // can be changed/spoofed very easily.
+            viewRequest.ReturnUrl = returnUrl + "?state=123";
+
+            // How has your app authenticated the user? In addition to your app's
+            // authentication, you can include authenticate steps from DocuSign.
+            // Eg, SMS authentication
+            viewRequest.AuthenticationMethod = "none";
+
+            // Recipient information must match embedded recipient info
+            // we used to create the envelope.
+            viewRequest.Email = signerEmail;
+            viewRequest.UserName = signerName;
+            viewRequest.ClientUserId = signerClientId;
+
+            // DocuSign recommends that you redirect to DocuSign for the
+            // Signing Ceremony. There are multiple ways to save state.
+            // To maintain your application's session, use the pingUrl
+            // parameter. It causes the DocuSign Signing Ceremony web page
+            // (not the DocuSign server) to send pings via AJAX to your
+            // app,
+            // NOTE: The pings will only be sent if the pingUrl is an https address
+            if (pingUrl != null)
+            {
+                viewRequest.PingFrequency = "600"; // seconds
+                viewRequest.PingUrl = pingUrl; // optional setting
+            }
+
+            return viewRequest;
         }
     }
 }
