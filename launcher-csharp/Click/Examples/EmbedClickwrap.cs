@@ -24,9 +24,9 @@ namespace DocuSign.Click.Examples
         /// <returns>UserAgreemtnRsponse object containing the agreementUrl to be used</returns>
         public static UserAgreementResponse CreateHasAgreed(string clickwrapId, string fullName, string email, string company, string title, string date, string basePath, string accessToken, string accountId)
         {
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var clickAccountApi = new AccountsApi(apiClient);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var clickAccountApi = new AccountsApi(docuSignClient);
 
             var userAgreementRequest = BuildUpdateClickwrapHasAgreedRequest(fullName, email, company, title, date);
 
@@ -67,9 +67,9 @@ namespace DocuSign.Click.Examples
         /// <returns></returns>
         public static ClickwrapVersionsResponse GetActiveClickwraps(string basePath, string accessToken, string accountId)
         {
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var clickAccountApi = new AccountsApi(apiClient);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var clickAccountApi = new AccountsApi(docuSignClient);
             var options = new AccountsApi.GetClickwrapsOptions();
             options.status = "active";
 

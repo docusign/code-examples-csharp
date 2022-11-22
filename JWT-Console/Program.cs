@@ -64,9 +64,9 @@ namespace DocuSign.CodeExamples.JWT_Console
                 }
             }
 
-            var apiClient = new ApiClient();
-            apiClient.SetOAuthBasePath(ConfigurationManager.AppSettings["AuthServer"]);
-            UserInfo userInfo = apiClient.GetUserInfo(accessToken.access_token);
+            var docuSignClient = new DocuSignClient();
+            docuSignClient.SetOAuthBasePath(ConfigurationManager.AppSettings["AuthServer"]);
+            UserInfo userInfo = docuSignClient.GetUserInfo(accessToken.access_token);
             Account acct = userInfo.Accounts.FirstOrDefault();
 
             Console.WriteLine("Welcome to the JWT Code example! ");

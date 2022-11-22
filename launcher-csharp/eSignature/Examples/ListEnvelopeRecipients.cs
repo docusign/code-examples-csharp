@@ -21,12 +21,12 @@ namespace ESignature.Examples
         public static Recipients GetRecipients(string accessToken, string basePath, string accountId, string envelopeId)
         {
             // Step 2 start
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             // Step 2 end
 
             // Step 3 start
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             Recipients results = envelopesApi.ListRecipients(accountId, envelopeId);
             return results;
             // Step 3 end

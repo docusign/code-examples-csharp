@@ -34,9 +34,9 @@ namespace ESignature.Examples
             EnvelopeDefinition env = MakeEnvelope(signerName, signerCountryCode, signerPhoneNumber, ccName, ccCountryCode, ccPhoneNumber, docDocx, docPdf, envStatus);
 
             // Step 3 start
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
 
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
 

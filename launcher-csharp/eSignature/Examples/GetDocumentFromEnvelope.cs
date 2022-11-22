@@ -40,9 +40,9 @@ namespace ESignature.Examples
         /// <returns>Stream containing the document, mimeType for this document and the document name</returns>
         public static (Stream, string, string) DownloadDocument(string accessToken, string basePath, string accountId, string envelopeId, List<EnvelopeDocItem> documents, string documentId)
         {
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
 
             // Step 1 start
             // Step 1. EnvelopeDocuments::get.

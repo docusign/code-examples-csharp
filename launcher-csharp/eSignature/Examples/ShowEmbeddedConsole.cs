@@ -28,9 +28,9 @@ namespace ESignature.Examples
             string returnUrl,
             string envelopeId)
         {
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             ConsoleViewRequest viewRequest = MakeConsoleViewRequest(
                 returnUrl,
                 startingView,
