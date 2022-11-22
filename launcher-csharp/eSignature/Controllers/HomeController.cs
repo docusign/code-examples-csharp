@@ -33,7 +33,7 @@ namespace DocuSign.CodeExamples.Controllers
                 if (this.RequestItemsService.Session != null)
                 {
                     var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
-                    var accessToken = this.RequestItemsService.User.AccessToken;
+                    var accessToken = this.RequestItemsService.User?.AccessToken;
                     var accountId = this.RequestItemsService.Session.AccountId;
                     this.ViewBag.CFRPart11 = global::ESignature.Examples.CFRPart11EmbeddedSending.IsCFRPart11Account(accessToken, basePath, accountId);
                 }
