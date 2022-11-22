@@ -26,14 +26,14 @@ namespace ESignature.Examples
         public static EnvelopeSummary CreateEnvelopeWithBranding(string signerEmail, string signerName, string brandId, string accessToken, string basePath, string accountId, string status, string docPdf)
         {
             // Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             // Construct your request body
             EnvelopeDefinition env = CreateEnvelope(signerEmail, signerName, brandId, status, docPdf);
 
             // Call the eSignature REST API
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
 
             return envelopesApi.CreateEnvelope(accountId, env);
         }

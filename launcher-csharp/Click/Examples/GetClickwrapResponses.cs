@@ -20,9 +20,9 @@ namespace DocuSign.Click.Examples
         /// <returns>The agreements of a given clickwrap</returns>
         public static ClickwrapAgreementsResponse GetAgreements(string clickwrapId, string basePath, string accessToken, string accountId)
         {
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var clickAccountApi = new AccountsApi(apiClient);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var clickAccountApi = new AccountsApi(docuSignClient);
 
             return clickAccountApi.GetClickwrapAgreements(accountId, clickwrapId);
         }

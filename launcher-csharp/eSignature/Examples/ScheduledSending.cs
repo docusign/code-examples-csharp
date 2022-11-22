@@ -30,10 +30,10 @@ namespace ESignature.Examples
             // Step 1 end
 
             // Step 2 start
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             // Step 3 start
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
             // Step 3 end
             return results.EnvelopeId;
@@ -86,7 +86,7 @@ namespace ESignature.Examples
             // Add the workflow rule that sets the schedule for the envelope to be sent
             Workflow workflow = new Workflow { ScheduledSending = new DocuSign.eSign.Model.ScheduledSending() };
             var rule = new EnvelopeDelayRule();
-            rule.ResumeDate = resumeDate.ToString("yyyy-MM-dd");
+            rule.ResumeDate = resumeDate.ToString("MM/dd/yyyy");
             workflow.ScheduledSending.Rules = new List<EnvelopeDelayRule> { rule };
             env.Workflow = workflow;
 

@@ -35,11 +35,11 @@ namespace DocuSign.CodeExamples.Controllers
             var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
             var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
-            var accountsApi = new AccountsApi(apiClient);
-            var groupsApi = new GroupsApi(apiClient);
+            var accountsApi = new AccountsApi(docuSignClient);
+            var groupsApi = new GroupsApi(docuSignClient);
             var permissions = accountsApi.ListPermissions(accountId);
             var userGroups = groupsApi.ListGroups(accountId);
 

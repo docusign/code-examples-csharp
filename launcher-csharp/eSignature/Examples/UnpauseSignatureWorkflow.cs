@@ -22,14 +22,14 @@ namespace ESignature.Examples
         public static EnvelopeUpdateSummary UnpauseWorkflow(string accessToken, string basePath, string accountId, string pausedEnvelopeId)
         {
             // Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             // Construct request body
             var envelope = MakeEnvelope();
 
             // Call the eSignature REST API
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
 
             var updateOptions = new UpdateOptions() { resendEnvelope = "true" };
             return envelopesApi.Update(accountId, pausedEnvelopeId, envelope, updateOptions);

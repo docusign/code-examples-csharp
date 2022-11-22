@@ -46,11 +46,11 @@ namespace ESignature.Examples
             // Step 1 end
 
             // Step 2 start
-            // Step 2. Call DocuSign to create the envelope
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            // Step 2. Call DocuSign to create the envelope                   
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
             string envelopeId = results.EnvelopeId;
 

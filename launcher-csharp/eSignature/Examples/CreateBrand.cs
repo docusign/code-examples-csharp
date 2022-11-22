@@ -22,8 +22,8 @@ namespace ESignature.Examples
         public static BrandsResponse Create(string brandName, string defaultBrandLanguage, string accessToken, string basePath, string accountId)
         {
             // Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             // Construct your request body
             Brand newBrand = new Brand
@@ -33,7 +33,7 @@ namespace ESignature.Examples
             };
 
             // Call the eSignature REST API
-            AccountsApi accountsApi = new AccountsApi(apiClient);
+            AccountsApi accountsApi = new AccountsApi(docuSignClient);
 
             return accountsApi.CreateBrand(accountId, newBrand);
         }

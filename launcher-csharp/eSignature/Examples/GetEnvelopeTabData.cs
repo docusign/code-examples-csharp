@@ -21,11 +21,11 @@ namespace ESignature.Examples
         public static EnvelopeFormData GetEnvelopeFormData(string accessToken, string basePath, string accountId, string envelopeId)
         {
             // Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             // Call the eSignature REST API
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             return envelopesApi.GetFormData(accountId, envelopeId);
         }
     }

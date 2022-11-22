@@ -43,7 +43,7 @@ namespace DocuSign.CodeExamples.Common
             Configuration = configuration;
             this.cache = cache;
             this.Status = "sent";
-            ApiClient ??= new ApiClient();
+            DocuSignClient ??= new DocuSignClient();
             var identity = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
 
             if (identity != null && identity.IsAuthenticated)
@@ -109,8 +109,8 @@ namespace DocuSign.CodeExamples.Common
             {
                 if (authenticatedUserEmail == null)
                 {
-                    ApiClient.SetOAuthBasePath(this.Configuration["DocuSignJWT:AuthServer"]);
-                    UserInfo userInfo = ApiClient.GetUserInfo(this.User?.AccessToken);
+                    DocuSignClient.SetOAuthBasePath(this.Configuration["DocuSignJWT:AuthServer"]);
+                    UserInfo userInfo = DocuSignClient.GetUserInfo(this.User?.AccessToken);
 
                     authenticatedUserEmail = userInfo.Email;
                 }
@@ -174,7 +174,7 @@ namespace DocuSign.CodeExamples.Common
             set => this.cache.Set(this.GetKey("EmailAddress"), value);
         }
 
-        protected static ApiClient ApiClient { get; private set; }
+        protected static DocuSignClient DocuSignClient { get; private set; }
 
         public void UpdateUserFromJWT()
         {
@@ -234,8 +234,8 @@ namespace DocuSign.CodeExamples.Common
 
         private Account GetAccountInfo(OAuthToken authToken)
         {
-            ApiClient.SetOAuthBasePath(this.Configuration["DocuSignJWT:AuthServer"]);
-            UserInfo userInfo = ApiClient.GetUserInfo(authToken.access_token);
+            DocuSignClient.SetOAuthBasePath(this.Configuration["DocuSignJWT:AuthServer"]);
+            UserInfo userInfo = DocuSignClient.GetUserInfo(authToken.access_token);
             Account acct = userInfo.Accounts.FirstOrDefault();
             if (acct == null)
             {
