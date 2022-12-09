@@ -29,7 +29,12 @@
           "AccessCodeText":"Provide this string to a recipient that is different such as in person or by mail or via different email.",
           "CountryCodeText":"The country code for the phone below",
           "ChooseDateInTheFuture":"Please choose a date in the future",
-          "PhoneNumberWillBeNotified":"This phone number will receive a notification."
+          "PhoneNumberWillBeNotified":"This phone number will receive a notification.",
+          "DynamicContentValue": "Provide values for the dynamic content fields shown on the elastic template agreement.",
+          "DynamicContentNote": "Note: The elastic template must be manually modified through the elastic templates UI to include these dynamic content fields.",
+          "EmbedClickwrapURL": "Agreement URL returned in the JSON response:",
+          "NOTAGREED": "NOT AGREED",
+          "AGREED": "AGREED"
        }
     },
     "APIs":[
