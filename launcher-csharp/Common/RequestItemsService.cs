@@ -250,9 +250,7 @@ namespace DocuSign.CodeExamples.Common
                     }
                 }
 
-                string errorMessage = string.Format("Targeted Account with Id {0} not found.", targetAccountId);
-
-                throw new Exception(errorMessage);
+                throw new Exception($"Targeted Account with Id {targetAccountId} not found.");
             }
             else
             {

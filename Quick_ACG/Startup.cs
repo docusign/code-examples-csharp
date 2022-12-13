@@ -125,7 +125,7 @@ namespace DocuSign.QuickACG
                 return null;
             }
 
-            string keyValue = null;
+            string? keyValue = null;
             string targetAccountIdString = this.Configuration["DocuSign:TargetAccountId"];
 
             if (Guid.TryParse(targetAccountIdString, out Guid targetAccountId))
@@ -146,9 +146,7 @@ namespace DocuSign.QuickACG
 
                 if (keyValue == null)
                 {
-                    string errorMessage = string.Format("Targeted Account with Id {0} not found.", targetAccountId);
-
-                    throw new Exception(errorMessage);
+                    throw new Exception($"Targeted Account with Id {targetAccountId} not found.");
                 }
             }
             else

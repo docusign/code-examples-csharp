@@ -189,7 +189,7 @@ namespace DocuSign.CodeExamples
                 return null;
             }
 
-            string keyValue = null;
+            string? keyValue = null;
             string targetAccountIdString = this.Configuration["DocuSign:TargetAccountId"];
 
             if (Guid.TryParse(targetAccountIdString, out Guid targetAccountId))
@@ -210,7 +210,7 @@ namespace DocuSign.CodeExamples
 
                 if (keyValue == null)
                 {
-                    string errorMessage = string.Format("Targeted Account with Id {0} not found.", targetAccountId);
+                    string errorMessage = $"Targeted Account with Id {targetAccountId} not found.";
                     this.Configuration["ErrorMessage"] = errorMessage;
 
                     throw new Exception(errorMessage);
