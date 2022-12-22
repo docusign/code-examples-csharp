@@ -30,6 +30,7 @@ namespace launcher_csharp.Tests
         [InlineData(ExamplesAPIType.Monitor)]
         [InlineData(ExamplesAPIType.Click)]
         [InlineData(ExamplesAPIType.Rooms)]
+        [InlineData(ExamplesAPIType.Admin)]
         public void RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType apiType)
         {
             // Arrange
