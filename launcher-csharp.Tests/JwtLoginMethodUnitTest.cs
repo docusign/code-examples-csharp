@@ -1,13 +1,7 @@
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Client.Auth;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
-using System.IO;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Xunit;
-using System.Net;
 using System.Runtime.InteropServices;
 using DocuSign.CodeExamples.Authentication;
 using DocuSign.CodeExamples.Common;
@@ -33,7 +27,6 @@ namespace launcher_csharp.Tests
 
         [Theory]
         [InlineData(ExamplesAPIType.ESignature)]
-        [InlineData(ExamplesAPIType.Admin)]
         [InlineData(ExamplesAPIType.Monitor)]
         [InlineData(ExamplesAPIType.Click)]
         [InlineData(ExamplesAPIType.Rooms)]
@@ -45,12 +38,12 @@ namespace launcher_csharp.Tests
             try
             {
                 // Act
-               OAuth.OAuthToken tokenInfo = JWTAuth.AuthenticateWithJWT(
+                OAuth.OAuthToken tokenInfo = JWTAuth.AuthenticateWithJWT(
                     apiType.ToString(),
                     _testConfig.ClientId,
                     _testConfig.ImpersonatedUserId,
                     _testConfig.OAuthBasePath,
-                    _testConfig.PrivateKey
+                    _testConfig.PrivateKeyBytes
                     );
 
                 OAuth.UserInfo userInfo = _testConfig.ApiClient.GetUserInfo(tokenInfo.access_token);
