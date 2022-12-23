@@ -80,7 +80,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
                 {
                     new Document
                     {
-                        DocumentBase64 = Convert.ToBase64String(SigningViaEmail.Document1(_testConfig.SignerEmail, _testConfig.SignerName, ccEmail, ccName)),
+                        DocumentBase64 = Convert.ToBase64String(SigningViaEmail.Document1(_testConfig.SignerEmail, _testConfig.SignerName, CC_MAIL, CC_NAME)),
                         Name = "Order acknowledgement",
                         FileExtension = htmlFileExtension,
                         DocumentId = "1"
