@@ -10,11 +10,11 @@ namespace launcher_csharp.Tests
 {
     public sealed class JwtLoginMethodUnitTest
     {
-        private const string RedirectUrl = "https://developers.docusign.com/platform/auth/consent";
+        private const string REDIRECT_URL = "https://developers.docusign.com/platform/auth/consent";
 
-        private const string RerunUnitTests = "Please, rerun the unit tests once consent has been provided.";
+        private const string RERUN_UNIT_TESTS = "Please, rerun the unit tests once consent has been provided.";
 
-        private const string ConsentRequired = "consent_required";
+        private const string CONSENT_REQUIRED = "consent_required";
 
         private readonly ITestConfig _testConfig;
 
@@ -73,11 +73,11 @@ namespace launcher_csharp.Tests
             }
             catch (Exception e)
             {
-                if (e.Message.ToLowerInvariant().Contains(ConsentRequired))
+                if (e.Message.ToLowerInvariant().Contains(CONSENT_REQUIRED))
                 {
                     _testConfig?.OpenUrlUsingConsoleWindow(BuildConsentUrl(apiType));
 
-                    throw new Xunit.Sdk.XunitException(RerunUnitTests);
+                    throw new Xunit.Sdk.XunitException(RERUN_UNIT_TESTS);
                 }
             }
         }
@@ -107,7 +107,7 @@ namespace launcher_csharp.Tests
             }
 
             return "https://" + _testConfig.OAuthBasePath + "/oauth/auth?response_type=code" + caret + "&scope=" + scopes 
-                   + caret + "&client_id=" + _testConfig.ClientId + caret + "&redirect_uri=" + RedirectUrl;
+                   + caret + "&client_id=" + _testConfig.ClientId + caret + "&redirect_uri=" + REDIRECT_URL;
         }
     }
 }
