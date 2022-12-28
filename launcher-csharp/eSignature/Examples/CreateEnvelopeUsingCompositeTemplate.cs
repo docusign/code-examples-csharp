@@ -43,9 +43,9 @@ namespace ESignature.Examples
             string signerClientId,
             string templateId)
         {
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
 
             // Step 1. Make the envelope request body
             EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, item, quantity, signerClientId, templateId);
@@ -62,7 +62,7 @@ namespace ESignature.Examples
             return results1.Url;
         }
 
-        private static RecipientViewRequest MakeRecipientViewRequest(
+        public static RecipientViewRequest MakeRecipientViewRequest(
             string signerEmail,
             string signerName,
             string dsReturnUrl,
@@ -96,7 +96,7 @@ namespace ESignature.Examples
             return viewRequest;
         }
 
-        private static EnvelopeDefinition MakeEnvelope(
+        public static EnvelopeDefinition MakeEnvelope(
             string signerEmail,
             string signerName,
             string ccEmail,
@@ -239,7 +239,7 @@ namespace ESignature.Examples
             return env;
         }
 
-        private static byte[] Document1(
+        public static byte[] Document1(
             string signerEmail,
             string signerName,
             string ccEmail,

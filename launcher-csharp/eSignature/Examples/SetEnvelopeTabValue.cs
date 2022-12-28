@@ -37,8 +37,8 @@ namespace ESignature.Examples
             string pingUrl = null)
         {
             // Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             // Create Tabs and CustomFields
             SignHere signHere = new SignHere
@@ -163,7 +163,7 @@ namespace ESignature.Examples
             };
 
             // Call the eSignature REST API
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelopeAttributes);
             string envelopeId = results.EnvelopeId;
 

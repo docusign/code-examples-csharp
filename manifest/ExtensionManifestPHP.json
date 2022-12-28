@@ -425,5 +425,5 @@
       "apiType": "Monitor"
     }
   ],
-  "postAddOpenURI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant"
+  "postAddOpenURI": "https://developers.docusign.com/platform/auth/authcode/"
 }

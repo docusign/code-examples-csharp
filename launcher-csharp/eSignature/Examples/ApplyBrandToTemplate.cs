@@ -28,9 +28,9 @@ namespace ESignature.Examples
         public static EnvelopeSummary CreateEnvelopeFromTemplateWithBrand(string signerEmail, string signerName, string ccEmail, string ccName, string brandId, string templateId, string accessToken, string basePath, string accountId, string status)
         {
             // Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
 
             // Construct your request body
             EnvelopeDefinition envelopeDefinition = new EnvelopeDefinition

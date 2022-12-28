@@ -27,8 +27,8 @@ namespace ESignature.Examples
         public static EnvelopeSummary SendEnvelope(string accessToken, string basePath, string accountId, string recipient1Email, string recipient1Name, string conditionalRecipient1Email, string conditionalRecipient1Name, string conditionalRecipient2Email, string conditionalRecipient2Name)
         {
             // Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             // Construct request body
             var envelope = MakeEnvelope(
@@ -40,7 +40,7 @@ namespace ESignature.Examples
                 conditionalRecipient2Name);
 
             // Call the eSignature REST API
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
 
             return envelopesApi.CreateEnvelope(accountId, envelope);
         }

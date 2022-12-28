@@ -26,19 +26,19 @@ namespace ESignature.Examples
         public static string SendEnvelopeFromTemplate(string signerEmail, string signerName, string ccEmail, string ccName, string accessToken, string basePath, string accountId, string templateId)
         {
             // Step 1 start
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             // Step 1 end
 
             // Step 2 start
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, templateId);
             EnvelopeSummary result = envelopesApi.CreateEnvelope(accountId, envelope);
             return result.EnvelopeId;
             // Step 2 end
         }
 
-        private static EnvelopeDefinition MakeEnvelope(
+        public static EnvelopeDefinition MakeEnvelope(
             string signerEmail,
             string signerName,
             string ccEmail,
