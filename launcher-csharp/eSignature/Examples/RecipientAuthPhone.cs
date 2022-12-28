@@ -29,13 +29,13 @@ namespace ESignature.Examples
         {
             // Construct your API headers
             // Step 2 start
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             // Step 2 end
 
             // Step 3 start
-            var accountsApi = new AccountsApi(apiClient);
+            var accountsApi = new AccountsApi(docuSignClient);
             AccountIdentityVerificationResponse response = accountsApi.GetAccountIdentityVerification(accountId);
             var phoneAuthWorkflow = response.IdentityVerification.FirstOrDefault(x => x.DefaultName == "Phone Authentication");
 
@@ -125,7 +125,7 @@ namespace ESignature.Examples
 
             // Call the eSignature REST API
             // Step 5 start
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
 
             // Step 5 end

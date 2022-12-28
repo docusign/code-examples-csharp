@@ -25,14 +25,14 @@ namespace ESignature.Examples
         public static EnvelopeSummary PauseWorkflow(string recipient1Email, string recipient1Name, string recipient2Email, string recipient2Name, string accessToken, string basePath, string accountId)
         {
             // Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             // Construct request body
             var envelope = MakeEnvelope(recipient1Email, recipient1Name, recipient2Email, recipient2Name);
 
             // Call the eSignature REST API
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
 
             return envelopesApi.CreateEnvelope(accountId, envelope);
         }

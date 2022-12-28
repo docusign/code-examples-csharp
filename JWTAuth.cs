@@ -18,7 +18,7 @@ namespace DocuSign.CodeExamples.Authentication
         /// <returns>Auth token needed for API calls</returns>
         public static OAuthToken AuthenticateWithJWT(string api, string clientId, string impersonatedUserId, string authServer, string privateKeyFile)
         {
-            var apiClient = new ApiClient();
+            var docuSignClient = new DocuSignClient();
             var apiType = Enum.Parse<ExamplesAPIType>(api);
             var scopes = new List<string>
                 {
@@ -74,7 +74,7 @@ namespace DocuSign.CodeExamples.Authentication
             });
             }
 
-            return apiClient.RequestJWTUserToken(
+            return docuSignClient.RequestJWTUserToken(
                 clientId,
                 impersonatedUserId,
                 authServer,

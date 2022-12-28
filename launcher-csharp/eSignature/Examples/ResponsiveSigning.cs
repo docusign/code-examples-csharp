@@ -27,10 +27,10 @@ namespace ESignature.Examples
         {
             EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, signerClientId);
 
-            ApiClient apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            DocuSignClient docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary envelopeSummary = envelopesApi.CreateEnvelope(accountId, envelope);
             string envelopeId = envelopeSummary.EnvelopeId;
 

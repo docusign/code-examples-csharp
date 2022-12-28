@@ -2,6 +2,9 @@
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
+
+using System.Runtime.CompilerServices;
+
 namespace ESignature.Examples
 {
     using System;
@@ -46,10 +49,10 @@ namespace ESignature.Examples
 
             // Step 2 start
             // Step 2. Call DocuSign to create the envelope                   
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
             string envelopeId = results.EnvelopeId;
             // Step 2 end
@@ -74,7 +77,7 @@ namespace ESignature.Examples
             // Step 4 end
         }
 
-        private static RecipientViewRequest MakeRecipientViewRequest(string signerEmail, string signerName, string returnUrl, string signerClientId, string pingUrl = null)
+        public static RecipientViewRequest MakeRecipientViewRequest(string signerEmail, string signerName, string returnUrl, string signerClientId, string pingUrl = null)
         {
             // Data for this method
             // signerEmail
@@ -120,7 +123,7 @@ namespace ESignature.Examples
             return viewRequest;
         }
 
-        private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string signerClientId, string docPdf)
+        public static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string signerClientId, string docPdf)
         {
             // Data for this method
             // signerEmail

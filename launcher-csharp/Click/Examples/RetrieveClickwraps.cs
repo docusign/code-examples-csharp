@@ -19,9 +19,9 @@ namespace DocuSign.Click.Examples
         /// <returns>The list of all clickwraps</returns>
         public static ClickwrapVersionsResponse GetClickwraps(string basePath, string accessToken, string accountId)
         {
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var clickAccountApi = new AccountsApi(apiClient);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var clickAccountApi = new AccountsApi(docuSignClient);
 
             return clickAccountApi.GetClickwraps(accountId);
         }

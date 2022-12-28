@@ -23,9 +23,9 @@ namespace ESignature.Examples
         public static GroupInformation GetGroupInformation(string permissionProfileId, string userGroupId, string accessToken, string basePath, string accountId)
         {
             // Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var groupsApi = new GroupsApi(apiClient);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var groupsApi = new GroupsApi(docuSignClient);
 
             // Construct your request body
             var editedGroup = new Group
