@@ -22,9 +22,9 @@ namespace ESignature.Examples
         public static PermissionProfile UpdatePermissionProfile(string profileId, string accessToken, string basePath, string accountId)
         {
             // Construct your API headers
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            AccountsApi accountsApi = new AccountsApi(apiClient);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            AccountsApi accountsApi = new AccountsApi(docuSignClient);
 
             // Construct the request body
             var permission = accountsApi.ListPermissions(accountId).PermissionProfiles.

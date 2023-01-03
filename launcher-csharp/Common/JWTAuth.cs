@@ -17,7 +17,7 @@ namespace DocuSign.eSignature
         /// <returns>A tuple containing the accessToken, accountId and baseUri</returns>
         public static (string, string, string) AuthenticateWithJWT()
         {
-            var apiClient = new ApiClient();
+            var docuSignClient = new DocuSignClient();
             string ik = ConfigurationManager.AppSettings["IntegrationKey"];
             string userId = ConfigurationManager.AppSettings["userId"];
             string authServer = ConfigurationManager.AppSettings["AuthServer"];
@@ -54,7 +54,7 @@ namespace DocuSign.eSignature
                 });
             }
 
-            OAuth.OAuthToken authToken = apiClient.RequestJWTUserToken(ik,
+            OAuth.OAuthToken authToken = docuSignClient.RequestJWTUserToken(ik,
                             userId,
                             authServer,
                             File.ReadAllBytes(rsaKeyFilePath),
@@ -62,8 +62,8 @@ namespace DocuSign.eSignature
                             scopes);
 
             string accessToken = authToken.access_token;
-            apiClient.SetOAuthBasePath(authServer);
-            OAuth.UserInfo userInfo = apiClient.GetUserInfo(authToken.access_token);
+            docuSignClient.SetOAuthBasePath(authServer);
+            OAuth.UserInfo userInfo = docuSignClient.GetUserInfo(authToken.access_token);
             Account acct = null;
 
             var accounts = userInfo.Accounts;

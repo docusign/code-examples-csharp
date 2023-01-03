@@ -32,10 +32,10 @@ namespace eSignature.Examples
                     signer2Name, ccEmail, ccName, docPdf, docDocx, docHTML);
                   
             // Step 2 start
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             // Step 2 end
 
             // Step 4 start

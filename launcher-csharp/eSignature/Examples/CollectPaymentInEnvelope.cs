@@ -47,9 +47,9 @@ namespace ESignature.Examples
             // accessToken
             // basePath
             // accountId
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
 
             // Step 1. Make the envelope request body
             EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, envStatus, gatawayAccountId, gatewayName, gatewayDisplayName);

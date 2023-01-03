@@ -11,7 +11,7 @@
           "folder": "docusign"
         },
         {
-          "source": "https://raw.githubusercontent.com/annahileta/JavaWithServices/master/src/main/java/com/docusign/common/ApiIndex.java",
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/common/ApiIndex.java",
           "folder": "docusign"
         },
         {
@@ -79,7 +79,7 @@
           "help": {
             "hint": "How to get an integration key?",
             "displayText": "Learn more",
-            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+            "URI": "https://developers.docusign.com/platform/auth/authcode/authcode-get-token/#prerequisites"
           }
         },
         {
@@ -94,7 +94,7 @@
           "help": {
             "hint": "How to define a redirect URI?",
             "displayText": "Learn more",
-            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+            "URI": "https://developers.docusign.com/platform/auth/authcode/authcode-get-token/#prerequisites"
           }
         },
         {
@@ -107,7 +107,7 @@
           "help": {
             "hint": "How to get a secret key?",
             "displayText": "Learn more",
-            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+            "URI": "https://developers.docusign.com/platform/auth/authcode/authcode-get-token/#prerequisites"
           }
         },
         {
@@ -154,7 +154,7 @@
       "help": {
         "hint": "How do I use Authorization Code Grant?",
         "displayText": "Learn more",
-        "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant"
+        "URI": "https://developers.docusign.com/platform/auth/authcode/authcode-get-token/"
       },
       "applicableProjectType": "Web"
     },
@@ -168,7 +168,7 @@
           "folder": "docusign"
         },
         {
-          "source": "https://raw.githubusercontent.com/annahileta/JavaWithServices/master/src/main/java/com/docusign/common/ApiIndex.java",
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/common/ApiIndex.java",
           "folder": "docusign"
         },
         {
@@ -248,7 +248,7 @@
           "help": {
             "hint": "How to get an integration key?",
             "displayText": "Learn more",
-            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken#prerequisites"
+            "URI": "https://developers.docusign.com/platform/auth/jwt/jwt-get-token/#prerequisites"
           }
         },
         {
@@ -262,7 +262,7 @@
           "help": {
             "hint": "How to find the DocuSign userId",
             "displayText": "Learn more",
-            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken#prerequisites"
+            "URI": "https://developers.docusign.com/platform/auth/jwt/jwt-get-token/#prerequisites"
           }
         },
         {
@@ -314,7 +314,7 @@
       "help": {
         "hint": "How do I use JSON Web Token (JWT) Grant?",
         "displayText": "Learn more",
-        "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken"
+        "URI": "https://developers.docusign.com/platform/auth/jwt/jwt-get-token/"
       },
       "preferredConfigFile": "AppConfig"
     }
@@ -333,7 +333,7 @@
     {
       "group": "org.springframework.security.oauth.boot",
       "name": "spring-security-oauth2-autoconfigure",
-      "version": "2.5.6"
+      "version": "2.6.8"
     },
     {
       "group": "org.apache.commons",
@@ -374,7 +374,7 @@
         {
           "group": "com.docusign",
           "name": "docusign-esign-java",
-          "version": "3.19.0"
+          "version": "3.21.0"
         }
       ],
       "scopes": [
@@ -411,7 +411,7 @@
         {
           "group": "com.docusign",
           "name": "docusign-click-java",
-          "version": "1.1.0"
+          "version": "1.2.2"
         }
       ],
       "scopes": [
@@ -438,6 +438,6 @@
   "help": {
     "hint": "How do I identify OAuth Authentication Type?",
     "displayText": "Learn more",
-    "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication"
+    "URI": "https://developers.docusign.com/platform/auth/"
   }
 }

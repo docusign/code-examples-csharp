@@ -27,11 +27,11 @@ namespace ESignature.Examples
         public static string SendEnvelopeWithDelayedRouting(string signer1Email, string signer1Name, string signer2Email, string signer2Name, string accessToken, string basePath, string accountId, string docPdf, int delay)
         {
             EnvelopeDefinition env = MakeEnvelope(signer1Email, signer1Name, signer2Email, signer2Name, docPdf, delay);
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             // Step 3 start
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
 
             // Step 3 end

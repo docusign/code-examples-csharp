@@ -31,16 +31,16 @@ namespace ESignature.Examples
         {
             // Step 1 start
             EnvelopeDefinition env = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, docDocx, docPdf, envStatus);
-            var apiClient = new ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
-            EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
+            EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
             return results.EnvelopeId;
             // Step 1 end
         }
 
-        private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string envStatus)
+        public static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string envStatus)
         {
             // Data for this method
             // signerEmail
@@ -166,7 +166,7 @@ namespace ESignature.Examples
             // Step 3 end
         }
 
-        private static byte[] Document1(string signerEmail, string signerName, string ccEmail, string ccName)
+        public static byte[] Document1(string signerEmail, string signerName, string ccEmail, string ccName)
         {
             // Data for this method
             // signerEmail

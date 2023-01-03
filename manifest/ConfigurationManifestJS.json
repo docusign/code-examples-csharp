@@ -27,7 +27,7 @@
           "help": {
             "hint": "How to get an integration key?",
             "displayText": "Learn more",
-            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+            "URI": "https://developers.docusign.com/platform/auth/authcode/authcode-get-token/#prerequisites"
           }
         },
         {
@@ -42,7 +42,7 @@
           "help": {
             "hint": "How to define a redirect URI?",
             "displayText": "Learn more",
-            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+            "URI": "https://developers.docusign.com/platform/auth/authcode/authcode-get-token/#prerequisites"
           }
         },
         {
@@ -55,7 +55,7 @@
           "help": {
             "hint": "How to get a secret key?",
             "displayText": "Learn more",
-            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+            "URI": "https://developers.docusign.com/platform/auth/authcode/authcode-get-token/#prerequisites"
           }
         },
         {
@@ -176,7 +176,7 @@
   "packages": [
     {
       "name": "docusign-esign",
-      "version": "5.18.0"
+      "version": "5.19.0"
     },
     {
       "name": "fs",
@@ -198,7 +198,7 @@
       "packages": [
         {
           "name": "docusign-esign",
-          "version": "^5.18.0"
+          "version": "^5.19.0"
         }
       ],
       "scopes": [
