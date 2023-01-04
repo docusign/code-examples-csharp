@@ -2,6 +2,8 @@
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
+using DocuSign.CodeExamples.Common;
+
 namespace DocuSign.CodeExamples.Controllers
 {
     using System.Diagnostics;
@@ -11,6 +13,7 @@ namespace DocuSign.CodeExamples.Controllers
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore.Internal;
     using Microsoft.Extensions.Configuration;
+    using Newtonsoft.Json;
 
     public class HomeController : Controller
     {
@@ -30,7 +33,7 @@ namespace DocuSign.CodeExamples.Controllers
                 if (this.RequestItemsService.Session != null)
                 {
                     var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
-                    var accessToken = this.RequestItemsService.User.AccessToken;
+                    var accessToken = this.RequestItemsService.User?.AccessToken;
                     var accountId = this.RequestItemsService.Session.AccountId;
                     this.ViewBag.CFRPart11 = global::ESignature.Examples.CFRPart11EmbeddedSending.IsCFRPart11Account(accessToken, basePath, accountId);
                 }
@@ -54,6 +57,17 @@ namespace DocuSign.CodeExamples.Controllers
 
         public IActionResult Index(string egName)
         {
+            if (this.User.Identity.IsAuthenticated && this.Configuration["FirstLaunch"] == "true")
+            {
+                this.Configuration["FirstLaunch"] = "false";
+                this.Configuration["API"] = ExamplesAPIType.ESignature.ToString();
+
+                return this.Redirect("/ds/Logout");
+            }
+
+            this.ViewBag.APIData = JsonConvert.SerializeObject(this.LauncherTexts.ManifestStructure);
+
+            this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.APIs;
             this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
             if (this.Configuration["quickstart"] == "true")
@@ -77,7 +91,7 @@ namespace DocuSign.CodeExamples.Controllers
             if (this.DsConfiguration.QuickACG == "true")
             {
                 CheckIfThisIsCFR11Account();
-                if (ViewBag.CFRPart11 == true)
+                if (this.ViewBag.CFRPart11 == true)
                 {
                     return this.Redirect("eg041");
                 }
@@ -89,7 +103,7 @@ namespace DocuSign.CodeExamples.Controllers
 
             if (egName == "home")
             {
-                this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.Groups;
+                CheckIfThisIsCFR11Account();
                 return this.View();
             }
 
@@ -103,18 +117,24 @@ namespace DocuSign.CodeExamples.Controllers
                 CheckIfThisIsCFR11Account();
                 if (ViewBag.CFRPart11 == true)
                 {
-                    foreach (var manifestGroup in this.LauncherTexts.ManifestStructure.Groups)
+                    foreach (var apis in this.LauncherTexts.ManifestStructure.APIs)
                     {
-                        var example = manifestGroup.Examples.Find((example) => example.ExampleNumber == int.Parse(egName.Substring(2)));
-                        if (example != null)
-                        {
-                            // we found the example we're supposed to redirect to, this is a CFR account, if example is NonCFR - show error page
-                            if (example.CFREnabled == "NonCFR")
-                            {
-                                this.ViewBag.errorCode = 0;
-                                this.ViewBag.errorMessage = this.LauncherTexts.ManifestStructure.SupportingTexts.CFRError;
 
-                                return this.View("Error");
+                        foreach (var manifestGroup in apis.Groups)
+                        {
+                            var example = manifestGroup.Examples.Find((example) =>
+                                example.ExampleNumber == int.Parse(egName.Substring(2)));
+                            if (example != null)
+                            {
+                                // we found the example we're supposed to redirect to, this is a CFR account, if example is NonCFR - show error page
+                                if (example.CFREnabled == "NonCFR")
+                                {
+                                    this.ViewBag.errorCode = 0;
+                                    this.ViewBag.errorMessage =
+                                        this.LauncherTexts.ManifestStructure.SupportingTexts.CFRError;
+
+                                    return this.View("Error");
+                                }
                             }
                         }
                     }
@@ -123,7 +143,7 @@ namespace DocuSign.CodeExamples.Controllers
                 return this.Redirect(egName);
             }
 
-            this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.Groups;
+            this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.APIs;
             if (this.RequestItemsService.Session != null)
             {
                 CheckIfThisIsCFR11Account();
@@ -134,6 +154,9 @@ namespace DocuSign.CodeExamples.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            this.ViewBag.APIData = JsonConvert.SerializeObject(this.LauncherTexts.ManifestStructure);
+            this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.APIs;
+            this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
             return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
 

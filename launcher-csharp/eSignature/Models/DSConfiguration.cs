@@ -20,15 +20,7 @@ namespace DocuSign.CodeExamples.Models
 
         public string GatewayDisplayName { get; set; }
 
-        public string ESignatureManifest { get; set; }
-
-        public string ClickManifest { get; set; }
-
-        public string RoomsManifest { get; set; }
-
-        public string MonitorManifest { get; set; }
-
-        public string AdminManifest { get; set; }
+        public string CodeExamplesManifest { get; set; }
 
         public bool Production = false;
         public bool Debug = true; // Send debugging statements to console

@@ -14,7 +14,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using Newtonsoft.Json;
 
     [Area("Rooms")]
-    [Route("Eg02")]
+    [Route("Reg002")]
     public class CreateRoomFromTemplate : EgController
     {
         public CreateRoomFromTemplate(
@@ -23,11 +23,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Rooms);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Eg02";
+        public override string EgName => "Reg002";
 
         [BindProperty]
         public RoomModel RoomModel { get; set; }
@@ -56,12 +56,14 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 this.RoomModel = new RoomModel { Templates = templates.RoomTemplates };
 
-                return this.View("Eg02", this);
+                return this.View("Reg002", this);
             }
             catch (ApiException apiException)
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
+
                 return this.View("Error");
             }
         }
@@ -106,6 +108,8 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
+
                 return this.View("Error");
             }
         }

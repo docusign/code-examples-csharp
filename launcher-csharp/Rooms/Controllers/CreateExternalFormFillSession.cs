@@ -15,17 +15,17 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using Newtonsoft.Json;
 
     [Area("Rooms")]
-    [Route("Eg06")]
+    [Route("Reg006")]
     public class CreateExternalFormFillSession : EgController
     {
         public CreateExternalFormFillSession(DSConfiguration dsConfig, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Rooms);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Eg06";
+        public override string EgName => "Reg006";
 
         [BindProperty]
         public RoomDocumentModel RoomDocumentModel { get; set; }
@@ -55,12 +55,13 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 this.RoomDocumentModel = new RoomDocumentModel { Rooms = rooms.Rooms };
 
                 base.InitializeInternal();
-                return this.View("Eg06", this);
+                return this.View("Reg006", this);
             }
             catch (ApiException apiException)
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return this.View("Error");
             }
@@ -85,12 +86,13 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 this.RoomDocumentModel.Documents = documents.Documents;
 
                 base.InitializeInternal();
-                return this.View("Eg06", this);
+                return this.View("Reg006", this);
             }
             catch (ApiException apiException)
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return this.View("Error");
             }
@@ -127,6 +129,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return this.View("Error");
             }

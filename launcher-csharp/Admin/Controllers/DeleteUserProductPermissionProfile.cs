@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg09DeleteUserProductPermissionProfile.cs" company="DocuSign">
+﻿// <copyright file="DeleteUserProductPermissionProfile.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -17,7 +17,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     using Newtonsoft.Json;
 
     [Area("Admin")]
-    [Route("Aeg09")]
+    [Route("Aeg009")]
     public class DeleteUserProductPermissionProfile : EgController
     {
         public const string CLMPROFILESNOTFOUND = "No CLM permission profiles are connected to this user";
@@ -33,11 +33,11 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         public DeleteUserProductPermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Admin);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Aeg09";
+        public override string EgName => "Aeg009";
 
         protected override void InitializeInternal()
         {
@@ -116,6 +116,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return this.View("Error");
             }

@@ -12,7 +12,7 @@ namespace DocuSign.CodeExamples.ESignature.Models
         [JsonProperty("SupportingTexts")]
         public SupportingTexts SupportingTexts { get; set; }
 
-        [JsonProperty("Groups")]
-        public List<ManifestGroup> Groups { get; } = new List<ManifestGroup>();
+        [JsonProperty("APIs")]
+        public List<APIs> APIs { get; } = new List<APIs>();
     }
 }
