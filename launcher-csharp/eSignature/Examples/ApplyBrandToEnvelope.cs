@@ -38,7 +38,7 @@ namespace ESignature.Examples
             return envelopesApi.CreateEnvelope(accountId, env);
         }
 
-        private static EnvelopeDefinition CreateEnvelope(string signerEmail, string signerName, string brandId, string status, string docPdf)
+        public static EnvelopeDefinition CreateEnvelope(string signerEmail, string signerName, string brandId, string status, string docPdf)
         {
             string docPdfBytes = Convert.ToBase64String(System.IO.File.ReadAllBytes(docPdf));
 

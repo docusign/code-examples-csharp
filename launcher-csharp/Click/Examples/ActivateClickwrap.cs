@@ -30,7 +30,7 @@ namespace DocuSign.Click.Examples
             return clickAccountApi.UpdateClickwrapVersion(accountId, clickwrapId, clickwrapVersion, clickwrapRequest);
         }
 
-        private static ClickwrapRequest BuildUpdateClickwrapVersionRequest()
+        public static ClickwrapRequest BuildUpdateClickwrapVersionRequest()
         {
             var clickwrapRequest = new ClickwrapRequest
             {

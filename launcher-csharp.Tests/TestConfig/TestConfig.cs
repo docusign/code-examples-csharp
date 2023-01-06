@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using DocuSign.Click.Model;
 using DocuSign.eSign.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -35,6 +36,10 @@ namespace launcher_csharp.Tests
         public string TemplateId { get; set; }
 
         public string PathToSolution { get; set; }
+
+        public string BrandId { get; set; }
+
+        public ClickwrapVersionSummaryResponse InactiveClickWrap { get; set; }
 
         private static readonly Lazy<TestConfig> TestConfigLazy =
             new Lazy<TestConfig>(() => new TestConfig());

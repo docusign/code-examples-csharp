@@ -1,4 +1,5 @@
-﻿using DocuSign.eSign.Client;
+﻿using DocuSign.Click.Model;
+using DocuSign.eSign.Client;
 
 namespace launcher_csharp.Tests
 {
@@ -29,6 +30,10 @@ namespace launcher_csharp.Tests
         public string PrivateKey { get; set; }
 
         public string PathToSolution { get; set; }
+
+        public string BrandId { get; set; }
+
+        public ClickwrapVersionSummaryResponse InactiveClickWrap { get; set; }
 
         public void OpenUrlUsingConsoleWindow(string url);
     }

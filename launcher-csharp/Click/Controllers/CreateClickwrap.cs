@@ -5,7 +5,6 @@
 namespace DocuSign.CodeExamples.Click.Controllers
 {
     using DocuSign.Click.Client;
-    using DocuSign.Click.Examples;
     using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
@@ -36,11 +35,12 @@ namespace DocuSign.CodeExamples.Click.Controllers
             var accessToken = this.RequestItemsService.User.AccessToken;
             var basePath = $"{this.RequestItemsService.Session.BasePath}/clickapi"; // Base API path
             var accountId = this.RequestItemsService.Session.AccountId;
+            var pdfFile = "Terms_of_service.pdf";
 
             try
             {
                 // Call the Click API to create a clickwrap
-                var clickWrap = DocuSign.Click.Examples.CreateClickwrap.Create(name, basePath, accessToken, accountId);
+                var clickWrap = DocuSign.Click.Examples.CreateClickwrap.Create(name, basePath, accessToken, accountId, pdfFile);
 
                 // Show results
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;

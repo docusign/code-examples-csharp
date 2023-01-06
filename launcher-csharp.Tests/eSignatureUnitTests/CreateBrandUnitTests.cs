@@ -1,0 +1,46 @@
+﻿using System;
+using DocuSign.CodeExamples.Common;
+using DocuSign.eSign.Model;
+using ESignature.Examples;
+using Xunit;
+
+namespace launcher_csharp.Tests.eSignatureUnitTests
+{
+    public sealed class CreateBrandUnitTests
+    {
+        private const string ESIGNARURE_PATH_PREFIX = "/restapi";
+
+        private readonly ITestConfig _testConfig;
+
+        public CreateBrandUnitTests() : this(TestConfig.Instance) { }
+
+        private CreateBrandUnitTests(ITestConfig testConfig)
+        {
+            this._testConfig = testConfig;
+
+            var jwtLoginMethod = new JwtLoginMethodUnitTest();
+            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature);
+        }
+
+        [Fact]
+        public void CreateBrand_CorrectInputParameters_ReturnsBrandsResponse()
+        {
+            // Assert
+            string brandName = Guid.NewGuid().ToString("n").Substring(0, 8);
+            var defaultBrandLanguage = "en";
+            string basePath = _testConfig.BasePath + ESIGNARURE_PATH_PREFIX;
+
+            //Act
+            BrandsResponse permissionProfile = CreateBrand.Create(
+                brandName,
+                defaultBrandLanguage,
+                _testConfig.AccessToken,
+                basePath,
+                _testConfig.AccountId);
+
+            // Assert
+            Assert.NotNull(permissionProfile);
+            Assert.NotEmpty(permissionProfile.Brands);
+        }
+    }
+}
