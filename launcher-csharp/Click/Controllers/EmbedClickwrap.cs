@@ -1,12 +1,14 @@
-﻿namespace DocuSign.CodeExamples.Click.Controllers
+﻿// <copyright file="EmbedClickwrap.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
+
+namespace DocuSign.CodeExamples.Click.Controllers
 {
     using DocuSign.Click.Client;
-    using DocuSign.Click.Examples;
     using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
     using Microsoft.AspNetCore.Mvc;
-    using Newtonsoft.Json;
 
     [Area("Click")]
     [Route("ClickEg06")]
@@ -29,11 +31,14 @@
             var accessToken = RequestItemsService.User.AccessToken;
             var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
             var accountId = RequestItemsService.Session.AccountId;
+
             ViewBag.ClickwrapsData = DocuSign.Click.Examples.EmbedClickwrap.GetActiveClickwraps(basePath, accessToken, accountId);
+
             if (ViewBag.ClickwrapsData.Clickwraps.Count == 0)
             {
                 ViewBag.InactiveClickwrapsData = DocuSign.Click.Examples.ActivateClickwrap.GetInactiveClickwraps(basePath, accessToken, accountId);
             }
+
             ViewBag.AccountId = RequestItemsService.Session.AccountId;
         }
 
