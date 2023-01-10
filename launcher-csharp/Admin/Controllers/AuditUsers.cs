@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg05AuditUsersController.cs" company="DocuSign">
+﻿// <copyright file="AuditUsers.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -14,7 +14,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     using Newtonsoft.Json;
 
     [Area("Admin")]
-    [Route("Aeg05")]
+    [Route("Aeg005")]
     public class AuditUsers : EgController
     {
         public AuditUsers(
@@ -23,11 +23,11 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Admin);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Aeg05";
+        public override string EgName => "Aeg005";
 
         protected override void InitializeInternal()
         {
@@ -48,6 +48,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                 var basePath = RequestItemsService.Session.AdminApiBasePath;
                 var accountId = RequestItemsService.Session.AccountId;
                 var usersData = DocuSign.Admin.Examples.AuditUsers.GetRecentlyModifiedUsersData(basePath, accessToken, Guid.Parse(accountId), organizationId);
+
                 // Process results
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = this.CodeExampleText.ResultsPageText;
@@ -58,6 +59,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return this.View("Error");
             }

@@ -1,0 +1,118 @@
+﻿@model DocuSign.CodeExamples.Click.Controllers.EmbedClickwrap
+@using System.Text.RegularExpressions;
+@{
+    var redirectToFirstCodeExample = "href='clickeg001'";
+    var redirectToSecondCodeExample = "href='clickeg002'";
+    int formNumber = 0;
+    int clickwrapInputNumber = 0;
+    int fullNameInputNumber = 1;
+    int emailAddressInputNumber = 2;
+    int companyInputNumber = 3;
+    int jobTitleInputNumber = 4;
+    int dateInputNumber = 5;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<p>
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">EmbedClickwrap.cs</a>"
+    )
+)
+</p>
+
+@if (ViewBag.ClickwrapsData.Clickwraps.Count > 0) {
+    <p>
+        @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)
+    </p>
+
+    <form class="eg" asp-action="Embed" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="clickwrapId">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[clickwrapInputNumber].InputName)
+            </label>
+
+            <select class="custom-select" id="clickwrapId"
+                    name="clickwrapId">
+
+            @foreach (var clickwrap in ViewBag.ClickwrapsData.Clickwraps) {
+                <option value=@Html.Raw(clickwrap.ClickwrapId)>@Html.Raw(clickwrap.ClickwrapName)</option>
+            }
+            </select>
+        </div>
+
+            <p>@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.DynamicContentValue)</p>
+            <p>@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.DynamicContentNote)</p>
+        <div class="form-group">
+                <label>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[fullNameInputNumber].InputName)</label>
+                <input required id="fullName"
+               name="fullName"
+               class="form-control" type="text" />
+        </div>
+        <div class="form-group">
+            <label>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[emailAddressInputNumber].InputName)</label>
+            <input required id="email"
+               name="email"
+               class="form-control" type="email" />
+        </div>
+        <div class="form-group">
+                <label>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[companyInputNumber].InputName)</label>
+                <input required id="company"
+               name="company"
+               class="form-control" type="text" />
+        </div>
+        <div class="form-group">
+                <label>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[jobTitleInputNumber].InputName)</label>
+                <input required id="title"
+               name="title"
+               class="form-control" type="text" />
+        </div>
+        <div class="form-group">
+                <label>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[dateInputNumber].InputName)</label>
+                <input required id="date"
+               name="date"
+               class="form-control" type="date" />
+        </div>
+
+        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
+    </form>
+}
+else
+{
+    if (ViewBag.InactiveClickwrapsData.Clickwraps.Count > 0)
+    {
+        <p>
+            @Html.Raw(
+                String.Format(
+                    ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                        .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToSecondCodeExample, @"\d+").Value))
+                        .FirstOrDefault()
+                        .RedirectText,
+                    redirectToSecondCodeExample
+                )
+            )
+        </p>
+    }
+    else
+    {
+        <p>
+            @Html.Raw(
+                String.Format(
+                    ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                        .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToFirstCodeExample, @"\d+").Value))
+                        .FirstOrDefault()
+                        .RedirectText,
+                    redirectToFirstCodeExample
+                )
+            )
+        </p>
+
+    }
+} 

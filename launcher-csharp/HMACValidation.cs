@@ -1,10 +1,12 @@
-﻿namespace ESignature.Examples
+﻿// <copyright file="HMACValidation.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
+
+namespace ESignature.Examples
 {
-
-
     using System;
-    using System.Text;
     using System.Security.Cryptography;
+    using System.Text;
 
     public static class HMACValidation
     {
@@ -16,8 +18,6 @@
 
             return Convert.ToBase64String(hmac.ComputeHash(bytes));
         }
-
-
 
         /// <summary>
         /// Validates the payload that was recevied in the body (raw content) of the Connect webhook message
@@ -35,5 +35,4 @@
             return CryptographicOperations.FixedTimeEquals(hashBytes, verifyBytes);
         }
     }
-
 }

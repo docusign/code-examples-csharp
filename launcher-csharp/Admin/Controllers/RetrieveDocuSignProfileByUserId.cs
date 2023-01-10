@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg07RetrieveDocuSignProfileByUserId.cs" company="DocuSign">
+﻿// <copyright file="RetrieveDocuSignProfileByUserId.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -15,17 +15,17 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     using Newtonsoft.Json;
 
     [Area("Admin")]
-    [Route("Aeg07")]
+    [Route("Aeg007")]
     public class RetrieveDocuSignProfileByUserId : EgController
     {
         public RetrieveDocuSignProfileByUserId(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Admin);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Aeg07";
+        public override string EgName => "Aeg007";
 
         [MustAuthenticate]
         [SetViewBag]
@@ -52,7 +52,8 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
-
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
+                
                 return this.View("Error");
             }
         }

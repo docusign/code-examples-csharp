@@ -18,12 +18,9 @@ namespace DocuSign.CodeExamples.Models
     {
         protected DSConfiguration DSConfig { get; }
 
-        private IConfiguration Configuration { get; }
-
-        public LauncherTexts(DSConfiguration dsconfiguration, IConfiguration configuration)
+        public LauncherTexts(DSConfiguration dsconfiguration)
         {
             this.DSConfig = dsconfiguration;
-            this.Configuration = configuration;
         }
 
         private ManifestStructure manifestStructure;
@@ -34,39 +31,11 @@ namespace DocuSign.CodeExamples.Models
             {
                 if (this.manifestStructure == null)
                 {
-                    this.manifestStructure = this.SetupManifestData(this.GetTextManifestDependingOnCurrentAPI());
+                    this.manifestStructure = this.SetupManifestData(this.DSConfig.CodeExamplesManifest);
                 }
 
                 return this.manifestStructure;
             }
-        }
-
-        private string GetTextManifestDependingOnCurrentAPI()
-        {
-            string linkToManifest = string.Empty;
-
-            if (this.Configuration["ExamplesAPI"] == ExamplesAPIType.ESignature.ToString() || this.DSConfig.QuickACG == "true")
-            {
-                linkToManifest = this.DSConfig.ESignatureManifest;
-            }
-            else if (this.Configuration["ExamplesAPI"] == ExamplesAPIType.Click.ToString())
-            {
-                linkToManifest = this.DSConfig.ClickManifest;
-            }
-            else if (this.Configuration["ExamplesAPI"] == ExamplesAPIType.Rooms.ToString())
-            {
-                linkToManifest = this.DSConfig.RoomsManifest;
-            }
-            else if (this.Configuration["ExamplesAPI"] == ExamplesAPIType.Monitor.ToString())
-            {
-                linkToManifest = this.DSConfig.MonitorManifest;
-            }
-            else if (this.Configuration["ExamplesAPI"] == ExamplesAPIType.Admin.ToString())
-            {
-                linkToManifest = this.DSConfig.AdminManifest;
-            }
-
-            return linkToManifest;
         }
 
         private ManifestStructure SetupManifestData(string fileName)

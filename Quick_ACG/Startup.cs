@@ -52,7 +52,7 @@ namespace DocuSign.QuickACG
             config.QuickACG = "true";
 
             services.AddSingleton(config);
-            services.AddSingleton(new LauncherTexts(config, Configuration));
+            services.AddSingleton(new LauncherTexts(config));
             services.AddScoped<IRequestItemsService, RequestItemsService>();
             services.AddMvc();
 
