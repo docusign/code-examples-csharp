@@ -1,13 +1,17 @@
-﻿using DocuSign.CodeExamples.Controllers;
-using DocuSign.CodeExamples.Models;
-using Microsoft.AspNetCore.Mvc;
-using eSignature.Examples;
-using DocuSign.eSign.Client;
-using DocuSign.CodeExamples.Common;
-using System;
+﻿// <copyright file="Eg040SetDocumentVisibility.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.Views
 {
+    using System;
+    using DocuSign.CodeExamples.Common;
+    using DocuSign.CodeExamples.Controllers;
+    using DocuSign.CodeExamples.Models;
+    using DocuSign.eSign.Client;
+    using eSignature.Examples;
+    using Microsoft.AspNetCore.Mvc;
+
     [Area("eSignature")]
     [Route("Eg040")]
     public class Eg040SetDocumentVisibility : EgController
@@ -42,21 +46,23 @@ namespace DocuSign.CodeExamples.Views
             {
                 envelopeId = SetDocumentVisibility.SendEnvelopeWithEnvelopeVisibility(signer1Email, signer1Name, signer2Email, 
                     signer2Name, ccEmail, ccName, accessToken, basePath, accountId, Config.DocPdf, Config.DocDocx, Config.DocHTML);
-            } 
-            catch (ApiException apiException) 
+            }
+            catch (ApiException apiException)
             {
                 if (apiException.Message.Contains(this.CodeExampleText.CustomErrorTexts[0].ErrorMessageCheck))
                 {
                     ViewBag.fixingInstructions = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage;
-                } 
+                }
+
                 ViewBag.errorCode = apiException.ErrorCode;
                 ViewBag.errorMessage = apiException.Message;
-                
+
                 return View("Error");
             }
 
             this.ViewBag.h1 = this.CodeExampleText.ExampleName;
-            this.ViewBag.message = String.Format(this.CodeExampleText.ResultsPageText, envelopeId);
+            this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, envelopeId);
+
             return View("example_done");
         }
     }

@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg01CreateUserController.cs" company="DocuSign">
+﻿// <copyright file="CreateUser.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -6,7 +6,6 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 {
     using System;
     using DocuSign.Admin.Client;
-    using DocuSign.CodeExamples.Admin.Examples;
     using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
