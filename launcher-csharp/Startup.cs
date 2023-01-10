@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples
 {
     using System;
+    using System.Collections.Generic;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Security.Claims;
@@ -27,9 +28,50 @@ namespace DocuSign.CodeExamples
 
     public class Startup
     {
+        private readonly Dictionary<ExamplesAPIType, List<string>> _apiTypes = new Dictionary<ExamplesAPIType, List<string>>();
+
         public Startup(IConfiguration configuration)
         {
             this.Configuration = configuration;
+
+            this._apiTypes.Add(ExamplesAPIType.ESignature, new List<string> { "signature" });
+
+            this._apiTypes.Add(ExamplesAPIType.Rooms, new List<string>
+            {
+                    "dtr.rooms.read",
+                    "dtr.rooms.write",
+                    "dtr.documents.read",
+                    "dtr.documents.write",
+                    "dtr.profile.read",
+                    "dtr.profile.write",
+                    "dtr.company.read",
+                    "dtr.company.write",
+                    "room_forms",
+            });
+
+            this._apiTypes.Add(ExamplesAPIType.Click, new List<string>
+            {
+                    "click.manage",
+                    "click.send",
+            });
+
+            this._apiTypes.Add(ExamplesAPIType.Monitor, new List<string>
+            {
+                    "signature",
+                    "impersonation",
+            });
+
+            this._apiTypes.Add(ExamplesAPIType.Admin, new List<string>
+            {
+                    "signature",
+                    "user_read",
+                    "user_write",
+                    "account_read",
+                    "organization_read",
+                    "group_read",
+                    "permission_read",
+                    "identity_provider_read",
+            });
         }
 
         public IConfiguration Configuration { get; }
@@ -60,9 +102,10 @@ namespace DocuSign.CodeExamples
             DSConfiguration config = new DSConfiguration();
 
             this.Configuration.Bind("DocuSign", config);
+            this.Configuration["FirstLaunch"] = "true";
 
             services.AddSingleton(config);
-            services.AddSingleton(new LauncherTexts(config, this.Configuration));
+            services.AddSingleton(new LauncherTexts(config, Configuration));
             services.AddScoped<IRequestItemsService, RequestItemsService>();
             services.AddScoped<IRoomsApi, RoomsApi>();
             services.AddScoped<IRolesApi, RolesApi>();
@@ -83,8 +126,6 @@ namespace DocuSign.CodeExamples
             services.AddHttpContextAccessor();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            var apiType = Enum.Parse<ExamplesAPIType>(this.Configuration["ExamplesAPI"]);
-
             services.AddAuthentication(options =>
             {
                 options.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -98,53 +139,25 @@ namespace DocuSign.CodeExamples
                 options.ClientId = this.Configuration["DocuSign:ClientId"];
                 options.ClientSecret = this.Configuration["DocuSign:ClientSecret"];
                 options.CallbackPath = new PathString("/ds/callback");
-
                 options.AuthorizationEndpoint = this.Configuration["DocuSign:AuthorizationEndpoint"];
                 options.TokenEndpoint = this.Configuration["DocuSign:TokenEndpoint"];
                 options.UserInformationEndpoint = this.Configuration["DocuSign:UserInformationEndpoint"];
 
-                switch (apiType)
+                foreach (var apiType in this._apiTypes)
                 {
-                    case ExamplesAPIType.ESignature:
-                        options.Scope.Add("signature");
-                        break;
-                    case ExamplesAPIType.Rooms:
-                        options.Scope.Add("dtr.rooms.read");
-                        options.Scope.Add("dtr.rooms.write");
-                        options.Scope.Add("dtr.documents.read");
-                        options.Scope.Add("dtr.documents.write");
-                        options.Scope.Add("dtr.profile.read");
-                        options.Scope.Add("dtr.profile.write");
-                        options.Scope.Add("dtr.company.read");
-                        options.Scope.Add("dtr.company.write");
-                        options.Scope.Add("room_forms");
-                        break;
-                    case ExamplesAPIType.Click:
-                        options.Scope.Add("click.manage");
-                        options.Scope.Add("click.send");
-                        break;
-                    case ExamplesAPIType.Monitor:
-                        options.Scope.Add("signature");
-                        options.Scope.Add("impersonation");
-                        options.Scope.Add("room_forms");
-                        break;
-                    case ExamplesAPIType.Admin:
-                        options.Scope.Add("signature");
-                        options.Scope.Add("user_read");
-                        options.Scope.Add("user_write");
-                        options.Scope.Add("account_read");
-                        options.Scope.Add("organization_read");
-                        options.Scope.Add("group_read");
-                        options.Scope.Add("permission_read");
-                        options.Scope.Add("identity_provider_read");
-                        break;
+                    foreach (var scope in apiType.Value)
+                    {
+                        if (!options.Scope.Contains(scope.ToLower()))
+                        {
+                            options.Scope.Add(scope);
+                        }
+                    }
                 }
 
                 options.SaveTokens = true;
                 options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "sub");
                 options.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
                 options.ClaimActions.MapJsonKey("accounts", "accounts");
-
                 options.ClaimActions.MapCustomJson("account_id", obj => this.ExtractDefaultAccountValue(obj, "account_id"));
                 options.ClaimActions.MapCustomJson("account_name", obj => this.ExtractDefaultAccountValue(obj, "account_name"));
                 options.ClaimActions.MapCustomJson("base_uri", obj => this.ExtractDefaultAccountValue(obj, "base_uri"));
@@ -153,20 +166,47 @@ namespace DocuSign.CodeExamples
                 options.ClaimActions.MapJsonKey("expires_in", "expires_in");
                 options.Events = new OAuthEvents
                 {
+                    OnRedirectToAuthorizationEndpoint = redirectContext =>
+                    {
+                        List<string> scopesForCurrentAPI = this._apiTypes.GetValueOrDefault(Enum.Parse<ExamplesAPIType>(this.Configuration["API"]));
+
+                        foreach (var api in this._apiTypes)
+                        {
+                            if (this.Configuration["API"] != api.Key.ToString())
+                            {
+                                foreach (var scope in api.Value)
+                                {
+                                    if (!scopesForCurrentAPI.Contains(scope))
+                                    {
+                                        var scopeWithSeperator = scope + "%20";
+
+                                        if (redirectContext.RedirectUri.Contains(scopeWithSeperator))
+                                        {
+                                            redirectContext.RedirectUri = redirectContext.RedirectUri.Replace(scopeWithSeperator, string.Empty);
+                                        }
+                                        else
+                                        {
+                                            redirectContext.RedirectUri = redirectContext.RedirectUri.Replace(scope, string.Empty);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        redirectContext.HttpContext.Response.Redirect(redirectContext.RedirectUri);
+                        return Task.FromResult(0);
+                    },
                     OnCreatingTicket = async context =>
                     {
                         var request = new HttpRequestMessage(HttpMethod.Get, context.Options.UserInformationEndpoint);
                         request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", context.AccessToken);
-
                         var response = await context.Backchannel.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, context.HttpContext.RequestAborted);
                         response.EnsureSuccessStatusCode();
                         var user = JObject.Parse(await response.Content.ReadAsStringAsync());
-
                         user.Add("access_token", context.AccessToken);
                         user.Add("refresh_token", context.RefreshToken);
                         user.Add("expires_in", DateTime.Now.Add(context.ExpiresIn.Value).ToString());
-
                         using (JsonDocument payload = JsonDocument.Parse(user.ToString()))
                         {
                             context.RunClaimActions(payload.RootElement);
@@ -180,29 +220,6 @@ namespace DocuSign.CodeExamples
                     },
                 };
             });
-        }
-
-        private string ExtractDefaultAccountValue(JsonElement obj, string key)
-        {
-            if (!obj.TryGetProperty("accounts", out var accounts))
-            {
-                return null;
-            }
-
-            string keyValue = null;
-
-            foreach (var account in accounts.EnumerateArray())
-            {
-                if (account.TryGetProperty("is_default", out var defaultAccount) && defaultAccount.GetBoolean())
-                {
-                    if (account.TryGetProperty(key, out var value))
-                    {
-                        keyValue = value.GetString();
-                    }
-                }
-            }
-
-            return keyValue;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -232,41 +249,50 @@ namespace DocuSign.CodeExamples
                     name: "Areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-                var apiType = Enum.Parse<ExamplesAPIType>(this.Configuration["ExamplesAPI"]);
-                switch (apiType)
-                {
-                    case ExamplesAPIType.Rooms:
-                        endpoints.MapControllerRoute(
-                            name: "default",
-                            pattern: "{area=Rooms}/{controller=Home}/{action=Index}/{id?}");
-                        endpoints.MapAreaControllerRoute(
-                            name: "default",
-                            areaName: "Rooms",
-                            pattern: "{controller=Home}/{action=Index}/{id?}");
-                        break;
-                    case ExamplesAPIType.ESignature:
-                        endpoints.MapControllerRoute(
-                            name: "default",
-                            pattern: "{controller=Home}/{action=Index}/{id?}");
-                        break;
-                    case ExamplesAPIType.Click:
-                        endpoints.MapControllerRoute(
-                            name: "default",
-                            pattern: "{area=Click}/{controller=Home}/{action=Index}/{id?}");
-                        break;
-                    case ExamplesAPIType.Monitor:
-                        endpoints.MapAreaControllerRoute(
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{area=Rooms}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{area=Click}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
                             name: "default",
                             areaName: "Monitor",
                             pattern: "{controller=Home}/{action=Index}/{id?}");
-                        break;
-                    case ExamplesAPIType.Admin:
-                        endpoints.MapControllerRoute(
+
+                endpoints.MapControllerRoute(
                             name: "default",
                             pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}");
-                        break;
-                }
             });
+        }
+
+        private string ExtractDefaultAccountValue(JsonElement obj, string key)
+        {
+            if (!obj.TryGetProperty("accounts", out var accounts))
+            {
+                return null;
+            }
+
+            string keyValue = null;
+
+            foreach (var account in accounts.EnumerateArray())
+            {
+                if (account.TryGetProperty("is_default", out var defaultAccount) && defaultAccount.GetBoolean())
+                {
+                    if (account.TryGetProperty(key, out var value))
+                    {
+                        keyValue = value.GetString();
+                    }
+                }
+            }
+
+            return keyValue;
         }
     }
 }

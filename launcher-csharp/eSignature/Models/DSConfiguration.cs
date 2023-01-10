@@ -6,6 +6,22 @@ namespace DocuSign.CodeExamples.Models
 {
     public class DSConfiguration
     {
+        public string AppUrl { get; set; }
+
+        public string SignerEmail { get; set; }
+
+        public string SignerName { get; set; }
+
+        public string GatewayAccountId { get; set; }
+
+        public string GatewayName { get; set; }
+
+        public string QuickACG { get; set; }
+
+        public string GatewayDisplayName { get; set; }
+
+        public string CodeExamplesManifest { get; set; }
+
         public bool Production = false;
         public bool Debug = true; // Send debugging statements to console
         public string SessionSecret = "12345"; // Secret for encrypting session cookie content
@@ -23,29 +39,5 @@ namespace DocuSign.CodeExamples.Models
         public string ExportUsersPath = @"..\..\..\ExportedUserData.csv";
         public string GithubExampleUrl = "https://github.com/docusign/code-examples-csharp/blob/master/launcher-csharp";
         public string Documentation = null;
-
-        public string AppUrl { get; set; }
-
-        public string SignerEmail { get; set; }
-
-        public string SignerName { get; set; }
-
-        public string GatewayAccountId { get; set; }
-
-        public string GatewayName { get; set; }
-
-        public string QuickACG { get; set; }
-
-        public string GatewayDisplayName { get; set; }
-
-        public string ESignatureManifest { get; set; }
-
-        public string ClickManifest { get; set; }
-
-        public string RoomsManifest { get; set; }
-
-        public string MonitorManifest { get; set; }
-
-        public string AdminManifest { get; set; }
     }
 }

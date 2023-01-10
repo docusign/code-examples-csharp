@@ -17,7 +17,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     using Newtonsoft.Json;
 
     [Area("Admin")]
-    [Route("Aeg08")]
+    [Route("Aeg008")]
     public class UpdateUserProductPermissionProfile : EgController
     {
         private static ProductPermissionProfilesResponse productPermissionProfiles;
@@ -27,11 +27,11 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         public UpdateUserProductPermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Admin);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Aeg08";
+        public override string EgName => "Aeg008";
 
         [Route("/getPermissionProfiles")]
         public IActionResult getPermissionProfiles(Guid? productId)
@@ -73,6 +73,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return this.View("Error");
             }

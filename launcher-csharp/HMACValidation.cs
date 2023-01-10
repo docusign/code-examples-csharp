@@ -19,8 +19,6 @@ namespace ESignature.Examples
             return Convert.ToBase64String(hmac.ComputeHash(bytes));
         }
 
-
-
         /// <summary>
         /// Validates the payload that was recevied in the body (raw content) of the Connect webhook message
         /// </summary>
@@ -37,5 +35,4 @@ namespace ESignature.Examples
             return CryptographicOperations.FixedTimeEquals(hashBytes, verifyBytes);
         }
     }
-
 }

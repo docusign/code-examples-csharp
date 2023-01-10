@@ -1,4 +1,5 @@
-﻿using DocuSign.CodeExamples.ESignature.Models;
+﻿using DocuSign.CodeExamples.Common;
+using DocuSign.CodeExamples.ESignature.Models;
 using DocuSign.CodeExamples.Models;
 using DocuSign.CodeExamples.Views;
 using Microsoft.AspNetCore.Mvc;
@@ -107,10 +108,13 @@ namespace DocuSign.CodeExamples.Controllers
             return RequestItemsService.CheckToken(bufferMin);
         }
 
-        protected CodeExampleText GetExampleText(string exampleName)
+        protected CodeExampleText GetExampleText(string exampleName, ExamplesAPIType examplesAPIType)
         {
             int exampleNumber = int.Parse(Regex.Match(exampleName, @"\d+").Value);
-            var groups = this.LauncherTexts.ManifestStructure.Groups;
+            var groups = this.LauncherTexts.ManifestStructure.APIs
+                .Find(x => x.Name.ToLowerInvariant() == examplesAPIType.ToString().ToLowerInvariant())
+                .Groups;
+
             foreach (var group in groups)
             {
                 var example = group.Examples.Find((example) => example.ExampleNumber == exampleNumber);

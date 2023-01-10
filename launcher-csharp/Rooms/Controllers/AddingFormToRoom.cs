@@ -17,7 +17,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using ApiError = DocuSign.Rooms.Model.ApiError;
 
     [Area("Rooms")]
-    [Route("Eg04")]
+    [Route("Reg004")]
     public class AddingFormToRoom : EgController
     {
         public AddingFormToRoom(
@@ -26,11 +26,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName);
+            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Rooms);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Eg04";
+        public override string EgName => "Reg004";
 
         [BindProperty]
         public RoomFormModel RoomFormModel { get; set; }
@@ -59,12 +59,13 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 this.RoomFormModel = new RoomFormModel { Forms = forms.Forms, Rooms = rooms.Rooms };
 
-                return this.View("Eg04", this);
+                return this.View("Reg004", this);
             }
             catch (ApiException apiException)
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 ApiError error = JsonConvert.DeserializeObject<ApiError>(apiException.ErrorContent);
                 if (error.ErrorCode.Equals(this.CodeExampleText.CustomErrorTexts[0].ErrorMessageCheck, StringComparison.InvariantCultureIgnoreCase))
@@ -107,6 +108,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return this.View("Error");
             }

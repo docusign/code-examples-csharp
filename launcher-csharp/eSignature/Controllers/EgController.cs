@@ -6,6 +6,7 @@ namespace DocuSign.CodeExamples.Controllers
 {
     using System;
     using System.Text.RegularExpressions;
+    using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.ESignature.Models;
     using DocuSign.CodeExamples.Models;
     using DocuSign.CodeExamples.Views;
@@ -38,32 +39,44 @@ namespace DocuSign.CodeExamples.Controllers
             // user to fill out the form. If the token is not available, now is the time
             // to have the user authenticate or re-authenticate.
             bool tokenOk = this.CheckToken();
+            if (this.RequestItemsService.Configuration["API"] == null)
+            {
+                this.RequestItemsService.Configuration["API"] = ExamplesAPIType.ESignature.ToString();
+            }
+
+            ExamplesAPIType previousLoginSchema = Enum.Parse<ExamplesAPIType>(this.RequestItemsService.Configuration["API"]);
+            ExamplesAPIType currentAPI = Enum.Parse<ExamplesAPIType>(this.RequestItemsService.IdentifyAPIOfCodeExample(this.EgName));
+            this.RequestItemsService.Configuration["APIPlanned"] = currentAPI.ToString();
 
             if (tokenOk)
             {
-                // addSpecialAttributes(model);
-                this.ViewBag.envelopeOk = this.RequestItemsService.EnvelopeId != null;
-                this.ViewBag.documentsOk = this.RequestItemsService.EnvelopeDocuments != null;
-                this.ViewBag.documentOptions = this.RequestItemsService.EnvelopeDocuments?.Documents;
-                this.ViewBag.gatewayOk = this.Config.GatewayAccountId != null && this.Config.GatewayAccountId.Length > 25;
-                this.ViewBag.templateOk = this.RequestItemsService.TemplateId != null;
-                this.ViewBag.source = this.CreateSourcePath();
-                this.ViewBag.documentation = this.Config.Documentation + this.EgName;
-                this.ViewBag.showDoc = this.Config.Documentation != null;
-                this.ViewBag.pausedEnvelopeOk = this.RequestItemsService.PausedEnvelopeId != null;
-                this.InitializeInternal();
-
-                if (this.Config.QuickACG == "true" && !(this is Eg001EmbeddedSigningController))
+                if (previousLoginSchema == currentAPI)
                 {
-                    return this.Redirect("eg001");
-                }
+                    // addSpecialAttributes(model);
+                    this.ViewBag.envelopeOk = this.RequestItemsService.EnvelopeId != null;
+                    this.ViewBag.documentsOk = this.RequestItemsService.EnvelopeDocuments != null;
+                    this.ViewBag.documentOptions = this.RequestItemsService.EnvelopeDocuments?.Documents;
+                    this.ViewBag.gatewayOk = this.Config.GatewayAccountId != null && this.Config.GatewayAccountId.Length > 25;
+                    this.ViewBag.templateOk = this.RequestItemsService.TemplateId != null;
+                    this.ViewBag.source = this.CreateSourcePath();
+                    this.ViewBag.documentation = this.Config.Documentation + this.EgName;
+                    this.ViewBag.showDoc = this.Config.Documentation != null;
+                    this.ViewBag.pausedEnvelopeOk = this.RequestItemsService.PausedEnvelopeId != null;
+                    this.InitializeInternal();
 
-                return this.View(this.EgName, this);
+                    if (this.Config.QuickACG == "true" && !(this is Eg001EmbeddedSigningController))
+                    {
+                        return this.Redirect("eg001");
+                    }
+
+                    return this.View(this.EgName, this);
+                }
             }
 
             this.RequestItemsService.EgName = this.EgName;
+            this.Response.Redirect("/ds/mustAuthenticate");
 
-            return this.Redirect("/ds/mustAuthenticate");
+            return this.LocalRedirect("/ds/mustAuthenticate");
         }
 
         protected virtual void InitializeInternal()
@@ -95,10 +108,13 @@ namespace DocuSign.CodeExamples.Controllers
             }
         }
 
-        protected CodeExampleText GetExampleText(string exampleName)
+        protected CodeExampleText GetExampleText(string exampleName, ExamplesAPIType examplesAPIType)
         {
             int exampleNumber = int.Parse(Regex.Match(exampleName, @"\d+").Value);
-            var groups = this.LauncherTexts.ManifestStructure.Groups;
+            var groups = this.LauncherTexts.ManifestStructure.APIs
+                .Find(x => x.Name.ToLowerInvariant() == examplesAPIType.ToString().ToLowerInvariant())
+                .Groups;
+
             foreach (var group in groups)
             {
                 var example = group.Examples.Find((example) => example.ExampleNumber == exampleNumber);
