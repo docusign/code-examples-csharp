@@ -1,4 +1,8 @@
-﻿namespace ESignature.Examples
+﻿// <copyright file="CFRPart11EmbeddedSending.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
+
+namespace ESignature.Examples
 {
     using System;
     using System.Collections.Generic;
@@ -9,8 +13,7 @@
 
     public static class CFRPart11EmbeddedSending
     {
-
-        static string _clientUserId = "12345";
+        private static string _clientUserId = "12345";
 
         /// <summary>
         /// Checks if account is CFR Part 11 enabled
@@ -30,9 +33,8 @@
 
             var accountSettingsInformation = accountsApi.ListSettings(accountId);
 
-            return (accountSettingsInformation.Require21CFRpt11Compliance == "true");
+            return accountSettingsInformation.Require21CFRpt11Compliance == "true";
         }
-
 
         /// <summary>
         /// Creates an envelope and adds a recipient that is to be authenticated using either a phone call or an SMS (text) message.
@@ -136,7 +138,7 @@
                 RecipientId = "1", // represents your {RECIPIENT_ID},
                 Tabs = signer1Tabs,
                 IdentityVerification = workflow,
-                ClientUserId = _clientUserId
+                ClientUserId = _clientUserId,
             };
 
             Recipients recipients = new Recipients();
@@ -158,6 +160,7 @@
 
             return results1.Url;
         }
+
         private static RecipientViewRequest MakeRecipientViewRequest(string signerEmail, string signerName, string returnUrl, string signerClientId, string pingUrl = null)
         {
             // Data for this method

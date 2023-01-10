@@ -27,7 +27,7 @@ namespace DocuSign.CodeExamples.Views
 
         [HttpPost]
         [SetViewBag]
-        public IActionResult Create(string signer1Email, string signer1Name, string signer2Email, string signer2Name, 
+        public IActionResult Create(string signer1Email, string signer1Name, string signer2Email, string signer2Name,
             string ccEmail, string ccName)
         {
             string accessToken = RequestItemsService.User.AccessToken;
@@ -44,7 +44,7 @@ namespace DocuSign.CodeExamples.Views
 
             try
             {
-                envelopeId = SetDocumentVisibility.SendEnvelopeWithEnvelopeVisibility(signer1Email, signer1Name, signer2Email, 
+                envelopeId = SetDocumentVisibility.SendEnvelopeWithEnvelopeVisibility(signer1Email, signer1Name, signer2Email,
                     signer2Name, ccEmail, ccName, accessToken, basePath, accountId, Config.DocPdf, Config.DocDocx, Config.DocHTML);
             }
             catch (ApiException apiException)

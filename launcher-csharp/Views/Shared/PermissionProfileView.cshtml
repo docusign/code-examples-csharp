@@ -11,7 +11,7 @@
         <label asp-for="ProfileName">
             @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[profileNameInputNumber].InputName)
         </label>
-        <input type="input" class="form-control" asp-for="ProfileName"
+        <input class="form-control" asp-for="ProfileName"
                placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[profileNameInputNumber].InputPlaceholder" required />
     </div>
 

@@ -23,7 +23,7 @@ namespace DocuSign.CodeExamples.Views
         {
             this.dsPingUrl = config.AppUrl + "/";
             this.dsReturnUrl = config.AppUrl + "/dsReturn";
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(this.EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

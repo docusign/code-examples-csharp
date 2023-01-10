@@ -10,15 +10,15 @@ namespace DocuSign.CodeExamples.Click.Controllers
     [Area("Click")]
     public class HomeController : Controller
     {
-        private IRequestItemsService _requestItemsService { get; }
-
-        private LauncherTexts _launcherTexts { get; }
-
         public HomeController(IRequestItemsService requestItemsService, LauncherTexts launcherTexts)
         {
             this._requestItemsService = requestItemsService;
             this._launcherTexts = launcherTexts;
         }
+
+        private IRequestItemsService _requestItemsService { get; }
+
+        private LauncherTexts _launcherTexts { get; }
 
         public IActionResult Index(string egName)
         {

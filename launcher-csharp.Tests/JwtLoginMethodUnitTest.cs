@@ -40,7 +40,7 @@ namespace launcher_csharp.Tests
         public void RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType apiType)
         {
             // Arrange
-            _testConfig.ApiClient = new ApiClient(_testConfig.Host);
+            _testConfig.ApiClient = new DocuSignClient(_testConfig.Host);
 
             try
             {

@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg04AddUsersBulkImportController.cs" company="DocuSign">
+﻿// <copyright file="ImportUser.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 

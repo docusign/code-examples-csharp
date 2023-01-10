@@ -161,14 +161,12 @@ namespace ESignature.Examples
                         {
                             new BulkSendingCopyRecipient
                             {
-
                                 Name = signer1Name,
                                 Email = signer1Email,
                                 RoleName = "signer",
                             },
                             new BulkSendingCopyRecipient
                             {
-
                                 Name = carbonCopy1Name,
                                 Email = carbonCopy1Email,
                                 RoleName = "cc",
@@ -181,14 +179,12 @@ namespace ESignature.Examples
                         {
                             new BulkSendingCopyRecipient
                             {
-
                                 Name = signer2Name,
                                 Email = signer2Email,
                                 RoleName = "signer",
                             },
                             new BulkSendingCopyRecipient
                             {
-
                                 Name = carbonCopy2Name,
                                 Email = carbonCopy2Email,
                                 RoleName = "cc",

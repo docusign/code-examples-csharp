@@ -26,7 +26,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(this.EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

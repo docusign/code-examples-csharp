@@ -1,4 +1,4 @@
-﻿// <copyright file="AdditionalPage.cs" company="DocuSign">
+﻿// <copyright file="CustomErrorTexts.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 

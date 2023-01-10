@@ -25,18 +25,6 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
         public override string EgName => "ClickEg05";
 
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-
-            // Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
-            var accountId = RequestItemsService.Session.AccountId;
-            ViewBag.ClickwrapsData = DocuSign.Click.Examples.RetrieveClickwraps.GetClickwraps(basePath, accessToken, accountId);
-            ViewBag.AccountId = RequestItemsService.Session.AccountId;
-        }
-
         [MustAuthenticate]
         [SetViewBag]
         [Route("Create")]
@@ -70,6 +58,18 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
                 return this.View("Error");
             }
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+
+            // Obtain your OAuth token
+            var accessToken = RequestItemsService.User.AccessToken;
+            var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
+            var accountId = RequestItemsService.Session.AccountId;
+            ViewBag.ClickwrapsData = DocuSign.Click.Examples.RetrieveClickwraps.GetClickwraps(basePath, accessToken, accountId);
+            ViewBag.AccountId = RequestItemsService.Session.AccountId;
         }
     }
 }

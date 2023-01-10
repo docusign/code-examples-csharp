@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg04RetrieveClickwrapsController.cs" company="DocuSign">
+﻿// <copyright file="RetrieveClickwraps.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -23,7 +23,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
             IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(this.EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

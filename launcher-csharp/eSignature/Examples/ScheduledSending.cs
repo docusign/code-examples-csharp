@@ -125,7 +125,6 @@ namespace ESignature.Examples
             // To request that the envelope be created as a draft, set to "created"
             env.Status = "sent";
             // Step 3 end
-
             return env;
         }
     }

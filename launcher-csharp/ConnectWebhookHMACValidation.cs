@@ -1,10 +1,12 @@
-﻿namespace ESignature.Examples
+﻿// <copyright file="HMACValidation.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
+
+namespace ESignature.Examples
 {
-
-
     using System;
-    using System.Text;
     using System.Security.Cryptography;
+    using System.Text;
 
     public static class HMACValidation
     {

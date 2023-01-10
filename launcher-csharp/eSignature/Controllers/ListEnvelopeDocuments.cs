@@ -39,10 +39,10 @@ namespace DocuSign.CodeExamples.Controllers
             bool tokenOk = this.CheckToken(3);
             if (!tokenOk)
             {
-                // We could store the parameters of the requested operation 
+                // We could store the parameters of the requested operation
                 // so it could be restarted automatically.
                 // But since it should be rare to have a token issue here,
-                // we'll make the user re-enter the form data after 
+                // we'll make the user re-enter the form data after
                 // authentication.
                 this.RequestItemsService.EgName = this.EgName;
                 return this.Redirect("/ds/mustAuthenticate");
@@ -62,7 +62,7 @@ namespace DocuSign.CodeExamples.Controllers
 
             // Save the envelopeId and its list of documents in the session so
             // they can be used in example 7 (download a document)
-            RequestItemsService.EnvelopeDocuments = mappedEnvelopeDocuments;
+            this.RequestItemsService.EnvelopeDocuments = mappedEnvelopeDocuments;
 
             // Process results
             ViewBag.envelopeDocuments = mappedEnvelopeDocuments;
@@ -72,7 +72,8 @@ namespace DocuSign.CodeExamples.Controllers
 
             // Save the envelopeId and its list of documents in the session so
             // they can be used in example 7 (download a document)
-            RequestItemsService.EnvelopeDocuments = mappedEnvelopeDocuments;
+            this.RequestItemsService.EnvelopeDocuments = mappedEnvelopeDocuments;
+
             // Add PDF Portfolio which is not coming from the GET call
             mappedEnvelopeDocuments.Documents.Add(new EnvelopeDocItem { DocumentId = "portfolio", Name = "PDF Portfolio", Type = "content" });
 

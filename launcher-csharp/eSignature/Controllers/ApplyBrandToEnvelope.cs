@@ -18,7 +18,7 @@ namespace DocuSign.CodeExamples.Controllers
         public ApplyBrandToEnvelope(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(this.EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

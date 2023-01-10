@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg09DeleteUserProductPermissionProfile.cs" company="DocuSign">
+﻿// <copyright file="DeleteUserProductPermissionProfile.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 

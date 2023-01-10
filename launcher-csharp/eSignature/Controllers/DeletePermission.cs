@@ -25,29 +25,6 @@ namespace DocuSign.CodeExamples.Controllers
 
         public override string EgName => "Eg027";
 
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-
-            // Data for this method
-            // permission profiles
-            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
-            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
-            var docuSignClient = new DocuSignClient(basePath);
-            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-
-            // Get all available permissions
-            var accountsApi = new AccountsApi(docuSignClient);
-            var permissions = accountsApi.ListPermissions(accountId);
-            this.ViewBag.PermissionProfiles =
-            permissions.PermissionProfiles.Select(pr => new SelectListItem
-            {
-                Text = pr.PermissionProfileName,
-                Value = pr.PermissionProfileId,
-            });
-        }
-
         [HttpPost]
         [SetViewBag]
         [ValidateAntiForgeryToken]
@@ -88,6 +65,29 @@ namespace DocuSign.CodeExamples.Controllers
             this.ViewBag.h1 = this.CodeExampleText.ExampleName;
             this.ViewBag.message = this.CodeExampleText.ResultsPageText;
             return this.View("example_done");
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+
+            // Data for this method
+            // permission profiles
+            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
+            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+
+            // Get all available permissions
+            var accountsApi = new AccountsApi(docuSignClient);
+            var permissions = accountsApi.ListPermissions(accountId);
+            this.ViewBag.PermissionProfiles =
+                permissions.PermissionProfiles.Select(pr => new SelectListItem
+                {
+                    Text = pr.PermissionProfileName,
+                    Value = pr.PermissionProfileId,
+                });
         }
     }
 }

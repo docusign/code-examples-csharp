@@ -17,16 +17,16 @@ namespace DocuSign.CodeExamples.Controllers
     {
         private IRequestItemsService requestItemsService;
 
-        private IConfiguration Configuration { get; }
-
-        private LauncherTexts LauncherTexts { get; }
-
         public AccountController(IRequestItemsService requestItemsService, LauncherTexts launcherTexts, IConfiguration configuration)
         {
             this.requestItemsService = requestItemsService;
             this.Configuration = configuration;
             this.LauncherTexts = launcherTexts;
         }
+
+        private IConfiguration Configuration { get; }
+
+        private LauncherTexts LauncherTexts { get; }
 
         [HttpGet]
         public IActionResult Login(string authType = "CodeGrant", string returnUrl = "/")

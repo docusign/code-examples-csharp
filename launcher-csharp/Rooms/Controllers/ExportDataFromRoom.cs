@@ -33,11 +33,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         [BindProperty]
         public RoomsListModel RoomsListModel { get; set; }
 
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-            this.RoomsListModel = new RoomsListModel();
-        }
 
         [MustAuthenticate]
         [HttpGet]
@@ -99,6 +94,12 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 return this.View("Error");
             }
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+            this.RoomsListModel = new RoomsListModel();
         }
     }
 }

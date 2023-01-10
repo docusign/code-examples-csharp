@@ -11,15 +11,15 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     [Area("Rooms")]
     public class HomeController : Controller
     {
-        private IRequestItemsService RequestItemsService { get; }
-
-        private LauncherTexts LauncherTexts { get; }
-
         public HomeController(IRequestItemsService requestItemsService, LauncherTexts launcherTexts)
         {
             this.RequestItemsService = requestItemsService;
             this.LauncherTexts = launcherTexts;
         }
+
+        private IRequestItemsService RequestItemsService { get; }
+
+        private LauncherTexts LauncherTexts { get; }
 
         public IActionResult Index(string egName)
         {

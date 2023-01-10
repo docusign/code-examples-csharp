@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg02CreateRoomFromTemplateController.cs" company="DocuSign">
+﻿// <copyright file="CreateRoomFromTemplate.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -31,12 +31,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
         [BindProperty]
         public RoomModel RoomModel { get; set; }
-
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-            this.RoomModel = new RoomModel();
-        }
 
         [MustAuthenticate]
         [HttpGet]
@@ -108,6 +102,12 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 this.ViewBag.errorMessage = apiException.Message;
                 return this.View("Error");
             }
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+            this.RoomModel = new RoomModel();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg03BulkExportUserDataController.cs" company="DocuSign">
+﻿// <copyright file="BulkExportUserData.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -21,7 +21,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         public BulkExportUserData(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(this.EgName);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
