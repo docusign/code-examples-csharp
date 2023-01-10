@@ -1,7 +1,7 @@
 ﻿@model DocuSign.CodeExamples.Rooms.Models.OfficeAccessModel
 @using System.Text.RegularExpressions;
 @{
-    var redirectToSeventhCodeExample = "href='eg07'";
+    var redirectToSeventhCodeExample = "href='Reg007'";
     int formNumber = 0;
     int formInputNumber = 0;
     int officeInputNumber = 1;
@@ -65,11 +65,11 @@ else
                 )
             )
         </p>
-        <a href="/" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a>
+        <a href="/?egName=home" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a>
     }
 }
 else
 {
     <p>@Html.Raw(ViewBag.CodeExampleText.RedirectsToOtherCodeExamples[1].RedirectText)</p>
-    <a href="/" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a>
+    <a href="/?egName=home" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a>
 }

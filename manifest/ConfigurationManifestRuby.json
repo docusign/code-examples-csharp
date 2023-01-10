@@ -27,7 +27,7 @@
           "help": {
             "hint": "How to get an integration key?",
             "displayText": "Learn more",
-            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+            "URI": "https://developers.docusign.com/platform/auth/authcode/authcode-get-token/#prerequisites"
           }
         },
         {
@@ -42,7 +42,7 @@
           "help": {
             "hint": "How to define a redirect URI?",
             "displayText": "Learn more",
-            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+            "URI": "https://developers.docusign.com/platform/auth/authcode/authcode-get-token/#prerequisites"
           }
         },
         {
@@ -55,7 +55,7 @@
           "help": {
             "hint": "How to get a secret key?",
             "displayText": "Learn more",
-            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+            "URI": "https://developers.docusign.com/platform/auth/authcode/authcode-get-token/#prerequisites"
           }
         },
         {
@@ -185,15 +185,15 @@
   "packages": [
     {
       "name": "rails",
-      "version": "6.0.4.1"
+      "version": "7.0.4"
     },
     {
       "name": "sqlite3",
-      "version": "1.4.2"
+      "version": "1.5.3"
     },
     {
       "name": "puma",
-      "version": "4.3.12"
+      "version": "6.0.0"
     },
     {
       "name": "sass-rails",
@@ -209,11 +209,11 @@
     },
     {
       "name": "jbuilder",
-      "version": "2.10.0"
+      "version": "2.11.5"
     },
     {
       "name": "omniauth-oauth2",
-      "version": "1.7.1"
+      "version": "1.8.0"
     },
     {
       "name": "omniauth-rails_csrf_protection",
@@ -227,7 +227,7 @@
       "packages": [
         {
           "name": "docusign_esign",
-          "version": "3.18.0"
+          "version": "3.19.0"
         }
       ],
       "scopes": [

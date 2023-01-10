@@ -43,7 +43,7 @@
           "help": {
             "hint": "How to get an integration key?",
             "displayText": "Learn more",
-            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+            "URI": "https://developers.docusign.com/platform/auth/authcode/authcode-get-token/#prerequisites"
           }
         },
         {
@@ -58,7 +58,7 @@
           "help": {
             "hint": "How to define a redirect URI?",
             "displayText": "Learn more",
-            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+            "URI": "https://developers.docusign.com/platform/auth/authcode/authcode-get-token/#prerequisites"
           }
         },
         {
@@ -71,7 +71,7 @@
           "help": {
             "hint": "How to get a secret key?",
             "displayText": "Learn more",
-            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant#prerequisites"
+            "URI": "https://developers.docusign.com/platform/auth/authcode/authcode-get-token/#prerequisites"
           }
         },
         {
@@ -103,7 +103,7 @@
       "help": {
         "hint": "How do I use Authorization Code Grant?",
         "displayText": "Learn more",
-        "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant"
+        "URI": "https://developers.docusign.com/platform/auth/authcode/authcode-get-token/"
       },
       "applicableProjectType": "Web"
     },
@@ -149,7 +149,7 @@
           "help": {
             "hint": "How to get an integration key?",
             "displayText": "Learn more",
-            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken#prerequisites"
+            "URI": "https://developers.docusign.com/platform/auth/jwt/jwt-get-token/#prerequisites"
           }
         },
         {
@@ -163,7 +163,7 @@
           "help": {
             "hint": "How to find the DocuSign userId",
             "displayText": "Learn more",
-            "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken#prerequisites"
+            "URI": "https://developers.docusign.com/platform/auth/jwt/jwt-get-token/#prerequisites"
           }
         },
         {
@@ -200,7 +200,7 @@
       "help": {
         "hint": "How do I use JSON Web Token (JWT) Grant?",
         "displayText": "Learn more",
-        "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-jsonwebtoken"
+        "URI": "https://developers.docusign.com/platform/auth/jwt/jwt-get-token/"
       },
       "preferredConfigFile": "AppConfig"
     }
@@ -208,7 +208,7 @@
   "packages": [
     {
       "name": "twig/twig",
-      "version": "3.3.8"
+      "version": "3.4.3"
     },
     {
       "name": "league/oauth2-client",
@@ -220,11 +220,11 @@
     },
     {
       "name": "guzzlehttp/guzzle",
-      "version": "7.4.5"
+      "version": "7.5.0"
     },
     {
       "name": "firebase/php-jwt",
-      "version": "5.5.1"
+      "version": "6.3.1"
     },
     {
       "name": "mashape/unirest-php",
@@ -238,7 +238,7 @@
       "packages": [
         {
           "name": "docusign/esign-client",
-          "version": "6.10.0"
+          "version": "6.11.0"
         }
       ],
       "scopes": [
@@ -272,7 +272,7 @@
       "packages": [
         {
           "name": "docusign/click-client",
-          "version": "1.1.0"
+          "version": "1.2.2"
         }
       ],
       "scopes": [
@@ -294,6 +294,6 @@
   "help": {
     "hint": "How do I identify OAuth Authentication Type?",
     "displayText": "Learn more",
-    "URI": "https://developers.docusign.com/esign-rest-api/guides/authentication"
+    "URI": "https://developers.docusign.com/platform/auth/"
   }
 }

@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg05GetClickwrapResponsesController.cs" company="DocuSign">
+﻿// <copyright file="GetClickwrapResponses.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -13,17 +13,17 @@ namespace DocuSign.CodeExamples.Click.Controllers
     using Newtonsoft.Json;
 
     [Area("Click")]
-    [Route("ClickEg05")]
+    [Route("ClickEg005")]
     public class GetClickwrapResponses : EgController
     {
         public GetClickwrapResponses(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Click);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "ClickEg05";
+        public override string EgName => "ClickEg005";
 
         protected override void InitializeInternal()
         {
@@ -67,6 +67,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return this.View("Error");
             }

@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg01CreateUserController.cs" company="DocuSign">
+﻿// <copyright file="CreateUser.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -14,7 +14,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     using Newtonsoft.Json;
 
     [Area("Admin")]
-    [Route("Aeg01")]
+    [Route("Aeg001")]
     public class CreateUser : EgController
     {
         public CreateUser(
@@ -23,11 +23,11 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Admin);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Aeg01";
+        public override string EgName => "Aeg001";
 
         protected override void InitializeInternal()
         {
@@ -67,8 +67,17 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             try
             {
                 // Call the Admin API to create a new user
-                var user = DocuSign.CodeExamples.Admin.Examples.CreateUser.CreateNewUser(accessToken, basePath, Guid.Parse(accountId), 
-                    organizationId, firstName, lastName, userName, email, Int64.Parse(permissionProfileId), Int64.Parse(groupId));
+                var user = DocuSign.CodeExamples.Admin.Examples.CreateUser.CreateNewUser(
+                    accessToken,
+                    basePath,
+                    Guid.Parse(accountId),
+                    organizationId,
+                    firstName,
+                    lastName,
+                    userName,
+                    email,
+                    long.Parse(permissionProfileId),
+                    long.Parse(groupId));
 
                 // Show results
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;
@@ -81,6 +90,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return this.View("Error");
             }
