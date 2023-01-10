@@ -39,7 +39,7 @@ namespace launcher_csharp.Tests
 
         public string BrandId { get; set; }
 
-        public ClickwrapVersionSummaryResponse InactiveClickWrap { get; set; }
+        public ClickwrapVersionSummaryResponse InactiveClickwrap { get; set; }
 
         private static readonly Lazy<TestConfig> TestConfigLazy =
             new Lazy<TestConfig>(() => new TestConfig());

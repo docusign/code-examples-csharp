@@ -33,7 +33,7 @@ namespace launcher_csharp.Tests
 
         public string BrandId { get; set; }
 
-        public ClickwrapVersionSummaryResponse InactiveClickWrap { get; set; }
+        public ClickwrapVersionSummaryResponse InactiveClickwrap { get; set; }
 
         public void OpenUrlUsingConsoleWindow(string url);
     }

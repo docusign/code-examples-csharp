@@ -151,14 +151,14 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             // Act
             BrandsResponse brands = accountsApi.ListBrands(_testConfig.AccountId);
 
+            _testConfig.BrandId = brands.Brands[0].BrandId;
+
             // Assert
             Assert.NotNull(brands);
             Assert.NotEmpty(brands.Brands);
 
             Brand firstBrand = brands.Brands[0];
             Assert.NotNull(firstBrand);
-
-            _testConfig.BrandId = firstBrand.BrandId;
         }
     }
 }

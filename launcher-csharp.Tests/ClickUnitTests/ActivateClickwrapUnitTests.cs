@@ -64,7 +64,7 @@ namespace launcher_csharp.Tests.ClickUnitTests
                 .Should()
                 .Be(clickwrapVersionSummaryResponse.Clickwraps.Count());
 
-            _testConfig.InactiveClickWrap = clickwrapVersionSummaryResponse.Clickwraps.FirstOrDefault();
+            _testConfig.InactiveClickwrap = clickwrapVersionSummaryResponse.Clickwraps.FirstOrDefault();
         }
 
         [Fact]
@@ -78,8 +78,8 @@ namespace launcher_csharp.Tests.ClickUnitTests
 
             // Act
             ClickwrapVersionSummaryResponse clickwrapVersionSummaryResponse = ActivateClickwrap.Update(
-                _testConfig.InactiveClickWrap.ClickwrapId,
-                _testConfig.InactiveClickWrap.VersionNumber,
+                _testConfig.InactiveClickwrap.ClickwrapId,
+                _testConfig.InactiveClickwrap.VersionNumber,
                 basePath,
                 _testConfig.AccessToken,
                 _testConfig.AccountId
