@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace DocuSign.QuickACG
 {
@@ -17,7 +18,19 @@ namespace DocuSign.QuickACG
             var builder = WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
             builder.ConfigureAppConfiguration((hostingContext, config) =>
             {
-                config.AddJsonFile(Path.GetFullPath(@"..\\launcher-csharp\\appsettings.json"),
+                string path = string.Empty;
+
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    path = Path.GetFullPath(@"../launcher-csharp/appsettings.json");
+                }
+                else
+                {
+                    path = Path.GetFullPath(@"..\\launcher-csharp\\appsettings.json");
+                }
+                 
+
+                config.AddJsonFile(path,
                                    optional: false,
                                    reloadOnChange: true);
             });
