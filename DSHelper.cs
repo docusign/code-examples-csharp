@@ -28,7 +28,7 @@ namespace DocuSign.CodeExamples.Common
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && Directory.GetCurrentDirectory().Contains("bin"))
             {
                 fileNameOnly = DefaultRSAPrivateKeyFileName;
-                filePath = Path.GetFullPath(Path.Combine(filePath, @"../../.."));
+                filePath = Path.GetFullPath(filePath);
             }
 
             return Path.Combine(filePath, fileNameOnly);
