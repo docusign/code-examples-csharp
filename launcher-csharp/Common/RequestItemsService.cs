@@ -183,7 +183,7 @@ namespace DocuSign.CodeExamples.Common
                 this.Configuration["DocuSignJWT:ClientId"],
                 this.Configuration["DocuSignJWT:ImpersonatedUserId"],
                 this.Configuration["DocuSignJWT:AuthServer"],
-                this.Configuration["DocuSignJWT:PrivateKeyFile"]);
+                DSHelper.ReadFileContent(this.Configuration["DocuSignJWT:PrivateKeyFile"]));
             account = this.GetAccountInfo(this.authToken);
 
             this.User = new User

@@ -12,6 +12,10 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\DSHelper.cs" Link="DSHelper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="..\launcher-csharp\appsettings.json" Link="appsettings.json" />
   </ItemGroup>
 

@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -17,9 +17,17 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
+    - name: setup-msbuild
+      uses: microsoft/setup-msbuild@v1.1.3
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
     - name: Test
+      env:
+        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        IMPERSONATED_USER_ID: ${{ secrets.IMPERSONATED_USER_ID }}
+        PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+        SIGNER_EMAIL: ${{ secrets.SIGNER_EMAIL }}
+        SIGNER_NAME: ${{ secrets.SIGNER_NAME }}
       run: dotnet test --no-build --verbosity normal

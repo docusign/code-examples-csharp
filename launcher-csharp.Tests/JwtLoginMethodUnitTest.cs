@@ -1,13 +1,7 @@
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Client.Auth;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
-using System.IO;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Xunit;
-using System.Net;
 using System.Runtime.InteropServices;
 using DocuSign.CodeExamples.Authentication;
 using DocuSign.CodeExamples.Common;
@@ -16,11 +10,11 @@ namespace launcher_csharp.Tests
 {
     public sealed class JwtLoginMethodUnitTest
     {
-        private const string RedirectUrl = "https://developers.docusign.com/platform/auth/consent";
+        private const string REDIRECT_URL = "https://developers.docusign.com/platform/auth/consent";
 
-        private const string RerunUnitTests = "Please, rerun the unit tests once consent has been provided.";
+        private const string RERUN_UNIT_TESTS = "Please, rerun the unit tests once consent has been provided.";
 
-        private const string ConsentRequired = "consent_required";
+        private const string CONSENT_REQUIRED = "consent_required";
 
         private readonly ITestConfig _testConfig;
 
@@ -33,10 +27,10 @@ namespace launcher_csharp.Tests
 
         [Theory]
         [InlineData(ExamplesAPIType.ESignature)]
-        [InlineData(ExamplesAPIType.Admin)]
         [InlineData(ExamplesAPIType.Monitor)]
         [InlineData(ExamplesAPIType.Click)]
         [InlineData(ExamplesAPIType.Rooms)]
+        [InlineData(ExamplesAPIType.Admin)]
         public void RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType apiType)
         {
             // Arrange
@@ -45,12 +39,12 @@ namespace launcher_csharp.Tests
             try
             {
                 // Act
-               OAuth.OAuthToken tokenInfo = JWTAuth.AuthenticateWithJWT(
+                OAuth.OAuthToken tokenInfo = JWTAuth.AuthenticateWithJWT(
                     apiType.ToString(),
                     _testConfig.ClientId,
                     _testConfig.ImpersonatedUserId,
                     _testConfig.OAuthBasePath,
-                    _testConfig.PrivateKey
+                    _testConfig.PrivateKeyBytes
                     );
 
                 OAuth.UserInfo userInfo = _testConfig.ApiClient.GetUserInfo(tokenInfo.access_token);
@@ -79,11 +73,11 @@ namespace launcher_csharp.Tests
             }
             catch (Exception e)
             {
-                if (e.Message.ToLowerInvariant().Contains(ConsentRequired))
+                if (e.Message.ToLowerInvariant().Contains(CONSENT_REQUIRED))
                 {
                     _testConfig?.OpenUrlUsingConsoleWindow(BuildConsentUrl(apiType));
 
-                    throw new Xunit.Sdk.XunitException(RerunUnitTests);
+                    throw new Xunit.Sdk.XunitException(RERUN_UNIT_TESTS);
                 }
             }
         }
@@ -113,7 +107,7 @@ namespace launcher_csharp.Tests
             }
 
             return "https://" + _testConfig.OAuthBasePath + "/oauth/auth?response_type=code" + caret + "&scope=" + scopes 
-                   + caret + "&client_id=" + _testConfig.ClientId + caret + "&redirect_uri=" + RedirectUrl;
+                   + caret + "&client_id=" + _testConfig.ClientId + caret + "&redirect_uri=" + REDIRECT_URL;
         }
     }
 }
