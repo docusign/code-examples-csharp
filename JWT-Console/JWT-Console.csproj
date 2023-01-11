@@ -7,6 +7,10 @@
     <DocuSignAuthType>JWT</DocuSignAuthType>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\net6.0</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Remove="DocuSign\**" />
     <EmbeddedResource Remove="DocuSign\**" />
