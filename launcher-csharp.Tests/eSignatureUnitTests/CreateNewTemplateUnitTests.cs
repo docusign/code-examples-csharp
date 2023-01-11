@@ -11,6 +11,10 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 {
     public sealed class CreateNewTemplateUnitTests
     {
+        private const string REST_API_PREFIX = "/restapi";
+
+        private const string PDF_DOCUMENT_NAME = "World_Wide_Corp_lorem.pdf";
+
         private readonly ITestConfig _testConfig;
 
         public CreateNewTemplateUnitTests() : this(TestConfig.Instance) { }
@@ -27,8 +31,8 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
         public void CreateNewTemplate_CorrectInputParameters_ReturnsTemplateIdAndName()
         {
             // Arrange
-            string basePath = _testConfig.BasePath + "/restapi";
-            string docPdf = _testConfig.PathToSolution + "World_Wide_Corp_lorem.pdf";
+            string basePath = _testConfig.BasePath + REST_API_PREFIX;
+            string docPdf = _testConfig.PathToSolution + PDF_DOCUMENT_NAME;
 
             //Act
             var template = CreateNewTemplate.CreateTemplate(
@@ -54,7 +58,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
         {
             // Arrange
             string templateName = "Test template";
-            string docPdf = _testConfig.PathToSolution + "World_Wide_Corp_lorem.pdf";
+            string docPdf = _testConfig.PathToSolution + PDF_DOCUMENT_NAME;
             var envelopeStatus = "created";
             var emailSubject = "Please sign this document";
             var emailDescription = "Example template created via the API";

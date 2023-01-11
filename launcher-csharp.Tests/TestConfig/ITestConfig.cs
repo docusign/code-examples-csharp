@@ -30,6 +30,8 @@ namespace launcher_csharp.Tests
 
         public string PathToSolution { get; set; }
 
+        public byte[] PrivateKeyBytes { get; set; }
+
         public void OpenUrlUsingConsoleWindow(string url);
     }
 }

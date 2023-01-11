@@ -1,11 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>launcher_csharp.Tests</RootNamespace>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\DSHelper.cs" Link="DSHelper.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="..\launcher-csharp\appsettings.json" Link="appsettings.json" />

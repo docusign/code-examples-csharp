@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.IO;
+using DocuSign.CodeExamples.Common;
 
 namespace DocuSign.CodeExamples.JWT_Console
 {
@@ -24,7 +25,7 @@ namespace DocuSign.CodeExamples.JWT_Console
             try
             {
                 accessToken = JWTAuth.AuthenticateWithJWT("ESignature", ConfigurationManager.AppSettings["ClientId"], ConfigurationManager.AppSettings["ImpersonatedUserId"],
-                                                            ConfigurationManager.AppSettings["AuthServer"], ConfigurationManager.AppSettings["PrivateKeyFile"]);
+                                                            ConfigurationManager.AppSettings["AuthServer"], DSHelper.ReadFileContent(ConfigurationManager.AppSettings["PrivateKeyFile"]));
             }
             catch (ApiException apiExp)
             {
