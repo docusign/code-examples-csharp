@@ -48,6 +48,7 @@ namespace launcher_csharp.Tests.ClickUnitTests
         {
             // Arrange
             string basePath = _testConfig.BasePath + CLICK_PATH_PREFIX;
+            var statusActive = "active";
             var statusInactive = "inactive";
 
             // Act
@@ -60,11 +61,12 @@ namespace launcher_csharp.Tests.ClickUnitTests
             // Assert
             Assert.NotNull(clickwrapVersionSummaryResponse);
             clickwrapVersionSummaryResponse.Clickwraps
-                .Count(x => x.Status == statusInactive)
+                .Count(x => x.Status != statusActive)
                 .Should()
                 .Be(clickwrapVersionSummaryResponse.Clickwraps.Count());
 
-            _testConfig.InactiveClickwrap = clickwrapVersionSummaryResponse.Clickwraps.FirstOrDefault();
+            _testConfig.InactiveClickwrap = clickwrapVersionSummaryResponse.Clickwraps
+                .FirstOrDefault(x => x.Status == statusInactive);
         }
 
         [Fact]
