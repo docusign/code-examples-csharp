@@ -35,6 +35,8 @@ namespace launcher_csharp.Tests
 
         public ClickwrapVersionSummaryResponse InactiveClickwrap { get; set; }
 
+        public byte[] PrivateKeyBytes { get; set; }
+
         public void OpenUrlUsingConsoleWindow(string url);
     }
 }

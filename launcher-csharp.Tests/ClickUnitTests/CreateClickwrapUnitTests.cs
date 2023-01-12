@@ -92,6 +92,8 @@ namespace launcher_csharp.Tests.ClickUnitTests
             // Assert
             Assert.NotNull(clickwrapVersionSummaryResponse);
             clickwrapVersionSummaryResponse.ClickwrapName.Should().Be(clickwrapName);
+
+            _testConfig.InactiveClickwrap = clickwrapVersionSummaryResponse;
         }
     }
 }

@@ -9,7 +9,9 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 {
     public sealed class SetEnvelopeTabValueUnitTests
     {
-        private const string RedirectUrl = "https://developers.docusign.com/docs/esign-rest-api/";
+        private const string REDIRECT_URL = "https://developers.docusign.com/docs/esign-rest-api/";
+        private const string REST_API_PREFIX = "/restapi";
+        private const string DOCX_DOCUMENT_NAME = "World_Wide_Corp_salary.docx";
 
         private readonly ITestConfig _testConfig;
 
@@ -27,8 +29,8 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
         public void SetEnvelopeTabValue_CorrectInputParameters_ReturnsEnvelopeIdAndRedirectURL()
         {
             // Arrange
-            string basePath = _testConfig.BasePath + "/restapi";
-            string tabsDocx = _testConfig.PathToSolution + "World_Wide_Corp_salary.docx";
+            string basePath = _testConfig.BasePath + REST_API_PREFIX;
+            string tabsDocx = _testConfig.PathToSolution + DOCX_DOCUMENT_NAME;
 
             // Act
             var envelopeAndRedirectUrl = SetEnvelopeTabValue.CreateEnvelopeAndUpdateTabData(
@@ -39,8 +41,8 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
                 basePath,
                 _testConfig.AccountId,
                 tabsDocx,
-                RedirectUrl,
-                RedirectUrl);
+                REDIRECT_URL,
+                REDIRECT_URL);
 
             string redirectUrl = envelopeAndRedirectUrl.Item2;
             string envelopeId = envelopeAndRedirectUrl.Item1;
