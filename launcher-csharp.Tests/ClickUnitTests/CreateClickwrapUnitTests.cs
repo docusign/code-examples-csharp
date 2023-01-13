@@ -76,7 +76,7 @@ namespace launcher_csharp.Tests.ClickUnitTests
         public void Create_CorrectInputParameters_ReturnsClickwrapVersionSummaryResponse()
         {
             // Arrange
-            var clickwrapName = "Clickwrap name";
+            var clickwrapName = Guid.NewGuid().ToString("n").Substring(0, 8);
             string pdfFile = _testConfig.PathToSolution + PDF_FILE;
             string basePath = _testConfig.BasePath + CLICK_PATH_PREFIX;
 

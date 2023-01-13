@@ -63,7 +63,7 @@ namespace launcher_csharp.Tests.ClickUnitTests
             clickwrapVersionSummaryResponse.Clickwraps
                 .Count(x => x.Status != statusActive)
                 .Should()
-                .Be(clickwrapVersionSummaryResponse.Clickwraps.Count()); ;
+                .Be(clickwrapVersionSummaryResponse.Clickwraps.Count());
         }
 
         [Fact]
