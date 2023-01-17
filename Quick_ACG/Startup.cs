@@ -126,14 +126,39 @@ namespace DocuSign.QuickACG
             }
 
             string? keyValue = null;
+            string targetAccountIdString = this.Configuration["DocuSign:TargetAccountId"];
 
-            foreach (var account in accounts.EnumerateArray())
+            if (Guid.TryParse(targetAccountIdString, out Guid targetAccountId))
             {
-                if (account.TryGetProperty("is_default", out var defaultAccount) && defaultAccount.GetBoolean())
+                foreach (var account in accounts.EnumerateArray())
                 {
-                    if (account.TryGetProperty(key, out var value))
+                    account.TryGetProperty("account_id", out var accountIdJson);
+                    accountIdJson.TryGetGuid(out Guid accountId);
+
+                    if (targetAccountId == accountId)
                     {
-                        keyValue = value.GetString();
+                        if (account.TryGetProperty(key, out var value))
+                        {
+                            keyValue = value.GetString();
+                        }
+                    }
+                }
+
+                if (keyValue == null)
+                {
+                    throw new Exception($"Targeted Account with Id {targetAccountId} not found.");
+                }
+            }
+            else
+            {
+                foreach (var account in accounts.EnumerateArray())
+                {
+                    if (account.TryGetProperty("is_default", out var defaultAccount) && defaultAccount.GetBoolean())
+                    {
+                        if (account.TryGetProperty(key, out var value))
+                        {
+                            keyValue = value.GetString();
+                        }
                     }
                 }
             }

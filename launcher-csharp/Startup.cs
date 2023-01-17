@@ -222,6 +222,57 @@ namespace DocuSign.CodeExamples
             });
         }
 
+        private string ExtractDefaultAccountValue(JsonElement obj, string key)
+        {
+            if (!obj.TryGetProperty("accounts", out var accounts))
+            {
+                return null;
+            }
+
+            string? keyValue = null;
+            string targetAccountIdString = this.Configuration["DocuSign:TargetAccountId"];
+
+            if (Guid.TryParse(targetAccountIdString, out Guid targetAccountId))
+            {
+                foreach (var account in accounts.EnumerateArray())
+                {
+                    account.TryGetProperty("account_id", out var accountIdJson);
+                    accountIdJson.TryGetGuid(out Guid accountId);
+
+                    if (targetAccountId == accountId)
+                    {
+                        if (account.TryGetProperty(key, out var value))
+                        {
+                            keyValue = value.GetString();
+                        }
+                    }
+                }
+
+                if (keyValue == null)
+                {
+                    string errorMessage = $"Targeted Account with Id {targetAccountId} not found.";
+                    this.Configuration["ErrorMessage"] = errorMessage;
+
+                    throw new Exception(errorMessage);
+                }
+            }
+            else
+            {
+                foreach (var account in accounts.EnumerateArray())
+                {
+                    if (account.TryGetProperty("is_default", out var defaultAccount) && defaultAccount.GetBoolean())
+                    {
+                        if (account.TryGetProperty(key, out var value))
+                        {
+                            keyValue = value.GetString();
+                        }
+                    }
+                }
+            }
+
+            return keyValue;
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -270,29 +321,6 @@ namespace DocuSign.CodeExamples
                             name: "default",
                             pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}");
             });
-        }
-
-        private string ExtractDefaultAccountValue(JsonElement obj, string key)
-        {
-            if (!obj.TryGetProperty("accounts", out var accounts))
-            {
-                return null;
-            }
-
-            string keyValue = null;
-
-            foreach (var account in accounts.EnumerateArray())
-            {
-                if (account.TryGetProperty("is_default", out var defaultAccount) && defaultAccount.GetBoolean())
-                {
-                    if (account.TryGetProperty(key, out var value))
-                    {
-                        keyValue = value.GetString();
-                    }
-                }
-            }
-
-            return keyValue;
         }
     }
 }

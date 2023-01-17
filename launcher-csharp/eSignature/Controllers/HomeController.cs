@@ -4,6 +4,10 @@
 
 using DocuSign.CodeExamples.Common;
 
+using System;
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
+
 namespace DocuSign.CodeExamples.Controllers
 {
     using System.Diagnostics;
@@ -154,9 +158,16 @@ namespace DocuSign.CodeExamples.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
             this.ViewBag.APIData = JsonConvert.SerializeObject(this.LauncherTexts.ManifestStructure);
             this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.APIs;
-            this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
+
+            if (this.Configuration["ErrorMessage"] != null)
+            {
+                this.ViewBag.errorMessage = this.Configuration["ErrorMessage"];
+                this.ViewBag.errorCode = HttpStatusCode.FailedDependency;
+            }
+
             return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
 
