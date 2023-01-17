@@ -16,7 +16,7 @@ namespace DocuSign.CodeExamples.Authentication
         /// Uses Json Web Token (JWT) Authentication Method to obtain the necessary information needed to make API calls.
         /// </summary>
         /// <returns>Auth token needed for API calls</returns>
-        public static OAuthToken AuthenticateWithJWT(string api, string clientId, string impersonatedUserId, string authServer, string privateKeyFile)
+        public static OAuthToken AuthenticateWithJWT(string api, string clientId, string impersonatedUserId, string authServer, byte[] privateKeyBytes)
         {
             var docuSignClient = new DocuSignClient();
             var apiType = Enum.Parse<ExamplesAPIType>(api);
@@ -78,7 +78,7 @@ namespace DocuSign.CodeExamples.Authentication
                 clientId,
                 impersonatedUserId,
                 authServer,
-                DSHelper.ReadFileContent(DSHelper.PrepareFullPrivateKeyFilePath(privateKeyFile)),
+                privateKeyBytes,
                 1,
                 scopes);
         }
