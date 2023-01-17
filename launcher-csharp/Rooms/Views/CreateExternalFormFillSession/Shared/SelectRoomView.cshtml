@@ -1,7 +1,7 @@
 ﻿@model DocuSign.CodeExamples.Rooms.Models.RoomDocumentModel
 @using System.Text.RegularExpressions;
 @{
-    var redirectToFirstCodeExample = "href='eg01'";
+    var redirectToFirstCodeExample = "href='Reg001'";
     int formNumber = 1;
     int documentsInputNumber = 0;
 }
@@ -41,5 +41,5 @@ else
             )
         )
     </p>
-    <a href="/" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a>
+    <a href="/?egName=home" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a>
 }

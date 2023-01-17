@@ -13,6 +13,7 @@
     <title>@ViewData["title"]</title>
 
     <!-- Bootstrap core CSS -->
+    <script src="https://kit.fontawesome.com/a2fb399780.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link href="~/css/css.css" rel="stylesheet">
@@ -72,7 +73,7 @@
                 </div>
             </section>
 
-            <p id="download-continue" class="feedback"><a href="/">Continue</a></p>
+            <p id="download-continue" class="feedback"><a href="/?egName=home">Continue</a></p>
 
             <section id="content" style="margin-top:-60px!important; padding-top:30px!important;">
                 <content>
@@ -90,10 +91,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
     <script src="~/js/notify.min.js"></script> <!-- see https://notifyjs.jpillora.com/ -->
     <script src="~/js/eg_03.js"></script>
-    <script src="~/js/site.js"></script>
+    <script src="~/js/search.js"></script>
+    <script src="~/js/site.js" ></script>
 
     @*if (false) {
     <!-- For debugging: showing local values including session -->

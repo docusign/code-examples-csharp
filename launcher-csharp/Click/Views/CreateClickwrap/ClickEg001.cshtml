@@ -1,0 +1,34 @@
+﻿@model DocuSign.CodeExamples.Click.Controllers.CreateClickwrap
+@{
+    int formNumber = 0;
+    int clickwrapInputNumber = 0;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<p>
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">CreateClickwrap.cs</a>"
+        )
+    )
+</p>
+
+<form class="eg" asp-action="Create" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="Name">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[clickwrapInputNumber].InputName)
+        </label>
+
+        <input type="text" class="form-control" name="Name" 
+            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[clickwrapInputNumber].InputPlaceholder" required />
+    </div>
+
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
+</form>

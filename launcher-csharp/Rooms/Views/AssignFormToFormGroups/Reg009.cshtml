@@ -1,0 +1,18 @@
+﻿@model DocuSign.CodeExamples.Rooms.Controllers.AssignFormToFormGroups
+
+<h4>9. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<p>
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">AssignFormToFormGroups.cs</a>"
+    )
+)
+</p>
+
+<partial name="Shared/SelectFromAndFormGroupView" model="Model.FormFormGroupModel" />

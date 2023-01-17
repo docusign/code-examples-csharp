@@ -1,4 +1,4 @@
-﻿// <copyright file="MustAuthenticateAttribute.cs" company="DocuSign">
+﻿// <copyright file="SetViewBagAttribute.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 

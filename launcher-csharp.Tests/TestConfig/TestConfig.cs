@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
+using DocuSign.CodeExamples.Common;
 using DocuSign.eSign.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -36,6 +38,8 @@ namespace launcher_csharp.Tests
 
         public string PathToSolution { get; set; }
 
+        public byte[] PrivateKeyBytes { get; set; }
+
         private static readonly Lazy<TestConfig> TestConfigLazy =
             new Lazy<TestConfig>(() => new TestConfig());
 
@@ -48,13 +52,26 @@ namespace launcher_csharp.Tests
             this.OAuthBasePath = "account-d.docusign.com";
             this.PrivateKey = PathToSolution + "private.key";
 
-            string keysFile = File.ReadAllText(this.PathToSolution + "appsettings.json");
-            var keysFileJObject = (JObject)JsonConvert.DeserializeObject(keysFile);
+            if (File.Exists(this.PathToSolution + "appsettings.json"))
+            {
+                string keysFile = File.ReadAllText(this.PathToSolution + "appsettings.json");
+                var keysFileJObject = (JObject)JsonConvert.DeserializeObject(keysFile);
 
-            this.ImpersonatedUserId = keysFileJObject["DocuSignJWT"]["ImpersonatedUserId"].Value<string>();
-            this.ClientId = keysFileJObject["DocuSignJWT"]["ClientId"].Value<string>();
-            this.SignerEmail = keysFileJObject["DocuSign"]["SignerEmail"].Value<string>();
-            this.SignerName = keysFileJObject["DocuSign"]["SignerName"].Value<string>();
+                this.ImpersonatedUserId = keysFileJObject["DocuSignJWT"]["ImpersonatedUserId"].Value<string>();
+                this.ClientId = keysFileJObject["DocuSignJWT"]["ClientId"].Value<string>();
+                this.SignerEmail = keysFileJObject["DocuSign"]["SignerEmail"].Value<string>();
+                this.SignerName = keysFileJObject["DocuSign"]["SignerName"].Value<string>();
+                this.PrivateKeyBytes = DSHelper.ReadFileContent(DSHelper.PrepareFullPrivateKeyFilePath(this.PrivateKey));
+            }
+            else
+            {
+                this.ImpersonatedUserId = Environment.GetEnvironmentVariable("IMPERSONATED_USER_ID");
+                this.ClientId = Environment.GetEnvironmentVariable("CLIENT_ID");
+                this.SignerEmail = Environment.GetEnvironmentVariable("SIGNER_EMAIL");
+                this.SignerName = Environment.GetEnvironmentVariable("SIGNER_NAME");
+                this.SignerName = Environment.GetEnvironmentVariable("SIGNER_NAME");
+                this.PrivateKeyBytes = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("PRIVATE_KEY"));
+            }
         }
 
         public void OpenUrlUsingConsoleWindow(string url)

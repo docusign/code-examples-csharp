@@ -11,7 +11,11 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 {
     public sealed class EmbeddedSigningCeremonyUnitTests
     {
-        private const string RedirectUrl = "https://developers.docusign.com/docs/esign-rest-api/";
+        private const string REDIRECT_URL = "https://developers.docusign.com/docs/esign-rest-api/";
+
+        private const string PDF_DOCUMENT_NAME = "World_Wide_Corp_lorem.pdf";
+
+        private const string REST_API_PREFIX = "/restapi";
 
         private readonly ITestConfig _testConfig;
 
@@ -29,8 +33,8 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
         public void EmbeddedSigningCeremony_CorrectInputParameters_ReturnsEnvelopeIdAndRedirectUrl()
         {
             // Arrange
-            string docPdf = _testConfig.PathToSolution + "World_Wide_Corp_lorem.pdf";
-            string basePath = _testConfig.BasePath + "/restapi";
+            string docPdf = _testConfig.PathToSolution + PDF_DOCUMENT_NAME;
+            string basePath = _testConfig.BasePath + REST_API_PREFIX;
 
             // Act
             var result = EmbeddedSigningCeremony.SendEnvelopeForEmbeddedSigning(
@@ -41,8 +45,8 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
                 basePath,
                 _testConfig.AccountId,
                 docPdf,
-                RedirectUrl,
-                RedirectUrl
+                REDIRECT_URL,
+                REDIRECT_URL
             );
 
             // Assert
@@ -60,22 +64,22 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 
             var expectedRecipientViewRequest = new RecipientViewRequest
             {
-                ReturnUrl = RedirectUrl + redirectSpecification,
+                ReturnUrl = REDIRECT_URL + redirectSpecification,
                 AuthenticationMethod = authMethod,
                 Email = _testConfig.SignerEmail,
                 UserName = _testConfig.SignerName,
                 ClientUserId = _testConfig.ImpersonatedUserId,
                 PingFrequency = pingFrequency,
-                PingUrl = RedirectUrl
+                PingUrl = REDIRECT_URL
             };
 
             // Act
             RecipientViewRequest recipientViewRequest = EmbeddedSigningCeremony.MakeRecipientViewRequest(
                 _testConfig.SignerEmail,
                 _testConfig.SignerName,
-                RedirectUrl,
+                REDIRECT_URL,
                 _testConfig.ImpersonatedUserId,
-                RedirectUrl
+                REDIRECT_URL
             );
 
             // Assert
@@ -87,7 +91,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
         public void MakeEnvelope_CorrectInputParameters_ReturnsEnvelopeDefinition()
         {
             // Arrange
-            string docPdf = _testConfig.PathToSolution + "World_Wide_Corp_lorem.pdf";
+            string docPdf = _testConfig.PathToSolution + PDF_DOCUMENT_NAME;
             string anchorString = "/sn1/";
             var documentName = "Lorem Ipsum";
             var fileExtension = "pdf";

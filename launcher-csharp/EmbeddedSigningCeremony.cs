@@ -45,6 +45,7 @@ namespace ESignature.Examples
             // Step 1 start
             // Step 1. Create the envelope definition
             EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, signerClientId, docPdf);
+
             // Step 1 end
 
             // Step 2 start
@@ -55,6 +56,7 @@ namespace ESignature.Examples
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
             string envelopeId = results.EnvelopeId;
+
             // Step 2 end
 
             // Step 3 start
@@ -63,6 +65,7 @@ namespace ESignature.Examples
 
             // call the CreateRecipientView API
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
+
             // Step 3 end
 
             // Step 4 start
@@ -74,6 +77,7 @@ namespace ESignature.Examples
 
             // returning both the envelopeId as well as the url to be used for embedded signing
             return (envelopeId, redirectUrl);
+
             // Step 4 end
         }
 

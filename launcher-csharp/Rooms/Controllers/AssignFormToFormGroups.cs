@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using Newtonsoft.Json;
 
     [Area("Rooms")]
-    [Route("Eg09")]
+    [Route("Reg009")]
     public class AssignFormToFormGroups : EgController
     {
         public AssignFormToFormGroups(
@@ -24,11 +24,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Rooms);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Eg09";
+        public override string EgName => "Reg009";
 
         [BindProperty]
         public FormFormGroupModel FormFormGroupModel { get; set; }
@@ -52,12 +52,13 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 this.FormFormGroupModel = new FormFormGroupModel { Forms = forms.Forms, FormGroups = formGroups.FormGroups };
 
-                return this.View("Eg09", this);
+                return this.View("Reg009", this);
             }
             catch (ApiException apiException)
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return this.View("Error");
             }
@@ -95,6 +96,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message.Equals(this.CodeExampleText.CustomErrorTexts[0].ErrorMessageCheck) ?
                     this.CodeExampleText.CustomErrorTexts[0].ErrorMessage : apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return this.View("Error");
             }

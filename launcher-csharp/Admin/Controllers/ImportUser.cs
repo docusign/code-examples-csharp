@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg04AddUsersBulkImportController.cs" company="DocuSign">
+﻿// <copyright file="ImportUser.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -15,17 +15,17 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     using Newtonsoft.Json;
 
     [Area("Admin")]
-    [Route("Aeg04")]
+    [Route("Aeg004")]
     public class ImportUser : EgController
     {
         public ImportUser(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Admin);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Aeg04";
+        public override string EgName => "Aeg004";
 
         [MustAuthenticate]
         [SetViewBag]
@@ -59,6 +59,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return this.View("Error");
             }
@@ -88,6 +89,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             {
                 this.ViewBag.errorCode = apiException.ErrorCode;
                 this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return this.View("Error");
             }

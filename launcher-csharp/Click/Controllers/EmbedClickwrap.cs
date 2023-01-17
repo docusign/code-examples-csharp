@@ -9,17 +9,17 @@
     using Newtonsoft.Json;
 
     [Area("Click")]
-    [Route("ClickEg06")]
+    [Route("ClickEg006")]
     public class EmbedClickwrap : EgController
     {
         public EmbedClickwrap(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName);
+            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Click);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "ClickEg06";
+        public override string EgName => "ClickEg006";
 
         protected override void InitializeInternal()
         {

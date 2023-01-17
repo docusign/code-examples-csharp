@@ -31,6 +31,14 @@ namespace DocuSign.CodeExamples.Controllers
         [HttpGet]
         public IActionResult Login(string authType = "CodeGrant", string returnUrl = "/")
         {
+            this.Configuration["FirstLaunch"] = "false";
+            this.Configuration["API"] = this.Configuration["APIPlanned"];
+
+            if (this.Configuration["API"] != this.requestItemsService.IdentifyAPIOfCodeExample(this.requestItemsService.EgName))
+            {
+                this.requestItemsService.EgName = string.Empty;
+            }
+
             if (authType == "CodeGrant")
             {
                 returnUrl += "?egName=" + this.requestItemsService.EgName;
@@ -50,12 +58,24 @@ namespace DocuSign.CodeExamples.Controllers
                 }
             }
 
-            return this.LocalRedirect(returnUrl);
+            returnUrl += "?egName=" + this.requestItemsService.EgName;
+            return this.Redirect(returnUrl);
         }
 
         public IActionResult MustAuthenticate()
         {
-            if (this.Configuration["ExamplesAPI"] == "Monitor")
+            var apiTypeBasedOnExample = this.requestItemsService.IdentifyAPIOfCodeExample(this.requestItemsService.EgName);
+
+            if (this.Configuration["API"] == null && (ExamplesAPIType.ESignature.ToString() == apiTypeBasedOnExample || this.requestItemsService.EgName == null))
+            {
+                this.Configuration["APIPlanned"] = ExamplesAPIType.ESignature.ToString();
+            }
+            else
+            {
+                this.Configuration["APIPlanned"] = apiTypeBasedOnExample;
+            }
+
+            if (this.Configuration["APIPlanned"] == "Monitor")
             {
                 // Monitor API supports JWT only
                 return this.Login("JWT");
@@ -74,7 +94,6 @@ namespace DocuSign.CodeExamples.Controllers
         {
             await AuthenticationHttpContextExtensions.SignOutAsync(this.HttpContext);
             this.requestItemsService.Logout();
-            this.Configuration["quickstart"] = "false";
             return this.LocalRedirect("/?egName=home");
         }
 
@@ -85,7 +104,7 @@ namespace DocuSign.CodeExamples.Controllers
         private string BuildConsentURL()
         {
             var scopes = "signature impersonation";
-            var apiType = Enum.Parse<ExamplesAPIType>(this.Configuration["ExamplesAPI"]);
+            var apiType = Enum.Parse<ExamplesAPIType>(this.Configuration["API"]);
             if (apiType == ExamplesAPIType.Rooms)
             {
                 scopes += " dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write "
