@@ -10,7 +10,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
     {
         private const string ESIGNARURE_PATH_PREFIX = "/restapi";
 
-        private readonly ITestConfig _testConfig;
+        private readonly TestConfig _testConfig;
 
         public CreateBrandUnitTests()
         {

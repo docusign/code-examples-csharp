@@ -13,7 +13,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 
         private string DOC_PDF = "World_Wide_Corp_lorem.pdf";
 
-        private readonly ITestConfig _testConfig;
+        private readonly TestConfig _testConfig;
 
         public SendBulkEnvelopesUnitTests()
         {

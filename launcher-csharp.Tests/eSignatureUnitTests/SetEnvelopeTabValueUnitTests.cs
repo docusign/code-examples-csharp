@@ -13,7 +13,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
         private const string REST_API_PREFIX = "/restapi";
         private const string DOCX_DOCUMENT_NAME = "World_Wide_Corp_salary.docx";
 
-        private readonly ITestConfig _testConfig;
+        private readonly TestConfig _testConfig;
 
         public SetEnvelopeTabValueUnitTests()
         {

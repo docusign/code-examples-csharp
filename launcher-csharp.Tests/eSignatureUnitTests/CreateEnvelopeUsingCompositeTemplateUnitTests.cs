@@ -24,7 +24,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 
         private const string SIGNER_CLIENT_ID = "1000";
 
-        private readonly ITestConfig _testConfig;
+        private readonly TestConfig _testConfig;
 
         private readonly CreateNewTemplateUnitTests _createNewTemplateUnitTests;
 

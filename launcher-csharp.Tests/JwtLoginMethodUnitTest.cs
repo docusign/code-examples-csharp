@@ -16,7 +16,7 @@ namespace launcher_csharp.Tests
 
         private const string CONSENT_REQUIRED = "consent_required";
 
-        public void RequestJWTUserToken(ExamplesAPIType apiType, ITestConfig _testConfig)
+        public void RequestJWTUserToken(ExamplesAPIType apiType, TestConfig _testConfig)
         {
             // Arrange
             _testConfig.ApiClient = new DocuSignClient(_testConfig.Host);
@@ -67,7 +67,7 @@ namespace launcher_csharp.Tests
             }
         }
 
-        private string BuildConsentUrl(ExamplesAPIType apiType, ITestConfig _testConfig)
+        private string BuildConsentUrl(ExamplesAPIType apiType, TestConfig _testConfig)
         {
             var scopes = "signature%20impersonation";
             if (apiType == ExamplesAPIType.Rooms)

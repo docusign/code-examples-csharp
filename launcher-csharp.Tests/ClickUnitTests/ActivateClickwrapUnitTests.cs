@@ -11,7 +11,7 @@ namespace launcher_csharp.Tests.ClickUnitTests
     {
         private const string CLICK_PATH_PREFIX = "/clickapi";
 
-        private readonly ITestConfig _testConfig;
+        private readonly TestConfig _testConfig;
 
         private readonly CreateClickwrapUnitTests _createClickwrapUnitTests;
 

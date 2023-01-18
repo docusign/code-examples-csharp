@@ -11,7 +11,7 @@ using Newtonsoft.Json.Linq;
 
 namespace launcher_csharp.Tests
 {
-    public sealed class TestConfig : ITestConfig
+    public sealed class TestConfig
     {
         public string ClientId { get; set; }
 

@@ -14,9 +14,9 @@ namespace launcher_csharp.Tests.ClickUnitTests
 
         private const string PDF_FILE = "Terms_of_service.pdf";
 
-        private readonly ITestConfig _testConfig;
+        private readonly TestConfig _testConfig;
 
-        public CreateClickwrapUnitTests(ITestConfig testConfig = null)
+        public CreateClickwrapUnitTests(TestConfig testConfig = null)
         {
             this._testConfig = testConfig ?? new TestConfig();
 

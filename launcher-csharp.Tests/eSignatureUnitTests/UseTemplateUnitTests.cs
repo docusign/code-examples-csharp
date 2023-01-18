@@ -17,7 +17,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 
         private const string CC_NAME = "CC";
 
-        private readonly ITestConfig _testConfig;
+        private readonly TestConfig _testConfig;
 
         private readonly CreateNewTemplateUnitTests _createNewTemplateUnitTests;
 

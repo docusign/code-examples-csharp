@@ -17,7 +17,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 
         private const string REST_API_PREFIX = "/restapi";
 
-        private readonly ITestConfig _testConfig;
+        private readonly TestConfig _testConfig;
 
         public EmbeddedSigningCeremonyUnitTests()
         {
