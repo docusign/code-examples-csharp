@@ -16,22 +16,7 @@ namespace launcher_csharp.Tests
 
         private const string CONSENT_REQUIRED = "consent_required";
 
-        private readonly ITestConfig _testConfig;
-
-        public JwtLoginMethodUnitTest() : this(TestConfig.Instance) { }
-
-        private JwtLoginMethodUnitTest(ITestConfig testConfig)
-        {
-            this._testConfig = testConfig;
-        }
-
-        [Theory]
-        [InlineData(ExamplesAPIType.ESignature)]
-        [InlineData(ExamplesAPIType.Monitor)]
-        [InlineData(ExamplesAPIType.Click)]
-        [InlineData(ExamplesAPIType.Rooms)]
-        [InlineData(ExamplesAPIType.Admin)]
-        public void RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType apiType)
+        public void RequestJWTUserToken(ExamplesAPIType apiType, ITestConfig _testConfig)
         {
             // Arrange
             _testConfig.ApiClient = new DocuSignClient(_testConfig.Host);
@@ -75,14 +60,14 @@ namespace launcher_csharp.Tests
             {
                 if (e.Message.ToLowerInvariant().Contains(CONSENT_REQUIRED))
                 {
-                    _testConfig?.OpenUrlUsingConsoleWindow(BuildConsentUrl(apiType));
+                    _testConfig?.OpenUrlUsingConsoleWindow(BuildConsentUrl(apiType, _testConfig));
 
                     throw new Xunit.Sdk.XunitException(RERUN_UNIT_TESTS);
                 }
             }
         }
 
-        private string BuildConsentUrl(ExamplesAPIType apiType)
+        private string BuildConsentUrl(ExamplesAPIType apiType, ITestConfig _testConfig)
         {
             var scopes = "signature%20impersonation";
             if (apiType == ExamplesAPIType.Rooms)

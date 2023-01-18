@@ -17,14 +17,12 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 
         private readonly ITestConfig _testConfig;
 
-        public CreateNewTemplateUnitTests() : this(TestConfig.Instance) { }
-
-        private CreateNewTemplateUnitTests(ITestConfig testConfig)
+        public CreateNewTemplateUnitTests(ITestConfig testConfig = null)
         {
-            this._testConfig = testConfig;
+            this._testConfig = testConfig ?? new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature);
+            jwtLoginMethod.RequestJWTUserToken(ExamplesAPIType.ESignature, _testConfig);
         }
 
         [Fact]

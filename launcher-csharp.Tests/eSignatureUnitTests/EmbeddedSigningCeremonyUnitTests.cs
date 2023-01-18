@@ -19,14 +19,12 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 
         private readonly ITestConfig _testConfig;
 
-        public EmbeddedSigningCeremonyUnitTests() : this(TestConfig.Instance) { }
-
-        private EmbeddedSigningCeremonyUnitTests(ITestConfig testConfig)
+        public EmbeddedSigningCeremonyUnitTests()
         {
-            this._testConfig = testConfig;
+            this._testConfig = new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature);
+            jwtLoginMethod.RequestJWTUserToken(ExamplesAPIType.ESignature, _testConfig);
         }
 
         [Fact]

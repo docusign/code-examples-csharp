@@ -15,14 +15,12 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 
         private readonly ITestConfig _testConfig;
 
-        public SendBulkEnvelopesUnitTests() : this(TestConfig.Instance) { }
-
-        private SendBulkEnvelopesUnitTests(ITestConfig testConfig)
+        public SendBulkEnvelopesUnitTests()
         {
-            this._testConfig = testConfig;
+            this._testConfig = new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature);
+            jwtLoginMethod.RequestJWTUserToken(ExamplesAPIType.ESignature, _testConfig);
         }
 
         [Fact]

@@ -13,16 +13,15 @@ namespace launcher_csharp.Tests.ClickUnitTests
 
         private readonly ITestConfig _testConfig;
 
-        private readonly CreateClickwrapUnitTests _createClickwrapUnitTests = new CreateClickwrapUnitTests();
+        private readonly CreateClickwrapUnitTests _createClickwrapUnitTests;
 
-        public ActivateClickwrapUnitTests() : this(TestConfig.Instance) { }
-
-        private ActivateClickwrapUnitTests(ITestConfig testConfig)
+        public ActivateClickwrapUnitTests()
         {
-            this._testConfig = testConfig;
+            this._testConfig = new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.Click);
+            jwtLoginMethod.RequestJWTUserToken(ExamplesAPIType.Click, _testConfig);
+            this._createClickwrapUnitTests = new CreateClickwrapUnitTests(_testConfig);
         }
 
         [Fact]
