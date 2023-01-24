@@ -21,7 +21,7 @@ namespace launcher_csharp.Tests.ClickUnitTests
             this._testConfig = testConfig ?? new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken(ExamplesAPIType.Click, _testConfig);
+            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.Click, _testConfig);
         }
 
         [Fact]

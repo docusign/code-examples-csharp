@@ -16,8 +16,16 @@ namespace launcher_csharp.Tests
 
         private const string CONSENT_REQUIRED = "consent_required";
 
-        public void RequestJWTUserToken(ExamplesAPIType apiType, TestConfig _testConfig)
+        [Theory]
+        [InlineData(ExamplesAPIType.ESignature)]
+        [InlineData(ExamplesAPIType.Monitor)]
+        [InlineData(ExamplesAPIType.Click)]
+        [InlineData(ExamplesAPIType.Rooms)]
+        [InlineData(ExamplesAPIType.Admin)]
+        public void RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType apiType, TestConfig _testConfig = null)
         {
+            _testConfig = _testConfig ?? new TestConfig();
+
             // Arrange
             _testConfig.ApiClient = new DocuSignClient(_testConfig.Host);
 

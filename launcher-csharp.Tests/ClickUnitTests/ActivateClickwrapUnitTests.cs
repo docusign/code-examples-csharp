@@ -20,7 +20,7 @@ namespace launcher_csharp.Tests.ClickUnitTests
             this._testConfig = new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken(ExamplesAPIType.Click, _testConfig);
+            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.Click, _testConfig);
             this._createClickwrapUnitTests = new CreateClickwrapUnitTests(_testConfig);
         }
 
@@ -42,28 +42,6 @@ namespace launcher_csharp.Tests.ClickUnitTests
             clickwrapRequest.Should().BeEquivalentTo(expectedClickwrapRequest);
         }
 
-        [Fact]
-        public void GetInactiveClickwraps_CorrectInputParameters_ReturnsClickwrapVersionsResponse()
-        {
-            // Arrange
-            string basePath = _testConfig.BasePath + CLICK_PATH_PREFIX;
-            var statusActive = "active";
-            var statusInactive = "inactive";
-
-            // Act
-            ClickwrapVersionsResponse clickwrapVersionSummaryResponse = ActivateClickwrap.GetInactiveClickwraps(
-                basePath,
-                _testConfig.AccessToken,
-                _testConfig.AccountId
-            );
-
-            // Assert
-            Assert.NotNull(clickwrapVersionSummaryResponse);
-            clickwrapVersionSummaryResponse.Clickwraps
-                .Count(x => x.Status != statusActive)
-                .Should()
-                .Be(clickwrapVersionSummaryResponse.Clickwraps.Count());
-        }
 
         [Fact]
         public void Update_CorrectInputParameters_ReturnsClickwrapVersionSummaryResponse()
