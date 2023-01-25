@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg08GrantOfficeAccessToFormGroupController.cs" company="DocuSign">
+﻿// <copyright file="GrantOfficeAccessToFormGroup.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -79,9 +79,9 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             {
                 // Call the Rooms API to grant office access to a form group
                 DocuSign.Rooms.Examples.GrantOfficeAccessToFormGroup.GrantAccess(basePath, accessToken, accountId, roomDocumentModel.FormGroupId, roomDocumentModel.OfficeId);
-                
-                ViewBag.h1 = "Access is granted for the office";
-                ViewBag.message = $"To the office with Id'{roomDocumentModel.OfficeId}' granted access for the form group with id '{roomDocumentModel.FormGroupId}'";
+
+                this.ViewBag.h1 = "Access is granted for the office";
+                this.ViewBag.message = $"To the office with Id'{roomDocumentModel.OfficeId}' granted access for the form group with id '{roomDocumentModel.FormGroupId}'";
 
                 return this.View("example_done");
             }

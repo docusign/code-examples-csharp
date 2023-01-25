@@ -52,9 +52,9 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
             try
             {
-                string[] Clickwrap = clickwrapData.Split(':');
-                var clickwrapId = Clickwrap[0];
-                var clickwrapVersion = Clickwrap[1];
+                string[] clickwrap = clickwrapData.Split(':');
+                var clickwrapId = clickwrap[0];
+                var clickwrapVersion = clickwrap[1];
 
                 // Call the Click API to activate a clickwrap
                 var clickWrap = DocuSign.Click.Examples.ActivateClickwrap.Update(clickwrapId, clickwrapVersion, basePath, accessToken, accountId);

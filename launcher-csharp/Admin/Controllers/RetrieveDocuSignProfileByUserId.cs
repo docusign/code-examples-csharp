@@ -6,7 +6,6 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 {
     using System;
     using DocuSign.Admin.Client;
-    using DocuSign.Admin.Examples;
     using DocuSign.Admin.Model;
     using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;

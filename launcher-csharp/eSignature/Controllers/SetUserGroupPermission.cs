@@ -25,41 +25,6 @@ namespace DocuSign.CodeExamples.Controllers
 
         public override string EgName => "Eg025";
 
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-
-            // Data for this method
-            // Permission profiles
-            // User groups
-            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
-            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
-            var docuSignClient = new DocuSignClient(basePath);
-            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-
-            var accountsApi = new AccountsApi(docuSignClient);
-            var groupsApi = new GroupsApi(docuSignClient);
-            var permissions = accountsApi.ListPermissions(accountId);
-            var userGroups = groupsApi.ListGroups(accountId);
-
-            // List all available permission profiles
-            this.ViewBag.PermissionProfiles =
-                permissions.PermissionProfiles.Select(pr => new SelectListItem
-                {
-                    Text = pr.PermissionProfileName,
-                    Value = pr.PermissionProfileId,
-                });
-
-            // List all available user groups
-            this.ViewBag.UserGroups =
-                userGroups.Groups.Select(pr => new SelectListItem
-                {
-                    Text = $"{pr.GroupName}",
-                    Value = pr.GroupId,
-                });
-        }
-
         [HttpPost]
         [SetViewBag]
         [ValidateAntiForgeryToken]
@@ -106,6 +71,41 @@ namespace DocuSign.CodeExamples.Controllers
             }
 
             return this.View("example_done");
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+
+            // Data for this method
+            // Permission profiles
+            // User groups
+            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
+            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+
+            var accountsApi = new AccountsApi(docuSignClient);
+            var groupsApi = new GroupsApi(docuSignClient);
+            var permissions = accountsApi.ListPermissions(accountId);
+            var userGroups = groupsApi.ListGroups(accountId);
+
+            // List all available permission profiles
+            this.ViewBag.PermissionProfiles =
+                permissions.PermissionProfiles.Select(pr => new SelectListItem
+                {
+                    Text = pr.PermissionProfileName,
+                    Value = pr.PermissionProfileId,
+                });
+
+            // List all available user groups
+            this.ViewBag.UserGroups =
+                userGroups.Groups.Select(pr => new SelectListItem
+                {
+                    Text = $"{pr.GroupName}",
+                    Value = pr.GroupId,
+                });
         }
     }
 }

@@ -1,16 +1,15 @@
-﻿// <copyright file="Eg001GetMonitoringDataController.cs" company="DocuSign">
+﻿// <copyright file="GetMonitoringData.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    using System.Linq;
     using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Models;
     using DocuSign.CodeExamples.Monitor.Examples;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
-    using Org.BouncyCastle.Crypto.Modes;
-    using System.Linq;
 
     [Area("Monitor")]
     [Route("monitorExample001")]

@@ -17,18 +17,17 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 
         private const string CC_NAME = "CC";
 
-        private readonly ITestConfig _testConfig;
+        private readonly TestConfig _testConfig;
 
-        private readonly CreateNewTemplateUnitTests _createNewTemplateUnitTests = new CreateNewTemplateUnitTests();
+        private readonly CreateNewTemplateUnitTests _createNewTemplateUnitTests;
 
-        public UseTemplateUnitTests() : this(TestConfig.Instance) { }
-
-        private UseTemplateUnitTests(ITestConfig testConfig)
+        public UseTemplateUnitTests()
         {
-            this._testConfig = testConfig;
+            this._testConfig = new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature);
+            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature, _testConfig);
+            this._createNewTemplateUnitTests = new CreateNewTemplateUnitTests(_testConfig);
         }
 
         [Fact]

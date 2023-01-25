@@ -55,6 +55,5 @@ namespace DocuSign.CodeExamples.ESignature.Models
 
         [JsonProperty("HelpingTexts")]
         public HelpingTexts HelpingTexts { get; set; }
-
     }
 }

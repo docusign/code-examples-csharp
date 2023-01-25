@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg07CreateFormGroupController.cs" company="DocuSign">
+﻿// <copyright file="CreateFormGroups.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -33,12 +33,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         [BindProperty]
         public FormGroupModel FormGroupModel { get; set; }
 
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-            this.FormGroupModel = new FormGroupModel();
-        }
-
         [MustAuthenticate]
         [SetViewBag]
         [Route("CreateFormGroup")]
@@ -70,6 +64,12 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 return this.View("Error");
             }
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+            this.FormGroupModel = new FormGroupModel();
         }
     }
 }

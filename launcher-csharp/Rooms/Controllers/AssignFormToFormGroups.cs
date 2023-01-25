@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg09AssignFormToFormGroupController.cs" company="DocuSign">
+﻿// <copyright file="AssignFormToFormGroups.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -79,8 +79,12 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             try
             {
                 // Call the Rooms API to assign form to form group
-                var formGroupFormToAssign = DocuSign.Rooms.Examples.AssignFormToFormGroups.AssignForm(basePath, accessToken, accountId,
-                    formFormGroupModel.FormGroupId, new FormGroupFormToAssign() { FormId = formFormGroupModel.FormId });
+                var formGroupFormToAssign = DocuSign.Rooms.Examples.AssignFormToFormGroups.AssignForm(
+                    basePath,
+                    accessToken,
+                    accountId,
+                    formFormGroupModel.FormGroupId,
+                    new FormGroupFormToAssign() { FormId = formFormGroupModel.FormId });
 
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = string.Format(

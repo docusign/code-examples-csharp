@@ -15,10 +15,6 @@ namespace DocuSign.CodeExamples.Views
     [Route("Eg039")]
     public class Eg039InPersonSigningController : EgController
     {
-        private string DsPingUrl { get; set; }
-
-        private string DsReturnUrl { get; set; }
-
         public Eg039InPersonSigningController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
@@ -27,6 +23,10 @@ namespace DocuSign.CodeExamples.Views
             this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
+
+        private string DsPingUrl { get; set; }
+
+        private string DsReturnUrl { get; set; }
 
         public override string EgName => "Eg039";
 

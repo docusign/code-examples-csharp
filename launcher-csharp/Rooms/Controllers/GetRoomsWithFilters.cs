@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg05GetRoomsWithFiltersController.cs" company="DocuSign">
+﻿// <copyright file="GetRoomsWithFilters.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -32,12 +32,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
         [BindProperty]
         public RoomFilterModel RoomFilterModel { get; set; }
-
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-            this.RoomFilterModel = new RoomFilterModel();
-        }
 
         [MustAuthenticate]
         [SetViewBag]
@@ -81,6 +75,12 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 return this.View("Error");
             }
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+            this.RoomFilterModel = new RoomFilterModel();
         }
     }
 }

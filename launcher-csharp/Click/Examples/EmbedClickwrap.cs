@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿// <copyright file="EmbedClickwrap.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.Click.Examples
 {
+    using System.Collections.Generic;
     using DocuSign.Click.Api;
     using DocuSign.Click.Client;
     using DocuSign.Click.Model;
-    using System;
 
     public class EmbedClickwrap
     {

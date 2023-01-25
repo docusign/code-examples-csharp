@@ -105,7 +105,7 @@ namespace DocuSign.CodeExamples
             this.Configuration["FirstLaunch"] = "true";
 
             services.AddSingleton(config);
-            services.AddSingleton(new LauncherTexts(config));
+            services.AddSingleton(new LauncherTexts(config, Configuration));
             services.AddScoped<IRequestItemsService, RequestItemsService>();
             services.AddScoped<IRoomsApi, RoomsApi>();
             services.AddScoped<IRolesApi, RolesApi>();

@@ -28,14 +28,19 @@ namespace DocuSign.CodeExamples.ESignature.Models
 
         [JsonProperty("PhoneNumberWillBeNotified")]
         public string PhoneNumberWillBeNotified { get; set; }
+
         [JsonProperty("DynamicContentValue")]
         public string DynamicContentValue { get; set; }
+
         [JsonProperty("DynamicContentNote")]
         public string DynamicContentNote { get; set; }
+
         [JsonProperty("EmbedClickwrapURL")]
         public string EmbedClickwrapURL { get; set; }
+
         [JsonProperty("NOTAGREED")]
         public string NOTAGREED { get; set; }
+
         [JsonProperty("AGREED")]
         public string AGREED { get; set; }
     }

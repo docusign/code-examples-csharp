@@ -149,7 +149,7 @@ namespace ESignature.Examples
         }
 
         // step 3-2 start
-        private static BulkSendingList MakeBulkSendList(string signer1Name, string signer1Email, string carbonCopy1Name, string carbonCopy1Email, string signer2Name, string signer2Email, string carbonCopy2Name, string carbonCopy2Email)
+        public static BulkSendingList MakeBulkSendList(string signer1Name, string signer1Email, string carbonCopy1Name, string carbonCopy1Email, string signer2Name, string signer2Email, string carbonCopy2Name, string carbonCopy2Email)
         {
             return new BulkSendingList
             {
@@ -161,14 +161,12 @@ namespace ESignature.Examples
                         {
                             new BulkSendingCopyRecipient
                             {
-
                                 Name = signer1Name,
                                 Email = signer1Email,
                                 RoleName = "signer",
                             },
                             new BulkSendingCopyRecipient
                             {
-
                                 Name = carbonCopy1Name,
                                 Email = carbonCopy1Email,
                                 RoleName = "cc",
@@ -181,14 +179,12 @@ namespace ESignature.Examples
                         {
                             new BulkSendingCopyRecipient
                             {
-
                                 Name = signer2Name,
                                 Email = signer2Email,
                                 RoleName = "signer",
                             },
                             new BulkSendingCopyRecipient
                             {
-
                                 Name = carbonCopy2Name,
                                 Email = carbonCopy2Email,
                                 RoleName = "cc",

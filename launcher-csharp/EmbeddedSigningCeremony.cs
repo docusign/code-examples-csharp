@@ -2,9 +2,6 @@
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
-
-using System.Runtime.CompilerServices;
-
 namespace ESignature.Examples
 {
     using System;
@@ -49,7 +46,7 @@ namespace ESignature.Examples
             // Step 1 end
 
             // Step 2 start
-            // Step 2. Call DocuSign to create the envelope                   
+            // Step 2. Call DocuSign to create the envelope
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 

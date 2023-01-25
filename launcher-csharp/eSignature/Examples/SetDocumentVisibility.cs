@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
+﻿// <copyright file="SetDocumentVisibility.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace eSignature.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+
     public static class SetDocumentVisibility
     {
         /// <summary>
@@ -22,37 +26,64 @@ namespace eSignature.Examples
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// <param name="docPdf">Name of the document (pdf)</param>
         /// <param name="docDocx">Name of the document (docx)</param>
-        /// <param name="docHTML">Name of the document (html)</param>
+        /// <param name="docHtml">Name of the document (html)</param>
         /// <returns>The id of the created envelope</returns>
-        public static string SendEnvelopeWithEnvelopeVisibility(string signer1Email, string signer1Name, string signer2Email, 
-            string signer2Name, string ccEmail, string ccName, string accessToken, string basePath, string accountId,
-            string docPdf, string docDocx, string docHTML) 
+        public static string SendEnvelopeWithEnvelopeVisibility(
+            string signer1Email,
+            string signer1Name,
+            string signer2Email,
+            string signer2Name,
+            string ccEmail,
+            string ccName,
+            string accessToken,
+            string basePath,
+            string accountId,
+            string docPdf,
+            string docDocx,
+            string docHtml)
         {
-            EnvelopeDefinition envelopeDefinition = PrepareEnvelope(signer1Email, signer1Name, signer2Email,
-                    signer2Name, ccEmail, ccName, docPdf, docDocx, docHTML);
-                  
+            EnvelopeDefinition envelopeDefinition = PrepareEnvelope(
+                signer1Email,
+                signer1Name,
+                signer2Email,
+                signer2Name,
+                ccEmail,
+                ccName,
+                docPdf,
+                docDocx,
+                docHtml);
+
             // Step 2 start
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
+            
             // Step 2 end
 
             // Step 4 start
             EnvelopeSummary envelopeSummary = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
-            // Step 4 end
             
+            // Step 4 end
             return envelopeSummary.EnvelopeId;
         }
 
         // Step 3 start
-        private static EnvelopeDefinition PrepareEnvelope(string signer1Email, string signer1Name, string signer2Email, 
-            string signer2Name, string ccEmail, string ccName, string docPdf, string docDocx, string docHTML)
+        private static EnvelopeDefinition PrepareEnvelope(
+            string signer1Email,
+            string signer1Name,
+            string signer2Email,
+            string signer2Name,
+            string ccEmail,
+            string ccName,
+            string docPdf,
+            string docDocx,
+            string docHtml)
         {
             EnvelopeDefinition envelopeDefinition = new EnvelopeDefinition
             {
                 EmailSubject = "Please sign this document set",
-                Documents = PrepareDocumentsForTemplate(docPdf, docDocx, docHTML)
+                Documents = PrepareDocumentsForTemplate(docPdf, docDocx, docHtml),
             };
 
             Signer signer1 = PrepareSigner(signer1Email, signer1Name, "1", "1", new List<string> { "2", "3" }, 
@@ -137,6 +168,7 @@ namespace eSignature.Examples
                 }
             };
         }
+
         // Step 3 end
     }
 }

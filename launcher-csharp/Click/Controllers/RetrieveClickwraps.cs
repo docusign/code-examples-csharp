@@ -23,7 +23,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
             IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Click);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.Click);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
