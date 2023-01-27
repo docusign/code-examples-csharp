@@ -185,15 +185,15 @@
   "packages": [
     {
       "name": "rails",
-      "version": "7.0.4"
+      "version": "7.0.4.2"
     },
     {
       "name": "sqlite3",
-      "version": "1.5.3"
+      "version": "1.6.0"
     },
     {
       "name": "puma",
-      "version": "6.0.0"
+      "version": "6.0.2"
     },
     {
       "name": "sass-rails",
@@ -217,7 +217,7 @@
     },
     {
       "name": "omniauth-rails_csrf_protection",
-      "version": "1.0.0"
+      "version": "1.0.1"
     }
   ],
   "supportedAPIs": [
@@ -227,7 +227,7 @@
       "packages": [
         {
           "name": "docusign_esign",
-          "version": "3.19.0"
+          "version": "3.20.0"
         }
       ],
       "scopes": [
@@ -261,7 +261,7 @@
       "packages": [
         {
           "name": "docusign_click",
-          "version": "1.1.0"
+          "version": "1.2.2"
         }
       ],
       "scopes": [
