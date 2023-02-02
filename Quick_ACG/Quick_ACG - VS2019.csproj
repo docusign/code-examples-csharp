@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+	<LangVersion>8.0</LangVersion>
+    <RootNamespace>DocuSign.CodeExamples</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'CodeExamples' " />
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\net6.0</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="eSignature\Controllers\EgController.cs~RF9bf1e5d.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\ExamplesAPIType.cs" Link="ExamplesAPIType.cs" />
+    <Compile Include="..\launcher-csharp\Common\SetViewBagAttribute.cs" Link="Common\SetViewBagAttribute.cs" />
+    <Compile Include="..\launcher-csharp\EmbeddedSigningCeremony.cs" Link="EmbeddedSigningCeremony.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Controllers\Eg001EmbeddedSigningController.cs" Link="eSignature\Controllers\Eg001EmbeddedSigningController.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\DSConfiguration.cs" Link="eSignature\Models\DSConfiguration.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\LauncherTexts.cs" Link="eSignature\ModelsForManifest\LauncherTexts.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\AdditionalPage.cs" Link="eSignature\ModelsForManifest\AdditionalPage.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\APIs.cs" Link="eSignature\ModelsForManifest\APIs.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\CodeExampleText.cs" Link="eSignature\ModelsForManifest\CodeExampleText.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\CustomErrorTexts.cs" Link="eSignature\ModelsForManifest\CustomErrorTexts.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\Forms.cs" Link="eSignature\ModelsForManifest\Forms.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\HelpingTexts.cs" Link="eSignature\ModelsForManifest\HelpingTexts.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\Inputs.cs" Link="eSignature\ModelsForManifest\Inputs.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\LinkToAPIMethods.cs" Link="eSignature\ModelsForManifest\LinkToAPIMethods.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\LoginPage.cs" Link="eSignature\ModelsForManifest\LoginPage.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\ManifestGroup.cs" Link="eSignature\ModelsForManifest\ManifestGroup.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\ManifestStructure.cs" Link="eSignature\ModelsForManifest\ManifestStructure.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\RedirectsToOtherCodeExamples.cs" Link="eSignature\ModelsForManifest\RedirectsToOtherCodeExamples.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\SelectAPIPage.cs" Link="eSignature\ModelsForManifest\SelectAPIPage.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\ModelsToReadManifest\SupportingTexts.cs" Link="eSignature\ModelsForManifest\SupportingTexts.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\Session.cs" Link="eSignature\Models\Session.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Models\User.cs" Link="eSignature\Models\User.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="..\launcher-csharp\_ViewImports.cshtml" Link="_ViewImports.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DocuSign.eSign.dll" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0-preview1.19506.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0-preview1.19506.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="eSignature\ModelsForManifest\" />
+    <Folder Include="wwwroot\css\" />
+  </ItemGroup>
+
+</Project>
