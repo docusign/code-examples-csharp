@@ -38,7 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\launcher-csharp\launcher-csharp.csproj" />
+    <ProjectReference Include="..\launcher-csharp\launcher-csharp - VS2019.csproj" />
   </ItemGroup>
 
 </Project>
