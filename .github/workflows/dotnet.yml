@@ -22,7 +22,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build launcher-csharp.sln --no-restore
     - name: Test
       env:
         CLIENT_ID: ${{ secrets.CLIENT_ID }}
