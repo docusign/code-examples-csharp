@@ -20,9 +20,9 @@ jobs:
     - name: setup-msbuild
       uses: microsoft/setup-msbuild@v1.1.3
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore launcher-csharp.sln
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build launcher-csharp.sln --no-restore
     - name: Test
       env:
         CLIENT_ID: ${{ secrets.CLIENT_ID }}
@@ -30,4 +30,4 @@ jobs:
         PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
         SIGNER_EMAIL: ${{ secrets.SIGNER_EMAIL }}
         SIGNER_NAME: ${{ secrets.SIGNER_NAME }}
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test launcher-csharp.sln --no-build --verbosity normal

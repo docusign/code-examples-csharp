@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>JWT_Console</RootNamespace>
+    <DocuSignAuthType>JWT</DocuSignAuthType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\net6.0</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="DocuSign\**" />
+    <EmbeddedResource Remove="DocuSign\**" />
+    <None Remove="DocuSign\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\DSHelper.cs" Link="DSHelper.cs" />
+    <Compile Include="..\ExamplesAPIType.cs" Link="ExamplesAPIType.cs" />
+    <Compile Include="..\JWTAuth.cs" Link="JWTAuth.cs" />
+    <Compile Include="..\launcher-csharp\eSignature\Examples\SigningViaEmail.cs" Link="SigningViaEmail.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DocuSign.eSign.dll" Version="6.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <PackageReference Include="System.Runtime.Caching" Version="4.7.0" />
+  </ItemGroup>
+
+</Project>
