@@ -236,13 +236,34 @@ namespace DocuSign.CodeExamples.Common
         {
             DocuSignClient.SetOAuthBasePath(this.Configuration["DocuSignJWT:AuthServer"]);
             UserInfo userInfo = DocuSignClient.GetUserInfo(authToken.access_token);
-            Account acct = userInfo.Accounts.FirstOrDefault();
-            if (acct == null)
+            var accounts = userInfo.Accounts;
+
+            var targetAccountIdString = this.Configuration["DocuSign:TargetAccountId"];
+
+            if (Guid.TryParse(targetAccountIdString, out Guid targetAccountId))
             {
-                throw new Exception("The user does not have access to account");
+                foreach (var account in accounts)
+                {
+                    if (targetAccountId.ToString() == account.AccountId)
+                    {
+                        return account;
+                    }
+                }
+
+                throw new Exception($"Targeted Account with Id {targetAccountId} not found.");
+            }
+            else
+            {
+                foreach (var account in accounts)
+                {
+                    if (bool.Parse(account.IsDefault))
+                    {
+                        return account;
+                    }
+                }
             }
 
-            return acct;
+            throw new Exception("The user does not have access to account");
         }
 
         public string IdentifyAPIOfCodeExample(string eg)

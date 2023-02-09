@@ -15,16 +15,14 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 
         private const string PDF_DOCUMENT_NAME = "World_Wide_Corp_lorem.pdf";
 
-        private readonly ITestConfig _testConfig;
+        private readonly TestConfig _testConfig;
 
-        public CreateNewTemplateUnitTests() : this(TestConfig.Instance) { }
-
-        private CreateNewTemplateUnitTests(ITestConfig testConfig)
+        public CreateNewTemplateUnitTests(TestConfig testConfig = null)
         {
-            this._testConfig = testConfig;
+            this._testConfig = testConfig ?? new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature);
+            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature, _testConfig);
         }
 
         [Fact]

@@ -33,32 +33,6 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         public override string EgName => "Aeg008";
 
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-            Guid? organizationId = this.RequestItemsService.OrganizationId;
-            string accessToken = this.RequestItemsService.User.AccessToken;
-            string basePath = this.RequestItemsService.Session.AdminApiBasePath;
-            Guid accountId = Guid.Parse(this.RequestItemsService.Session.AccountId);
-
-            productPermissionProfiles = UpdateUserProductPermissionProfileByEmail
-                .GetPermissionProfiles(basePath, accessToken, organizationId, accountId);
-
-            this.ViewBag.CLMPermissionProfiles = productPermissionProfiles.ProductPermissionProfiles
-                .Find(x => x.ProductName == "CLM").PermissionProfiles;
-
-            products.TryAdd(
-                productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "CLM").ProductId,
-                "CLM");
-
-            products.TryAdd(
-                productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "ESign").ProductId,
-                "eSignature");
-
-            this.ViewBag.Products = products;
-            this.ViewBag.EmailAddress = this.RequestItemsService.EmailAddress;
-        }
-
         [Route("/getPermissionProfiles")]
         public IActionResult getPermissionProfiles(Guid? productId)
         {
@@ -103,6 +77,32 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
                 return this.View("Error");
             }
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+            Guid? organizationId = this.RequestItemsService.OrganizationId;
+            string accessToken = this.RequestItemsService.User.AccessToken;
+            string basePath = this.RequestItemsService.Session.AdminApiBasePath;
+            Guid accountId = Guid.Parse(this.RequestItemsService.Session.AccountId);
+
+            productPermissionProfiles = UpdateUserProductPermissionProfileByEmail
+                .GetPermissionProfiles(basePath, accessToken, organizationId, accountId);
+
+            this.ViewBag.CLMPermissionProfiles = productPermissionProfiles.ProductPermissionProfiles
+                .Find(x => x.ProductName == "CLM").PermissionProfiles;
+
+            products.TryAdd(
+                productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "CLM").ProductId,
+                "CLM");
+
+            products.TryAdd(
+                productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "ESign").ProductId,
+                "eSignature");
+
+            this.ViewBag.Products = products;
+            this.ViewBag.EmailAddress = this.RequestItemsService.EmailAddress;
         }
     }
 }

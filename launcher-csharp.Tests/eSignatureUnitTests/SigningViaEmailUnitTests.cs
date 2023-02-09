@@ -21,16 +21,14 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 
         private const string REST_API_PREFIX = "/restapi";
 
-        private readonly ITestConfig _testConfig;
+        private readonly TestConfig _testConfig;
 
-        public SigningViaEmailUnitTests() : this(TestConfig.Instance) { }
-
-        private SigningViaEmailUnitTests(ITestConfig testConfig)
+        public SigningViaEmailUnitTests()
         {
-            this._testConfig = testConfig;
+            this._testConfig = new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature);
+            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature, _testConfig);
         }
 
         [Fact]

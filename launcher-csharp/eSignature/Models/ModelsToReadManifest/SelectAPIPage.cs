@@ -1,4 +1,4 @@
-﻿// <copyright file="LoginPage.cs" company="DocuSign">
+﻿// <copyright file="SelectAPIPage.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 

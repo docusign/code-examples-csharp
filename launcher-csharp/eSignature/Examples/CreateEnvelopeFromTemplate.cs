@@ -51,7 +51,6 @@ namespace ESignature.Examples
             // ccEmail
             // ccName
             // templateId
-
             EnvelopeDefinition env = new EnvelopeDefinition();
             env.TemplateId = templateId;
 

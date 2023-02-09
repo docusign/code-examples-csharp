@@ -2,6 +2,8 @@
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
+using DocuSign.eSign.Client;
+
 namespace DocuSign.CodeExamples.Admin.Examples
 {
     using System;
@@ -71,13 +73,13 @@ namespace DocuSign.CodeExamples.Admin.Examples
         public static (PermissionProfileInformation, GroupInformation) GetPermissionProfilesAndGroups(
             string accessToken, string basePath, string accountId)
         {
-            var apiClient = new eSign.Client.ApiClient(basePath);
-            apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
-            var accountsApi = new AccountsApi(apiClient);
+            var accountsApi = new AccountsApi(docuSignClient);
             var permissionProfiles = accountsApi.ListPermissions(accountId);
 
-            var dsGroupsApi = new GroupsApi(apiClient);
+            var dsGroupsApi = new GroupsApi(docuSignClient);
             var groups = dsGroupsApi.ListGroups(accountId);
 
             return (permissionProfiles, groups);

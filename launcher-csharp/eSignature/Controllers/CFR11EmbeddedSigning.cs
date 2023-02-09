@@ -1,4 +1,4 @@
-﻿// <copyright file="EmbeddedSending.cs" company="DocuSign">
+﻿// <copyright file="CFR11EmbeddedSigning.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 

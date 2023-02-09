@@ -16,12 +16,14 @@ namespace DocuSign.CodeExamples.Models
 
     public class LauncherTexts
     {
-        protected DSConfiguration DSConfig { get; }
-
-        public LauncherTexts(DSConfiguration dsconfiguration)
+        public LauncherTexts(DSConfiguration dsconfiguration, IConfiguration configuration)
         {
             this.DSConfig = dsconfiguration;
         }
+
+        protected DSConfiguration DSConfig { get; }
+
+        private IConfiguration Configuration { get; }
 
         private ManifestStructure manifestStructure;
 

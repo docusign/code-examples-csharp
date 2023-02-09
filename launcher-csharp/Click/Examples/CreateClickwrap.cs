@@ -20,18 +20,18 @@ namespace DocuSign.Click.Examples
         /// <param name="accessToken">Access Token for API call (OAuth)</param>
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// <returns>The summary response of a newly created clickwrap</returns>
-        public static ClickwrapVersionSummaryResponse Create(string name, string basePath, string accessToken, string accountId)
+        public static ClickwrapVersionSummaryResponse Create(string name, string basePath, string accessToken, string accountId, string pdfFile)
         {
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             var clickAccountApi = new AccountsApi(docuSignClient);
 
-            var clickwrapRequest = BuildClickwraprequest(name);
+            var clickwrapRequest = BuildClickwrapRequest(name, pdfFile);
 
             return clickAccountApi.CreateClickwrap(accountId, clickwrapRequest);
         }
 
-        private static ClickwrapRequest BuildClickwraprequest(string name)
+        public static ClickwrapRequest BuildClickwrapRequest(string name, string pdfFile)
         {
             var clickwrapRequest = new ClickwrapRequest
             {
@@ -49,7 +49,7 @@ namespace DocuSign.Click.Examples
                 {
                     new Document()
                     {
-                        DocumentBase64 = Convert.ToBase64String(System.IO.File.ReadAllBytes("Terms_of_service.pdf")),
+                        DocumentBase64 = Convert.ToBase64String(System.IO.File.ReadAllBytes(pdfFile)),
                         DocumentName = "Terms of Service",
                         FileExtension = "pdf",
                         Order = 0,

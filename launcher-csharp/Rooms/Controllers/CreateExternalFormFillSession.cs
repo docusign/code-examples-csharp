@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg06CreateExternalFormFillSessionController.cs" company="DocuSign">
+﻿// <copyright file="CreateExternalFormFillSession.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -49,7 +49,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
             try
             {
-                // Get Rooms 
+                // Get Rooms
                 var rooms = DocuSign.Rooms.Examples.CreateExternalFormFillSession.GetRooms(basePath, accessToken, accountId);
 
                 this.RoomDocumentModel = new RoomDocumentModel { Rooms = rooms.Rooms };

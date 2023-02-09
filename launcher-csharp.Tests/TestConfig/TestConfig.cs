@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using DocuSign.Click.Model;
 using System.Text;
 using DocuSign.CodeExamples.Common;
 using DocuSign.eSign.Client;
@@ -10,13 +11,13 @@ using Newtonsoft.Json.Linq;
 
 namespace launcher_csharp.Tests
 {
-    public sealed class TestConfig : ITestConfig
+    public sealed class TestConfig
     {
         public string ClientId { get; set; }
 
         public string Host { get; set; }
 
-        public ApiClient ApiClient { get; set; }
+        public DocuSignClient ApiClient { get; set; }
 
         public string AccountId { get; set; }
 
@@ -37,6 +38,10 @@ namespace launcher_csharp.Tests
         public string TemplateId { get; set; }
 
         public string PathToSolution { get; set; }
+
+        public string BrandId { get; set; }
+
+        public ClickwrapVersionSummaryResponse InactiveClickwrap { get; set; }
 
         public byte[] PrivateKeyBytes { get; set; }
 

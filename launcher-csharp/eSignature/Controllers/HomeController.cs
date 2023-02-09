@@ -4,6 +4,10 @@
 
 using DocuSign.CodeExamples.Common;
 
+using System;
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
+
 namespace DocuSign.CodeExamples.Controllers
 {
     using System.Diagnostics;
@@ -17,33 +21,6 @@ namespace DocuSign.CodeExamples.Controllers
 
     public class HomeController : Controller
     {
-        private IRequestItemsService RequestItemsService { get; }
-
-        private IConfiguration Configuration { get; }
-
-        private DSConfiguration DsConfiguration { get; }
-
-        private LauncherTexts LauncherTexts { get; }
-
-
-        private void CheckIfThisIsCFR11Account()
-        {
-            try
-            {
-                if (this.RequestItemsService.Session != null)
-                {
-                    var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
-                    var accessToken = this.RequestItemsService.User?.AccessToken;
-                    var accountId = this.RequestItemsService.Session.AccountId;
-                    this.ViewBag.CFRPart11 = global::ESignature.Examples.CFRPart11EmbeddedSending.IsCFRPart11Account(accessToken, basePath, accountId);
-                }
-            }
-            catch
-            {
-                // ignore this for now, as we're just checking the CFR-11 status
-            }
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="HomeController"/> class.
         /// </summary>
@@ -54,6 +31,14 @@ namespace DocuSign.CodeExamples.Controllers
             this.DsConfiguration = dsConfiguration;
             this.LauncherTexts = launcherTexts;
         }
+
+        private IRequestItemsService RequestItemsService { get; }
+
+        private IConfiguration Configuration { get; }
+
+        private DSConfiguration DsConfiguration { get; }
+
+        private LauncherTexts LauncherTexts { get; }
 
         public IActionResult Index(string egName)
         {
@@ -154,9 +139,16 @@ namespace DocuSign.CodeExamples.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
             this.ViewBag.APIData = JsonConvert.SerializeObject(this.LauncherTexts.ManifestStructure);
             this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.APIs;
-            this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
+
+            if (this.Configuration["ErrorMessage"] != null)
+            {
+                this.ViewBag.errorMessage = this.Configuration["ErrorMessage"];
+                this.ViewBag.errorCode = HttpStatusCode.FailedDependency;
+            }
+
             return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
 
@@ -175,6 +167,24 @@ namespace DocuSign.CodeExamples.Controllers
             this.ViewBag.envelopeId = envelopeId;
 
             return this.View();
+        }
+
+        private void CheckIfThisIsCFR11Account()
+        {
+            try
+            {
+                if (this.RequestItemsService.Session != null)
+                {
+                    var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
+                    var accessToken = this.RequestItemsService.User.AccessToken;
+                    var accountId = this.RequestItemsService.Session.AccountId;
+                    this.ViewBag.CFRPart11 = global::ESignature.Examples.CFRPart11EmbeddedSending.IsCFRPart11Account(accessToken, basePath, accountId);
+                }
+            }
+            catch
+            {
+                // ignore this for now, as we're just checking the CFR-11 status
+            }
         }
     }
 }

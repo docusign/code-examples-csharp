@@ -21,16 +21,12 @@ namespace DocuSign.CodeExamples.Common
 
         DSConfiguration DocuSignConfiguration { get; }
 
-        private IMemoryCache cache;
-
         public LocalsFilter(
             DSConfiguration docuSignConfiguration,
             IRequestItemsService requestItemsService,
-            IMemoryCache cache,
             IConfiguration configuration)
         {
             this.DocuSignConfiguration = docuSignConfiguration;
-            this.cache = cache;
             this.configuration = configuration;
             this.requestItemsService = requestItemsService;
         }

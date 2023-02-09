@@ -30,11 +30,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         [BindProperty]
         public Models.RoomModel RoomModel { get; set; }
 
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-            this.RoomModel = new Models.RoomModel();
-        }
 
         [MustAuthenticate]
         [SetViewBag]
@@ -76,6 +71,12 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 return this.View("Error");
             }
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+            this.RoomModel = new Models.RoomModel();
         }
     }
 }
