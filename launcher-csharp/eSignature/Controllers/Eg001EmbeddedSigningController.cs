@@ -10,6 +10,7 @@ namespace DocuSign.CodeExamples.Views
     using DocuSign.CodeExamples.Models;
     using global::ESignature.Examples;
     using Microsoft.AspNetCore.Mvc;
+    using System.Runtime.InteropServices;
 
     [Route("eg001")]
     public class Eg001EmbeddedSigningController : EgController
@@ -43,7 +44,15 @@ namespace DocuSign.CodeExamples.Views
             string accessToken = this.RequestItemsService.User.AccessToken;
             string basePath = this.RequestItemsService.Session.BasePath + "/restapi";
             string accountId = this.RequestItemsService.Session.AccountId;
-            string docPDF = Convert.ToBoolean(this.Config.QuickACG) ? @"..\\launcher-csharp\\" + this.Config.DocPdf : this.Config.DocPdf;
+            string docPDF = "";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                docPDF = Convert.ToBoolean(this.Config.QuickACG) ? @"../launcher-csharp/" + this.Config.DocPdf : this.Config.DocPdf;
+            }
+            else
+            {
+                docPDF = Convert.ToBoolean(this.Config.QuickACG) ? @"..\\launcher-csharp\\" + this.Config.DocPdf : this.Config.DocPdf;
+            }
 
             // Check the token with minimal buffer time.
             bool tokenOk = this.CheckToken(3);
