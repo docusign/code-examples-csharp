@@ -87,7 +87,7 @@ For a list of code examples that use the Admin API, see the [How-to guides overv
 
 1. Extract the Quickstart ZIP file or download or clone the code-examples-csharp repository.
 1. In File Explorer, open your Quickstart folder or your code-examples-csharp folder. 
-1. Open the project with Visual Studio by double-clicking the launcher-csharp.sln file.
+1. Open the project with Visual Studio by double-clicking the launcher-csharp.sln file (if you are using VS 2019 - open launcher-csharp - VS2019.sln file instead).
 1. To configure the launcher for [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode/) authentication, create a copy of the file launcher-csharp/appsettings.example.json and save the copy as launcher-csharp/appsettings.json.
    1. Add your integration key. On the [Apps and Keys](https://admindemo.docusign.com/authenticate?goTo=apiIntegratorKey) page, under **Apps and Integration Keys**, choose the app to use, then select **Actions > Edit**. Under **General Info**, copy the **Integration Key** GUID and save it in appsettings.json as your `ClientId`.
    1. Generate a secret key, if you don’t already have one. Under **Authentication**, select **+ ADD SECRET KEY**. Copy the secret key and save it in appsettings.json as your `ClientSecret`.
