@@ -155,24 +155,20 @@ namespace ESignature.Examples
                 new ListItem { Text = "Indigo", Value = "Indigo" },
                 new ListItem { Text = "Violet", Value = "Violet" },
             };
+                
+            Numerical numerical = new Numerical();
+            numerical.ValidationType = "Currency";
+            numerical.DocumentId = "1";
+            numerical.PageNumber = "1";
+            numerical.XPosition = "153";
+            numerical.YPosition = "260";
+            numerical.Font = "helvetica";
+            numerical.FontSize = "size14";
+            numerical.TabLabel = "numbersOnly";
+            numerical.Height = "23";
+            numerical.Width = "84";
+            numerical.Required = "false";
 
-            // The SDK can't create a number tab at this time. Bug DCM-2732
-            // Until it is fixed, use a text tab instead.
-            //   , number = docusign.Number.constructFromObject({
-            //         documentId: "1", pageNumber: "1", xPosition: "163", yPosition: "260",
-            //         font: "helvetica", fontSize: "size14", tabLabel: "numbersOnly",
-            //         height: "23", width: "84", required: "false"})
-            Text textInsteadOfNumber = new Text();
-            textInsteadOfNumber.DocumentId = "1";
-            textInsteadOfNumber.PageNumber = "1";
-            textInsteadOfNumber.XPosition = "153";
-            textInsteadOfNumber.YPosition = "260";
-            textInsteadOfNumber.Font = "helvetica";
-            textInsteadOfNumber.FontSize = "size14";
-            textInsteadOfNumber.TabLabel = "numbersOnly";
-            textInsteadOfNumber.Height = "23";
-            textInsteadOfNumber.Width = "84";
-            textInsteadOfNumber.Required = "false";
 
             RadioGroup radioGroup = new RadioGroup();
             radioGroup.DocumentId = "1";
@@ -209,7 +205,8 @@ namespace ESignature.Examples
             // numberTabs: [number],
             signer1Tabs.RadioGroupTabs = new List<RadioGroup> { radioGroup };
             signer1Tabs.SignHereTabs = new List<SignHere> { signHere };
-            signer1Tabs.TextTabs = new List<Text> { text, textInsteadOfNumber };
+            signer1Tabs.TextTabs = new List<Text> { text };
+            signer1Tabs.NumericalTabs = new List<Numerical> { numerical };
 
             signer1.Tabs = signer1Tabs;
 
