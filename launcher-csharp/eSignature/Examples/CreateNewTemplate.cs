@@ -12,7 +12,7 @@ namespace ESignature.Examples
 
     public static class CreateNewTemplate
     {
-        private static string templateName = "Example Signer and CC template";
+        private static string templateName = "Example Signer and CC template v2";
 
         /// <summary>
         /// Generates a new DocuSign Template based on static information in this class
@@ -28,7 +28,7 @@ namespace ESignature.Examples
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             TemplatesApi templatesApi = new TemplatesApi(docuSignClient);
             TemplatesApi.ListTemplatesOptions options = new TemplatesApi.ListTemplatesOptions();
-            options.searchText = "Example Signer and CC template";
+            options.searchText = "Example Signer and CC template v2";
             EnvelopeTemplateResults results = templatesApi.ListTemplates(accountId, options);
 
             string templateId;
@@ -155,7 +155,7 @@ namespace ESignature.Examples
                 new ListItem { Text = "Indigo", Value = "Indigo" },
                 new ListItem { Text = "Violet", Value = "Violet" },
             };
-                
+
             Numerical numerical = new Numerical();
             numerical.ValidationType = "Currency";
             numerical.DocumentId = "1";
@@ -164,7 +164,7 @@ namespace ESignature.Examples
             numerical.YPosition = "260";
             numerical.Font = "helvetica";
             numerical.FontSize = "size14";
-            numerical.TabLabel = "numbersOnly";
+            numerical.TabLabel = "numericalCurrency";
             numerical.Height = "23";
             numerical.Width = "84";
             numerical.Required = "false";
