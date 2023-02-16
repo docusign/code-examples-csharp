@@ -117,11 +117,12 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 var externalFormFillSession = DocuSign.Rooms.Examples.CreateExternalFormFillSession.CreateSession(basePath,
                     accessToken,
                     accountId,
-                    new ExternalFormFillSessionForCreate(null, roomDocumentModel.RoomId, formIds, "https://localhost"));
+                    new ExternalFormFillSessionForCreate(null, roomDocumentModel.RoomId, formIds, "https://localhost:44333"));
 
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = this.CodeExampleText.ResultsPageText;
                 this.ViewBag.Url = externalFormFillSession.Url;
+                this.ViewBag.JsonUrl = externalFormFillSession.ToJson();
 
                 return this.View("embed");
             }
