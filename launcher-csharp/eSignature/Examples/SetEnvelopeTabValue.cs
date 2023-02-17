@@ -86,8 +86,8 @@ namespace ESignature.Examples
             Numerical numericalSalary = new Numerical
             {
                 ValidationType = "Currency",
-                XPosition = "50",
-                YPosition = "50",
+                XPosition = "210",
+                YPosition = "235",
                 Height = "20",
                 Width = "70",
                 PageNumber = "1",
