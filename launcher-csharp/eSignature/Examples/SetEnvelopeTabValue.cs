@@ -98,12 +98,12 @@ namespace ESignature.Examples
                 TabId = "salary",
                 TabLabel = "Salary",
                 NumericalValue = salary.ToString(),
-                LocalePolicy = new LocalePolicyTab 
-                { 
-                    CultureName = "en-US", 
-                    CurrencyCode = "usd", CurrencyPositiveFormat = "csym_1_comma_234_comma_567_period_89", 
-                    CurrencyNegativeFormat = "minus_csym_1_comma_234_comma_567_period_89", 
-                    UseLongCurrencyFormat = "true" 
+                LocalePolicy = new LocalePolicyTab
+                {
+                    CultureName = "en-US",
+                    CurrencyCode = "usd", CurrencyPositiveFormat = "csym_1_comma_234_comma_567_period_89",
+                    CurrencyNegativeFormat = "minus_csym_1_comma_234_comma_567_period_89",
+                    UseLongCurrencyFormat = "true",
                 },
             };
 
