@@ -1920,7 +1920,7 @@
                     "PathName": "Rooms::GetRooms"
                   },
                   {
-                    "Path": "https://developers.docusign.com/docs/docs/rooms-api/reference/Rooms/Rooms/GetDocuments",
+                    "Path": "https://developers.docusign.com/docs/rooms-api/reference/Rooms/Rooms/GetDocuments",
                     "PathName": "Rooms::GetDocuments"
                   },
                   {
@@ -1965,7 +1965,7 @@
                 "ExampleDescription": "Demonstrates how to create a form group for your DocuSign Rooms for Real Estate account.",
                 "LinksToAPIMethod": [
                   {
-                    "Path": "https://developers.docusign.com/docs/docs/rooms-api/how-to/create-form-group",
+                    "Path": "https://developers.docusign.com/docs/rooms-api/how-to/create-form-group",
                     "PathName": "Rooms::CreateFormGroup"
                   }
                 ],
@@ -1987,15 +1987,15 @@
                 "ExampleDescription": "Demonstrates how to assign an office to a form group for your DocuSign Rooms for Real Estate account.",
                 "LinksToAPIMethod": [
                   {
-                    "Path": "https://developers.docusign.com/docs/docs/rooms-api/how-to/access-form-group",
+                    "Path": "https://developers.docusign.com/docs/rooms-api/how-to/access-form-group",
                     "PathName": "Rooms::AccessFormGroup"
                   },
                   {
-                    "Path": "https://developers.docusign.com/docs/docs/rooms-api/reference/forms/formgroups/getformgroups",
+                    "Path": "https://developers.docusign.com/docs/rooms-api/reference/forms/formgroups/getformgroups",
                     "PathName": "FormGroups::GetFormGroups"
                   },
                   {
-                    "Path": "https://developers.docusign.com/docs/docs/rooms-api/reference/offices/offices/getoffices",
+                    "Path": "https://developers.docusign.com/docs/rooms-api/reference/offices/offices/getoffices",
                     "PathName": "Offices::GetOffices"
                   }
                 ],
@@ -2031,15 +2031,15 @@
                 "ExampleDescription": "Demonstrates how to assign a form to a form group for your DocuSign Rooms for Real Estate account.",
                 "LinksToAPIMethod": [
                   {
-                    "Path": "https://developers.docusign.com/docs/docs/rooms-api/how-to/assign-form-group",
+                    "Path": "https://developers.docusign.com/docs/rooms-api/how-to/assign-form-group",
                     "PathName": "Rooms::AssignFormGroup"
                   },
                   {
-                    "Path": "https://developers.docusign.com/docs/docs/rooms-api/reference/forms/formgroups/getformgroups",
+                    "Path": "https://developers.docusign.com/docs/rooms-api/reference/forms/formgroups/getformgroups",
                     "PathName": "FormGroups::GetFormGroups"
                   },
                   {
-                    "Path": "https://developers.docusign.com/docs/docs/rooms-api/reference/forms/formlibraries/getformlibraries",
+                    "Path": "https://developers.docusign.com/docs/rooms-api/reference/forms/formlibraries/getformlibraries",
                     "PathName": "FormLibraries:GetFormLibraries"
                   }
                 ],
