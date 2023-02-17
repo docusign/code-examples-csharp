@@ -36,8 +36,8 @@
       "Examples": [
         {
           "ExampleNumber": 1,
-          "ExampleName": "Creating a room with data",
-          "ExampleDescription": "This example creates a room using specified data",
+          "ExampleName": "Create a room with data",
+          "ExampleDescription": "Demonstrates how to create a DocuSign room that contains populated data.",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/CreateRoom",
@@ -62,8 +62,8 @@
         },
         {
           "ExampleNumber": 2,
-          "ExampleName": "Creating a room with a template",
-          "ExampleDescription": "This example creates a room from a template",
+          "ExampleName": "Create a room with a template",
+          "ExampleDescription": "Demonstrates how to create a DocuSign room using a predefined template.",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/CreateRoom",
@@ -100,8 +100,8 @@
         },
         {
           "ExampleNumber": 3,
-          "ExampleName": "Exporting data from a room",
-          "ExampleDescription": "This example exports data from a room",
+          "ExampleName": "Export data from a room",
+          "ExampleDescription": "Demonstrates how to export data from a room.",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRooms",
@@ -131,8 +131,8 @@
         },
         {
           "ExampleNumber": 4,
-          "ExampleName": "Adding forms to a room",
-          "ExampleDescription": "This example adds form to a room",
+          "ExampleName": "Add a form to a room",
+          "ExampleDescription": "Demonstrates how to attach a form to a room",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRooms",
@@ -179,8 +179,8 @@
         },
         {
           "ExampleNumber": 5,
-          "ExampleName": "Getting rooms with filters",
-          "ExampleDescription": "This example returns rooms by filter",
+          "ExampleName": "Get a room with a filter",
+          "ExampleDescription": "Demonstrates how to return rooms filtered by your parameters.",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRooms",
@@ -203,8 +203,8 @@
         },
         {
           "ExampleNumber": 6,
-          "ExampleName": "Creating an external form fill session",
-          "ExampleDescription": "This is an example of creating external form fill session",
+          "ExampleName": "Create and embed an external form fill session",
+          "ExampleDescription": "Demonstrates how to create and embed an external form fill session.",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRooms",
@@ -222,11 +222,11 @@
           "RedirectsToOtherCodeExamples": [
             {
               "CodeExampleToRedirectTo": 4,
-              "RedirectText": "<p>Problem: selected rooms does not has any documents. Please first add form to a room using <a {0}>example 4.</a> <br />Thank you.</p>"
+              "RedirectText": "<p>Problem: Selected room does not has any forms. Add a form to a room using <a {0}>example 4.</a> <br /></p>"
             },
             {
               "CodeExampleToRedirectTo": 1,
-              "RedirectText": "<p>Problem: please first create a room using <a {0}>example 1.</a> <br />Thank you.</p>"
+              "RedirectText": "<p>Problem: Create a room using <a {0}>example 1.</a> <br /></p>"
             }
           ],
           "Forms": [
@@ -243,17 +243,17 @@
               "Inputs": [
                 {
                   "InputName": "Rooms",
-                  "InputPlaceholder": "Please select a room"
+                  "InputPlaceholder": "Select a room"
                 }
               ]
             }
           ],
-          "ResultsPageText": "Results from the Forms::CreateExternalFormFillSession:"
+          "ResultsPageText": "Results from the ExternalFormFillSessions:CreateExternalFormFillSession:"
         },
         {
           "ExampleNumber": 7,
-          "ExampleName": "Creating a form group",
-          "ExampleDescription": "This example demonstrates creating a DocuSign Form Group.",
+          "ExampleName": "Create a form group",
+          "ExampleDescription": "Demonstrates how to create a form group for your DocuSign Rooms for Real Estate account.",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/docs/rooms-api/how-to/create-form-group",
@@ -275,7 +275,7 @@
         {
           "ExampleNumber": 8,
           "ExampleName": "Grant office access to a form group",
-          "ExampleDescription": "This example demonstrates how to grant Office access to a Form Group.",
+          "ExampleDescription": "Demonstrates how to assign an office to a form group for your DocuSign Rooms for Real Estate account.",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/docs/rooms-api/how-to/access-form-group",
@@ -319,7 +319,7 @@
         {
           "ExampleNumber": 9,
           "ExampleName": "Assign a form to a form group",
-          "ExampleDescription": "This example demonstrates how to assign a form to a form group.",
+          "ExampleDescription": "Demonstrates how to assign a form to a form group for your DocuSign Rooms for Real Estate account.",
           "LinksToAPIMethod": [
             {
               "Path": "https://developers.docusign.com/docs/rooms-api/how-to/assign-form-group",
