@@ -6,6 +6,7 @@ namespace DocuSign.CodeExamples.Controllers
 {
     using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Models;
+    using DocuSign.eSign.Client;
     using Microsoft.AspNetCore.Mvc;
 
     [Area("eSignature")]
@@ -54,20 +55,30 @@ namespace DocuSign.CodeExamples.Controllers
             var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
             var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
-            // Call the Examples API method to create an envelope and set the tab values
-            (string envelopeId, string redirectUrl) = global::ESignature.Examples.SetEnvelopeTabValue.CreateEnvelopeAndUpdateTabData(
-                signerEmail,
-                signerName,
-                this.signerClientId,
-                accessToken,
-                basePath,
-                accountId,
-                this.Config.TabsDocx,
-                this.dsReturnUrl,
-                this.dsPingUrl);
+            try
+            {
+                // Call the Examples API method to create an envelope and set the tab values
+                (string envelopeId, string redirectUrl) = global::ESignature.Examples.SetEnvelopeTabValue.CreateEnvelopeAndUpdateTabData(
+                    signerEmail,
+                    signerName,
+                    this.signerClientId,
+                    accessToken,
+                    basePath,
+                    accountId,
+                    this.Config.TabsDocx,
+                    this.dsReturnUrl,
+                    this.dsPingUrl);
 
-            this.RequestItemsService.EnvelopeId = envelopeId;
-            return this.Redirect(redirectUrl);
+                this.RequestItemsService.EnvelopeId = envelopeId;
+                return this.Redirect(redirectUrl);
+            }
+            catch (ApiException apiException)
+            {
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
+
+                return this.View("Error");
+            }
         }
     }
 }
