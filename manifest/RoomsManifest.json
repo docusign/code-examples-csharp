@@ -222,7 +222,7 @@
           "RedirectsToOtherCodeExamples": [
             {
               "CodeExampleToRedirectTo": 4,
-              "RedirectText": "<p>Problem: selected room does not have any documents. Add form to a room using <a {0}>example 4.</a> <br />Thank you.</p>"
+              "RedirectText": "<p>Problem: selected room does not have any forms. Add form to a room using <a {0}>example 4.</a> <br />Thank you.</p>"
             },
             {
               "CodeExampleToRedirectTo": 1,
