@@ -94,7 +94,6 @@ namespace ESignature.Examples
                 DocumentId = "1",
                 MinNumericalValue = "0",
                 MaxNumericalValue = "1000000",
-                Value = salary.ToString("C2"),
                 TabId = "salary",
                 TabLabel = "Salary",
                 NumericalValue = salary.ToString(),
