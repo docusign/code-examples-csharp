@@ -10,6 +10,7 @@ using Xunit;
 
 namespace launcher_csharp.Tests.eSignatureUnitTests
 {
+    [Collection("eSignature tests")]
     public sealed class ApplyBrandToEnvelopeUnitTests
     {
         private const string ESIGNARURE_PATH_PREFIX = "/restapi";
