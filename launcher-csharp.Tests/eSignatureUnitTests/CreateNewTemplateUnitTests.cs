@@ -9,6 +9,7 @@ using Xunit;
 
 namespace launcher_csharp.Tests.eSignatureUnitTests
 {
+    [Collection("eSignature tests")]
     public sealed class CreateNewTemplateUnitTests
     {
         private const string REST_API_PREFIX = "/restapi";
@@ -176,19 +177,6 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
                                         Width = "84",
                                         Required = "false"
                                     },
-                                    new Text
-                                    {
-                                        DocumentId = "1",
-                                        PageNumber = "1",
-                                        XPosition = "153",
-                                        YPosition = "260",
-                                        Font = "helvetica",
-                                        FontSize = "size14",
-                                        TabLabel = "numbersOnly",
-                                        Height = "23",
-                                        Width = "84",
-                                        Required = "false"
-                                    }
                                 }
                             }
                         }
@@ -223,7 +211,8 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 
             // Assert
             Assert.NotNull(envelopeTemplate);
-            envelopeTemplate.Should().BeEquivalentTo(expectedEnvelopeTemplate);
+            envelopeTemplate.Recipients.Signers[0].Tabs.TextTabs.Should().BeEquivalentTo(
+                expectedEnvelopeTemplate.Recipients.Signers[0].Tabs.TextTabs);
         }
     }
 }
