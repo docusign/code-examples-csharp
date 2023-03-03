@@ -1925,7 +1925,7 @@
                   },
                   {
                     "Path": "https://developers.docusign.com/docs/rooms-api/reference/Forms/ExternalFormFillSessions/CreateExternalFormFillSession",
-                    "PathName": "Forms::CreateExternalFormFillSession"
+                    "PathName": "ExternalFormFillSessions::CreateExternalFormFillSession"
                   }
                 ],
                 "RedirectsToOtherCodeExamples": [
