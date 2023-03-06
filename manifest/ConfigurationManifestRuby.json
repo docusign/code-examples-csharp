@@ -7,7 +7,7 @@
       "shortDescription": "Users will login to DocuSign during each session to send envelopes to eSignature API",
       "sources": [
         {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby-private/master/app/services/api_creator.rb",
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/api_creator.rb",
           "folder": "DocuSign"
         },
         {
@@ -102,7 +102,7 @@
       "description": "Choose this option if a single login will be used to send all envelopes.",
       "sources": [
         {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby-private/master/app/services/api_creator.rb",
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/api_creator.rb",
           "folder": "DocuSign"
         },
         {

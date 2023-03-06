@@ -8,54 +8,26 @@
       "sources": [
         {
           "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/controller/IndexController.java",
-          "folder": "docusign"
+          "folder": "DocuSign"
         },
         {
           "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/common/ApiIndex.java",
-          "folder": "docusign"
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/ApiType.java",
+          "folder": "DocuSign"
         },
         {
           "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/exception/LauncherException.java",
-          "folder": "docusign"
+          "folder": "DocuSign"
         },
         {
           "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/utils/AccountsConverter.java",
-          "folder": "docusign"
+          "folder": "DocuSign"
         },
         {
           "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/WebSecurityConfig.java",
-          "folder": "docusign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/controller/GlobalControllerAdvice.java",
-          "folder": "DocuSign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/DSConfiguration.java",
-          "folder": "DocuSign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/common/ApiIndex.java",
-          "folder": "DocuSign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/AuthType.java",
-          "folder": "DocuSign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/AuthTypeItem.java",
-          "folder": "DocuSign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/Locals.java",
-          "folder": "DocuSign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/Session.java",
-          "folder": "DocuSign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/Session.java",
           "folder": "DocuSign"
         },
         {
@@ -63,7 +35,27 @@
           "folder": "DocuSign"
         },
         {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/security/OAuthProperties.java",
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/Session.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/Locals.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/AuthTypeItem.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/AuthType.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/DSConfiguration.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/controller/GlobalControllerAdvice.java",
           "folder": "DocuSign"
         }
       ],
@@ -164,55 +156,11 @@
       "description": "Choose this option if a single login will be used to send all envelopes.",
       "sources": [
         {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/controller/IndexController.java",
-          "folder": "docusign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/common/ApiIndex.java",
-          "folder": "docusign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/exception/LauncherException.java",
-          "folder": "docusign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/utils/AccountsConverter.java",
-          "folder": "docusign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/WebSecurityConfig.java",
-          "folder": "docusign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/controller/GlobalControllerAdvice.java",
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/security/jwt/JWTOAuth2User.java",
           "folder": "DocuSign"
         },
         {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/DSConfiguration.java",
-          "folder": "DocuSign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/common/ApiIndex.java",
-          "folder": "DocuSign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/AuthType.java",
-          "folder": "DocuSign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/AuthTypeItem.java",
-          "folder": "DocuSign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/Locals.java",
-          "folder": "DocuSign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/Session.java",
-          "folder": "DocuSign"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/Session.java",
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/security/jwt/JWTAuthenticationMethod.java",
           "folder": "DocuSign"
         },
         {
@@ -220,22 +168,51 @@
           "folder": "DocuSign"
         },
         {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/security/OAuthProperties.java",
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/Session.java",
           "folder": "DocuSign"
         },
         {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/security/jwt/JWTAuthorizationCodeResourceDetails.java",
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/Locals.java",
           "folder": "DocuSign"
         },
         {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/security/jwt/JWTOAuth2RestTemplate.java",
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/AuthTypeItem.java",
           "folder": "DocuSign"
         },
         {
-          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/security/jwt/JWTUserInfoTokenService.java",
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/AuthType.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/model/ApiType.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/common/ApiIndex.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/DSConfiguration.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/controller/GlobalControllerAdvice.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/WebSecurityConfig.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/exception/LauncherException.java",
+          "folder": "DocuSign"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/core/controller/IndexController.java",
           "folder": "DocuSign"
         }
       ],
+
       "parameters": [
         {
           "key": "jwt.grant.client.client-id",
@@ -377,9 +354,7 @@
           "version": "3.22.0"
         }
       ],
-      "scopes": [
-        "signature"
-      ]
+      "scopes": ["signature"]
     },
     {
       "apiType": "Rooms",
@@ -414,10 +389,7 @@
           "version": "1.2.2"
         }
       ],
-      "scopes": [
-        "click.manage",
-        "click.send"
-      ]
+      "scopes": ["click.manage", "click.send"]
     },
     {
       "apiType": "Monitor",
@@ -429,10 +401,7 @@
           "version": "1.1.0"
         }
       ],
-      "scopes": [
-        "signature",
-        "impersonation"
-      ]
+      "scopes": ["signature", "impersonation"]
     }
   ],
   "help": {

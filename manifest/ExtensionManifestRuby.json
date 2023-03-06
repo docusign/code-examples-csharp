@@ -36,7 +36,7 @@
       "number": "5",
       "name": "List an envelope's recipients",
       "description": "Includes current recipient status.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/controllers/e_sign/eg005_envelope_recipients_controller.rb",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg005_envelope_recipients_service.rb",
       "method": "GetRecipients",
       "apiType": "ESignature"
     },
@@ -284,7 +284,7 @@
       "number": "36",
       "name": "Request Signature by SMS",
       "description": "This example demonstrates how to send a signature request for a signer (and CC) to read and sign via an SMS message.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg035_sms_delivery_service.rb",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg037_sms_delivery_service.rb",
       "method": "SendRequestViaSMS",
       "apiType": "ESignature"
     },
@@ -423,6 +423,30 @@
       "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg004_envelope_info_service.rb",
       "method": "worker",
       "apiType": "Monitor"
+    },
+    {
+      "number": "54",
+      "name": "Send an envelope to an In Person Signer",
+      "description": "Demonstrates how to host an In Person Signing session with embedded signing.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg039_signing_in_person_service.rb",
+      "method": "worker",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "55",
+      "name": "Request a signature through your app (embedded signing) with a CFR Part 11 account",
+      "description": "Sends an envelope, then uses embedded signing with recipient authentication by phone for the first signer. With embedded signing, DocuSign signing is initiated from your website.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/e_sign/eg041_cfr_embedded_signing_service.rb",
+      "method": "worker",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "56",
+      "name": "Embed a clickwrap",
+      "description": "Creates a unique URL for an active clickwrap and embeds the clickwrap on your page.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-ruby/master/app/services/clickwrap/eg006_embed_clickwrap_service.rb",
+      "method": "worker",
+      "apiType": "Click"
     }
   ],
   "postAddOpenURI": "https://developers.docusign.com/platform/auth/authcode/"
