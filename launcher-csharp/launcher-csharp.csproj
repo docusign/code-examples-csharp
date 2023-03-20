@@ -37,7 +37,7 @@
 
   <ItemGroup>
     <PackageReference Include="DocuSign.Admin" Version="1.1.0" />
-    <PackageReference Include="DocuSign.Click" Version="1.2.2" />
+    <PackageReference Include="DocuSign.Click" Version="1.3.0" />
     <PackageReference Include="DocuSign.eSign.dll" Version="6.2.0" />
     <PackageReference Include="DocuSign.Monitor" Version="1.1.0" />
     <PackageReference Include="DocuSign.Rooms" Version="1.3.0" />
