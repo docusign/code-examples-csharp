@@ -25,9 +25,11 @@ namespace DocuSign.Rooms.Examples
             int? roomId)
         {
             // Construct your API headers
+            //ds-snippet-start:Rooms6Step2
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var roomsApi = new RoomsApi(apiClient);
+            //ds-snippet-end:Rooms6Step2 
 
             // Call the Rooms API to get Room Documents
             return roomsApi.GetDocuments(accountId, roomId);
@@ -63,11 +65,13 @@ namespace DocuSign.Rooms.Examples
         /// <param name="documentId">The Id of a specified document</param>
         /// <param name="roomId">The Id of a specified room</param>
         /// <returns>ExternalFormFillSession</returns>
+        //ds-snippet-start:Rooms6Step3
         public static ExternalFormFillSession CreateSession(
             string basePath,
             string accessToken,
             string accountId,
             ExternalFormFillSessionForCreate sessionForCreate)
+        //ds-snippet-end:Rooms6Step3
         {
             // Construct your API headers
             var apiClient = new ApiClient(basePath);
@@ -75,9 +79,11 @@ namespace DocuSign.Rooms.Examples
             var externalFormFillSessionsApi = new ExternalFormFillSessionsApi(apiClient);
 
             // Call the Rooms API to create external form fill session
+            //ds-snippet-start:Rooms6Step4
             var url = externalFormFillSessionsApi.CreateExternalFormFillSession(accountId, sessionForCreate);
 
             return url;
+            //ds-snippet-start:Rooms6Step5
         }
     }
 }
