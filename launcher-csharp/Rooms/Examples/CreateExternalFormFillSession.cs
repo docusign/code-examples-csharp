@@ -83,7 +83,7 @@ namespace DocuSign.Rooms.Examples
             var url = externalFormFillSessionsApi.CreateExternalFormFillSession(accountId, sessionForCreate);
 
             return url;
-            //ds-snippet-start:Rooms6Step5
+            //ds-snippet-end:Rooms6Step4
         }
     }
 }
