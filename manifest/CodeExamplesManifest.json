@@ -370,6 +370,61 @@
                             }
                         ],
                         "ResultsPageText": ""
+                    },
+                    {
+                        "ExampleNumber": 42,
+                        "CFREnabled": "NonCFR",
+                        "ExampleName": "Request a signature by email with document generation",
+                        "ExampleDescription": "Creates an envelope from a template with a document that is dynamically generated to include all the customized data specified by the sender.",
+                        "LinksToAPIMethod": 
+                        [
+                            {
+                                "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/templates/templates/create/",
+                                "PathName": "Templates:create"
+                            },
+                            {
+                                "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                                "PathName": "Envelopes:create"
+                            },
+                            {
+                                "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocuments/get/",
+                                "PathName": "EnvelopeDocuments:get"
+                            },
+                            {
+                                "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/update/",
+                                "PathName": "Envelopes:update"
+                            }
+                        ],
+                        "Forms": [
+                            {
+                                "Inputs": [
+                                    {
+                                      "InputName": "Candidate Email",
+                                      "InputPlaceholder": "pat@example.com"
+                                    },
+                                    {
+                                      "InputName": "Candidate Name",
+                                      "InputPlaceholder": "Pat Johnson"
+                                    },
+                                    {
+                                      "InputName": "Manager Name",
+                                      "InputPlaceholder": "Pat Johnson"
+                                    },
+                                    {
+                                      "InputName": "Job Title"
+                                    },
+                                    {
+                                      "InputName": "Salary"
+                                    },
+                                    {
+                                      "InputName": "Start Date",
+                                      "InputPlaceholder": "mm/dd/yyyy"
+                                    }
+                                ]
+                            }
+                        ],
+                        "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}.",
+                        "SkipForLanguages": "java;node"
                     }
                 ]
             },
