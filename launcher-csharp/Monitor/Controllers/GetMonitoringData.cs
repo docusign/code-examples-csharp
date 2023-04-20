@@ -12,7 +12,7 @@ namespace DocuSign.CodeExamples.Controllers
     using Newtonsoft.Json;
 
     [Area("Monitor")]
-    [Route("monitorExample001")]
+    [Route("meg001")]
     public class GetMonitoringData : EgController
     {
         private readonly GetMonitoringDataFunc getMonitoringDataFunc = new GetMonitoringDataFunc();
@@ -28,7 +28,7 @@ namespace DocuSign.CodeExamples.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "monitorExample001";
+        public override string EgName => "meg001";
 
         [MustAuthenticate]
         [SetViewBag]

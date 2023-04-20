@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     using Newtonsoft.Json;
 
     [Area("Admin")]
-    [Route("Aeg004")]
+    [Route("aeg004")]
     public class ImportUser : EgController
     {
         public ImportUser(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
@@ -25,7 +25,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Aeg004";
+        public override string EgName => "aeg004";
 
         [MustAuthenticate]
         [SetViewBag]

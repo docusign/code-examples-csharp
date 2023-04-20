@@ -93,7 +93,7 @@ namespace DocuSign.CodeExamples.Controllers
                 uri = $"{uri}/{this.ControllerContext.RouteData.Values["area"]}";
                 return $"{uri}/Examples/{this.GetType().Name}.cs";
             }
-            else if (this.EgName == "monitorExample001")
+            else if (this.EgName == "meg001")
             {
                 return "https://github.com/docusign/code-examples-csharp/blob/master/launcher-csharp/Monitor/Examples/GetMonitoringData.cs";
             }

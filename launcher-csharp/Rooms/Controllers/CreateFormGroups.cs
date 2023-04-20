@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using Newtonsoft.Json;
 
     [Area("Rooms")]
-    [Route("Reg007")]
+    [Route("reg007")]
     public class CreateFormGroups : EgController
     {
         public CreateFormGroups(
@@ -28,7 +28,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Reg007";
+        public override string EgName => "reg007";
 
         [BindProperty]
         public FormGroupModel FormGroupModel { get; set; }

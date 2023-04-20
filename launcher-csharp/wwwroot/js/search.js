@@ -113,13 +113,13 @@
     function getLinkForApiType(apiName) {
         switch (apiName) {
             case API_TYPES.ADMIN:
-                return "Aeg";
+                return "aeg";
             case API_TYPES.CLICK:
-                return "ClickEg";
+                return "ceg";
             case API_TYPES.ROOMS:
-                return "Reg";
+                return "reg";
             case API_TYPES.MONITOR:
-                return "monitorExample";
+                return "meg";
             case API_TYPES.ESIGNATURE:
                 return "eg"
         }
