@@ -83,22 +83,28 @@ namespace ESignature.Examples
             // and as a pure number in a custom field ('salary') in the envelope
             int salary = 123000;
 
-            Text textSalary = new Text
+            Numerical numericalSalary = new Numerical
             {
-                AnchorString = "/salary/",
-                AnchorUnits = "pixels",
-                AnchorYOffset = "-9",
-                AnchorXOffset = "5",
-                Font = "helvetica",
-                FontSize = "size11",
-                Bold = "true",
-                Locked = "true",
-
-                // Convert number to String: 'C2' sets the string
-                // to currency format with two decimal places
-                Value = salary.ToString("C2"),
+                ValidationType = "Currency",
+                XPosition = "210",
+                YPosition = "235",
+                Height = "20",
+                Width = "70",
+                PageNumber = "1",
+                DocumentId = "1",
+                MinNumericalValue = "0",
+                MaxNumericalValue = "1000000",
                 TabId = "salary",
                 TabLabel = "Salary",
+                NumericalValue = salary.ToString(),
+                LocalePolicy = new LocalePolicyTab
+                {
+                    CultureName = "en-US",
+                    CurrencyCode = "usd",
+                    CurrencyPositiveFormat = "csym_1_comma_234_comma_567_period_89",
+                    CurrencyNegativeFormat = "minus_csym_1_comma_234_comma_567_period_89",
+                    UseLongCurrencyFormat = "true",
+                },
             };
 
             TextCustomField salaryCustomField = new TextCustomField
@@ -131,7 +137,8 @@ namespace ESignature.Examples
             Tabs signer1Tabs = new Tabs
             {
                 SignHereTabs = new List<SignHere> { signHere },
-                TextTabs = new List<Text> { textLegal, textFamiliar, textSalary },
+                TextTabs = new List<Text> { textLegal, textFamiliar },
+                NumericalTabs = new List<Numerical> { numericalSalary },
             };
             signer1.Tabs = signer1Tabs;
             Recipients recipients = new Recipients

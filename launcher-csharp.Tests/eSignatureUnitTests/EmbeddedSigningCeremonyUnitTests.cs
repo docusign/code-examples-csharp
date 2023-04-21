@@ -9,6 +9,7 @@ using Xunit;
 
 namespace launcher_csharp.Tests.eSignatureUnitTests
 {
+    [Collection("eSignature tests")]
     public sealed class EmbeddedSigningCeremonyUnitTests
     {
         private const string REDIRECT_URL = "https://developers.docusign.com/docs/esign-rest-api/";

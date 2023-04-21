@@ -12,7 +12,7 @@ namespace ESignature.Examples
 
     public static class CreateNewTemplate
     {
-        private static string templateName = "Example Signer and CC template";
+        private static string templateName = "Example Signer and CC template v2";
 
         /// <summary>
         /// Generates a new DocuSign Template based on static information in this class
@@ -28,7 +28,7 @@ namespace ESignature.Examples
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             TemplatesApi templatesApi = new TemplatesApi(docuSignClient);
             TemplatesApi.ListTemplatesOptions options = new TemplatesApi.ListTemplatesOptions();
-            options.searchText = "Example Signer and CC template";
+            options.searchText = "Example Signer and CC template v2";
             EnvelopeTemplateResults results = templatesApi.ListTemplates(accountId, options);
 
             string templateId;
@@ -156,23 +156,19 @@ namespace ESignature.Examples
                 new ListItem { Text = "Violet", Value = "Violet" },
             };
 
-            // The SDK can't create a number tab at this time. Bug DCM-2732
-            // Until it is fixed, use a text tab instead.
-            //   , number = docusign.Number.constructFromObject({
-            //         documentId: "1", pageNumber: "1", xPosition: "163", yPosition: "260",
-            //         font: "helvetica", fontSize: "size14", tabLabel: "numbersOnly",
-            //         height: "23", width: "84", required: "false"})
-            Text textInsteadOfNumber = new Text();
-            textInsteadOfNumber.DocumentId = "1";
-            textInsteadOfNumber.PageNumber = "1";
-            textInsteadOfNumber.XPosition = "153";
-            textInsteadOfNumber.YPosition = "260";
-            textInsteadOfNumber.Font = "helvetica";
-            textInsteadOfNumber.FontSize = "size14";
-            textInsteadOfNumber.TabLabel = "numbersOnly";
-            textInsteadOfNumber.Height = "23";
-            textInsteadOfNumber.Width = "84";
-            textInsteadOfNumber.Required = "false";
+            Numerical numerical = new Numerical();
+            numerical.ValidationType = "Currency";
+            numerical.DocumentId = "1";
+            numerical.PageNumber = "1";
+            numerical.XPosition = "153";
+            numerical.YPosition = "260";
+            numerical.Font = "helvetica";
+            numerical.FontSize = "size14";
+            numerical.TabLabel = "numericalCurrency";
+            numerical.Height = "23";
+            numerical.Width = "84";
+            numerical.Required = "false";
+
 
             RadioGroup radioGroup = new RadioGroup();
             radioGroup.DocumentId = "1";
@@ -209,7 +205,8 @@ namespace ESignature.Examples
             // numberTabs: [number],
             signer1Tabs.RadioGroupTabs = new List<RadioGroup> { radioGroup };
             signer1Tabs.SignHereTabs = new List<SignHere> { signHere };
-            signer1Tabs.TextTabs = new List<Text> { text, textInsteadOfNumber };
+            signer1Tabs.TextTabs = new List<Text> { text };
+            signer1Tabs.NumericalTabs = new List<Numerical> { numerical };
 
             signer1.Tabs = signer1Tabs;
 

@@ -20,11 +20,16 @@ namespace DocuSign.Click.Examples
         /// <returns>The agreements of a given clickwrap</returns>
         public static ClickwrapAgreementsResponse GetAgreements(string clickwrapId, string basePath, string accessToken, string accountId)
         {
+            //ds-snippet-start:Click5Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             var clickAccountApi = new AccountsApi(docuSignClient);
+            //ds-snippet-end:Click5Step2
 
+            //ds-snippet-start:Click5Step3
             return clickAccountApi.GetClickwrapAgreements(accountId, clickwrapId);
+            //ds-snippet-end:Click5Step3
+
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@{
     int formNumber = 0;
-    int signerEmailInputNumber = 0;
-    int signerNameInputNumber = 1;
+    int signerEmailInputNumber = 1;
+    int signerNameInputNumber = 0;
 }
 
 <h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
@@ -14,7 +14,7 @@
     <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
 }
 
-<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" />
 
 <p>
 @Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">SetEnvelopeTabValue.cs</a>"))
@@ -25,12 +25,12 @@
         <label for="signerEmail">
             @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputName)
         </label>
-        <input type="email" 
-               class="form-control" 
-               id="signerEmail" 
+        <input type="email"
+               class="form-control"
+               id="signerEmail"
                name="signerEmail"
-               aria-describedby="emailHelp" 
-               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputPlaceholder" 
+               aria-describedby="emailHelp"
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputPlaceholder"
                required
                value="@ViewBag.Locals.DsConfig.SignerEmail">
         <small id="emailHelp" class="form-text text-muted">@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)</small>
@@ -39,12 +39,12 @@
         <label for="signerName">
             @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputName)
         </label>
-        <input type="text" 
-               class="form-control" 
-               id="signerName" 
+        <input type="text"
+               class="form-control"
+               id="signerName"
                placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputPlaceholder"
                name="signerName"
-               value="@ViewBag.Locals.DsConfig.SignerName" 
+               value="@ViewBag.Locals.DsConfig.SignerName"
                required />
     </div>
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">

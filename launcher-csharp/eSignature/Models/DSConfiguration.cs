@@ -34,6 +34,7 @@ namespace DocuSign.CodeExamples.Models
         public string DocDocx = "World_Wide_Corp_Battle_Plan_Trafalgar.docx";
         public string TabsDocx = "World_Wide_Corp_salary.docx";
         public string DocPdf = "World_Wide_Corp_lorem.pdf";
+        public string OfferDocDocx = "Offer_Letter_Demo.docx";
         public string DocCsv = "UserData.csv";
         public string DocHTML = "doc_1.html";
         public string ExportUsersPath = @"..\..\..\ExportedUserData.csv";

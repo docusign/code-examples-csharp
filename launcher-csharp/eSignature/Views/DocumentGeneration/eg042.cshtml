@@ -1,0 +1,118 @@
+﻿@using DocuSign.CodeExamples.Common
+@{
+    int formNumber = 0;
+    int candidateEmailIndex = 0;
+    int candidateNameIndex = 1;
+    int managerNameIndex = 2;
+    int jobTitleIndex = 3;
+    int salaryIndex = 4;
+    int startDateIndex = 5;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+@if (ViewBag.showDoc == true)
+{
+    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
+}
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+
+
+<p>
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">DocumentGeneration.cs</a>"))
+</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <p>
+        @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)
+    </p>
+
+    <div class="form-group">
+        <label for="candidateEmail">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[candidateEmailIndex].InputName)
+        </label>
+
+        <input type="text" 
+               class="form-control" 
+               id="candidateEmail" 
+               name="candidateEmail"
+               aria-describedby="emailHelp" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[candidateEmailIndex].InputPlaceholder" 
+               required />
+        
+        <small id="emailHelp" class="form-text text-muted">
+            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)
+        </small>
+    </div>
+    
+    <div class="form-group">
+        <label for="candidateName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[candidateNameIndex].InputName)
+        </label>
+
+        <input type="text" 
+               class="form-control" 
+               id="candidateName" 
+               name="candidateName"
+               aria-describedby="emailHelp" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[candidateNameIndex].InputPlaceholder" 
+               required />
+    </div>
+    
+    <div class="form-group">
+        <label for="managerName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[managerNameIndex].InputName)
+        </label>
+
+        <input type="text" 
+               class="form-control" 
+               id="managerName" 
+               name="managerName"
+               aria-describedby="emailHelp" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[managerNameIndex].InputPlaceholder" 
+               required />
+    </div>
+    
+    <div class="form-group">
+        <label for="jobTitle">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[jobTitleIndex].InputName)
+        </label>
+
+        <select class="form-control" id="jobTitle" name="jobTitle">
+            <option value="Software Engineer">Software Engineer</option>
+            <option value="Product Manager">Product Manager</option>
+            <option value="Sales Representative">Sales Representative</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="salary">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[salaryIndex].InputName)
+        </label>
+        <input type="text" 
+               class="form-control" 
+               id="salary" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[salaryIndex].InputPlaceholder"
+               name="salary"
+               required />
+    </div>
+
+    <div class="form-group">
+        <label for="startDate">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[startDateIndex].InputName)
+        </label>
+        <input type="date" 
+               class="form-control" 
+               id="startDate" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[startDateIndex].InputPlaceholder"
+               name="startDate"
+               required />
+    </div>
+
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
+</form>

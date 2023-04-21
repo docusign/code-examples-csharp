@@ -9,10 +9,10 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using DocuSign.CodeExamples.Models;
     using DocuSign.CodeExamples.Rooms.Models;
     using DocuSign.Rooms.Client;
-    using DocuSign.Rooms.Examples;
     using DocuSign.Rooms.Model;
     using Microsoft.AspNetCore.Mvc;
-    using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
 
     [Area("Rooms")]
     [Route("Reg006")]
@@ -112,18 +112,19 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
             try
             {
+                var formIds = new List<Guid?> { roomDocumentModel.DocumentId };
                 // Call the Rooms API to create external form fill session
-                var url = DocuSign.Rooms.Examples.CreateExternalFormFillSession.CreateSession(basePath,
+                var externalFormFillSession = DocuSign.Rooms.Examples.CreateExternalFormFillSession.CreateSession(basePath,
                     accessToken,
                     accountId,
-                    new ExternalFormFillSessionForCreate(roomDocumentModel.DocumentId.ToString(),
-                    roomDocumentModel.RoomId));
+                    new ExternalFormFillSessionForCreate(null, roomDocumentModel.RoomId, formIds, "https://localhost:44333"));
 
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;
-                this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, url.Url);
-                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(url, Formatting.Indented);
+                this.ViewBag.message = this.CodeExampleText.ResultsPageText;
+                this.ViewBag.Url = externalFormFillSession.Url;
+                this.ViewBag.JsonUrl = externalFormFillSession.ToJson();
 
-                return this.View("example_done");
+                return this.View("embed");
             }
             catch (ApiException apiException)
             {

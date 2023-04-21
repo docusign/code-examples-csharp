@@ -8,6 +8,7 @@ using Xunit;
 
 namespace launcher_csharp.Tests.ClickUnitTests
 {
+    [Collection("Click tests")]
     public sealed class CreateClickwrapUnitTests
     {
         private const string CLICK_PATH_PREFIX = "/clickapi";

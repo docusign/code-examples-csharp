@@ -173,7 +173,7 @@ namespace DocuSign.CodeExamples.Controllers
         {
             try
             {
-                if (this.RequestItemsService.Session != null)
+                if (this.RequestItemsService.Session != null && this.RequestItemsService.User != null)
                 {
                     var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
                     var accessToken = this.RequestItemsService.User.AccessToken;

@@ -9,6 +9,7 @@ using Xunit;
 
 namespace launcher_csharp.Tests.eSignatureUnitTests
 {
+    [Collection("eSignature tests")]
     public sealed class SigningViaEmailUnitTests
     {
         private const string CC_MAIL = "cc@gmail.com";
