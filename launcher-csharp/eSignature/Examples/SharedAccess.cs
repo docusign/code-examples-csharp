@@ -1,7 +1,9 @@
 // <copyright file="SharedAccess.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
@@ -16,7 +18,8 @@ namespace ESignature.Examples
             string accountId,
             string activationCode,
             string agentEmail,
-            string agentName)
+            string agentName,
+            string impersonatedUserId)
         {
             // Step 1 start
             var docuSignClient = new DocuSignClient(basePath);
@@ -34,9 +37,47 @@ namespace ESignature.Examples
                 }
             };
 
-            return usersApi.Create(accountId, newUser);
+            var userSummary = usersApi.Create(accountId, newUser);
 
             // Step 2 end
+
+            // Step 3 start
+            var accountApi = new AccountsApi(docuSignClient);
+            var userId = userSummary.NewUsers.FirstOrDefault()?.UserId;
+            var uss = new UserAuthorizationCreateRequest(
+                Permission: "manage",
+                AgentUser: new AuthorizationUser(AccountId: accountId, UserId: userId));
+
+            accountApi.CreateUserAuthorization(accountId, impersonatedUserId, uss);
+
+            // Step 3 end
+
+            return userSummary;
+        }
+
+        public static EnvelopesInformation GetEnvelopesListStatus(
+            string accessToken,
+            string basePath,
+            string accountId)
+        {
+            // Step 1 start
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var envelopesApi = new EnvelopesApi(docuSignClient);
+
+            // Step 1 end
+
+            // Step 2 start
+            var date = DateTime.UtcNow.AddDays(-10).ToString("yyyy-MM-ddTHH:mmZ");
+            var option = new EnvelopesApi.ListStatusChangesOptions()
+            {
+                fromDate = date
+            };
+
+            var envelopes = envelopesApi.ListStatusChanges(accountId, option);
+
+            // Step 2 end
+            return envelopes;
         }
     }
 }
