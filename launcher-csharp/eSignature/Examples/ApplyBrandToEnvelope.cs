@@ -26,18 +26,25 @@ namespace ESignature.Examples
         public static EnvelopeSummary CreateEnvelopeWithBranding(string signerEmail, string signerName, string brandId, string accessToken, string basePath, string accountId, string status, string docPdf)
         {
             // Construct your API headers
+            //ds-snippet-start:eSign29Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:eSign29Step2
 
             // Construct your request body
+            //ds-snippet-start:eSign29Step3
             EnvelopeDefinition env = CreateEnvelope(signerEmail, signerName, brandId, status, docPdf);
+            //ds-snippet-end:eSign29Step3
 
             // Call the eSignature REST API
+            //ds-snippet-start:eSign29Step4
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
 
             return envelopesApi.CreateEnvelope(accountId, env);
+            //ds-snippet-end:eSign29Step4
         }
 
+        //ds-snippet-start:eSign29Step3
         public static EnvelopeDefinition CreateEnvelope(string signerEmail, string signerName, string brandId, string status, string docPdf)
         {
             string docPdfBytes = Convert.ToBase64String(System.IO.File.ReadAllBytes(docPdf));
@@ -111,5 +118,6 @@ namespace ESignature.Examples
 
             return env;
         }
+        //ds-snippet-end:eSign29Step3
     }
 }
