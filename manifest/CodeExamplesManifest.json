@@ -34,7 +34,8 @@
       "DynamicContentNote": "Note: The elastic template must be manually modified through the elastic templates UI to include these dynamic content fields.",
       "EmbedClickwrapURL": "Agreement URL returned in the JSON response:",
       "NOTAGREED": "NOT AGREED",
-      "AGREED": "AGREED"
+      "AGREED": "AGREED",
+      "SaveAgentActivationCode": "Save this code. You'll need it when activating the new agent."
     }
    },
    "APIs":[
@@ -1484,8 +1485,8 @@
                         "ResultsPageText": "Agent has been created. Please go to the agent's email to activate the agent.",
                         "AdditionalPage": [
                             {
-                               "Name":"authenticate_as_agent",
-                               "ResultsPageText":"Continue below will log out the principal user. You will be redirected to the log in page where you should authenticate as the agent user that you just created."
+                                "Name":"authenticate_as_agent",
+                                "ResultsPageText":"Please go to the principal's developer account at <a href=\"https://admindemo.docusign.com\">admindemo.docusign.com</a> and log out, then come back to this page and press continue. You will be redirected to the log in page where you should authenticate as the agent user that you just created."
                             },
                             {
                                 "Name":"list_status_successful",
