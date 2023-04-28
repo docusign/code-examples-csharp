@@ -18,8 +18,7 @@ namespace ESignature.Examples
             string accountId,
             string activationCode,
             string agentEmail,
-            string agentName,
-            string impersonatedUserId)
+            string agentName)
         {
             // Step 1 start
             var docuSignClient = new DocuSignClient(basePath);
@@ -40,17 +39,6 @@ namespace ESignature.Examples
             var userSummary = usersApi.Create(accountId, newUser);
 
             // Step 2 end
-
-            // Step 3 start
-            var accountApi = new AccountsApi(docuSignClient);
-            var userId = userSummary.NewUsers.FirstOrDefault()?.UserId;
-            var uss = new UserAuthorizationCreateRequest(
-                Permission: "manage",
-                AgentUser: new AuthorizationUser(AccountId: accountId, UserId: userId));
-
-            accountApi.CreateUserAuthorization(accountId, impersonatedUserId, uss);
-
-            // Step 3 end
 
             return userSummary;
         }
@@ -78,6 +66,25 @@ namespace ESignature.Examples
 
             // Step 2 end
             return envelopes;
+        }
+
+
+        public static void CreateUserAuthorization(
+            string accessToken,
+            string basePath,
+            string accountId,
+            string impersonatedUserId,
+            string agentUserId)
+        {
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var accountApi = new AccountsApi(docuSignClient);
+
+            var authRequest = new UserAuthorizationCreateRequest(
+                Permission: "manage",
+                AgentUser: new AuthorizationUser(AccountId: accountId, UserId: agentUserId));
+
+            accountApi.CreateUserAuthorization(accountId, impersonatedUserId, authRequest);
         }
     }
 }

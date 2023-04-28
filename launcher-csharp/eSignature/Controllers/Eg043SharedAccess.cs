@@ -13,6 +13,7 @@ using ESignature.Examples;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Org.BouncyCastle.Ocsp;
 
 namespace DocuSign.CodeExamples.Views
 {
@@ -27,9 +28,16 @@ namespace DocuSign.CodeExamples.Views
             CodeExampleText = GetExampleText(EgName, ExamplesAPIType.ESignature);
             ViewBag.title = CodeExampleText.ExampleName;
             _configuration = configuration;
+            _accessToken = RequestItemsService.User.AccessToken;
+            _basePath = RequestItemsService.Session.BasePath + "/restapi";
+            _accountId = RequestItemsService.Session.AccountId;
         }
 
         private readonly IConfiguration _configuration;
+        private string _agentUserId;
+        private string _accessToken;
+        private string _basePath;
+        private string _accountId;
 
         public override string EgName => "Eg043";
 
@@ -37,57 +45,52 @@ namespace DocuSign.CodeExamples.Views
         [SetViewBag]
         public IActionResult Create(string agentEmail, string agentName, string activationCode)
         {
-            string accessToken = RequestItemsService.User.AccessToken;
-            string basePath = RequestItemsService.Session.BasePath + "/restapi";
-            string accountId = RequestItemsService.Session.AccountId;
-
-            var impersonatedUserId = _configuration["DocuSignJWT:ImpersonatedUserId"];
-            NewUsersSummary user;
-
-            bool tokenOk = CheckToken(3);
-            if (!tokenOk)
-            {
-                RequestItemsService.EgName = EgName;
-                return Redirect("/ds/mustAuthenticate");
-            }
-
             try
             {
-                user = SharedAccess.ShareAccess(accessToken, basePath, accountId, activationCode, agentEmail, agentName, impersonatedUserId);
-                HttpContext.SignOutAsync().GetAwaiter().GetResult();
+                NewUsersSummary user;
+
+                bool tokenOk = CheckToken(3);
+                if (!tokenOk)
+                {
+                    RequestItemsService.EgName = EgName;
+                    return Redirect("/ds/mustAuthenticate");
+                }
+
+                user = SharedAccess.ShareAccess(_accessToken, _basePath, _accountId, activationCode, agentEmail, agentName);
+                var agentUserId = user.NewUsers.FirstOrDefault()?.UserId;
+
+                ViewBag.h1 = CodeExampleText.ExampleName;
+                ViewBag.message = string.Format(CodeExampleText.ResultsPageText, user);
+                ViewBag.Locals.Json = JsonSerializer.Serialize(user);
+
+                ViewBag.AdditionalLinkText = CodeExampleText.AdditionalPages[0].Name;
+                ViewBag.ConfirmAdditionalLink = $"Eg043/AuthRequest/{agentUserId}";
+                ViewBag.OnlyConfirmAdditionalLink = true;
+
+                return View("example_done");
             }
             catch (ApiException apiException)
             {
-                if (apiException.Message.Contains(CodeExampleText.CustomErrorTexts[0].ErrorMessageCheck))
-                {
-                    ViewBag.fixingInstructions = CodeExampleText.CustomErrorTexts[0].ErrorMessage;
-                }
-
                 ViewBag.errorCode = apiException.ErrorCode;
                 ViewBag.errorMessage = apiException.Message;
                 ViewBag.SupportingTexts = LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return View("Error");
             }
-
-            ViewBag.h1 = CodeExampleText.ExampleName;
-            ViewBag.message = string.Format(CodeExampleText.ResultsPageText, user);
-            ViewBag.Locals.Json = JsonSerializer.Serialize(user);
-
-            ViewBag.AdditionalLinkText = CodeExampleText.AdditionalPages[0].Name;
-            ViewBag.ConfirmAdditionalLink = "Eg043/AuthRequest";
-            ViewBag.OnlyConfirmAdditionalLink = true;
-
-            return View("example_done");
         }
 
         [SetViewBag]
         [HttpGet]
-        [Route("AuthRequest")]
-        public ActionResult AuthRequest()
+        [Route("AuthRequest/{agentId}")]
+        public ActionResult AuthRequest(string agentId)
         {
             try
             {
+                var impersonatedUserId = _configuration["DocuSignJWT:ImpersonatedUserId"];
+
+                SharedAccess.CreateUserAuthorization(_accessToken, _basePath, _accountId, impersonatedUserId, agentId);
+                HttpContext.SignOutAsync().GetAwaiter().GetResult();
+
                 // Show results
                 ViewBag.h1 = CodeExampleText.ExampleName;
                 ViewBag.message = CodeExampleText.AdditionalPages[0].ResultsPageText;
@@ -116,10 +119,7 @@ namespace DocuSign.CodeExamples.Views
         {
             try
             {
-                string accessToken = RequestItemsService.User.AccessToken;
-                string basePath = RequestItemsService.Session.BasePath + "/restapi";
-                string accountId = RequestItemsService.Session.AccountId;
-                var envelopesListStatus = SharedAccess.GetEnvelopesListStatus(accessToken, basePath, accountId);
+                var envelopesListStatus = SharedAccess.GetEnvelopesListStatus(_accessToken, _basePath, _accountId);
 
                 // Show results
                 if (envelopesListStatus.Envelopes.Any())

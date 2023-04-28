@@ -34,14 +34,9 @@
             class="form-control"
             id="agentEmail" 
             name="agentEmail"
-            aria-describedby="emailHelp"
             placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[newAgentEmailInputNumber].InputPlaceholder" 
             required
             value="@ViewBag.Locals.DsConfig.SignerEmail" />
-
-        <small id="emailHelp" class="form-text text-muted">
-            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)
-        </small>
     </div>
     <div class="form-group">
         <label for="agentName">
@@ -61,12 +56,16 @@
         </label>
 
         <input type="text" 
-            class="form-control"
-            id="activationCode" 
-            name="activationCode"
-            aria-describedby="Save this code. You'll need it when activating the new agent."
-            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[activationCodeInputNumber].InputPlaceholder"
-            required />
+               class="form-control"
+               id="activationCode" 
+               name="activationCode"
+               aria-describedby="SaveAgentActivationCode"
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[activationCodeInputNumber].InputPlaceholder"
+               required />
+        
+        <small id="SaveActivationCode" class="form-text text-muted">
+                    @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.SaveAgentActivationCode)
+                </small>
     </div>
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
