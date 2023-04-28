@@ -3,7 +3,6 @@
 // </copyright>
 
 using System.Linq;
-using System.Text.Json;
 using DocuSign.CodeExamples.Common;
 using DocuSign.CodeExamples.Controllers;
 using DocuSign.CodeExamples.Models;
@@ -13,7 +12,9 @@ using ESignature.Examples;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using Org.BouncyCastle.Ocsp;
+using JsonSerializer=System.Text.Json.JsonSerializer;
 
 namespace DocuSign.CodeExamples.Views
 {
@@ -28,9 +29,9 @@ namespace DocuSign.CodeExamples.Views
             CodeExampleText = GetExampleText(EgName, ExamplesAPIType.ESignature);
             ViewBag.title = CodeExampleText.ExampleName;
             _configuration = configuration;
-            _accessToken = RequestItemsService.User.AccessToken;
-            _basePath = RequestItemsService.Session.BasePath + "/restapi";
-            _accountId = RequestItemsService.Session.AccountId;
+            _accessToken = RequestItemsService?.User?.AccessToken;
+            _basePath = RequestItemsService?.Session?.BasePath + "/restapi";
+            _accountId = RequestItemsService?.Session?.AccountId;
         }
 
         private readonly IConfiguration _configuration;
@@ -61,7 +62,7 @@ namespace DocuSign.CodeExamples.Views
 
                 ViewBag.h1 = CodeExampleText.ExampleName;
                 ViewBag.message = string.Format(CodeExampleText.ResultsPageText, user);
-                ViewBag.Locals.Json = JsonSerializer.Serialize(user);
+                ViewBag.Locals.Json = JsonConvert.SerializeObject(user, Formatting.Indented);
 
                 ViewBag.AdditionalLinkText = CodeExampleText.AdditionalPages[0].Name;
                 ViewBag.ConfirmAdditionalLink = $"Eg043/AuthRequest/{agentUserId}";
@@ -122,11 +123,11 @@ namespace DocuSign.CodeExamples.Views
                 var envelopesListStatus = SharedAccess.GetEnvelopesListStatus(_accessToken, _basePath, _accountId);
 
                 // Show results
-                if (envelopesListStatus.Envelopes.Any())
+                if (envelopesListStatus.Envelopes != null && envelopesListStatus.Envelopes.Any())
                 {
                     ViewBag.h1 = CodeExampleText.ExampleName;
                     ViewBag.message = CodeExampleText.AdditionalPages[1].ResultsPageText;
-                    ViewBag.Locals.Json = JsonSerializer.Serialize(envelopesListStatus);
+                    ViewBag.Locals.Json = JsonConvert.SerializeObject(envelopesListStatus, Formatting.Indented);
                 }
                 else
                 {
