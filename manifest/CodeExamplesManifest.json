@@ -150,7 +150,7 @@
                                 },
                                 {
                                   "InputName": "Signer Phone Number",
-                                  "InputPlaceholder": "415-555-1212"
+                                  "InputPlaceholder": "4155551212"
                                 }
                               ]
                             }
@@ -274,7 +274,7 @@
                                     },
                                     {
                                         "InputName": "Signer Phone Number",
-                                        "InputPlaceholder": "415-555-1212"
+                                        "InputPlaceholder": "4155551212"
                                     },
                                     {
                                         "InputName": "Signer Name",
@@ -286,7 +286,7 @@
                                     },
                                     {
                                         "InputName": "CC Phone Number",
-                                        "InputPlaceholder": "415-555-1212"
+                                        "InputPlaceholder": "4155551212"
                                     },
                                     {
                                         "InputName": "CC Name",
@@ -1540,7 +1540,7 @@
                                     },
                                     {
                                         "InputName": "Signer Phone Number",
-                                        "InputPlaceholder": "415-555-1212"
+                                        "InputPlaceholder": "4155551212"
                                     },
                                     {
                                         "InputName": "Signer Email",
