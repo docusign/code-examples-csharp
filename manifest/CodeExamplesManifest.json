@@ -1496,7 +1496,8 @@
                                 "Name":"list_status_unsuccessful",
                                 "ResultsPageText":"The principal user's account does not have any envelopes in it. Please log out of the launcher and log in as a principal user and create an envelope."
                             }
-                        ]
+                        ],
+                        "SkipForLanguages": "c#;java;php;python;ruby"
                     }
                 ]
             },
