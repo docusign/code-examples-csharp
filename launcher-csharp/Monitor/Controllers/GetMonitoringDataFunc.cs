@@ -13,13 +13,13 @@ namespace DocuSign.CodeExamples.Controllers
 
     [Area("Monitor")]
     [Route("monitorExample001")]
-    public class GetMonitoringData : EgController
+    public class GetMonitoringDataFunc : EgController
     {
-        private readonly GetMonitoringDataFunc getMonitoringDataFunc = new GetMonitoringDataFunc();
+        private readonly Monitor.Examples.GetMonitoringDataFunc getMonitoringDataFunc = new Monitor.Examples.GetMonitoringDataFunc();
 
         private readonly IRequestItemsService requestItemsService;
 
-        public GetMonitoringData(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public GetMonitoringDataFunc(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
             this.requestItemsService = requestItemsService;
