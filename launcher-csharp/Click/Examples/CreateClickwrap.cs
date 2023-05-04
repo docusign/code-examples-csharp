@@ -68,6 +68,6 @@ namespace DocuSign.Click.Examples
 
             return clickwrapRequest;
         }
-        //ds-snippet-start:Click1Step3
+        //ds-snippet-end:Click1Step3
     }
 }
