@@ -79,7 +79,7 @@ namespace DocuSign.CodeExamples.Controllers
                 ViewBag.DsConfig = Config;
                 InitializeInternal();
 
-                if (Config.QuickACG == "true" && !(this is Eg001EmbeddedSigningController))
+                if (Config.QuickACG == "true" && !(this is EmbeddedSigningCeremony))
                 {
                     return Redirect("eg001");
                 }
