@@ -1495,6 +1495,10 @@
                             {
                                 "Name":"list_status_unsuccessful",
                                 "ResultsPageText":"The principal user's account does not have any envelopes in it. Please log out of the launcher and log in as a principal user and create an envelope."
+                            },
+                            {
+                                "Name":"user_not_found",
+                                "ResultsPageText":"User has not been activated. Please go to the agent's email to activate the agent."
                             }
                         ],
                         "SkipForLanguages": "c#;java;php;python;ruby"
