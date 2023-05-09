@@ -58,8 +58,7 @@ namespace DocuSign.CodeExamples.Views
                     return this.Redirect("/ds/mustAuthenticate");
                 }
 
-                UserInformation userInformation =
-                    new SharedAccess().getUserInfo(this._accessToken, this._basePath, this._accountId, agentEmail);
+                UserInformation userInformation = SharedAccess.getUserInfo(this._accessToken, this._basePath, this._accountId, agentEmail);
 
                 if (userInformation == null)
                 {
