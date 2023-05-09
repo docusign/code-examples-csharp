@@ -16,7 +16,7 @@ namespace ESignature.Examples
     public static class SharedAccess
     {
 
-        public static OAuth.UserInfo getCurrentUserInfo(string basePath, string accessToken)
+        public static OAuth.UserInfo GetCurrentUserInfo(string basePath, string accessToken)
         {
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
@@ -24,7 +24,7 @@ namespace ESignature.Examples
             return docuSignClient.GetUserInfo(accessToken);
         }
 
-        public static UserInformation getUserInfo(
+        public static UserInformation GetUserInfo(
             string accessToken,
             string basePath,
             string accountId,

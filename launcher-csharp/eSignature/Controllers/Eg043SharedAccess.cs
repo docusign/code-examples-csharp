@@ -58,7 +58,7 @@ namespace DocuSign.CodeExamples.Views
                     return this.Redirect("/ds/mustAuthenticate");
                 }
 
-                UserInformation userInformation = SharedAccess.getUserInfo(this._accessToken, this._basePath, this._accountId, agentEmail);
+                UserInformation userInformation = SharedAccess.GetUserInfo(this._accessToken, this._basePath, this._accountId, agentEmail);
 
                 if (userInformation == null)
                 {
@@ -100,7 +100,7 @@ namespace DocuSign.CodeExamples.Views
         {
             try
             {
-                var userId = SharedAccess.getCurrentUserInfo(this._basePath, this._accessToken).Sub;
+                var userId = SharedAccess.GetCurrentUserInfo(this._basePath, this._accessToken).Sub;
 
                 SharedAccess.CreateUserAuthorization(this._accessToken, this._basePath, this._accountId, userId, agentId);
                 HttpContext.SignOutAsync().GetAwaiter().GetResult();
