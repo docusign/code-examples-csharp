@@ -10,8 +10,10 @@ using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
 using ESignature.Examples;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Ocsp;
 using JsonSerializer=System.Text.Json.JsonSerializer;
@@ -48,33 +50,45 @@ namespace DocuSign.CodeExamples.Views
         {
             try
             {
-                NewUsersSummary user;
-
-                bool tokenOk = CheckToken(3);
+                string agentUserId;
+                bool tokenOk = this.CheckToken(3);
                 if (!tokenOk)
                 {
-                    RequestItemsService.EgName = EgName;
-                    return Redirect("/ds/mustAuthenticate");
+                    this.RequestItemsService.EgName = this.EgName;
+                    return this.Redirect("/ds/mustAuthenticate");
                 }
 
-                user = SharedAccess.ShareAccess(_accessToken, _basePath, _accountId, activationCode, agentEmail, agentName);
-                var agentUserId = user.NewUsers.FirstOrDefault()?.UserId;
+                UserInformation userInformation =
+                    new SharedAccess().getUserInfo(this._accessToken, this._basePath, this._accountId, agentEmail);
 
-                ViewBag.h1 = CodeExampleText.ExampleName;
-                ViewBag.message = string.Format(CodeExampleText.ResultsPageText, user);
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(user, Formatting.Indented);
+                if (userInformation == null)
+                {
+                    NewUsersSummary user = SharedAccess.ShareAccess(this._accessToken, this._basePath, this._accountId, activationCode, agentEmail, agentName);
+                    agentUserId = user.NewUsers.FirstOrDefault()?.UserId;
 
-                ViewBag.AdditionalLinkText = CodeExampleText.AdditionalPages[0].Name;
-                ViewBag.ConfirmAdditionalLink = $"Eg043/AuthRequest/{agentUserId}";
-                ViewBag.OnlyConfirmAdditionalLink = true;
+                    this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, user);
+                    this.ViewBag.Locals.Json = JsonConvert.SerializeObject(user, Formatting.Indented);
+                }
+                else
+                {
+                    agentUserId = userInformation.UserId;
+
+                    this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, userInformation);
+                    this.ViewBag.Locals.Json = JsonConvert.SerializeObject(userInformation, Formatting.Indented);
+                }
+
+                this.ViewBag.h1 = "Agent user created";
+                this.ViewBag.AdditionalLinkText = this.CodeExampleText.AdditionalPages[0].Name;
+                this.ViewBag.ConfirmAdditionalLink = $"Eg043/AuthRequest/{agentUserId}";
+                this.ViewBag.OnlyConfirmAdditionalLink = true;
 
                 return View("example_done");
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
-                ViewBag.SupportingTexts = LauncherTexts.ManifestStructure.SupportingTexts;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return View("Error");
             }
@@ -87,29 +101,32 @@ namespace DocuSign.CodeExamples.Views
         {
             try
             {
-                var impersonatedUserId = _configuration["DocuSignJWT:ImpersonatedUserId"];
+                var userId = SharedAccess.getCurrentUserInfo(this._basePath, this._accessToken).Sub;
 
-                SharedAccess.CreateUserAuthorization(_accessToken, _basePath, _accountId, impersonatedUserId, agentId);
+                SharedAccess.CreateUserAuthorization(this._accessToken, this._basePath, this._accountId, userId, agentId);
                 HttpContext.SignOutAsync().GetAwaiter().GetResult();
 
+                this.RequestItemsService.PrincipalUserId = userId;
                 // Show results
-                ViewBag.h1 = CodeExampleText.ExampleName;
-                ViewBag.message = CodeExampleText.AdditionalPages[0].ResultsPageText;
+                this.ViewBag.h1 = "Authenticate as the agent";
+                this.ViewBag.message = this.CodeExampleText.AdditionalPages[0].ResultsPageText;
 
-                ViewBag.AdditionalLinkText = CodeExampleText.AdditionalPages[0].Name;
-                ViewBag.ConfirmAdditionalLink = "/ds/mustAuthenticate";
-                ViewBag.OnlyConfirmAdditionalLink = true;
-                RequestItemsService.EgName = "Eg043/EnvelopesListStatus";
+                this.ViewBag.AdditionalLinkText = this.CodeExampleText.AdditionalPages[0].Name;
+                this.ViewBag.ConfirmAdditionalLink = "/ds/mustAuthenticate";
+                this.ViewBag.OnlyConfirmAdditionalLink = true;
+                this.RequestItemsService.EgName = "Eg043/EnvelopesListStatus";
 
                 return View("example_done");
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
-                ViewBag.SupportingTexts = LauncherTexts.ManifestStructure.SupportingTexts;
+                this.ViewBag.h1 = "Authenticate as the agent";
+                this.ViewBag.message = this.CodeExampleText.AdditionalPages[3].ResultsPageText;
+                this.ViewBag.AdditionalLinkText = this.CodeExampleText.AdditionalPages[3].Name;
+                this.ViewBag.ConfirmAdditionalLink = $"/Eg043/AuthRequest/{agentId}";
+                this.ViewBag.OnlyConfirmAdditionalLink = true;
 
-                return View("Error");
+                return View("example_done");
             }
         }
 
@@ -120,28 +137,28 @@ namespace DocuSign.CodeExamples.Views
         {
             try
             {
-                var envelopesListStatus = SharedAccess.GetEnvelopesListStatus(_accessToken, _basePath, _accountId);
+                var envelopesListStatus = SharedAccess.GetEnvelopesListStatus(this._accessToken, this._basePath, this._accountId, this.RequestItemsService.PrincipalUserId);
 
                 // Show results
                 if (envelopesListStatus.Envelopes != null && envelopesListStatus.Envelopes.Any())
                 {
-                    ViewBag.h1 = CodeExampleText.ExampleName;
-                    ViewBag.message = CodeExampleText.AdditionalPages[1].ResultsPageText;
-                    ViewBag.Locals.Json = JsonConvert.SerializeObject(envelopesListStatus, Formatting.Indented);
+                    this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                    this.ViewBag.message = this.CodeExampleText.AdditionalPages[1].ResultsPageText;
+                    this.ViewBag.Locals.Json = JsonConvert.SerializeObject(envelopesListStatus, Formatting.Indented);
                 }
                 else
                 {
-                    ViewBag.h1 = CodeExampleText.ExampleName;
-                    ViewBag.message = CodeExampleText.AdditionalPages[2].ResultsPageText;
+                    this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                    this.ViewBag.message = this.CodeExampleText.AdditionalPages[2].ResultsPageText;
                 }
 
                 return View("example_done");
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
-                ViewBag.SupportingTexts = LauncherTexts.ManifestStructure.SupportingTexts;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return View("Error");
             }
