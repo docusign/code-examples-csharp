@@ -128,16 +128,17 @@ namespace ESignature.Examples
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             var accountApi = new AccountsApi(docuSignClient);
 
+            var managePermission = "manage";
             var options = new AccountsApi.GetAgentUserAuthorizationsOptions
             {
-                permissions = "manage",
+                permissions = managePermission,
             };
             UserAuthorizations userAuthorizations = accountApi.GetAgentUserAuthorizations(accountId, agentUserId, options);
 
             if (userAuthorizations.Authorizations == null || userAuthorizations.Authorizations.Count == 0)
             {
                 var authRequest = new UserAuthorizationCreateRequest(
-                    Permission: "manage",
+                    Permission: managePermission,
                     AgentUser: new AuthorizationUser(AccountId: accountId, UserId: agentUserId));
 
                 accountApi.CreateUserAuthorization(accountId, userId, authRequest);
