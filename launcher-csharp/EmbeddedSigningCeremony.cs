@@ -41,6 +41,7 @@ namespace ESignature.Examples
         {
             //ds-snippet-start:eSign1Step3
             EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, signerClientId, docPdf);
+
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 

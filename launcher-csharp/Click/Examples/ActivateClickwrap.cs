@@ -21,15 +21,22 @@ namespace DocuSign.Click.Examples
         /// <returns>The summary response of the activated clickwrap</returns>
         public static ClickwrapVersionSummaryResponse Update(string clickwrapId, string clickwrapVersion, string basePath, string accessToken, string accountId)
         {
+            //ds-snippet-start:Click2Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             var clickAccountApi = new AccountsApi(docuSignClient);
+            //ds-snippet-end:Click2Step2
 
+            //ds-snippet-start:Click2Step3
             var clickwrapRequest = BuildUpdateClickwrapVersionRequest();
+            //ds-snippet-end:Click2Step3
 
+            //ds-snippet-start:Click2Step4
             return clickAccountApi.UpdateClickwrapVersion(accountId, clickwrapId, clickwrapVersion, clickwrapRequest);
+            //ds-snippet-end:Click2Step4
         }
 
+        //ds-snippet-start:Click2Step3
         public static ClickwrapRequest BuildUpdateClickwrapVersionRequest()
         {
             var clickwrapRequest = new ClickwrapRequest
@@ -39,6 +46,7 @@ namespace DocuSign.Click.Examples
 
             return clickwrapRequest;
         }
+        //ds-snippet-end:Click2Step3
 
         /// <summary>
         /// Gets a list of inactive clickwraps

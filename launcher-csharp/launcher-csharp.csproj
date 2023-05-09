@@ -7,7 +7,7 @@
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'CodeExamples' " />
 
-
+  
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\net6.0</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -16,15 +16,15 @@
     <Compile Remove="Common\AuthCodeGrant.cs" />
     <Compile Remove="Common\JWTAuth.cs" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <Content Remove="stylecop.json" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <Compile Include="..\DSHelper.cs" Link="DSHelper.cs" />
     <Compile Include="..\ExamplesAPIType.cs" Link="ExamplesAPIType.cs" />
