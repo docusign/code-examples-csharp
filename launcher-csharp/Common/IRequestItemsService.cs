@@ -20,8 +20,6 @@ namespace DocuSign.CodeExamples
 
         public Guid? OrganizationId { get; set; }
 
-        public string PrincipalUserId { get; set; }
-
         public string AuthenticatedUserEmail { get; set; }
 
         string EnvelopeId { get; set; }

@@ -174,12 +174,6 @@ namespace DocuSign.CodeExamples.Common
             set => this.cache.Set(this.GetKey("EmailAddress"), value);
         }
 
-        public string PrincipalUserId
-        {
-            get => this.cache.Get<string>(this.GetKey("PrincipalUserId"));
-            set => this.cache.Set(this.GetKey("PrincipalUserId"), value);
-        }
-
         protected static DocuSignClient DocuSignClient { get; private set; }
 
         public void UpdateUserFromJWT()

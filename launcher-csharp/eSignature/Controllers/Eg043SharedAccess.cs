@@ -105,7 +105,7 @@ namespace DocuSign.CodeExamples.Views
                 SharedAccess.CreateUserAuthorization(this._accessToken, this._basePath, this._accountId, userId, agentId);
                 HttpContext.SignOutAsync().GetAwaiter().GetResult();
 
-                this.RequestItemsService.PrincipalUserId = userId;
+                this.Config.PrincipalUserId = userId;
                 // Show results
                 this.ViewBag.h1 = "Authenticate as the agent";
                 this.ViewBag.message = this.CodeExampleText.AdditionalPages[0].ResultsPageText;
@@ -114,6 +114,7 @@ namespace DocuSign.CodeExamples.Views
                 this.ViewBag.ConfirmAdditionalLink = "/ds/mustAuthenticate";
                 this.ViewBag.OnlyConfirmAdditionalLink = true;
                 this.RequestItemsService.EgName = "Eg043/EnvelopesListStatus";
+                this.Config.IsLoggedInAfterEg043 = true;
 
                 return View("example_done");
             }
@@ -136,7 +137,7 @@ namespace DocuSign.CodeExamples.Views
         {
             try
             {
-                var envelopesListStatus = SharedAccess.GetEnvelopesListStatus(this._accessToken, this._basePath, this._accountId, this.RequestItemsService.PrincipalUserId);
+                var envelopesListStatus = SharedAccess.GetEnvelopesListStatus(this._accessToken, this._basePath, this._accountId, this.Config.PrincipalUserId);
 
                 // Show results
                 if (envelopesListStatus.Envelopes != null && envelopesListStatus.Envelopes.Any())
