@@ -1,0 +1,72 @@
+﻿@{
+    int formNumber = 0;
+    int newAgentEmailInputNumber = 0;
+    int newAgentNameInputNumber = 1;
+    int activationCodeInputNumber = 2;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+@if (ViewBag.showDoc == true)
+{
+    <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
+}
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<p>
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">Eg043SharedAccess.cs</a>"
+        )
+    )
+</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="agentEmail">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[newAgentEmailInputNumber].InputName)
+        </label>
+
+        <input type="email"
+            class="form-control"
+            id="agentEmail" 
+            name="agentEmail"
+            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[newAgentEmailInputNumber].InputPlaceholder" 
+            required
+            value="@ViewBag.Locals.DsConfig.SignerEmail" />
+    </div>
+    <div class="form-group">
+        <label for="agentName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[newAgentNameInputNumber].InputName)
+        </label>
+        <input type="text" 
+            class="form-control"
+            id="agentName" 
+            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[newAgentNameInputNumber].InputPlaceholder" 
+            name="agentName"
+            value="@ViewBag.Locals.DsConfig.SignerName"
+            required />
+    </div>
+    <div class="form-group">
+        <label for="activationCode">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[activationCodeInputNumber].InputName)
+        </label>
+
+        <input type="text" 
+               class="form-control"
+               id="activationCode" 
+               name="activationCode"
+               aria-describedby="SaveAgentActivationCode"
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[activationCodeInputNumber].InputPlaceholder"
+               required />
+        
+        <small id="SaveActivationCode" class="form-text text-muted">
+                    @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.SaveAgentActivationCode)
+                </small>
+    </div>
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
+</form>

@@ -18,9 +18,15 @@ namespace DocuSign.CodeExamples.Models
 
         public string QuickACG { get; set; }
 
+        public bool IsLoggedInAfterEg043 { get; set; }
+
         public string GatewayDisplayName { get; set; }
 
         public string CodeExamplesManifest { get; set; }
+
+        public string PrincipalUserId { get; set; }
+
+        public string RedirectForEg043 = "Eg043/EnvelopesListStatus";
 
         public bool Production = false;
         public bool Debug = true; // Send debugging statements to console

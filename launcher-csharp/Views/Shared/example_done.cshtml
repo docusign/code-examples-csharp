@@ -12,4 +12,11 @@
 {
     <p><a href="@ViewBag.AdditionalLink">@ViewBag.AdditionalLinkText</a></p>
 }
-<p><a href="/?egName=home">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a></p>
+@if (ViewBag.ConfirmAdditionalLink != null)
+{
+    <p><a href="@ViewBag.ConfirmAdditionalLink">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a></p>
+}
+@if (ViewBag.OnlyConfirmAdditionalLink == null)
+{
+    <p><a href="/?egName=home">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a></p>
+}
