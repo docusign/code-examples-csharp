@@ -55,6 +55,13 @@ namespace DocuSign.CodeExamples.Controllers
             this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.APIs;
             this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
+            if (this.DsConfiguration.IsLoggedInAfterEg043)
+            {
+                this.DsConfiguration.IsLoggedInAfterEg043 = false;
+
+                return this.Redirect(this.DsConfiguration.RedirectForEg043);
+            }
+
             if (this.Configuration["quickstart"] == "true")
             {
                 if (this.User.Identity.IsAuthenticated)

@@ -43,5 +43,8 @@ namespace DocuSign.CodeExamples.ESignature.Models
 
         [JsonProperty("AGREED")]
         public string AGREED { get; set; }
+        
+        [JsonProperty("SaveAgentActivationCode")]
+        public string SaveAgentActivationCode { get; set; }
     }
 }

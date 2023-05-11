@@ -208,7 +208,7 @@
   "packages": [
     {
       "name": "twig/twig",
-      "version": "3.4.3"
+      "version": "3.5.0"
     },
     {
       "name": "league/oauth2-client",
@@ -224,7 +224,7 @@
     },
     {
       "name": "firebase/php-jwt",
-      "version": "6.3.1"
+      "version": "6.3.2"
     },
     {
       "name": "mashape/unirest-php",
@@ -238,7 +238,7 @@
       "packages": [
         {
           "name": "docusign/esign-client",
-          "version": "6.11.0"
+          "version": "6.12.0"
         }
       ],
       "scopes": [

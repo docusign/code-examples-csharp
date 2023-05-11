@@ -49,19 +49,19 @@ namespace DocuSign.Click.Examples
         //ds-snippet-end:Click2Step3
 
         /// <summary>
-        /// Gets a list of inactive clickwraps
+        /// Gets a list of clickwraps by status
         /// </summary>
         /// <param name="basePath"></param>
         /// <param name="accessToken"></param>
         /// <param name="accountId"></param>
         /// <returns></returns>
-        public static ClickwrapVersionsResponse GetInactiveClickwraps(string basePath, string accessToken, string accountId)
+        public static ClickwrapVersionsResponse GetClickwrapsByStatus(string basePath, string accessToken, string accountId, string status)
         {
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             var clickAccountApi = new AccountsApi(docuSignClient);
             var options = new AccountsApi.GetClickwrapsOptions();
-            options.status = "inactive";
+            options.status = status;
 
             return clickAccountApi.GetClickwraps(accountId, options);
         }

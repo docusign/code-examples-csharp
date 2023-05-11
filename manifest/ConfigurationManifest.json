@@ -184,7 +184,7 @@
   "packages": [
     {
       "name": "System.Configuration.ConfigurationManager",
-      "version": "6.0.1"
+      "version": "7.0.0"
     },
     {
       "name": "Microsoft.AspNet.Identity.Owin",
@@ -192,7 +192,7 @@
     },
     {
       "name": "System.Runtime.Caching",
-      "version": "6.0.0"
+      "version": "7.0.0"
     },
     {
       "name": "Microsoft.Owin.Host.SystemWeb",
@@ -206,7 +206,7 @@
       "packages": [
         {
           "name": "DocuSign.eSign.dll",
-          "version": "6.0.0"
+          "version": "6.1.0"
         }
       ],
       "scopes": [
