@@ -34,7 +34,8 @@
       "DynamicContentNote": "Note: The elastic template must be manually modified through the elastic templates UI to include these dynamic content fields.",
       "EmbedClickwrapURL": "Agreement URL returned in the JSON response:",
       "NOTAGREED": "NOT AGREED",
-      "AGREED": "AGREED"
+      "AGREED": "AGREED",
+      "SaveAgentActivationCode": "Save this code. You'll need it when activating the new agent."
     }
    },
    "APIs":[
@@ -1442,6 +1443,65 @@
                             }
                         ],
                         "ResultsPageText": "The permission profile is deleted!"
+                    },
+                    {
+                        "ExampleNumber": 43,
+                        "CFREnabled": "AllAccounts",
+                        "ExampleName": "Share access to a DocuSign envelope inbox",
+                        "ExampleDescription": "Share envelope inbox access with an agent user and view the principal user's envelopes using the Shared Access view in the DocuSign UI",
+                        "LinksToAPIMethod":
+                        [
+                            {
+                                "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/users/users/create/",
+                                "PathName": "Users:create"
+                            },
+                            {
+                                "Path": "",
+                                "PathName": "Users:authorization"
+                            },
+                            {
+                                "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatus/",
+                                "PathName": "Envelopes:listStatus"
+                            }
+                        ],
+                        "Forms": [
+                            {
+                                "Inputs": [
+                                    {
+                                      "InputName": "New Agent Email",
+                                      "InputPlaceholder": "pat@example.com"
+                                    },
+                                    {
+                                      "InputName": "New Agent Name",
+                                      "InputPlaceholder": "Pat Johnson"
+                                    },
+                                    {
+                                      "InputName": "Activation Code",
+                                      "InputPlaceholder": "123"
+                                    }
+                                ]
+                            }
+                        ],
+                        "ResultsPageText": "Agent has been created. Please go to the agent's email to activate the agent.",
+                        "AdditionalPage": [
+                            {
+                                "Name":"authenticate_as_agent",
+                                "ResultsPageText":"Please go to the principal's developer account at <a target='_blank' href=\"https://admindemo.docusign.com\">admindemo.docusign.com</a> and log out, then come back to this page and press continue. You will be redirected to the log in page where you should authenticate as the agent user that you just created."
+                            },
+                            {
+                                "Name":"list_status_successful",
+                                "ResultsPageText":"<p>Go to the <a href=\"https://appdemo.docusign.com/documents\">Manage</a> tab in the agent's DocuSign developer account, select shared access in the upper left, then select the principal's account to view the principal's envelopes. For details, see <a target='_blank' href=\"https://developers.docusign.com/docs/esign-rest-api/how-to/shared-access/#step-4-expected-response\">How to share access to a DocuSign inbox</a>.</p><p>Results from Envelopes:listStatus method:</p>"
+                            },
+                            {
+                                "Name":"list_status_unsuccessful",
+                                "ResultsPageText":"The principal user's account does not have any envelopes in it. Please log out of the launcher and log in as a principal user and create an envelope."
+                            },
+                            {
+                                "Name":"user_not_found",
+                                "ResultsPageText":"User has not been activated. Please go to the agent's email to activate the agent."
+                            }
+                        ],
+                        "SkipForLanguages": "c#;java;php;python;ruby"
                     }
                 ]
             },
