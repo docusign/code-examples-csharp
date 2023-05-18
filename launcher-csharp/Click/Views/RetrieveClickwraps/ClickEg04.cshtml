@@ -1,0 +1,21 @@
+﻿@model DocuSign.CodeExamples.Click.Controllers.RetrieveClickwraps
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<p>
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">RetrieveClickwraps.cs</a>"
+        )
+    )
+</p>
+
+<form class="eg" asp-action="Retrieve" method="post" data-busy="form">
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
+</form>

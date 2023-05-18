@@ -1,0 +1,65 @@
+﻿
+@model DocuSign.CodeExamples.Click.Controllers.CreateNewClickwrapVersion
+@using System.Text.RegularExpressions;
+@{
+    var redirectToFirstCodeExample = "href='eg01'";
+    int formNumber = 0;
+    int clickwrapInputNumber = 0;
+    int clickwrapNameInputNumber = 1;
+}
+
+<h4 id="example03">Create a new clickwrap version</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<p>
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">CreateNewClickwrapVersion.cs</a>"
+        )
+    )
+</p>
+@if (ViewBag.ClickwrapsData.Clickwraps.Count > 0) {
+    <form class="eg" asp-action="Create" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="clickwrapId">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[clickwrapInputNumber].InputName)
+            </label>
+
+            <select class="custom-select" id="clickwrapId"
+                    name="clickwrapId">
+
+            @foreach (var clickwrap in ViewBag.ClickwrapsData.Clickwraps) {
+                <option value=@Html.Raw(clickwrap.ClickwrapId)>@Html.Raw(clickwrap.ClickwrapName)</option>
+            }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="clickwrapName">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[clickwrapNameInputNumber].InputName)
+            </label>
+            <input type="text" class="form-control" id="clickwrapName" name="clickwrapName" required/>
+        </div>
+
+        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
+    </form>
+}
+else
+{ 
+    <p>
+        @Html.Raw(
+            String.Format(
+                ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                    .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToFirstCodeExample, @"\d+").Value))
+                    .FirstOrDefault()
+                    .RedirectText,
+                redirectToFirstCodeExample
+            )
+        )
+    </p>
+} 

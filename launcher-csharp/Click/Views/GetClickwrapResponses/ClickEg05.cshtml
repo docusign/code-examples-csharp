@@ -1,0 +1,61 @@
+﻿@model DocuSign.CodeExamples.Click.Controllers.GetClickwrapResponses
+@using System.Text.RegularExpressions;
+@{
+    var redirectToFirstCodeExample = "href='eg01'";
+    int formNumber = 0;
+    int clickwrapInputNumber = 0;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<p>
+@Html.Raw(
+    @String.Format(
+        ViewBag.SupportingTexts.ViewSourceFile, 
+        "<a target='_blank' href=" + @ViewBag.source + ">GetClickwrapResponses.cs</a>"
+    )
+)
+</p>
+
+@if (ViewBag.ClickwrapsData.Clickwraps.Count > 0) {
+    <p>
+        @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)
+    </p>
+
+    <form class="eg" asp-action="Create" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="clickwrapId">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[clickwrapInputNumber].InputName)
+            </label>
+
+            <select class="custom-select" id="clickwrapId"
+                    name="clickwrapId">
+
+            @foreach (var clickwrap in ViewBag.ClickwrapsData.Clickwraps) {
+                <option value=@Html.Raw(clickwrap.ClickwrapId)>@Html.Raw(clickwrap.ClickwrapName)</option>
+            }
+            </select>
+        </div>
+
+        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
+    </form>
+}
+else
+{ 
+    <p>
+        @Html.Raw(
+            String.Format(
+                ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                    .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToFirstCodeExample, @"\d+").Value))
+                    .FirstOrDefault()
+                    .RedirectText,
+                redirectToFirstCodeExample
+            )
+        )
+    </p>
+} 
