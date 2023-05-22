@@ -1,0 +1,40 @@
+﻿@using System.Text.RegularExpressions;
+@{
+    int formNumber = 0;
+    int userIdInputNumber = 0;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+
+<p>
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">DeleteUserDataFromAccount.cs</a>"
+            )
+        )
+</p>
+
+<form class="eg" asp-action="DeleteUserDataFromAccountByUserId" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="userId">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[userIdInputNumber].InputName)
+        </label>
+
+        <input type="userId" class="form-control" id="userId" name="userId" 
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[userIdInputNumber].InputPlaceholder"
+               pattern="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}" required>
+
+        <small id="userHelp" class="form-text text-muted">
+            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.UserIDOfUserToDelete)
+        </small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+</form>
