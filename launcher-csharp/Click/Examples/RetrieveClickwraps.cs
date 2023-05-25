@@ -19,7 +19,7 @@ namespace DocuSign.Click.Examples
         /// <returns>The list of all clickwraps</returns>
         public static ClickwrapVersionsResponse GetClickwraps(string basePath, string accessToken, string accountId)
         {
-            //ds-snippet-start:Click5Step2
+            //ds-snippet-start:Click4Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             //ds-snippet-end:Click4Step2
