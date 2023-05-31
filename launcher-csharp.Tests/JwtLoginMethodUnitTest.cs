@@ -29,6 +29,8 @@ namespace launcher_csharp.Tests
             // Arrange
             _testConfig.ApiClient = new DocuSignClient(_testConfig.Host);
 
+            Console.WriteLine(_testConfig.ClientId);
+
             try
             {
                 // Act
