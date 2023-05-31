@@ -70,6 +70,9 @@ namespace launcher_csharp.Tests
                 {
                     _testConfig?.OpenUrlUsingConsoleWindow(BuildConsentUrl(apiType, _testConfig));
 
+                    Console.WriteLine("Consent url:");
+                    Console.WriteLine(BuildConsentUrl(apiType, _testConfig));
+
                     throw new Xunit.Sdk.XunitException(RERUN_UNIT_TESTS);
                 }
             }
