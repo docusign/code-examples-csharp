@@ -29,8 +29,6 @@ namespace launcher_csharp.Tests
             // Arrange
             _testConfig.ApiClient = new DocuSignClient(_testConfig.Host);
 
-            Console.WriteLine(_testConfig.ClientId);
-
             try
             {
                 // Act
@@ -71,9 +69,6 @@ namespace launcher_csharp.Tests
                 if (e.Message.ToLowerInvariant().Contains(CONSENT_REQUIRED))
                 {
                     _testConfig?.OpenUrlUsingConsoleWindow(BuildConsentUrl(apiType, _testConfig));
-
-                    Console.WriteLine("Consent url:");
-                    Console.WriteLine(BuildConsentUrl(apiType, _testConfig));
 
                     throw new Xunit.Sdk.XunitException(RERUN_UNIT_TESTS);
                 }
