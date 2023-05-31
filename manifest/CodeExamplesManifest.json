@@ -1501,7 +1501,7 @@
                                 "ResultsPageText":"User has not been activated. Please go to the agent's email to activate the agent."
                             }
                         ],
-                        "SkipForLanguages": "c#;java;python;ruby"
+                        "SkipForLanguages": "java;php"
                     }
                 ]
             },
