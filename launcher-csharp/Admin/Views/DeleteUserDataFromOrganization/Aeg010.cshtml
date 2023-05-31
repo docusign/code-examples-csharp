@@ -1,4 +1,5 @@
-﻿@{
+﻿@using System.Text.RegularExpressions;
+@{
     int formNumber = 0;
     int emailInputNumber = 0;
 }
@@ -8,27 +9,32 @@
     @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
 
+
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 
 <p>
     @Html.Raw(
         @String.Format(
             ViewBag.SupportingTexts.ViewSourceFile, 
-            "<a target='_blank' href=" + @ViewBag.source + ">RetrieveDocuSignProfileByEmailAddress.cs</a>"
+            "<a target='_blank' href=" + @ViewBag.source + ">DeleteUserDataFromOrganization.cs</a>"
+            )
         )
-    )
 </p>
 
-<form class="eg" asp-action="RetriveProfileByEmail" method="post" data-busy="form">
+<form class="eg" asp-action="DeleteUserDataFromOrganizationByEmail" method="post" data-busy="form">
     <div class="form-group">
         <label for="email">
             @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[emailInputNumber].InputName)
         </label>
 
         <input type="email" class="form-control" id="email" name="email" 
-            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[emailInputNumber].InputPlaceholder" required>
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[emailInputNumber].InputPlaceholder" required>
+
+        <small id="userHelp" class="form-text text-muted">
+            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailAddressOfUserToDelete)
+        </small>
     </div>
-    
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
 </form>
+

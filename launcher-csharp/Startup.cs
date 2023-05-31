@@ -71,6 +71,7 @@ namespace DocuSign.CodeExamples
                     "group_read",
                     "permission_read",
                     "identity_provider_read",
+                    "user_data_redact",
             });
         }
 
