@@ -1459,7 +1459,7 @@
                                     "ResultsPageText": "User has not been activated. Please go to the agent's email to activate the agent."
                                 }
                             ],
-                            "SkipForLanguages": "c#;java;php;python;ruby"
+                            "SkipForLanguages": "java"
                         }
                     ]
                 },
@@ -2478,54 +2478,56 @@
                             ],
                             "ResultsPageText": "Results from MultiProductUserManagement:removeUserProductPermission method:"
                         },
-                        {
-                            "ExampleNumber": 10,
-                            "ExampleName": "Delete user data from an account as an organization admin",
-                            "ExampleDescription": "Deletes user data from an account.This endpoint should be used by an organization admin.",
-                            "LinksToAPIMethod": [
-                                {
-                                    "Path": "https://developers.docusign.com/docs/admin-api/reference/usermanagement/datadeletion/redactindividualuserdata/",
-                                    "PathName": "DataDeletion:redactIndividualUserData"
-                                },
-                                {
-                                    "Path": "https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/getuserprofiles/",
-                                    "PathName": "eSignUserManagement:getUserProfiles"
-                                }
-                            ],
-                            "Forms": [
-                                {
-                                    "Inputs": [
-                                        {
-                                            "InputName": "Email address",
-                                            "InputPlaceholder": "example@example.com"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "ResultsPageText": "Results from DataDeletion:redactIndividualMembershipData method:"
-                        },
-                        {
-                            "ExampleNumber": 11,
-                            "ExampleName": "Delete user data from an account as an account admin",
-                            "ExampleDescription": "Deletes user data from an account.This endpoint should be used by an account admin.",
-                            "LinksToAPIMethod": [
-                                {
-                                    "Path": "https://developers.docusign.com/docs/admin-api/reference/usermanagement/datadeletion/redactindividualmembershipdata/",
-                                    "PathName": "DataDeletion:redactIndividualMembershipData"
-                                }
-                            ],
-                            "Forms": [
-                                {
-                                    "Inputs": [
-                                        {
-                                            "InputName": "User ID",
-                                            "InputPlaceholder": "00000000-0000-0000-0000-000000000000"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "ResultsPageText": "Results from DataDeletion:redactIndividualUserData method:"
-                        }
+                      {
+                        "ExampleNumber": 10,
+                        "ExampleName": "Delete user data from an account as an organization admin",
+                        "ExampleDescription": "Deletes user data from an account.This endpoint should be used by an organization admin.",
+                        "LinksToAPIMethod": [
+                          {
+                            "Path": "https://developers.docusign.com/docs/admin-api/reference/usermanagement/datadeletion/redactindividualuserdata/",
+                            "PathName": "DataDeletion:redactIndividualUserData"
+                          },
+                          {
+                            "Path": "https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/getuserprofiles/",
+                            "PathName": "eSignUserManagement:getUserProfiles"
+                          }
+                        ],
+                        "Forms": [
+                          {
+                            "Inputs": [
+                              {
+                                "InputName": "Email address",
+                                "InputPlaceholder": "example@example.com"
+                              }
+                            ]
+                          }
+                        ],
+                        "ResultsPageText": "Results from DataDeletion:redactIndividualMembershipData method:",
+                        "SkipForLanguages": "java"
+                      },
+                      {
+                        "ExampleNumber": 11,
+                        "ExampleName": "Delete user data from an account as an account admin",
+                        "ExampleDescription": "Deletes user data from an account.This endpoint should be used by an account admin.",
+                        "LinksToAPIMethod": [
+                          {
+                            "Path": "https://developers.docusign.com/docs/admin-api/reference/usermanagement/datadeletion/redactindividualmembershipdata/",
+                            "PathName": "DataDeletion:redactIndividualMembershipData"
+                          }
+                        ],
+                        "Forms": [
+                          {
+                            "Inputs": [
+                              {
+                                "InputName": "User ID",
+                                "InputPlaceholder": "00000000-0000-0000-0000-000000000000"
+                              }
+                            ]
+                          }
+                        ],
+                        "ResultsPageText": "Results from DataDeletion:redactIndividualUserData method:",
+                        "SkipForLanguages": "java"
+                      }
                     ]
                 }
             ]
