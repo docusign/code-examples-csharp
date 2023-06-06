@@ -22,10 +22,15 @@ namespace ESignature.Examples
         /// <returns>An object containing information about all the documents in the envelopes</returns>
         public static EnvelopeDocuments GetDocuments(string accessToken, string basePath, string accountId, string envelopeId)
         {
+            //ds-snippet-start:eSign6Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:eSign6Step2
+
+            //ds-snippet-start:eSign6Step3
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeDocumentsResult results = envelopesApi.ListDocuments(accountId, envelopeId);
+            //ds-snippet-end:eSign6Step3
 
             List<EnvelopeDocItem> envelopeDocItems = new List<EnvelopeDocItem>
             {
