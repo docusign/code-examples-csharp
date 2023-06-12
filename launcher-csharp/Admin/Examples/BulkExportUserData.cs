@@ -43,6 +43,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
 
             var exportResponse = bulkExportsApi.CreateUserListExport(organizationId, organizationExportRequest);
             //ds-snippet-end:Admin3Step3
+
             //ds-snippet-start:Admin3Step4                      
             int retryCount = 5;
 
@@ -82,7 +83,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
 
             try
             {
-                //ds-snippet-start:Admin3Step5             
+            //ds-snippet-start:Admin3Step5             
                 request = (HttpWebRequest)WebRequest.Create(csvUrl);
                 request.Headers = headers;
                 request.Timeout = 10000;
@@ -106,7 +107,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
                 fileStream.Close();
                 stream.Close();
                 response.Close();
-                //ds-snippet-end:Admin3Step5
+            //ds-snippet-end:Admin3Step5
             }
             catch (WebException)
             {
