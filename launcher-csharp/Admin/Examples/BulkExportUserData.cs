@@ -28,12 +28,13 @@ namespace DocuSign.CodeExamples.Admin.Examples
             Guid? organizationId,
             string filePath)
         {
-            //ds-snippet-start:Admin5Step2
+            // Step 2 start
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            //ds-snippet-end:Admin5Step2
 
-            //ds-snippet-start:Admin5Step3
+            // Step 2 end
+
+            // Step 3 start
             var bulkExportsApi = new BulkExportsApi(apiClient);
 
             var organizationExportRequest = new OrganizationExportRequest
@@ -42,8 +43,6 @@ namespace DocuSign.CodeExamples.Admin.Examples
             };
 
             var exportResponse = bulkExportsApi.CreateUserListExport(organizationId, organizationExportRequest);
-            //ds-snippet-end:Admin5Step3
-            //ds-snippet-start:Admin5Step4
             int retryCount = 5;
 
             while (retryCount >= 0)
@@ -60,7 +59,8 @@ namespace DocuSign.CodeExamples.Admin.Examples
                     exportResponse = bulkExportsApi.GetUserListExport(organizationId, exportResponse.Id);
                 }
             }
-            //ds-snippet-end:Admin5Step4
+
+            // Step 3 end
             return exportResponse;
         }
 
@@ -82,7 +82,6 @@ namespace DocuSign.CodeExamples.Admin.Examples
 
             try
             {
-                //ds-snippet-start:Admin5Step5                
                 request = (HttpWebRequest)WebRequest.Create(csvUrl);
                 request.Headers = headers;
                 request.Timeout = 10000;
@@ -106,7 +105,6 @@ namespace DocuSign.CodeExamples.Admin.Examples
                 fileStream.Close();
                 stream.Close();
                 response.Close();
-                //ds-snippet-end:Admin5Step5        
             }
             catch (WebException)
             {
