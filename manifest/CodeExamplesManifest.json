@@ -2173,31 +2173,6 @@
                                 }
                             ],
                             "ResultsPageText": "Results from DataSet:getStream method:"
-                        },
-                        {
-                            "ExampleNumber": 2,
-                            "ExampleName": "Query monitoring data with filters",
-                            "ExampleDescription": "<p>Demonstrates how to query an organization's data based on specified filters and aggregations.</p>",
-                            "LinksToAPIMethod": [
-                                {
-                                    "Path": "https://developers.docusign.com/docs/monitor-api/reference/monitor/dataset/postwebquery/",
-                                    "PathName": "DataSet:postWebQuery"
-                                }
-                            ],
-                            "Forms": [
-                                {
-                                    "FormName": "<p>Please select start and end dates</p>",
-                                    "Inputs": [
-                                        {
-                                            "InputName": "Start date"
-                                        },
-                                        {
-                                            "InputName": "End date"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "ResultsPageText": "Results from DataSet:postWebQuery method:"
                         }
                     ]
                 }
