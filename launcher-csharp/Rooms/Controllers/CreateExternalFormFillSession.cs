@@ -121,10 +121,12 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = this.CodeExampleText.ResultsPageText;
+                //ds-snippet-start:Rooms6Step5
                 this.ViewBag.Url = externalFormFillSession.Url;
                 this.ViewBag.JsonUrl = externalFormFillSession.ToJson();
 
                 return this.View("embed");
+                //ds-snippet-end:Rooms6Step5
             }
             catch (ApiException apiException)
             {
