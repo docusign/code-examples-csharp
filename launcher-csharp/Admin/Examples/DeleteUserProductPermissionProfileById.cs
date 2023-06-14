@@ -30,14 +30,13 @@ namespace DocuSign.Admin.Examples
             string emailAddress,
             Guid? productId)
         {
-            // Step 2 start
+            //ds-snippet-start:Admin9Step2
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:Admin9Step2
+
             var productPermissionProfilesApi = new ProductPermissionProfilesApi(apiClient);
-
-            // Step 2 end
-
-            // Step 4 start
+            //ds-snippet-start:Admin9Step4
             var userProductProfileDeleteRequest = new UserProductProfileDeleteRequest
             {
                 ProductIds = new List<Guid?>
@@ -46,13 +45,11 @@ namespace DocuSign.Admin.Examples
                 },
                 UserEmail = emailAddress,
             };
+            //ds-snippet-end:Admin9Step4
 
-            // Step 4 end
-
-            // Step 5 start
+            //ds-snippet-start:Admin9Step5
             return productPermissionProfilesApi.RemoveUserProductPermission(orgId, accountId, userProductProfileDeleteRequest);
-
-            // Step 5 end
+            //ds-snippet-end:Admin9Step5
         }
 
         /// <summary>
@@ -74,7 +71,7 @@ namespace DocuSign.Admin.Examples
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
-            // Step 3 start
+            //ds-snippet-start:Admin9Step3
             var productPermissionProfileApi = new ProductPermissionProfilesApi(apiClient);
 
             var getUserProductPermission = new ProductPermissionProfilesApi.GetUserProductPermissionProfilesByEmailOptions
@@ -83,8 +80,7 @@ namespace DocuSign.Admin.Examples
             };
 
             return productPermissionProfileApi.GetUserProductPermissionProfilesByEmail(orgId, accountId, getUserProductPermission);
-
-            // Step 3 end
+            //ds-snippet-end:Admin9Step3
         }
     }
 }
