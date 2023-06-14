@@ -20,12 +20,12 @@ namespace DocuSign.Admin.Examples
         /// <returns>List of users' data that can be used for auditing purposes</returns>
         public static IEnumerable<UserDrilldownResponse> GetRecentlyModifiedUsersData(string basePath, string accessToken, Guid? accountId, Guid? orgId)
         {
-            // Step 2 start
+            //ds-snippet-start:Admin5Step2
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:Admin5Step2
 
-            // Step 2 end
-            // Step 3 start
+            //ds-snippet-start:Admin5Step3
             UsersApi usersApi = new UsersApi(apiClient);
             int tenDaysAgo = -10;
             var getUsersOptions = new UsersApi.GetUsersOptions
@@ -35,17 +35,17 @@ namespace DocuSign.Admin.Examples
             };
 
             var recentlyModifiedUsers = usersApi.GetUsers(orgId, getUsersOptions);
+            //ds-snippet-end:Admin5Step3
 
-            // Step 3 end
-            // Step 5 start
+            //ds-snippet-start:Admin5Step5
             var usersData = new List<UserDrilldownResponse>();
             foreach (var user in recentlyModifiedUsers.Users)
             {
                 var getUserProfilesOptions = new UsersApi.GetUserProfilesOptions { email = user.Email };
                 usersData.AddRange(usersApi.GetUserProfiles(orgId, getUserProfilesOptions).Users);
             }
+            //ds-snippet-end:Admin5Step5
 
-            // Step 5 end
             return usersData;
         }
     }

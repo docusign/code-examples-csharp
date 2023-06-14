@@ -40,27 +40,25 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             var basePath = this.RequestItemsService.Session.AdminApiBasePath;
             var accountId = this.RequestItemsService.Session.AccountId;
 
-            // Step 2 Start
+            //ds-snippet-start:Admin2Step2
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:Admin2Step2
 
-            // Step 2 End
-
-            // Step 3 Start
+            //ds-snippet-start:Admin2Step3
             var productPermissionProfileApi = new ProductPermissionProfilesApi(apiClient);
             var productPermissionProfiles = productPermissionProfileApi.GetProductPermissionProfiles(organizationId, Guid.Parse(accountId));
             this.ViewBag.CLMPermissionProfiles = productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "CLM").PermissionProfiles;
             this.ViewBag.ESignPermissionProfiles = productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "ESign").PermissionProfiles;
             clmProductId = productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "CLM").ProductId;
             eSignProductId = productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "ESign").ProductId;
+            //ds-snippet-end:Admin2Step3
 
-            // Step 3 End
-
-            // Step 4 Start
+            //ds-snippet-start:Admin2Step4
             var dsGroupsApi = new DSGroupsApi(apiClient);
             this.ViewBag.DsGroups = dsGroupsApi.GetDSGroups(organizationId, Guid.Parse(accountId)).DsGroups;
-
-            // Step 4 End
+            //ds-snippet-end:Admin2Step4
+            
             if (this.ViewBag.DsGroups.Count == 0)
             {
                 throw new ApiException(0, this.CodeExampleText.CustomErrorTexts[0].ErrorMessage);

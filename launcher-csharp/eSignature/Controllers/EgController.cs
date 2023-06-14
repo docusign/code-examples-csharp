@@ -64,7 +64,7 @@ namespace DocuSign.CodeExamples.Controllers
                     this.ViewBag.pausedEnvelopeOk = this.RequestItemsService.PausedEnvelopeId != null;
                     this.InitializeInternal();
 
-                    if (this.Config.QuickACG == "true" && !(this is Eg001EmbeddedSigningController))
+                    if (this.Config.QuickACG == "true" && !(this is EmbeddedSigningCeremony))
                     {
                         return this.Redirect("eg001");
                     }
@@ -88,7 +88,7 @@ namespace DocuSign.CodeExamples.Controllers
         public dynamic CreateSourcePath()
         {
             var uri = this.Config.GithubExampleUrl;
-            if (this.ControllerContext.RouteData.Values["area"] != null)
+            if (this.EgName != "eg001") // eg001 is at the top level
             {
                 uri = $"{uri}/{this.ControllerContext.RouteData.Values["area"]}";
                 return $"{uri}/Examples/{this.GetType().Name}.cs";

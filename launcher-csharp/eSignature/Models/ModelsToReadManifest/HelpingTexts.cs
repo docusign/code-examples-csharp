@@ -43,5 +43,14 @@ namespace DocuSign.CodeExamples.ESignature.Models
 
         [JsonProperty("AGREED")]
         public string AGREED { get; set; }
+
+        [JsonProperty("SaveAgentActivationCode")]
+        public string SaveAgentActivationCode { get; set; }
+
+        [JsonProperty("EmailAddressOfUserToDelete")]
+        public string EmailAddressOfUserToDelete { get; set; }
+
+        [JsonProperty("UserIDOfUserToDelete")]
+        public string UserIDOfUserToDelete { get; set; }
     }
 }

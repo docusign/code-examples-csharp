@@ -36,7 +36,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
             if (ViewBag.ClickwrapsData.Clickwraps.Count == 0)
             {
-                ViewBag.InactiveClickwrapsData = DocuSign.Click.Examples.ActivateClickwrap.GetInactiveClickwraps(basePath, accessToken, accountId);
+                ViewBag.InactiveClickwrapsData = DocuSign.Click.Examples.ActivateClickwrap.GetClickwrapsByStatus(basePath, accessToken, accountId, "inactive");
             }
 
             ViewBag.AccountId = RequestItemsService.Session.AccountId;

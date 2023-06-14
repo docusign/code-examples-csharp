@@ -1,0 +1,73 @@
+﻿@using System.Text.RegularExpressions;
+@{
+    var redirectToSecondCodeExample = "href='Aeg02'";
+    int formNumber = 0;
+    int productInputNumber = 0;
+    int permissionInputNumber = 1;
+}
+
+<h4>8. @Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<p>
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">UpdateUserProductPermissionProfile.cs</a>"
+        )
+    )
+</p>
+
+@if (ViewBag.EmailAddress != null) {
+    <p>
+            @Html.Raw(String.Format(ViewBag.CodeExampleText.Forms[formNumber].FormName, @ViewBag.EmailAddress))
+    </p>
+
+
+    <form class="eg" asp-action="UpdateUsersProductPermissionProfile" asp-controller="UpdateUserProductPermissionProfile" asp-area="Admin" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="Products">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[productInputNumber].InputName)
+            </label>
+
+            @Html.DropDownList(
+                "ProductId", 
+                new SelectList(ViewBag.Products, "Key", "Value"), 
+                new { @class = "form-control", @id = "Products" }
+            )
+        </div>
+
+        <div class="form-group">
+            <label for="PermissionProfiles">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[permissionInputNumber].InputName)
+            </label>
+
+            @Html.DropDownList(
+                "PermissionProfileId", 
+                new SelectList(ViewBag.CLMPermissionProfiles, "PermissionProfileId", "PermissionProfileName"), 
+                new { @class = "form-control", @id = "PermissionProfilesFiltered" }
+            )
+        </div>
+
+        <input type="hidden" name="csrf_token" value="<%- csrfToken %>"/>
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+    </form>
+}
+else
+{ 
+    <p>
+        @Html.Raw(
+            String.Format(
+                ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                    .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToSecondCodeExample, @"\d+").Value))
+                    .FirstOrDefault()
+                    .RedirectText,
+                redirectToSecondCodeExample
+            )
+        )
+    </p>
+} 
+

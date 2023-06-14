@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("meg001")]
     public class GetMonitoringData : EgController
     {
-        private readonly GetMonitoringDataFunc getMonitoringDataFunc = new GetMonitoringDataFunc();
+        private readonly Monitor.Examples.GetMonitoringDataFunc getMonitoringDataFunc = new Monitor.Examples.GetMonitoringDataFunc();
 
         private readonly IRequestItemsService requestItemsService;
 

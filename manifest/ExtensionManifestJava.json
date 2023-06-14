@@ -423,6 +423,30 @@
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/monitor/services/WebQueryEndpointService.java",
       "method": "postWebQueryMethod",
       "apiType": "Monitor"
+    },
+    {
+      "number": "54",
+      "name": "Send an envelope to an In Person Signer",
+      "description": "Demonstrates how to host an In Person Signing session with embedded signing.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/eSignature/services/InPersonSigningService.java",
+      "method": "inPersonSigning",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "55",
+      "name": "Request a signature through your app (embedded signing) with a CFR Part 11 account",
+      "description": "Sends an envelope, then uses embedded signing with recipient authentication by phone for the first signer. With embedded signing, DocuSign signing is initiated from your website.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/eSignature/services/CfrEmbeddedSigningService.java",
+      "method": "embeddedSigning",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "56",
+      "name": "Embed a clickwrap",
+      "description": "Creates a unique URL for an active clickwrap and embeds the clickwrap on your page.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/click/services/EmbedClickwrapService.java",
+      "method": "createAgreementUrl",
+      "apiType": "Click"
     }
   ],
   "postAddOpenURI": "https://developers.docusign.com/platform/auth/authcode/"

@@ -1,0 +1,63 @@
+﻿@model DocuSign.CodeExamples.Click.Controllers.ActivateClickwrap
+@using System.Text.RegularExpressions;
+@{
+    var redirectToFirstCodeExample = "href='clickeg01'";
+    int formNumber = 0;
+    int clickwrapInputNumber = 0;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<p>
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">ActivateClickwrap.cs</a>"
+        )
+    )
+</p>
+
+@if (ViewBag.ClickwrapsData.Clickwraps.Count > 0) {
+    <p>
+        @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)
+    </p>
+
+    <form class="eg" asp-action="Activate" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="clickwrapData">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[clickwrapInputNumber].InputName)
+            </label>
+
+            <select class="custom-select" id="clickwrapData"
+                    name="clickwrapData">
+
+            @foreach (var clickwrap in ViewBag.ClickwrapsData.Clickwraps) {
+                <option value=@Html.Raw(clickwrap.ClickwrapId):@Html.Raw(clickwrap.VersionNumber)>
+                    @Html.Raw(clickwrap.ClickwrapName)
+                </option>
+            }
+            </select>
+        </div>
+
+        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
+    </form>
+}
+else
+{ 
+    <p>
+        @Html.Raw(
+            String.Format(
+                ((IEnumerable<dynamic>) ViewBag.CodeExampleText.RedirectsToOtherCodeExamples)
+                    .Where(x => x.CodeExampleToRedirectTo == int.Parse(Regex.Match(redirectToFirstCodeExample, @"\d+").Value))
+                    .FirstOrDefault()
+                    .RedirectText,
+                redirectToFirstCodeExample
+            )
+        )
+    </p>
+} 

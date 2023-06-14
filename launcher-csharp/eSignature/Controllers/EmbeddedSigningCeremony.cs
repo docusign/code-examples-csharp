@@ -8,18 +8,18 @@ namespace DocuSign.CodeExamples.Views
     using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
-    using global::ESignature.Examples;
-    using Microsoft.AspNetCore.Mvc;
     using System.Runtime.InteropServices;
+    using Microsoft.AspNetCore.Mvc;
 
+    [Area("eSignature")]
     [Route("eg001")]
-    public class Eg001EmbeddedSigningController : EgController
+    public class EmbeddedSigningCeremony : EgController
     {
         private readonly string dsPingUrl;
         private readonly string signerClientId = "1000";
         private readonly string dsReturnUrl;
 
-        public Eg001EmbeddedSigningController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public EmbeddedSigningCeremony(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
             this.dsPingUrl = config.AppUrl + "/";
@@ -44,7 +44,7 @@ namespace DocuSign.CodeExamples.Views
             string accessToken = this.RequestItemsService.User.AccessToken;
             string basePath = this.RequestItemsService.Session.BasePath + "/restapi";
             string accountId = this.RequestItemsService.Session.AccountId;
-            string docPDF = "";
+            string docPDF;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 docPDF = Convert.ToBoolean(this.Config.QuickACG) ? @"../launcher-csharp/" + this.Config.DocPdf : this.Config.DocPdf;
@@ -68,7 +68,7 @@ namespace DocuSign.CodeExamples.Views
             }
 
             // Call the method from Examples API to send envelope and generate url for embedded signing
-            var result = EmbeddedSigningCeremony.SendEnvelopeForEmbeddedSigning(
+            var result = global::ESignature.Examples.EmbeddedSigningCeremony.SendEnvelopeForEmbeddedSigning(
                 signerEmail,
                 signerName,
                 this.signerClientId,

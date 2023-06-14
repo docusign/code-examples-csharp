@@ -55,6 +55,13 @@ namespace DocuSign.CodeExamples.Controllers
             this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.APIs;
             this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
+            if (this.DsConfiguration.IsLoggedInAfterEg043)
+            {
+                this.DsConfiguration.IsLoggedInAfterEg043 = false;
+
+                return this.Redirect(this.DsConfiguration.RedirectForEg043);
+            }
+
             if (this.Configuration["quickstart"] == "true")
             {
                 if (this.User.Identity.IsAuthenticated)
@@ -173,7 +180,7 @@ namespace DocuSign.CodeExamples.Controllers
         {
             try
             {
-                if (this.RequestItemsService.Session != null)
+                if (this.RequestItemsService.Session != null && this.RequestItemsService.User != null)
                 {
                     var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
                     var accessToken = this.RequestItemsService.User.AccessToken;
