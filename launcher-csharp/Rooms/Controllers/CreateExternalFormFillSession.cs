@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using System.Collections.Generic;
 
     [Area("Rooms")]
-    [Route("Reg006")]
+    [Route("reg006")]
     public class CreateExternalFormFillSession : EgController
     {
         public CreateExternalFormFillSession(DSConfiguration dsConfig, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
@@ -25,7 +25,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Reg006";
+        public override string EgName => "reg006";
 
         [BindProperty]
         public RoomDocumentModel RoomDocumentModel { get; set; }
@@ -55,7 +55,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 this.RoomDocumentModel = new RoomDocumentModel { Rooms = rooms.Rooms };
 
                 base.InitializeInternal();
-                return this.View("Reg006", this);
+                return this.View("reg006", this);
             }
             catch (ApiException apiException)
             {
@@ -86,7 +86,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 this.RoomDocumentModel.Documents = documents.Documents;
 
                 base.InitializeInternal();
-                return this.View("Reg006", this);
+                return this.View("reg006", this);
             }
             catch (ApiException apiException)
             {

@@ -93,6 +93,15 @@ namespace DocuSign.CodeExamples.Controllers
                 uri = $"{uri}/{this.ControllerContext.RouteData.Values["area"]}";
                 return $"{uri}/Examples/{this.GetType().Name}.cs";
             }
+            else if (this.EgName == "meg001")
+            {
+                return "https://github.com/docusign/code-examples-csharp/blob/master/launcher-csharp/Monitor/Examples/GetMonitoringData.cs";
+            }
+            else if (this.EgName != "eg001") // eg001 is at the top level
+            {
+                uri = $"{uri}/eSignature";
+                return $"{uri}/Examples/{this.GetType().Name}.cs";
+            }
             else
             {
                 return $"{uri}/{this.GetType().Name}.cs";

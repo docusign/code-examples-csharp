@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using Newtonsoft.Json;
 
     [Area("Rooms")]
-    [Route("Reg005")]
+    [Route("reg005")]
     public class GetRoomsWithFilters : EgController
     {
         public GetRoomsWithFilters(
@@ -28,7 +28,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Reg005";
+        public override string EgName => "reg005";
 
         [BindProperty]
         public RoomFilterModel RoomFilterModel { get; set; }

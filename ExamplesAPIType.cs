@@ -8,19 +8,19 @@ namespace DocuSign.CodeExamples.Common
 {
     public enum ExamplesAPIType
     {
-        [Description("Reg")]
+        [Description("reg")]
         Rooms = 0,
 
         [Description("eg")]
         ESignature = 1,
 
-        [Description("ClickEg")]
+        [Description("ceg")]
         Click = 2,
 
-        [Description("monitorExample")]
+        [Description("meg")]
         Monitor = 3,
 
-        [Description("Aeg")]
+        [Description("aeg")]
         Admin = 4,
     }
 

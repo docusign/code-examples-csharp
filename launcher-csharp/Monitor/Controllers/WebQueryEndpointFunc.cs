@@ -14,7 +14,7 @@ namespace DocuSign.CodeExamples.Controllers
     using Newtonsoft.Json;
 
     [Area("Monitor")]
-    [Route("monitorExample002")]
+    [Route("meg002")]
     public class WebQueryEndpointFunc : EgController
     {
         private readonly Monitor.Examples.WebQueryEndpointFunc webQueryEndpointFunc = new Monitor.Examples.WebQueryEndpointFunc();
@@ -29,7 +29,7 @@ namespace DocuSign.CodeExamples.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "monitorExample002";
+        public override string EgName => "meg002";
 
         [BindProperty]
         public MonitorFilterModel MonitorFilterModel { get; set; }
