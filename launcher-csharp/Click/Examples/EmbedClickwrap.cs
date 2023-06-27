@@ -26,10 +26,13 @@ namespace DocuSign.Click.Examples
         /// <returns>UserAgreemtnRsponse object containing the agreementUrl to be used</returns>
         public static UserAgreementResponse CreateHasAgreed(string clickwrapId, string fullName, string email, string company, string title, string date, string basePath, string accessToken, string accountId)
         {
+            //ds-snippet-start:Click6Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             var clickAccountApi = new AccountsApi(docuSignClient);
+            //ds-snippet-end:Click6Step2
 
+            //ds-snippet-start:Click6Step4
             var userAgreementRequest = BuildUpdateClickwrapHasAgreedRequest(fullName, email, company, title, date);
 
             var response = clickAccountApi.CreateHasAgreedWithHttpInfo(accountId, clickwrapId, userAgreementRequest);
@@ -44,10 +47,12 @@ namespace DocuSign.Click.Examples
                 errorAlreadyAgreed.AgreementUrl = "Already Agreed";
                 return errorAlreadyAgreed;
             }
+            //ds-snippet-end:Click6Step4
         }
 
         private static UserAgreementRequest BuildUpdateClickwrapHasAgreedRequest(string fullName, string email, string company, string title, string date)
         {
+            //ds-snippet-start:Click6Step3
             var userAgreementRequest = new UserAgreementRequest { DocumentData = new Dictionary<string, string>() };
             userAgreementRequest.DocumentData.Add("fullName", fullName);
             userAgreementRequest.DocumentData.Add("email", email);
@@ -58,6 +63,7 @@ namespace DocuSign.Click.Examples
             userAgreementRequest.ClientUserId = email;
 
             return userAgreementRequest;
+            //ds-snippet-end:Click6Step3
         }
 
         /// <summary>
