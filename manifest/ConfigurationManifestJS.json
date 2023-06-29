@@ -1,4 +1,4 @@
-﻿{
+{
   "authenticationTypes": [
     {
       "name": "AuthCodeGrant",
@@ -176,7 +176,7 @@
   "packages": [
     {
       "name": "docusign-esign",
-      "version": "6.0.0"
+      "version": "6.3.0"
     },
     {
       "name": "fs",
@@ -198,7 +198,7 @@
       "packages": [
         {
           "name": "docusign-esign",
-          "version": "^6.0.0"
+          "version": "^6.3.0"
         }
       ],
       "scopes": [
@@ -232,7 +232,7 @@
       "packages": [
         {
           "name": "docusign-click",
-          "version": "^2.0.0"
+          "version": "^2.2.0"
         }
       ],
       "scopes": [
@@ -246,7 +246,7 @@
       "packages": [
         {
           "name": "docusign-monitor",
-          "version": "^2.0.0"
+          "version": "^2.1.0"
         }
       ]
     }
