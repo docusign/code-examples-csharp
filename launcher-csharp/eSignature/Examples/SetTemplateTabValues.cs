@@ -212,7 +212,7 @@ namespace ESignature.Examples
             // State can be stored/recovered using the framework's session or a
             // query parameter on the return URL (see the makeRecipientViewRequest method)
             return (envelopeId, results1.Url);
-            //ds-snippet-start:eSign17Step6
+            //ds-snippet-end:eSign17Step6
         }
     }
 }
