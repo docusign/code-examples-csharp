@@ -1866,7 +1866,7 @@
                             ],
                             "RedirectsToOtherCodeExamples": [
                                 {
-                                    "RedirectText": "<p>Problem: you don't have any templates. Please first create a form template using <a href='https://demo.rooms.docusign.com/admin/company/roomtemplates' target='_blank'>DocuSign Admin.</a> <br />Thank you.</p>"
+                                    "RedirectText": "<p>Problem: you don't have any templates. Please first create a form template using <a href='https://demo.rooms.docusign.com/admin/company/roomtemplates' target='_blank'>DocuSign Rooms.</a> <br />Thank you.</p>"
                                 }
                             ],
                             "Forms": [
