@@ -25,18 +25,25 @@ namespace ESignature.Examples
         public static EnvelopeSummary PauseWorkflow(string recipient1Email, string recipient1Name, string recipient2Email, string recipient2Name, string accessToken, string basePath, string accountId)
         {
             // Construct your API headers
+            //ds-snippet-start:eSign325Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:eSign325Step2
 
             // Construct request body
+            //ds-snippet-start:eSign32Step3
             var envelope = MakeEnvelope(recipient1Email, recipient1Name, recipient2Email, recipient2Name);
+            //ds-snippet-end:eSign32Step3
 
             // Call the eSignature REST API
+            //ds-snippet-start:eSign32Step4
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
+            //ds-snippet-end:eSign32Step4
 
             return envelopesApi.CreateEnvelope(accountId, envelope);
         }
 
+        //ds-snippet-start:eSign32Step3
         private static EnvelopeDefinition MakeEnvelope(string recipient1Email, string recipient1Name, string recipient2Email, string recipient2Name)
         {
             var document = new Document()
@@ -109,5 +116,6 @@ namespace ESignature.Examples
 
             return envelopeDefinition;
         }
+        //ds-snippet-end:eSign32Step3
     }
 }
