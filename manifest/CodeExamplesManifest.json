@@ -2008,7 +2008,7 @@
                             "RedirectsToOtherCodeExamples": [
                                 {
                                     "CodeExampleToRedirectTo": 4,
-                                    "RedirectText": "<p>Problem: Selected room does not has any forms. Add a form to a room using <a {0}>example 4.</a> <br /></p>"
+                                    "RedirectText": "<p>Problem: Selected room does not have any forms. Add a form to a room using <a {0}>example 4.</a> <br /></p>"
                                 },
                                 {
                                     "CodeExampleToRedirectTo": 1,
