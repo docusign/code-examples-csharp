@@ -37,9 +37,12 @@ namespace ESignature.Examples
             string pingUrl = null)
         {
             // Construct your API headers
+            //ds-snippet-start:eSign16Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:eSign16Step2
 
+            //ds-snippet-start:eSign16Step3
             // Create Tabs and CustomFields
             SignHere signHere = new SignHere
             {
@@ -168,13 +171,17 @@ namespace ESignature.Examples
                 CustomFields = cf,
                 Documents = new List<Document> { doc1 },
             };
+            //ds-snippet-end:eSign16Step3
 
             // Call the eSignature REST API
+            //ds-snippet-start:eSign16Step4
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelopeAttributes);
             string envelopeId = results.EnvelopeId;
+            //ds-snippet-end:eSign16Step4
 
             // Create the View Request
+            //ds-snippet-start:eSign16Step5
             RecipientViewRequest viewRequest = new RecipientViewRequest();
 
             // Set the URL where you want the recipient to go once they are done signing;
@@ -207,6 +214,7 @@ namespace ESignature.Examples
             viewRequest.PingUrl = pingUrl; // Optional setting
 
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, results.EnvelopeId, viewRequest);
+            //ds-snippet-end:eSign16Step5
 
             // ***********
             // Don't use an iframe with embedded signing requests!
