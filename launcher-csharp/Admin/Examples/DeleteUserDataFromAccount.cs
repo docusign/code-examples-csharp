@@ -26,19 +26,19 @@ namespace DocuSign.Admin.Examples
             Guid accountId,
             string userId)
         {
-            //ds-snippet-start:Admin11Step2
+            //ds-snippet-start:Admin10Step2
             var docusignClient = new DocuSignClient(basePath);
             docusignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             var accountsApi = new AccountsApi(docusignClient);
-            //ds-snippet-end:Admin11Step2
+            //ds-snippet-end:Admin10Step2
 
-            //ds-snippet-start:Admin11Step3
+            //ds-snippet-start:Admin10Step3
             var membershipDataRedaction = new IndividualMembershipDataRedactionRequest(Guid.Parse(userId));
-            //ds-snippet-end:Admin11Step3
+            //ds-snippet-end:Admin10Step3
 
-            //ds-snippet-start:Admin11Step4
+            //ds-snippet-start:Admin10Step4
             return accountsApi.RedactIndividualMembershipData(accountId, membershipDataRedaction);
-            //ds-snippet-end:Admin11Step4
+            //ds-snippet-end:Admin10Step4
         }
     }
 }
