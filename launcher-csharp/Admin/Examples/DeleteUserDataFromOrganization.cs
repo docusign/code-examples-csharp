@@ -26,10 +26,12 @@ namespace DocuSign.Admin.Examples
             Guid organizationId,
             string emailAddress)
         {
+            //ds-snippet-start:Admin11Step2
             var docusignClient = new DocuSignClient(basePath);
             docusignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             var usersApi = new UsersApi(docusignClient);
+            //ds-snippet-end:Admin11Step2
             var getProfilesOptions = new UsersApi.GetUserDSProfilesByEmailOptions
             {
                 email = emailAddress,
@@ -39,6 +41,7 @@ namespace DocuSign.Admin.Examples
             var user = profiles.Users?[0];
 
             var organizationsApi = new OrganizationsApi(docusignClient);
+            //ds-snippet-start:Admin11Step3
             var userRedactionRequest = new IndividualUserDataRedactionRequest
             {
                 UserId = user?.Id,
@@ -50,8 +53,11 @@ namespace DocuSign.Admin.Examples
                     },
                 },
             };
+            //ds-snippet-end:Admin11Step3
 
+            //ds-snippet-start:Admin11Step4
             return organizationsApi.RedactIndividualUserData(organizationId, userRedactionRequest);
+            //ds-snippet-end:Admin11Step4
         }
     }
 }

@@ -40,19 +40,20 @@ namespace ESignature.Examples
         /// <returns>Stream containing the document, mimeType for this document and the document name</returns>
         public static (Stream, string, string) DownloadDocument(string accessToken, string basePath, string accountId, string envelopeId, List<EnvelopeDocItem> documents, string documentId)
         {
+            //ds-snippet-start:eSign7Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:eSign7Step2
+            //ds-snippet-start:eSign7Step3
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
 
-            // Step 1 start
             // Step 1. EnvelopeDocuments::get.
             // Exceptions will be caught by the calling function
             Stream results = envelopesApi.GetDocument(accountId, envelopeId, documentId);
-            // Step 1 end
 
-            // Step 2 start
             // Step 2. Look up the document from the list of documents
             EnvelopeDocItem docItem = documents.FirstOrDefault(d => documentId.Equals(d.DocumentId));
+            //ds-snippet-end:eSign7Step3
 
             // Process results. Determine the file name and mimetype
             string docName = docItem.Name;
@@ -90,7 +91,6 @@ namespace ESignature.Examples
             }
 
             return (results, mimetype, docName);
-            // Step 2 end
         }
     }
 }

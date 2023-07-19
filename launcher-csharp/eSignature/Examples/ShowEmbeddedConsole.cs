@@ -28,6 +28,7 @@ namespace ESignature.Examples
             string returnUrl,
             string envelopeId)
         {
+            //ds-snippet-start:eSign12Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
@@ -40,6 +41,7 @@ namespace ESignature.Examples
             // Call the CreateSenderView API
             // Exceptions will be caught by the calling function
             ViewUrl results = envelopesApi.CreateConsoleView(accountId, viewRequest);
+            //ds-snippet-end:eSign12Step2
             string redirectUrl = results.Url;
             return redirectUrl;
         }

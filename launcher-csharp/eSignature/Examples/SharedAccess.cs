@@ -65,14 +65,13 @@ namespace ESignature.Examples
             string agentEmail,
             string agentName)
         {
-            // Step 1 start
+            //ds-snippet-start:eSign43Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             var usersApi = new UsersApi(docuSignClient);
+            //ds-snippet-end:eSign43Step2
 
-            // Step 1 end
-
-            // Step 2 start
+            //ds-snippet-start:eSign43Step3
             var newUser = new NewUsersDefinition
             {
                 NewUsers = new List<UserInformation>
@@ -82,8 +81,8 @@ namespace ESignature.Examples
             };
 
             var userSummary = usersApi.Create(accountId, newUser);
+            //ds-snippet-end:eSign43Step3
 
-            // Step 2 end
 
             return userSummary;
         }
@@ -94,16 +93,13 @@ namespace ESignature.Examples
             string accountId,
             string userId)
         {
-            // Step 1 start
+            //ds-snippet-start:eSign43Step5
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             docuSignClient.Configuration.DefaultHeader.Add("X-DocuSign-Act-On-Behalf", userId);
             
             var envelopesApi = new EnvelopesApi(docuSignClient);
 
-            // Step 1 end
-
-            // Step 2 start
             var date = DateTime.UtcNow.AddDays(-10).ToString("yyyy-MM-ddTHH:mmZ");
             var option = new EnvelopesApi.ListStatusChangesOptions()
             {
@@ -111,8 +107,8 @@ namespace ESignature.Examples
             };
 
             var envelopes = envelopesApi.ListStatusChanges(accountId, option);
+            //ds-snippet-end:eSign43Step5
 
-            // Step 2 end
             return envelopes;
         }
 
@@ -124,6 +120,7 @@ namespace ESignature.Examples
             string userId,
             string agentUserId)
         {
+            //ds-snippet-start:eSign43Step4
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             var accountApi = new AccountsApi(docuSignClient);
@@ -143,6 +140,7 @@ namespace ESignature.Examples
 
                 accountApi.CreateUserAuthorization(accountId, userId, authRequest);
             }
+            //ds-snippet-end:eSign43Step4
         }
     }
 }

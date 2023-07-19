@@ -52,14 +52,19 @@ namespace ESignature.Examples
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
 
             // Step 1. Make the envelope request body
+            //ds-snippet-start:eSign14Step3
             EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, envStatus, gatawayAccountId, gatewayName, gatewayDisplayName);
+            //ds-snippet-end:eSign14Step3
 
             // Step 2. call Envelopes::create API method
             // Exceptions will be caught by the calling function
+            //ds-snippet-start:eSign14Step4
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
+            //ds-snippet-end:eSign14Step4
             return results.EnvelopeId;
         }
 
+        //ds-snippet-start:eSign14Step3
         private static EnvelopeDefinition MakeEnvelope(
             string signerEmail,
             string signerName,
@@ -334,5 +339,6 @@ namespace ESignature.Examples
 
             return env;
         }
+        //ds-snippet-end:eSign14Step3
     }
 }
