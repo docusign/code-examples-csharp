@@ -48,8 +48,10 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             try
             {
                 // Prepare your request parameters
+                //ds-snippet-start:Rooms5Step3
                 var fieldDataChangedStartDate = roomFilterModel.FieldDataChangedStartDate.ToString(CultureInfo.InvariantCulture);
                 var fieldDataChangedEndDate = roomFilterModel.FieldDataChangedEndDate.ToString(CultureInfo.InvariantCulture);
+                //ds-snippet-end:Rooms5Step3
 
                 // Call the Rooms API to get rooms with filters
                 var rooms = DocuSign.Rooms.Examples.GetRoomsWithFilters.GetRooms(basePath,
