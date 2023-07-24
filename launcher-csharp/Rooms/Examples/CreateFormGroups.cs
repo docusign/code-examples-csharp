@@ -25,14 +25,20 @@ namespace DocuSign.Rooms.Examples
             string groupName)
         {
             // Construct your API headers
+            //ds-snippet-start:Rooms7Step2
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var formGroupsApi = new FormGroupsApi(apiClient);
+            //ds-snippet-end:Rooms7Step2
 
+            //ds-snippet-start:Rooms7Step3
             var formGroupForCreate = new FormGroupForCreate(groupName);
+            //ds-snippet-end:Rooms7Step3
 
             // Call the Rooms API to create form group
+            //ds-snippet-start:Rooms7Step4
             return formGroupsApi.CreateFormGroup(accountId, formGroupForCreate);
+            //ds-snippet-end:Rooms7Step4
         }
     }
 }
