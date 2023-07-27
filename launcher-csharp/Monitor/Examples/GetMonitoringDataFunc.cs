@@ -25,15 +25,14 @@ namespace DocuSign.CodeExamples.Monitor.Examples
                 ApiClient apiClient = new ApiClient(ApiClient.Demo_REST_BasePath);
 
                 // Construct API headers
-                // step 2 start
+                //ds-snippet-start:Monitor1Step2
                 apiClient.SetBasePath(ApiClient.Demo_REST_BasePath);
                 apiClient.Configuration.DefaultHeader.Add("Authorization", string.Format("Bearer {0}", accessToken));
                 apiClient.Configuration.DefaultHeader.Add("Content-Type", "application/json");
-
-                // step 2 end
+                //ds-snippet-end:Monitor1Step2
 
                 // Declare variables
-                // step 3 start
+                //ds-snippet-start:Monitor1Step3
                 bool complete = false;
                 string cursorValue = string.Empty;
                 int limit = 2; // Amount of records you want to read in one request
@@ -70,7 +69,7 @@ namespace DocuSign.CodeExamples.Monitor.Examples
                 }
                 while (!complete);
 
-                // step 3 end
+                //ds-snippet-end:Monitor1Step3
                 return functionResult;
             }
             catch (ApiException)
