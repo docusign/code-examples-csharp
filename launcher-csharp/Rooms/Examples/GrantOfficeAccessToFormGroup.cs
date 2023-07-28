@@ -66,7 +66,9 @@ namespace DocuSign.Rooms.Examples
             //ds-snippet-end:Rooms8Step2
 
             // Call the Rooms API to grant office access to a form group
+            //ds-snippet-start:Rooms8Step5
             formGroupsApi.GrantOfficeAccessToFormGroup(accountId, new Guid(formGroupId), officeId);
+            //ds-snippet-end:Rooms8Step5
         }
     }
 }
