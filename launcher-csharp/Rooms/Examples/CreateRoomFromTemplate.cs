@@ -25,12 +25,14 @@ namespace DocuSign.Rooms.Examples
             string accountId)
         {
             // Construct your API headers
+            //ds-snippet-start:Rooms2Step3
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var roomTemplatesApi = new RoomTemplatesApi(apiClient);
 
             // Call the Rooms API to create a room
             return roomTemplatesApi.GetRoomTemplates(accountId);
+            //ds-snippet-end:Rooms2Step3
         }
 
         /// <summary>
@@ -50,21 +52,28 @@ namespace DocuSign.Rooms.Examples
             int templateId)
         {
             // Construct your API headers
+            //ds-snippet-start:Rooms2Step2
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var roomsApi = new RoomsApi(apiClient);
             var rolesApi = new RolesApi(apiClient);
+            //ds-snippet-end:Rooms2Step2
 
             // Obtain Role
             var clientRole = rolesApi.GetRoles(accountId, new RolesApi.GetRolesOptions { filter = "Default Admin" }).Roles.First();
 
             // Construct the request body for your room
+            //ds-snippet-start:Rooms2Step4
             var newRoom = BuildRoom(model, clientRole, templateId);
+            //ds-snippet-end:Rooms2Step4
 
             // Call the Rooms API to create a room
+            //ds-snippet-start:Rooms2Step5
             return roomsApi.CreateRoom(accountId, newRoom);
+            //ds-snippet-end:Rooms2Step5
         }
 
+        //ds-snippet-start:Rooms2Step4
         private static RoomForCreate BuildRoom(
             RoomModel model,
             RoleSummary clientRole,
@@ -92,6 +101,7 @@ namespace DocuSign.Rooms.Examples
 
             return newRoom;
         }
+        //ds-snippet-end:Rooms2Step4
 
         public class RoomModel
         {
