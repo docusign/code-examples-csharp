@@ -30,10 +30,14 @@ namespace DocuSign.Rooms.Examples
             var formGroupsApi = new FormGroupsApi(apiClient);
 
             // Call the Rooms API to get offices
+            //ds-snippet-start:Rooms8Step3
             var offices = officesApi.GetOffices(accountId);
+            //ds-snippet-end:Rooms8Step3
 
             // Call the Rooms API to get form groups
+            //ds-snippet-start:Rooms8Step4
             var formGroups = formGroupsApi.GetFormGroups(accountId);
+            //ds-snippet-end:Rooms8Step4
 
             return (offices, formGroups);
         }
@@ -55,9 +59,11 @@ namespace DocuSign.Rooms.Examples
             int? officeId)
         {
             // Construct your API headers
+            //ds-snippet-start:Rooms8Step2
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var formGroupsApi = new FormGroupsApi(apiClient);
+            //ds-snippet-end:Rooms8Step2
 
             // Call the Rooms API to grant office access to a form group
             formGroupsApi.GrantOfficeAccessToFormGroup(accountId, new Guid(formGroupId), officeId);
