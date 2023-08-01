@@ -26,12 +26,15 @@ namespace DocuSign.Rooms.Examples
             string accountId)
         {
             // Construct your API headers
+            //ds-snippet-start:Rooms4Step2
             var apiClient = new ApiClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var roomsApi = new RoomsApi(apiClient);
             var formLibrariesApi = new FormLibrariesApi(apiClient);
+            //ds-snippet-end:Rooms4Step2
 
             // Get Forms Libraries
+            //ds-snippet-start:Rooms4Step3
             FormLibrarySummaryList formLibraries = formLibrariesApi.GetFormLibraries(accountId);
 
             // Get Forms
@@ -42,6 +45,7 @@ namespace DocuSign.Rooms.Examples
                     accountId,
                     formLibraries.FormsLibrarySummaries.First().FormsLibraryId);
             }
+            //ds-snippet-end:Rooms4Step3
 
             // Get Rooms
             RoomSummaryList rooms = roomsApi.GetRooms(accountId);
@@ -72,7 +76,9 @@ namespace DocuSign.Rooms.Examples
             var roomsApi = new RoomsApi(apiClient);
 
             // Call the Rooms API to get room field data
+            //ds-snippet-start:Rooms4Step4
             return roomsApi.AddFormToRoom(accountId, roomId, new FormForAdd(formId));
+            //ds-snippet-end:Rooms4Step4
         }
     }
 }

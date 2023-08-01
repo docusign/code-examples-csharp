@@ -1,4 +1,4 @@
-﻿{
+{
   "authenticationTypes": [
     {
       "name": "AuthCodeGrant",
@@ -208,11 +208,11 @@
   "packages": [
     {
       "name": "twig/twig",
-      "version": "3.5.0"
+      "version": "3.6.1"
     },
     {
       "name": "league/oauth2-client",
-      "version": "2.6.1"
+      "version": "2.7.0"
     },
     {
       "name": "ext-json",
@@ -220,11 +220,11 @@
     },
     {
       "name": "guzzlehttp/guzzle",
-      "version": "7.5.0"
+      "version": "7.7.0"
     },
     {
       "name": "firebase/php-jwt",
-      "version": "6.3.2"
+      "version": "6.8.0"
     },
     {
       "name": "mashape/unirest-php",
@@ -251,7 +251,7 @@
       "packages": [
         {
           "name": "docusign/rooms-client",
-          "version": "2.0.0"
+          "version": "2.1.0"
         }
       ],
       "scopes": [
