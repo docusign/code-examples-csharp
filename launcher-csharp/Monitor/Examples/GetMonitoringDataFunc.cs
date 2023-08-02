@@ -22,11 +22,11 @@ namespace DocuSign.CodeExamples.Monitor.Examples
         {
             try
             {
-                ApiClient apiClient = new ApiClient(ApiClient.Demo_REST_BasePath);
+                DocuSignClient apiClient = new DocuSignClient(DocuSignClient.Demo_REST_BasePath);
 
                 // Construct API headers
                 //ds-snippet-start:Monitor1Step2
-                apiClient.SetBasePath(ApiClient.Demo_REST_BasePath);
+                apiClient.SetBasePath(DocuSignClient.Demo_REST_BasePath);
                 apiClient.Configuration.DefaultHeader.Add("Authorization", string.Format("Bearer {0}", accessToken));
                 apiClient.Configuration.DefaultHeader.Add("Content-Type", "application/json");
                 //ds-snippet-end:Monitor1Step2
