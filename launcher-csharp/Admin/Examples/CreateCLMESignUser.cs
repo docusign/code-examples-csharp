@@ -31,7 +31,7 @@ namespace DocuSign.Admin.Examples
         /// <returns>The AddUserResponse object coming back from the API</returns>
         public static AddUserResponse Create(string userName, string firstName, string lastName, string email, string clmPermissionProfileId, string eSignPermissionProfileId, Guid? dsGroupId, Guid? clmProductId, Guid? eSignProductId, string basePath, string accessToken, Guid? accountId, Guid? orgId)
         {
-            var apiClient = new ApiClient(basePath);
+            var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             UsersApi usersApi = new UsersApi(apiClient);
             //ds-snippet-start:Admin2Step5

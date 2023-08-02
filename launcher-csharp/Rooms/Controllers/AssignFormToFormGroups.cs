@@ -89,9 +89,8 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = string.Format(
                     this.CodeExampleText.ResultsPageText,
-                    formGroupFormToAssign.FormId,
+                    formFormGroupModel.FormId.ToString(),
                     formFormGroupModel.FormGroupId.ToString());
-                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(formGroupFormToAssign, Formatting.Indented);
 
                 return this.View("example_done");
             }

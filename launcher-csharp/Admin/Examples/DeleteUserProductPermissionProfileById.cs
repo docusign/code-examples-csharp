@@ -31,7 +31,7 @@ namespace DocuSign.Admin.Examples
             Guid? productId)
         {
             //ds-snippet-start:Admin9Step2
-            var apiClient = new ApiClient(basePath);
+            var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             //ds-snippet-end:Admin9Step2
 
@@ -68,7 +68,7 @@ namespace DocuSign.Admin.Examples
             Guid accountId,
             string emailAddress)
         {
-            var apiClient = new ApiClient(basePath);
+            var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             //ds-snippet-start:Admin9Step3
