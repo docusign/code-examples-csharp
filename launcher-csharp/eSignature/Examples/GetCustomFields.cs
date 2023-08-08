@@ -21,12 +21,16 @@ namespace ESignature.Examples
         public static CustomFieldsEnvelope ListAllCustomFieldsForEnvelope(string accessToken, string basePath, string accountId, string envelopeId)
         {
             // Construct your API headers
+            //ds-snippet-start:eSign18Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:eSign18Step2
 
             // Call the eSignature REST API
+            //ds-snippet-start:eSign18Step3
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             return envelopesApi.ListCustomFields(accountId, envelopeId);
+            //ds-snippet-end:eSign18Step3
         }
     }
 }
