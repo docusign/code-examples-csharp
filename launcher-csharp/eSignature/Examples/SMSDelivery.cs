@@ -33,18 +33,17 @@ namespace ESignature.Examples
         {
             EnvelopeDefinition env = MakeEnvelope(signerName, signerCountryCode, signerPhoneNumber, ccName, ccCountryCode, ccPhoneNumber, docDocx, docPdf, envStatus);
 
-            // Step 3 start
+            //ds-snippet-start:eSign37Step3
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
 
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
-
-            // Step 3 end
+            //ds-snippet-end:eSign37Step3
             return results.EnvelopeId;
         }
 
-        // Step 2 start
+        //ds-snippet-start:eSign37Step2
         private static EnvelopeDefinition MakeEnvelope(string signerName, string signerCountryCode, string signerPhoneNumber, string ccName, string ccCountryCode, string ccPhoneNumber, string docDocx, string docPdf, string envStatus)
         {
             // Data for this method
@@ -210,7 +209,6 @@ namespace ESignature.Examples
                 "        </body>\n" +
                 "    </html>");
         }
-
-        // Step 2 end
+        //ds-snippet-end:eSign37Step2
     }
 }
