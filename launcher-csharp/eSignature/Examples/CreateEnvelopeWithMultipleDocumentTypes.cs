@@ -29,6 +29,7 @@ namespace ESignature.Examples
             string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string accessToken, string basePath, string accountId)
         {
             // Step 1. Make the envelope JSON request body
+            //ds-snippet-start:eSign10Step3
             dynamic envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName);
 
             // Step 2. Gather documents and their headeres
@@ -68,6 +69,8 @@ namespace ESignature.Examples
             byte[] boundary = Encoding.ASCII.GetBytes("multipartboundary_multipartboundary");
             byte[] hyphens = Encoding.ASCII.GetBytes("--");
 
+            //ds-snippet-end:eSign10Step3
+            //ds-snippet-start:eSign10Step2
             string uri = basePath
                     + "/v2.1/accounts/" + accountId + "/envelopes";
             HttpWebRequest request = WebRequest.CreateHttp(uri);
@@ -76,6 +79,8 @@ namespace ESignature.Examples
             request.Accept = "application/json";
             request.ContentType = "multipart/form-data; boundary=" + Encoding.ASCII.GetString(boundary);
             request.Headers.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:eSign10Step2
+            //ds-snippet-start:eSign10Step3
 
             using (var buffer = new BinaryWriter(request.GetRequestStream(), Encoding.ASCII))
             {
@@ -296,6 +301,7 @@ namespace ESignature.Examples
             };
 
             return envelopeDefinition;
+            //ds-snippet-end:eSign10Step3
         }
     }
 }
