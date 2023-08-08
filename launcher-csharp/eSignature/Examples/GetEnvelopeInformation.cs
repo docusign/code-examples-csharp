@@ -23,12 +23,10 @@ namespace ESignature.Examples
             //ds-snippet-start:eSign4Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            //ds-snippet-end:eSign4Step2
 
-            //ds-snippet-start:eSign4Step3
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             return envelopesApi.GetEnvelope(accountId, envelopeId);
-            //ds-snippet-end:eSign4Step3
+            //ds-snippet-end:eSign4Step2
         }
     }
 }
