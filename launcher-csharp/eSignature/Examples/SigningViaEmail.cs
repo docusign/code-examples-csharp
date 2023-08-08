@@ -29,7 +29,7 @@ namespace ESignature.Examples
         /// <returns>EnvelopeId for the new envelope</returns>
         public static string SendEnvelopeViaEmail(string signerEmail, string signerName, string ccEmail, string ccName, string accessToken, string basePath, string accountId, string docDocx, string docPdf, string envStatus)
         {
-            // Step 1 start
+            //ds-snippet-start:eSign2Step3
             EnvelopeDefinition env = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, docDocx, docPdf, envStatus);
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
@@ -37,8 +37,8 @@ namespace ESignature.Examples
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
             return results.EnvelopeId;
-            
-            // Step 1 end
+            //ds-snippet-end:eSign2Step3
+
         }
 
         public static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string envStatus)
@@ -63,12 +63,10 @@ namespace ESignature.Examples
             // After it is signed, a copy is sent to the cc person.
             // read files from a local directory
             // The reads could raise an exception if the file is not available!
-            // Step 2 start
             string doc2DocxBytes = Convert.ToBase64String(System.IO.File.ReadAllBytes(docDocx));
             string doc3PdfBytes = Convert.ToBase64String(System.IO.File.ReadAllBytes(docPdf));
-            // Step 2 end
 
-            // Step 3 start
+            //ds-snippet-start:eSign2Step2
             EnvelopeDefinition env = new EnvelopeDefinition();
             env.EmailSubject = "Please sign this document set";
 
@@ -164,7 +162,7 @@ namespace ESignature.Examples
             env.Status = envStatus;
 
             return env;
-            // Step 3 end
+            //ds-snippet-end:eSign2Step2
         }
 
         public static byte[] Document1(string signerEmail, string signerName, string ccEmail, string ccName)
