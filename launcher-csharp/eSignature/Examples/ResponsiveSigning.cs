@@ -25,6 +25,7 @@ namespace ESignature.Examples
             string returnUrl,
             string pingUrl = null)
         {
+            //ds-snippet-start:eSign38Step3
             EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, signerClientId);
 
             DocuSignClient docuSignClient = new DocuSignClient(basePath);
@@ -32,6 +33,7 @@ namespace ESignature.Examples
 
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary envelopeSummary = envelopesApi.CreateEnvelope(accountId, envelope);
+            //ds-snippet-end:eSign38Step3
             string envelopeId = envelopeSummary.EnvelopeId;
 
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, returnUrl, signerClientId, pingUrl);
@@ -65,6 +67,7 @@ namespace ESignature.Examples
             return viewRequest;
         }
 
+        //ds-snippet-start:eSign38Step2
         private static EnvelopeDefinition MakeEnvelope(
             string signerEmail,
             string signerName,
@@ -123,5 +126,6 @@ namespace ESignature.Examples
                 Status = "sent",
             };
         }
+        //ds-snippet-end:eSign38Step2
     }
 }
