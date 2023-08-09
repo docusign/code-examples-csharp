@@ -20,16 +20,13 @@ namespace ESignature.Examples
         /// <returns>An object containing information about all the recipients in the envelope</returns>
         public static Recipients GetRecipients(string accessToken, string basePath, string accountId, string envelopeId)
         {
-            // Step 2 start
+            //ds-snippet-start:eSign5Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            // Step 2 end
-
-            // Step 3 start
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             Recipients results = envelopesApi.ListRecipients(accountId, envelopeId);
+            //ds-snippet-end:eSign5Step2
             return results;
-            // Step 3 end
         }
     }
 }
