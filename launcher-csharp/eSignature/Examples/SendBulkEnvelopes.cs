@@ -30,21 +30,19 @@ namespace ESignature.Examples
         /// <returns>The status of sending</returns>
         public static BulkSendBatchStatus GetStatus(string signer1Name, string signer1Email, string carbonCopy1Name, string carbonCopy1Email, string signer2Name, string signer2Email, string carbonCopy2Name, string carbonCopy2Email, string accessToken, string basePath, string accountId, string docDocx, string envelopeIdStamping, string emailSubject)
         {
-            // Step 2 start
+            //ds-snippet-start:eSign31Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-
-            // Step 2 end
             var bulkEnvelopesApi = new BulkEnvelopesApi(docuSignClient);
+            //ds-snippet-end:eSign31Step2
 
-            // Step 3-1 start
+            //ds-snippet-start:eSign31Step3
             var sendingList = MakeBulkSendList(signer1Name, signer1Email, carbonCopy1Name, carbonCopy1Email, signer2Name, signer2Email, carbonCopy2Name, carbonCopy2Email);
 
             var createBulkListResult = bulkEnvelopesApi.CreateBulkSendList(accountId, sendingList);
+            //ds-snippet-end:eSign31Step3
 
-            // Step 3-1 end
-
-            // Step 4 start
+            //ds-snippet-start:eSign31Step4
             var envelopeDefinition = new EnvelopeDefinition
             {
                 Documents = new List<Document>
@@ -108,13 +106,12 @@ namespace ESignature.Examples
 
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             var envelopeResults = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
-
-            // Step 4 end
+            //ds-snippet-end:eSign31Step4
 
             // Attach your bulk list ID to the envelope
             // Add an envelope custom field set to the value of your listId (EnvelopeCustomFields::create)
             // This Custom Field is used for tracking your Bulk Send via the Envelopes::Get method
-            // Step 5 start
+            //ds-snippet-start:eSign31Step5
             var fields = new CustomFields
             {
                 ListCustomFields = new List<ListCustomField> { },
@@ -131,21 +128,18 @@ namespace ESignature.Examples
                     },
             };
             envelopesApi.CreateCustomFields(accountId, envelopeResults.EnvelopeId, fields);
+            //ds-snippet-end:eSign31Step5
 
-            // Step 5 end
-
-            // Step 6 start
+            //ds-snippet-start:eSign31Step6
             var bulkRequestResult = bulkEnvelopesApi.CreateBulkSendRequest(accountId, createBulkListResult.ListId, new BulkSendRequest { EnvelopeOrTemplateId = envelopeResults.EnvelopeId });
+            //ds-snippet-end:eSign31Step6
 
             // TODO: instead of waiting 10 seconds, consider using the Asynchrnous method
             System.Threading.Thread.Sleep(10000);
 
-            // Step 6 end
-
-            // Step 7 start
+            //ds-snippet-start:eSign31Step7
             return bulkEnvelopesApi.GetBulkSendBatchStatus(accountId, bulkRequestResult.BatchId);
-
-            // Step 7 end
+            //ds-snippet-end:eSign31Step7
         }
 
         // step 3-2 start
