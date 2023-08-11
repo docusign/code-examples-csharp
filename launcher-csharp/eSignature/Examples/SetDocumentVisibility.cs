@@ -53,22 +53,20 @@ namespace eSignature.Examples
                 docDocx,
                 docHtml);
 
-            // Step 2 start
+            //ds-snippet-start:eSign40Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
-            
-            // Step 2 end
+            //ds-snippet-end:eSign40Step2
 
-            // Step 4 start
+            //ds-snippet-start:eSign40Step4
             EnvelopeSummary envelopeSummary = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
-            
-            // Step 4 end
+            //ds-snippet-end:eSign40Step4
             return envelopeSummary.EnvelopeId;
         }
 
-        // Step 3 start
+        //ds-snippet-start:eSign40Step3
         private static EnvelopeDefinition PrepareEnvelope(
             string signer1Email,
             string signer1Name,
@@ -168,7 +166,6 @@ namespace eSignature.Examples
                 }
             };
         }
-
-        // Step 3 end
+        //ds-snippet-end:eSign40Step3
     }
 }
