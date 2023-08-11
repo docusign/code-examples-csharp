@@ -59,6 +59,7 @@ namespace DocuSign.CodeExamples.Controllers
             var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             // Step 2. Construct your request
+            //ds-snippet-start:eSign24Step3
             var accountRoleSettings = new global::ESignature.Examples.CreatePermissionProfile.AccountRoleSettingsExtension();
             accountRoleSettings.UseNewDocuSignExperienceInterface = "1";
             accountRoleSettings.EnableSequentialSigningInterface = true.ToString();
@@ -87,6 +88,7 @@ namespace DocuSign.CodeExamples.Controllers
             accountRoleSettings.AllowVaulting = permissionProfileModel.AccountRoleSettingsModel.AllowVaulting.ToString();
             accountRoleSettings.AllowedToBeEnvelopeTransferRecipient = permissionProfileModel.AccountRoleSettingsModel.AllowedToBeEnvelopeTransferRecipient.ToString();
             accountRoleSettings.EnableTransactionPointIntegration = permissionProfileModel.AccountRoleSettingsModel.EnableTransactionPointIntegration.ToString();
+            //ds-snippet-end:eSign24Step3
 
             try
             {
