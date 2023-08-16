@@ -23,13 +23,12 @@ namespace DocuSign.CodeExamples.Admin.Examples
         /// <returns>The response of users import</returns>
         public static OrganizationImportResponse CreateBulkImportRequest(string accessToken, string basePath, string accountId, Guid? organizationId, string csvFilePath)
         {
-            // Step 2 start
+            //ds-snippet-start:Admin4Step2
             var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:Admin4Step2
 
-            // Step 2 end
-
-            // Step 3 start
+            //ds-snippet-start:Admin4Step3
             var bulkImportsApi = new BulkImportsApi(apiClient);
 
             var csvFileData = File.ReadAllText(csvFilePath)
@@ -38,8 +37,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
             var bytes = Encoding.UTF8.GetBytes(csvFileData);
 
             return bulkImportsApi.CreateBulkImportAddUsersRequest(organizationId, bytes);
-
-            // Step 3 end
+            //ds-snippet-end:Admin4Step3
         }
 
         /// <summary>
@@ -52,10 +50,12 @@ namespace DocuSign.CodeExamples.Admin.Examples
         /// <returns>OrganizationImportResponse</returns>
         public static OrganizationImportResponse CheckkStatus(string accessToken, string basePath, Guid? organizationId, Guid? importId)
         {
+            //ds-snippet-start:Admin4Step4
             var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             var bulkImportsApi = new BulkImportsApi(apiClient);
             return bulkImportsApi.GetBulkUserImportRequest(organizationId, importId);
+            //ds-snippet-end:Admin4Step4
         }
     }
 }

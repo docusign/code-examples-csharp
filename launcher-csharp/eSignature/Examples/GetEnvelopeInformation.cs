@@ -20,15 +20,13 @@ namespace ESignature.Examples
         /// <returns>Object containing envelope information</returns>
         public static Envelope GetEnvelope(string accessToken, string basePath, string accountId, string envelopeId)
         {
-            // Step 1 start
+            //ds-snippet-start:eSign4Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            // Step 1 end
 
-            // Step 2 start
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             return envelopesApi.GetEnvelope(accountId, envelopeId);
-            // Step 2 end
+            //ds-snippet-end:eSign4Step2
         }
     }
 }

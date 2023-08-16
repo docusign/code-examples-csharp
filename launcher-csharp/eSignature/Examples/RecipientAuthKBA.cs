@@ -23,10 +23,13 @@ namespace ESignature.Examples
         public static string CreateEnvelopeWithRecipientUsingKBAAuth(string signerEmail, string signerName, string accessToken, string basePath, string accountId)
         {
             // Construct your API headers
+            //ds-snippet-start:eSign22Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:eSign22Step2
 
             // Construct your envelope JSON body
+            //ds-snippet-start:eSign22Step3
             EnvelopeDefinition env = new EnvelopeDefinition()
             {
                 EnvelopeIdStamping = "true",
@@ -82,10 +85,13 @@ namespace ESignature.Examples
             Recipients recipients = new Recipients();
             recipients.Signers = new List<Signer> { signer1 };
             env.Recipients = recipients;
+            //ds-snippet-end:eSign22Step3
 
             // Call the eSignature REST API
+            //ds-snippet-start:eSign22Step4
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+            //ds-snippet-end:eSign22Step4
             return results.EnvelopeId;
         }
     }
