@@ -29,7 +29,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
             string filePath)
         {
             //ds-snippet-start:Admin3Step2
-            var apiClient = new ApiClient(basePath);
+            var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             //ds-snippet-end:Admin3Step2
 

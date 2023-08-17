@@ -26,7 +26,7 @@ namespace DocuSign.Rooms.Examples
         {
             // Construct your API headers
             //ds-snippet-start:Rooms7Step2
-            var apiClient = new ApiClient(basePath);
+            var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var formGroupsApi = new FormGroupsApi(apiClient);
             //ds-snippet-end:Rooms7Step2

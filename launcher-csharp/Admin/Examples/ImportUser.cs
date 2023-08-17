@@ -24,7 +24,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
         public static OrganizationImportResponse CreateBulkImportRequest(string accessToken, string basePath, string accountId, Guid? organizationId, string csvFilePath)
         {
             //ds-snippet-start:Admin4Step2
-            var apiClient = new ApiClient(basePath);
+            var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             //ds-snippet-end:Admin4Step2
 
@@ -51,7 +51,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
         public static OrganizationImportResponse CheckkStatus(string accessToken, string basePath, Guid? organizationId, Guid? importId)
         {
             //ds-snippet-start:Admin4Step4
-            var apiClient = new ApiClient(basePath);
+            var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             var bulkImportsApi = new BulkImportsApi(apiClient);
             return bulkImportsApi.GetBulkUserImportRequest(organizationId, importId);

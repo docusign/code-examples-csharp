@@ -42,7 +42,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
         {
             // Construct your API headers
             //ds-snippet-start:Admin1Step2
-            var apiClient = new DocuSign.Admin.Client.ApiClient(basePath);
+            var apiClient = new DocuSign.Admin.Client.DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             //ds-snippet-end:Admin1Step2
 
