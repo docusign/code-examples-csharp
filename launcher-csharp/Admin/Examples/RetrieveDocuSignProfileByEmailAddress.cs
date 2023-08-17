@@ -26,7 +26,7 @@ namespace DocuSign.Admin.Examples
             string email)
         {
             //ds-snippet-start:Admin6Step2
-            var apiClient = new ApiClient(basePath);
+            var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             //ds-snippet-end:Admin6Step2
 

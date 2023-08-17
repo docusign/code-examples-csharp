@@ -38,24 +38,22 @@ namespace ESignature.Examples
         {
             EnvelopeDefinition envelopeDefinition = PrepareEnvelope(hostEmail, hostName, signerEmail, docPdf);
 
-            // Step 3 start
+            //ds-snippet-start:eSign39Step3
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
 
             EnvelopeSummary envelopeSummary = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
-
-            // Step 3 end
-            // Step 5 start
+            //ds-snippet-end:eSign39Step3
+            //ds-snippet-start:eSign39Step5
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(hostEmail, hostName, returnUrl, pingUrl);
             ViewUrl viewUrl = envelopesApi.CreateRecipientView(accountId, envelopeSummary.EnvelopeId, viewRequest);
-
-            // Step 5 end
+            //ds-snippet-end:eSign39Step5
             return viewUrl.Url;
         }
 
-        // Step 4 start
+        //ds-snippet-start:eSign39Step4
         private static RecipientViewRequest MakeRecipientViewRequest(
             string hostEmail,
             string hostName,
@@ -78,10 +76,9 @@ namespace ESignature.Examples
 
             return recipientViewRequest;
         }
+        //ds-snippet-end:eSign39Step4
 
-        // Step 4 end
-
-        // Step 2 start
+        //ds-snippet-start:eSign39Step2
         private static EnvelopeDefinition PrepareEnvelope(string hostEmail, string hostName, string signerName, string docPdf)
         {
             byte[] fileContentInBytes = System.IO.File.ReadAllBytes(docPdf);
@@ -135,7 +132,6 @@ namespace ESignature.Examples
 
             return envelopeDefinition;
         }
-
-        // Step 2 end
+        //ds-snippet-end:eSign39Step2
     }
 }

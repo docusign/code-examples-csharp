@@ -33,7 +33,7 @@ namespace DocuSign.Admin.Examples
             string permissionProfileId)
         {
             //ds-snippet-start:Admin8Step2
-            var apiClient = new ApiClient(basePath);
+            var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             //ds-snippet-end:Admin8Step2
             var productPermissionProfilesApi = new ProductPermissionProfilesApi(apiClient);
@@ -75,7 +75,7 @@ namespace DocuSign.Admin.Examples
             Guid? orgId,
             Guid accountId)
         {
-            var apiClient = new ApiClient(basePath);
+            var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             var productPermissionProfileApi = new ProductPermissionProfilesApi(apiClient);

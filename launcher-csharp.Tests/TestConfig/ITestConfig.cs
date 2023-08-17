@@ -8,7 +8,7 @@ namespace launcher_csharp.Tests
 
         public string Host { get; set; }
 
-        public ApiClient ApiClient { get; set; }
+        public DocuSignClient ApiClient { get; set; }
 
         public string AccountId { get; set; }
 

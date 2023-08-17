@@ -24,19 +24,18 @@ namespace ESignature.Examples
         public static string CreateEnvelopeWithRecipientUsingIDVAuth(string signerEmail, string signerName, string accessToken, string basePath, string accountId)
         {
             // Construct your API headers
-            // Step 2 start
+            //ds-snippet-start:eSign23Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-
-            // Step 2 end
+            //ds-snippet-end:eSign23Step2
 
             // Retreive the workflow ID
-            // Step 3 start
+            //ds-snippet-start:eSign23Step3
             var accountsApi = new AccountsApi(docuSignClient);
             AccountIdentityVerificationResponse response = accountsApi.GetAccountIdentityVerification(accountId);
             var phoneAuthWorkflow = response.IdentityVerification.FirstOrDefault(x => x.DefaultName == "DocuSign ID Verification");
+            //ds-snippet-end:eSign23Step3
 
-            // Step 3 end
             if (phoneAuthWorkflow == null)
             {
                 throw new ApiException(0, "IDENTITY_WORKFLOW_INVALID_ID");
@@ -46,7 +45,7 @@ namespace ESignature.Examples
 
             // Construct your envelope JSON body
             // Note: If you did not successfully obtain your workflow ID, step 4 will fail.
-            // Step 4 start
+            //ds-snippet-start:eSign23Step4
             EnvelopeDefinition env = new EnvelopeDefinition()
             {
                 EnvelopeIdStamping = "true",
@@ -106,15 +105,13 @@ namespace ESignature.Examples
             Recipients recipients = new Recipients();
             recipients.Signers = new List<Signer> { signer1 };
             env.Recipients = recipients;
-
-            // Step 4 end
+            //ds-snippet-end:eSign23Step4
 
             // Call the eSignature REST API
-            // Step 5 start
+            //ds-snippet-start:eSign23Step5
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
-
-            // Step 5 end
+            //ds-snippet-end:eSign23Step5
             return results.EnvelopeId;
         }
     }

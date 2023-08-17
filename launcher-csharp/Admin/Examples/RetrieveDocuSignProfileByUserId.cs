@@ -26,7 +26,7 @@ namespace DocuSign.Admin.Examples
             Guid userId)
         {
             //ds-snippet-start:Admin7Step2
-            var apiClient = new ApiClient(basePath);
+            var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             //ds-snippet-end:Admin7Step2
 

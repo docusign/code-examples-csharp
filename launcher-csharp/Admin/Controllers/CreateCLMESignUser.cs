@@ -41,7 +41,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             var accountId = this.RequestItemsService.Session.AccountId;
 
             //ds-snippet-start:Admin2Step2
-            var apiClient = new ApiClient(basePath);
+            var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             //ds-snippet-end:Admin2Step2
 
