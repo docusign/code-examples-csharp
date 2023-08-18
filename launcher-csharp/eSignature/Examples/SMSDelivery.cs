@@ -127,7 +127,7 @@ namespace ESignature.Examples
                 Name = ccName,
                 RecipientId = "2",
                 RoutingOrder = "2",
-                DeliveryMethod = "SMS",
+                DeliveryMethod = deliveryMethod,
                 PhoneNumber = new RecipientPhoneNumber
                 {
                     CountryCode = ccCountryCode,
