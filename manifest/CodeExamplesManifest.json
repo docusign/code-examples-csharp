@@ -253,8 +253,8 @@
                       {
                         "ExampleNumber": 37,
                         "CFREnabled": "NonCFR",
-                        "ExampleName": "Request a signature by SMS or WhatsApp delivery",
-                        "ExampleDescription": "Sends a signature request via an SMS or WhatsApp message.",
+                        "ExampleName": "Request a signature by SMS delivery",
+                        "ExampleDescription": "Sends a signature request via an SMS message.",
                         "LinksToAPIMethod": [
                           {
                             "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
