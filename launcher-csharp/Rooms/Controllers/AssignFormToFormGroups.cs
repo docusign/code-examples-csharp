@@ -78,13 +78,16 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
             try
             {
+                //ds-snippet-start:Rooms9Step5
+                var form = new FormGroupFormToAssign() { FormId = formFormGroupModel.FormId };
+                //ds-snippet-start:Rooms9Step5
                 // Call the Rooms API to assign form to form group
                 var formGroupFormToAssign = DocuSign.Rooms.Examples.AssignFormToFormGroups.AssignForm(
                     basePath,
                     accessToken,
                     accountId,
                     formFormGroupModel.FormGroupId,
-                    new FormGroupFormToAssign() { FormId = formFormGroupModel.FormId });
+                    form);
 
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = string.Format(
