@@ -250,58 +250,58 @@
                             ],
                             "ResultsPageText": ""
                         },
-                      {
-                        "ExampleNumber": 37,
-                        "CFREnabled": "NonCFR",
-                        "ExampleName": "Request a signature by SMS delivery",
-                        "ExampleDescription": "Sends a signature request via an SMS message.",
-                        "LinksToAPIMethod": [
-                          {
-                            "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                            "PathName": "Envelopes::create"
-                          }
-                        ],
-                        "Forms": [
-                          {
-                            "Inputs": [
-                              {
-                                "InputName": "Signer Country Code",
-                                "InputPlaceholder": "1"
-                              },
-                              {
-                                "InputName": "Signer Phone Number",
-                                "InputPlaceholder": "4155551212"
-                              },
-                              {
-                                "InputName": "Signer Name",
-                                "InputPlaceholder": "Pat Johnson"
-                              },
-                              {
-                                "InputName": "CC Country Code",
-                                "InputPlaceholder": "1"
-                              },
-                              {
-                                "InputName": "CC Phone Number",
-                                "InputPlaceholder": "4155551212"
-                              },
-                              {
-                                "InputName": "CC Name",
-                                "InputPlaceholder": "Pat Johnson"
-                              },
-                              {
-                                "InputName": "Delivery Method:"
-                              },
-                              {
-                                "InputName": "SMS"
-                              },
-                              {
-                                "InputName": "WhatsApp"
-                              }
-                            ]
-                          }
-                        ],
-                        "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
-                      },
+                        {
+                            "ExampleNumber": 37,
+                            "CFREnabled": "NonCFR",
+                            "ExampleName": "Request a signature by SMS delivery",
+                            "ExampleDescription": "Sends a signature request via an SMS message.",
+                            "LinksToAPIMethod": [
+                                {
+                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                                    "PathName": "Envelopes::create"
+                                }
+                            ],
+                            "Forms": [
+                                {
+                                    "Inputs": [
+                                        {
+                                            "InputName": "Signer Country Code",
+                                            "InputPlaceholder": "1"
+                                        },
+                                        {
+                                            "InputName": "Signer Phone Number",
+                                            "InputPlaceholder": "4155551212"
+                                        },
+                                        {
+                                            "InputName": "Signer Name",
+                                            "InputPlaceholder": "Pat Johnson"
+                                        },
+                                        {
+                                            "InputName": "CC Country Code",
+                                            "InputPlaceholder": "1"
+                                        },
+                                        {
+                                            "InputName": "CC Phone Number",
+                                            "InputPlaceholder": "4155551212"
+                                        },
+                                        {
+                                            "InputName": "CC Name",
+                                            "InputPlaceholder": "Pat Johnson"
+                                        },
+                                        {
+                                            "InputName": "Delivery Method:"
+                                        },
+                                        {
+                                            "InputName": "SMS"
+                                        },
+                                        {
+                                            "InputName": "WhatsApp"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
+                        },
                         {
                             "ExampleNumber": 14,
                             "CFREnabled": "NonCFR",
@@ -2462,56 +2462,97 @@
                             ],
                             "ResultsPageText": "Results from MultiProductUserManagement:removeUserProductPermission method:"
                         },
-                      {
-                        "ExampleNumber": 10,
-                        "ExampleName": "Delete user data from an account as an organization admin",
-                        "ExampleDescription": "Deletes user data from an account.This endpoint should be used by an organization admin.",
-                        "LinksToAPIMethod": [
-                          {
-                            "Path": "https://developers.docusign.com/docs/admin-api/reference/usermanagement/datadeletion/redactindividualuserdata/",
-                            "PathName": "DataDeletion:redactIndividualUserData"
-                          },
-                          {
-                            "Path": "https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/getuserprofiles/",
-                            "PathName": "eSignUserManagement:getUserProfiles"
-                          }
-                        ],
-                        "Forms": [
-                          {
-                            "Inputs": [
-                              {
-                                "InputName": "Email address",
-                                "InputPlaceholder": "example@example.com"
-                              }
-                            ]
-                          }
-                        ],
-                        "ResultsPageText": "Results from DataDeletion:redactIndividualMembershipData method:",
-                        "SkipForLanguages": "java"
-                      },
-                      {
-                        "ExampleNumber": 11,
-                        "ExampleName": "Delete user data from an account as an account admin",
-                        "ExampleDescription": "Deletes user data from an account.This endpoint should be used by an account admin.",
-                        "LinksToAPIMethod": [
-                          {
-                            "Path": "https://developers.docusign.com/docs/admin-api/reference/usermanagement/datadeletion/redactindividualmembershipdata/",
-                            "PathName": "DataDeletion:redactIndividualMembershipData"
-                          }
-                        ],
-                        "Forms": [
-                          {
-                            "Inputs": [
-                              {
-                                "InputName": "User ID",
-                                "InputPlaceholder": "00000000-0000-0000-0000-000000000000"
-                              }
-                            ]
-                          }
-                        ],
-                        "ResultsPageText": "Results from DataDeletion:redactIndividualUserData method:",
-                        "SkipForLanguages": "java"
-                      }
+                        {
+                            "ExampleNumber": 10,
+                            "ExampleName": "Delete user data from an account as an organization admin",
+                            "ExampleDescription": "Deletes user data from an account.This endpoint should be used by an organization admin.",
+                            "LinksToAPIMethod": [
+                                {
+                                    "Path": "https://developers.docusign.com/docs/admin-api/reference/usermanagement/datadeletion/redactindividualuserdata/",
+                                    "PathName": "DataDeletion:redactIndividualUserData"
+                                },
+                                {
+                                    "Path": "https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/getuserprofiles/",
+                                    "PathName": "eSignUserManagement:getUserProfiles"
+                                }
+                            ],
+                            "Forms": [
+                                {
+                                    "Inputs": [
+                                        {
+                                            "InputName": "Email address",
+                                            "InputPlaceholder": "example@example.com"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "ResultsPageText": "Results from DataDeletion:redactIndividualMembershipData method:",
+                            "SkipForLanguages": "java"
+                        },
+                        {
+                            "ExampleNumber": 11,
+                            "ExampleName": "Delete user data from an account as an account admin",
+                            "ExampleDescription": "Deletes user data from an account.This endpoint should be used by an account admin.",
+                            "LinksToAPIMethod": [
+                                {
+                                    "Path": "https://developers.docusign.com/docs/admin-api/reference/usermanagement/datadeletion/redactindividualmembershipdata/",
+                                    "PathName": "DataDeletion:redactIndividualMembershipData"
+                                }
+                            ],
+                            "Forms": [
+                                {
+                                    "Inputs": [
+                                        {
+                                            "InputName": "User ID",
+                                            "InputPlaceholder": "00000000-0000-0000-0000-000000000000"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "ResultsPageText": "Results from DataDeletion:redactIndividualUserData method:",
+                            "SkipForLanguages": "java"
+                        },
+                        {
+                            "ExampleNumber": 12,
+                            "ExampleName": "Clone an account",
+                            "ExampleDescription": "Creates a new eSignature account in your organization by creating a copy of an existing account.",
+                            "LinksToAPIMethod": [
+                                {
+                                    "Path": "https://developers.docusign.com/docs/admin-api/reference/accountprovisioning/accountcloning/getassetgroupaccounts/",
+                                    "PathName": "AccountCloning::getAssetGroupAccounts"
+                                },
+                                {
+                                    "Path": "https://developers.docusign.com/docs/admin-api/reference/accountprovisioning/accountcloning/cloneassetgroupaccount/",
+                                    "PathName": "AccountCloning::cloneAssetGroupAccount"
+                                }
+                            ],
+                            "Forms": [
+                                {
+                                    "Inputs": [
+                                        {
+                                            "InputName": "Source account"
+                                        },
+                                        {
+                                            "InputName": "Target account name",
+                                            "InputPlaceholder": ""
+                                        },
+                                        {
+                                            "InputName": "Account admin first name",
+                                            "InputPlaceholder": "Pat"
+                                        },
+                                        {
+                                            "InputName": "Account admin last name",
+                                            "InputPlaceholder": "Johnson"
+                                        },
+                                        {
+                                            "InputName": "Account admin email",
+                                            "InputPlaceholder": "example@example.com"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "ResultsPageText": "Results from AccountCloning::cloneAssetGroupAccount method:"
+                        }
                     ]
                 }
             ]
