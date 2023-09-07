@@ -79,18 +79,8 @@ namespace ESignature.Examples
             // We're using anchor (autoPlace) positioning
             //
             // The DocuSign platform searches throughout your envelope's
-            // documents for matching anchor strings. So the
-            // signHere2 tab will be used in both document 2 and 3 since they
-            // use the same anchor string for their "signer 1" tabs.
-            SignHere signHere1 = new SignHere
-            {
-                AnchorString = "**signature_1**",
-                AnchorUnits = "pixels",
-                AnchorYOffset = "10",
-                AnchorXOffset = "20",
-            };
-
-            SignHere signHere2 = new SignHere
+            // documents for matching anchor strings. 
+            SignHere signHere = new SignHere
             {
                 AnchorString = "/sn1/",
                 AnchorUnits = "pixels",
@@ -101,7 +91,7 @@ namespace ESignature.Examples
             // Tabs are set per recipient / signer
             Tabs signer1Tabs = new Tabs
             {
-                SignHereTabs = new List<SignHere> { signHere1, signHere2 },
+                SignHereTabs = new List<SignHere> { signHere }
             };
             signer1.Tabs = signer1Tabs;
 

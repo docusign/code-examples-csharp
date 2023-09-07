@@ -65,8 +65,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             var anchorUnits = "pixels";
             var anchorYOffset = "10";
             var anchorXOffset = "20";
-            var anchorStringOne = "**signature_1**";
-            var anchorStringTwo = "/sn1/";
+            var anchorString = "/sn1/";
             var emailSubject = "Please sign this document set";
 
             string docPdfBytes = Convert.ToBase64String(System.IO.File.ReadAllBytes(docPdf));
@@ -93,17 +92,9 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
                 RoutingOrder = defaultId,
             };
 
-            var signHere1 = new SignHere
+            var signHere = new SignHere
             {
-                AnchorString = anchorStringOne,
-                AnchorUnits = anchorUnits,
-                AnchorYOffset = anchorYOffset,
-                AnchorXOffset = anchorXOffset,
-            };
-
-            var signHere2 = new SignHere
-            {
-                AnchorString = anchorStringTwo,
+                AnchorString = anchorString,
                 AnchorUnits = anchorUnits,
                 AnchorYOffset = anchorYOffset,
                 AnchorXOffset = anchorXOffset,
@@ -111,7 +102,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 
             var signerTabs = new Tabs
             {
-                SignHereTabs = new List<SignHere> { signHere1, signHere2 },
+                SignHereTabs = new List<SignHere> { signHere }
             };
             signer.Tabs = signerTabs;
 
