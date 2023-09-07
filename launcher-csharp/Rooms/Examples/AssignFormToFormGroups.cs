@@ -28,10 +28,10 @@ namespace DocuSign.Rooms.Examples
             //ds-snippet-start:Rooms9Step2
             var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
+            //ds-snippet-end:Rooms9Step2
             var formGroupsApi = new FormGroupsApi(apiClient);
             var formLibrariesApi = new FormLibrariesApi(apiClient);
-            //ds-snippet-end:Rooms9Step2
-
+            
             //ds-snippet-start:Rooms9Step3
             FormLibrarySummaryList formLibraries = formLibrariesApi.GetFormLibraries(accountId);
 
