@@ -23,6 +23,7 @@ namespace DocuSign.Admin.Examples
         /// <returns>AssetGroupAccountsResponse</returns>
         public static AssetGroupAccountsResponse GetGroupAccounts(string basePath, string accessToken, Guid? orgId)
         {
+            //ds-snippet-start:Admin12Step3
             DocuSignClient docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add(AuthorizationHeader, Bearer + accessToken);
 
@@ -33,6 +34,7 @@ namespace DocuSign.Admin.Examples
             };
 
             return assetGroupApi.GetAssetGroupAccounts(orgId, options);
+            //ds-snippet-end:Admin12Step3
         }
 
         /// <summary>
@@ -57,9 +59,12 @@ namespace DocuSign.Admin.Examples
             string targetAccountLastName,
             string targetAccountEmail)
         {
+            //ds-snippet-start:Admin12Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add(AuthorizationHeader, Bearer + accessToken);
+            //ds-snippet-end:Admin12Step2
 
+            //ds-snippet-start:Admin12Step4
             string countryCode = "US";
             var accountData = new AssetGroupAccountClone
             {
@@ -79,9 +84,12 @@ namespace DocuSign.Admin.Examples
                     CountryCode = countryCode,
                 },
             };
+            //ds-snippet-end:Admin12Step4
 
+            //ds-snippet-start:Admin12Step5
             var assetGroupApi = new ProvisionAssetGroupApi(docuSignClient);
             return assetGroupApi.CloneAssetGroupAccount(orgId, accountData);
+            //ds-snippet-end:Admin12Step5
         }
     }
 }
