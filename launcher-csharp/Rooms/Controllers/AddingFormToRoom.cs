@@ -45,7 +45,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         [HttpGet]
         public override IActionResult Get()
         {
-            base.Get();
+            IActionResult actionResult = base.Get();
+            if (this.RequestItemsService.EgName == this.EgName)
+            {
+                return actionResult;
+            }
 
             // Obtain your OAuth token
             string accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}

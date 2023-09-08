@@ -70,9 +70,14 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         [HttpGet]
         public override IActionResult Get()
         {
+            IActionResult actionResult = base.Get();
+            if (this.RequestItemsService.EgName == this.EgName)
+            {
+                return actionResult;
+            }
+
             try
             {
-                base.Get();
                 return this.View("aeg002", this);
             }
             catch (ApiException apiException)

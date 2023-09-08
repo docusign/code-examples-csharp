@@ -90,7 +90,8 @@ namespace launcher_csharp.Tests
             else if (apiType == ExamplesAPIType.Admin)
             {
                 scopes += "%20user_read%20user_write%20organization_read%20account_read%20group_read%20"
-                            + "permission_read%20identity_provider_read%20domain_read%20user_data_redact";
+                            + "permission_read%20identity_provider_read%20domain_read%20user_data_redact%20"
+                            + "asset_group_account_read%20asset_group_account_clone_write%20asset_group_account_clone_read";
             }
 
             string caret = "";
