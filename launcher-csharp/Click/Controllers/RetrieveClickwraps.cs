@@ -29,13 +29,6 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
         public override string EgName => "ceg004";
 
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-            this.ViewBag.ClickwrapId = this.RequestItemsService.ClickwrapId;
-            this.ViewBag.AccountId = this.RequestItemsService.Session.AccountId;
-        }
-
         [MustAuthenticate]
         [SetViewBag]
         [Route("Retrieve")]
@@ -71,6 +64,13 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
                 return this.View("Error");
             }
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+            this.ViewBag.ClickwrapId = this.RequestItemsService.ClickwrapId;
+            this.ViewBag.AccountId = this.RequestItemsService.Session.AccountId;
         }
     }
 }

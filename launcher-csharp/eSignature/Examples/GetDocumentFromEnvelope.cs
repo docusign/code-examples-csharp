@@ -12,22 +12,6 @@ namespace ESignature.Examples
 
     public static class GetDocumentFromEnvelope
     {
-        public class EnvelopeDocItem
-        {
-            public string Name { get; set; }
-
-            public string Type { get; set; }
-
-            public string DocumentId { get; set; }
-        }
-
-        public class EnvelopeDocuments
-        {
-            public string EnvelopeId { get; set; }
-
-            public List<EnvelopeDocItem> Documents { get; set; }
-        }
-
         /// <summary>
         /// Download a specific document from an envelope
         /// </summary>
@@ -91,6 +75,22 @@ namespace ESignature.Examples
             }
 
             return (results, mimetype, docName);
+        }
+
+        public class EnvelopeDocItem
+        {
+            public string Name { get; set; }
+
+            public string Type { get; set; }
+
+            public string DocumentId { get; set; }
+        }
+
+        public class EnvelopeDocuments
+        {
+            public string EnvelopeId { get; set; }
+
+            public List<EnvelopeDocItem> Documents { get; set; }
         }
     }
 }

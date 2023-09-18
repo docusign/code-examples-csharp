@@ -21,7 +21,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
         public ActivateClickwrap(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Click);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.Click);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -51,7 +51,6 @@ namespace DocuSign.CodeExamples.Click.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Activate(string clickwrapData)
         {
-
             // Obtain your OAuth token
             var accessToken = this.RequestItemsService.User.AccessToken;
             var basePath = $"{this.RequestItemsService.Session.BasePath}/clickapi"; // Base API path

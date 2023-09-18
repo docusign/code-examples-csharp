@@ -13,7 +13,7 @@ namespace ESignature.Examples
 
     public static class CFRPart11EmbeddedSending
     {
-        private static string _clientUserId = "12345";
+        private static readonly string clientUserId = "12345";
 
         /// <summary>
         /// Checks if account is CFR Part 11 enabled
@@ -138,7 +138,7 @@ namespace ESignature.Examples
                 RecipientId = "1", // represents your {RECIPIENT_ID},
                 Tabs = signer1Tabs,
                 IdentityVerification = workflow,
-                ClientUserId = _clientUserId,
+                ClientUserId = clientUserId,
             };
 
             Recipients recipients = new Recipients();
@@ -153,7 +153,7 @@ namespace ESignature.Examples
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
 
             // Step 5 end
-            RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, redirectUrl, _clientUserId);
+            RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, redirectUrl, clientUserId);
 
             // call the CreateRecipientView API
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, results.EnvelopeId, viewRequest);

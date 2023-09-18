@@ -29,7 +29,6 @@ namespace DocuSign.Click.Examples
             //ds-snippet-start:Click5Step3
             return clickAccountApi.GetClickwrapAgreements(accountId, clickwrapId);
             //ds-snippet-end:Click5Step3
-
         }
     }
 }

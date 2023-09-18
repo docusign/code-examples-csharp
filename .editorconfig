@@ -478,7 +478,7 @@ dotnet_diagnostic.SA1510.severity = error
 dotnet_diagnostic.SA1511.severity = error
 
 # SA1512: Single-line comments should not be followed by blank line
-dotnet_diagnostic.SA1512.severity = error
+dotnet_diagnostic.SA1512.severity = silent
 
 # SA1513: Closing brace should be followed by blank line
 dotnet_diagnostic.SA1513.severity = error
@@ -490,7 +490,7 @@ dotnet_diagnostic.SA1508.severity = error
 dotnet_diagnostic.SA1514.severity = error
 
 # SA1515: Single-line comment should be preceded by blank line
-dotnet_diagnostic.SA1515.severity = error
+dotnet_diagnostic.SA1515.severity = silent
 
 # SA1516: Elements should be separated by blank line
 dotnet_diagnostic.SA1516.severity = error

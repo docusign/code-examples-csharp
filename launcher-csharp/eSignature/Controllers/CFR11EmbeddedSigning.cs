@@ -16,7 +16,7 @@ namespace DocuSign.CodeExamples.Controllers
         public CFR11EmbeddedSigning(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -57,8 +57,9 @@ namespace DocuSign.CodeExamples.Controllers
                 basePath,
                 accountId,
                 signerCountryCode,
-            signerPhoneNumber,
-                this.Config.DocPdf, base.Config.AppUrl + "/dsReturn");
+                signerPhoneNumber,
+                this.Config.DocPdf,
+                this.Config.AppUrl + "/dsReturn");
 
             Console.WriteLine(string.Format(this.CodeExampleText.ResultsPageText, redirectUrl));
 

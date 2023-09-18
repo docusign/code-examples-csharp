@@ -23,7 +23,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         public DeleteUserDataFromAccount(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Admin);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.Admin);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

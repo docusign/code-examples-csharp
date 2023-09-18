@@ -29,7 +29,7 @@ namespace DocuSign.Rooms.Examples
             var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var roomsApi = new RoomsApi(apiClient);
-            //ds-snippet-end:Rooms6Step2 
+            //ds-snippet-end:Rooms6Step2
 
             // Call the Rooms API to get Room Documents
             return roomsApi.GetDocuments(accountId, roomId);

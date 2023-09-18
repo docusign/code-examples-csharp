@@ -34,6 +34,7 @@ namespace DocuSign.Admin.Examples
             var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             UsersApi usersApi = new UsersApi(apiClient);
+
             //ds-snippet-start:Admin2Step5
             var newMultiProductUserAddRequest = new NewMultiProductUserAddRequest();
             newMultiProductUserAddRequest.UserName = userName;

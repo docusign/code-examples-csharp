@@ -78,7 +78,7 @@ namespace ESignature.Examples
                 envelopeId,
                 new Envelope
                 {
-                    Status = "sent"
+                    Status = "sent",
                 });
 
             return envelopeWithDocGen.EnvelopeId;

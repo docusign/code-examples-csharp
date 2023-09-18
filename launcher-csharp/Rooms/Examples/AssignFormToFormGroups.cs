@@ -31,7 +31,7 @@ namespace DocuSign.Rooms.Examples
             //ds-snippet-end:Rooms9Step2
             var formGroupsApi = new FormGroupsApi(apiClient);
             var formLibrariesApi = new FormLibrariesApi(apiClient);
-            
+
             //ds-snippet-start:Rooms9Step3
             FormLibrarySummaryList formLibraries = formLibrariesApi.GetFormLibraries(accountId);
 
@@ -42,6 +42,7 @@ namespace DocuSign.Rooms.Examples
                     accountId,
                     formLibraries.FormsLibrarySummaries.First().FormsLibraryId);
             }
+
             //ds-snippet-end:Rooms9Step3
 
             //ds-snippet-start:Rooms9Step4

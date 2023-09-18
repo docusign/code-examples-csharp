@@ -46,15 +46,17 @@ namespace DocuSign.Click.Examples
 
             return clickwrapRequest;
         }
+
         //ds-snippet-end:Click2Step3
 
         /// <summary>
         /// Gets a list of clickwraps by status
         /// </summary>
-        /// <param name="basePath"></param>
-        /// <param name="accessToken"></param>
-        /// <param name="accountId"></param>
-        /// <returns></returns>
+        /// <param name="basePath">Base path</param>
+        /// <param name="accessToken">Access token</param>
+        /// <param name="accountId">Account id</param>
+        /// <param name="status">Status</param>
+        /// <returns>ClickwrapVersionsResponse</returns>
         public static ClickwrapVersionsResponse GetClickwrapsByStatus(string basePath, string accessToken, string accountId, string status)
         {
             var docuSignClient = new DocuSignClient(basePath);

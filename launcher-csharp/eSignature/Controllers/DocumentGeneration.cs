@@ -19,7 +19,7 @@ namespace DocuSign.CodeExamples.Views
         public DocumentGeneration(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -58,7 +58,6 @@ namespace DocuSign.CodeExamples.Views
             }
             catch (ApiException apiException)
             {
-
                 ViewBag.errorCode = apiException.ErrorCode;
                 ViewBag.errorMessage = apiException.Message;
                 this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;

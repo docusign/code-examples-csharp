@@ -84,7 +84,7 @@ namespace DocuSign.CodeExamples.Controllers
                     return Redirect("eg001");
                 }
 
-                return View(EgName, this);
+                return View(this.EgName, this);
             }
 
             return Redirect("/ds/mustAuthenticate");

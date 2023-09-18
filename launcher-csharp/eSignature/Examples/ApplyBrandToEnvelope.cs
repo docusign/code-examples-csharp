@@ -91,7 +91,7 @@ namespace ESignature.Examples
             // Tabs are set per recipient / signer
             Tabs signer1Tabs = new Tabs
             {
-                SignHereTabs = new List<SignHere> { signHere }
+                SignHereTabs = new List<SignHere> { signHere, },
             };
             signer1.Tabs = signer1Tabs;
 

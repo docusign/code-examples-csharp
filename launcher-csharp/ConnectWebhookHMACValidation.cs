@@ -6,7 +6,7 @@
     using System.Text;
     using System.Security.Cryptography;
 
-    public static class HMACValidation
+    public static class ConnectWebhookHMACValidation
     {
         private static string ComputeHash(string secret, string payload)
         {

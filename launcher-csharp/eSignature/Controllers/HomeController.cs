@@ -69,8 +69,8 @@ namespace DocuSign.CodeExamples.Controllers
                     this.Configuration["quickstart"] = "false";
                 }
 
-                CheckIfThisIsCFR11Account();
-                if (ViewBag.CFRPart11 == true)
+                this.CheckIfThisIsCFR11Account();
+                if (this.ViewBag.CFRPart11 == true)
                 {
                     return this.Redirect("eg041");
                 }
@@ -82,7 +82,7 @@ namespace DocuSign.CodeExamples.Controllers
 
             if (this.DsConfiguration.QuickACG == "true")
             {
-                CheckIfThisIsCFR11Account();
+                this.CheckIfThisIsCFR11Account();
                 if (this.ViewBag.CFRPart11 == true)
                 {
                     return this.Redirect("eg041");
@@ -95,7 +95,7 @@ namespace DocuSign.CodeExamples.Controllers
 
             if (egName == "home")
             {
-                CheckIfThisIsCFR11Account();
+                this.CheckIfThisIsCFR11Account();
                 return this.View();
             }
 
@@ -106,12 +106,11 @@ namespace DocuSign.CodeExamples.Controllers
 
             if (!string.IsNullOrWhiteSpace(egName))
             {
-                CheckIfThisIsCFR11Account();
-                if (ViewBag.CFRPart11 == true)
+                this.CheckIfThisIsCFR11Account();
+                if (this.ViewBag.CFRPart11 == true)
                 {
                     foreach (var apis in this.LauncherTexts.ManifestStructure.APIs)
                     {
-
                         foreach (var manifestGroup in apis.Groups)
                         {
                             var example = manifestGroup.Examples.Find((example) =>
@@ -131,6 +130,7 @@ namespace DocuSign.CodeExamples.Controllers
                         }
                     }
                 }
+
                 this.RequestItemsService.EgName = null;
                 return this.Redirect(egName);
             }
@@ -138,8 +138,9 @@ namespace DocuSign.CodeExamples.Controllers
             this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.APIs;
             if (this.RequestItemsService.Session != null)
             {
-                CheckIfThisIsCFR11Account();
+                this.CheckIfThisIsCFR11Account();
             }
+
             return this.View();
         }
 

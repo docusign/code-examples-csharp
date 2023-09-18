@@ -101,6 +101,7 @@ namespace DocuSign.Rooms.Examples
 
             return newRoom;
         }
+
         //ds-snippet-end:Rooms2Step4
 
         public class RoomModel

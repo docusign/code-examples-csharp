@@ -45,6 +45,7 @@ namespace DocuSign.Rooms.Examples
                     accountId,
                     formLibraries.FormsLibrarySummaries.First().FormsLibraryId);
             }
+
             //ds-snippet-end:Rooms4Step3
 
             // Get Rooms

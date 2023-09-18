@@ -17,7 +17,7 @@ namespace DocuSign.CodeExamples.Controllers
         public ApplyBrandToTemplate(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName, Common.ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, Common.ExamplesAPIType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

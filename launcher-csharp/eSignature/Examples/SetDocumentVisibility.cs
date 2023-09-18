@@ -94,13 +94,13 @@ namespace eSignature.Examples
                 Email = ccEmail,
                 Name = ccName,
                 RecipientId = "3",
-                RoutingOrder = "2"
+                RoutingOrder = "2",
             };
 
             envelopeDefinition.Recipients = new Recipients
             {
                 CarbonCopies = new List<CarbonCopy> { carbonCopy },
-                Signers = new List<Signer> { signer1, signer2 }
+                Signers = new List<Signer> { signer1, signer2, },
             };
 
             envelopeDefinition.Status = "sent";
@@ -128,10 +128,10 @@ namespace eSignature.Examples
                             AnchorString = tabsAnchorString,
                             AnchorUnits = tabsAnchorUnits,
                             AnchorXOffset = tabsAnchorXOffset,
-                            AnchorYOffset = tabsAnchorYOffset
-                        }
-                    }
-                }
+                            AnchorYOffset = tabsAnchorYOffset,
+                        },
+                    },
+                },
             };
         }
 

@@ -47,6 +47,7 @@ namespace DocuSign.Click.Examples
                 errorAlreadyAgreed.AgreementUrl = "Already Agreed";
                 return errorAlreadyAgreed;
             }
+
             //ds-snippet-end:Click6Step4
         }
 

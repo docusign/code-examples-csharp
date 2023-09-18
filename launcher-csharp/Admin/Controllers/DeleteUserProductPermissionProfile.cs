@@ -33,11 +33,49 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         public DeleteUserProductPermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Admin);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.Admin);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "aeg009";
+
+        [MustAuthenticate]
+        [SetViewBag]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteUserProductProfile(string productId)
+        {
+            try
+            {
+                Guid? organizationId = this.RequestItemsService.OrganizationId;
+                string accessToken = this.RequestItemsService.User.AccessToken;
+                string basePath = this.RequestItemsService.Session.AdminApiBasePath;
+                Guid accountId = Guid.Parse(this.RequestItemsService.Session.AccountId);
+                string email = this.RequestItemsService.EmailAddress;
+
+                RemoveUserProductsResponse response = DeleteUserProductPermissionProfileById.DeleteUserProductPermissionProfile(
+                    basePath,
+                    accessToken,
+                    organizationId,
+                    accountId,
+                    email,
+                    Guid.Parse(productId));
+
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                this.ViewBag.message = this.CodeExampleText.ResultsPageText;
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(response, Formatting.Indented);
+
+                return this.View("example_done");
+            }
+            catch (ApiException apiException)
+            {
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
+
+                return this.View("Error");
+            }
+        }
 
         protected override void InitializeInternal()
         {
@@ -82,44 +120,6 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             }
 
             this.ViewBag.EmailAddress = this.RequestItemsService.EmailAddress;
-        }
-
-        [MustAuthenticate]
-        [SetViewBag]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteUserProductProfile(string productId)
-        {
-            try
-            {
-                Guid? organizationId = this.RequestItemsService.OrganizationId;
-                string accessToken = this.RequestItemsService.User.AccessToken;
-                string basePath = this.RequestItemsService.Session.AdminApiBasePath;
-                Guid accountId = Guid.Parse(this.RequestItemsService.Session.AccountId);
-                string email = this.RequestItemsService.EmailAddress;
-
-                RemoveUserProductsResponse response = DeleteUserProductPermissionProfileById.DeleteUserProductPermissionProfile(
-                    basePath,
-                    accessToken,
-                    organizationId,
-                    accountId,
-                    email,
-                    Guid.Parse(productId));
-
-                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
-                this.ViewBag.message = this.CodeExampleText.ResultsPageText;
-                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(response, Formatting.Indented);
-
-                return this.View("example_done");
-            }
-            catch (ApiException apiException)
-            {
-                this.ViewBag.errorCode = apiException.ErrorCode;
-                this.ViewBag.errorMessage = apiException.Message;
-                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
-
-                return this.View("Error");
-            }
         }
     }
 }

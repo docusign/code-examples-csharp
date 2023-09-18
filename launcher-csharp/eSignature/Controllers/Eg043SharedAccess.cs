@@ -1,46 +1,38 @@
-﻿// <copyright file="Eg040SetDocumentVisibility.cs" company="DocuSign">
+﻿// <copyright file="Eg043SharedAccess.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
-using System.Linq;
-using DocuSign.CodeExamples.Common;
-using DocuSign.CodeExamples.Controllers;
-using DocuSign.CodeExamples.Models;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
-using ESignature.Examples;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Org.BouncyCastle.Ocsp;
-using JsonSerializer=System.Text.Json.JsonSerializer;
-
 namespace DocuSign.CodeExamples.Views
 {
+    using System.Linq;
+    using DocuSign.CodeExamples.Common;
+    using DocuSign.CodeExamples.Controllers;
+    using DocuSign.CodeExamples.Models;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+    using global::ESignature.Examples;
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
+    using Newtonsoft.Json;
 
     [Area("eSignature")]
     [Route("Eg043")]
     public class Eg043SharedAccess : EgController
     {
+        private readonly string accessToken;
+        private readonly string basePath;
+        private readonly string accountId;
+
         public Eg043SharedAccess(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService, IConfiguration configuration)
             : base(config, launcherTexts, requestItemsService)
         {
-            CodeExampleText = GetExampleText(EgName, ExamplesAPIType.ESignature);
-            ViewBag.title = CodeExampleText.ExampleName;
-            _configuration = configuration;
-            _accessToken = RequestItemsService?.User?.AccessToken;
-            _basePath = RequestItemsService?.Session?.BasePath + "/restapi";
-            _accountId = RequestItemsService?.Session?.AccountId;
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.ESignature);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
+            this.accessToken = this.RequestItemsService?.User?.AccessToken;
+            this.basePath = this.RequestItemsService?.Session?.BasePath + "/restapi";
+            this.accountId = this.RequestItemsService?.Session?.AccountId;
         }
-
-        private readonly IConfiguration _configuration;
-        private string _agentUserId;
-        private string _accessToken;
-        private string _basePath;
-        private string _accountId;
 
         public override string EgName => "Eg043";
 
@@ -58,11 +50,11 @@ namespace DocuSign.CodeExamples.Views
                     return this.Redirect("/ds/mustAuthenticate");
                 }
 
-                UserInformation userInformation = SharedAccess.GetUserInfo(this._accessToken, this._basePath, this._accountId, agentEmail);
+                UserInformation userInformation = SharedAccess.GetUserInfo(this.accessToken, this.basePath, this.accountId, agentEmail);
 
                 if (userInformation == null)
                 {
-                    NewUsersSummary user = SharedAccess.ShareAccess(this._accessToken, this._basePath, this._accountId, activationCode, agentEmail, agentName);
+                    NewUsersSummary user = SharedAccess.ShareAccess(this.accessToken, this.basePath, this.accountId, activationCode, agentEmail, agentName);
                     agentUserId = user.NewUsers.FirstOrDefault()?.UserId;
 
                     this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, user);
@@ -81,7 +73,7 @@ namespace DocuSign.CodeExamples.Views
                 this.ViewBag.ConfirmAdditionalLink = $"Eg043/AuthRequest/{agentUserId}";
                 this.ViewBag.OnlyConfirmAdditionalLink = true;
 
-                return View("example_done");
+                return this.View("example_done");
             }
             catch (ApiException apiException)
             {
@@ -89,7 +81,7 @@ namespace DocuSign.CodeExamples.Views
                 this.ViewBag.errorMessage = apiException.Message;
                 this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
-                return View("Error");
+                return this.View("Error");
             }
         }
 
@@ -100,10 +92,10 @@ namespace DocuSign.CodeExamples.Views
         {
             try
             {
-                var userId = SharedAccess.GetCurrentUserInfo(this._basePath, this._accessToken).Sub;
+                var userId = SharedAccess.GetCurrentUserInfo(this.basePath, this.accessToken).Sub;
 
-                SharedAccess.CreateUserAuthorization(this._accessToken, this._basePath, this._accountId, userId, agentId);
-                HttpContext.SignOutAsync().GetAwaiter().GetResult();
+                SharedAccess.CreateUserAuthorization(this.accessToken, this.basePath, this.accountId, userId, agentId);
+                this.HttpContext.SignOutAsync().GetAwaiter().GetResult();
 
                 this.Config.PrincipalUserId = userId;
                 // Show results
@@ -116,9 +108,9 @@ namespace DocuSign.CodeExamples.Views
                 this.RequestItemsService.EgName = "Eg043/EnvelopesListStatus";
                 this.Config.IsLoggedInAfterEg043 = true;
 
-                return View("example_done");
+                return this.View("example_done");
             }
-            catch (ApiException apiException)
+            catch (ApiException)
             {
                 this.ViewBag.h1 = "Authenticate as the agent";
                 this.ViewBag.message = this.CodeExampleText.AdditionalPages[3].ResultsPageText;
@@ -126,7 +118,7 @@ namespace DocuSign.CodeExamples.Views
                 this.ViewBag.ConfirmAdditionalLink = $"/Eg043/AuthRequest/{agentId}";
                 this.ViewBag.OnlyConfirmAdditionalLink = true;
 
-                return View("example_done");
+                return this.View("example_done");
             }
         }
 
@@ -137,7 +129,7 @@ namespace DocuSign.CodeExamples.Views
         {
             try
             {
-                var envelopesListStatus = SharedAccess.GetEnvelopesListStatus(this._accessToken, this._basePath, this._accountId, this.Config.PrincipalUserId);
+                var envelopesListStatus = SharedAccess.GetEnvelopesListStatus(this.accessToken, this.basePath, this.accountId, this.Config.PrincipalUserId);
 
                 // Show results
                 if (envelopesListStatus.Envelopes != null && envelopesListStatus.Envelopes.Any())
@@ -152,7 +144,7 @@ namespace DocuSign.CodeExamples.Views
                     this.ViewBag.message = this.CodeExampleText.AdditionalPages[2].ResultsPageText;
                 }
 
-                return View("example_done");
+                return this.View("example_done");
             }
             catch (ApiException apiException)
             {
@@ -160,7 +152,7 @@ namespace DocuSign.CodeExamples.Views
                 this.ViewBag.errorMessage = apiException.Message;
                 this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
-                return View("Error");
+                return this.View("Error");
             }
         }
     }

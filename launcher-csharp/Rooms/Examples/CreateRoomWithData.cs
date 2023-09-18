@@ -73,6 +73,7 @@ namespace DocuSign.Rooms.Examples
 
             return newRoom;
         }
+
         //ds-snippet-end:Rooms1Step3
 
         public class RoomModel

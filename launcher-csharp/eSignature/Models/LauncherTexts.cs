@@ -16,16 +16,12 @@ namespace DocuSign.CodeExamples.Models
 
     public class LauncherTexts
     {
+        private ManifestStructure manifestStructure;
+
         public LauncherTexts(DSConfiguration dsconfiguration, IConfiguration configuration)
         {
             this.DSConfig = dsconfiguration;
         }
-
-        protected DSConfiguration DSConfig { get; }
-
-        private IConfiguration Configuration { get; }
-
-        private ManifestStructure manifestStructure;
 
         public ManifestStructure ManifestStructure
         {
@@ -39,6 +35,10 @@ namespace DocuSign.CodeExamples.Models
                 return this.manifestStructure;
             }
         }
+
+        protected DSConfiguration DSConfig { get; }
+
+        private IConfiguration Configuration { get; }
 
         private ManifestStructure SetupManifestData(string fileName)
         {

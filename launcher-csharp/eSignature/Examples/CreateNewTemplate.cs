@@ -172,7 +172,6 @@ namespace ESignature.Examples
             numerical.Width = "84";
             numerical.Required = "false";
 
-
             RadioGroup radioGroup = new RadioGroup();
             radioGroup.DocumentId = "1";
             radioGroup.GroupName = "radio1";

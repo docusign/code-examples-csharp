@@ -2,6 +2,7 @@
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
+#nullable enable
 namespace DocuSign.CodeExamples
 {
     using System;
@@ -180,7 +181,7 @@ namespace DocuSign.CodeExamples
                             {
                                 foreach (var scope in api.Value)
                                 {
-                                    if (!scopesForCurrentAPI.Contains(scope))
+                                    if (scopesForCurrentAPI != null && !scopesForCurrentAPI.Contains(scope))
                                     {
                                         var scopeWithSeperator = scope + "%20";
 
@@ -219,14 +220,14 @@ namespace DocuSign.CodeExamples
                     OnRemoteFailure = context =>
                     {
                         context.HandleResponse();
-                        context.Response.Redirect("/Home/Error?message=" + context.Failure.Message);
+                        context.Response.Redirect("/Home/Error?message=" + context.Failure?.Message);
                         return Task.FromResult(0);
                     },
                 };
             });
         }
 
-        private string ExtractDefaultAccountValue(JsonElement obj, string key)
+        private string? ExtractDefaultAccountValue(JsonElement obj, string key)
         {
             if (!obj.TryGetProperty("accounts", out var accounts))
             {

@@ -97,13 +97,13 @@ namespace ESignature.Examples
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             docuSignClient.Configuration.DefaultHeader.Add("X-DocuSign-Act-On-Behalf", userId);
-            
+
             var envelopesApi = new EnvelopesApi(docuSignClient);
 
             var date = DateTime.UtcNow.AddDays(-10).ToString("yyyy-MM-ddTHH:mmZ");
             var option = new EnvelopesApi.ListStatusChangesOptions()
             {
-                fromDate = date
+                fromDate = date,
             };
 
             var envelopes = envelopesApi.ListStatusChanges(accountId, option);
@@ -111,7 +111,6 @@ namespace ESignature.Examples
 
             return envelopes;
         }
-
 
         public static void CreateUserAuthorization(
             string accessToken,

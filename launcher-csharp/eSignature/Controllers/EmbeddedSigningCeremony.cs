@@ -1,14 +1,14 @@
-﻿// <copyright file="Eg001EmbeddedSigningController.cs" company="DocuSign">
+﻿// <copyright file="EmbeddedSigningCeremony.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples.Views
 {
     using System;
+    using System.Runtime.InteropServices;
     using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
-    using System.Runtime.InteropServices;
     using Microsoft.AspNetCore.Mvc;
 
     [Area("eSignature")]

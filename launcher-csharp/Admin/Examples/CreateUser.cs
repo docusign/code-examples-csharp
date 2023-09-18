@@ -2,14 +2,13 @@
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
-using DocuSign.eSign.Client;
-
 namespace DocuSign.CodeExamples.Admin.Examples
 {
     using System;
     using System.Collections.Generic;
     using DocuSign.Admin.Model;
     using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
     using DocuSign.eSign.Model;
 
     public class CreateUser
@@ -73,7 +72,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
         {
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            
+
             //ds-snippet-start:Admin1Step3
             var accountsApi = new AccountsApi(docuSignClient);
             var permissionProfiles = accountsApi.ListPermissions(accountId);
