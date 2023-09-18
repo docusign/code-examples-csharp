@@ -53,9 +53,9 @@
                         @if (example?.SkipForLanguages == null || !example?.SkipForLanguages.ToLower().Contains("c#"))
                         {
                             @if (api.Name.ToLower() != ExamplesApiType.ESignature.ToString().ToLower() ||
-                                 ((example.CFREnabled == "AllAccounts") ||
-                                  ((ViewBag.CFRPart11 == true) && (example.CFREnabled == "CFROnly")) ||
-                                  ((ViewBag.CFRPart11 != true) && (example.CFREnabled == "NonCFR"))))
+                                 ((example.CfrEnabled == "AllAccounts") ||
+                                  ((ViewBag.CfrPart11 == true) && (example.CfrEnabled == "CFROnly")) ||
+                                  ((ViewBag.CfrPart11 != true) && (example.CfrEnabled == "NonCFR"))))
                             {
                                 <h4 id="@String.Format("example{0}", String.Format("{0:D3}", @example.ExampleNumber))">
                                     <a href="@String.Format(linkToCodeExample + "{0}", String.Format("{0:D3}", @example.ExampleNumber))">

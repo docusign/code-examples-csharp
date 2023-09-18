@@ -39,7 +39,7 @@ namespace DocuSign.CodeExamples.ESignature.Models
         public string EmbedClickwrapUrl { get; set; }
 
         [JsonProperty("NOTAGREED")]
-        public string Notagreed { get; set; }
+        public string NotAgreed { get; set; }
 
         [JsonProperty("AGREED")]
         public string Agreed { get; set; }
