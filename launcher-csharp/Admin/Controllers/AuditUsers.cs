@@ -23,7 +23,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Admin);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.Admin);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -43,10 +43,10 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         {
             try
             {
-                var organizationId = RequestItemsService.OrganizationId;
-                var accessToken = RequestItemsService.User.AccessToken;
-                var basePath = RequestItemsService.Session.AdminApiBasePath;
-                var accountId = RequestItemsService.Session.AccountId;
+                var organizationId = this.RequestItemsService.OrganizationId;
+                var accessToken = this.RequestItemsService.User.AccessToken;
+                var basePath = this.RequestItemsService.Session.AdminApiBasePath;
+                var accountId = this.RequestItemsService.Session.AccountId;
                 var usersData = DocuSign.Admin.Examples.AuditUsers.GetRecentlyModifiedUsersData(basePath, accessToken, Guid.Parse(accountId), organizationId);
 
                 // Process results
