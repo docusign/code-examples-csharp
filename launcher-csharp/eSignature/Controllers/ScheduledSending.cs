@@ -14,10 +14,10 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
     [Route("Eg035")]
     public class ScheduledSending : EgController
     {
-        public ScheduledSending(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public ScheduledSending(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

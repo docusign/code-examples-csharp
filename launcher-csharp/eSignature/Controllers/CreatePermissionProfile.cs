@@ -14,10 +14,10 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("Eg024")]
     public class CreatePermissionProfile : EgController
     {
-        public CreatePermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public CreatePermissionProfile(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -25,13 +25,6 @@ namespace DocuSign.CodeExamples.Controllers
 
         [BindProperty]
         public PermissionProfileModel ProfileModel { get; set; }
-
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-
-            this.ProfileModel = new PermissionProfileModel();
-        }
 
         [HttpPost]
         [SetViewBag]
@@ -112,6 +105,13 @@ namespace DocuSign.CodeExamples.Controllers
 
                 return this.View("Error");
             }
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+
+            this.ProfileModel = new PermissionProfileModel();
         }
     }
 }

@@ -51,6 +51,24 @@ namespace DocuSign.Click.Examples
             //ds-snippet-end:Click6Step4
         }
 
+        /// <summary>
+        /// Gets a list of active clickwraps
+        /// </summary>
+        /// <param name="basePath">Base path</param>
+        /// <param name="accessToken">Access token</param>
+        /// <param name="accountId">Account id</param>
+        /// <returns>ClickwrapVersionsResponse</returns>
+        public static ClickwrapVersionsResponse GetActiveClickwraps(string basePath, string accessToken, string accountId)
+        {
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            var clickAccountApi = new AccountsApi(docuSignClient);
+            var options = new AccountsApi.GetClickwrapsOptions();
+            options.status = "active";
+
+            return clickAccountApi.GetClickwraps(accountId, options);
+        }
+
         private static UserAgreementRequest BuildUpdateClickwrapHasAgreedRequest(string fullName, string email, string company, string title, string date)
         {
             //ds-snippet-start:Click6Step3
@@ -65,24 +83,6 @@ namespace DocuSign.Click.Examples
 
             return userAgreementRequest;
             //ds-snippet-end:Click6Step3
-        }
-
-        /// <summary>
-        /// Gets a list of active clickwraps
-        /// </summary>
-        /// <param name="basePath"></param>
-        /// <param name="accessToken"></param>
-        /// <param name="accountId"></param>
-        /// <returns></returns>
-        public static ClickwrapVersionsResponse GetActiveClickwraps(string basePath, string accessToken, string accountId)
-        {
-            var docuSignClient = new DocuSignClient(basePath);
-            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            var clickAccountApi = new AccountsApi(docuSignClient);
-            var options = new AccountsApi.GetClickwrapsOptions();
-            options.status = "active";
-
-            return clickAccountApi.GetClickwraps(accountId, options);
         }
     }
 }

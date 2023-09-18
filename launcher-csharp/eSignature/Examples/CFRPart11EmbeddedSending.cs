@@ -11,9 +11,9 @@ namespace ESignature.Examples
     using DocuSign.eSign.Client;
     using DocuSign.eSign.Model;
 
-    public static class CFRPart11EmbeddedSending
+    public static class CfrPart11EmbeddedSending
     {
-        private static readonly string clientUserId = "12345";
+        private static readonly string ClientUserId = "12345";
 
         /// <summary>
         /// Checks if account is CFR Part 11 enabled
@@ -22,7 +22,7 @@ namespace ESignature.Examples
         /// <param name="basePath">BasePath to make API calls</param>
         /// <param name="accountId">AccountId (GUID) for this account</param>
         /// <returns>True if CFR Part 11, false otherwise</returns>
-        public static bool IsCFRPart11Account(string accessToken, string basePath, string accountId)
+        public static bool IsCfrPart11Account(string accessToken, string basePath, string accountId)
         {
             // Construct your API headers
             var docuSignClient = new DocuSignClient(basePath);
@@ -138,7 +138,7 @@ namespace ESignature.Examples
                 RecipientId = "1", // represents your {RECIPIENT_ID},
                 Tabs = signer1Tabs,
                 IdentityVerification = workflow,
-                ClientUserId = clientUserId,
+                ClientUserId = ClientUserId,
             };
 
             Recipients recipients = new Recipients();
@@ -153,7 +153,7 @@ namespace ESignature.Examples
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
 
             // Step 5 end
-            RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, redirectUrl, clientUserId);
+            RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, redirectUrl, ClientUserId);
 
             // call the CreateRecipientView API
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, results.EnvelopeId, viewRequest);

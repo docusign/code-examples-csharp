@@ -12,9 +12,9 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
     [Collection("eSignature tests")]
     public sealed class CreateNewTemplateUnitTests
     {
-        private const string REST_API_PREFIX = "/restapi";
+        private const string RestApiPrefix = "/restapi";
 
-        private const string PDF_DOCUMENT_NAME = "World_Wide_Corp_lorem.pdf";
+        private const string PdfDocumentName = "World_Wide_Corp_lorem.pdf";
 
         private readonly TestConfig _testConfig;
 
@@ -23,15 +23,15 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             this._testConfig = testConfig ?? new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature, _testConfig);
+            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesApiType.ESignature, _testConfig);
         }
 
         [Fact]
         public void CreateNewTemplate_CorrectInputParameters_ReturnsTemplateIdAndName()
         {
             // Arrange
-            string basePath = _testConfig.BasePath + REST_API_PREFIX;
-            string docPdf = _testConfig.PathToSolution + PDF_DOCUMENT_NAME;
+            string basePath = _testConfig.BasePath + RestApiPrefix;
+            string docPdf = _testConfig.PathToSolution + PdfDocumentName;
 
             //Act
             var template = CreateNewTemplate.CreateTemplate(
@@ -57,7 +57,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
         {
             // Arrange
             string templateName = "Test template";
-            string docPdf = _testConfig.PathToSolution + PDF_DOCUMENT_NAME;
+            string docPdf = _testConfig.PathToSolution + PdfDocumentName;
             var envelopeStatus = "created";
             var emailSubject = "Please sign this document";
             var emailDescription = "Example template created via the API";

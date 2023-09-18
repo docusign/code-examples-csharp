@@ -7,7 +7,7 @@
     int ccNumberInputNumber = 4;
     int ccSignerNameInputNumber = 5;
     int deliveryMethodNumber = 6;
-    int deliveryMethodSMS = 7;
+    int deliveryMethodSms = 7;
     int deliveryMthodWhatsApp = 8;
 }
 
@@ -37,7 +37,7 @@
     <div class="form-group">
         <p><b>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[deliveryMethodNumber].InputName)</b></p>
         <input type="radio" checked="checked" name="deliveryMethod" value="SMS" />
-        <label>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[deliveryMethodSMS].InputName)</label>
+        <label>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[deliveryMethodSms].InputName)</label>
         <input type="radio" name="deliveryMethod" value="WhatsApp"/>
         <label>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[deliveryMthodWhatsApp].InputName)</label>
     </div>

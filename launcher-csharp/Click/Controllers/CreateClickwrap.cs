@@ -15,10 +15,10 @@ namespace DocuSign.CodeExamples.Click.Controllers
     [Route("ceg001")]
     public class CreateClickwrap : EgController
     {
-        public CreateClickwrap(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public CreateClickwrap(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.Click);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Click);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

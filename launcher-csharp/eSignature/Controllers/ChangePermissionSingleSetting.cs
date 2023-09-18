@@ -18,10 +18,10 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("Eg026")]
     public class ChangePermissionSingleSetting : EgController
     {
-        public ChangePermissionSingleSetting(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public ChangePermissionSingleSetting(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -32,31 +32,6 @@ namespace DocuSign.CodeExamples.Controllers
 
         [BindProperty]
         public PermissionProfileModel ProfileModel { get; set; }
-
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-
-            // Data for this method
-            // signerEmail
-            // signerName
-            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
-            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
-            var docuSignClient = new DocuSignClient(basePath);
-            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-
-            var accountsApi = new AccountsApi(docuSignClient);
-            var permissions = accountsApi.ListPermissions(accountId);
-            this.PermissionProfiles = permissions.PermissionProfiles;
-            var permissionProfile = permissions.PermissionProfiles.FirstOrDefault();
-            this.ProfileModel = new PermissionProfileModel
-            {
-                ProfileId = permissionProfile.PermissionProfileId,
-                ProfileName = permissionProfile.PermissionProfileName,
-                AccountRoleSettingsModel = new AccountRoleSettingsModel(permissionProfile.Settings),
-            };
-        }
 
         [HttpPost]
         [SetViewBag]
@@ -100,6 +75,31 @@ namespace DocuSign.CodeExamples.Controllers
                 this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
                 return this.View("Error");
             }
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+
+            // Data for this method
+            // signerEmail
+            // signerName
+            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
+            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+
+            var accountsApi = new AccountsApi(docuSignClient);
+            var permissions = accountsApi.ListPermissions(accountId);
+            this.PermissionProfiles = permissions.PermissionProfiles;
+            var permissionProfile = permissions.PermissionProfiles.FirstOrDefault();
+            this.ProfileModel = new PermissionProfileModel
+            {
+                ProfileId = permissionProfile.PermissionProfileId,
+                ProfileName = permissionProfile.PermissionProfileName,
+                AccountRoleSettingsModel = new AccountRoleSettingsModel(permissionProfile.Settings),
+            };
         }
     }
 }

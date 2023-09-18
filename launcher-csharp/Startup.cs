@@ -29,15 +29,15 @@ namespace DocuSign.CodeExamples
 
     public class Startup
     {
-        private readonly Dictionary<ExamplesAPIType, List<string>> _apiTypes = new Dictionary<ExamplesAPIType, List<string>>();
+        private readonly Dictionary<ExamplesApiType, List<string>> apiTypes = new Dictionary<ExamplesApiType, List<string>>();
 
         public Startup(IConfiguration configuration)
         {
             this.Configuration = configuration;
 
-            this._apiTypes.Add(ExamplesAPIType.ESignature, new List<string> { "signature" });
+            this.apiTypes.Add(ExamplesApiType.ESignature, new List<string> { "signature" });
 
-            this._apiTypes.Add(ExamplesAPIType.Rooms, new List<string>
+            this.apiTypes.Add(ExamplesApiType.Rooms, new List<string>
             {
                     "dtr.rooms.read",
                     "dtr.rooms.write",
@@ -50,19 +50,19 @@ namespace DocuSign.CodeExamples
                     "room_forms",
             });
 
-            this._apiTypes.Add(ExamplesAPIType.Click, new List<string>
+            this.apiTypes.Add(ExamplesApiType.Click, new List<string>
             {
                     "click.manage",
                     "click.send",
             });
 
-            this._apiTypes.Add(ExamplesAPIType.Monitor, new List<string>
+            this.apiTypes.Add(ExamplesApiType.Monitor, new List<string>
             {
                     "signature",
                     "impersonation",
             });
 
-            this._apiTypes.Add(ExamplesAPIType.Admin, new List<string>
+            this.apiTypes.Add(ExamplesApiType.Admin, new List<string>
             {
                     "signature",
                     "user_read",
@@ -104,13 +104,13 @@ namespace DocuSign.CodeExamples
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
             });
-            DSConfiguration config = new DSConfiguration();
+            DsConfiguration config = new DsConfiguration();
 
             this.Configuration.Bind("DocuSign", config);
             this.Configuration["FirstLaunch"] = "true";
 
             services.AddSingleton(config);
-            services.AddSingleton(new LauncherTexts(config, Configuration));
+            services.AddSingleton(new LauncherTexts(config, this.Configuration));
             services.AddScoped<IRequestItemsService, RequestItemsService>();
             services.AddScoped<IRoomsApi, RoomsApi>();
             services.AddScoped<IRolesApi, RolesApi>();
@@ -148,7 +148,7 @@ namespace DocuSign.CodeExamples
                 options.TokenEndpoint = this.Configuration["DocuSign:TokenEndpoint"];
                 options.UserInformationEndpoint = this.Configuration["DocuSign:UserInformationEndpoint"];
 
-                foreach (var apiType in this._apiTypes)
+                foreach (var apiType in this.apiTypes)
                 {
                     foreach (var scope in apiType.Value)
                     {
@@ -173,15 +173,15 @@ namespace DocuSign.CodeExamples
                 {
                     OnRedirectToAuthorizationEndpoint = redirectContext =>
                     {
-                        List<string> scopesForCurrentAPI = this._apiTypes.GetValueOrDefault(Enum.Parse<ExamplesAPIType>(this.Configuration["API"]));
+                        List<string> scopesForCurrentApi = this.apiTypes.GetValueOrDefault(Enum.Parse<ExamplesApiType>(this.Configuration["API"]));
 
-                        foreach (var api in this._apiTypes)
+                        foreach (var api in this.apiTypes)
                         {
                             if (this.Configuration["API"] != api.Key.ToString())
                             {
                                 foreach (var scope in api.Value)
                                 {
-                                    if (scopesForCurrentAPI != null && !scopesForCurrentAPI.Contains(scope))
+                                    if (scopesForCurrentApi != null && !scopesForCurrentApi.Contains(scope))
                                     {
                                         var scopeWithSeperator = scope + "%20";
 
@@ -224,6 +224,56 @@ namespace DocuSign.CodeExamples
                         return Task.FromResult(0);
                     },
                 };
+            });
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseAuthentication();
+
+            app.UseSession();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "Areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{area=Rooms}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{area=Click}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                            name: "default",
+                            areaName: "Monitor",
+                            pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                            name: "default",
+                            pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}");
             });
         }
 
@@ -276,56 +326,6 @@ namespace DocuSign.CodeExamples
             }
 
             return keyValue;
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseAuthentication();
-
-            app.UseSession();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "Areas",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{area=Rooms}/{controller=Home}/{action=Index}/{id?}");
-
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{area=Click}/{controller=Home}/{action=Index}/{id?}");
-
-                endpoints.MapAreaControllerRoute(
-                            name: "default",
-                            areaName: "Monitor",
-                            pattern: "{controller=Home}/{action=Index}/{id?}");
-
-                endpoints.MapControllerRoute(
-                            name: "default",
-                            pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}");
-            });
         }
     }
 }

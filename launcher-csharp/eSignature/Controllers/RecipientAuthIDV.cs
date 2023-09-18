@@ -12,12 +12,12 @@ namespace DocuSign.CodeExamples.Controllers
 
     [Area("eSignature")]
     [Route("eg023")]
-    public class RecipientAuthIDV : EgController
+    public class RecipientAuthIdv : EgController
     {
-        public RecipientAuthIDV(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public RecipientAuthIdv(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -51,7 +51,7 @@ namespace DocuSign.CodeExamples.Controllers
 
                 // Call the Examples API method to create an envelope and
                 // add recipient that is to be authenticated with IDV
-                string envelopeId = global::ESignature.Examples.RecipientAuthIDV.CreateEnvelopeWithRecipientUsingIDVAuth(signerEmail, signerName, accessToken, basePath, accountId);
+                string envelopeId = global::ESignature.Examples.RecipientAuthIdv.CreateEnvelopeWithRecipientUsingIdvAuth(signerEmail, signerName, accessToken, basePath, accountId);
 
                 // Process results
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;

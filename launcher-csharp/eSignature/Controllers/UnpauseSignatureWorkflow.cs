@@ -14,10 +14,10 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
     [Route("Eg033")]
     public class UnpauseSignatureWorkflow : EgController
     {
-        public UnpauseSignatureWorkflow(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public UnpauseSignatureWorkflow(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

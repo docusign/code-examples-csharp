@@ -41,12 +41,12 @@ namespace ESignature.Examples
 
             // Process results. Determine the file name and mimetype
             string docName = docItem.Name;
-            bool hasPDFsuffix = docName.ToUpper().EndsWith(".PDF");
-            bool pdfFile = hasPDFsuffix;
+            bool hasPdFsuffix = docName.ToUpper().EndsWith(".PDF");
+            bool pdfFile = hasPdFsuffix;
 
             // Add .pdf if it's a content or summary doc and doesn't already end in .pdf
             string docType = docItem.Type;
-            if (("content".Equals(docType) || "summary".Equals(docType)) && !hasPDFsuffix)
+            if (("content".Equals(docType) || "summary".Equals(docType)) && !hasPdFsuffix)
             {
                 docName += ".pdf";
                 pdfFile = true;

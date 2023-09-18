@@ -13,10 +13,10 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg002")]
     public class SigningViaEmail : EgController
     {
-        public SigningViaEmail(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public SigningViaEmail(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

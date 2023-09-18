@@ -12,11 +12,11 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
     [Collection("eSignature tests")]
     public sealed class EmbeddedSigningCeremonyUnitTests
     {
-        private const string REDIRECT_URL = "https://developers.docusign.com/docs/esign-rest-api/";
+        private const string RedirectUrl = "https://developers.docusign.com/docs/esign-rest-api/";
 
-        private const string PDF_DOCUMENT_NAME = "World_Wide_Corp_lorem.pdf";
+        private const string PdfDocumentName = "World_Wide_Corp_lorem.pdf";
 
-        private const string REST_API_PREFIX = "/restapi";
+        private const string RestApiPrefix = "/restapi";
 
         private readonly TestConfig _testConfig;
 
@@ -25,15 +25,15 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             this._testConfig = new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature, _testConfig);
+            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesApiType.ESignature, _testConfig);
         }
 
         [Fact]
         public void EmbeddedSigningCeremony_CorrectInputParameters_ReturnsEnvelopeIdAndRedirectUrl()
         {
             // Arrange
-            string docPdf = _testConfig.PathToSolution + PDF_DOCUMENT_NAME;
-            string basePath = _testConfig.BasePath + REST_API_PREFIX;
+            string docPdf = _testConfig.PathToSolution + PdfDocumentName;
+            string basePath = _testConfig.BasePath + RestApiPrefix;
 
             // Act
             var result = EmbeddedSigningCeremony.SendEnvelopeForEmbeddedSigning(
@@ -44,8 +44,8 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
                 basePath,
                 _testConfig.AccountId,
                 docPdf,
-                REDIRECT_URL,
-                REDIRECT_URL
+                RedirectUrl,
+                RedirectUrl
             );
 
             // Assert
@@ -63,22 +63,22 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 
             var expectedRecipientViewRequest = new RecipientViewRequest
             {
-                ReturnUrl = REDIRECT_URL + redirectSpecification,
+                ReturnUrl = RedirectUrl + redirectSpecification,
                 AuthenticationMethod = authMethod,
                 Email = _testConfig.SignerEmail,
                 UserName = _testConfig.SignerName,
                 ClientUserId = _testConfig.ImpersonatedUserId,
                 PingFrequency = pingFrequency,
-                PingUrl = REDIRECT_URL
+                PingUrl = RedirectUrl
             };
 
             // Act
             RecipientViewRequest recipientViewRequest = EmbeddedSigningCeremony.MakeRecipientViewRequest(
                 _testConfig.SignerEmail,
                 _testConfig.SignerName,
-                REDIRECT_URL,
+                RedirectUrl,
                 _testConfig.ImpersonatedUserId,
-                REDIRECT_URL
+                RedirectUrl
             );
 
             // Assert
@@ -90,7 +90,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
         public void MakeEnvelope_CorrectInputParameters_ReturnsEnvelopeDefinition()
         {
             // Arrange
-            string docPdf = _testConfig.PathToSolution + PDF_DOCUMENT_NAME;
+            string docPdf = _testConfig.PathToSolution + PdfDocumentName;
             string anchorString = "/sn1/";
             var documentName = "Lorem Ipsum";
             var fileExtension = "pdf";

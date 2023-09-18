@@ -10,9 +10,9 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
     [Collection("eSignature tests")]
     public sealed class SendBulkEnvelopesUnitTests
     {
-        private const string ESIGNARURE_PATH_PREFIX = "/restapi";
+        private const string EsignarurePathPrefix = "/restapi";
 
-        private string DOC_PDF = "World_Wide_Corp_lorem.pdf";
+        private string _docPdf = "World_Wide_Corp_lorem.pdf";
 
         private readonly TestConfig _testConfig;
 
@@ -21,7 +21,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             this._testConfig = new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature, _testConfig);
+            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesApiType.ESignature, _testConfig);
         }
 
         [Fact]
@@ -37,8 +37,8 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             var envelopeIdStamping = "true";
             var emailSubject = "Please sign this document sent from the C# SDK";
 
-            string basePath = _testConfig.BasePath + ESIGNARURE_PATH_PREFIX;
-            string docPdf = _testConfig.PathToSolution + DOC_PDF;
+            string basePath = _testConfig.BasePath + EsignarurePathPrefix;
+            string docPdf = _testConfig.PathToSolution + _docPdf;
 
             // Act
             BulkSendBatchStatus envelopeSummary = SendBulkEnvelopes.GetStatus(

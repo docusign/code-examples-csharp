@@ -18,9 +18,9 @@ namespace DocuSign.CodeExamples.Models
     {
         private ManifestStructure manifestStructure;
 
-        public LauncherTexts(DSConfiguration dsconfiguration, IConfiguration configuration)
+        public LauncherTexts(DsConfiguration dsconfiguration, IConfiguration configuration)
         {
-            this.DSConfig = dsconfiguration;
+            this.DsConfig = dsconfiguration;
         }
 
         public ManifestStructure ManifestStructure
@@ -29,14 +29,14 @@ namespace DocuSign.CodeExamples.Models
             {
                 if (this.manifestStructure == null)
                 {
-                    this.manifestStructure = this.SetupManifestData(this.DSConfig.CodeExamplesManifest);
+                    this.manifestStructure = this.SetupManifestData(this.DsConfig.CodeExamplesManifest);
                 }
 
                 return this.manifestStructure;
             }
         }
 
-        protected DSConfiguration DSConfig { get; }
+        protected DsConfiguration DsConfig { get; }
 
         private IConfiguration Configuration { get; }
 

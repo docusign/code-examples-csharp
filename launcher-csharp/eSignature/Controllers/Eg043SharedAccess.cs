@@ -24,10 +24,10 @@ namespace DocuSign.CodeExamples.Views
         private readonly string basePath;
         private readonly string accountId;
 
-        public Eg043SharedAccess(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService, IConfiguration configuration)
+        public Eg043SharedAccess(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService, IConfiguration configuration)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
             this.accessToken = this.RequestItemsService?.User?.AccessToken;
             this.basePath = this.RequestItemsService?.Session?.BasePath + "/restapi";

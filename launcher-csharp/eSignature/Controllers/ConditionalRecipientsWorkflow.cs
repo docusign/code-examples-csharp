@@ -16,10 +16,10 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
     [Route("Eg034")]
     public class ConditionalRecipientsWorkflow : EgController
     {
-        public ConditionalRecipientsWorkflow(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public ConditionalRecipientsWorkflow(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

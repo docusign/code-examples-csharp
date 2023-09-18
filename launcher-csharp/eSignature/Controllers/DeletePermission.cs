@@ -16,10 +16,10 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("Eg027")]
     public class DeletePermission : EgController
     {
-        public DeletePermission(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public DeletePermission(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

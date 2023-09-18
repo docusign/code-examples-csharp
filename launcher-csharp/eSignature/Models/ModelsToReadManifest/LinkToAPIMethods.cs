@@ -6,7 +6,7 @@ namespace DocuSign.CodeExamples.ESignature.Models
 {
     using Newtonsoft.Json;
 
-    public class LinkToAPIMethods
+    public class LinkToApiMethods
     {
         [JsonProperty("Path")]
         public string Path { get; set; }

@@ -17,38 +17,16 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     public class CreateUser : EgController
     {
         public CreateUser(
-            DSConfiguration dsConfig,
+            DsConfiguration dsConfig,
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.Admin);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Admin);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "aeg001";
-
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-
-            try
-            {
-                var accessToken = this.RequestItemsService.User.AccessToken;
-                var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
-                var accountId = this.RequestItemsService.Session.AccountId;
-
-                var (permissionProfiles, groups) = Examples.CreateUser.GetPermissionProfilesAndGroups(accessToken, basePath, accountId);
-
-                this.ViewBag.PermissionProfiles = permissionProfiles.PermissionProfiles;
-                this.ViewBag.Groups = groups.Groups;
-            }
-            catch (ApiException apiException)
-            {
-                this.ViewBag.errorCode = apiException.ErrorCode;
-                this.ViewBag.errorMessage = apiException.Message;
-            }
-        }
 
         [MustAuthenticate]
         [SetViewBag]
@@ -92,6 +70,28 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                 this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
                 return this.View("Error");
+            }
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+
+            try
+            {
+                var accessToken = this.RequestItemsService.User.AccessToken;
+                var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
+                var accountId = this.RequestItemsService.Session.AccountId;
+
+                var (permissionProfiles, groups) = Examples.CreateUser.GetPermissionProfilesAndGroups(accessToken, basePath, accountId);
+
+                this.ViewBag.PermissionProfiles = permissionProfiles.PermissionProfiles;
+                this.ViewBag.Groups = groups.Groups;
+            }
+            catch (ApiException apiException)
+            {
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
             }
         }
     }

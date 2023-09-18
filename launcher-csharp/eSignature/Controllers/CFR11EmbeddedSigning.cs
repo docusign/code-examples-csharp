@@ -11,12 +11,12 @@ namespace DocuSign.CodeExamples.Controllers
 
     [Area("eSignature")]
     [Route("eg041")]
-    public class CFR11EmbeddedSigning : EgController
+    public class Cfr11EmbeddedSigning : EgController
     {
-        public CFR11EmbeddedSigning(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public Cfr11EmbeddedSigning(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -50,7 +50,7 @@ namespace DocuSign.CodeExamples.Controllers
             }
 
             // Call the Examples API method to create the envelope and send it using embedded sending
-            var redirectUrl = global::ESignature.Examples.CFRPart11EmbeddedSending.EmbeddedSigning(
+            var redirectUrl = global::ESignature.Examples.CfrPart11EmbeddedSending.EmbeddedSigning(
                 signerEmail,
                 signerName,
                 accessToken,
@@ -63,8 +63,7 @@ namespace DocuSign.CodeExamples.Controllers
 
             Console.WriteLine(string.Format(this.CodeExampleText.ResultsPageText, redirectUrl));
 
-            return Redirect(redirectUrl);
+            return this.Redirect(redirectUrl);
         }
-
     }
 }

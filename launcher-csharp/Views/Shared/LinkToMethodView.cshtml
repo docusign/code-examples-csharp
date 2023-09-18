@@ -1,6 +1,6 @@
 ﻿@model DocuSign.CodeExamples.ESignature.Models.CodeExampleText
 <p>
-    @if(Model.LinksToAPIMethod.Count == 1)
+    @if(Model.LinksToApiMethod.Count == 1)
     {
         <span>@Html.Raw(ViewBag.SupportingTexts.APIMethodUsed)</span>
     } 
@@ -9,14 +9,14 @@
         <span>@Html.Raw(ViewBag.SupportingTexts.APIMethodUsedPlural)</span>
     }
 
-    @for(int i = 0; i < Model.LinksToAPIMethod.Count; ++i)
+    @for(int i = 0; i < Model.LinksToApiMethod.Count; ++i)
     {
-        <a target='_blank' href="@Model.LinksToAPIMethod[i].Path">@Html.Raw(Model.LinksToAPIMethod[i].PathName)</a>
-        @if(i + 1 == Model.LinksToAPIMethod.Count)
+        <a target='_blank' href="@Model.LinksToApiMethod[i].Path">@Html.Raw(Model.LinksToApiMethod[i].PathName)</a>
+        @if(i + 1 == Model.LinksToApiMethod.Count)
         {
             <span></span>
         }
-        else if(i + 1 == Model.LinksToAPIMethod.Count - 1)
+        else if(i + 1 == Model.LinksToApiMethod.Count - 1)
         {
             <span> and </span>
         }

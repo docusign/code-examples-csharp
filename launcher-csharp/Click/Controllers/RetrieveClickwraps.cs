@@ -18,12 +18,12 @@ namespace DocuSign.CodeExamples.Click.Controllers
     public class RetrieveClickwraps : EgController
     {
         public RetrieveClickwraps(
-            DSConfiguration config,
+            DsConfiguration config,
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.Click);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Click);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

@@ -24,8 +24,8 @@ namespace DocuSign.CodeExamples.JWT_Console
             OAuthToken accessToken = null;
             try
             {
-                accessToken = JWTAuth.AuthenticateWithJWT("ESignature", ConfigurationManager.AppSettings["ClientId"], ConfigurationManager.AppSettings["ImpersonatedUserId"],
-                                                            ConfigurationManager.AppSettings["AuthServer"], DSHelper.ReadFileContent(ConfigurationManager.AppSettings["PrivateKeyFile"]));
+                accessToken = JwtAuth.AuthenticateWithJwt("ESignature", ConfigurationManager.AppSettings["ClientId"], ConfigurationManager.AppSettings["ImpersonatedUserId"],
+                                                            ConfigurationManager.AppSettings["AuthServer"], DsHelper.ReadFileContent(ConfigurationManager.AppSettings["PrivateKeyFile"]));
             }
             catch (ApiException apiExp)
             {

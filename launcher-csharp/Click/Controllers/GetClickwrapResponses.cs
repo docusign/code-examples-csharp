@@ -16,10 +16,10 @@ namespace DocuSign.CodeExamples.Click.Controllers
     [Route("ceg005")]
     public class GetClickwrapResponses : EgController
     {
-        public GetClickwrapResponses(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public GetClickwrapResponses(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.Click);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Click);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -65,11 +65,11 @@ namespace DocuSign.CodeExamples.Click.Controllers
             base.InitializeInternal();
 
             // Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
-            var accountId = RequestItemsService.Session.AccountId;
-            ViewBag.ClickwrapsData = DocuSign.Click.Examples.RetrieveClickwraps.GetClickwraps(basePath, accessToken, accountId);
-            ViewBag.AccountId = RequestItemsService.Session.AccountId;
+            var accessToken = this.RequestItemsService.User.AccessToken;
+            var basePath = $"{this.RequestItemsService.Session.BasePath}/clickapi"; // Base API path
+            var accountId = this.RequestItemsService.Session.AccountId;
+            this.ViewBag.ClickwrapsData = DocuSign.Click.Examples.RetrieveClickwraps.GetClickwraps(basePath, accessToken, accountId);
+            this.ViewBag.AccountId = this.RequestItemsService.Session.AccountId;
         }
     }
 }

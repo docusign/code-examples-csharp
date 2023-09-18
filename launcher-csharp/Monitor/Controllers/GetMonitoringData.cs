@@ -19,12 +19,12 @@ namespace DocuSign.CodeExamples.Controllers
 
         private readonly IRequestItemsService requestItemsService;
 
-        public GetMonitoringData(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public GetMonitoringData(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
             this.requestItemsService = requestItemsService;
 
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.Monitor);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Monitor);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -36,7 +36,7 @@ namespace DocuSign.CodeExamples.Controllers
         public IActionResult Create()
         {
             // Obtain your JWT authentication token
-            this.requestItemsService.UpdateUserFromJWT();
+            this.requestItemsService.UpdateUserFromJwt();
 
             // Preparing data for this method
             string accessToken = this.RequestItemsService.User.AccessToken;

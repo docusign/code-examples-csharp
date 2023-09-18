@@ -10,7 +10,7 @@ namespace DocuSign.Admin.Examples
     using DocuSign.Admin.Client;
     using DocuSign.Admin.Model;
 
-    public class CreateCLMESignUser
+    public class CreateClmeSignUser
     {
         /// <summary>
         /// Creates a new user to be used in both CLM and eSignature products

@@ -11,19 +11,19 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
     [Collection("eSignature tests")]
     public sealed class CreateEnvelopeUsingCompositeTemplateUnitTests
     {
-        private const string REDIRECT_URL = "https://developers.docusign.com/docs/esign-rest-api/";
+        private const string RedirectUrl = "https://developers.docusign.com/docs/esign-rest-api/";
 
-        private const string REST_API_PREFIX = "/restapi";
+        private const string RestApiPrefix = "/restapi";
 
-        private const string CC_EMAIL = "cc@gmail.com";
+        private const string CcEmail = "cc@gmail.com";
 
-        private const string CC_NAME = "CC";
+        private const string CcName = "CC";
 
-        private const string ITEM = "avocado";
+        private const string Item = "avocado";
 
-        private const string QUANTITY = "1";
+        private const string Quantity = "1";
 
-        private const string SIGNER_CLIENT_ID = "1000";
+        private const string SignerClientId = "1000";
 
         private readonly TestConfig _testConfig;
 
@@ -34,7 +34,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             this._testConfig = new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature, _testConfig);
+            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesApiType.ESignature, _testConfig);
             this._createNewTemplateUnitTests = new CreateNewTemplateUnitTests(_testConfig);
         }
 
@@ -44,21 +44,21 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             // Arrange
             _createNewTemplateUnitTests.CreateNewTemplate_CorrectInputParameters_ReturnsTemplateIdAndName();
 
-            string basePath = _testConfig.BasePath + REST_API_PREFIX;
+            string basePath = _testConfig.BasePath + RestApiPrefix;
 
             // Act
             string redirectUrl = CreateEnvelopeUsingCompositeTemplate.CreateEnvelopeFromCompositeTemplate(
                 _testConfig.SignerEmail,
                 _testConfig.SignerName,
-                CC_EMAIL,
-                CC_NAME,
+                CcEmail,
+                CcName,
                 _testConfig.AccessToken,
                 basePath,
                 _testConfig.AccountId,
-                ITEM,
-                QUANTITY,
-                REDIRECT_URL,
-                SIGNER_CLIENT_ID,
+                Item,
+                Quantity,
+                RedirectUrl,
+                SignerClientId,
                 _testConfig.TemplateId);
 
             // Assert
@@ -73,7 +73,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 
             var expectedRecipientViewRequest = new RecipientViewRequest
             {
-                ReturnUrl = REDIRECT_URL,
+                ReturnUrl = RedirectUrl,
                 AuthenticationMethod = authenticationMethod,
                 Email = _testConfig.SignerEmail,
                 UserName = _testConfig.SignerName,
@@ -84,7 +84,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             RecipientViewRequest recipientViewRequest = CreateEnvelopeUsingCompositeTemplate.MakeRecipientViewRequest(
                 _testConfig.SignerEmail,
                 _testConfig.SignerName,
-                REDIRECT_URL,
+                RedirectUrl,
                 _testConfig.ImpersonatedUserId
             );
 
@@ -111,8 +111,8 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
 
             var carbonCopy = new CarbonCopy
             {
-                Email = CC_EMAIL,
-                Name = CC_NAME,
+                Email = CcEmail,
+                Name = CcName,
                 RoleName = ccRole,
                 RecipientId = "2"
             };
@@ -121,7 +121,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             {
                 Email = _testConfig.SignerEmail,
                 Name = _testConfig.SignerName,
-                ClientUserId = SIGNER_CLIENT_ID,
+                ClientUserId = SignerClientId,
                 RoleName = signerRole,
                 RecipientId = "1",
                 Tabs = new Tabs
@@ -168,7 +168,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
                                         {
                                             Email = _testConfig.SignerEmail,
                                             Name = _testConfig.SignerName,
-                                            ClientUserId = SIGNER_CLIENT_ID,
+                                            ClientUserId = SignerClientId,
                                             RoleName = signerRole,
                                             RecipientId = "1"
                                         }
@@ -184,7 +184,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
                         Document = new Document
                         {
                             DocumentBase64 = Convert.ToBase64String(CreateEnvelopeUsingCompositeTemplate.Document1(_testConfig.SignerEmail,
-                                _testConfig.SignerName, CC_EMAIL, CC_NAME, ITEM, QUANTITY)),
+                                _testConfig.SignerName, CcEmail, CcName, Item, Quantity)),
                             Name = fileName,
                             FileExtension = fileExtension,
                             DocumentId = "1"
@@ -209,11 +209,11 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             EnvelopeDefinition envelopeDefinition = CreateEnvelopeUsingCompositeTemplate.MakeEnvelope(
                 _testConfig.SignerEmail,
                 _testConfig.SignerName,
-                CC_EMAIL,
-                CC_NAME,
-                ITEM,
-                QUANTITY,
-                SIGNER_CLIENT_ID,
+                CcEmail,
+                CcName,
+                Item,
+                Quantity,
+                SignerClientId,
                 _testConfig.TemplateId
             );
 

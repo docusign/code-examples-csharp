@@ -13,6 +13,7 @@ namespace DocuSign.Admin.Examples
 
     public class AuditUsers
     {
+        /// <summary>Gets modified users</summary>
         /// <param name="basePath">BasePath for API calls (URI)</param>
         /// <param name="accessToken">Access Token for API call (OAuth)</param>
         /// <param name="orgId">DocuSign Organization Id (GUID)</param>

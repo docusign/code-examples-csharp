@@ -11,9 +11,9 @@ namespace launcher_csharp.Tests.ClickUnitTests
     [Collection("Click tests")]
     public sealed class CreateClickwrapUnitTests
     {
-        private const string CLICK_PATH_PREFIX = "/clickapi";
+        private const string ClickPathPrefix = "/clickapi";
 
-        private const string PDF_FILE = "Terms_of_service.pdf";
+        private const string PdfFile = "Terms_of_service.pdf";
 
         private readonly TestConfig _testConfig;
 
@@ -22,7 +22,7 @@ namespace launcher_csharp.Tests.ClickUnitTests
             this._testConfig = testConfig ?? new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.Click, _testConfig);
+            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesApiType.Click, _testConfig);
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace launcher_csharp.Tests.ClickUnitTests
         {
             // Arrange
             var clickwrapName = "Clickwrap name";
-            string pdfFile = _testConfig.PathToSolution + PDF_FILE;
+            string pdfFile = _testConfig.PathToSolution + PdfFile;
             var consentButtonText = "I Agree";
             var format = "modal";
             var documentDisplay = "document";
@@ -76,8 +76,8 @@ namespace launcher_csharp.Tests.ClickUnitTests
         {
             // Arrange
             var clickwrapName = Guid.NewGuid().ToString("n").Substring(0, 8);
-            string pdfFile = _testConfig.PathToSolution + PDF_FILE;
-            string basePath = _testConfig.BasePath + CLICK_PATH_PREFIX;
+            string pdfFile = _testConfig.PathToSolution + PdfFile;
+            string basePath = _testConfig.BasePath + ClickPathPrefix;
 
             // Act
             ClickwrapVersionSummaryResponse clickwrapVersionSummaryResponse = CreateClickwrap.Create(

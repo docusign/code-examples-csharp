@@ -47,10 +47,10 @@ namespace DocuSign.QuickACG
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
             });
-            DSConfiguration config = new DSConfiguration();
+            DsConfiguration config = new DsConfiguration();
 
             Configuration.Bind("DocuSign", config);
-            config.QuickACG = "true";
+            config.QuickAcg = "true";
 
             services.AddSingleton(config);
             services.AddSingleton(new LauncherTexts(config, Configuration));

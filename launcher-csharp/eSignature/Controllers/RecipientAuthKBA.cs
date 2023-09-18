@@ -11,12 +11,12 @@ namespace DocuSign.CodeExamples.Controllers
 
     [Area("eSignature")]
     [Route("eg022")]
-    public class RecipientAuthKBA : EgController
+    public class RecipientAuthKba : EgController
     {
-        public RecipientAuthKBA(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public RecipientAuthKba(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -48,7 +48,7 @@ namespace DocuSign.CodeExamples.Controllers
 
             // Call the Examples API method to create an envelope and
             // add recipient that is to be authenticated with KBA
-            string envelopeId = global::ESignature.Examples.RecipientAuthKBA.CreateEnvelopeWithRecipientUsingKBAAuth(
+            string envelopeId = global::ESignature.Examples.RecipientAuthKba.CreateEnvelopeWithRecipientUsingKbaAuth(
                 signerEmail,
                 signerName,
                 accessToken,

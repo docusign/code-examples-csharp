@@ -15,8 +15,8 @@
                placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[profileNameInputNumber].InputPlaceholder" required />
     </div>
 
-    @Html.HiddenFor(Model => Model.ProfileId)
-    @Html.HiddenFor(Model => Model.AccountRoleSettingsModel.AllowApiAccess)
+    @Html.HiddenFor(model => model.ProfileId)
+    @Html.HiddenFor(model => model.AccountRoleSettingsModel.AllowApiAccess)
 
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>

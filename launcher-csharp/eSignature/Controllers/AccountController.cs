@@ -34,7 +34,7 @@ namespace DocuSign.CodeExamples.Controllers
             this.Configuration["FirstLaunch"] = "false";
             this.Configuration["API"] = this.Configuration["APIPlanned"];
 
-            if (this.Configuration["API"] != this.requestItemsService.IdentifyAPIOfCodeExample(this.requestItemsService.EgName))
+            if (this.Configuration["API"] != this.requestItemsService.IdentifyApiOfCodeExample(this.requestItemsService.EgName))
             {
                 this.requestItemsService.EgName = string.Empty;
             }
@@ -47,14 +47,14 @@ namespace DocuSign.CodeExamples.Controllers
 
             try
             {
-                this.requestItemsService.UpdateUserFromJWT();
+                this.requestItemsService.UpdateUserFromJwt();
             }
             catch (ApiException apiExp)
             {
                 // Consent for impersonation must be obtained to use JWT Grant
                 if (apiExp.Message.Contains("consent_required"))
                 {
-                    return this.Redirect(this.BuildConsentURL());
+                    return this.Redirect(this.BuildConsentUrl());
                 }
             }
 
@@ -64,11 +64,11 @@ namespace DocuSign.CodeExamples.Controllers
 
         public IActionResult MustAuthenticate()
         {
-            var apiTypeBasedOnExample = this.requestItemsService.IdentifyAPIOfCodeExample(this.requestItemsService.EgName);
+            var apiTypeBasedOnExample = this.requestItemsService.IdentifyApiOfCodeExample(this.requestItemsService.EgName);
 
-            if (this.Configuration["API"] == null && (ExamplesAPIType.ESignature.ToString() == apiTypeBasedOnExample || this.requestItemsService.EgName == null))
+            if (this.Configuration["API"] == null && (ExamplesApiType.ESignature.ToString() == apiTypeBasedOnExample || this.requestItemsService.EgName == null))
             {
-                this.Configuration["APIPlanned"] = ExamplesAPIType.ESignature.ToString();
+                this.Configuration["APIPlanned"] = ExamplesApiType.ESignature.ToString();
             }
             else
             {
@@ -101,20 +101,20 @@ namespace DocuSign.CodeExamples.Controllers
         /// Generates a URL that can be used to obtain consent needed for the JWT Flow
         /// </summary>
         /// <returns>Consent URL</returns>
-        private string BuildConsentURL()
+        private string BuildConsentUrl()
         {
             var scopes = "signature impersonation";
-            var apiType = Enum.Parse<ExamplesAPIType>(this.Configuration["API"]);
-            if (apiType == ExamplesAPIType.Rooms)
+            var apiType = Enum.Parse<ExamplesApiType>(this.Configuration["API"]);
+            if (apiType == ExamplesApiType.Rooms)
             {
                 scopes += " dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write "
                 + "dtr.profile.read dtr.profile.write dtr.company.read dtr.company.write room_forms";
             }
-            else if (apiType == ExamplesAPIType.Click)
+            else if (apiType == ExamplesApiType.Click)
             {
                 scopes += " click.manage click.send";
             }
-            else if (apiType == ExamplesAPIType.Admin)
+            else if (apiType == ExamplesApiType.Admin)
             {
                 scopes += " user_read user_write organization_read account_read group_read permission_read identity_provider_read domain_read user_data_redact asset_group_account_read asset_group_account_clone_write asset_group_account_clone_read";
             }

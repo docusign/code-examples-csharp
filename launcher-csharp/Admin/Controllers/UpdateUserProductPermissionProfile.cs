@@ -24,17 +24,17 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         private static Dictionary<Guid?, string> products = new Dictionary<Guid?, string>();
 
-        public UpdateUserProductPermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public UpdateUserProductPermissionProfile(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.Admin);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Admin);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "aeg008";
 
         [Route("/getPermissionProfiles")]
-        public IActionResult getPermissionProfiles(Guid? productId)
+        public IActionResult GetPermissionProfiles(Guid? productId)
         {
             return this.Json(productPermissionProfiles.ProductPermissionProfiles
                 .Find(x => x.ProductId == productId)?.PermissionProfiles);

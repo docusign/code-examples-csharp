@@ -9,17 +9,16 @@ namespace DocuSign.CodeExamples.Views
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
     using DocuSign.eSign.Client;
-    using eSignature.Examples;
     using Microsoft.AspNetCore.Mvc;
 
     [Area("eSignature")]
     [Route("Eg040")]
     public class Eg040SetDocumentVisibility : EgController
     {
-        public Eg040SetDocumentVisibility(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public Eg040SetDocumentVisibility(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -27,44 +26,60 @@ namespace DocuSign.CodeExamples.Views
 
         [HttpPost]
         [SetViewBag]
-        public IActionResult Create(string signer1Email, string signer1Name, string signer2Email, string signer2Name,
-            string ccEmail, string ccName)
+        public IActionResult Create(
+            string signer1Email,
+            string signer1Name,
+            string signer2Email,
+            string signer2Name,
+            string ccEmail,
+            string ccName)
         {
-            string accessToken = RequestItemsService.User.AccessToken;
-            string basePath = RequestItemsService.Session.BasePath + "/restapi";
-            string accountId = RequestItemsService.Session.AccountId;
+            string accessToken = this.RequestItemsService.User.AccessToken;
+            string basePath = this.RequestItemsService.Session.BasePath + "/restapi";
+            string accountId = this.RequestItemsService.Session.AccountId;
             string envelopeId = string.Empty;
 
-            bool tokenOk = CheckToken(3);
+            bool tokenOk = this.CheckToken(3);
             if (!tokenOk)
             {
-                RequestItemsService.EgName = EgName;
-                return Redirect("/ds/mustAuthenticate");
+                this.RequestItemsService.EgName = this.EgName;
+                return this.Redirect("/ds/mustAuthenticate");
             }
 
             try
             {
-                envelopeId = SetDocumentVisibility.SendEnvelopeWithEnvelopeVisibility(signer1Email, signer1Name, signer2Email,
-                    signer2Name, ccEmail, ccName, accessToken, basePath, accountId, Config.DocPdf, Config.DocDocx, Config.DocHTML);
+                envelopeId = global::ESignature.Examples.SetDocumentVisibility.SendEnvelopeWithEnvelopeVisibility(
+                    signer1Email,
+                    signer1Name,
+                    signer2Email,
+                    signer2Name,
+                    ccEmail,
+                    ccName,
+                    accessToken,
+                    basePath,
+                    accountId,
+                    this.Config.DocPdf,
+                    this.Config.DocDocx,
+                    this.Config.DocHtml);
             }
             catch (ApiException apiException)
             {
                 if (apiException.Message.Contains(this.CodeExampleText.CustomErrorTexts[0].ErrorMessageCheck))
                 {
-                    ViewBag.fixingInstructions = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage;
+                    this.ViewBag.fixingInstructions = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage;
                 }
 
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
                 this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
-                return View("Error");
+                return this.View("Error");
             }
 
             this.ViewBag.h1 = this.CodeExampleText.ExampleName;
             this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, envelopeId);
 
-            return View("example_done");
+            return this.View("example_done");
         }
     }
 }

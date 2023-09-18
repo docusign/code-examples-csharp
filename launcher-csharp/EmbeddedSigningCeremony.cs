@@ -129,9 +129,9 @@ namespace ESignature.Examples
             envelopeDefinition.EmailSubject = "Please sign this document";
             Document doc1 = new Document();
 
-            string doc1b64 = Convert.ToBase64String(buffer);
+            string doc1B64 = Convert.ToBase64String(buffer);
 
-            doc1.DocumentBase64 = doc1b64;
+            doc1.DocumentBase64 = doc1B64;
             doc1.Name = "Lorem Ipsum"; // can be different from actual file name
             doc1.FileExtension = "pdf";
             doc1.DocumentId = "3";
@@ -183,6 +183,7 @@ namespace ESignature.Examples
 
             return envelopeDefinition;
         }
+
         //ds-snippet-end:eSign1Step2
     }
 }

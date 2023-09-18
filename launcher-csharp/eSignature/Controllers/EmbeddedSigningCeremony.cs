@@ -19,17 +19,17 @@ namespace DocuSign.CodeExamples.Views
         private readonly string signerClientId = "1000";
         private readonly string dsReturnUrl;
 
-        public EmbeddedSigningCeremony(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public EmbeddedSigningCeremony(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
             this.dsPingUrl = config.AppUrl + "/";
             this.dsReturnUrl = config.AppUrl + "/dsReturn";
 
-            this.CodeExampleText = this.GetExampleText("eg001", ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText("eg001", ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => Convert.ToBoolean(this.Config.QuickACG) ? "quickEmbeddedSigning" : "eg001";
+        public override string EgName => Convert.ToBoolean(this.Config.QuickAcg) ? "quickEmbeddedSigning" : "eg001";
 
         [HttpPost]
         [SetViewBag]
@@ -44,14 +44,14 @@ namespace DocuSign.CodeExamples.Views
             string accessToken = this.RequestItemsService.User.AccessToken;
             string basePath = this.RequestItemsService.Session.BasePath + "/restapi";
             string accountId = this.RequestItemsService.Session.AccountId;
-            string docPDF;
+            string docPdf;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                docPDF = Convert.ToBoolean(this.Config.QuickACG) ? @"../launcher-csharp/" + this.Config.DocPdf : this.Config.DocPdf;
+                docPdf = Convert.ToBoolean(this.Config.QuickAcg) ? @"../launcher-csharp/" + this.Config.DocPdf : this.Config.DocPdf;
             }
             else
             {
-                docPDF = Convert.ToBoolean(this.Config.QuickACG) ? @"..\\launcher-csharp\\" + this.Config.DocPdf : this.Config.DocPdf;
+                docPdf = Convert.ToBoolean(this.Config.QuickAcg) ? @"..\\launcher-csharp\\" + this.Config.DocPdf : this.Config.DocPdf;
             }
 
             // Check the token with minimal buffer time.
@@ -75,7 +75,7 @@ namespace DocuSign.CodeExamples.Views
                 accessToken,
                 basePath,
                 accountId,
-                docPDF,
+                docPdf,
                 this.dsReturnUrl,
                 this.dsPingUrl);
 

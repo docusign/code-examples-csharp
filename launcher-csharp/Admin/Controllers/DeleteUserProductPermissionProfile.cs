@@ -30,10 +30,10 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
         private static Guid eSignatureProductId = Guid.Parse("f6406c68-225c-4e9b-9894-64152a26fa83");
 
-        public DeleteUserProductPermissionProfile(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public DeleteUserProductPermissionProfile(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.Admin);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Admin);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

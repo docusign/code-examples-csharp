@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg01CreateRoomWithDataController.cs" company="DocuSign">
+﻿// <copyright file="CreateRoomWithData.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -16,12 +16,12 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     public class CreateRoomWithData : EgController
     {
         public CreateRoomWithData(
-            DSConfiguration dsConfig,
+            DsConfiguration dsConfig,
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.Rooms);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Rooms);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

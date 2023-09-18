@@ -1,21 +1,18 @@
 // <copyright file="SharedAccess.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using DocuSign.Admin.Client.Auth;
-using DocuSign.eSign.Api;
-using DocuSign.eSign.Client;
-using DocuSign.eSign.Model;
-using Microsoft.Extensions.Logging;
-using OAuth = DocuSign.eSign.Client.Auth.OAuth;
-
 namespace ESignature.Examples
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
+    using DocuSign.eSign.Model;
+    using OAuth = DocuSign.eSign.Client.Auth.OAuth;
+
     public static class SharedAccess
     {
-
         public static OAuth.UserInfo GetCurrentUserInfo(string basePath, string accessToken)
         {
             var docuSignClient = new DocuSignClient(basePath);
@@ -83,7 +80,6 @@ namespace ESignature.Examples
             var userSummary = usersApi.Create(accountId, newUser);
             //ds-snippet-end:eSign43Step3
 
-
             return userSummary;
         }
 
@@ -139,6 +135,7 @@ namespace ESignature.Examples
 
                 accountApi.CreateUserAuthorization(accountId, userId, authRequest);
             }
+
             //ds-snippet-end:eSign43Step4
         }
     }

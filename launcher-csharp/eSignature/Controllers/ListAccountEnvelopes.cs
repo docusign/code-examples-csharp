@@ -13,10 +13,10 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg003")]
     public class ListAccountEnvelopes : EgController
     {
-        public ListAccountEnvelopes(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public ListAccountEnvelopes(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

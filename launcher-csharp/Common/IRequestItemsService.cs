@@ -40,9 +40,9 @@ namespace DocuSign.CodeExamples
 
         public string EmailAddress { get; set; }
 
-        public void UpdateUserFromJWT();
+        public void UpdateUserFromJwt();
 
-        public string IdentifyAPIOfCodeExample(string eg);
+        public string IdentifyApiOfCodeExample(string eg);
 
         public void Logout();
 

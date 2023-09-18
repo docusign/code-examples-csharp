@@ -11,7 +11,7 @@ namespace DocuSign.CodeExamples.Models
 
     public class Locals
     {
-        public DSConfiguration DsConfig { get; set; }
+        public DsConfiguration DsConfig { get; set; }
 
         public User User { get; set; }
 

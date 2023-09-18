@@ -12,11 +12,11 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
     [Collection("eSignature tests")]
     public sealed class UseTemplateUnitTests
     {
-        private const string REST_API_PREFIX = "/restapi";
+        private const string RestApiPrefix = "/restapi";
 
-        private const string CC_MAIL = "cc@gmail.com";
+        private const string CcMail = "cc@gmail.com";
 
-        private const string CC_NAME = "CC";
+        private const string CcName = "CC";
 
         private readonly TestConfig _testConfig;
 
@@ -27,7 +27,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             this._testConfig = new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature, _testConfig);
+            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesApiType.ESignature, _testConfig);
             this._createNewTemplateUnitTests = new CreateNewTemplateUnitTests(_testConfig);
         }
 
@@ -35,7 +35,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
         public void UseTemplate_CorrectInputParameters_ReturnsEnvelopeId()
         {
             // Arrange
-            string basePath = _testConfig.BasePath + REST_API_PREFIX;
+            string basePath = _testConfig.BasePath + RestApiPrefix;
 
             _createNewTemplateUnitTests.CreateNewTemplate_CorrectInputParameters_ReturnsTemplateIdAndName();
 
@@ -43,8 +43,8 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             string envelopeId = CreateEnvelopeFromTemplate.SendEnvelopeFromTemplate(
                 _testConfig.SignerEmail,
                 _testConfig.SignerName,
-                CC_MAIL,
-                CC_NAME,
+                CcMail,
+                CcName,
                 _testConfig.AccessToken,
                 basePath,
                 _testConfig.AccountId,
@@ -77,8 +77,8 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
                     },
                     new TemplateRole
                     {
-                        Email = CC_MAIL,
-                        Name = CC_NAME,
+                        Email = CcMail,
+                        Name = CcName,
                         RoleName = ccRoleName
                     }
                 },
@@ -89,8 +89,8 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             EnvelopeDefinition envelopeDefinition = CreateEnvelopeFromTemplate.MakeEnvelope(
                 _testConfig.SignerEmail,
                 _testConfig.SignerName,
-                CC_MAIL,
-                CC_NAME,
+                CcMail,
+                CcName,
                 _testConfig.TemplateId
             );
 

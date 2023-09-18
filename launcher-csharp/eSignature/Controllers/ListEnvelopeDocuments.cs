@@ -17,10 +17,10 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg006")]
     public class ListEnvelopeDocuments : EgController
     {
-        public ListEnvelopeDocuments(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public ListEnvelopeDocuments(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -65,10 +65,10 @@ namespace DocuSign.CodeExamples.Controllers
             this.RequestItemsService.EnvelopeDocuments = mappedEnvelopeDocuments;
 
             // Process results
-            ViewBag.envelopeDocuments = mappedEnvelopeDocuments;
-            ViewBag.h1 = this.CodeExampleText.ExampleName;
-            ViewBag.message = this.CodeExampleText.ResultsPageText;
-            ViewBag.Locals.Json = JsonConvert.SerializeObject(mappedEnvelopeDocuments, Formatting.Indented);
+            this.ViewBag.envelopeDocuments = mappedEnvelopeDocuments;
+            this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+            this.ViewBag.message = this.CodeExampleText.ResultsPageText;
+            this.ViewBag.Locals.Json = JsonConvert.SerializeObject(mappedEnvelopeDocuments, Formatting.Indented);
 
             // Save the envelopeId and its list of documents in the session so
             // they can be used in example 7 (download a document)
@@ -77,7 +77,7 @@ namespace DocuSign.CodeExamples.Controllers
             // Add PDF Portfolio which is not coming from the GET call
             mappedEnvelopeDocuments.Documents.Add(new EnvelopeDocItem { DocumentId = "portfolio", Name = "PDF Portfolio", Type = "content" });
 
-            return View("example_done");
+            return this.View("example_done");
         }
     }
 }

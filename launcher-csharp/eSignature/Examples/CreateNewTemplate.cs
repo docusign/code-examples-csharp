@@ -21,7 +21,7 @@ namespace ESignature.Examples
         /// <param name="basePath">BasePath for API calls (URI)</param>
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// <returns>Template name, templateId and a flag to indicate if this is a new template or it exited prior to calling this method</returns>
-        public static (bool createdNewTemplate, string templateId, string resultsTemplateName) CreateTemplate(string accessToken, string basePath, string accountId, string documentPDF)
+        public static (bool createdNewTemplate, string templateId, string resultsTemplateName) CreateTemplate(string accessToken, string basePath, string accountId, string documentPdf)
         {
             // Step 1. List templates to see if ours exists already
             var docuSignClient = new DocuSignClient(basePath);
@@ -46,7 +46,7 @@ namespace ESignature.Examples
             else
             {
                 // No template! Create one!
-                EnvelopeTemplate templateReqObject = MakeTemplate(templateName, documentPDF);
+                EnvelopeTemplate templateReqObject = MakeTemplate(templateName, documentPdf);
 
                 //ds-snippet-start:eSign8Step3
                 TemplateSummary template = templatesApi.CreateTemplate(accountId, templateReqObject);
@@ -63,7 +63,7 @@ namespace ESignature.Examples
                 templateId: templateId, resultsTemplateName: resultsTemplateName);
         }
 
-        public static EnvelopeTemplate MakeTemplate(string resultsTemplateName, string documentPDF)
+        public static EnvelopeTemplate MakeTemplate(string resultsTemplateName, string documentPdf)
         {
             // Data for this method
             // resultsTemplateName
@@ -80,7 +80,7 @@ namespace ESignature.Examples
             // add the documents
             //ds-snippet-start:eSign8Step2
             Document doc = new Document();
-            string docB64 = Convert.ToBase64String(System.IO.File.ReadAllBytes(documentPDF));
+            string docB64 = Convert.ToBase64String(System.IO.File.ReadAllBytes(documentPdf));
             doc.DocumentBase64 = docB64;
             doc.Name = "Lorem Ipsum"; // can be different from actual file name
             doc.FileExtension = "pdf";

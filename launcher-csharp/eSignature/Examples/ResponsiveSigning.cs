@@ -13,7 +13,7 @@ namespace ESignature.Examples
 
     public static class ResponsiveSigning
     {
-        public static string CreateEnvelopeFromHTML(
+        public static string CreateEnvelopeFromHtml(
             string signerEmail,
             string signerName,
             string ccEmail,

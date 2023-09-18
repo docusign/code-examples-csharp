@@ -18,12 +18,12 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     public class GrantOfficeAccessToFormGroup : EgController
     {
         public GrantOfficeAccessToFormGroup(
-            DSConfiguration dsConfig,
+            DsConfiguration dsConfig,
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.Rooms);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Rooms);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

@@ -4,6 +4,8 @@
 
 namespace DocuSign.CodeExamples.Rooms.Controllers
 {
+    using System;
+    using System.Collections.Generic;
     using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
@@ -11,17 +13,15 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using DocuSign.Rooms.Client;
     using DocuSign.Rooms.Model;
     using Microsoft.AspNetCore.Mvc;
-    using System;
-    using System.Collections.Generic;
 
     [Area("Rooms")]
     [Route("reg006")]
     public class CreateExternalFormFillSession : EgController
     {
-        public CreateExternalFormFillSession(DSConfiguration dsConfig, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public CreateExternalFormFillSession(DsConfiguration dsConfig, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.Rooms);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Rooms);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -29,12 +29,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
         [BindProperty]
         public RoomDocumentModel RoomDocumentModel { get; set; }
-
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-            this.RoomDocumentModel = new RoomDocumentModel();
-        }
 
         [MustAuthenticate]
         [HttpGet]
@@ -140,6 +134,12 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 return this.View("Error");
             }
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+            this.RoomDocumentModel = new RoomDocumentModel();
         }
     }
 }

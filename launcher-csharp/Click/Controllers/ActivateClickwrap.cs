@@ -2,8 +2,6 @@
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
-using System.Linq;
-
 namespace DocuSign.CodeExamples.Click.Controllers
 {
     using DocuSign.Click.Client;
@@ -18,31 +16,14 @@ namespace DocuSign.CodeExamples.Click.Controllers
     [Route("ceg002")]
     public class ActivateClickwrap : EgController
     {
-        public ActivateClickwrap(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public ActivateClickwrap(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.Click);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Click);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "ceg002";
-
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-
-            // Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
-            var accountId = RequestItemsService.Session.AccountId;
-
-            var inactiveClickwraps = DocuSign.Click.Examples.ActivateClickwrap.GetClickwrapsByStatus(basePath, accessToken, accountId, "inactive");
-            var draftClickwraps = DocuSign.Click.Examples.ActivateClickwrap.GetClickwrapsByStatus(basePath, accessToken, accountId, "draft");
-            inactiveClickwraps.Clickwraps.AddRange(draftClickwraps.Clickwraps);
-
-            ViewBag.ClickwrapsData = inactiveClickwraps;
-            ViewBag.AccountId = RequestItemsService.Session.AccountId;
-        }
 
         [MustAuthenticate]
         [SetViewBag]
@@ -80,6 +61,23 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
                 return this.View("Error");
             }
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+
+            // Obtain your OAuth token
+            var accessToken = this.RequestItemsService.User.AccessToken;
+            var basePath = $"{this.RequestItemsService.Session.BasePath}/clickapi"; // Base API path
+            var accountId = this.RequestItemsService.Session.AccountId;
+
+            var inactiveClickwraps = DocuSign.Click.Examples.ActivateClickwrap.GetClickwrapsByStatus(basePath, accessToken, accountId, "inactive");
+            var draftClickwraps = DocuSign.Click.Examples.ActivateClickwrap.GetClickwrapsByStatus(basePath, accessToken, accountId, "draft");
+            inactiveClickwraps.Clickwraps.AddRange(draftClickwraps.Clickwraps);
+
+            this.ViewBag.ClickwrapsData = inactiveClickwraps;
+            this.ViewBag.AccountId = this.RequestItemsService.Session.AccountId;
         }
     }
 }

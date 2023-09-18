@@ -14,10 +14,10 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg007")]
     public class GetDocumentFromEnvelope : EgController
     {
-        public GetDocumentFromEnvelope(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public GetDocumentFromEnvelope(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

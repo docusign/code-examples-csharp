@@ -13,9 +13,9 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
     [Collection("eSignature tests")]
     public sealed class ApplyBrandToEnvelopeUnitTests
     {
-        private const string ESIGNARURE_PATH_PREFIX = "/restapi";
+        private const string EsignarurePathPrefix = "/restapi";
 
-        private const string DOC_PDF = "World_Wide_Corp_lorem.pdf";
+        private const string DocPdf = "World_Wide_Corp_lorem.pdf";
 
         private readonly TestConfig _testConfig;
 
@@ -24,7 +24,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             this._testConfig = new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature, _testConfig);
+            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesApiType.ESignature, _testConfig);
         }
 
         [Fact]
@@ -33,8 +33,8 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             // Arrange
             GetBrands_CorrectInputParameters_ReturnsListOfBrands();
 
-            string basePath = _testConfig.BasePath + ESIGNARURE_PATH_PREFIX;
-            string docPdf = _testConfig.PathToSolution + DOC_PDF;
+            string basePath = _testConfig.BasePath + EsignarurePathPrefix;
+            string docPdf = _testConfig.PathToSolution + DocPdf;
             string status = "sent";
 
             // Act
@@ -57,7 +57,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
         {
             // Arrange
             GetBrands_CorrectInputParameters_ReturnsListOfBrands();
-            string docPdf = _testConfig.PathToSolution + DOC_PDF;
+            string docPdf = _testConfig.PathToSolution + DocPdf;
             var status = "sent";
             var defaultId = "1";
             var fileExtension = "pdf";
@@ -132,7 +132,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
         public void GetBrands_CorrectInputParameters_ReturnsListOfBrands()
         {
             // Arrange
-            var basePath = _testConfig.BasePath + ESIGNARURE_PATH_PREFIX;
+            var basePath = _testConfig.BasePath + EsignarurePathPrefix;
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + _testConfig.AccessToken);
 
