@@ -51,18 +51,15 @@ namespace ESignature.Examples
         public static string EmbeddedSigning(string signerEmail, string signerName, string accessToken, string basePath, string accountId, string countryAreaCode, string phoneNumber, string docPdf, string redirectUrl)
         {
             // Construct your API headers
-            // Step 2 start
+            //ds-snippet-start:eSign41Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
-            // Step 2 end
-
-            // Step 3 start
             var accountsApi = new AccountsApi(docuSignClient);
             AccountIdentityVerificationResponse response = accountsApi.GetAccountIdentityVerification(accountId);
             var phoneAuthWorkflow = response.IdentityVerification.FirstOrDefault(x => x.DefaultName == "SMS for access & signatures");
+            //ds-snippet-end:eSign41Step2
 
-            // Step 3 end
             if (phoneAuthWorkflow == null)
             {
                 throw new ApiException(0, "IDENTITY_WORKFLOW_INVALID_ID");
@@ -71,7 +68,7 @@ namespace ESignature.Examples
             string workflowId = phoneAuthWorkflow.WorkflowId;
 
             // Construct your envelope JSON body
-            // Step 4 start
+            //ds-snippet-start:eSign41Step3
             EnvelopeDefinition env = new EnvelopeDefinition()
             {
                 EnvelopeIdStamping = "true",
@@ -144,23 +141,27 @@ namespace ESignature.Examples
             Recipients recipients = new Recipients();
             recipients.Signers = new List<Signer> { signer1 };
             env.Recipients = recipients;
-
-            // Step 4 end
+            //ds-snippet-end:eSign41Step3
 
             // Call the eSignature REST API
-            // Step 5 start
+            //ds-snippet-start:eSign41Step4
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+            //ds-snippet-end:eSign41Step4
 
-            // Step 5 end
+            //ds-snippet-start:eSign41Step5
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, redirectUrl, _clientUserId);
+            //ds-snippet-end:eSign41Step5
 
             // call the CreateRecipientView API
+            //ds-snippet-start:eSign41Step6
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, results.EnvelopeId, viewRequest);
+            //ds-snippet-end:eSign41Step6
 
             return results1.Url;
         }
 
+        //ds-snippet-start:eSign41Step5
         private static RecipientViewRequest MakeRecipientViewRequest(string signerEmail, string signerName, string returnUrl, string signerClientId, string pingUrl = null)
         {
             // Data for this method
@@ -206,5 +207,6 @@ namespace ESignature.Examples
 
             return viewRequest;
         }
+        //ds-snippet-end:eSign41Step5
     }
 }
