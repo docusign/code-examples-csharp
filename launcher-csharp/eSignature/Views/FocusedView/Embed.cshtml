@@ -1,0 +1,77 @@
+﻿<div id="agreement"></div>
+
+<code>
+    @ViewBag.Url
+    @ViewBag.IK
+</code>
+
+@Html.Raw("<script src='https://docucdn-a.akamaihd.net/demo/1ds/libs/@embedded-js/core/latest/dist/bundle.js'></script>")
+
+<script>
+    window.DocuSign.loadDocuSign('52957a8d-ec41-47b1-9c8b-c9527c3d9e2b')
+        .then((docusign) => {
+            const signing = docusign.signing({
+                url: '@ViewBag.Url', 
+                displayFormat: 'focused',
+                style: {
+                    /** High-level variables that mirror our existing branding APIs. Reusing the branding name here for familiarity. */
+                    branding: {
+                        primaryButton: {
+                            /** Background color of primary button */
+                            backgroundColor: '#333',
+                            /** Text color of primary button */
+                            color: '#fff',
+                        }
+                    },
+
+                    /** High-level components we allow specific overrides for */
+                    signingNavigationButton: {
+                        finishText: 'Complete',
+                        position: 'bottom-center'
+                    }
+                }
+            });
+
+            signing.on('ready', (event) => {
+                console.log('UI is rendered');
+            });
+
+            signing.on('sessionEnd', (event) => {
+                /** The event here denotes what caused the sessionEnd to trigger, such as signing_complete, ttl_expired etc../ **/
+                console.log('sessionend', event);
+            });
+
+            signing.mount('#agreement');
+        })
+        .catch((ex) => {
+            // Any configuration or API limits will be caught here
+        });</script>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Signing</title>
+    <style>
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            font: 13px Helvetica, Arial, sans-serif;
+        }
+
+        .docusign-agreement {
+            height: 800px;
+        }
+    </style>
+</head>
+<body>
+    <header><h1> Demo</h1></header>
+
+    <div class="docusign-agreement" id="docusign"></div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+<p><a href="/">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a></p>
