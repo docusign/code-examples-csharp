@@ -30,7 +30,6 @@ namespace DocuSign.CodeExamples.Views
             this.dsPingUrl = config.AppUrl + "/";
             this.dsReturnUrl = config.AppUrl + "/dsReturn";
             _configuration = configuration;
-            this.ViewBag.IntegrationKey = this.Configuration["DocuSign:ClientId"];
 
             this.CodeExampleText = this.GetExampleText("eg044", ExamplesAPIType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
@@ -89,7 +88,7 @@ namespace DocuSign.CodeExamples.Views
             // Save for future use within the example launcher
             this.RequestItemsService.EnvelopeId = result.Item1;
             this.ViewBag.Url = result.Item2;
-            this.ViewBag.IK = this.dsIntegrationKey;
+            this.ViewBag.IntegrationKey = this._configuration["DocuSign:ClientId"];
 
             // Redirect the user to the Signing Ceremony
             return this.View("embed");
