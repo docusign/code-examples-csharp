@@ -1,17 +1,17 @@
-﻿<div id="agreement"></div>
+﻿
+<br />
+<h2>Embedded document using focused view</h2>
+<br />
 
-<code>
-    @ViewBag.Url
-    @ViewBag.IK
-</code>
+<div id="agreement"></div>
 
 @Html.Raw("<script src='https://docucdn-a.akamaihd.net/demo/1ds/libs/@embedded-js/core/latest/dist/bundle.js'></script>")
 
 <script>
-    window.DocuSign.loadDocuSign('52957a8d-ec41-47b1-9c8b-c9527c3d9e2b')
+    window.DocuSign.loadDocuSign('{INTEGRATION_KEY}')
         .then((docusign) => {
             const signing = docusign.signing({
-                url: '@ViewBag.Url', 
+                url: '@ViewBag.Url',
                 displayFormat: 'focused',
                 style: {
                     /** High-level variables that mirror our existing branding APIs. Reusing the branding name here for familiarity. */
@@ -26,7 +26,7 @@
 
                     /** High-level components we allow specific overrides for */
                     signingNavigationButton: {
-                        finishText: 'Complete',
+                        finishText: 'You have finished the document! Hooray!',
                         position: 'bottom-center'
                     }
                 }
