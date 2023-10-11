@@ -54,7 +54,7 @@ namespace ESignature.Examples
             string envelopeId = results.EnvelopeId;
             //ds-snippet-end:eSign44Step3
 
-            //ds-snippet-start:eSign44Step6
+            //ds-snippet-start:eSign44Step5
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, returnUrl, signerClientId, pingUrl);
 
             // call the CreateRecipientView API
@@ -66,7 +66,7 @@ namespace ESignature.Examples
 
             // returning both the envelopeId as well as the url to be used for embedded signing
             return (envelopeId, redirectUrl);
-            //ds-snippet-end:eSign44Step6
+            //ds-snippet-end:eSign44Step5
         }
 
         //ds-snippet-start:eSign44Step4
