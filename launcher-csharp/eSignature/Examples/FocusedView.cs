@@ -25,8 +25,6 @@ namespace ESignature.Examples
         /// <param name="signerClientId">A unique ID for the embedded signing session for this signer</param>
         /// <param name="accessToken">Access Token for API call (OAuth)</param>
         /// <param name="basePath">BasePath for API calls (URI)</param>
-        /// <param name="frameAncestors">Array that stores the site URL and demo or prod environement URL</param>
-        /// <param name="messageOrigins">String that stores the URL for the demo and prod enviornment</param>
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// <param name="docPdf">String of bytes representing the document (pdf)</param>
         /// <param name="returnUrl">URL user will be redirected to after they sign</param>
