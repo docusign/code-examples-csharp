@@ -60,7 +60,6 @@ namespace ESignature.Examples
             // call the CreateRecipientView API
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
 
-            // Don't use an iFrame!
             // State can be stored/recovered using the framework's session or a
             // query parameter on the returnUrl (see the makeRecipientViewRequest method)
             string redirectUrl = results1.Url;
@@ -114,10 +113,11 @@ namespace ESignature.Examples
                 viewRequest.PingUrl = pingUrl; // optional setting
             }
 
-            // The FrameAncestors should include the demo or prod link
-            // for DocuSign, and the site where the document should be embedded.
+            // The FrameAncestors should include the links https://apps-d.docusign.com
+            // for demo environments and https://apps.docusign.com for prod environments,
+            // and the site where the document should be embedded.
             // The site must have a valid SSL protocol for the embed to work.
-            // MessageOrigins ncludes the demo or prod link and only
+            // MessageOrigins includes the demo or prod link and only
             // takes a single string.
             viewRequest.FrameAncestors = new List<string> { "https://localhost:44333", "https://apps-d.docusign.com" };
             viewRequest.MessageOrigins = new List<string> { "https://apps-d.docusign.com" };
