@@ -96,6 +96,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
         /// <param name="permissionProfileId">The permission profile ID that will be used for a new user</param>
         /// <param name="groupId">The group ID that will be used for a new user</param>
         /// <returns>The request for creating a new user</returns>
+        //ds-snippet-start:Admin1Step5
         private static NewUserRequest ConstructNewUserRequest(
             long permissionProfileId,
             long groupId,
@@ -107,7 +108,6 @@ namespace DocuSign.CodeExamples.Admin.Examples
         {
             return new NewUserRequest
             {
-                // Step 3 start
                 FirstName = firstName,
                 LastName = lastName,
                 UserName = userName,
@@ -131,9 +131,8 @@ namespace DocuSign.CodeExamples.Admin.Examples
                     },
                 },
                 AutoActivateMemberships = true,
-
-                // Step 3 end
             };
         }
+        //ds-snippet-end:Admin1Step5
     }
 }
