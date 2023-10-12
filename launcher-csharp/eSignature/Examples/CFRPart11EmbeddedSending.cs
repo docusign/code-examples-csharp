@@ -44,10 +44,11 @@ namespace ESignature.Examples
         /// <param name="accessToken">Access Token for API call (OAuth)</param>
         /// <param name="basePath">BasePath for API calls (URI)</param>
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
-        /// <param name="countryAreaCode">Country code for the phone number used to verify the recipient/param>
+        /// <param name="countryAreaCode">Country code for the phone number used to verify the recipient</param>
         /// <param name="phoneNumber">Phone number used to verify the recipient</param>
         /// <param name="docPdf">String of bytes representing the document (pdf)</param>
-        /// <returns>URL for embedded signing</returns>
+        /// <param name="redirectUrl">Redirect URL</param>
+        /// <returns> string URL for embedded signing</returns>
         public static string EmbeddedSigning(string signerEmail, string signerName, string accessToken, string basePath, string accountId, string countryAreaCode, string phoneNumber, string docPdf, string redirectUrl)
         {
             // Construct your API headers
@@ -150,7 +151,7 @@ namespace ESignature.Examples
             //ds-snippet-end:eSign41Step4
 
             //ds-snippet-start:eSign41Step5
-            RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, redirectUrl, _clientUserId);
+            RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, redirectUrl, ClientUserId);
             //ds-snippet-end:eSign41Step5
 
             // call the CreateRecipientView API
@@ -207,6 +208,7 @@ namespace ESignature.Examples
 
             return viewRequest;
         }
+
         //ds-snippet-end:eSign41Step5
     }
 }
