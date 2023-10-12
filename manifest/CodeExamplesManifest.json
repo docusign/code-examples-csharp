@@ -46,400 +46,432 @@
             "Groups": [
                 {
                     "Name": "Requesting a signature",
-                    "Examples": [
+                  "Examples": [
+                    {
+                      "ExampleNumber": 2,
+                      "CFREnabled": "AllAccounts",
+                      "ExampleName": "Send an envelope with a remote (email) signer and cc recipient",
+                      "ExampleDescription": "The envelope includes a pdf, Word, and HTML document. Anchor text(<a target='_blank' href=\"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/\">AutoPlace</a>) is used to position the signing fields in the documents.",
+                      "LinksToAPIMethod": [
                         {
-                            "ExampleNumber": 2,
-                            "CFREnabled": "AllAccounts",
-                            "ExampleName": "Send an envelope with a remote (email) signer and cc recipient",
-                            "ExampleDescription": "The envelope includes a pdf, Word, and HTML document. Anchor text(<a target='_blank' href=\"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/\">AutoPlace</a>) is used to position the signing fields in the documents.",
-                            "LinksToAPIMethod": [
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                                    "PathName": "Envelopes:create"
-                                }
-                            ],
-                            "Forms": [
-                                {
-                                    "Inputs": [
-                                        {
-                                            "InputName": "Signer Email",
-                                            "InputPlaceholder": "pat@example.com"
-                                        },
-                                        {
-                                            "InputName": "Signer Name",
-                                            "InputPlaceholder": "Pat Johnson"
-                                        },
-                                        {
-                                            "InputName": "CC Email",
-                                            "InputPlaceholder": "pat@example.com"
-                                        },
-                                        {
-                                            "InputName": "CC Name",
-                                            "InputPlaceholder": "Pat Johnson"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
-                        },
-                        {
-                            "ExampleNumber": 1,
-                            "CFREnabled": "NonCFR",
-                            "ExampleName": "Request a signature through your app (embedded signing)",
-                            "ExampleDescription": "Sends an envelope, then uses embedded signing for the first signer. With embedded signing, DocuSign signing is initiated from your website.",
-                            "LinksToAPIMethod": [
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                                    "PathName": "Envelopes:create"
-                                },
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/",
-                                    "PathName": "EnvelopeViews:createRecipient"
-                                }
-                            ],
-                            "Forms": [
-                                {
-                                    "Inputs": [
-                                        {
-                                            "InputName": "Signer Email",
-                                            "InputPlaceholder": "pat@example.com"
-                                        },
-                                        {
-                                            "InputName": "Signer Name",
-                                            "InputPlaceholder": "Pat Johnson"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "ResultsPageText": ""
-                        },
-                        {
-                            "ExampleNumber": 41,
-                            "CFREnabled": "CFROnly",
-                            "ExampleName": "Request a signature through your app (embedded signing) with a CFR Part 11 account",
-                            "ExampleDescription": "Sends an envelope, then uses embedded signing with recipient authentication by phone for the first signer. With embedded signing, DocuSign signing is initiated from your website.",
-                            "LinksToAPIMethod": [
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/getenvelopeworkflowdefinition/",
-                                    "PathName": "EnvelopeWorkflowDefinition:getEnvelopeWorkflowDefinition"
-                                },
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                                    "PathName": "Envelopes:create"
-                                },
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/",
-                                    "PathName": "EnvelopeViews:createRecipient"
-                                }
-                            ],
-                            "Forms": [
-                                {
-                                    "Inputs": [
-                                        {
-                                            "InputName": "Signer Email",
-                                            "InputPlaceholder": "pat@example.com"
-                                        },
-                                        {
-                                            "InputName": "Signer Name",
-                                            "InputPlaceholder": "Pat Johnson"
-                                        },
-                                        {
-                                            "InputName": "Signer Country Code",
-                                            "InputPlaceholder": "1"
-                                        },
-                                        {
-                                            "InputName": "Signer Phone Number",
-                                            "InputPlaceholder": "4155551212"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "ResultsPageText": ""
-                        },
-                        {
-                            "ExampleNumber": 9,
-                            "CFREnabled": "AllAccounts",
-                            "ExampleName": "Send an envelope using a template",
-                            "ExampleDescription": "The envelope is defined by the template. The signer and cc recipient name and email are used to fill in the template's <i>roles</i>.",
-                            "LinksToAPIMethod": [
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                                    "PathName": "Envelopes:create"
-                                }
-                            ],
-                            "RedirectsToOtherCodeExamples": [
-                                {
-                                    "CodeExampleToRedirectTo": 8,
-                                    "RedirectText": "<p>Prerequisite: Please first create the template using <a {0}>Create a template</a>.</p>"
-                                }
-                            ],
-                            "Forms": [
-                                {
-                                    "FormName": "<p>The template you created via Create a template will be used.<br/>The document list is from your results for List an envelope's documents.</p>",
-                                    "Inputs": [
-                                        {
-                                            "InputName": "Signer Email",
-                                            "InputPlaceholder": "pat@example.com"
-                                        },
-                                        {
-                                            "InputName": "Signer Name",
-                                            "InputPlaceholder": "Pat Johnson"
-                                        },
-                                        {
-                                            "InputName": "CC Email",
-                                            "InputPlaceholder": "pat@example.com"
-                                        },
-                                        {
-                                            "InputName": "CC Name",
-                                            "InputPlaceholder": "Pat Johnson"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "ResultsPageText": "The envelope has been created and sent!<br/>Envelope ID {0}."
-                        },
-                        {
-                            "ExampleNumber": 13,
-                            "CFREnabled": "AllAccounts",
-                            "ExampleName": "Embedded Signing Ceremony from a template with an added document",
-                            "ExampleDescription": "<p>This example sends an envelope based on a template.</p><p>In addition to the template's document(s), the example adds an additional document to the envelope by using the <a target='_blank' href='https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/templates/composite/'>Composite Templates</a> feature.</p>",
-                            "LinksToAPIMethod": [
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                                    "PathName": "Envelopes:create"
-                                },
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/",
-                                    "PathName": "EnvelopeViews:createRecipient"
-                                }
-                            ],
-                            "RedirectsToOtherCodeExamples": [
-                                {
-                                    "CodeExampleToRedirectTo": 8,
-                                    "RedirectText": "<p>Prerequisite: Please first create the template using <a {0}>Create a template</a>.</p>"
-                                }
-                            ],
-                            "Forms": [
-                                {
-                                    "FormName": "<p>The template you created via Create a template will be used.</p>",
-                                    "Inputs": [
-                                        {
-                                            "InputName": "Signer Email",
-                                            "InputPlaceholder": "pat@example.com"
-                                        },
-                                        {
-                                            "InputName": "Signer Name",
-                                            "InputPlaceholder": "Pat Johnson"
-                                        },
-                                        {
-                                            "InputName": "CC Email",
-                                            "InputPlaceholder": "pat@example.com"
-                                        },
-                                        {
-                                            "InputName": "CC Name",
-                                            "InputPlaceholder": "Pat Johnson"
-                                        },
-                                        {
-                                            "InputName": "Item"
-                                        },
-                                        {
-                                            "InputName": "Quantity"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "ResultsPageText": ""
-                        },
-                        {
-                            "ExampleNumber": 37,
-                            "CFREnabled": "NonCFR",
-                            "ExampleName": "Request a signature by SMS or WhatsApp delivery",
-                            "ExampleDescription": "Sends a signature request via an SMS or WhatsApp message.",
-                            "LinksToAPIMethod": [
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                                    "PathName": "Envelopes::create"
-                                }
-                            ],
-                            "Forms": [
-                                {
-                                    "Inputs": [
-                                        {
-                                            "InputName": "Signer Country Code",
-                                            "InputPlaceholder": "1"
-                                        },
-                                        {
-                                            "InputName": "Signer Phone Number",
-                                            "InputPlaceholder": "4155551212"
-                                        },
-                                        {
-                                            "InputName": "Signer Name",
-                                            "InputPlaceholder": "Pat Johnson"
-                                        },
-                                        {
-                                            "InputName": "CC Country Code",
-                                            "InputPlaceholder": "1"
-                                        },
-                                        {
-                                            "InputName": "CC Phone Number",
-                                            "InputPlaceholder": "4155551212"
-                                        },
-                                        {
-                                            "InputName": "CC Name",
-                                            "InputPlaceholder": "Pat Johnson"
-                                        },
-                                        {
-                                            "InputName": "Delivery Method:"
-                                        },
-                                        {
-                                            "InputName": "SMS"
-                                        },
-                                        {
-                                            "InputName": "WhatsApp"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
-                        },
-                        {
-                            "ExampleNumber": 14,
-                            "CFREnabled": "NonCFR",
-                            "ExampleName": "Send an envelope with an order form and payment field",
-                            "ExampleDescription": "Anchor text (<a target='_blank' href=\"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/\">AutoPlace</a>) is used to position the fields in the documents.",
-                            "Notes": "<h5 style=\"color: purple;\">Note: This example will only work if the sender's DocuSign account is set up with a DocuSign payment gateway. Since the Payment Gateway ID is set in the configuration file, you will need to run your own instance of this project to set it.</h5>",
-                            "LinksToAPIMethod": [
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                                    "PathName": "Envelopes:create"
-                                },
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/",
-                                    "PathName": "EnvelopeViews:createRecipient"
-                                }
-                            ],
-                            "RedirectsToOtherCodeExamples": [
-                                {
-                                    "RedirectText": "<p>Prerequisite: Please set the <b>DS_PAYMENT_GATEWAY_ID</b> value in the configuration file.</p>"
-                                }
-                            ],
-                            "Forms": [
-                                {
-                                    "Inputs": [
-                                        {
-                                            "InputName": "Signer Name",
-                                            "InputPlaceholder": "Pat Johnson"
-                                        },
-                                        {
-                                            "InputName": "Signer Email",
-                                            "InputPlaceholder": "pat@example.com"
-                                        },
-                                        {
-                                            "InputName": "CC Name",
-                                            "InputPlaceholder": "Pat Johnson"
-                                        },
-                                        {
-                                            "InputName": "CC Email",
-                                            "InputPlaceholder": "pat@example.com"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "ResultsPageText": "The envelope has been created and sent!<br/>Envelope ID {0}."
-                        },
-                        {
-                            "ExampleNumber": 39,
-                            "CFREnabled": "NonCFR",
-                            "ExampleName": "Send an envelope to an In Person Signer",
-                            "ExampleDescription": "Demonstrates how to host an In Person Signing session with embedded signing.",
-                            "LinksToAPIMethod": [
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                                    "PathName": "Envelopes:create"
-                                },
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/",
-                                    "PathName": "EnvelopeViews:createRecipient"
-                                }
-                            ],
-                            "Forms": [
-                                {
-                                    "Inputs": [
-                                        {
-                                            "InputName": "Signer Name",
-                                            "InputPlaceholder": "Pat Johnson"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "ResultsPageText": ""
-                        },
-                        {
-                            "ExampleNumber": 42,
-                            "CFREnabled": "NonCFR",
-                            "ExampleName": "Request a signature by email with document generation",
-                            "ExampleDescription": "Creates an envelope from a template with a document that is dynamically generated to include all the customized data specified by the sender.",
-                            "LinksToAPIMethod": [
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/templates/templates/create/",
-                                    "PathName": "Templates:create"
-                                },
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/templates/templatedocuments/update/",
-                                    "PathName": "TemplateDocuments:update"
-                                },
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/templates/templaterecipienttabs/create/",
-                                    "PathName": "TemplateRecipientTabs:create"
-                                },
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                                    "PathName": "Envelopes:create"
-                                },
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/documentgeneration/getenvelopedocgenformfields/",
-                                    "PathName": "DocumentGeneration:getEnvelopeDocGenFormFields"
-                                },
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/documentgeneration/updateenvelopedocgenformfields/",
-                                    "PathName": "DocumentGeneration:updateEnvelopeDocGenFormFields"
-                                },
-                                {
-                                    "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/update/",
-                                    "PathName": "Envelopes:update"
-                                }
-                            ],
-                            "Forms": [
-                                {
-                                    "Inputs": [
-                                        {
-                                            "InputName": "Candidate Email",
-                                            "InputPlaceholder": "pat@example.com"
-                                        },
-                                        {
-                                            "InputName": "Candidate Name",
-                                            "InputPlaceholder": "Pat Johnson"
-                                        },
-                                        {
-                                            "InputName": "Manager Name",
-                                            "InputPlaceholder": "Pat Johnson"
-                                        },
-                                        {
-                                            "InputName": "Job Title"
-                                        },
-                                        {
-                                            "InputName": "Salary"
-                                        },
-                                        {
-                                            "InputName": "Start Date",
-                                            "InputPlaceholder": "mm/dd/yyyy"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                          "PathName": "Envelopes:create"
                         }
-                    ]
+                      ],
+                      "Forms": [
+                        {
+                          "Inputs": [
+                            {
+                              "InputName": "Signer Email",
+                              "InputPlaceholder": "pat@example.com"
+                            },
+                            {
+                              "InputName": "Signer Name",
+                              "InputPlaceholder": "Pat Johnson"
+                            },
+                            {
+                              "InputName": "CC Email",
+                              "InputPlaceholder": "pat@example.com"
+                            },
+                            {
+                              "InputName": "CC Name",
+                              "InputPlaceholder": "Pat Johnson"
+                            }
+                          ]
+                        }
+                      ],
+                      "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
+                    },
+                    {
+                      "ExampleNumber": 1,
+                      "CFREnabled": "NonCFR",
+                      "ExampleName": "Request a signature through your app (embedded signing)",
+                      "ExampleDescription": "Sends an envelope, then uses embedded signing for the first signer. With embedded signing, DocuSign signing is initiated from your website.",
+                      "LinksToAPIMethod": [
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                          "PathName": "Envelopes:create"
+                        },
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/",
+                          "PathName": "EnvelopeViews:createRecipient"
+                        }
+                      ],
+                      "Forms": [
+                        {
+                          "Inputs": [
+                            {
+                              "InputName": "Signer Email",
+                              "InputPlaceholder": "pat@example.com"
+                            },
+                            {
+                              "InputName": "Signer Name",
+                              "InputPlaceholder": "Pat Johnson"
+                            }
+                          ]
+                        }
+                      ],
+                      "ResultsPageText": ""
+                    },
+                    {
+                      "ExampleNumber": 41,
+                      "CFREnabled": "CFROnly",
+                      "ExampleName": "Request a signature through your app (embedded signing) with a CFR Part 11 account",
+                      "ExampleDescription": "Sends an envelope, then uses embedded signing with recipient authentication by phone for the first signer. With embedded signing, DocuSign signing is initiated from your website.",
+                      "LinksToAPIMethod": [
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/getenvelopeworkflowdefinition/",
+                          "PathName": "EnvelopeWorkflowDefinition:getEnvelopeWorkflowDefinition"
+                        },
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                          "PathName": "Envelopes:create"
+                        },
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/",
+                          "PathName": "EnvelopeViews:createRecipient"
+                        }
+                      ],
+                      "Forms": [
+                        {
+                          "Inputs": [
+                            {
+                              "InputName": "Signer Email",
+                              "InputPlaceholder": "pat@example.com"
+                            },
+                            {
+                              "InputName": "Signer Name",
+                              "InputPlaceholder": "Pat Johnson"
+                            },
+                            {
+                              "InputName": "Signer Country Code",
+                              "InputPlaceholder": "1"
+                            },
+                            {
+                              "InputName": "Signer Phone Number",
+                              "InputPlaceholder": "4155551212"
+                            }
+                          ]
+                        }
+                      ],
+                      "ResultsPageText": ""
+                    },
+                    {
+                      "ExampleNumber": 9,
+                      "CFREnabled": "AllAccounts",
+                      "ExampleName": "Send an envelope using a template",
+                      "ExampleDescription": "The envelope is defined by the template. The signer and cc recipient name and email are used to fill in the template's <i>roles</i>.",
+                      "LinksToAPIMethod": [
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                          "PathName": "Envelopes:create"
+                        }
+                      ],
+                      "RedirectsToOtherCodeExamples": [
+                        {
+                          "CodeExampleToRedirectTo": 8,
+                          "RedirectText": "<p>Prerequisite: Please first create the template using <a {0}>Create a template</a>.</p>"
+                        }
+                      ],
+                      "Forms": [
+                        {
+                          "FormName": "<p>The template you created via Create a template will be used.<br/>The document list is from your results for List an envelope's documents.</p>",
+                          "Inputs": [
+                            {
+                              "InputName": "Signer Email",
+                              "InputPlaceholder": "pat@example.com"
+                            },
+                            {
+                              "InputName": "Signer Name",
+                              "InputPlaceholder": "Pat Johnson"
+                            },
+                            {
+                              "InputName": "CC Email",
+                              "InputPlaceholder": "pat@example.com"
+                            },
+                            {
+                              "InputName": "CC Name",
+                              "InputPlaceholder": "Pat Johnson"
+                            }
+                          ]
+                        }
+                      ],
+                      "ResultsPageText": "The envelope has been created and sent!<br/>Envelope ID {0}."
+                    },
+                    {
+                      "ExampleNumber": 13,
+                      "CFREnabled": "AllAccounts",
+                      "ExampleName": "Embedded Signing Ceremony from a template with an added document",
+                      "ExampleDescription": "<p>This example sends an envelope based on a template.</p><p>In addition to the template's document(s), the example adds an additional document to the envelope by using the <a target='_blank' href='https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/templates/composite/'>Composite Templates</a> feature.</p>",
+                      "LinksToAPIMethod": [
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                          "PathName": "Envelopes:create"
+                        },
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/",
+                          "PathName": "EnvelopeViews:createRecipient"
+                        }
+                      ],
+                      "RedirectsToOtherCodeExamples": [
+                        {
+                          "CodeExampleToRedirectTo": 8,
+                          "RedirectText": "<p>Prerequisite: Please first create the template using <a {0}>Create a template</a>.</p>"
+                        }
+                      ],
+                      "Forms": [
+                        {
+                          "FormName": "<p>The template you created via Create a template will be used.</p>",
+                          "Inputs": [
+                            {
+                              "InputName": "Signer Email",
+                              "InputPlaceholder": "pat@example.com"
+                            },
+                            {
+                              "InputName": "Signer Name",
+                              "InputPlaceholder": "Pat Johnson"
+                            },
+                            {
+                              "InputName": "CC Email",
+                              "InputPlaceholder": "pat@example.com"
+                            },
+                            {
+                              "InputName": "CC Name",
+                              "InputPlaceholder": "Pat Johnson"
+                            },
+                            {
+                              "InputName": "Item"
+                            },
+                            {
+                              "InputName": "Quantity"
+                            }
+                          ]
+                        }
+                      ],
+                      "ResultsPageText": ""
+                    },
+                    {
+                      "ExampleNumber": 37,
+                      "CFREnabled": "NonCFR",
+                      "ExampleName": "Request a signature by SMS or WhatsApp delivery",
+                      "ExampleDescription": "Sends a signature request via an SMS or WhatsApp message.",
+                      "LinksToAPIMethod": [
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                          "PathName": "Envelopes::create"
+                        }
+                      ],
+                      "Forms": [
+                        {
+                          "Inputs": [
+                            {
+                              "InputName": "Signer Country Code",
+                              "InputPlaceholder": "1"
+                            },
+                            {
+                              "InputName": "Signer Phone Number",
+                              "InputPlaceholder": "4155551212"
+                            },
+                            {
+                              "InputName": "Signer Name",
+                              "InputPlaceholder": "Pat Johnson"
+                            },
+                            {
+                              "InputName": "CC Country Code",
+                              "InputPlaceholder": "1"
+                            },
+                            {
+                              "InputName": "CC Phone Number",
+                              "InputPlaceholder": "4155551212"
+                            },
+                            {
+                              "InputName": "CC Name",
+                              "InputPlaceholder": "Pat Johnson"
+                            },
+                            {
+                              "InputName": "Delivery Method:"
+                            },
+                            {
+                              "InputName": "SMS"
+                            },
+                            {
+                              "InputName": "WhatsApp"
+                            }
+                          ]
+                        }
+                      ],
+                      "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
+                    },
+                    {
+                      "ExampleNumber": 14,
+                      "CFREnabled": "NonCFR",
+                      "ExampleName": "Send an envelope with an order form and payment field",
+                      "ExampleDescription": "Anchor text (<a target='_blank' href=\"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/\">AutoPlace</a>) is used to position the fields in the documents.",
+                      "Notes": "<h5 style=\"color: purple;\">Note: This example will only work if the sender's DocuSign account is set up with a DocuSign payment gateway. Since the Payment Gateway ID is set in the configuration file, you will need to run your own instance of this project to set it.</h5>",
+                      "LinksToAPIMethod": [
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                          "PathName": "Envelopes:create"
+                        },
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/",
+                          "PathName": "EnvelopeViews:createRecipient"
+                        }
+                      ],
+                      "RedirectsToOtherCodeExamples": [
+                        {
+                          "RedirectText": "<p>Prerequisite: Please set the <b>DS_PAYMENT_GATEWAY_ID</b> value in the configuration file.</p>"
+                        }
+                      ],
+                      "Forms": [
+                        {
+                          "Inputs": [
+                            {
+                              "InputName": "Signer Name",
+                              "InputPlaceholder": "Pat Johnson"
+                            },
+                            {
+                              "InputName": "Signer Email",
+                              "InputPlaceholder": "pat@example.com"
+                            },
+                            {
+                              "InputName": "CC Name",
+                              "InputPlaceholder": "Pat Johnson"
+                            },
+                            {
+                              "InputName": "CC Email",
+                              "InputPlaceholder": "pat@example.com"
+                            }
+                          ]
+                        }
+                      ],
+                      "ResultsPageText": "The envelope has been created and sent!<br/>Envelope ID {0}."
+                    },
+                    {
+                      "ExampleNumber": 39,
+                      "CFREnabled": "NonCFR",
+                      "ExampleName": "Send an envelope to an In Person Signer",
+                      "ExampleDescription": "Demonstrates how to host an In Person Signing session with embedded signing.",
+                      "LinksToAPIMethod": [
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                          "PathName": "Envelopes:create"
+                        },
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/",
+                          "PathName": "EnvelopeViews:createRecipient"
+                        }
+                      ],
+                      "Forms": [
+                        {
+                          "Inputs": [
+                            {
+                              "InputName": "Signer Name",
+                              "InputPlaceholder": "Pat Johnson"
+                            }
+                          ]
+                        }
+                      ],
+                      "ResultsPageText": ""
+                    },
+                    {
+                      "ExampleNumber": 44,
+                      "CFREnabled": "NonCFR",
+                      "ExampleName": "Request a signature using focused view",
+                      "ExampleDescription": "Sends an envelope, then uses focused view for the signer.",
+                      "LinksToAPIMethod": [
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                          "PathName": "Envelopes:create"
+                        },
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/",
+                          "PathName": "EnvelopeViews:createRecipient"
+                        }
+                      ],
+                      "Forms": [
+                        {
+                          "Inputs": [
+                            {
+                              "InputName": "Signer Email",
+                              "InputPlaceholder": "pat@example.com"
+                            },
+                            {
+                              "InputName": "Signer Name",
+                              "InputPlaceholder": "Pat Johnson"
+                            }
+                          ]
+                        }
+                      ],
+                      "ResultsPageText": "",
+                      "SkipForLanguages": "bash;java;node;php;powershell;python;ruby"
+                    },
+                    {
+                      "ExampleNumber": 42,
+                      "CFREnabled": "NonCFR",
+                      "ExampleName": "Request a signature by email with document generation",
+                      "ExampleDescription": "Creates an envelope from a template with a document that is dynamically generated to include all the customized data specified by the sender.",
+                      "LinksToAPIMethod": [
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/templates/templates/create/",
+                          "PathName": "Templates:create"
+                        },
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/templates/templatedocuments/update/",
+                          "PathName": "TemplateDocuments:update"
+                        },
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/templates/templaterecipienttabs/create/",
+                          "PathName": "TemplateRecipientTabs:create"
+                        },
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                          "PathName": "Envelopes:create"
+                        },
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/documentgeneration/getenvelopedocgenformfields/",
+                          "PathName": "DocumentGeneration:getEnvelopeDocGenFormFields"
+                        },
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/documentgeneration/updateenvelopedocgenformfields/",
+                          "PathName": "DocumentGeneration:updateEnvelopeDocGenFormFields"
+                        },
+                        {
+                          "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/update/",
+                          "PathName": "Envelopes:update"
+                        }
+                      ],
+                      "Forms": [
+                        {
+                          "Inputs": [
+                            {
+                              "InputName": "Candidate Email",
+                              "InputPlaceholder": "pat@example.com"
+                            },
+                            {
+                              "InputName": "Candidate Name",
+                              "InputPlaceholder": "Pat Johnson"
+                            },
+                            {
+                              "InputName": "Manager Name",
+                              "InputPlaceholder": "Pat Johnson"
+                            },
+                            {
+                              "InputName": "Job Title"
+                            },
+                            {
+                              "InputName": "Salary"
+                            },
+                            {
+                              "InputName": "Start Date",
+                              "InputPlaceholder": "mm/dd/yyyy"
+                            }
+                          ]
+                        }
+                      ],
+                      "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
+                    }
+                  ]
                 },
                 {
                     "Name": "Working with envelopes and templates",
