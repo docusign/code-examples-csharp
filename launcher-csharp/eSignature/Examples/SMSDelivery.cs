@@ -28,24 +28,24 @@ namespace ESignature.Examples
         /// <param name="docPdf">String of bytes representing the document (pdf).</param>
         /// <param name="docDocx">String of bytes representing the Word document (docx).</param>
         /// <param name="envStatus">Status to set the envelope to.</param>
+        /// <param name="deliveryMethod">SMS or WhatsApp</param>
         /// <returns>EnvelopeId for the new envelope.</returns>
-        public static string SendRequestViaSMS(string accessToken, string basePath, string accountId, string signerName, string signerCountryCode, string signerPhoneNumber, string ccName, string ccCountryCode, string ccPhoneNumber, string docDocx, string docPdf, string envStatus)
+        public static string SendRequestViaSMS(string accessToken, string basePath, string accountId, string signerName, string signerCountryCode, string signerPhoneNumber, string ccName, string ccCountryCode, string ccPhoneNumber, string docDocx, string docPdf, string envStatus, string deliveryMethod)
         {
-            EnvelopeDefinition env = MakeEnvelope(signerName, signerCountryCode, signerPhoneNumber, ccName, ccCountryCode, ccPhoneNumber, docDocx, docPdf, envStatus);
+            EnvelopeDefinition env = MakeEnvelope(signerName, signerCountryCode, signerPhoneNumber, ccName, ccCountryCode, ccPhoneNumber, docDocx, docPdf, envStatus, deliveryMethod);
 
-            // Step 3 start
+            //ds-snippet-start:eSign37Step3
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
 
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
-
-            // Step 3 end
+            //ds-snippet-end:eSign37Step3
             return results.EnvelopeId;
         }
 
-        // Step 2 start
-        private static EnvelopeDefinition MakeEnvelope(string signerName, string signerCountryCode, string signerPhoneNumber, string ccName, string ccCountryCode, string ccPhoneNumber, string docDocx, string docPdf, string envStatus)
+        //ds-snippet-start:eSign37Step2
+        private static EnvelopeDefinition MakeEnvelope(string signerName, string signerCountryCode, string signerPhoneNumber, string ccName, string ccCountryCode, string ccPhoneNumber, string docDocx, string docPdf, string envStatus, string deliveryMethod)
         {
             // Data for this method
             // signerName
@@ -108,6 +108,7 @@ namespace ESignature.Examples
                 Name = signerName,
                 RecipientId = "1",
                 RoutingOrder = "1",
+                DeliveryMethod = deliveryMethod,
                 PhoneNumber = new RecipientPhoneNumber
                 {
                     CountryCode = signerCountryCode,
@@ -126,6 +127,7 @@ namespace ESignature.Examples
                 Name = ccName,
                 RecipientId = "2",
                 RoutingOrder = "2",
+                DeliveryMethod = deliveryMethod,
                 PhoneNumber = new RecipientPhoneNumber
                 {
                     CountryCode = ccCountryCode,
@@ -208,7 +210,6 @@ namespace ESignature.Examples
                 "        </body>\n" +
                 "    </html>");
         }
-
-        // Step 2 end
+        //ds-snippet-end:eSign37Step2
     }
 }

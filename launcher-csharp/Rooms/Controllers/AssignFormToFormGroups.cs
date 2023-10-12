@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using Newtonsoft.Json;
 
     [Area("Rooms")]
-    [Route("Reg009")]
+    [Route("reg009")]
     public class AssignFormToFormGroups : EgController
     {
         public AssignFormToFormGroups(
@@ -28,7 +28,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Reg009";
+        public override string EgName => "reg009";
 
         [BindProperty]
         public FormFormGroupModel FormFormGroupModel { get; set; }
@@ -37,7 +37,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         [HttpGet]
         public override IActionResult Get()
         {
-            base.Get();
+            IActionResult actionResult = base.Get();
+            if (this.RequestItemsService.EgName == this.EgName)
+            {
+                return actionResult;
+            }
 
             // Obtain your OAuth token
             string accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
@@ -52,7 +56,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 this.FormFormGroupModel = new FormFormGroupModel { Forms = forms.Forms, FormGroups = formGroups.FormGroups };
 
-                return this.View("Reg009", this);
+                return this.View("reg009", this);
             }
             catch (ApiException apiException)
             {
@@ -78,20 +82,22 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
             try
             {
+                //ds-snippet-start:Rooms9Step5
+                var form = new FormGroupFormToAssign() { FormId = formFormGroupModel.FormId };
+                //ds-snippet-end:Rooms9Step5
                 // Call the Rooms API to assign form to form group
                 var formGroupFormToAssign = DocuSign.Rooms.Examples.AssignFormToFormGroups.AssignForm(
                     basePath,
                     accessToken,
                     accountId,
                     formFormGroupModel.FormGroupId,
-                    new FormGroupFormToAssign() { FormId = formFormGroupModel.FormId });
+                    form);
 
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = string.Format(
                     this.CodeExampleText.ResultsPageText,
-                    formGroupFormToAssign.FormId,
+                    formFormGroupModel.FormId.ToString(),
                     formFormGroupModel.FormGroupId.ToString());
-                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(formGroupFormToAssign, Formatting.Indented);
 
                 return this.View("example_done");
             }

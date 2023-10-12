@@ -13,7 +13,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
     using Newtonsoft.Json;
 
     [Area("Click")]
-    [Route("ClickEg003")]
+    [Route("ceg003")]
     public class CreateNewClickwrapVersion : EgController
     {
         public CreateNewClickwrapVersion(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
@@ -23,7 +23,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "ClickEg003";
+        public override string EgName => "ceg003";
 
         protected override void InitializeInternal()
         {

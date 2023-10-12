@@ -43,6 +43,7 @@ namespace ESignature.Examples
             string signerClientId,
             string templateId)
         {
+            //ds-snippet-start:eSign13Step3
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
@@ -55,10 +56,13 @@ namespace ESignature.Examples
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
             string envelopeId = results.EnvelopeId;
             Console.WriteLine("Envelope was created. EnvelopeId " + envelopeId);
+            //ds-snippet-end:eSign13Step3
 
             // Step 3. create the recipient view, the Signing Ceremony
+            //ds-snippet-start:eSign13Step4
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, returnUrl, signerClientId);
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
+            //ds-snippet-end:eSign13Step4
             return results1.Url;
         }
 
@@ -96,6 +100,7 @@ namespace ESignature.Examples
             return viewRequest;
         }
 
+        //ds-snippet-start:eSign13Step2
         public static EnvelopeDefinition MakeEnvelope(
             string signerEmail,
             string signerName,
@@ -277,5 +282,6 @@ namespace ESignature.Examples
                     "        </body>\n" +
                     "    </html>");
         }
+        //ds-snippet-end:eSign13Step2
     }
 }

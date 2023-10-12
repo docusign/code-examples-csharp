@@ -1,7 +1,7 @@
-﻿@model DocuSign.CodeExamples.Click.Controllers.GetClickwrapResponses
+﻿@model DocuSign.CodeExamples.Click.Controllers.ActivateClickwrap
 @using System.Text.RegularExpressions;
 @{
-    var redirectToFirstCodeExample = "href='ClickEg001'";
+    var redirectToFirstCodeExample = "href='ceg001'";
     int formNumber = 0;
     int clickwrapInputNumber = 0;
 }
@@ -13,12 +13,12 @@
 
 <partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
 <p>
-@Html.Raw(
-    @String.Format(
-        ViewBag.SupportingTexts.ViewSourceFile, 
-        "<a target='_blank' href=" + @ViewBag.source + ">GetClickwrapResponses.cs</a>"
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">ActivateClickwrap.cs</a>"
+        )
     )
-)
 </p>
 
 @if (ViewBag.ClickwrapsData.Clickwraps.Count > 0) {
@@ -26,17 +26,19 @@
         @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)
     </p>
 
-    <form class="eg" asp-action="Create" method="post" data-busy="form">
+    <form class="eg" asp-action="Activate" method="post" data-busy="form">
         <div class="form-group">
-            <label for="clickwrapId">
+            <label for="clickwrapData">
                 @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[clickwrapInputNumber].InputName)
             </label>
 
-            <select class="custom-select" id="clickwrapId"
-                    name="clickwrapId">
+            <select class="custom-select" id="clickwrapData"
+                    name="clickwrapData">
 
             @foreach (var clickwrap in ViewBag.ClickwrapsData.Clickwraps) {
-                <option value=@Html.Raw(clickwrap.ClickwrapId)>@Html.Raw(clickwrap.ClickwrapName)</option>
+                <option value=@Html.Raw(clickwrap.ClickwrapId):@Html.Raw(clickwrap.VersionNumber)>
+                    @Html.Raw(clickwrap.ClickwrapName)
+                </option>
             }
             </select>
         </div>

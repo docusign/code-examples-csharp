@@ -17,7 +17,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using ApiError = DocuSign.Rooms.Model.ApiError;
 
     [Area("Rooms")]
-    [Route("Reg004")]
+    [Route("reg004")]
     public class AddingFormToRoom : EgController
     {
         public AddingFormToRoom(
@@ -30,7 +30,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Reg004";
+        public override string EgName => "reg004";
 
         [BindProperty]
         public RoomFormModel RoomFormModel { get; set; }
@@ -45,7 +45,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         [HttpGet]
         public override IActionResult Get()
         {
-            base.Get();
+            IActionResult actionResult = base.Get();
+            if (this.RequestItemsService.EgName == this.EgName)
+            {
+                return actionResult;
+            }
 
             // Obtain your OAuth token
             string accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
@@ -59,7 +63,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 this.RoomFormModel = new RoomFormModel { Forms = forms.Forms, Rooms = rooms.Rooms };
 
-                return this.View("Reg004", this);
+                return this.View("reg004", this);
             }
             catch (ApiException apiException)
             {

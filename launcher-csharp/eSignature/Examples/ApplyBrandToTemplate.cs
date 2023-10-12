@@ -28,11 +28,14 @@ namespace ESignature.Examples
         public static EnvelopeSummary CreateEnvelopeFromTemplateWithBrand(string signerEmail, string signerName, string ccEmail, string ccName, string brandId, string templateId, string accessToken, string basePath, string accountId, string status)
         {
             // Construct your API headers
+            //ds-snippet-start:eSign30Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
+            //ds-snippet-end:eSign30Step2
 
             // Construct your request body
+            //ds-snippet-start:eSign30Step3
             EnvelopeDefinition envelopeDefinition = new EnvelopeDefinition
             {
                 TemplateId = templateId,
@@ -54,9 +57,12 @@ namespace ESignature.Examples
                 },
                 Status = status,
             };
+            //ds-snippet-end:eSign30Step3
 
             // Call the eSignature REST API
+            //ds-snippet-start:eSign30Step4
             return envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
+            //ds-snippet-end:eSign30Step4
         }
     }
 }

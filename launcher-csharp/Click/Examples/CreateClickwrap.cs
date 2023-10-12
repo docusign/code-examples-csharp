@@ -22,15 +22,22 @@ namespace DocuSign.Click.Examples
         /// <returns>The summary response of a newly created clickwrap</returns>
         public static ClickwrapVersionSummaryResponse Create(string name, string basePath, string accessToken, string accountId, string pdfFile)
         {
+            //ds-snippet-start:Click1Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:Click1Step2
             var clickAccountApi = new AccountsApi(docuSignClient);
 
+            //ds-snippet-start:Click1Step3
             var clickwrapRequest = BuildClickwrapRequest(name, pdfFile);
+            //ds-snippet-end:Click1Step3
 
+            //ds-snippet-start:Click1Step4
             return clickAccountApi.CreateClickwrap(accountId, clickwrapRequest);
+            //ds-snippet-end:Click1Step4
         }
 
+        //ds-snippet-start:Click1Step3
         public static ClickwrapRequest BuildClickwrapRequest(string name, string pdfFile)
         {
             var clickwrapRequest = new ClickwrapRequest
@@ -61,5 +68,6 @@ namespace DocuSign.Click.Examples
 
             return clickwrapRequest;
         }
+        //ds-snippet-end:Click1Step3
     }
 }

@@ -48,7 +48,9 @@ namespace ESignature.Examples
                 // No template! Create one!
                 EnvelopeTemplate templateReqObject = MakeTemplate(templateName, documentPDF);
 
+                //ds-snippet-start:eSign8Step3
                 TemplateSummary template = templatesApi.CreateTemplate(accountId, templateReqObject);
+                //ds-snippet-end:eSign8Step3
 
                 // Retrieve the new template Name / TemplateId
                 EnvelopeTemplateResults templateResults = templatesApi.ListTemplates(accountId, options);
@@ -76,6 +78,7 @@ namespace ESignature.Examples
             // read file from a local directory
             // The reads could raise an exception if the file is not available!
             // add the documents
+            //ds-snippet-start:eSign8Step2
             Document doc = new Document();
             string docB64 = Convert.ToBase64String(System.IO.File.ReadAllBytes(documentPDF));
             doc.DocumentBase64 = docB64;
@@ -225,6 +228,7 @@ namespace ESignature.Examples
             template.EmailSubject = "Please sign this document";
             template.Recipients = recipients;
             template.Status = "created";
+            //ds-snippet-end:eSign8Step2
 
             return template;
         }

@@ -36,9 +36,10 @@ namespace DocuSign.QuickACG
             {
                 // {1} - controller
                 // {0} - action
-                o.ViewLocationFormats.Add("Views/{1}/{0}.cshtml");
-
                 o.AreaViewLocationFormats.Clear();
+                o.ViewLocationFormats.Clear();
+                o.AreaViewLocationFormats.Add("Views/Eg001EmbeddedSigning/quickEmbeddedSigning" + RazorViewEngine.ViewExtension);
+                o.ViewLocationFormats.Add("Views/Eg001EmbeddedSigning/quickEmbeddedSigning" + RazorViewEngine.ViewExtension);
             });
 
             services.Configure<CookiePolicyOptions>(options =>

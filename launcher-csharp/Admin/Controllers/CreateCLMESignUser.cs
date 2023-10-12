@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     using Newtonsoft.Json;
 
     [Area("Admin")]
-    [Route("Aeg002")]
+    [Route("aeg002")]
     public class CreateCLMESignUser : EgController
     {
         private static Guid? clmProductId;
@@ -30,7 +30,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Aeg002";
+        public override string EgName => "aeg002";
 
         protected override void InitializeInternal()
         {
@@ -40,27 +40,25 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             var basePath = this.RequestItemsService.Session.AdminApiBasePath;
             var accountId = this.RequestItemsService.Session.AccountId;
 
-            // Step 2 Start
-            var apiClient = new ApiClient(basePath);
+            //ds-snippet-start:Admin2Step2
+            var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:Admin2Step2
 
-            // Step 2 End
-
-            // Step 3 Start
+            //ds-snippet-start:Admin2Step3
             var productPermissionProfileApi = new ProductPermissionProfilesApi(apiClient);
             var productPermissionProfiles = productPermissionProfileApi.GetProductPermissionProfiles(organizationId, Guid.Parse(accountId));
             this.ViewBag.CLMPermissionProfiles = productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "CLM").PermissionProfiles;
             this.ViewBag.ESignPermissionProfiles = productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "ESign").PermissionProfiles;
             clmProductId = productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "CLM").ProductId;
             eSignProductId = productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "ESign").ProductId;
+            //ds-snippet-end:Admin2Step3
 
-            // Step 3 End
-
-            // Step 4 Start
+            //ds-snippet-start:Admin2Step4
             var dsGroupsApi = new DSGroupsApi(apiClient);
             this.ViewBag.DsGroups = dsGroupsApi.GetDSGroups(organizationId, Guid.Parse(accountId)).DsGroups;
-
-            // Step 4 End
+            //ds-snippet-end:Admin2Step4
+            
             if (this.ViewBag.DsGroups.Count == 0)
             {
                 throw new ApiException(0, this.CodeExampleText.CustomErrorTexts[0].ErrorMessage);
@@ -72,10 +70,15 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         [HttpGet]
         public override IActionResult Get()
         {
+            IActionResult actionResult = base.Get();
+            if (this.RequestItemsService.EgName == this.EgName)
+            {
+                return actionResult;
+            }
+
             try
             {
-                base.Get();
-                return this.View("Aeg002", this);
+                return this.View("aeg002", this);
             }
             catch (ApiException apiException)
             {

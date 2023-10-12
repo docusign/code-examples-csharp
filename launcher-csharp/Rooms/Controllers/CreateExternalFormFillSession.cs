@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using System.Collections.Generic;
 
     [Area("Rooms")]
-    [Route("Reg006")]
+    [Route("reg006")]
     public class CreateExternalFormFillSession : EgController
     {
         public CreateExternalFormFillSession(DSConfiguration dsConfig, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
@@ -25,7 +25,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Reg006";
+        public override string EgName => "reg006";
 
         [BindProperty]
         public RoomDocumentModel RoomDocumentModel { get; set; }
@@ -40,7 +40,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         [HttpGet]
         public override IActionResult Get()
         {
-            base.Get();
+            IActionResult actionResult = base.Get();
+            if (this.RequestItemsService.EgName == this.EgName)
+            {
+                return actionResult;
+            }
 
             // Obtain your OAuth token
             string accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
@@ -55,7 +59,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 this.RoomDocumentModel = new RoomDocumentModel { Rooms = rooms.Rooms };
 
                 base.InitializeInternal();
-                return this.View("Reg006", this);
+                return this.View("reg006", this);
             }
             catch (ApiException apiException)
             {
@@ -86,7 +90,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
                 this.RoomDocumentModel.Documents = documents.Documents;
 
                 base.InitializeInternal();
-                return this.View("Reg006", this);
+                return this.View("reg006", this);
             }
             catch (ApiException apiException)
             {
@@ -121,10 +125,12 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = this.CodeExampleText.ResultsPageText;
+                //ds-snippet-start:Rooms6Step5
                 this.ViewBag.Url = externalFormFillSession.Url;
                 this.ViewBag.JsonUrl = externalFormFillSession.ToJson();
 
                 return this.View("embed");
+                //ds-snippet-end:Rooms6Step5
             }
             catch (ApiException apiException)
             {

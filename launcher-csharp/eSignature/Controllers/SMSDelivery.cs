@@ -25,7 +25,7 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
 
         [HttpPost]
         [SetViewBag]
-        public IActionResult Create(string signerName, string signerCountryCode, string signerPhoneNumber, string ccName, string ccCountryCode, string ccPhoneNumber)
+        public IActionResult Create(string signerName, string signerCountryCode, string signerPhoneNumber, string ccName, string ccCountryCode, string ccPhoneNumber, string deliveryMethod)
         {
             // Check the token with minimal buffer time.
             bool tokenOk = this.CheckToken(3);
@@ -57,7 +57,8 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
                 ccPhoneNumber,
                 this.Config.DocDocx,
                 this.Config.DocPdf,
-                this.RequestItemsService.Status);
+                this.RequestItemsService.Status,
+                deliveryMethod);
 
             this.RequestItemsService.EnvelopeId = envelopeId;
 

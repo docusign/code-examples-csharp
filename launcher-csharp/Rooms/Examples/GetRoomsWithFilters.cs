@@ -27,16 +27,20 @@ namespace DocuSign.Rooms.Examples
             string fieldDataChangedEndDate)
         {
             // Construct your API headers
-            var apiClient = new ApiClient(basePath);
+            //ds-snippet-start:Rooms5Step2
+            var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var roomsApi = new RoomsApi(apiClient);
+            //ds-snippet-end:Rooms5Step2
 
             // Call the Rooms API to get room field data
+            //ds-snippet-start:Rooms5Step4
             var rooms = roomsApi.GetRooms(accountId, new RoomsApi.GetRoomsOptions
             {
                 fieldDataChangedStartDate = fieldDataChangedStartDate,
                 fieldDataChangedEndDate = fieldDataChangedEndDate,
             });
+            //ds-snippet-end:Rooms5Step4
 
             return rooms;
         }

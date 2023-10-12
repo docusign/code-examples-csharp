@@ -26,20 +26,18 @@ namespace ESignature.Examples
             // basePath
             // accountId
 
-            // Step 1 start
+            //ds-snippet-start:eSign3Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
-            // Step 1 end
 
-            // Step 2 start
             ListStatusChangesOptions options = new ListStatusChangesOptions();
             options.fromDate = DateTime.Now.AddDays(-30).ToString("yyyy/MM/dd");
 
             // Call the API method:
             EnvelopesInformation results = envelopesApi.ListStatusChanges(accountId, options);
+            //ds-snippet-end:eSign3Step2
             return results;
-            // Step 2 end
         }
     }
 }

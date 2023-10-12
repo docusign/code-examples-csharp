@@ -23,7 +23,7 @@ namespace DocuSign.Rooms.Examples
             string accountId)
         {
             // Construct your API headers
-            var apiClient = new ApiClient(basePath);
+            var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var roomsApi = new RoomsApi(apiClient);
 
@@ -46,12 +46,16 @@ namespace DocuSign.Rooms.Examples
             int roomId)
         {
             // Construct your API headers
-            var apiClient = new ApiClient(basePath);
+            //ds-snippet-start:Rooms3Step2
+            var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", $"Bearer {accessToken}");
             var roomsApi = new RoomsApi(apiClient);
+            //ds-snippet-end:Rooms3Step2
 
             // Call the Rooms API to get room field data
+            //ds-snippet-start:Rooms3Step3
             return roomsApi.GetRoomFieldData(accountId, roomId);
+            //ds-snippet-end:Rooms3Step3
         }
     }
 }

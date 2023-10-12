@@ -22,14 +22,18 @@ namespace ESignature.Examples
         public static PermissionProfile Create(string profileName, AccountRoleSettingsExtension accountRoleSettings, string accessToken, string basePath, string accountId)
         {
             // Construct your API headers
+            //ds-snippet-start:eSign24Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             AccountsApi accountsApi = new AccountsApi(docuSignClient);
+            //ds-snippet-end:eSign24Step2
 
             var newPermissionProfile = new PermissionProfile(PermissionProfileName: profileName, Settings: accountRoleSettings);
 
             // Call the eSignature REST API
+            //ds-snippet-start:eSign24Step4
             return accountsApi.CreatePermissionProfile(accountId, newPermissionProfile);
+            //ds-snippet-end:eSign24Step4
         }
 
         public class AccountRoleSettingsExtension : AccountRoleSettings

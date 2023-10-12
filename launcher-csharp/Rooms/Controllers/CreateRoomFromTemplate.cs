@@ -14,7 +14,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     using Newtonsoft.Json;
 
     [Area("Rooms")]
-    [Route("Reg002")]
+    [Route("reg002")]
     public class CreateRoomFromTemplate : EgController
     {
         public CreateRoomFromTemplate(
@@ -27,7 +27,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Reg002";
+        public override string EgName => "reg002";
 
         [BindProperty]
         public RoomModel RoomModel { get; set; }
@@ -36,7 +36,11 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
         [HttpGet]
         public override IActionResult Get()
         {
-            base.Get();
+            IActionResult actionResult = base.Get();
+            if (this.RequestItemsService.EgName == this.EgName)
+            {
+                return actionResult;
+            }
 
             // Obtain your OAuth token
             var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
@@ -50,7 +54,7 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 this.RoomModel = new RoomModel { Templates = templates.RoomTemplates };
 
-                return this.View("Reg002", this);
+                return this.View("reg002", this);
             }
             catch (ApiException apiException)
             {

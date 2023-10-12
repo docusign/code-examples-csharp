@@ -41,13 +41,12 @@ namespace DocuSign.CodeExamples.Admin.Examples
             long groupId)
         {
             // Construct your API headers
-            // Step 2 start
-            var apiClient = new DocuSign.Admin.Client.ApiClient(basePath);
+            //ds-snippet-start:Admin1Step2
+            var apiClient = new DocuSign.Admin.Client.DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:Admin1Step2
 
-            // Step 2 end
-
-            // Step 4 start
+            //ds-snippet-start:Admin1Step6
             var usersApi = new DocuSign.Admin.Api.UsersApi(apiClient);
             NewUserRequest newUserRequest = ConstructNewUserRequest(
                 permissionProfileId,
@@ -59,8 +58,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
                 userName);
 
             return usersApi.CreateUser(organizationId, newUserRequest);
-
-            // Step 4 end
+            //ds-snippet-end:Admin1Step6
         }
 
         /// <summary>
@@ -75,13 +73,16 @@ namespace DocuSign.CodeExamples.Admin.Examples
         {
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-
+            
+            //ds-snippet-start:Admin1Step3
             var accountsApi = new AccountsApi(docuSignClient);
             var permissionProfiles = accountsApi.ListPermissions(accountId);
+            //ds-snippet-end:Admin1Step3
 
+            //ds-snippet-start:Admin1Step4
             var dsGroupsApi = new GroupsApi(docuSignClient);
             var groups = dsGroupsApi.ListGroups(accountId);
-
+            //ds-snippet-end:Admin1Step4
             return (permissionProfiles, groups);
         }
 

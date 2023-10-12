@@ -18,9 +18,15 @@ namespace DocuSign.CodeExamples.Models
 
         public string QuickACG { get; set; }
 
+        public bool IsLoggedInAfterEg043 { get; set; }
+
         public string GatewayDisplayName { get; set; }
 
         public string CodeExamplesManifest { get; set; }
+
+        public string PrincipalUserId { get; set; }
+
+        public string RedirectForEg043 = "Eg043/EnvelopesListStatus";
 
         public bool Production = false;
         public bool Debug = true; // Send debugging statements to console
@@ -34,6 +40,7 @@ namespace DocuSign.CodeExamples.Models
         public string DocDocx = "World_Wide_Corp_Battle_Plan_Trafalgar.docx";
         public string TabsDocx = "World_Wide_Corp_salary.docx";
         public string DocPdf = "World_Wide_Corp_lorem.pdf";
+        public string OfferDocDocx = "Offer_Letter_Demo.docx";
         public string DocCsv = "UserData.csv";
         public string DocHTML = "doc_1.html";
         public string ExportUsersPath = @"..\..\..\ExportedUserData.csv";

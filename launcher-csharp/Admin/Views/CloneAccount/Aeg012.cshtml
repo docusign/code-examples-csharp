@@ -1,0 +1,77 @@
+﻿@{
+    int formNumber = 0;
+    int sourceAccountIdInputNumber = 0;
+    int targetAccountNameInputNumber = 1;
+    int targetAccountFirstNameInputNumber = 2;
+    int targetAccountLastNameInputNumber = 3;
+    int targetAccountEmailInputNumber = 4;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+
+<p>
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">CloneAccount.cs</a>"
+            )
+        )
+</p>
+
+<form class="eg" asp-action="CloneAccountData" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="sourceAccountId">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[sourceAccountIdInputNumber].InputName)
+        </label>
+
+        @Html.DropDownList(
+            "sourceAccountId", 
+            new SelectList(ViewBag.Accounts, "AccountId", "AccountName"), 
+            new { @class = "form-control" }
+            )
+    </div>
+
+    <div class="form-group">
+        <label for="targetAccountName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[targetAccountNameInputNumber].InputName)
+        </label>
+
+        <input type="text" class="form-control" id="targetAccountName" name="targetAccountName"
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[targetAccountNameInputNumber].InputPlaceholder" required>
+    </div>
+
+    <div class="form-group">
+        <label for="targetAccountFirstName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[targetAccountFirstNameInputNumber].InputName)
+        </label>
+
+        <input type="text" class="form-control" id="targetAccountFirstName" name="targetAccountFirstName"
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[targetAccountFirstNameInputNumber].InputPlaceholder" required>
+    </div>
+
+    <div class="form-group">
+        <label for="targetAccountLastName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[targetAccountLastNameInputNumber].InputName)
+        </label>
+
+        <input type="text" class="form-control" id="targetAccountLastName" name="targetAccountLastName"
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[targetAccountLastNameInputNumber].InputPlaceholder" required>
+    </div>
+
+    <div class="form-group">
+        <label for="targetAccountEmail">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[targetAccountEmailInputNumber].InputName)
+        </label>
+
+        <input type="email" class="form-control" id="targetAccountEmail" name="targetAccountEmail"
+               aria-describedby="emailHelp" placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[targetAccountEmailInputNumber].InputPlaceholder" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
+</form>

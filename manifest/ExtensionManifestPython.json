@@ -156,7 +156,7 @@
       "number": "20",
       "name": "Requiring Phone authentication for a recipient",
       "description": "This example sends an envelope that requires entering in a voice-based response code for the purpose of multi-factor authentication.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-python/master/app/eSignature/examples/eg021_phone_authentication.py",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-python/master/app/eSignature/examples/eg020_phone_authentication.py",
       "method": "CreateEnvelopeWithRecipientUsingPhoneAuth",
       "apiType": "ESignature"
     },
@@ -423,6 +423,30 @@
       "source": "https://raw.githubusercontent.com/docusign/code-examples-python/master/app/monitor/examples/eg002_post_web_query.py",
       "method": "worker",
       "apiType": "Monitor"
+    },
+    {
+      "number": "54",
+      "name": "Send an envelope to an In Person Signer",
+      "description": "Demonstrates how to host an In Person Signing session with embedded signing.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-python/master/app/eSignature/examples/eg039_in_person_signer.py",
+      "method": "worker",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "55",
+      "name": "Request a signature through your app (embedded signing) with a CFR Part 11 account",
+      "description": "Sends an envelope, then uses embedded signing with recipient authentication by phone for the first signer. With embedded signing, DocuSign signing is initiated from your website.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-python/master/app/eSignature/examples/eg041_cfr_embedded_signing.py",
+      "method": "worker",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "56",
+      "name": "Embed a clickwrap",
+      "description": "Creates a unique URL for an active clickwrap and embeds the clickwrap on your page.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-python/master/app/click/examples/eg006_embed_clickwrap.py",
+      "method": "worker",
+      "apiType": "Click"
     }
   ],
   "postAddOpenURI": "https://developers.docusign.com/platform/auth/authcode/"

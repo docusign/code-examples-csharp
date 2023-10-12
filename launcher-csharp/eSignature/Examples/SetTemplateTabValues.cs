@@ -40,10 +40,13 @@ namespace ESignature.Examples
             string pingUrl = null)
         {
             // Construct your API headers
+            //ds-snippet-start:eSign17Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:eSign17Step2
 
             // Create Tabs and CustomFields
+            //ds-snippet-start:eSign17Step3
             // Set the values for the fields in the template
             // List item
             List colorPicker = new List
@@ -142,8 +145,10 @@ namespace ESignature.Examples
             {
                 TextCustomFields = new List<TextCustomField> { customField },
             };
+            //ds-snippet-end:eSign17Step3
 
             // Create the envelope definition
+            //ds-snippet-start:eSign17Step4
             EnvelopeDefinition envelopeAttributes = new EnvelopeDefinition
             {
                 // Uses the template ID received from example 08
@@ -157,13 +162,17 @@ namespace ESignature.Examples
                 TemplateRoles = new List<TemplateRole> { signer, cc },
                 CustomFields = cf,
             };
+            //ds-snippet-end:eSign17Step4
 
             // Call the eSignature REST API
+            //ds-snippet-start:eSign17Step5
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelopeAttributes);
+            //ds-snippet-end:eSign17Step5
             string envelopeId = results.EnvelopeId;
 
             // Create the View Request
+            //ds-snippet-start:eSign17Step6
             RecipientViewRequest viewRequest = new RecipientViewRequest();
 
             // Set the URL where you want the recipient to go once they are done signing;
@@ -203,6 +212,7 @@ namespace ESignature.Examples
             // State can be stored/recovered using the framework's session or a
             // query parameter on the return URL (see the makeRecipientViewRequest method)
             return (envelopeId, results1.Url);
+            //ds-snippet-end:eSign17Step6
         }
     }
 }

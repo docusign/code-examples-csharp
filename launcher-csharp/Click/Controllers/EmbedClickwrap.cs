@@ -11,7 +11,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
     using Microsoft.AspNetCore.Mvc;
 
     [Area("Click")]
-    [Route("ClickEg006")]
+    [Route("ceg006")]
     public class EmbedClickwrap : EgController
     {
         public EmbedClickwrap(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
@@ -21,7 +21,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "ClickEg006";
+        public override string EgName => "ceg006";
 
         protected override void InitializeInternal()
         {
@@ -36,7 +36,7 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
             if (ViewBag.ClickwrapsData.Clickwraps.Count == 0)
             {
-                ViewBag.InactiveClickwrapsData = DocuSign.Click.Examples.ActivateClickwrap.GetInactiveClickwraps(basePath, accessToken, accountId);
+                ViewBag.InactiveClickwrapsData = DocuSign.Click.Examples.ActivateClickwrap.GetClickwrapsByStatus(basePath, accessToken, accountId, "inactive");
             }
 
             ViewBag.AccountId = RequestItemsService.Session.AccountId;

@@ -30,11 +30,11 @@ namespace ESignature.Examples
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
-            // Step 3 start
+            //ds-snippet-start:eSign36Step3
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+            //ds-snippet-end:eSign36Step3
 
-            // Step 3 end
             return results.EnvelopeId;
         }
 
@@ -48,7 +48,7 @@ namespace ESignature.Examples
 
             // document 1 (pdf) has tag /sn1/
             //
-            // Step 2 start
+            //ds-snippet-start:eSign36Step2
             // The envelope has a single recipient.
             // recipient 1 - signer
             // read file from a local directory
@@ -152,7 +152,7 @@ namespace ESignature.Examples
             // To request that the envelope be created as a draft, set to "created"
             env.Status = "sent";
 
-            // Step 2 end
+            //ds-snippet-end:eSign36Step2
             return env;
         }
     }

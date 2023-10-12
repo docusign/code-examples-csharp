@@ -31,10 +31,10 @@ namespace DocuSign.Admin.Examples
         /// <returns>The AddUserResponse object coming back from the API</returns>
         public static AddUserResponse Create(string userName, string firstName, string lastName, string email, string clmPermissionProfileId, string eSignPermissionProfileId, Guid? dsGroupId, Guid? clmProductId, Guid? eSignProductId, string basePath, string accessToken, Guid? accountId, Guid? orgId)
         {
-            // Step 5 Start
-            var apiClient = new ApiClient(basePath);
+            var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             UsersApi usersApi = new UsersApi(apiClient);
+            //ds-snippet-start:Admin2Step5
             var newMultiProductUserAddRequest = new NewMultiProductUserAddRequest();
             newMultiProductUserAddRequest.UserName = userName;
             newMultiProductUserAddRequest.FirstName = firstName;
@@ -47,12 +47,12 @@ namespace DocuSign.Admin.Examples
             newMultiProductUserAddRequest.DsGroups = new List<DSGroupRequest>();
             newMultiProductUserAddRequest.DsGroups.Add(new DSGroupRequest { DsGroupId = dsGroupId });
             newMultiProductUserAddRequest.AutoActivateMemberships = true;
+            //ds-snippet-end:Admin2Step5
 
-            // Step 5 End
-            // Step 6 Start
+            //ds-snippet-start:Admin2Step6
             AddUserResponse response = usersApi.AddOrUpdateUser(orgId, accountId, newMultiProductUserAddRequest);
+            //ds-snippet-end:Admin2Step6
 
-            // Step 6 End
             return response;
         }
     }
