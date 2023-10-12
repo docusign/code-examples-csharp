@@ -55,7 +55,7 @@ namespace ESignature.Examples
             //ds-snippet-start:eSign44Step5
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, returnUrl, signerClientId, pingUrl);
 
-            // call the CreateRecipientView API
+            // call the CreateRecipientView endpoint
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
 
             // State can be stored/recovered using the framework's session or a
@@ -87,8 +87,9 @@ namespace ESignature.Examples
             // can be changed/spoofed very easily.
             viewRequest.ReturnUrl = returnUrl + "?state=123";
 
-            // How has your app authenticated the user? In addition to your app's
-            // authentication, you can include authenticate steps from DocuSign.
+            // How does your app verify the user's authentication? Additionally,
+            // you can integrate authentication steps from DocuSign alongside
+            // your app's own authentication process.
             // Eg, SMS authentication
             viewRequest.AuthenticationMethod = "none";
 
