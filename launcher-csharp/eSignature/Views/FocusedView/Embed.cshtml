@@ -3,19 +3,23 @@
 <h2>Embedded document using focused view</h2>
 <br />
 
+<!--//ds-snippet-start:eSign44Step6-->
 <div id="agreement" class="docusign-agreement"></div>
 
 <p><a href="/">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</a></p>
 
-@Html.Raw("<script src='https://docucdn-a.akamaihd.net/demo/1ds/libs/@embedded-js/core/latest/dist/bundle.js'></script>")
+@{
+    //ds-snippet-start:eSign44Step6
+}
+
+@Html.Raw("<script src='https://js.docusign.com/bundle.js'></script>")
 
 <script>
-    window.DocuSign.loadDocuSign('{INTEGRATION_KEY}')
+    window.DocuSign.loadDocuSign('@ViewBag.IntegrationKey')
         .then((docusign) => {
             const signing = docusign.signing({
                 url: '@ViewBag.Url',
                 displayFormat: 'focused',
-                //ds-snippet-start:eSign44Step6
                 style: {
                     /** High-level variables that mirror our existing branding APIs. Reusing the branding name here for familiarity. */
                     branding: {
@@ -33,7 +37,6 @@
                         position: 'bottom-center'
                     }
                 }
-                //ds-snippet-end:eSign44Step6
             });
 
             signing.on('ready', (event) => {
@@ -75,3 +78,7 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+@{
+    //ds-snippet-end:eSign44Step6
+}
