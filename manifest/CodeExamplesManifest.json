@@ -403,7 +403,7 @@
                           ]
                         }
                       ],
-                      "ResultsPageText": "",
+                      "ResultsPageText": "The document has been embedded with focused view.",
                       "SkipForLanguages": "bash;java;node;php;powershell;python;ruby"
                     },
                     {
