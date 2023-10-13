@@ -55,14 +55,14 @@ namespace ESignature.Examples
             //ds-snippet-start:eSign44Step5
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, returnUrl, signerClientId, pingUrl);
 
-            // call the CreateRecipientView endpoint
+            // Call the CreateRecipientView endpoint
             ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
 
             // State can be stored/recovered using the framework's session or a
             // query parameter on the returnUrl (see the makeRecipientViewRequest method)
             string redirectUrl = results1.Url;
 
-            // returning both the envelopeId as well as the url to be used for embedded signing
+            // Returning both the envelopeId as well as the URL to be used for embedded signing
             return (envelopeId, redirectUrl);
             //ds-snippet-end:eSign44Step5
         }
@@ -78,33 +78,33 @@ namespace ESignature.Examples
             // dsReturnUrl -- class global
             RecipientViewRequest viewRequest = new RecipientViewRequest();
 
-            // Set the url where you want the recipient to go once they are done signing
-            // should typically be a callback route somewhere in your app.
+            // Set the URL where you want the recipient to go once they're done signing
+            // It should typically be a callback route somewhere in your app
             // The query parameter is included as an example of how
             // to save/recover state information during the redirect to
-            // the DocuSign signing ceremony. It's usually better to use
+            // the DocuSign signing session. It's usually better to use
             // the session mechanism of your web framework. Query parameters
-            // can be changed/spoofed very easily.
+            // can be changed or spoofed very easily.
             viewRequest.ReturnUrl = returnUrl + "?state=123";
 
             // How does your app verify the user's authentication? Additionally,
             // you can integrate authentication steps from DocuSign alongside
-            // your app's own authentication process.
+            // your app's own authentication process
             // Eg, SMS authentication
             viewRequest.AuthenticationMethod = "none";
 
             // Recipient information must match embedded recipient info
-            // we used to create the envelope.
+            // we used to create the envelope
             viewRequest.Email = signerEmail;
             viewRequest.UserName = signerName;
             viewRequest.ClientUserId = signerClientId;
 
             // DocuSign recommends that you redirect to DocuSign for the
-            // Signing Ceremony. There are multiple ways to save state.
+            // signing session. There are multiple ways to save state.
             // To maintain your application's session, use the pingUrl
-            // parameter. It causes the DocuSign Signing Ceremony web page
+            // parameter. It causes the DocuSign signing session web page
             // (not the DocuSign server) to send pings via AJAX to your
-            // app,
+            // app.
             // NOTE: The pings will only be sent if the pingUrl is an https address
             if (pingUrl != null)
             {
@@ -117,7 +117,7 @@ namespace ESignature.Examples
             // and the site where the document should be embedded.
             // The site must have a valid SSL protocol for the embed to work.
             // MessageOrigins includes the demo or prod link and only
-            // takes a single string.
+            // takes a single string
             viewRequest.FrameAncestors = new List<string> { "https://localhost:44333", "https://apps-d.docusign.com" };
             viewRequest.MessageOrigins = new List<string> { "https://apps-d.docusign.com" };
 
@@ -128,7 +128,7 @@ namespace ESignature.Examples
         //ds-snippet-start:eSign44Step2
         public static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string signerClientId, string docPdf)
         {
-            // Data for this method
+            // Data for this method:
             // signerEmail
             // signerName
             // signerClientId -- class global
@@ -142,7 +142,7 @@ namespace ESignature.Examples
             string doc1b64 = Convert.ToBase64String(buffer);
 
             doc1.DocumentBase64 = doc1b64;
-            doc1.Name = "Lorem Ipsum"; // can be different from actual file name
+            doc1.Name = "Lorem Ipsum"; // Can be different from the actual file name
             doc1.FileExtension = "pdf";
             doc1.DocumentId = "3";
 
@@ -164,7 +164,7 @@ namespace ESignature.Examples
             // We're using anchor (autoPlace) positioning
             //
             // The DocuSign platform searches throughout your envelope's
-            // documents for matching anchor strings.
+            // documents for matching anchor strings
             SignHere signHere1 = new SignHere
             {
                 AnchorString = "/sn1/",
@@ -187,7 +187,7 @@ namespace ESignature.Examples
             };
             envelopeDefinition.Recipients = recipients;
 
-            // Request that the envelope be sent by setting |status| to "sent".
+            // Request that the envelope be sent by setting |status| to "sent"
             // To request that the envelope be created as a draft, set to "created"
             envelopeDefinition.Status = "sent";
 
