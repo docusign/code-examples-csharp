@@ -10,7 +10,7 @@ namespace launcher_csharp.Tests.ClickUnitTests
     [Collection("Click tests")]
     public sealed class ActivateClickwrapUnitTests
     {
-        private const string CLICK_PATH_PREFIX = "/clickapi";
+        private const string ClickPathPrefix = "/clickapi";
 
         private readonly TestConfig _testConfig;
 
@@ -21,7 +21,7 @@ namespace launcher_csharp.Tests.ClickUnitTests
             this._testConfig = new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.Click, _testConfig);
+            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesApiType.Click, _testConfig);
             this._createClickwrapUnitTests = new CreateClickwrapUnitTests(_testConfig);
         }
 
@@ -50,7 +50,7 @@ namespace launcher_csharp.Tests.ClickUnitTests
             // Arrange
             _createClickwrapUnitTests.Create_CorrectInputParameters_ReturnsClickwrapVersionSummaryResponse();
 
-            string basePath = _testConfig.BasePath + CLICK_PATH_PREFIX;
+            string basePath = _testConfig.BasePath + ClickPathPrefix;
             var statusActive = "active";
 
             // Act

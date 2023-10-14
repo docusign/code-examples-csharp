@@ -12,22 +12,6 @@ namespace ESignature.Examples
 
     public static class GetDocumentFromEnvelope
     {
-        public class EnvelopeDocItem
-        {
-            public string Name { get; set; }
-
-            public string Type { get; set; }
-
-            public string DocumentId { get; set; }
-        }
-
-        public class EnvelopeDocuments
-        {
-            public string EnvelopeId { get; set; }
-
-            public List<EnvelopeDocItem> Documents { get; set; }
-        }
-
         /// <summary>
         /// Download a specific document from an envelope
         /// </summary>
@@ -57,12 +41,12 @@ namespace ESignature.Examples
 
             // Process results. Determine the file name and mimetype
             string docName = docItem.Name;
-            bool hasPDFsuffix = docName.ToUpper().EndsWith(".PDF");
-            bool pdfFile = hasPDFsuffix;
+            bool hasPdFsuffix = docName.ToUpper().EndsWith(".PDF");
+            bool pdfFile = hasPdFsuffix;
 
             // Add .pdf if it's a content or summary doc and doesn't already end in .pdf
             string docType = docItem.Type;
-            if (("content".Equals(docType) || "summary".Equals(docType)) && !hasPDFsuffix)
+            if (("content".Equals(docType) || "summary".Equals(docType)) && !hasPdFsuffix)
             {
                 docName += ".pdf";
                 pdfFile = true;
@@ -91,6 +75,22 @@ namespace ESignature.Examples
             }
 
             return (results, mimetype, docName);
+        }
+
+        public class EnvelopeDocItem
+        {
+            public string Name { get; set; }
+
+            public string Type { get; set; }
+
+            public string DocumentId { get; set; }
+        }
+
+        public class EnvelopeDocuments
+        {
+            public string EnvelopeId { get; set; }
+
+            public List<EnvelopeDocItem> Documents { get; set; }
         }
     }
 }

@@ -66,7 +66,7 @@ namespace launcher_csharp.Tests
                 this.ClientId = keysFileJObject["DocuSignJWT"]["ClientId"].Value<string>();
                 this.SignerEmail = keysFileJObject["DocuSign"]["SignerEmail"].Value<string>();
                 this.SignerName = keysFileJObject["DocuSign"]["SignerName"].Value<string>();
-                this.PrivateKeyBytes = DSHelper.ReadFileContent(DSHelper.PrepareFullPrivateKeyFilePath(this.PrivateKey));
+                this.PrivateKeyBytes = DsHelper.ReadFileContent(DsHelper.PrepareFullPrivateKeyFilePath(this.PrivateKey));
             }
             else
             {

@@ -18,22 +18,16 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     public class AuditUsers : EgController
     {
         public AuditUsers(
-            DSConfiguration dsConfig,
+            DsConfiguration dsConfig,
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Admin);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Admin);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "aeg005";
-
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-            this.ViewBag.AccountId = this.RequestItemsService.Session.AccountId;
-        }
 
         [MustAuthenticate]
         [SetViewBag]
@@ -43,10 +37,10 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         {
             try
             {
-                var organizationId = RequestItemsService.OrganizationId;
-                var accessToken = RequestItemsService.User.AccessToken;
-                var basePath = RequestItemsService.Session.AdminApiBasePath;
-                var accountId = RequestItemsService.Session.AccountId;
+                var organizationId = this.RequestItemsService.OrganizationId;
+                var accessToken = this.RequestItemsService.User.AccessToken;
+                var basePath = this.RequestItemsService.Session.AdminApiBasePath;
+                var accountId = this.RequestItemsService.Session.AccountId;
                 var usersData = DocuSign.Admin.Examples.AuditUsers.GetRecentlyModifiedUsersData(basePath, accessToken, Guid.Parse(accountId), organizationId);
 
                 // Process results
@@ -63,6 +57,12 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
                 return this.View("Error");
             }
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+            this.ViewBag.AccountId = this.RequestItemsService.Session.AccountId;
         }
     }
 }

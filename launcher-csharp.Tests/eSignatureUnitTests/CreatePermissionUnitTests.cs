@@ -11,7 +11,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
     [Collection("eSignature tests")]
     public sealed class CreatePermissionUnitTests
     {
-        private const string ESIGNARURE_PATH_PREFIX = "/restapi";
+        private const string EsignarurePathPrefix = "/restapi";
 
         private readonly TestConfig _testConfig;
 
@@ -20,14 +20,14 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             this._testConfig = new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature, _testConfig);
+            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesApiType.ESignature, _testConfig);
         }
 
         [Fact]
         public void CreatePermissionProfile_CorrectInputParameters_ReturnsPermissionProfile()
         {
             // Arrange
-            string basePath = _testConfig.BasePath + ESIGNARURE_PATH_PREFIX;
+            string basePath = _testConfig.BasePath + EsignarurePathPrefix;
             var expectedPermissionProfileModel = new PermissionProfileModel
             {
                 ProfileName = Guid.NewGuid().ToString("n").Substring(0, 8),

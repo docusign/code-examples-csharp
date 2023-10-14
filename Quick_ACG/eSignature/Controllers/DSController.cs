@@ -9,12 +9,12 @@ namespace DocuSign.CodeExamples.Controllers
     {
         private IRequestItemsService _requestItemsService;
 
-        private IConfiguration _configuration { get; }
+        private IConfiguration Configuration { get; }
 
         public AccountController(IRequestItemsService requestItemsService, IConfiguration configuration)
         {
             this._requestItemsService = requestItemsService;
-            this._configuration = configuration;
+            this.Configuration = configuration;
         }
 
         [HttpGet]
@@ -28,7 +28,7 @@ namespace DocuSign.CodeExamples.Controllers
             return Login();
         }
 
-        public async System.Threading.Tasks.Task<IActionResult> logout()
+        public async System.Threading.Tasks.Task<IActionResult> Logout()
         {
             await AuthenticationHttpContextExtensions.SignOutAsync(HttpContext);
             _requestItemsService.Logout();

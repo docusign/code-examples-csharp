@@ -20,10 +20,10 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("Aeg011")]
     public class DeleteUserDataFromAccount : EgController
     {
-        public DeleteUserDataFromAccount(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public DeleteUserDataFromAccount(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Admin);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Admin);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

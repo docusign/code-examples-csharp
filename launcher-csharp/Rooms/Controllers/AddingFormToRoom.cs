@@ -1,4 +1,4 @@
-﻿// <copyright file="Eg04AddingFormToRoomController.cs" company="DocuSign">
+﻿// <copyright file="AddingFormToRoom.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -21,12 +21,12 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
     public class AddingFormToRoom : EgController
     {
         public AddingFormToRoom(
-            DSConfiguration dsConfig,
+            DsConfiguration dsConfig,
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Rooms);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Rooms);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -34,12 +34,6 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
         [BindProperty]
         public RoomFormModel RoomFormModel { get; set; }
-
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-            this.RoomFormModel = new RoomFormModel();
-        }
 
         [MustAuthenticate]
         [HttpGet]
@@ -116,6 +110,12 @@ namespace DocuSign.CodeExamples.Rooms.Controllers
 
                 return this.View("Error");
             }
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+            this.RoomFormModel = new RoomFormModel();
         }
     }
 }

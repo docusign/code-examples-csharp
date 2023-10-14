@@ -214,8 +214,8 @@ namespace ESignature.Examples
             // create the HTML document
             Document doc1 = new Document();
 
-            string doc1b64 = Convert.ToBase64String(Document1(signerEmail, signerName, ccEmail, ccName, item, quantity));
-            doc1.DocumentBase64 = doc1b64;
+            string doc1B64 = Convert.ToBase64String(Document1(signerEmail, signerName, ccEmail, ccName, item, quantity));
+            doc1.DocumentBase64 = doc1B64;
             doc1.Name = "Appendix 1--Sales order"; // can be different from actual file name
             doc1.FileExtension = "html";
             doc1.DocumentId = "1";
@@ -282,6 +282,7 @@ namespace ESignature.Examples
                     "        </body>\n" +
                     "    </html>");
         }
+
         //ds-snippet-end:eSign13Step2
     }
 }

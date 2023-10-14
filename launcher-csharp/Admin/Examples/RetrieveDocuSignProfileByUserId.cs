@@ -34,6 +34,7 @@ namespace DocuSign.Admin.Examples
             var usersApi = new UsersApi(apiClient);
             var recentlyModifiedUsers = usersApi.GetUserDSProfile(orgId, userId);
             //ds-snippet-end:Admin7Step3
+
             return recentlyModifiedUsers;
         }
     }

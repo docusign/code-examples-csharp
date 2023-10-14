@@ -19,10 +19,8 @@ namespace DocuSign.CodeExamples.Common
 
         private readonly IConfiguration configuration;
 
-        DSConfiguration DocuSignConfiguration { get; }
-
         public LocalsFilter(
-            DSConfiguration docuSignConfiguration,
+            DsConfiguration docuSignConfiguration,
             IRequestItemsService requestItemsService,
             IConfiguration configuration)
         {
@@ -30,6 +28,8 @@ namespace DocuSign.CodeExamples.Common
             this.configuration = configuration;
             this.requestItemsService = requestItemsService;
         }
+
+        public DsConfiguration DocuSignConfiguration { get; }
 
         public void OnActionExecuted(ActionExecutedContext context)
         {

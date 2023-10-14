@@ -9,7 +9,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
     [Collection("eSignature tests")]
     public sealed class CreateBrandUnitTests
     {
-        private const string ESIGNARURE_PATH_PREFIX = "/restapi";
+        private const string EsignarurePathPrefix = "/restapi";
 
         private readonly TestConfig _testConfig;
 
@@ -18,7 +18,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             this._testConfig = new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature, _testConfig);
+            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesApiType.ESignature, _testConfig);
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             // Assert
             string brandName = Guid.NewGuid().ToString("n").Substring(0, 8);
             var defaultBrandLanguage = "en";
-            string basePath = _testConfig.BasePath + ESIGNARURE_PATH_PREFIX;
+            string basePath = _testConfig.BasePath + EsignarurePathPrefix;
 
             //Act
             BrandsResponse permissionProfile = CreateBrand.Create(

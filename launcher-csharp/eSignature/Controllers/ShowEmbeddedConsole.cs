@@ -13,10 +13,10 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("eg012")]
     public class ShowEmbeddedConsole : EgController
     {
-        public ShowEmbeddedConsole(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public ShowEmbeddedConsole(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

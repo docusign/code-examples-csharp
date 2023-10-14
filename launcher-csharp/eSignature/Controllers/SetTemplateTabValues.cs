@@ -18,13 +18,13 @@ namespace DocuSign.CodeExamples.Controllers
         private string dsPingUrl;
         private string dsReturnUrl;
 
-        public SetTemplateTabValues(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public SetTemplateTabValues(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
             this.dsPingUrl = config.AppUrl + "/";
             this.dsReturnUrl = config.AppUrl + "/dsReturn";
 
-            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

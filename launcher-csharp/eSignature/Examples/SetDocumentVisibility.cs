@@ -2,7 +2,7 @@
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
-namespace eSignature.Examples
+namespace ESignature.Examples
 {
     using System;
     using System.Collections.Generic;
@@ -84,23 +84,39 @@ namespace eSignature.Examples
                 Documents = PrepareDocumentsForTemplate(docPdf, docDocx, docHtml),
             };
 
-            Signer signer1 = PrepareSigner(signer1Email, signer1Name, "1", "1", new List<string> { "2", "3" }, 
-                "**signature_1**", "pixels", "20", "10");
-            Signer signer2 = PrepareSigner(signer2Email, signer2Name, "2", "1", new List<string> { "1" }, 
-                "/sn1/", "pixels", "20", "10");
+            Signer signer1 = PrepareSigner(
+                signer1Email,
+                signer1Name,
+                "1",
+                "1",
+                new List<string> { "2", "3" },
+                "**signature_1**",
+                "pixels",
+                "20",
+                "10");
+            Signer signer2 = PrepareSigner(
+                signer2Email,
+                signer2Name,
+                "2",
+                "1",
+                new List<string> { "1" },
+                "/sn1/",
+                "pixels",
+                "20",
+                "10");
 
             CarbonCopy carbonCopy = new CarbonCopy
             {
                 Email = ccEmail,
                 Name = ccName,
                 RecipientId = "3",
-                RoutingOrder = "2"
+                RoutingOrder = "2",
             };
 
             envelopeDefinition.Recipients = new Recipients
             {
                 CarbonCopies = new List<CarbonCopy> { carbonCopy },
-                Signers = new List<Signer> { signer1, signer2 }
+                Signers = new List<Signer> { signer1, signer2, },
             };
 
             envelopeDefinition.Status = "sent";
@@ -108,8 +124,15 @@ namespace eSignature.Examples
             return envelopeDefinition;
         }
 
-        private static Signer PrepareSigner(string signerEmail, string signerName, string recipientId, string routingOrder, 
-            List<string> excludedDocuments, string tabsAnchorString, string tabsAnchorUnits, string tabsAnchorXOffset, 
+        private static Signer PrepareSigner(
+            string signerEmail,
+            string signerName,
+            string recipientId,
+            string routingOrder,
+            List<string> excludedDocuments,
+            string tabsAnchorString,
+            string tabsAnchorUnits,
+            string tabsAnchorXOffset,
             string tabsAnchorYOffset)
         {
             return new Signer
@@ -128,44 +151,45 @@ namespace eSignature.Examples
                             AnchorString = tabsAnchorString,
                             AnchorUnits = tabsAnchorUnits,
                             AnchorXOffset = tabsAnchorXOffset,
-                            AnchorYOffset = tabsAnchorYOffset
-                        }
-                    }
-                }
+                            AnchorYOffset = tabsAnchorYOffset,
+                        },
+                    },
+                },
             };
         }
 
-        private static List<Document> PrepareDocumentsForTemplate(string docPdf, string docDocx, string docHTML)
+        private static List<Document> PrepareDocumentsForTemplate(string docPdf, string docDocx, string docHtml)
         {
             byte[] pdfFileContentInBytes = System.IO.File.ReadAllBytes(docPdf);
             byte[] docxFileContentInBytes = System.IO.File.ReadAllBytes(docDocx);
-            byte[] htlmFileContentInBytes = System.IO.File.ReadAllBytes(docHTML);
+            byte[] htlmFileContentInBytes = System.IO.File.ReadAllBytes(docHtml);
 
-            return new List<Document> 
+            return new List<Document>
             {
                 new Document
                 {
                     DocumentBase64 = Convert.ToBase64String(htlmFileContentInBytes),
                     Name = "Order acknowledgement",
                     FileExtension = "html",
-                    DocumentId = "1"
+                    DocumentId = "1",
                 },
                 new Document
                 {
                     DocumentBase64 = Convert.ToBase64String(docxFileContentInBytes),
                     Name = "Battle Plan",
                     FileExtension = "docx",
-                    DocumentId = "2"
+                    DocumentId = "2",
                 },
                 new Document
                 {
                     DocumentBase64 = Convert.ToBase64String(pdfFileContentInBytes),
                     Name = "Lorem Ipsum",
                     FileExtension = "pdf",
-                    DocumentId = "3"
-                }
+                    DocumentId = "3",
+                },
             };
         }
+
         //ds-snippet-end:eSign40Step3
     }
 }

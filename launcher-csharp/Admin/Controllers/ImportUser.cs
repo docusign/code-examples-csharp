@@ -18,10 +18,10 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("aeg004")]
     public class ImportUser : EgController
     {
-        public ImportUser(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public ImportUser(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Admin);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Admin);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -44,7 +44,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             {
                 // Call the Admin API to create a new user
                 OrganizationImportResponse organizationImportResponse = DocuSign.CodeExamples.Admin.Examples.ImportUser.CreateBulkImportRequest(
-                    accessToken, basePath, accountId, organizationId, Config.DocCsv);
+                    accessToken, basePath, accountId, organizationId, this.Config.DocCsv);
 
                 // Show results
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;
@@ -74,9 +74,9 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             try
             {
                 // Obtain your OAuth token
-                var accessToken = RequestItemsService.User.AccessToken;
-                var basePath = RequestItemsService.Session.AdminApiBasePath;
-                var organizationId = RequestItemsService.OrganizationId;
+                var accessToken = this.RequestItemsService.User.AccessToken;
+                var basePath = this.RequestItemsService.Session.AdminApiBasePath;
+                var organizationId = this.RequestItemsService.OrganizationId;
                 OrganizationImportResponse organizationImportResponse = DocuSign.CodeExamples.Admin.Examples.ImportUser.CheckkStatus(accessToken, basePath, organizationId, Guid.Parse(id));
 
                 // Show results

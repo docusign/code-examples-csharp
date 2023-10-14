@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\ExamplesAPIType.cs" Link="ExamplesAPIType.cs" />
+    <Compile Include="..\ExamplesApiTypeExtensions.cs" Link="ExamplesApiTypeExtensions.cs" />
     <Compile Include="..\launcher-csharp\Common\SetViewBagAttribute.cs" Link="Common\SetViewBagAttribute.cs" />
     <Compile Include="..\launcher-csharp\EmbeddedSigningCeremony.cs" Link="EmbeddedSigningCeremony.cs" />
     <Compile Include="..\launcher-csharp\eSignature\Controllers\EmbeddedSigningCeremony.cs" Link="eSignature\Controllers\EmbeddedSigningCeremony.cs" />

@@ -18,12 +18,12 @@ namespace DocuSign.CodeExamples.Views
         private string signerClientId = "1000";
         private string dsReturnUrl;
 
-        public ResponsiveSigning(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public ResponsiveSigning(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
             this.dsPingUrl = config.AppUrl + "/";
             this.dsReturnUrl = config.AppUrl + "/dsReturn";
-            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -47,7 +47,7 @@ namespace DocuSign.CodeExamples.Views
 
             try
             {
-                redirectUrl = global::ESignature.Examples.ResponsiveSigning.CreateEnvelopeFromHTML(
+                redirectUrl = global::ESignature.Examples.ResponsiveSigning.CreateEnvelopeFromHtml(
                     signerEmail,
                     signerName,
                     ccEmail,

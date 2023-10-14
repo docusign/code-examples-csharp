@@ -10,9 +10,9 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
     [Collection("eSignature tests")]
     public sealed class SetEnvelopeTabValueUnitTests
     {
-        private const string REDIRECT_URL = "https://developers.docusign.com/docs/esign-rest-api/";
-        private const string REST_API_PREFIX = "/restapi";
-        private const string DOCX_DOCUMENT_NAME = "World_Wide_Corp_salary.docx";
+        private const string RedirectUrl = "https://developers.docusign.com/docs/esign-rest-api/";
+        private const string RestApiPrefix = "/restapi";
+        private const string DocxDocumentName = "World_Wide_Corp_salary.docx";
 
         private readonly TestConfig _testConfig;
 
@@ -21,15 +21,15 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             this._testConfig = new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature, _testConfig);
+            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesApiType.ESignature, _testConfig);
         }
 
         [Fact]
         public void SetEnvelopeTabValue_CorrectInputParameters_ReturnsEnvelopeIdAndRedirectURL()
         {
             // Arrange
-            string basePath = _testConfig.BasePath + REST_API_PREFIX;
-            string tabsDocx = _testConfig.PathToSolution + DOCX_DOCUMENT_NAME;
+            string basePath = _testConfig.BasePath + RestApiPrefix;
+            string tabsDocx = _testConfig.PathToSolution + DocxDocumentName;
 
             // Act
             var envelopeAndRedirectUrl = SetEnvelopeTabValue.CreateEnvelopeAndUpdateTabData(
@@ -40,8 +40,8 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
                 basePath,
                 _testConfig.AccountId,
                 tabsDocx,
-                REDIRECT_URL,
-                REDIRECT_URL);
+                RedirectUrl,
+                RedirectUrl);
 
             string redirectUrl = envelopeAndRedirectUrl.Item2;
             string envelopeId = envelopeAndRedirectUrl.Item1;

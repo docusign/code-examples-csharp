@@ -13,7 +13,7 @@ namespace ESignature.Examples
 
     public static class ResponsiveSigning
     {
-        public static string CreateEnvelopeFromHTML(
+        public static string CreateEnvelopeFromHtml(
             string signerEmail,
             string signerName,
             string ccEmail,
@@ -187,6 +187,7 @@ namespace ESignature.Examples
                 Status = "sent",
             };
         }
+
         //ds-snippet-end:eSign38Step2
     }
 }

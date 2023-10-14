@@ -14,23 +14,23 @@ namespace DocuSign.CodeExamples.Controllers
 
     public abstract class EgController : Controller
     {
-        public LauncherTexts LauncherTexts { get; }
-
-        public abstract string EgName { get; }
-
-        protected CodeExampleText CodeExampleText { get; set; }
-
-        protected DSConfiguration Config { get; }
-
-        protected IRequestItemsService RequestItemsService { get; }
-
-        public EgController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public EgController(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
         {
             this.Config = config;
             this.RequestItemsService = requestItemsService;
             this.ViewBag.csrfToken = string.Empty;
             this.LauncherTexts = launcherTexts;
         }
+
+        public LauncherTexts LauncherTexts { get; }
+
+        public abstract string EgName { get; }
+
+        protected CodeExampleText CodeExampleText { get; set; }
+
+        protected DsConfiguration Config { get; }
+
+        protected IRequestItemsService RequestItemsService { get; }
 
         [HttpGet]
         public virtual IActionResult Get()
@@ -41,16 +41,16 @@ namespace DocuSign.CodeExamples.Controllers
             bool tokenOk = this.CheckToken();
             if (this.RequestItemsService.Configuration["API"] == null)
             {
-                this.RequestItemsService.Configuration["API"] = ExamplesAPIType.ESignature.ToString();
+                this.RequestItemsService.Configuration["API"] = ExamplesApiType.ESignature.ToString();
             }
 
-            ExamplesAPIType previousLoginSchema = Enum.Parse<ExamplesAPIType>(this.RequestItemsService.Configuration["API"]);
-            ExamplesAPIType currentAPI = Enum.Parse<ExamplesAPIType>(this.RequestItemsService.IdentifyAPIOfCodeExample(this.EgName));
-            this.RequestItemsService.Configuration["APIPlanned"] = currentAPI.ToString();
+            ExamplesApiType previousLoginSchema = Enum.Parse<ExamplesApiType>(this.RequestItemsService.Configuration["API"]);
+            ExamplesApiType currentApi = Enum.Parse<ExamplesApiType>(this.RequestItemsService.IdentifyApiOfCodeExample(this.EgName));
+            this.RequestItemsService.Configuration["APIPlanned"] = currentApi.ToString();
 
             if (tokenOk)
             {
-                if (previousLoginSchema == currentAPI)
+                if (previousLoginSchema == currentApi)
                 {
                     // addSpecialAttributes(model);
                     this.ViewBag.envelopeOk = this.RequestItemsService.EnvelopeId != null;
@@ -64,7 +64,7 @@ namespace DocuSign.CodeExamples.Controllers
                     this.ViewBag.pausedEnvelopeOk = this.RequestItemsService.PausedEnvelopeId != null;
                     this.InitializeInternal();
 
-                    if (this.Config.QuickACG == "true" && !(this is EmbeddedSigningCeremony))
+                    if (this.Config.QuickAcg == "true" && !(this is EmbeddedSigningCeremony))
                     {
                         return this.Redirect("eg001");
                     }
@@ -79,16 +79,11 @@ namespace DocuSign.CodeExamples.Controllers
             return this.LocalRedirect("/ds/mustAuthenticate");
         }
 
-        protected virtual void InitializeInternal()
-        {
-            this.ViewBag.CodeExampleText = this.CodeExampleText;
-            this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
-        }
-
         public dynamic CreateSourcePath()
         {
             var uri = this.Config.GithubExampleUrl;
-            if (this.EgName != "eg001") // eg001 is at the top level
+            // eg001 is at the top level
+            if (this.EgName != "eg001")
             {
                 uri = $"{uri}/{this.ControllerContext.RouteData.Values["area"]}";
                 return $"{uri}/Examples/{this.GetType().Name}.cs";
@@ -97,8 +92,9 @@ namespace DocuSign.CodeExamples.Controllers
             {
                 return "https://github.com/docusign/code-examples-csharp/blob/master/launcher-csharp/Monitor/Examples/GetMonitoringData.cs";
             }
-            else if (this.EgName != "eg001") // eg001 is at the top level
+            else if (this.EgName != "eg001")
             {
+                // eg001 is at the top level
                 uri = $"{uri}/eSignature";
                 return $"{uri}/Examples/{this.GetType().Name}.cs";
             }
@@ -108,11 +104,17 @@ namespace DocuSign.CodeExamples.Controllers
             }
         }
 
-        protected CodeExampleText GetExampleText(string exampleName, ExamplesAPIType examplesAPIType)
+        protected virtual void InitializeInternal()
+        {
+            this.ViewBag.CodeExampleText = this.CodeExampleText;
+            this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
+        }
+
+        protected CodeExampleText GetExampleText(string exampleName, ExamplesApiType examplesApiType)
         {
             int exampleNumber = int.Parse(Regex.Match(exampleName, @"\d+").Value);
-            var groups = this.LauncherTexts.ManifestStructure.APIs
-                .Find(x => x.Name.ToLowerInvariant() == examplesAPIType.ToString().ToLowerInvariant())
+            var groups = this.LauncherTexts.ManifestStructure.ApIs
+                .Find(x => x.Name.ToLowerInvariant() == examplesApiType.ToString().ToLowerInvariant())
                 .Groups;
 
             foreach (var group in groups)

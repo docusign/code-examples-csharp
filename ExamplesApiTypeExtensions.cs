@@ -1,4 +1,4 @@
-﻿// <copyright file="ExamplesAPIType.cs" company="DocuSign">
+﻿// <copyright file="ExamplesApiTypeExtensions.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 

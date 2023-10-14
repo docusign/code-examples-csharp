@@ -14,35 +14,14 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("Eg030")]
     public class ApplyBrandToTemplate : EgController
     {
-        public ApplyBrandToTemplate(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public ApplyBrandToTemplate(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName, Common.ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, Common.ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "Eg030";
-
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-
-            // Data for this method
-            // signerEmail
-            // signerName
-            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
-            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
-            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID
-            var docuSignClient = new DocuSignClient(basePath);
-            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-
-            var accountsApi = new AccountsApi(docuSignClient);
-            var brands = accountsApi.ListBrands(accountId);
-            this.ViewBag.Brands = brands.Brands;
-            var templatesApi = new TemplatesApi(docuSignClient);
-            var templates = templatesApi.ListTemplates(accountId);
-            this.ViewBag.EnvelopeTemplates = templates.EnvelopeTemplates;
-        }
 
         [Common.SetViewBag]
         [HttpPost]
@@ -84,6 +63,27 @@ namespace DocuSign.CodeExamples.Controllers
             this.ViewBag.h1 = this.CodeExampleText.ExampleName;
             this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, results.EnvelopeId);
             return this.View("example_done");
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+
+            // Data for this method
+            // signerEmail
+            // signerName
+            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
+            var accessToken = this.RequestItemsService.User.AccessToken; // Represents your {ACCESS_TOKEN}
+            var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+
+            var accountsApi = new AccountsApi(docuSignClient);
+            var brands = accountsApi.ListBrands(accountId);
+            this.ViewBag.Brands = brands.Brands;
+            var templatesApi = new TemplatesApi(docuSignClient);
+            var templates = templatesApi.ListTemplates(accountId);
+            this.ViewBag.EnvelopeTemplates = templates.EnvelopeTemplates;
         }
     }
 }

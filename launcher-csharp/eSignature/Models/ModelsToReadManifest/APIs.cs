@@ -1,9 +1,13 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿// <copyright file="APIs.cs" company="DocuSign">
+// Copyright (c) DocuSign. All rights reserved.
+// </copyright>
 
 namespace DocuSign.CodeExamples.ESignature.Models
 {
-    public class APIs
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+
+    public class ApIs
     {
         [JsonProperty("Groups")]
         public List<ManifestGroup> Groups { get; } = new List<ManifestGroup>();

@@ -2,6 +2,7 @@
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
+#nullable enable
 namespace DocuSign.CodeExamples
 {
     using System;
@@ -28,15 +29,15 @@ namespace DocuSign.CodeExamples
 
     public class Startup
     {
-        private readonly Dictionary<ExamplesAPIType, List<string>> _apiTypes = new Dictionary<ExamplesAPIType, List<string>>();
+        private readonly Dictionary<ExamplesApiType, List<string>> apiTypes = new Dictionary<ExamplesApiType, List<string>>();
 
         public Startup(IConfiguration configuration)
         {
             this.Configuration = configuration;
 
-            this._apiTypes.Add(ExamplesAPIType.ESignature, new List<string> { "signature" });
+            this.apiTypes.Add(ExamplesApiType.ESignature, new List<string> { "signature" });
 
-            this._apiTypes.Add(ExamplesAPIType.Rooms, new List<string>
+            this.apiTypes.Add(ExamplesApiType.Rooms, new List<string>
             {
                     "dtr.rooms.read",
                     "dtr.rooms.write",
@@ -49,19 +50,19 @@ namespace DocuSign.CodeExamples
                     "room_forms",
             });
 
-            this._apiTypes.Add(ExamplesAPIType.Click, new List<string>
+            this.apiTypes.Add(ExamplesApiType.Click, new List<string>
             {
                     "click.manage",
                     "click.send",
             });
 
-            this._apiTypes.Add(ExamplesAPIType.Monitor, new List<string>
+            this.apiTypes.Add(ExamplesApiType.Monitor, new List<string>
             {
                     "signature",
                     "impersonation",
             });
 
-            this._apiTypes.Add(ExamplesAPIType.Admin, new List<string>
+            this.apiTypes.Add(ExamplesApiType.Admin, new List<string>
             {
                     "signature",
                     "user_read",
@@ -103,13 +104,13 @@ namespace DocuSign.CodeExamples
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
             });
-            DSConfiguration config = new DSConfiguration();
+            DsConfiguration config = new DsConfiguration();
 
             this.Configuration.Bind("DocuSign", config);
             this.Configuration["FirstLaunch"] = "true";
 
             services.AddSingleton(config);
-            services.AddSingleton(new LauncherTexts(config, Configuration));
+            services.AddSingleton(new LauncherTexts(config, this.Configuration));
             services.AddScoped<IRequestItemsService, RequestItemsService>();
             services.AddScoped<IRoomsApi, RoomsApi>();
             services.AddScoped<IRolesApi, RolesApi>();
@@ -147,7 +148,7 @@ namespace DocuSign.CodeExamples
                 options.TokenEndpoint = this.Configuration["DocuSign:TokenEndpoint"];
                 options.UserInformationEndpoint = this.Configuration["DocuSign:UserInformationEndpoint"];
 
-                foreach (var apiType in this._apiTypes)
+                foreach (var apiType in this.apiTypes)
                 {
                     foreach (var scope in apiType.Value)
                     {
@@ -172,15 +173,15 @@ namespace DocuSign.CodeExamples
                 {
                     OnRedirectToAuthorizationEndpoint = redirectContext =>
                     {
-                        List<string> scopesForCurrentAPI = this._apiTypes.GetValueOrDefault(Enum.Parse<ExamplesAPIType>(this.Configuration["API"]));
+                        List<string> scopesForCurrentApi = this.apiTypes.GetValueOrDefault(Enum.Parse<ExamplesApiType>(this.Configuration["API"]));
 
-                        foreach (var api in this._apiTypes)
+                        foreach (var api in this.apiTypes)
                         {
                             if (this.Configuration["API"] != api.Key.ToString())
                             {
                                 foreach (var scope in api.Value)
                                 {
-                                    if (!scopesForCurrentAPI.Contains(scope))
+                                    if (scopesForCurrentApi != null && !scopesForCurrentApi.Contains(scope))
                                     {
                                         var scopeWithSeperator = scope + "%20";
 
@@ -219,62 +220,11 @@ namespace DocuSign.CodeExamples
                     OnRemoteFailure = context =>
                     {
                         context.HandleResponse();
-                        context.Response.Redirect("/Home/Error?message=" + context.Failure.Message);
+                        context.Response.Redirect("/Home/Error?message=" + context.Failure?.Message);
                         return Task.FromResult(0);
                     },
                 };
             });
-        }
-
-        private string ExtractDefaultAccountValue(JsonElement obj, string key)
-        {
-            if (!obj.TryGetProperty("accounts", out var accounts))
-            {
-                return null;
-            }
-
-            string? keyValue = null;
-            string targetAccountIdString = this.Configuration["DocuSign:TargetAccountId"];
-
-            if (Guid.TryParse(targetAccountIdString, out Guid targetAccountId))
-            {
-                foreach (var account in accounts.EnumerateArray())
-                {
-                    account.TryGetProperty("account_id", out var accountIdJson);
-                    accountIdJson.TryGetGuid(out Guid accountId);
-
-                    if (targetAccountId == accountId)
-                    {
-                        if (account.TryGetProperty(key, out var value))
-                        {
-                            keyValue = value.GetString();
-                        }
-                    }
-                }
-
-                if (keyValue == null)
-                {
-                    string errorMessage = $"Targeted Account with Id {targetAccountId} not found.";
-                    this.Configuration["ErrorMessage"] = errorMessage;
-
-                    throw new Exception(errorMessage);
-                }
-            }
-            else
-            {
-                foreach (var account in accounts.EnumerateArray())
-                {
-                    if (account.TryGetProperty("is_default", out var defaultAccount) && defaultAccount.GetBoolean())
-                    {
-                        if (account.TryGetProperty(key, out var value))
-                        {
-                            keyValue = value.GetString();
-                        }
-                    }
-                }
-            }
-
-            return keyValue;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -325,6 +275,57 @@ namespace DocuSign.CodeExamples
                             name: "default",
                             pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private string? ExtractDefaultAccountValue(JsonElement obj, string key)
+        {
+            if (!obj.TryGetProperty("accounts", out var accounts))
+            {
+                return null;
+            }
+
+            string? keyValue = null;
+            string targetAccountIdString = this.Configuration["DocuSign:TargetAccountId"];
+
+            if (Guid.TryParse(targetAccountIdString, out Guid targetAccountId))
+            {
+                foreach (var account in accounts.EnumerateArray())
+                {
+                    account.TryGetProperty("account_id", out var accountIdJson);
+                    accountIdJson.TryGetGuid(out Guid accountId);
+
+                    if (targetAccountId == accountId)
+                    {
+                        if (account.TryGetProperty(key, out var value))
+                        {
+                            keyValue = value.GetString();
+                        }
+                    }
+                }
+
+                if (keyValue == null)
+                {
+                    string errorMessage = $"Targeted Account with Id {targetAccountId} not found.";
+                    this.Configuration["ErrorMessage"] = errorMessage;
+
+                    throw new Exception(errorMessage);
+                }
+            }
+            else
+            {
+                foreach (var account in accounts.EnumerateArray())
+                {
+                    if (account.TryGetProperty("is_default", out var defaultAccount) && defaultAccount.GetBoolean())
+                    {
+                        if (account.TryGetProperty(key, out var value))
+                        {
+                            keyValue = value.GetString();
+                        }
+                    }
+                }
+            }
+
+            return keyValue;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace ESignature.Examples
     using DocuSign.eSign.Client;
     using DocuSign.eSign.Model;
 
-    public static class RecipientAuthIDV
+    public static class RecipientAuthIdv
     {
         /// <summary>
         /// Creates an envelope and adds a recipient that is to be authenticated using an Identify Verificiation (IDV).
@@ -21,7 +21,7 @@ namespace ESignature.Examples
         /// <param name="basePath">BasePath for API calls (URI)</param>
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// <returns>EnvelopeId for the new envelope</returns>
-        public static string CreateEnvelopeWithRecipientUsingIDVAuth(string signerEmail, string signerName, string accessToken, string basePath, string accountId)
+        public static string CreateEnvelopeWithRecipientUsingIdvAuth(string signerEmail, string signerName, string accessToken, string basePath, string accountId)
         {
             // Construct your API headers
             //ds-snippet-start:eSign23Step2

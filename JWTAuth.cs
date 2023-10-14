@@ -10,22 +10,22 @@ namespace DocuSign.CodeExamples.Authentication
     using DocuSign.eSign.Client;
     using static DocuSign.eSign.Client.Auth.OAuth;
 
-    public static class JWTAuth
+    public static class JwtAuth
     {
         /// <summary>
         /// Uses Json Web Token (JWT) Authentication Method to obtain the necessary information needed to make API calls.
         /// </summary>
         /// <returns>Auth token needed for API calls</returns>
-        public static OAuthToken AuthenticateWithJWT(string api, string clientId, string impersonatedUserId, string authServer, byte[] privateKeyBytes)
+        public static OAuthToken AuthenticateWithJwt(string api, string clientId, string impersonatedUserId, string authServer, byte[] privateKeyBytes)
         {
             var docuSignClient = new DocuSignClient();
-            var apiType = Enum.Parse<ExamplesAPIType>(api);
+            var apiType = Enum.Parse<ExamplesApiType>(api);
             var scopes = new List<string>
                 {
                     "signature",
                     "impersonation",
                 };
-            if (apiType == ExamplesAPIType.Rooms)
+            if (apiType == ExamplesApiType.Rooms)
             {
                 scopes.AddRange(new List<string>
                 {
@@ -41,7 +41,7 @@ namespace DocuSign.CodeExamples.Authentication
                 });
             }
 
-            if (apiType == ExamplesAPIType.Click)
+            if (apiType == ExamplesApiType.Click)
             {
                 scopes.AddRange(new List<string>
                 {
@@ -50,7 +50,7 @@ namespace DocuSign.CodeExamples.Authentication
                 });
             }
 
-            if (apiType == ExamplesAPIType.Monitor)
+            if (apiType == ExamplesApiType.Monitor)
             {
                 scopes.AddRange(new List<string>
                 {
@@ -59,7 +59,7 @@ namespace DocuSign.CodeExamples.Authentication
                 });
             }
 
-            if (apiType == ExamplesAPIType.Admin)
+            if (apiType == ExamplesApiType.Admin)
             {
                 scopes.AddRange(new List<string>
                 {
@@ -75,7 +75,7 @@ namespace DocuSign.CodeExamples.Authentication
                     "asset_group_account_read",
                     "asset_group_account_clone_write",
                     "asset_group_account_clone_read",
-            });
+                });
             }
 
             return docuSignClient.RequestJWTUserToken(

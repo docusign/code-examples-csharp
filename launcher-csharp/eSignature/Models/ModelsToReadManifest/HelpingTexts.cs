@@ -15,7 +15,7 @@ namespace DocuSign.CodeExamples.ESignature.Models
         public string PhoneNumberWontBeShared { get; set; }
 
         [JsonProperty("CCEmailShouldDifferFromSigner")]
-        public string CCEmailShouldDifferFromSigner { get; set; }
+        public string CcEmailShouldDifferFromSigner { get; set; }
 
         [JsonProperty("AccessCodeText")]
         public string AccessCodeText { get; set; }
@@ -36,13 +36,13 @@ namespace DocuSign.CodeExamples.ESignature.Models
         public string DynamicContentNote { get; set; }
 
         [JsonProperty("EmbedClickwrapURL")]
-        public string EmbedClickwrapURL { get; set; }
+        public string EmbedClickwrapUrl { get; set; }
 
         [JsonProperty("NOTAGREED")]
-        public string NOTAGREED { get; set; }
+        public string NotAgreed { get; set; }
 
         [JsonProperty("AGREED")]
-        public string AGREED { get; set; }
+        public string Agreed { get; set; }
 
         [JsonProperty("SaveAgentActivationCode")]
         public string SaveAgentActivationCode { get; set; }
@@ -51,6 +51,6 @@ namespace DocuSign.CodeExamples.ESignature.Models
         public string EmailAddressOfUserToDelete { get; set; }
 
         [JsonProperty("UserIDOfUserToDelete")]
-        public string UserIDOfUserToDelete { get; set; }
+        public string UserIdOfUserToDelete { get; set; }
     }
 }

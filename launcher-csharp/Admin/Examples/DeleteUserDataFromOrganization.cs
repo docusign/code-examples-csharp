@@ -41,6 +41,7 @@ namespace DocuSign.Admin.Examples
             var user = profiles.Users?[0];
 
             var organizationsApi = new OrganizationsApi(docusignClient);
+
             //ds-snippet-start:Admin11Step3
             var userRedactionRequest = new IndividualUserDataRedactionRequest
             {
