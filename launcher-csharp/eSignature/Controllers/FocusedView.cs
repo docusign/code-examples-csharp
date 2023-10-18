@@ -1,17 +1,15 @@
-﻿// <copyright file="Eg044FocusedViewController.cs" company="DocuSign">
+﻿// <copyright file="FocusedView.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples.Views
 {
     using System;
+    using System.Runtime.InteropServices;
     using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
-    using System.Runtime.InteropServices;
     using Microsoft.AspNetCore.Mvc;
-    using DocuSign.Rooms.Model;
-    using System.Configuration;
     using Microsoft.Extensions.Configuration;
 
     [Area("eSignature")]
@@ -22,16 +20,16 @@ namespace DocuSign.CodeExamples.Views
         private readonly string signerClientId = "1000";
         private readonly string dsReturnUrl;
         private readonly string dsIntegrationKey;
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration configuration;
 
-        public FocusedView(DSConfiguration config, IConfiguration configuration, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public FocusedView(DsConfiguration config, IConfiguration configuration, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
             this.dsPingUrl = config.AppUrl + "/";
             this.dsReturnUrl = config.AppUrl + "/dsReturn";
-            _configuration = configuration;
+            this.configuration = configuration;
 
-            this.CodeExampleText = this.GetExampleText("eg044", ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText("eg044", ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -53,11 +51,11 @@ namespace DocuSign.CodeExamples.Views
             string docPDF;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                docPDF = Convert.ToBoolean(this.Config.QuickACG) ? @"../launcher-csharp/" + this.Config.DocPdf : this.Config.DocPdf;
+                docPDF = Convert.ToBoolean(this.Config.QuickAcg) ? @"../launcher-csharp/" + this.Config.DocPdf : this.Config.DocPdf;
             }
             else
             {
-                docPDF = Convert.ToBoolean(this.Config.QuickACG) ? @"..\\launcher-csharp\\" + this.Config.DocPdf : this.Config.DocPdf;
+                docPDF = Convert.ToBoolean(this.Config.QuickAcg) ? @"..\\launcher-csharp\\" + this.Config.DocPdf : this.Config.DocPdf;
             }
 
             // Check the token with minimal buffer time.
@@ -88,7 +86,7 @@ namespace DocuSign.CodeExamples.Views
             // Save for future use within the example launcher
             this.RequestItemsService.EnvelopeId = result.Item1;
             this.ViewBag.Url = result.Item2;
-            this.ViewBag.IntegrationKey = this._configuration["DocuSign:ClientId"];
+            this.ViewBag.IntegrationKey = this.configuration["DocuSign:ClientId"];
 
             // Redirect the user to the Signing Ceremony
             return this.View("embed");

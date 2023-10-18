@@ -133,6 +133,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
                 AutoActivateMemberships = true,
             };
         }
+
         //ds-snippet-end:Admin1Step5
     }
 }

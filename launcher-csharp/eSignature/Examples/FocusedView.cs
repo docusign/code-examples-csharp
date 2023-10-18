@@ -123,6 +123,7 @@ namespace ESignature.Examples
 
             return viewRequest;
         }
+
         //ds-snippet-end:eSign44Step4
 
         //ds-snippet-start:eSign44Step2
@@ -193,6 +194,7 @@ namespace ESignature.Examples
 
             return envelopeDefinition;
         }
+
         //ds-snippet-end:eSign44Step2
     }
 }
