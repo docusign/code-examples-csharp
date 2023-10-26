@@ -404,7 +404,7 @@
                         }
                       ],
                       "ResultsPageText": "The document has been embedded with focused view.",
-                      "SkipForLanguages": "bash;java;php;powershell;ruby"
+                      "SkipForLanguages": "bash;powershell;ruby"
                     },
                     {
                       "ExampleNumber": 42,
