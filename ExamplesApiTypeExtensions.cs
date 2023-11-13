@@ -37,6 +37,12 @@ namespace DocuSign.CodeExamples.Common
         /// </summary>
         [Description("aeg")]
         Admin = 4,
+
+        /// <summary>
+        /// Connect API
+        /// </summary>
+        [Description("con")]
+        Connect = 5,
     }
 
     public static class ExamplesApiTypeExtensions

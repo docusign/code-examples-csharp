@@ -1,28 +1,32 @@
-﻿@model DocuSign.CodeExamples.ESignature.Models.CodeExampleText
+﻿@using Microsoft.EntityFrameworkCore.Migrations
+@model DocuSign.CodeExamples.ESignature.Models.CodeExampleText
 <p>
-    @if(Model.LinksToApiMethod.Count == 1)
+    @if (Model.LinksToApiMethod.Count != 0)
     {
-        <span>@Html.Raw(ViewBag.SupportingTexts.ApiMethodUsed)</span>
-    } 
-    else
-    {
-        <span>@Html.Raw(ViewBag.SupportingTexts.ApiMethodUsedPlural)</span>
-    }
-
-    @for(int i = 0; i < Model.LinksToApiMethod.Count; ++i)
-    {
-        <a target='_blank' href="@Model.LinksToApiMethod[i].Path">@Html.Raw(Model.LinksToApiMethod[i].PathName)</a>
-        @if(i + 1 == Model.LinksToApiMethod.Count)
+        @if (Model.LinksToApiMethod.Count == 1)
         {
-            <span></span>
-        }
-        else if(i + 1 == Model.LinksToApiMethod.Count - 1)
-        {
-            <span> and </span>
+            <span>@Html.Raw(ViewBag.SupportingTexts.ApiMethodUsed)</span>
         }
         else
         {
-            <span>, </span>
+            <span>@Html.Raw(ViewBag.SupportingTexts.ApiMethodUsedPlural)</span>
+        }
+
+        @for (int i = 0; i < Model.LinksToApiMethod.Count; ++i)
+        {
+            <a target='_blank' href="@Model.LinksToApiMethod[i].Path">@Html.Raw(Model.LinksToApiMethod[i].PathName)</a>
+            @if (i + 1 == Model.LinksToApiMethod.Count)
+            {
+                <span></span>
+            }
+            else if (i + 1 == Model.LinksToApiMethod.Count - 1)
+            {
+                <span> and </span>
+            }
+            else
+            {
+                <span>, </span>
+            }
         }
     }
 </p>

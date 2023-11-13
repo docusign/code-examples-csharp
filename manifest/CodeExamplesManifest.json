@@ -2588,6 +2588,35 @@
                     ]
                 }
             ]
+        },
+        {
+            "Name": "Connect",
+            "Groups": [
+                {
+                    "Name": "Connect examples",
+                    "Examples": [
+                        {
+                            "ExampleNumber": 1,
+                            "ExampleName": "Validate HMAC signature",
+                            "ExampleDescription": "Demonstrates an example workflow for a client app receiving and validating a webhook (DocuSign Connect) message using HMAC security.",
+                            "Forms": [
+                                {
+                                    "Inputs": [
+                                        {
+                                            "InputName": "HMAC secret"
+                                        },
+                                        {
+                                            "InputName": "Plain text JSON payload"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "ResultsPageText": "This value should match the value of your x-docusign-signature header: <br/>HMAC signature {0}",
+                            "SkipForLanguages": "bash;powershell;ruby;java;php;python;node"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
