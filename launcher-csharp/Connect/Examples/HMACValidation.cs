@@ -10,6 +10,7 @@ namespace DocuSign.Connect.Examples
 
     public static class HMACValidation
     {
+        #ds-snippet-start:Connect1Step1
         public static string ComputeHash(string secret, string payload)
         {
             byte[] bytes = Encoding.UTF8.GetBytes(secret);
@@ -18,6 +19,7 @@ namespace DocuSign.Connect.Examples
 
             return Convert.ToBase64String(hmac.ComputeHash(bytes));
         }
+        #ds-snippet-end:Connect1Step1
 
         public static bool HashIsValid(string secret, string payload, string verify)
         {
