@@ -19,7 +19,6 @@ namespace DocuSign.Connect.Examples
 
             return Convert.ToBase64String(hmac.ComputeHash(bytes));
         }
-        //ds-snippet-end:Connect1Step1
 
         public static bool HashIsValid(string secret, string payload, string verify)
         {
@@ -28,5 +27,6 @@ namespace DocuSign.Connect.Examples
 
             return CryptographicOperations.FixedTimeEquals(hashBytes, verifyBytes);
         }
+        //ds-snippet-end:Connect1Step1
     }
 }
