@@ -27,6 +27,7 @@ namespace DocuSign.Connect.Examples
 
             return CryptographicOperations.FixedTimeEquals(hashBytes, verifyBytes);
         }
+
         //ds-snippet-end:Connect1Step1
     }
 }
