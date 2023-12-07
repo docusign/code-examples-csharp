@@ -2599,6 +2599,7 @@
                             "ExampleNumber": 1,
                             "ExampleName": "Validate HMAC signature",
                             "ExampleDescription": "Demonstrates an example workflow for a client app receiving and validating a webhook (DocuSign Connect) message using HMAC security.",
+                            "PrereqHowToLink": "Prerequisite: See (<a target='_blank' href=\"https://developers.docusign.com/platform/webhooks/connect/validate/\">How to validate an HMAC signature</a>).",
                             "LinkToHowTo": [
                                 {
                                     "Path": "https://developers.docusign.com/platform/webhooks/connect/validate/",
