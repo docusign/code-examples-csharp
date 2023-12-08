@@ -2599,12 +2599,6 @@
                             "ExampleNumber": 1,
                             "ExampleName": "Validate HMAC signature",
                             "ExampleDescription": "Demonstrates an example workflow for a client app receiving and validating a webhook (DocuSign Connect) message using HMAC security.",
-                            "LinkToHowTo": [
-                                {
-                                    "Path": "https://developers.docusign.com/platform/webhooks/connect/validate/",
-                                    "PathName": "How to validate an HMAC signature"
-                                }
-                            ],
                             "Forms": [
                                 {
                                     "Inputs": [
