@@ -118,11 +118,12 @@ Also, in order to select JSON Web Token authentication in the launcher, in launc
 1. Select your desired code example.
 
 ## Authorization Code Grant embedded signing example:
-1. Double click the Quick_ACG.csproj (or Quick_ACG-2019.csproj) file in the Quick_ACG folder of your Quickstart project.
+1. Double click the Quick_ACG.csproj (or Quick_ACG-2019.csproj for VS 2109) file in the Quick_ACG folder of your Quickstart project.
 1. Select the green Play IIS Express button.
 
 ## JWT grant remote signing project
-
+1. Double click the JWT-Console.csproj (or JWT-Console-2019.csproj for VS 2109) file in the JWT-Console folder of your Quickstart project.
+1. Select the green Play JWT Console button.
 
 ## Payments code example  
 To use the payments code example, create a test payment gateway on the [Payments](https://admindemo.docusign.com/authenticate?goTo=payments) page in your developer account. See [Configure a payment gateway](./PAYMENTS_INSTALLATION.md) for details.  
