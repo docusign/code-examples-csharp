@@ -117,8 +117,12 @@ Also, in order to select JSON Web Token authentication in the launcher, in launc
 1. When prompted, log in to your DocuSign developer account. If this is your first time using the app, select **ACCEPT** at the consent window. 
 1. Select your desired code example.
 
+## Authorization Code Grant embedded signing example:
+1. Double click the Quick_ACG.csproj (or Quick_ACG-2019.csproj) file in the Quick_ACG folder of your Quickstart project.
+1. Select the green Play IIS Express button.
+
 ## JWT grant remote signing project
-See [DocuSign Quickstart overview](https://developers.docusign.com/docs/esign-rest-api/quickstart/overview/) on the DocuSign Developer Center for more information on how to run the JWT grant remote signing project.
+
 
 ## Payments code example  
 To use the payments code example, create a test payment gateway on the [Payments](https://admindemo.docusign.com/authenticate?goTo=payments) page in your developer account. See [Configure a payment gateway](./PAYMENTS_INSTALLATION.md) for details.  
