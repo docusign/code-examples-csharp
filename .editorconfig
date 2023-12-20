@@ -346,7 +346,7 @@ dotnet_diagnostic.SA1651.severity = error
 dotnet_diagnostic.SA1648.severity = error
 
 # SA1649: File name should match first type name
-dotnet_diagnostic.SA1649.severity = error
+dotnet_diagnostic.SA1649.severity = suggestion
 
 # SA1640: File header should have valid company text
 dotnet_diagnostic.SA1640.severity = error
