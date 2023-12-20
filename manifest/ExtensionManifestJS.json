@@ -1,4 +1,4 @@
-﻿{
+{
   "codeExamples": [
     {
       "number": "1",
@@ -418,14 +418,6 @@
     },
     {
       "number": "53",
-      "name": "Query monitoring data with filters",
-      "description": "Demonstrates how to query an organization's data based on specified filters and aggregations.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/monitor/examples/postWebQuery.js",
-      "method": "postQuery",
-      "apiType": "Monitor"
-    },
-    {
-      "number": "54",
       "name": "Send an envelope to an In Person Signer",
       "description": "Demonstrates how to host an In Person Signing session with embedded signing.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/signingInPerson.js",
@@ -433,7 +425,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "55",
+      "number": "54",
       "name": "Request a signature through your app (embedded signing) with a CFR Part 11 account",
       "description": "Sends an envelope, then uses embedded signing with recipient authentication by phone for the first signer. With embedded signing, DocuSign signing is initiated from your website.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/embeddedSigningCFR.js",
@@ -441,12 +433,44 @@
       "apiType": "ESignature"
     },
     {
-      "number": "56",
+      "number": "55",
       "name": "Embed a clickwrap",
       "description": "Creates a unique URL for an active clickwrap and embeds the clickwrap on your page.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/click/examples/embedClickwrap.js",
       "method": "embedClickwrap",
       "apiType": "Click"
+    },
+    {
+      "number": "56",
+      "name": "Request a signature by email with document generation",
+      "description": "Creates an envelope from a template with a document that is dynamically generated to include all the customized data specified by the sender.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/documentGeneration.js",
+      "method": "sendEnvelope",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "57",
+      "name": "Share access to a DocuSign envelope inbox",
+      "description": "Share envelope inbox access with an agent user and view the principal user's envelopes using the Shared Access view in the DocuSign UI.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/sharedAccess.js",
+      "method": "createAgent",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "58",
+      "name": "Request a signature using focused view",
+      "description": "Sends an envelope, then uses focused view for the signer.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/focusedView.js",
+      "method": "sendEnvelope",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "59",
+      "name": "Set document visibility for envelope recipients",
+      "description": "Demonstrates how to set document visibility for envelope recipients.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-node/master/lib/eSignature/examples/setDocumentVisibility.js",
+      "method": "sendEnvelope",
+      "apiType": "ESignature"
     }
   ],
   "postAddOpenURI": "https://developers.docusign.com/platform/auth/authcode/"

@@ -176,7 +176,7 @@
   "packages": [
     {
       "name": "docusign-esign",
-      "version": "6.3.0"
+      "version": "6.5.1"
     },
     {
       "name": "fs",
@@ -198,7 +198,7 @@
       "packages": [
         {
           "name": "docusign-esign",
-          "version": "^6.3.0"
+          "version": "^6.5.1"
         }
       ],
       "scopes": [
