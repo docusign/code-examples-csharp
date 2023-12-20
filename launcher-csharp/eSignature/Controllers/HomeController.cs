@@ -88,6 +88,7 @@ namespace DocuSign.CodeExamples.Controllers
 
             if (egName == "home")
             {
+                this.RequestItemsService.EgName = null;
                 this.CheckIfThisIsCfr11Account();
                 return this.View();
             }
