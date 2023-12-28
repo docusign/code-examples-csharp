@@ -77,6 +77,11 @@ namespace DocuSign.CodeExamples
                     "asset_group_account_clone_write",
                     "asset_group_account_clone_read",
             });
+
+            this.apiTypes.Add(ExamplesApiType.WebForms, new List<string>
+            {
+                "signature", "webforms_manage",
+            });
         }
 
         public IConfiguration Configuration { get; }

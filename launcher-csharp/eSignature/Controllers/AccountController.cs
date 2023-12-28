@@ -118,6 +118,10 @@ namespace DocuSign.CodeExamples.Controllers
             {
                 scopes += " user_read user_write organization_read account_read group_read permission_read identity_provider_read domain_read user_data_redact asset_group_account_read asset_group_account_clone_write asset_group_account_clone_read";
             }
+            else if (apiType == ExamplesApiType.WebForms)
+            {
+                scopes += " webforms_manage";
+            }
 
             return this.Configuration["DocuSign:AuthorizationEndpoint"] + "?response_type=code" +
                 "&scope=" + scopes +

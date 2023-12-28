@@ -1,0 +1,20 @@
+﻿<h4>Create and embed a web form</h4>
+<p>
+    First the launcher will create a new template in your account that will be used to create the web form.
+</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<p>
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">CreateAndEmbedFormService.cs</a>"
+            )
+        )
+</p>
+
+
+<form class="eg" action="" method="post" data-busy="form">
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
+</form>
+

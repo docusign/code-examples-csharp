@@ -1,0 +1,32 @@
+﻿<h4>Create and embed a web form</h4>
+<p>
+    Go to your DocuSign account to create the Web Form. Go to 'Forms' in your developer account, select 'New', and choose 'Upload web form'. Upload the JSON config file 'web-form-config.json' found under the demo documents folder of this project. You will need to activate the web form before proceeding. Press Continue after doing so.
+</p>
+
+<p>
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">CreateAndEmbedFormService.cs</a>"
+            )
+        )
+</p>
+
+
+<form class="eg" asp-action="EmbedForm" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="formId">
+            Form Id
+        </label>
+
+        <input type="text" 
+               class="form-control" 
+               id="formId" 
+               name="formId"
+               required
+               pattern="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}">
+    </div>
+
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+</form>
+
