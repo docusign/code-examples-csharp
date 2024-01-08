@@ -42,7 +42,7 @@ namespace DocuSign.CodeExamples.WebForms.Controllers
         [SetViewBag]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CheckTheTemplates()
+        public ActionResult CheckTemplates()
         {
             string basePath = this.RequestItemsService.Session.BasePath + "/restapi";
             string accessToken = this.RequestItemsService.User.AccessToken;
@@ -51,7 +51,7 @@ namespace DocuSign.CodeExamples.WebForms.Controllers
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
-            List<EnvelopeTemplate> templates = CreateAndEmbedFormService.CheckIfTemplateExists(
+            List<EnvelopeTemplate> templates = CreateAndEmbedFormService.GetTemplatesByName(
                 docuSignClient,
                 accountId,
                 TemplateName);

@@ -62,7 +62,7 @@ namespace DocuSign.WebForms.Examples
             return formManagementApi.CreateInstance(accountId, formId, options);
         }
 
-        public static List<EnvelopeTemplate> CheckIfTemplateExists(
+        public static List<EnvelopeTemplate> GetTemplatesByName(
             DocuSignClient docuSignClient,
             string accountId,
             string templateName)
@@ -84,14 +84,14 @@ namespace DocuSign.WebForms.Examples
         {
             TemplatesApi templatesApi = new TemplatesApi(docuSignClient);
 
-            EnvelopeTemplate templateReqObject = MakeTemplate(templateName, documentPdf);
+            EnvelopeTemplate templateReqObject = PrepareEnvelopeTemplate(templateName, documentPdf);
 
             TemplateSummary template = templatesApi.CreateTemplate(accountId, templateReqObject);
 
             return template;
         }
 
-        public static EnvelopeTemplate MakeTemplate(string resultsTemplateName, string documentPdf)
+        public static EnvelopeTemplate PrepareEnvelopeTemplate(string resultsTemplateName, string documentPdf)
         {
             Document document = new Document()
             {
