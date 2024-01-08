@@ -1,9 +1,26 @@
-﻿<h4>Create and embed a web form</h4>
+﻿@{
+    var additionalPages = ViewBag.CodeExampleText.AdditionalPages;
+    var description = "";
+    foreach (var additionalPage in additionalPages)
+    {
+        if (additionalPage.Name == "create_web_form_template")
+        {
+            description = additionalPage.ResultsPageText;
+        }
+    }
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
-    First the launcher will create a new template in your account that will be used to create the web form.
+    @description
 </p>
 
-<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<p>
+    API methods used:
+    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/templates/templates/list/">Templates::list</a>, and
+    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/templates/templates/create/">Templates::create</a>.
+</p>
+
 <p>
     @Html.Raw(
         @String.Format(

@@ -7,11 +7,14 @@ namespace DocuSign.CodeExamples
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Security.Claims;
     using System.Text.Json;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
+    using System.Web;
     using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Models;
     using DocuSign.Rooms.Api;
@@ -35,7 +38,7 @@ namespace DocuSign.CodeExamples
         {
             this.Configuration = configuration;
 
-            this.apiTypes.Add(ExamplesApiType.ESignature, new List<string> { "signature" });
+            this.apiTypes.Add(ExamplesApiType.ESignature, new List<string> { "signature", });
 
             this.apiTypes.Add(ExamplesApiType.Rooms, new List<string>
             {
@@ -180,28 +183,8 @@ namespace DocuSign.CodeExamples
                     {
                         List<string> scopesForCurrentApi = this.apiTypes.GetValueOrDefault(Enum.Parse<ExamplesApiType>(this.Configuration["API"]));
 
-                        foreach (var api in this.apiTypes)
-                        {
-                            if (this.Configuration["API"] != api.Key.ToString())
-                            {
-                                foreach (var scope in api.Value)
-                                {
-                                    if (scopesForCurrentApi != null && !scopesForCurrentApi.Contains(scope))
-                                    {
-                                        var scopeWithSeperator = scope + "%20";
 
-                                        if (redirectContext.RedirectUri.Contains(scopeWithSeperator))
-                                        {
-                                            redirectContext.RedirectUri = redirectContext.RedirectUri.Replace(scopeWithSeperator, string.Empty);
-                                        }
-                                        else
-                                        {
-                                            redirectContext.RedirectUri = redirectContext.RedirectUri.Replace(scope, string.Empty);
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        redirectContext.RedirectUri = this.UpdateRedirectUriScopes(redirectContext.RedirectUri, scopesForCurrentApi);
 
                         redirectContext.HttpContext.Response.Redirect(redirectContext.RedirectUri);
                         return Task.FromResult(0);
@@ -331,6 +314,14 @@ namespace DocuSign.CodeExamples
             }
 
             return keyValue;
+        }
+
+        private string UpdateRedirectUriScopes(string uri, List<string> wantedScopes)
+        {
+            const string pattern = @"(?:&|\?)scope=([^&]+)";
+
+            var encodedScopes = string.Join(" ", wantedScopes);
+            return Regex.Replace(uri, pattern, $"&scope={HttpUtility.UrlPathEncode(encodedScopes)}");
         }
     }
 }

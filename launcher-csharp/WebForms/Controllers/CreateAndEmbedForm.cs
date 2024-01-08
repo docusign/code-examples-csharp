@@ -21,6 +21,8 @@ namespace DocuSign.CodeExamples.WebForms.Controllers
     [Route("web001")]
     public class CreateAndEmbedForm : EgController
     {
+        public const string TemplateName = "Web Form Example Template";
+
         private IConfiguration configuration;
 
         public CreateAndEmbedForm(
@@ -31,7 +33,7 @@ namespace DocuSign.CodeExamples.WebForms.Controllers
             : base(config, launcherTexts, requestItemsService)
         {
             this.configuration = configuration;
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Connect);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.WebForms);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -49,13 +51,18 @@ namespace DocuSign.CodeExamples.WebForms.Controllers
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
-            List<EnvelopeTemplate> templates = CreateAndEmbedFormService.CheckIfTemplateExists(docuSignClient, accountId);
+            List<EnvelopeTemplate> templates = CreateAndEmbedFormService.CheckIfTemplateExists(
+                docuSignClient,
+                accountId,
+                TemplateName);
+
             if (templates == null || templates.Count == 0)
             {
-                var template = CreateAndEmbedFormService.CreateTemplate(
+                TemplateSummary template = CreateAndEmbedFormService.CreateTemplate(
                     docuSignClient,
                     accountId,
-                    this.Config.DocumentTemplatePdf);
+                    this.Config.DocumentTemplatePdf,
+                    TemplateName);
 
                 this.RequestItemsService.WebFormsTemplateId = template.TemplateId;
             }
@@ -68,6 +75,10 @@ namespace DocuSign.CodeExamples.WebForms.Controllers
                 this.Config.WebFormConfig,
                 this.RequestItemsService.WebFormsTemplateId);
 
+            this.ViewBag.CodeExampleText = this.CodeExampleText;
+            this.ViewBag.Description = this.CodeExampleText.AdditionalPages
+                .First(x => x.Name == "create_web_form").ResultsPageText;
+
             return this.View("embedForm");
         }
 
@@ -76,7 +87,7 @@ namespace DocuSign.CodeExamples.WebForms.Controllers
         [Route("EmbedForm")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EmbedForm(string formId)
+        public ActionResult EmbedForm()
         {
             string basePath = this.RequestItemsService.Session.WebFormsBasePath;
             string accessToken = this.RequestItemsService.User.AccessToken;
@@ -85,6 +96,20 @@ namespace DocuSign.CodeExamples.WebForms.Controllers
             var docuSignClient = new DocuSign.WebForms.Client.DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
+            WebFormSummaryList forms = CreateAndEmbedFormService.GetForms(
+                docuSignClient,
+                Guid.Parse(accountId));
+
+            if (forms.Items == null || forms.Items.Count == 0)
+            {
+                this.ViewBag.CodeExampleText = this.CodeExampleText;
+                this.ViewBag.Description = this.CodeExampleText.AdditionalPages
+                    .First(x => x.Name == "create_web_form").ResultsPageText;
+
+                return this.View("embedForm");
+            }
+
+            Guid? formId = forms.Items.First(x => x.FormProperties.Name == TemplateName).Id;
             WebFormInstance form = CreateAndEmbedFormService.CreateInstance(
                 docuSignClient,
                 Guid.Parse(accountId),

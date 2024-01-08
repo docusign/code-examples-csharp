@@ -2,14 +2,11 @@
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
-using System.IO;
-
 namespace DocuSign.WebForms.Examples
 {
     using System;
     using System.Collections.Generic;
-    using System.Security.Cryptography;
-    using System.Text;
+    using System.IO;
     using DocuSign.eSign.Api;
     using DocuSign.eSign.Client;
     using DocuSign.eSign.Model;
@@ -18,11 +15,10 @@ namespace DocuSign.WebForms.Examples
 
     public static class CreateAndEmbedFormService
     {
-        public static WebFormSummaryList GetForms(DocuSign.WebForms.Client.DocuSignClient docuSignClient, Guid? accountId)
+        public static WebFormSummaryList GetForms(Client.DocuSignClient docuSignClient, Guid? accountId)
         {
-            FormManagementApi formManagementApi = new DocuSign.WebForms.Api.FormManagementApi(docuSignClient);
-            var options = new FormManagementApi.ListFormsOptions();
-            return formManagementApi.ListForms(accountId, new FormManagementApi.ListFormsOptions());
+            FormManagementApi formManagementApi = new FormManagementApi(docuSignClient);
+            return formManagementApi.ListForms(accountId);
         }
 
         public static void AddTemplateIdToForm(string fileLocation, string templateId)
@@ -32,12 +28,9 @@ namespace DocuSign.WebForms.Examples
             try
             {
                 string fileContent = File.ReadAllText(fileLocation);
-
                 string modifiedContent = fileContent.Replace(targetString, templateId);
 
                 File.WriteAllText(fileLocation, modifiedContent);
-
-                Console.WriteLine("File content has been modified successfully.");
             }
             catch (Exception ex)
             {
@@ -45,39 +38,51 @@ namespace DocuSign.WebForms.Examples
             }
         }
 
-        public static WebFormInstance CreateInstance(DocuSign.WebForms.Client.DocuSignClient docuSignClient, Guid? accountId, string formId)
+        public static WebFormInstance CreateInstance(
+            Client.DocuSignClient docuSignClient,
+            Guid? accountId,
+            Guid? formId)
         {
-            FormInstanceManagementApi formManagementApi = new DocuSign.WebForms.Api.FormInstanceManagementApi(docuSignClient);
-            var values = new WebFormValues();
-            values.Add("PhoneNumber", "555-555-5555");
-            values.Add("Yes", new[] { "Yes" });
-            values.Add("Company", "Tally");
-            values.Add("JobTitle", "Programmer Writer");
+            FormInstanceManagementApi formManagementApi = new FormInstanceManagementApi(docuSignClient);
+            var formValues = new WebFormValues
+            {
+                { "PhoneNumber", "555-555-5555" },
+                { "Yes", new[] { "Yes" } },
+                { "Company", "Tally" },
+                { "JobTitle", "Programmer Writer" },
+            };
 
             var options = new CreateInstanceRequestBody()
             {
                 ClientUserId = "1234-5678-abcd-ijkl",
-                FormValues = values,
+                FormValues = formValues,
                 ExpirationOffset = 3600,
             };
 
-            return formManagementApi.CreateInstance(accountId, Guid.Parse(formId), options);
+            return formManagementApi.CreateInstance(accountId, formId, options);
         }
 
-        public static List<EnvelopeTemplate> CheckIfTemplateExists(DocuSignClient docuSignClient, string accountId)
+        public static List<EnvelopeTemplate> CheckIfTemplateExists(
+            DocuSignClient docuSignClient,
+            string accountId,
+            string templateName)
         {
             var templatesApi = new TemplatesApi(docuSignClient);
             var listTemplateOptions = new TemplatesApi.ListTemplatesOptions();
-            var templateName = "Web Form Example Template";
             listTemplateOptions.searchText = templateName;
-            var templates = templatesApi.ListTemplates(accountId, listTemplateOptions);
+
+            EnvelopeTemplateResults templates = templatesApi.ListTemplates(accountId, listTemplateOptions);
+
             return templates.EnvelopeTemplates;
         }
 
-        public static TemplateSummary CreateTemplate(DocuSignClient docuSignClient, string accountId, string documentPdf)
+        public static TemplateSummary CreateTemplate(
+            DocuSignClient docuSignClient,
+            string accountId,
+            string documentPdf,
+            string templateName)
         {
             TemplatesApi templatesApi = new TemplatesApi(docuSignClient);
-            var templateName = "Web Form Example Template";
 
             EnvelopeTemplate templateReqObject = MakeTemplate(templateName, documentPdf);
 
@@ -88,111 +93,115 @@ namespace DocuSign.WebForms.Examples
 
         public static EnvelopeTemplate MakeTemplate(string resultsTemplateName, string documentPdf)
         {
-            Document doc = new Document();
-            string docB64 = Convert.ToBase64String(System.IO.File.ReadAllBytes(documentPdf));
-            doc.DocumentBase64 = docB64;
-            doc.Name = "World_Wide_Web_Form";
-            doc.FileExtension = "pdf";
-            doc.DocumentId = "1";
-
-            Signer signer1 = new Signer();
-            signer1.RoleName = "signer";
-            signer1.RecipientId = "1";
-            signer1.RoutingOrder = "1";
-
-            Checkbox check1 = new Checkbox();
-            check1.DocumentId = "1";
-            check1.TabLabel = "Yes";
-            check1.AnchorString = "/SMS/";
-            check1.AnchorUnits = "pixels";
-            check1.AnchorXOffset = "20";
-            check1.AnchorYOffset = "10";
-
-            SignHere signHere = new SignHere()
+            Document document = new Document()
             {
+                DocumentBase64 = Convert.ToBase64String(File.ReadAllBytes(documentPdf)),
+                Name = "World_Wide_Web_Form",
+                FileExtension = "pdf",
                 DocumentId = "1",
-                TabLabel = "Signature",
-                AnchorString = "/SignHere/",
-                AnchorUnits = "pixels",
-                AnchorXOffset = "20",
-                AnchorYOffset = "10",
             };
 
-            Tabs signer1Tabs = new Tabs();
-            signer1Tabs.CheckboxTabs = new List<Checkbox>
+            Signer signer = new Signer()
             {
-                check1,
+                RoleName = "signer",
+                RecipientId = "1",
+                RoutingOrder = "1",
             };
 
-            signer1Tabs.SignHereTabs = new List<SignHere> { signHere };
-            signer1Tabs.TextTabs = new List<Text>
+            Tabs signerTabs = new Tabs()
             {
-                new Text()
+                CheckboxTabs = new List<Checkbox>
                 {
-                    DocumentId = "1",
-                    TabLabel = "FullName",
-                    AnchorString = "/FullName/",
-                    AnchorUnits = "pixels",
-                    AnchorXOffset = "20",
-                    AnchorYOffset = "10",
+                    new Checkbox()
+                    {
+                        DocumentId = "1",
+                        TabLabel = "Yes",
+                        AnchorString = "/SMS/",
+                        AnchorUnits = "pixels",
+                        AnchorXOffset = "20",
+                        AnchorYOffset = "10",
+                    },
                 },
-                new Text()
+                SignHereTabs = new List<SignHere>
                 {
-                    DocumentId = "1",
-                    TabLabel = "PhoneNumber",
-                    AnchorString = "/PhoneNumber/",
-                    AnchorUnits = "pixels",
-                    AnchorXOffset = "20",
-                    AnchorYOffset = "10",
+                    new SignHere()
+                    {
+                        DocumentId = "1",
+                        TabLabel = "Signature",
+                        AnchorString = "/SignHere/",
+                        AnchorUnits = "pixels",
+                        AnchorXOffset = "20",
+                        AnchorYOffset = "10",
+                    },
                 },
-                new Text()
+                TextTabs = new List<Text>
                 {
-                    DocumentId = "1",
-                    TabLabel = "Company",
-                    AnchorString = "/Company/",
-                    AnchorUnits = "pixels",
-                    AnchorXOffset = "20",
-                    AnchorYOffset = "10",
+                    new Text()
+                    {
+                        DocumentId = "1",
+                        TabLabel = "FullName",
+                        AnchorString = "/FullName/",
+                        AnchorUnits = "pixels",
+                        AnchorXOffset = "20",
+                        AnchorYOffset = "10",
+                    },
+                    new Text()
+                    {
+                        DocumentId = "1",
+                        TabLabel = "PhoneNumber",
+                        AnchorString = "/PhoneNumber/",
+                        AnchorUnits = "pixels",
+                        AnchorXOffset = "20",
+                        AnchorYOffset = "10",
+                    },
+                    new Text()
+                    {
+                        DocumentId = "1",
+                        TabLabel = "Company",
+                        AnchorString = "/Company/",
+                        AnchorUnits = "pixels",
+                        AnchorXOffset = "20",
+                        AnchorYOffset = "10",
+                    },
+                    new Text()
+                    {
+                        DocumentId = "1",
+                        TabLabel = "JobTitle",
+                        AnchorString = "/Title/",
+                        AnchorUnits = "pixels",
+                        AnchorXOffset = "20",
+                        AnchorYOffset = "10",
+                    },
                 },
-                new Text()
+                DateSignedTabs = new List<DateSigned>
                 {
-                    DocumentId = "1",
-                    TabLabel = "JobTitle",
-                    AnchorString = "/Title/",
-                    AnchorUnits = "pixels",
-                    AnchorXOffset = "20",
-                    AnchorYOffset = "10",
-                },
-            };
-            signer1Tabs.DateSignedTabs = new List<DateSigned>
-            {
-                new DateSigned()
-                {
-                    DocumentId = "1",
-                    TabLabel = "DateSigned",
-                    AnchorString = "/Date/",
-                    AnchorUnits = "pixels",
-                    AnchorXOffset = "20",
-                    AnchorYOffset = "10",
+                    new DateSigned()
+                    {
+                        DocumentId = "1",
+                        TabLabel = "DateSigned",
+                        AnchorString = "/Date/",
+                        AnchorUnits = "pixels",
+                        AnchorXOffset = "20",
+                        AnchorYOffset = "10",
+                    },
                 },
             };
 
-            signer1.Tabs = signer1Tabs;
+            signer.Tabs = signerTabs;
 
             Recipients recipients = new Recipients();
-            recipients.Signers = new List<Signer> { signer1 };
+            recipients.Signers = new List<Signer> { signer };
 
-            EnvelopeTemplate template = new EnvelopeTemplate();
-
-            template.Description = "Example template created via the API";
-            template.Name = resultsTemplateName;
-            template.Shared = "false";
-            template.Documents = new List<Document> { doc };
-            template.EmailSubject = "Please sign this document";
-            template.Recipients = recipients;
-            template.Status = "created";
-
-            return template;
+            return new EnvelopeTemplate()
+            {
+                Description = "Example template created via the API",
+                Name = resultsTemplateName,
+                Shared = "false",
+                Documents = new List<Document> { document },
+                EmailSubject = "Please sign this document",
+                Recipients = recipients,
+                Status = "created",
+            };
         }
     }
 }
