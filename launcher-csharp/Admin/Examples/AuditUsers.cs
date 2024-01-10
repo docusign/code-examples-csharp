@@ -40,13 +40,18 @@ namespace DocuSign.Admin.Examples
 
             //ds-snippet-start:Admin5Step5
             var usersData = new List<UserDrilldownResponse>();
+            //ds-snippet-end:Admin5Step5
+            //ds-snippet-start:Admin5Step4
             foreach (var user in recentlyModifiedUsers.Users)
             {
                 var getUserProfilesOptions = new UsersApi.GetUserProfilesOptions { email = user.Email };
+                //ds-snippet-end:Admin5Step4
+                //ds-snippet-start:Admin5Step5
                 usersData.AddRange(usersApi.GetUserProfiles(orgId, getUserProfilesOptions).Users);
+                //ds-snippet-end:Admin5Step5
             }
 
-            //ds-snippet-end:Admin5Step5
+
 
             return usersData;
         }
