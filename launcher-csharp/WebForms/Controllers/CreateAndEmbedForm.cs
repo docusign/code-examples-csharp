@@ -98,7 +98,7 @@ namespace DocuSign.CodeExamples.WebForms.Controllers
 
             WebFormSummaryList forms = CreateAndEmbedFormService.GetForms(
                 docuSignClient,
-                Guid.Parse(accountId));
+                accountId);
 
             if (forms.Items == null || forms.Items.Count == 0)
             {
@@ -109,10 +109,10 @@ namespace DocuSign.CodeExamples.WebForms.Controllers
                 return this.View("embedForm");
             }
 
-            Guid? formId = forms.Items.First(x => x.FormProperties.Name == TemplateName).Id;
+            string formId = forms.Items.First(x => x.FormProperties.Name == TemplateName).Id;
             WebFormInstance form = CreateAndEmbedFormService.CreateInstance(
                 docuSignClient,
-                Guid.Parse(accountId),
+                accountId,
                 formId);
 
             this.ViewBag.InstanceToken = form.InstanceToken;

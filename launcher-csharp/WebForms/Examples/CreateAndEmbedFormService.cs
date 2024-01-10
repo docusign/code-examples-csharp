@@ -15,7 +15,7 @@ namespace DocuSign.WebForms.Examples
 
     public static class CreateAndEmbedFormService
     {
-        public static WebFormSummaryList GetForms(Client.DocuSignClient docuSignClient, Guid? accountId)
+        public static WebFormSummaryList GetForms(Client.DocuSignClient docuSignClient, string accountId)
         {
             FormManagementApi formManagementApi = new FormManagementApi(docuSignClient);
             return formManagementApi.ListForms(accountId);
@@ -40,8 +40,8 @@ namespace DocuSign.WebForms.Examples
 
         public static WebFormInstance CreateInstance(
             Client.DocuSignClient docuSignClient,
-            Guid? accountId,
-            Guid? formId)
+            string accountId,
+            string formId)
         {
             FormInstanceManagementApi formManagementApi = new FormInstanceManagementApi(docuSignClient);
             var formValues = new WebFormValues

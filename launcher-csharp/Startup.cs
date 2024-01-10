@@ -183,7 +183,6 @@ namespace DocuSign.CodeExamples
                     {
                         List<string> scopesForCurrentApi = this.apiTypes.GetValueOrDefault(Enum.Parse<ExamplesApiType>(this.Configuration["API"]));
 
-
                         redirectContext.RedirectUri = this.UpdateRedirectUriScopes(redirectContext.RedirectUri, scopesForCurrentApi);
 
                         redirectContext.HttpContext.Response.Redirect(redirectContext.RedirectUri);
