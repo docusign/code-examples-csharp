@@ -18,7 +18,9 @@ namespace DocuSign.WebForms.Examples
         public static WebFormSummaryList GetForms(Client.DocuSignClient docuSignClient, string accountId)
         {
             FormManagementApi formManagementApi = new FormManagementApi(docuSignClient);
-            return formManagementApi.ListForms(accountId);
+            FormManagementApi.ListFormsOptions listFormsOptions = new FormManagementApi.ListFormsOptions();
+            listFormsOptions.search = "Web Form Example Template";
+            return formManagementApi.ListForms(accountId, listFormsOptions);
         }
 
         public static void AddTemplateIdToForm(string fileLocation, string templateId)
