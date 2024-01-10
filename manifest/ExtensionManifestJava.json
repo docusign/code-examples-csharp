@@ -1,4 +1,4 @@
-﻿{
+{
   "codeExamples": [
     {
       "number": "1",
@@ -298,6 +298,38 @@
     },
     {
       "number": "38",
+      "name": "Set document visibility for envelope recipients",
+      "description": "Demonstrates how to set document visibility for envelope recipients.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/eSignature/services/SetDocumentVisibilityService.java",
+      "method": "makeEnvelope",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "39",
+      "name": "Request a signature by email with document generation",
+      "description": "Creates an envelope from a template with a document that is dynamically generated to include all the customized data specified by the sender.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/eSignature/services/DocumentGenerationService.java",
+      "method": "generateDocument",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "40",
+      "name": "Share access to a DocuSign envelope inbox",
+      "description": "Share envelope inbox access with an agent user and view the principal user's envelopes using the Shared Access view in the DocuSign UI",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/eSignature/services/SharedAccessService.java",
+      "method": "createAgent",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "41",
+      "name": "Request a signature using focused view",
+      "description": "Sends an envelope, then uses focused view for the signer.",
+      "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/eSignature/services/FocusedViewService.java",
+      "method": "sendEnvelopeWithFocusedView",
+      "apiType": "ESignature"
+    },
+    {
+      "number": "42",
       "name": "Create Clickwraps",
       "description": "This example shows how to create a clickwrap.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/click/services/CreateClickwrapService.java",
@@ -305,7 +337,7 @@
       "apiType": "Click"
     },
     {
-      "number": "39",
+      "number": "43",
       "name": "Activate Clickwrap",
       "description": "This example shows how to activate a clickwrap.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/click/services/ActivateClickwrapService.java",
@@ -313,7 +345,7 @@
       "apiType": "Click"
     },
     {
-      "number": "40",
+      "number": "44",
       "name": "Clickwrap Versioning",
       "description": "This example shows how to create a new clickwrap version.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/click/services/CreateNewVersionClickwrapService.java",
@@ -321,7 +353,7 @@
       "apiType": "Click"
     },
     {
-      "number": "41",
+      "number": "45",
       "name": "Retrieve Clickwraps",
       "description": "This example shows how to get a list of clickwraps.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/click/services/GetListClickwrapsService.java",
@@ -329,7 +361,7 @@
       "apiType": "Click"
     },
     {
-      "number": "42",
+      "number": "46",
       "name": "Get Clickwrap Responses",
       "description": "This example shows how to get clickwrap responses.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/click/services/GetClickwrapResponsesService.java",
@@ -337,7 +369,7 @@
       "apiType": "Click"
     },
     {
-      "number": "43",
+      "number": "47",
       "name": "Create a room with data",
       "description": "This example creates a room using specified data.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/rooms/services/CreateRoomService.java",
@@ -345,7 +377,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "44",
+      "number": "48",
       "name": "Create a room from template",
       "description": "This example creates a room from a template.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/rooms/services/CreateRoomWithTemplateService.java",
@@ -353,7 +385,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "45",
+      "number": "49",
       "name": "Export data from a room",
       "description": "This example exports data from a room.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/rooms/services/ExportingDataFromRoomService.java",
@@ -361,7 +393,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "46",
+      "number": "50",
       "name": "Add form to a room",
       "description": "This example adds form to a room.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/rooms/services/AddingFormsToRoomService.java",
@@ -369,7 +401,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "47",
+      "number": "51",
       "name": "Get filtered rooms",
       "description": "This example returns rooms by filter.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/rooms/services/GetRoomsWithFiltersService.java",
@@ -377,7 +409,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "48",
+      "number": "52",
       "name": "Create external form fill session",
       "description": "This is an example of creating external form fill session.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/rooms/services/CreateExternalFormFillSessionService.java",
@@ -385,7 +417,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "49",
+      "number": "53",
       "name": "Create a form group",
       "description": "This is an example of creating a form group for your DocuSign Rooms for Real Estate account.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/rooms/services/CreateFormGroupService.java",
@@ -393,7 +425,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "50",
+      "number": "54",
       "name": "Grants office access to a form group",
       "description": "This is an example of granting office access to a form group.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/rooms/services/GrantOfficeAccessToFormGroupService.java",
@@ -401,7 +433,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "51",
+      "number": "55",
       "name": "Assign a form to a form group",
       "description": "This is an example of assigning a form to a form group.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/rooms/services/AssignFormToFormGroupService.java",
@@ -409,7 +441,7 @@
       "apiType": "Rooms"
     },
     {
-      "number": "52",
+      "number": "56",
       "name": "Getting the monitoring data",
       "description": "Demonstrates how to get and display all of your organization’s monitoring data.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/monitor/services/GetMonitoringDataService.java",
@@ -417,15 +449,7 @@
       "apiType": "Monitor"
     },
     {
-      "number": "53",
-      "name": "Query monitoring data with filters",
-      "description": "Demonstrates how to query an organization's data based on specified filters and aggregations.",
-      "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/monitor/services/WebQueryEndpointService.java",
-      "method": "postWebQueryMethod",
-      "apiType": "Monitor"
-    },
-    {
-      "number": "54",
+      "number": "57",
       "name": "Send an envelope to an In Person Signer",
       "description": "Demonstrates how to host an In Person Signing session with embedded signing.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/eSignature/services/InPersonSigningService.java",
@@ -433,7 +457,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "55",
+      "number": "58",
       "name": "Request a signature through your app (embedded signing) with a CFR Part 11 account",
       "description": "Sends an envelope, then uses embedded signing with recipient authentication by phone for the first signer. With embedded signing, DocuSign signing is initiated from your website.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/eSignature/services/CfrEmbeddedSigningService.java",
@@ -441,7 +465,7 @@
       "apiType": "ESignature"
     },
     {
-      "number": "56",
+      "number": "59",
       "name": "Embed a clickwrap",
       "description": "Creates a unique URL for an active clickwrap and embeds the clickwrap on your page.",
       "source": "https://raw.githubusercontent.com/docusign/code-examples-java/master/src/main/java/com/docusign/controller/click/services/EmbedClickwrapService.java",

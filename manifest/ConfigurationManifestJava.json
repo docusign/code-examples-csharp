@@ -309,8 +309,18 @@
     },
     {
       "group": "org.springframework.security.oauth.boot",
-      "name": "spring-security-oauth2-autoconfigure",
+      "name": "spring-boot-starter-oauth2-client",
       "version": "2.6.8"
+    },
+    {
+      "group": "io.github.cdimascio",
+      "name": "dotenv-java",
+      "version": "2.2.0"
+    },
+    {
+      "group": "org.projectlombok",
+      "name": "lombok",
+      "version": "1.18.22"
     },
     {
       "group": "org.apache.commons",
@@ -333,9 +343,49 @@
       "version": "LATEST"
     },
     {
-      "group": "commons-io",
-      "name": "commons-io",
+      "group": "com.fasterxml.jackson.datatype",
+      "name": "jackson-datatype-jsr310",
       "version": "LATEST"
+    },
+    {
+      "group": "io.swagger.core.v3",
+      "name": "swagger-annotations",
+      "version": "2.2.8"
+    },
+    {
+      "group": "com.fasterxml.jackson.jakarta.rs",
+      "name": "jackson-jakarta-rs-base",
+      "version": "2.14.2"
+    },
+    {
+      "group": "jakarta.ws.rs",
+      "name": "jakarta.ws.rs-api",
+      "version": "3.1.0"
+    },
+    {
+      "group": "javax.ws.rs",
+      "name": "javax.ws.rs-api",
+      "version": "2.0.1"
+    },
+    {
+      "group": "javax.servlet",
+      "name": "javax.servlet-api",
+      "version": "LATEST"
+    },
+    {
+      "group": "commons-codec",
+      "name": "commons-codec",
+      "version": "1.15"
+    },
+    {
+      "group": "javax.servlet",
+      "name": "jstl",
+      "version": "LATEST"
+    },
+    {
+      "group": "org.json",
+      "name": "json",
+      "version": "20230618"
     },
     {
       "group": "org.apache.tomcat.embed",
@@ -351,7 +401,7 @@
         {
           "group": "com.docusign",
           "name": "docusign-esign-java",
-          "version": "4.3.0"
+          "version": "4.5.0"
         }
       ],
       "scopes": ["signature"]
@@ -398,7 +448,7 @@
         {
           "group": "com.docusign",
           "name": "docusign-monitor-java",
-          "version": "1.3.0"
+          "version": "1.4.0"
         }
       ],
       "scopes": ["signature", "impersonation"]
