@@ -42,7 +42,14 @@ namespace DocuSign.CodeExamples.JWT_Console
                     // build a URL to provide consent for this Integration Key and this userId
                     string url = "https://" + ConfigurationManager.AppSettings["AuthServer"] + "/oauth/auth?response_type=code" + caret + "&scope=impersonation%20signature" + caret +
                         "&client_id=" + ConfigurationManager.AppSettings["ClientId"] + caret + "&redirect_uri=" + DevCenterPage;
-                    Console.WriteLine($"Consent is required - launching browser (URL is {url.Replace(caret, "")})");
+
+                    string consentRequiredMessage = $"Consent is required - launching browser (URL is {url})";
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    {
+                        consentRequiredMessage = consentRequiredMessage.Replace(caret, "");
+                    }
+
+                    Console.WriteLine(consentRequiredMessage);
 
                     // Start new browser window for login and consent to this app by DocuSign user
                     if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))

@@ -32,51 +32,62 @@ namespace DocuSign.CodeExamples.Controllers
 
         protected IRequestItemsService RequestItemsService { get; }
 
+        public bool CheckIfAuthorizationIsNeeded()
+        {
+            bool tokenOk = this.CheckToken();
+            ExamplesApiType previousLoginSchema = Enum.Parse<ExamplesApiType>(this.RequestItemsService.Configuration["API"]);
+            ExamplesApiType currentApi = Enum.Parse<ExamplesApiType>(this.RequestItemsService.IdentifyApiOfCodeExample(this.EgName));
+            this.RequestItemsService.Configuration["APIPlanned"] = currentApi.ToString();
+
+            if (currentApi == ExamplesApiType.Connect)
+            {
+                return false;
+            }
+
+            if (tokenOk && previousLoginSchema == currentApi)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         [HttpGet]
         public virtual IActionResult Get()
         {
             // Check that the token is valid and will remain valid for awhile to enable the
             // user to fill out the form. If the token is not available, now is the time
             // to have the user authenticate or re-authenticate.
-            bool tokenOk = this.CheckToken();
             if (this.RequestItemsService.Configuration["API"] == null)
             {
                 this.RequestItemsService.Configuration["API"] = ExamplesApiType.ESignature.ToString();
             }
 
-            ExamplesApiType previousLoginSchema = Enum.Parse<ExamplesApiType>(this.RequestItemsService.Configuration["API"]);
-            ExamplesApiType currentApi = Enum.Parse<ExamplesApiType>(this.RequestItemsService.IdentifyApiOfCodeExample(this.EgName));
-            this.RequestItemsService.Configuration["APIPlanned"] = currentApi.ToString();
-
-            if (tokenOk)
+            if (this.CheckIfAuthorizationIsNeeded())
             {
-                if (previousLoginSchema == currentApi)
-                {
-                    // addSpecialAttributes(model);
-                    this.ViewBag.envelopeOk = this.RequestItemsService.EnvelopeId != null;
-                    this.ViewBag.documentsOk = this.RequestItemsService.EnvelopeDocuments != null;
-                    this.ViewBag.documentOptions = this.RequestItemsService.EnvelopeDocuments?.Documents;
-                    this.ViewBag.gatewayOk = this.Config.GatewayAccountId != null && this.Config.GatewayAccountId.Length > 25;
-                    this.ViewBag.templateOk = this.RequestItemsService.TemplateId != null;
-                    this.ViewBag.source = this.CreateSourcePath();
-                    this.ViewBag.documentation = this.Config.Documentation + this.EgName;
-                    this.ViewBag.showDoc = this.Config.Documentation != null;
-                    this.ViewBag.pausedEnvelopeOk = this.RequestItemsService.PausedEnvelopeId != null;
-                    this.InitializeInternal();
+                this.RequestItemsService.EgName = this.EgName;
+                this.Response.Redirect("/ds/mustAuthenticate");
 
-                    if (this.Config.QuickAcg == "true" && !(this is EmbeddedSigningCeremony))
-                    {
-                        return this.Redirect("eg001");
-                    }
-
-                    return this.View(this.EgName, this);
-                }
+                return this.LocalRedirect("/ds/mustAuthenticate");
             }
 
-            this.RequestItemsService.EgName = this.EgName;
-            this.Response.Redirect("/ds/mustAuthenticate");
+            this.ViewBag.envelopeOk = this.RequestItemsService.EnvelopeId != null;
+            this.ViewBag.documentsOk = this.RequestItemsService.EnvelopeDocuments != null;
+            this.ViewBag.documentOptions = this.RequestItemsService.EnvelopeDocuments?.Documents;
+            this.ViewBag.gatewayOk = this.Config.GatewayAccountId != null && this.Config.GatewayAccountId.Length > 25;
+            this.ViewBag.templateOk = this.RequestItemsService.TemplateId != null;
+            this.ViewBag.source = this.CreateSourcePath();
+            this.ViewBag.documentation = this.Config.Documentation + this.EgName;
+            this.ViewBag.showDoc = this.Config.Documentation != null;
+            this.ViewBag.pausedEnvelopeOk = this.RequestItemsService.PausedEnvelopeId != null;
+            this.InitializeInternal();
 
-            return this.LocalRedirect("/ds/mustAuthenticate");
+            if (this.Config.QuickAcg == "true" && !(this is EmbeddedSigningCeremony))
+            {
+                return this.Redirect("eg001");
+            }
+
+            return this.View(this.EgName, this);
         }
 
         public dynamic CreateSourcePath()

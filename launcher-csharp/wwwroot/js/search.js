@@ -5,6 +5,7 @@
         CLICK: 'click',
         ROOMS: 'rooms',
         ADMIN: 'admin',
+        CONNECT: 'connect'
     };
 
     let processJSONData = function () {
@@ -121,7 +122,9 @@
             case API_TYPES.MONITOR:
                 return "meg";
             case API_TYPES.ESIGNATURE:
-                return "eg"
+                return "eg";
+            case API_TYPES.CONNECT:
+                return "con";
         }
     }
 
@@ -156,33 +159,34 @@
                                         $("#filtered_code_examples").append("<p>" + example.ExampleDescription + "</p>");
 
                                         $("#filtered_code_examples").append("<p>");
-
-                                        if (example.LinksToAPIMethod.length == 1) {
-                                            $("#filtered_code_examples").append(processJSONData().SupportingTexts.APIMethodUsed);
-                                        }
-                                        else {
-                                            $("#filtered_code_examples").append(processJSONData().SupportingTexts.APIMethodUsedPlural);
-                                        }
-
-                                        for (let index = 0; index < example.LinksToAPIMethod.length; index++) {
-                                            $("#filtered_code_examples").append(
-                                                " <a target='_blank' href='"
-                                                + example.LinksToAPIMethod[index].Path
-                                                + "'>"
-                                                + example.LinksToAPIMethod[index].PathName
-                                                + "</a>"
-                                            );
-
-                                            if (index + 1 === example.LinksToAPIMethod.length) {
-                                                $("#filtered_code_examples").append("<span></span>");
-                                            }
-                                            else if (index + 1 === example.LinksToAPIMethod.length - 1) {
-                                                $("#filtered_code_examples").append("<span> and </span>");
+                                        if (example.LinksToAPIMethod.length !== 0) {
+                                            if (example.LinksToAPIMethod.length == 1) {
+                                                $("#filtered_code_examples").append(processJSONData().SupportingTexts.APIMethodUsed);
                                             }
                                             else {
-                                                $("#filtered_code_examples").append("<span>, </span>");
+                                                $("#filtered_code_examples").append(processJSONData().SupportingTexts.APIMethodUsedPlural);
                                             }
 
+                                            for (let index = 0; index < example.LinksToAPIMethod.length; index++) {
+                                                $("#filtered_code_examples").append(
+                                                    " <a target='_blank' href='"
+                                                    + example.LinksToAPIMethod[index].Path
+                                                    + "'>"
+                                                    + example.LinksToAPIMethod[index].PathName
+                                                    + "</a>"
+                                                );
+
+                                                if (index + 1 === example.LinksToAPIMethod.length) {
+                                                    $("#filtered_code_examples").append("<span></span>");
+                                                }
+                                                else if (index + 1 === example.LinksToAPIMethod.length - 1) {
+                                                    $("#filtered_code_examples").append("<span> and </span>");
+                                                }
+                                                else {
+                                                    $("#filtered_code_examples").append("<span>, </span>");
+                                                }
+
+                                            }
                                         }
 
                                         $("#filtered_code_examples").append("</p> ");
