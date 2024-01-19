@@ -14,33 +14,14 @@ namespace DocuSign.CodeExamples.Click.Controllers
     [Route("ceg006")]
     public class EmbedClickwrap : EgController
     {
-        public EmbedClickwrap(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public EmbedClickwrap(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.Click);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Click);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "ceg006";
-
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-
-            // Obtain your OAuth token
-            var accessToken = RequestItemsService.User.AccessToken;
-            var basePath = $"{RequestItemsService.Session.BasePath}/clickapi"; // Base API path
-            var accountId = RequestItemsService.Session.AccountId;
-
-            ViewBag.ClickwrapsData = DocuSign.Click.Examples.EmbedClickwrap.GetActiveClickwraps(basePath, accessToken, accountId);
-
-            if (ViewBag.ClickwrapsData.Clickwraps.Count == 0)
-            {
-                ViewBag.InactiveClickwrapsData = DocuSign.Click.Examples.ActivateClickwrap.GetClickwrapsByStatus(basePath, accessToken, accountId, "inactive");
-            }
-
-            ViewBag.AccountId = RequestItemsService.Session.AccountId;
-        }
 
         [MustAuthenticate]
         [SetViewBag]
@@ -49,7 +30,6 @@ namespace DocuSign.CodeExamples.Click.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Embed(string clickwrapId, string fullName, string email, string company, string title, string date)
         {
-
             // Obtain your OAuth token
             var accessToken = this.RequestItemsService.User.AccessToken;
             var basePath = $"{this.RequestItemsService.Session.BasePath}/clickapi"; // Base API path
@@ -57,7 +37,6 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
             try
             {
-
                 // Call the Click API to activate a clickwrap
                 var clickWrap = DocuSign.Click.Examples.EmbedClickwrap.CreateHasAgreed(clickwrapId, fullName, email, company, title, date, basePath, accessToken, accountId);
 
@@ -85,6 +64,25 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
                 return this.View("Error");
             }
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+
+            // Obtain your OAuth token
+            var accessToken = this.RequestItemsService.User.AccessToken;
+            var basePath = $"{this.RequestItemsService.Session.BasePath}/clickapi"; // Base API path
+            var accountId = this.RequestItemsService.Session.AccountId;
+
+            this.ViewBag.ClickwrapsData = DocuSign.Click.Examples.EmbedClickwrap.GetActiveClickwraps(basePath, accessToken, accountId);
+
+            if (this.ViewBag.ClickwrapsData.Clickwraps.Count == 0)
+            {
+                this.ViewBag.InactiveClickwrapsData = DocuSign.Click.Examples.ActivateClickwrap.GetClickwrapsByStatus(basePath, accessToken, accountId, "inactive");
+            }
+
+            this.ViewBag.AccountId = this.RequestItemsService.Session.AccountId;
         }
     }
 }

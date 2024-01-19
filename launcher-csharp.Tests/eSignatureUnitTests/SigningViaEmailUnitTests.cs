@@ -12,15 +12,15 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
     [Collection("eSignature tests")]
     public sealed class SigningViaEmailUnitTests
     {
-        private const string CC_MAIL = "cc@gmail.com";
+        private const string CcMail = "cc@gmail.com";
 
-        private const string CC_NAME = "CC";
+        private const string CcName = "CC";
 
-        private const string PDF_DOCUMENT_NAME = "World_Wide_Corp_lorem.pdf";
+        private const string PdfDocumentName = "World_Wide_Corp_lorem.pdf";
 
-        private const string DOCX_DOCUMENT_NAME = "World_Wide_Corp_Battle_Plan_Trafalgar.docx";
+        private const string DocxDocumentName = "World_Wide_Corp_Battle_Plan_Trafalgar.docx";
 
-        private const string REST_API_PREFIX = "/restapi";
+        private const string RestApiPrefix = "/restapi";
 
         private readonly TestConfig _testConfig;
 
@@ -29,24 +29,24 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             this._testConfig = new TestConfig();
 
             var jwtLoginMethod = new JwtLoginMethodUnitTest();
-            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesAPIType.ESignature, _testConfig);
+            jwtLoginMethod.RequestJWTUserToken_CorrectInputParameters_ReturnsOAuthToken(ExamplesApiType.ESignature, _testConfig);
         }
 
         [Fact]
         public void SigningViaEmail_CorrectInputParameters_ReturnEnvelopeId()
         {
             // Arrange
-            string docPdf = _testConfig.PathToSolution + PDF_DOCUMENT_NAME;
-            string docDocx = _testConfig.PathToSolution + DOCX_DOCUMENT_NAME;
-            string basePath = _testConfig.BasePath + REST_API_PREFIX;
+            string docPdf = _testConfig.PathToSolution + PdfDocumentName;
+            string docDocx = _testConfig.PathToSolution + DocxDocumentName;
+            string basePath = _testConfig.BasePath + RestApiPrefix;
             string envelopeStatus = "sent";
 
             // Act
             string envelopeId = SigningViaEmail.SendEnvelopeViaEmail(
                 _testConfig.SignerEmail,
                 _testConfig.SignerName,
-                CC_MAIL,
-                CC_NAME,
+                CcMail,
+                CcName,
                 _testConfig.AccessToken,
                 basePath,
                 _testConfig.AccountId,
@@ -62,8 +62,8 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
         public void MakeEnvelopeWithCC_CorrectInputParameters_ReturnsEnvelopeDefinition()
         {
             // Arrange
-            var docPdf = _testConfig.PathToSolution + PDF_DOCUMENT_NAME;
-            var docDocx = _testConfig.PathToSolution + DOCX_DOCUMENT_NAME;
+            var docPdf = _testConfig.PathToSolution + PdfDocumentName;
+            var docDocx = _testConfig.PathToSolution + DocxDocumentName;
             var envelopeStatus = "sent";
             var htmlFileExtension = "html";
             var docxFileExtension = "docx";
@@ -79,7 +79,7 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
                 {
                     new Document
                     {
-                        DocumentBase64 = Convert.ToBase64String(SigningViaEmail.Document1(_testConfig.SignerEmail, _testConfig.SignerName, CC_MAIL, CC_NAME)),
+                        DocumentBase64 = Convert.ToBase64String(SigningViaEmail.Document1(_testConfig.SignerEmail, _testConfig.SignerName, CcMail, CcName)),
                         Name = "Order acknowledgement",
                         FileExtension = htmlFileExtension,
                         DocumentId = "1"
@@ -136,8 +136,8 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
                     {
                         new CarbonCopy
                         {
-                            Email = CC_MAIL,
-                            Name = CC_NAME,
+                            Email = CcMail,
+                            Name = CcName,
                             RecipientId = "2",
                             RoutingOrder = "2",
                         }
@@ -149,8 +149,8 @@ namespace launcher_csharp.Tests.eSignatureUnitTests
             EnvelopeDefinition envelopeDefinition = SigningViaEmail.MakeEnvelope(
                 _testConfig.SignerEmail,
                 _testConfig.SignerName,
-                CC_MAIL,
-                CC_NAME,
+                CcMail,
+                CcName,
                 docDocx,
                 docPdf,
                 envelopeStatus

@@ -15,11 +15,11 @@ namespace DocuSign.CodeExamples.Controllers
         public abstract string EgName { get; }
 
         protected CodeExampleText CodeExampleText { get; set; }
-        public DSConfiguration Config { get; }
+        public DsConfiguration Config { get; }
         public LauncherTexts LauncherTexts { get; }
         public IRequestItemsService RequestItemsService { get; }
 
-        public EgController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public EgController(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
         {
             Config = config;
             RequestItemsService = requestItemsService;
@@ -79,12 +79,12 @@ namespace DocuSign.CodeExamples.Controllers
                 ViewBag.DsConfig = Config;
                 InitializeInternal();
 
-                if (Config.QuickACG == "true" && !(this is EmbeddedSigningCeremony))
+                if (Config.QuickAcg == "true" && !(this is EmbeddedSigningCeremony))
                 {
                     return Redirect("eg001");
                 }
 
-                return View(EgName, this);
+                return View(this.EgName, this);
             }
 
             return Redirect("/ds/mustAuthenticate");
@@ -108,11 +108,11 @@ namespace DocuSign.CodeExamples.Controllers
             return RequestItemsService.CheckToken(bufferMin);
         }
 
-        protected CodeExampleText GetExampleText(string exampleName, ExamplesAPIType examplesAPIType)
+        protected CodeExampleText GetExampleText(string exampleName, ExamplesApiType examplesApiType)
         {
             int exampleNumber = int.Parse(Regex.Match(exampleName, @"\d+").Value);
-            var groups = this.LauncherTexts.ManifestStructure.APIs
-                .Find(x => x.Name.ToLowerInvariant() == examplesAPIType.ToString().ToLowerInvariant())
+            var groups = this.LauncherTexts.ManifestStructure.ApIs
+                .Find(x => x.Name.ToLowerInvariant() == examplesApiType.ToString().ToLowerInvariant())
                 .Groups;
 
             foreach (var group in groups)

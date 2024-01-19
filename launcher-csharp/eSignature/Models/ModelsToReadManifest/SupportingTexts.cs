@@ -15,10 +15,10 @@ namespace DocuSign.CodeExamples.ESignature.Models
         public string ViewSourceFile { get; set; }
 
         [JsonProperty("APIMethodUsed")]
-        public string APIMethodUsed { get; set; }
+        public string ApiMethodUsed { get; set; }
 
         [JsonProperty("APIMethodUsedPlural")]
-        public string APIMethodUsedPlural { get; set; }
+        public string ApiMethodUsedPlural { get; set; }
 
         [JsonProperty("SearchFailed")]
         public string SearchFailed { get; set; }
@@ -39,19 +39,19 @@ namespace DocuSign.CodeExamples.ESignature.Models
         public string LogoutButton { get; set; }
 
         [JsonProperty("ChangeAPITypeButton")]
-        public string ChangeAPITypeButton { get; set; }
+        public string ChangeApiTypeButton { get; set; }
 
         [JsonProperty("WelcomeText")]
         public string WelcomeText { get; set; }
 
         [JsonProperty("CFRError")]
-        public string CFRError { get; set; }
+        public string CfrError { get; set; }
 
         [JsonProperty("LoginPage")]
         public LoginPage LoginPage { get; set; }
 
         [JsonProperty("SelectAPIPage")]
-        public SelectAPIPage SelectAPIPage { get; set; }
+        public SelectApiPage SelectApiPage { get; set; }
 
         [JsonProperty("HelpingTexts")]
         public HelpingTexts HelpingTexts { get; set; }

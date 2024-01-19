@@ -12,12 +12,12 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
 
     [Area("eSignature")]
     [Route("Eg037")]
-    public class SMSDelivery : EgController
+    public class SmsDelivery : EgController
     {
-        public SMSDelivery(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public SmsDelivery(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -45,7 +45,7 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
             var accountId = this.RequestItemsService.Session.AccountId; // Represents your {ACCOUNT_ID}
 
             // Call the Examples API method to create and send an envelope and notify recipients via SMS
-            var envelopeId = global::ESignature.Examples.SMSDelivery.SendRequestViaSMS(
+            var envelopeId = global::ESignature.Examples.SmsDelivery.SendRequestViaSms(
                 accessToken,
                 basePath,
                 accountId,

@@ -149,12 +149,12 @@ namespace ESignature.Examples
                 Signers = new List<Signer> { signer1 },
             };
 
-            string doc1b64 = Convert.ToBase64String(System.IO.File.ReadAllBytes(docDocx));
+            string doc1B64 = Convert.ToBase64String(System.IO.File.ReadAllBytes(docDocx));
 
             // Create document objects, one per document
             Document doc1 = new Document
             {
-                DocumentBase64 = doc1b64,
+                DocumentBase64 = doc1B64,
                 Name = "Lorem Ipsum", // Can be different from actual file name
                 FileExtension = "docx",
                 DocumentId = "1",

@@ -18,23 +18,16 @@ namespace DocuSign.CodeExamples.Click.Controllers
     public class RetrieveClickwraps : EgController
     {
         public RetrieveClickwraps(
-            DSConfiguration config,
+            DsConfiguration config,
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.Click);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Click);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "ceg004";
-
-        protected override void InitializeInternal()
-        {
-            base.InitializeInternal();
-            this.ViewBag.ClickwrapId = this.RequestItemsService.ClickwrapId;
-            this.ViewBag.AccountId = this.RequestItemsService.Session.AccountId;
-        }
 
         [MustAuthenticate]
         [SetViewBag]
@@ -71,6 +64,13 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
                 return this.View("Error");
             }
+        }
+
+        protected override void InitializeInternal()
+        {
+            base.InitializeInternal();
+            this.ViewBag.ClickwrapId = this.RequestItemsService.ClickwrapId;
+            this.ViewBag.AccountId = this.RequestItemsService.Session.AccountId;
         }
     }
 }

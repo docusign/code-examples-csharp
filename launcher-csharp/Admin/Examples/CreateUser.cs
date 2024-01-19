@@ -2,14 +2,13 @@
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
-using DocuSign.eSign.Client;
-
 namespace DocuSign.CodeExamples.Admin.Examples
 {
     using System;
     using System.Collections.Generic;
     using DocuSign.Admin.Model;
     using DocuSign.eSign.Api;
+    using DocuSign.eSign.Client;
     using DocuSign.eSign.Model;
 
     public class CreateUser
@@ -73,7 +72,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
         {
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            
+
             //ds-snippet-start:Admin1Step3
             var accountsApi = new AccountsApi(docuSignClient);
             var permissionProfiles = accountsApi.ListPermissions(accountId);
@@ -97,6 +96,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
         /// <param name="permissionProfileId">The permission profile ID that will be used for a new user</param>
         /// <param name="groupId">The group ID that will be used for a new user</param>
         /// <returns>The request for creating a new user</returns>
+        //ds-snippet-start:Admin1Step5
         private static NewUserRequest ConstructNewUserRequest(
             long permissionProfileId,
             long groupId,
@@ -108,7 +108,6 @@ namespace DocuSign.CodeExamples.Admin.Examples
         {
             return new NewUserRequest
             {
-                //ds-snippet-start:Admin1Step5
                 FirstName = firstName,
                 LastName = lastName,
                 UserName = userName,
@@ -132,8 +131,9 @@ namespace DocuSign.CodeExamples.Admin.Examples
                     },
                 },
                 AutoActivateMemberships = true,
-                //ds-snippet-end:Admin1Step5
             };
         }
+
+        //ds-snippet-end:Admin1Step5
     }
 }

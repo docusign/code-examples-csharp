@@ -1,0 +1,55 @@
+﻿@{
+    int formNumber = 0;
+    int signerEmailInputNumber = 0;
+    int signerNameInputNumber = 1;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>@Html.Raw(ViewBag.CodeExampleText.ExampleDescription)</p>
+
+@if (ViewBag.showDoc == true)
+{
+    <p><a target='_blank' href='@ViewBag.documentation'>Documentation</a> about this example</p>
+}
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" />
+
+<p>
+@Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">FocusedView.cs</a>"))
+</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="signerEmail">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputName)
+        </label>
+
+        <input type="email"
+            class="form-control" 
+            id="signerEmail" 
+            name="signerEmail"
+            aria-describedby="emailHelp" 
+            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputPlaceholder" 
+            required
+            value="@ViewBag.Locals.DsConfig.SignerEmail">
+
+        <small id="emailHelp" class="form-text text-muted">
+            @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)
+        </small>
+    </div>
+    <div class="form-group">
+        <label for="signerName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputName)
+        </label>
+
+        <input type="text" 
+            class="form-control" 
+            id="signerName" 
+            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputPlaceholder" 
+            name="signerName"
+            value="@ViewBag.Locals.DsConfig.SignerName"
+            required />
+    </div>
+    <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
+</form>

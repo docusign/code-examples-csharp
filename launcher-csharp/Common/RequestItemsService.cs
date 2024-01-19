@@ -35,12 +35,10 @@ namespace DocuSign.CodeExamples.Common
 
         private OAuthToken authToken;
 
-        public IConfiguration Configuration { get; set; }
-
         public RequestItemsService(IHttpContextAccessor httpContextAccessor, IMemoryCache cache, IConfiguration configuration)
         {
             this.httpContextAccessor = httpContextAccessor;
-            Configuration = configuration;
+            this.Configuration = configuration;
             this.cache = cache;
             this.Status = "sent";
             DocuSignClient ??= new DocuSignClient();
@@ -51,6 +49,8 @@ namespace DocuSign.CodeExamples.Common
                 this.id = httpContextAccessor?.HttpContext.User.Identity.Name;
             }
         }
+
+        public IConfiguration Configuration { get; set; }
 
         #nullable enable
         public string? EgName
@@ -176,14 +176,14 @@ namespace DocuSign.CodeExamples.Common
 
         protected static DocuSignClient DocuSignClient { get; private set; }
 
-        public void UpdateUserFromJWT()
+        public void UpdateUserFromJwt()
         {
-            this.authToken = Authentication.JWTAuth.AuthenticateWithJWT(
+            this.authToken = Authentication.JwtAuth.AuthenticateWithJwt(
                 this.Configuration["API"],
                 this.Configuration["DocuSignJWT:ClientId"],
                 this.Configuration["DocuSignJWT:ImpersonatedUserId"],
                 this.Configuration["DocuSignJWT:AuthServer"],
-                DSHelper.ReadFileContent(this.Configuration["DocuSignJWT:PrivateKeyFile"]));
+                DsHelper.ReadFileContent(this.Configuration["DocuSignJWT:PrivateKeyFile"]));
             account = this.GetAccountInfo(this.authToken);
 
             this.User = new User
@@ -221,10 +221,46 @@ namespace DocuSign.CodeExamples.Common
             bool isAuthCodeGrantAuthenticated = this.httpContextAccessor.HttpContext.User.Identity.IsAuthenticated
                 && (DateTime.Now.Subtract(TimeSpan.FromMinutes(bufferMin)) < this.User.ExpireIn.Value);
 
-            bool isJWTGrantAuthenticated = this.User?.AccessToken != null
+            bool isJwtGrantAuthenticated = this.User?.AccessToken != null
                     && (DateTime.Now.Subtract(TimeSpan.FromMinutes(bufferMin)) < this.User.ExpireIn.Value);
 
-            return isAuthCodeGrantAuthenticated || isJWTGrantAuthenticated;
+            return isAuthCodeGrantAuthenticated || isJwtGrantAuthenticated;
+        }
+
+        public string IdentifyApiOfCodeExample(string eg)
+        {
+            if (string.IsNullOrEmpty(eg))
+            {
+                return ExamplesApiType.ESignature.ToString();
+            }
+
+            var currentApiType = string.Empty;
+            if (eg.Contains(ExamplesApiType.Rooms.ToKeywordString()))
+            {
+                currentApiType = ExamplesApiType.Rooms.ToString();
+            }
+            else if (eg.Contains(ExamplesApiType.Click.ToKeywordString()))
+            {
+                currentApiType = ExamplesApiType.Click.ToString();
+            }
+            else if (eg.Contains(ExamplesApiType.Monitor.ToKeywordString()))
+            {
+                currentApiType = ExamplesApiType.Monitor.ToString();
+            }
+            else if (eg.Contains(ExamplesApiType.Admin.ToKeywordString()))
+            {
+                currentApiType = ExamplesApiType.Admin.ToString();
+            }
+            else if (eg.Contains(ExamplesApiType.Connect.ToKeywordString()))
+            {
+                currentApiType = ExamplesApiType.Connect.ToString();
+            }
+            else
+            {
+                currentApiType = ExamplesApiType.ESignature.ToString();
+            }
+
+            return currentApiType;
         }
 
         private string GetKey(string key)
@@ -264,39 +300,6 @@ namespace DocuSign.CodeExamples.Common
             }
 
             throw new Exception("The user does not have access to account");
-        }
-
-        public string IdentifyAPIOfCodeExample(string eg)
-        {
-            if (string.IsNullOrEmpty(eg))
-            {
-                return ExamplesAPIType.ESignature.ToString();
-            }
-
-            var currentAPIType = string.Empty;
-            if (eg.Contains(ExamplesAPIType.Rooms.ToKeywordString()))
-            {
-                currentAPIType = ExamplesAPIType.Rooms.ToString();
-            }
-            else if (eg.Contains(ExamplesAPIType.Click.ToKeywordString()))
-            {
-                currentAPIType = ExamplesAPIType.Click.ToString();
-
-            }
-            else if (eg.Contains(ExamplesAPIType.Monitor.ToKeywordString()))
-            {
-                currentAPIType = ExamplesAPIType.Monitor.ToString();
-            }
-            else if (eg.Contains(ExamplesAPIType.Admin.ToKeywordString()))
-            {
-                currentAPIType = ExamplesAPIType.Admin.ToString();
-            }
-            else
-            {
-                currentAPIType = ExamplesAPIType.ESignature.ToString();
-            }
-
-            return currentAPIType;
         }
     }
 }

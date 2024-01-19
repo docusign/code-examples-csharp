@@ -18,10 +18,10 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     [Route("aeg003")]
     public class BulkExportUserData : EgController
     {
-        public BulkExportUserData(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public BulkExportUserData(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesAPIType.Admin);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Admin);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

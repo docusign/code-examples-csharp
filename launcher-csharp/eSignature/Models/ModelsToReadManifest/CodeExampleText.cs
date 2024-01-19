@@ -19,7 +19,7 @@ namespace DocuSign.CodeExamples.ESignature.Models
         public string ExampleDescription { get; set; }
 
         [JsonProperty("CFREnabled")]
-        public string CFREnabled { get; set; }
+        public string CfrEnabled { get; set; }
 
         [JsonProperty("Notes")]
         public string Notes { get; set; }
@@ -31,7 +31,7 @@ namespace DocuSign.CodeExamples.ESignature.Models
         public string SkipForLanguages { get; set; }
 
         [JsonProperty("LinksToAPIMethod")]
-        public List<LinkToAPIMethods> LinksToAPIMethod { get; } = new List<LinkToAPIMethods>();
+        public List<LinkToApiMethods> LinksToApiMethod { get; } = new List<LinkToApiMethods>();
 
         [JsonProperty("CustomErrorTexts")]
         public List<CustomErrorTexts> CustomErrorTexts { get; } = new List<CustomErrorTexts>();

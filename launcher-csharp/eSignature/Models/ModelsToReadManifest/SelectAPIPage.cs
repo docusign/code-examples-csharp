@@ -6,12 +6,12 @@ namespace DocuSign.CodeExamples.ESignature.Models
 {
     using Newtonsoft.Json;
 
-    public class SelectAPIPage
+    public class SelectApiPage
     {
         [JsonProperty("SelectAPIcHeader")]
-        public string SelectAPIHeader { get; set; }
+        public string SelectApiHeader { get; set; }
 
         [JsonProperty("SelectAPIButton")]
-        public string SelectAPIButton { get; set; }
+        public string SelectApiButton { get; set; }
     }
 }

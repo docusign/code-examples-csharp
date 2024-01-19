@@ -2,21 +2,19 @@
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
-using System.Globalization;
-using System.Linq;
-
 namespace ESignature.Examples
 {
     using System;
     using System.Collections.Generic;
-    using System.Text;
+    using System.Globalization;
+    using System.Linq;
     using DocuSign.eSign.Api;
     using DocuSign.eSign.Client;
     using DocuSign.eSign.Model;
 
     public class DocumentGeneration
     {
-        private const string DEFAULT_ID = "1";
+        private const string DefaultId = "1";
 
         /// <summary>
         /// Request a signature by email with document generation
@@ -51,9 +49,9 @@ namespace ESignature.Examples
             TemplateSummary template = templatesApi.CreateTemplate(accountId, MakeTemplate());
             string templateId = template.TemplateId;
 
-            templatesApi.UpdateDocument(accountId, templateId, DEFAULT_ID, AddDocumentTemplate(offerDocDocx));
+            templatesApi.UpdateDocument(accountId, templateId, DefaultId, AddDocumentTemplate(offerDocDocx));
 
-            templatesApi.CreateTabs(accountId, templateId, DEFAULT_ID, PrepareTabs());
+            templatesApi.CreateTabs(accountId, templateId, DefaultId, PrepareTabs());
 
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary envelope = envelopesApi.CreateEnvelope(accountId, MakeEnvelope(candidateEmail, candidateName, templateId));
@@ -78,7 +76,7 @@ namespace ESignature.Examples
                 envelopeId,
                 new Envelope
                 {
-                    Status = "sent"
+                    Status = "sent",
                 });
 
             return envelopeWithDocGen.EnvelopeId;

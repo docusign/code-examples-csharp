@@ -54,6 +54,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
             var apiClient = new DocuSignClient(basePath);
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             var bulkImportsApi = new BulkImportsApi(apiClient);
+
             return bulkImportsApi.GetBulkUserImportRequest(organizationId, importId);
             //ds-snippet-end:Admin4Step4
         }

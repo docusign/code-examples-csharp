@@ -35,7 +35,7 @@ namespace DocuSign.CodeExamples.Monitor.Examples
                 //ds-snippet-start:Monitor1Step3
                 bool complete = false;
                 string cursorValue = string.Empty;
-                int limit = 2; // Amount of records you want to read in one request
+                int limit = 100; // Amount of records you want to read in one request
                 List<object> functionResult = new List<object>();
 
                 DataSetApi dataSetApi = new DataSetApi(apiClient);

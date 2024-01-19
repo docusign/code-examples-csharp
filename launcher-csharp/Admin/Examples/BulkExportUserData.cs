@@ -21,7 +21,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
         /// <param name="basePath">BasePath for API calls (URI)</param>
         /// <param name="organizationId">The DocuSign organization ID (GUID or short version) for which the APIs call would be made</param>
         /// <param name="filePath">Path to a file where the user data will be saved</param>
-        /// <returns></returns>
+        /// <returns>OrganizationExportResponse</returns>
         public static OrganizationExportResponse CreateBulkExportRequest(
             string accessToken,
             string basePath,
@@ -44,7 +44,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
             var exportResponse = bulkExportsApi.CreateUserListExport(organizationId, organizationExportRequest);
             //ds-snippet-end:Admin3Step3
 
-            //ds-snippet-start:Admin3Step4                      
+            //ds-snippet-start:Admin3Step4
             int retryCount = 5;
 
             while (retryCount >= 0)
@@ -61,6 +61,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
                     exportResponse = bulkExportsApi.GetUserListExport(organizationId, exportResponse.Id);
                 }
             }
+
             //ds-snippet-end:Admin3Step4
             return exportResponse;
         }
@@ -71,19 +72,20 @@ namespace DocuSign.CodeExamples.Admin.Examples
         /// <param name="accessToken">Access Token for API call (OAuth)</param>
         /// <param name="csvUrl">URL to get the csv file with exported user data</param>
         /// <param name="filePath">Path to a file where the user data will be saved</param>
-        /// <returns></returns>
         private static void GetUserData(string accessToken, string csvUrl, string filePath)
         {
-            WebHeaderCollection headers = new WebHeaderCollection();
-            headers.Add("Authorization", string.Format("Bearer {0}", accessToken));
-            headers.Add("Content-Type", "application/json");
+            WebHeaderCollection headers = new WebHeaderCollection
+            {
+                { "Authorization", string.Format("Bearer {0}", accessToken) },
+                { "Content-Type", "application/json" },
+            };
 
             HttpWebRequest request;
             HttpWebResponse response = null;
 
             try
             {
-            //ds-snippet-start:Admin3Step5             
+                //ds-snippet-start:Admin3Step5
                 request = (HttpWebRequest)WebRequest.Create(csvUrl);
                 request.Headers = headers;
                 request.Timeout = 10000;
@@ -107,7 +109,7 @@ namespace DocuSign.CodeExamples.Admin.Examples
                 fileStream.Close();
                 stream.Close();
                 response.Close();
-            //ds-snippet-end:Admin3Step5
+                //ds-snippet-end:Admin3Step5
             }
             catch (WebException)
             {

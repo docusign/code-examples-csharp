@@ -14,10 +14,10 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
     [Route("Eg036")]
     public class DelayedRouting : EgController
     {
-        public DelayedRouting(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public DelayedRouting(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 

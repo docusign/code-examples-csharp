@@ -14,22 +14,42 @@ namespace DocuSign.CodeExamples.Controllers
 
     public abstract class EgController : Controller
     {
+        public EgController(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        {
+            this.Config = config;
+            this.RequestItemsService = requestItemsService;
+            this.ViewBag.csrfToken = string.Empty;
+            this.LauncherTexts = launcherTexts;
+        }
+
         public LauncherTexts LauncherTexts { get; }
 
         public abstract string EgName { get; }
 
         protected CodeExampleText CodeExampleText { get; set; }
 
-        protected DSConfiguration Config { get; }
+        protected DsConfiguration Config { get; }
 
         protected IRequestItemsService RequestItemsService { get; }
 
-        public EgController(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public bool CheckIfAuthorizationIsNeeded()
         {
-            this.Config = config;
-            this.RequestItemsService = requestItemsService;
-            this.ViewBag.csrfToken = string.Empty;
-            this.LauncherTexts = launcherTexts;
+            bool tokenOk = this.CheckToken();
+            ExamplesApiType previousLoginSchema = Enum.Parse<ExamplesApiType>(this.RequestItemsService.Configuration["API"]);
+            ExamplesApiType currentApi = Enum.Parse<ExamplesApiType>(this.RequestItemsService.IdentifyApiOfCodeExample(this.EgName));
+            this.RequestItemsService.Configuration["APIPlanned"] = currentApi.ToString();
+
+            if (currentApi == ExamplesApiType.Connect)
+            {
+                return false;
+            }
+
+            if (tokenOk && previousLoginSchema == currentApi)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         [HttpGet]
@@ -38,57 +58,43 @@ namespace DocuSign.CodeExamples.Controllers
             // Check that the token is valid and will remain valid for awhile to enable the
             // user to fill out the form. If the token is not available, now is the time
             // to have the user authenticate or re-authenticate.
-            bool tokenOk = this.CheckToken();
             if (this.RequestItemsService.Configuration["API"] == null)
             {
-                this.RequestItemsService.Configuration["API"] = ExamplesAPIType.ESignature.ToString();
+                this.RequestItemsService.Configuration["API"] = ExamplesApiType.ESignature.ToString();
             }
 
-            ExamplesAPIType previousLoginSchema = Enum.Parse<ExamplesAPIType>(this.RequestItemsService.Configuration["API"]);
-            ExamplesAPIType currentAPI = Enum.Parse<ExamplesAPIType>(this.RequestItemsService.IdentifyAPIOfCodeExample(this.EgName));
-            this.RequestItemsService.Configuration["APIPlanned"] = currentAPI.ToString();
-
-            if (tokenOk)
+            if (this.CheckIfAuthorizationIsNeeded())
             {
-                if (previousLoginSchema == currentAPI)
-                {
-                    // addSpecialAttributes(model);
-                    this.ViewBag.envelopeOk = this.RequestItemsService.EnvelopeId != null;
-                    this.ViewBag.documentsOk = this.RequestItemsService.EnvelopeDocuments != null;
-                    this.ViewBag.documentOptions = this.RequestItemsService.EnvelopeDocuments?.Documents;
-                    this.ViewBag.gatewayOk = this.Config.GatewayAccountId != null && this.Config.GatewayAccountId.Length > 25;
-                    this.ViewBag.templateOk = this.RequestItemsService.TemplateId != null;
-                    this.ViewBag.source = this.CreateSourcePath();
-                    this.ViewBag.documentation = this.Config.Documentation + this.EgName;
-                    this.ViewBag.showDoc = this.Config.Documentation != null;
-                    this.ViewBag.pausedEnvelopeOk = this.RequestItemsService.PausedEnvelopeId != null;
-                    this.InitializeInternal();
+                this.RequestItemsService.EgName = this.EgName;
+                this.Response.Redirect("/ds/mustAuthenticate");
 
-                    if (this.Config.QuickACG == "true" && !(this is EmbeddedSigningCeremony))
-                    {
-                        return this.Redirect("eg001");
-                    }
-
-                    return this.View(this.EgName, this);
-                }
+                return this.LocalRedirect("/ds/mustAuthenticate");
             }
 
-            this.RequestItemsService.EgName = this.EgName;
-            this.Response.Redirect("/ds/mustAuthenticate");
+            this.ViewBag.envelopeOk = this.RequestItemsService.EnvelopeId != null;
+            this.ViewBag.documentsOk = this.RequestItemsService.EnvelopeDocuments != null;
+            this.ViewBag.documentOptions = this.RequestItemsService.EnvelopeDocuments?.Documents;
+            this.ViewBag.gatewayOk = this.Config.GatewayAccountId != null && this.Config.GatewayAccountId.Length > 25;
+            this.ViewBag.templateOk = this.RequestItemsService.TemplateId != null;
+            this.ViewBag.source = this.CreateSourcePath();
+            this.ViewBag.documentation = this.Config.Documentation + this.EgName;
+            this.ViewBag.showDoc = this.Config.Documentation != null;
+            this.ViewBag.pausedEnvelopeOk = this.RequestItemsService.PausedEnvelopeId != null;
+            this.InitializeInternal();
 
-            return this.LocalRedirect("/ds/mustAuthenticate");
-        }
+            if (this.Config.QuickAcg == "true" && !(this is EmbeddedSigningCeremony))
+            {
+                return this.Redirect("eg001");
+            }
 
-        protected virtual void InitializeInternal()
-        {
-            this.ViewBag.CodeExampleText = this.CodeExampleText;
-            this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
+            return this.View(this.EgName, this);
         }
 
         public dynamic CreateSourcePath()
         {
             var uri = this.Config.GithubExampleUrl;
-            if (this.EgName != "eg001") // eg001 is at the top level
+            // eg001 is at the top level
+            if (this.EgName != "eg001")
             {
                 uri = $"{uri}/{this.ControllerContext.RouteData.Values["area"]}";
                 return $"{uri}/Examples/{this.GetType().Name}.cs";
@@ -97,8 +103,9 @@ namespace DocuSign.CodeExamples.Controllers
             {
                 return "https://github.com/docusign/code-examples-csharp/blob/master/launcher-csharp/Monitor/Examples/GetMonitoringData.cs";
             }
-            else if (this.EgName != "eg001") // eg001 is at the top level
+            else if (this.EgName != "eg001")
             {
+                // eg001 is at the top level
                 uri = $"{uri}/eSignature";
                 return $"{uri}/Examples/{this.GetType().Name}.cs";
             }
@@ -108,11 +115,17 @@ namespace DocuSign.CodeExamples.Controllers
             }
         }
 
-        protected CodeExampleText GetExampleText(string exampleName, ExamplesAPIType examplesAPIType)
+        protected virtual void InitializeInternal()
+        {
+            this.ViewBag.CodeExampleText = this.CodeExampleText;
+            this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
+        }
+
+        protected CodeExampleText GetExampleText(string exampleName, ExamplesApiType examplesApiType)
         {
             int exampleNumber = int.Parse(Regex.Match(exampleName, @"\d+").Value);
-            var groups = this.LauncherTexts.ManifestStructure.APIs
-                .Find(x => x.Name.ToLowerInvariant() == examplesAPIType.ToString().ToLowerInvariant())
+            var groups = this.LauncherTexts.ManifestStructure.ApIs
+                .Find(x => x.Name.ToLowerInvariant() == examplesApiType.ToString().ToLowerInvariant())
                 .Groups;
 
             foreach (var group in groups)

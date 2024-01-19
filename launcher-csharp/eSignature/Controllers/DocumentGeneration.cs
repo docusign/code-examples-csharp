@@ -9,17 +9,16 @@ namespace DocuSign.CodeExamples.Views
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
     using DocuSign.eSign.Client;
-    using eSignature.Examples;
     using Microsoft.AspNetCore.Mvc;
 
     [Area("eSignature")]
     [Route("Eg042")]
     public class DocumentGeneration : EgController
     {
-        public DocumentGeneration(DSConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
+        public DocumentGeneration(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
         {
-            this.CodeExampleText = this.GetExampleText(EgName, ExamplesAPIType.ESignature);
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.ESignature);
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
@@ -27,19 +26,24 @@ namespace DocuSign.CodeExamples.Views
 
         [HttpPost]
         [SetViewBag]
-        public IActionResult Create(string candidateEmail, string candidateName, string managerName, string jobTitle,
-            string salary, DateTime startDate)
+        public IActionResult Create(
+            string candidateEmail,
+            string candidateName,
+            string managerName,
+            string jobTitle,
+            string salary,
+            DateTime startDate)
         {
-            string accessToken = RequestItemsService.User.AccessToken;
-            string basePath = RequestItemsService.Session.BasePath + "/restapi";
-            string accountId = RequestItemsService.Session.AccountId;
+            string accessToken = this.RequestItemsService.User.AccessToken;
+            string basePath = this.RequestItemsService.Session.BasePath + "/restapi";
+            string accountId = this.RequestItemsService.Session.AccountId;
             string envelopeId = string.Empty;
 
-            bool tokenOk = CheckToken(3);
+            bool tokenOk = this.CheckToken(3);
             if (!tokenOk)
             {
-                RequestItemsService.EgName = EgName;
-                return Redirect("/ds/mustAuthenticate");
+                this.RequestItemsService.EgName = this.EgName;
+                return this.Redirect("/ds/mustAuthenticate");
             }
 
             try
@@ -54,22 +58,21 @@ namespace DocuSign.CodeExamples.Views
                     jobTitle,
                     salary,
                     startDate,
-                    Config.OfferDocDocx);
+                    this.Config.OfferDocDocx);
             }
             catch (ApiException apiException)
             {
-
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
                 this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
-                return View("Error");
+                return this.View("Error");
             }
 
             this.ViewBag.h1 = this.CodeExampleText.ExampleName;
             this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, envelopeId);
 
-            return View("example_done");
+            return this.View("example_done");
         }
     }
 }

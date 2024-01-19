@@ -79,7 +79,7 @@ namespace ESignature.Examples
             // We're using anchor (autoPlace) positioning
             //
             // The DocuSign platform searches throughout your envelope's
-            // documents for matching anchor strings. 
+            // documents for matching anchor strings.
             SignHere signHere = new SignHere
             {
                 AnchorString = "/sn1/",
@@ -91,7 +91,7 @@ namespace ESignature.Examples
             // Tabs are set per recipient / signer
             Tabs signer1Tabs = new Tabs
             {
-                SignHereTabs = new List<SignHere> { signHere }
+                SignHereTabs = new List<SignHere> { signHere, },
             };
             signer1.Tabs = signer1Tabs;
 
@@ -108,6 +108,7 @@ namespace ESignature.Examples
 
             return env;
         }
+
         //ds-snippet-end:eSign29Step3
     }
 }

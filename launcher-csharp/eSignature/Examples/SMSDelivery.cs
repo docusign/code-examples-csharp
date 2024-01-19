@@ -11,7 +11,7 @@ namespace ESignature.Examples
     using DocuSign.eSign.Client;
     using DocuSign.eSign.Model;
 
-    public class SMSDelivery
+    public class SmsDelivery
     {
         /// <summary>
         /// Creates an envelope that would include two documents and add a signer and cc recipients to be notified via SMS.
@@ -30,7 +30,7 @@ namespace ESignature.Examples
         /// <param name="envStatus">Status to set the envelope to.</param>
         /// <param name="deliveryMethod">SMS or WhatsApp</param>
         /// <returns>EnvelopeId for the new envelope.</returns>
-        public static string SendRequestViaSMS(string accessToken, string basePath, string accountId, string signerName, string signerCountryCode, string signerPhoneNumber, string ccName, string ccCountryCode, string ccPhoneNumber, string docDocx, string docPdf, string envStatus, string deliveryMethod)
+        public static string SendRequestViaSms(string accessToken, string basePath, string accountId, string signerName, string signerCountryCode, string signerPhoneNumber, string ccName, string ccCountryCode, string ccPhoneNumber, string docDocx, string docPdf, string envStatus, string deliveryMethod)
         {
             EnvelopeDefinition env = MakeEnvelope(signerName, signerCountryCode, signerPhoneNumber, ccName, ccCountryCode, ccPhoneNumber, docDocx, docPdf, envStatus, deliveryMethod);
 
@@ -210,6 +210,7 @@ namespace ESignature.Examples
                 "        </body>\n" +
                 "    </html>");
         }
+
         //ds-snippet-end:eSign37Step2
     }
 }

@@ -7,16 +7,16 @@ namespace DocuSign.CodeExamples.Common
     using System.IO;
     using System.Runtime.InteropServices;
 
-    internal class DSHelper
+    internal class DsHelper
     {
         internal static string PrepareFullPrivateKeyFilePath(string fileName)
         {
-            const string DefaultRSAPrivateKeyFileName = "private.key";
+            const string defaultRsaPrivateKeyFileName = "private.key";
 
             var fileNameOnly = Path.GetFileName(fileName);
             if (string.IsNullOrEmpty(fileNameOnly))
             {
-                fileNameOnly = DefaultRSAPrivateKeyFileName;
+                fileNameOnly = defaultRsaPrivateKeyFileName;
             }
 
             var filePath = Path.GetDirectoryName(fileName);
@@ -27,7 +27,7 @@ namespace DocuSign.CodeExamples.Common
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && Directory.GetCurrentDirectory().Contains("bin"))
             {
-                fileNameOnly = DefaultRSAPrivateKeyFileName;
+                fileNameOnly = defaultRsaPrivateKeyFileName;
                 filePath = Path.GetFullPath(filePath);
             }
 

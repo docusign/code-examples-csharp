@@ -13,6 +13,6 @@ namespace DocuSign.CodeExamples.ESignature.Models
         public SupportingTexts SupportingTexts { get; set; }
 
         [JsonProperty("APIs")]
-        public List<APIs> APIs { get; } = new List<APIs>();
+        public List<ApIs> ApIs { get; } = new List<ApIs>();
     }
 }

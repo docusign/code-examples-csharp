@@ -206,7 +206,7 @@
       "packages": [
         {
           "name": "DocuSign.eSign.dll",
-          "version": "6.5.0"
+          "version": "6.8.0"
         }
       ],
       "scopes": [

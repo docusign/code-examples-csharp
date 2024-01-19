@@ -37,8 +37,7 @@ namespace ESignature.Examples
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
             return results.EnvelopeId;
-            //ds-snippet-end:eSign2Step3
-
+            //ds-snippet-end:eSign2Step
         }
 
         public static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string envStatus)

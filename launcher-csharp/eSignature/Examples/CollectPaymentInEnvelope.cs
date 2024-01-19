@@ -136,11 +136,11 @@ namespace ESignature.Examples
 
             // read file from a local directory
             // The read could raise an exception if the file is not available!
-            string doc1HTML1 = System.IO.File.ReadAllText("order_form.html");
+            string doc1Html1 = System.IO.File.ReadAllText("order_form.html");
 
             // Substitute values into the HTML
             // Substitute for: {signerName}, {signerEmail}, {ccName}, {ccEmail}
-            var doc1HTML2 = doc1HTML1.Replace("{signerName}", signerName)
+            var doc1Html2 = doc1Html1.Replace("{signerName}", signerName)
                     .Replace("{signerEmail}", signerEmail)
                     .Replace("{ccName}", ccName)
                     .Replace("{ccEmail}", ccEmail);
@@ -152,10 +152,10 @@ namespace ESignature.Examples
             };
 
             // add the documents
-            string doc1b64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(doc1HTML2));
+            string doc1B64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(doc1Html2));
             Document doc1 = new Document
             {
-                DocumentBase64 = doc1b64,
+                DocumentBase64 = doc1B64,
                 Name = "Order form", // can be different from actual file name
                 FileExtension = "html", // Source data format. Signed docs are always pdf.
                 DocumentId = "1", // a label used to reference the doc
@@ -207,7 +207,7 @@ namespace ESignature.Examples
                    listItem9 = new ListItem { Text = "9", Value = "9" },
                    listItem10 = new ListItem { Text = "10", Value = "10" }
                    ;
-            List listl1q = new List
+            List listl1Q = new List
             {
                 Font = "helvetica",
                 FontSize = "size11",
@@ -224,7 +224,7 @@ namespace ESignature.Examples
                 Required = "true",
                 TabLabel = "l1q",
             },
-            listl2q = new List
+            listl2Q = new List
             {
                 Font = "helvetica",
                 FontSize = "size11",
@@ -251,7 +251,7 @@ namespace ESignature.Examples
             };
 
             // create two formula tabs for the extended price on the line items
-            FormulaTab formulal1e = new FormulaTab
+            FormulaTab formulal1E = new FormulaTab
             {
                 Font = "helvetica",
                 FontSize = "size11",
@@ -266,7 +266,7 @@ namespace ESignature.Examples
                 Locked = "true",
                 DisableAutoSize = "false",
             },
-            formulal2e = new FormulaTab
+            formulal2E = new FormulaTab
             {
                 Font = "helvetica",
                 FontSize = "size11",
@@ -283,7 +283,7 @@ namespace ESignature.Examples
             },
 
             // Formula for the total
-            formulal3t = new FormulaTab
+            formulal3T = new FormulaTab
             {
                 Font = "helvetica",
                 Bold = "true",
@@ -320,8 +320,8 @@ namespace ESignature.Examples
             Tabs signer1Tabs = new Tabs
             {
                 SignHereTabs = new List<SignHere> { signHere1 },
-                ListTabs = new List<List> { listl1q, listl2q },
-                FormulaTabs = new List<FormulaTab> { formulal1e, formulal2e, formulal3t, formulaPayment },
+                ListTabs = new List<List> { listl1Q, listl2Q },
+                FormulaTabs = new List<FormulaTab> { formulal1E, formulal2E, formulal3T, formulaPayment },
             };
             signer1.Tabs = signer1Tabs;
 
@@ -339,6 +339,7 @@ namespace ESignature.Examples
 
             return env;
         }
+
         //ds-snippet-end:eSign14Step3
     }
 }
