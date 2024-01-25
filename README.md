@@ -79,7 +79,7 @@ For a list of code examples that use the Admin API, see the [How-to guides overv
    where {base_url} is the URL for the web app.  
    
 1. [C# .NET Core](https://dotnet.microsoft.com/download/dotnet-core) 3.1 or later.  
-1. [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/) with ASP.NET package  (Visual Studio 2019 is also supported).
+1. [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/) with ASP.NET package
 
 
 ### Installation steps
@@ -118,11 +118,11 @@ Also, in order to select JSON Web Token authentication in the launcher, in launc
 1. Select your desired code example.
 
 ## Authorization Code Grant embedded signing example:
-1. Double click the Quick_ACG.csproj (or Quick_ACG-2019.csproj for VS 2109) file in the Quick_ACG folder of your Quickstart project.
+1. Double click the Quick_ACG.csproj file in the Quick_ACG folder of your Quickstart project.
 1. Select the green Play IIS Express button.
 
 ## JWT grant remote signing project
-1. Double click the JWT-Console.csproj (or JWT-Console-2019.csproj for VS 2109) file in the JWT-Console folder of your Quickstart project.
+1. Double click the JWT-Console.csproj file in the JWT-Console folder of your Quickstart project.
 1. Select the green Play JWT Console button.
 
 ## Payments code example  
