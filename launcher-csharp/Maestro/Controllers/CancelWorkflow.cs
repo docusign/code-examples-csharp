@@ -61,7 +61,6 @@ namespace DocuSign.Maestro.Controllers
                 ViewBag.WorkflowId = RequestItemsService.WorkflowId;
                 ViewBag.InstanceId = RequestItemsService.InstanceId;
                 ViewBag.IsInProgressStatus = isInProgressStatus;
-                //ViewBag.IsInProgressStatus = true;
 
                 return View("mae002");
             }
