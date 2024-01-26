@@ -154,7 +154,7 @@ namespace DocuSign.CodeExamples.Common
             set => this.cache.Set(this.GetKey("WorkflowId"), value);
         }
 
-        public bool WorkflowPublished
+        public bool IsWorkflowPublished
         {
             get => this.cache.Get<bool>(this.GetKey("WorkflowPublished"));
             set => this.cache.Set(this.GetKey("WorkflowPublished"), value);

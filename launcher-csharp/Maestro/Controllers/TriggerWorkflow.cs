@@ -30,8 +30,8 @@ namespace DocuSign.Maestro.Controllers
             : base(config, launcherTexts, requestItemsService)
         {
             this.configuration = configuration;
-            CodeExampleText = GetExampleText(EgName, ExamplesApiType.Maestro);
-            ViewBag.title = CodeExampleText.ExampleName;
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Maestro);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "mae001";
@@ -43,35 +43,35 @@ namespace DocuSign.Maestro.Controllers
             try
             {
                 var actionResult = base.Get();
-                if (RequestItemsService.EgName == EgName)
+                if (this.RequestItemsService.EgName == this.EgName)
                 {
                     return actionResult;
                 }
 
-                RequestItemsService.WorkflowId = configuration["DocuSign:WorkflowId"];
-                var accessToken = RequestItemsService.User.AccessToken;
-                var accountId = RequestItemsService.Session.AccountId;
+                this.RequestItemsService.WorkflowId = this.configuration["DocuSign:WorkflowId"];
+                var accessToken = this.RequestItemsService.User.AccessToken;
+                var accountId = this.RequestItemsService.Session.AccountId;
 
-                if (!RequestItemsService.WorkflowPublished)
+                if (!this.RequestItemsService.IsWorkflowPublished)
                 {
-                    var docuSignClient = new DocuSignClient(RequestItemsService.Session.MaestroManageApiBasePath);
+                    var docuSignClient = new DocuSignClient(this.RequestItemsService.Session.MaestroManageApiBasePath);
                     docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-                    TriggerWorkflowService.PublishWorkFlow(docuSignClient, accountId, RequestItemsService.WorkflowId);
-                    RequestItemsService.WorkflowPublished = true;
+                    TriggerWorkflowService.PublishWorkFlow(docuSignClient, accountId, this.RequestItemsService.WorkflowId);
+                    this.RequestItemsService.IsWorkflowPublished = true;
                 }
 
-                ViewBag.Config = Config;
+                this.ViewBag.Config = this.Config;
                 var workflowTriggerModel = new WorkflowTriggerModel();
 
-                return View("mae001", workflowTriggerModel);
+                return this.View("mae001", workflowTriggerModel);
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
-                ViewBag.SupportingTexts = LauncherTexts.ManifestStructure.SupportingTexts;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
-                return View("Error");
+                return this.View("Error");
             }
         }
 
@@ -83,31 +83,31 @@ namespace DocuSign.Maestro.Controllers
         {
             try
             {
-                var accessToken = RequestItemsService.User.AccessToken;
-                var accountId = RequestItemsService.Session.AccountId;
-                var docuSignManageClient = new DocuSignClient(RequestItemsService.Session.MaestroManageApiBasePath);
+                var accessToken = this.RequestItemsService.User.AccessToken;
+                var accountId = this.RequestItemsService.Session.AccountId;
+                var docuSignManageClient = new DocuSignClient(this.RequestItemsService.Session.MaestroManageApiBasePath);
                 docuSignManageClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-                var workflow = TriggerWorkflowService.GetWorkFlowDefinition(docuSignManageClient, accountId, RequestItemsService.WorkflowId);
+                var workflow = TriggerWorkflowService.GetWorkFlowDefinition(docuSignManageClient, accountId, this.RequestItemsService.WorkflowId);
 
-                var docuSignAuthClient = new DocuSignClient(RequestItemsService.Session.MaestroAuthApiBasePath);
+                var docuSignAuthClient = new DocuSignClient(this.RequestItemsService.Session.MaestroAuthApiBasePath);
                 docuSignAuthClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
                 var result = TriggerWorkflowService.TriggerWorkflow(docuSignAuthClient, accountId, new Uri(workflow.TriggerUrl), model);
 
-                RequestItemsService.InstanceId = result.InstanceId;
+                this.RequestItemsService.InstanceId = result.InstanceId;
 
-                ViewBag.h1 = CodeExampleText.ExampleName;
-                ViewBag.message = CodeExampleText.ResultsPageText;
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(result, Formatting.Indented);
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                this.ViewBag.message = this.CodeExampleText.ResultsPageText;
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(result, Formatting.Indented);
 
-                return View("example_done");
+                return this.View("example_done");
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
-                ViewBag.SupportingTexts = LauncherTexts.ManifestStructure.SupportingTexts;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
-                return View("Error");
+                return this.View("Error");
             }
         }
     }

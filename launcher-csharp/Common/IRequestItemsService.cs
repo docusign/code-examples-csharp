@@ -36,7 +36,7 @@ namespace DocuSign.CodeExamples
 
         public string WorkflowId { get; set; }
 
-        public bool WorkflowPublished { get; set; }
+        public bool IsWorkflowPublished { get; set; }
 
         public string InstanceId { get; set; }
 

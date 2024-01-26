@@ -30,8 +30,8 @@ namespace DocuSign.Maestro.Controllers
             : base(config, launcherTexts, requestItemsService)
         {
             this.configuration = configuration;
-            CodeExampleText = GetExampleText(EgName, ExamplesApiType.Maestro);
-            ViewBag.title = CodeExampleText.ExampleName;
+            this.CodeExampleText = this.GetExampleText(this.EgName, ExamplesApiType.Maestro);
+            this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
         public override string EgName => "mae003";
@@ -43,23 +43,23 @@ namespace DocuSign.Maestro.Controllers
             try
             {
                 var actionResult = base.Get();
-                if (RequestItemsService.EgName == EgName)
+                if (this.RequestItemsService.EgName == this.EgName)
                 {
                     return actionResult;
                 }
 
-                ViewBag.WorkflowId = RequestItemsService.WorkflowId;
-                ViewBag.InstanceId = RequestItemsService.InstanceId;
+                this.ViewBag.WorkflowId = this.RequestItemsService.WorkflowId;
+                this.ViewBag.InstanceId = this.RequestItemsService.InstanceId;
 
-                return View("mae003");
+                return this.View("mae003");
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
-                ViewBag.SupportingTexts = LauncherTexts.ManifestStructure.SupportingTexts;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
-                return View("Error");
+                return this.View("Error");
             }
         }
 
@@ -71,25 +71,25 @@ namespace DocuSign.Maestro.Controllers
         {
             try
             {
-                var accessToken = RequestItemsService.User.AccessToken;
-                var accountId = RequestItemsService.Session.AccountId;
-                var docuSignClient = new DocuSignClient(RequestItemsService.Session.MaestroManageApiBasePath);
+                var accessToken = this.RequestItemsService.User.AccessToken;
+                var accountId = this.RequestItemsService.Session.AccountId;
+                var docuSignClient = new DocuSignClient(this.RequestItemsService.Session.MaestroManageApiBasePath);
                 docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-                var result = GetWorkflowService.GetWorkFlowInstance(docuSignClient, accountId, RequestItemsService.WorkflowId, RequestItemsService.InstanceId);
+                var result = GetWorkflowService.GetWorkFlowInstance(docuSignClient, accountId, this.RequestItemsService.WorkflowId, this.RequestItemsService.InstanceId);
 
-                ViewBag.h1 = CodeExampleText.ExampleName;
-                ViewBag.message = string.Format(CodeExampleText.ResultsPageText, result.InstanceState);
-                ViewBag.Locals.Json = JsonConvert.SerializeObject(result, Formatting.Indented);
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, result.InstanceState);
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(result, Formatting.Indented);
 
-                return View("example_done");
+                return this.View("example_done");
             }
             catch (ApiException apiException)
             {
-                ViewBag.errorCode = apiException.ErrorCode;
-                ViewBag.errorMessage = apiException.Message;
-                ViewBag.SupportingTexts = LauncherTexts.ManifestStructure.SupportingTexts;
+                this.ViewBag.errorCode = apiException.ErrorCode;
+                this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
 
-                return View("Error");
+                return this.View("Error");
             }
         }
     }

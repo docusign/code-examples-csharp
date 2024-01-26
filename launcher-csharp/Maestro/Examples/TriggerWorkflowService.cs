@@ -11,6 +11,8 @@ namespace DocuSign.WebForms.Examples
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web;
+    using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
     public static class TriggerWorkflowService
     {
@@ -42,24 +44,17 @@ namespace DocuSign.WebForms.Examples
                     signerEmail = model.SignerEmail,
                     signerName = model.SignerName,
                     ccEmail = model.CCEmail,
-                    ccName = model.CCName
-                }
+                    ccName = model.CCName,
+                },
             };
 
-            var uriParameters = ExtractUriParameters(triggerUrl);
+            var uriParameters = HttpUtility.ParseQueryString(triggerUrl.Query);
             var options = new WorkflowTriggerApi.TriggerWorkflowOptions
             {
                 mtid = uriParameters["mtid"],
-                mtsec = uriParameters["mtsec"]
+                mtsec = uriParameters["mtsec"],
             };
             return maestroApi.TriggerWorkflow(accountId, payload, options);
-        }
-
-        private static Dictionary<string,string> ExtractUriParameters(Uri triggerUrl)
-        {
-            var query = triggerUrl.Query.Replace("?", "");
-            return query.Split('&').Select(q => q.Split('='))
-                   .ToDictionary(k => k[0], v => v[1]);
         }
     }
 }
