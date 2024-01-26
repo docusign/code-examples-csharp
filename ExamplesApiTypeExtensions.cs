@@ -43,6 +43,13 @@ namespace DocuSign.CodeExamples.Common
         /// </summary>
         [Description("con")]
         Connect = 5,
+
+
+        /// <summary>
+        /// Maestro API
+        /// </summary>
+        [Description("mae")]
+        Maestro = 6,
     }
 
     public static class ExamplesApiTypeExtensions

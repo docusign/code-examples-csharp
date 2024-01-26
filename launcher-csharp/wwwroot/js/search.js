@@ -5,7 +5,8 @@
         CLICK: 'click',
         ROOMS: 'rooms',
         ADMIN: 'admin',
-        CONNECT: 'connect'
+        CONNECT: 'connect',
+        MAESTRO: 'maestro'
     };
 
     let processJSONData = function () {
@@ -125,6 +126,8 @@
                 return "eg";
             case API_TYPES.CONNECT:
                 return "con";
+            case API_TYPES.MAESTRO:
+                return "mae";
         }
     }
 

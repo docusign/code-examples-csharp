@@ -148,6 +148,24 @@ namespace DocuSign.CodeExamples.Common
             set => this.cache.Set(this.GetKey("TemplateId"), value);
         }
 
+        public string WorkflowId
+        {
+            get => this.cache.Get<string>(this.GetKey("WorkflowId"));
+            set => this.cache.Set(this.GetKey("WorkflowId"), value);
+        }
+
+        public bool WorkflowPublished
+        {
+            get => this.cache.Get<bool>(this.GetKey("WorkflowPublished"));
+            set => this.cache.Set(this.GetKey("WorkflowPublished"), value);
+        }
+
+        public string InstanceId
+        {
+            get => this.cache.Get<string>(this.GetKey("InstanceId"));
+            set => this.cache.Set(this.GetKey("InstanceId"), value);
+        }
+
         public string ClickwrapId
         {
             get => this.cache.Get<string>(this.GetKey("ClickwrapId"));

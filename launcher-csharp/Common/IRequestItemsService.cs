@@ -34,6 +34,12 @@ namespace DocuSign.CodeExamples
 
         public string TemplateId { get; set; }
 
+        public string WorkflowId { get; set; }
+
+        public bool WorkflowPublished { get; set; }
+
+        public string InstanceId { get; set; }
+
         public string PausedEnvelopeId { get; set; }
 
         public string Status { get; set; }
