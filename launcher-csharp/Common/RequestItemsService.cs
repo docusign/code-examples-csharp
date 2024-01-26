@@ -273,6 +273,10 @@ namespace DocuSign.CodeExamples.Common
             {
                 currentApiType = ExamplesApiType.Connect.ToString();
             }
+            else if (eg.Contains(ExamplesApiType.Maestro.ToKeywordString()))
+            {
+                currentApiType = ExamplesApiType.Maestro.ToString();
+            }
             else
             {
                 currentApiType = ExamplesApiType.ESignature.ToString();
