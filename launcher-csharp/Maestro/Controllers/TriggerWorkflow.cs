@@ -49,17 +49,6 @@ namespace DocuSign.Maestro.Controllers
                 }
 
                 this.RequestItemsService.WorkflowId = this.configuration["DocuSign:WorkflowId"];
-                var accessToken = this.RequestItemsService.User.AccessToken;
-                var accountId = this.RequestItemsService.Session.AccountId;
-
-                if (!this.RequestItemsService.IsWorkflowPublished)
-                {
-                    var docuSignClient = new DocuSignClient(this.RequestItemsService.Session.MaestroManageApiBasePath);
-                    docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-                    TriggerWorkflowService.PublishWorkFlow(docuSignClient, accountId, this.RequestItemsService.WorkflowId);
-                    this.RequestItemsService.IsWorkflowPublished = true;
-                }
-
                 this.ViewBag.Config = this.Config;
                 var workflowTriggerModel = new WorkflowTriggerModel();
 

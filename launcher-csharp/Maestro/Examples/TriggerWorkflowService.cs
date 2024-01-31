@@ -4,27 +4,15 @@
 
 namespace DocuSign.WebForms.Examples
 {
+    using System;
+    using System.Web;
     using DocuSign.CodeExamples.Maestro.Models;
     using DocuSign.Maestro.Api;
     using DocuSign.Maestro.Client;
     using DocuSign.Maestro.Model;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
-    using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
     public static class TriggerWorkflowService
     {
-
-        public static void PublishWorkFlow(DocuSignClient docuSignClient, string accountId, string workflowId)
-        {
-            var maestroApi = new WorkflowManagementApi(docuSignClient);
-            maestroApi.PublishOrUnPublishWorkflowDefinition(accountId, workflowId, new DeployRequest());
-            
-            // add logic for consent url when create workflow feature will be ready to be used
-        }
-
         public static WorkflowDefinitionWithId GetWorkFlowDefinition(DocuSignClient docuSignClient, string accountId, string workflowId)
         {
             var maestroApi = new WorkflowManagementApi(docuSignClient);
