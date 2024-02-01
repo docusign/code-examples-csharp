@@ -45,7 +45,6 @@ namespace DocuSign.Admin.Examples
                 var getUserProfilesOptions = new UsersApi.GetUserProfilesOptions { email = user.Email };
                 usersData.AddRange(usersApi.GetUserProfiles(orgId, getUserProfilesOptions).Users);
             }
-
             //ds-snippet-end:Admin5Step5
 
             return usersData;

@@ -94,7 +94,7 @@
         "primaryRecipientId": "1",
         "templateInfoMap": {
           "eb388ad9-29de-40c9-90f3-211cf7dcefdd": {
-            "templateId": "template-id",
+            "templateId": "0aac9ad6-dd4b-4353-8de7-cae027b6ca65",
             "lastModified": "2023-12-07T21:35:55.9300000Z",
             "name": "Web Form Copy - Web Form Example Template",
             "owner": {
@@ -241,8 +241,8 @@
     "isStandalone": false,
     "templates": [
       {
-        "originalTemplateId": "template-id",
-        "clonedTemplateId": "template-id",
+        "originalTemplateId": "0aac9ad6-dd4b-4353-8de7-cae027b6ca65",
+        "clonedTemplateId": "0aac9ad6-dd4b-4353-8de7-cae027b6ca65",
         "importedDateTime": "2023-12-07T21:35:56.511Z",
         "recipientIds": [ "1" ]
       }
@@ -251,8 +251,8 @@
   "versionId": 1,
   "eSignTemplates": [
     {
-      "templateId": "template-id",
-      "uri": "/templates/template-id",
+      "templateId": "0aac9ad6-dd4b-4353-8de7-cae027b6ca65",
+      "uri": "/templates/0aac9ad6-dd4b-4353-8de7-cae027b6ca65",
       "name": "Web Form Copy - Web Form Example Template",
       "shared": "false",
       "passwordProtected": "false",
