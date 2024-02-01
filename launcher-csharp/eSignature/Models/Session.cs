@@ -12,6 +12,8 @@ namespace DocuSign.CodeExamples.Models
 
         public string BasePath { get; set; }
 
+        public string WebFormsBasePath { get; set; }
+
         public string RoomsApiBasePath { get; set; }
 
         public string AdminApiBasePath { get; set; }

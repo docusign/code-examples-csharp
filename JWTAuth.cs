@@ -78,6 +78,11 @@ namespace DocuSign.CodeExamples.Authentication
                 });
             }
 
+            if (apiType == ExamplesApiType.WebForms)
+            {
+                scopes.Add("webforms_manage");
+            }
+
             return docuSignClient.RequestJWTUserToken(
                 clientId,
                 impersonatedUserId,

@@ -34,6 +34,8 @@ namespace DocuSign.CodeExamples
 
         public string TemplateId { get; set; }
 
+        public string WebFormsTemplateId { get; set; }
+
         public string PausedEnvelopeId { get; set; }
 
         public string Status { get; set; }

@@ -43,6 +43,12 @@ namespace DocuSign.CodeExamples.Common
         /// </summary>
         [Description("con")]
         Connect = 5,
+
+        /// <summary>
+        /// Web Forms API
+        /// </summary>
+        [Description("web")]
+        WebForms = 6,
     }
 
     public static class ExamplesApiTypeExtensions
