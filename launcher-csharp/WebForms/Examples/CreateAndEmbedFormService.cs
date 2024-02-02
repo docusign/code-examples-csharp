@@ -45,7 +45,7 @@ namespace DocuSign.WebForms.Examples
             string accountId,
             string formId)
         {
-            FormInstanceManagementApi formManagementApi = new FormInstanceManagementApi(docuSignClient);
+            //ds-snippet-start:WebForms1Step4
             var formValues = new WebFormValues
             {
                 { "PhoneNumber", "555-555-5555" },
@@ -60,8 +60,12 @@ namespace DocuSign.WebForms.Examples
                 FormValues = formValues,
                 ExpirationOffset = 3600,
             };
+            //ds-snippet-end:WebForms1Step4
 
+            //ds-snippet-start:WebForms1Step5
+            FormInstanceManagementApi formManagementApi = new FormInstanceManagementApi(docuSignClient);
             return formManagementApi.CreateInstance(accountId, formId, options);
+            //ds-snippet-end:WebForms1Step5
         }
 
         public static List<EnvelopeTemplate> GetTemplatesByName(
@@ -69,11 +73,13 @@ namespace DocuSign.WebForms.Examples
             string accountId,
             string templateName)
         {
+            //ds-snippet-start:WebForms1Step3
             var templatesApi = new TemplatesApi(docuSignClient);
             var listTemplateOptions = new TemplatesApi.ListTemplatesOptions();
             listTemplateOptions.searchText = templateName;
 
             EnvelopeTemplateResults templates = templatesApi.ListTemplates(accountId, listTemplateOptions);
+            //ds-snippet-end:WebForms1Step3
 
             return templates.EnvelopeTemplates;
         }
