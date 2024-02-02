@@ -48,8 +48,10 @@ namespace DocuSign.CodeExamples.WebForms.Controllers
             string accessToken = this.RequestItemsService.User.AccessToken;
             string accountId = this.RequestItemsService.Session.AccountId;
 
+            //ds-snippet-start:WebForms1Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:WebForms1Step2
 
             List<EnvelopeTemplate> templates = CreateAndEmbedFormService.GetTemplatesByName(
                 docuSignClient,
