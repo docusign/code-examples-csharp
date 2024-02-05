@@ -120,7 +120,7 @@ namespace DocuSign.CodeExamples.Controllers
             }
             else if (apiType == ExamplesApiType.WebForms)
             {
-                scopes += " webforms_manage webforms_instance_write";
+                scopes += " webforms_read webforms_instance_write webforms_instance_read";
             }
 
             return this.Configuration["DocuSign:AuthorizationEndpoint"] + "?response_type=code" +

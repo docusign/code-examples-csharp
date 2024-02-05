@@ -80,8 +80,9 @@ namespace DocuSign.CodeExamples.Authentication
 
             if (apiType == ExamplesApiType.WebForms)
             {
-                scopes.Add("webforms_manage");
+                scopes.Add("webforms_read");
                 scopes.Add("webforms_instance_write");
+                scopes.Add("webforms_instance_read");
             }
 
             return docuSignClient.RequestJWTUserToken(

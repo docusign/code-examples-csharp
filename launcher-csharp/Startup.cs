@@ -83,7 +83,7 @@ namespace DocuSign.CodeExamples
 
             this.apiTypes.Add(ExamplesApiType.WebForms, new List<string>
             {
-                "signature", "webforms_manage", "webforms_instance_write",
+                "signature", "webforms_read", "webforms_instance_write", "webforms_instance_read",
             });
         }
 
