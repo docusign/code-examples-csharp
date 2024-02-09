@@ -1,0 +1,37 @@
+﻿@{
+    var additionalPages = ViewBag.CodeExampleText.AdditionalPages;
+    var description = "";
+    foreach (var additionalPage in additionalPages)
+    {
+        if (additionalPage.Name == "create_web_form_template")
+        {
+            description = additionalPage.ResultsPageText;
+        }
+    }
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @description
+</p>
+
+<p>
+    API methods used:
+    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/templates/templates/list/">Templates::list</a>, and
+    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/templates/templates/create/">Templates::create</a>.
+</p>
+
+<p>
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">CreateAndEmbedFormService.cs</a>"
+            )
+        )
+</p>
+
+
+<form class="eg" action="" method="post" data-busy="form">
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
+</form>
+

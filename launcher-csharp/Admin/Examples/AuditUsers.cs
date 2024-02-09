@@ -51,8 +51,6 @@ namespace DocuSign.Admin.Examples
                 //ds-snippet-end:Admin5Step5
             }
 
-
-
             return usersData;
         }
     }
