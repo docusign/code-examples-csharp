@@ -17,12 +17,18 @@ namespace DocuSign.WebForms.Examples
     {
         public static WebFormSummaryList GetForms(Client.DocuSignClient docuSignClient, string accountId)
         {
+<<<<<<< HEAD
             //ds-snippet-start:WebForms1Step3
+=======
+>>>>>>> 5f36da8a1ae836a8e2e7fb3d56b089bec481c50e
             FormManagementApi formManagementApi = new FormManagementApi(docuSignClient);
             FormManagementApi.ListFormsOptions listFormsOptions = new FormManagementApi.ListFormsOptions();
             listFormsOptions.search = "Web Form Example Template";
             return formManagementApi.ListForms(accountId, listFormsOptions);
+<<<<<<< HEAD
             //ds-snippet-end:WebForms1Step3
+=======
+>>>>>>> 5f36da8a1ae836a8e2e7fb3d56b089bec481c50e
         }
 
         public static void AddTemplateIdToForm(string fileLocation, string templateId)
@@ -75,11 +81,19 @@ namespace DocuSign.WebForms.Examples
             string accountId,
             string templateName)
         {
+<<<<<<< HEAD
+=======
+            //ds-snippet-start:WebForms1Step3
+>>>>>>> 5f36da8a1ae836a8e2e7fb3d56b089bec481c50e
             var templatesApi = new TemplatesApi(docuSignClient);
             var listTemplateOptions = new TemplatesApi.ListTemplatesOptions();
             listTemplateOptions.searchText = templateName;
 
             EnvelopeTemplateResults templates = templatesApi.ListTemplates(accountId, listTemplateOptions);
+<<<<<<< HEAD
+=======
+            //ds-snippet-end:WebForms1Step3
+>>>>>>> 5f36da8a1ae836a8e2e7fb3d56b089bec481c50e
 
             return templates.EnvelopeTemplates;
         }
