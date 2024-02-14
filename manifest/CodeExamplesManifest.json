@@ -13,6 +13,7 @@
       "ChangeAPITypeButton":"Change API Type",
       "WelcomeText":"Welcome {0} (Account: {1})",
       "CFRError":"This example is not compatible with your CFR Part 11 account. Please return to the homepage to run one of the examples that is compatible or authenticate with a different account.",
+      "ContactSupportToEnableFeature": "Please contact <a href=\"https://support.docusign.com/\">support</a> to enable {0} in your account",
       "LoginPage":{
          "LoginHeader":"<h1 class='display-4'>Please Authenticate with DocuSign</h1><label for='auth_type'>Please choose your authentication type</label>",
          "LoginButton":"Authenticate with DocuSign",
@@ -1919,16 +1920,130 @@
                            "ResultsPageText":"Go to your DocuSign account to create the Web Form. Go to 'Forms' in your developer account, select 'New,' and choose 'Upload web form.' Upload the JSON config file 'web-form-config.json' found under the demo_documents folder of this project. You will need to activate the web form before proceeding. Press Continue after doing so."
                         }
                      ],
-<<<<<<< HEAD
-                     "SkipForLanguages":"java;python;node;ruby;php"
-=======
-                     "SkipForLanguages":"ruby;"
->>>>>>> 5f36da8a1ae836a8e2e7fb3d56b089bec481c50e
+                     "SkipForLanguages":"ruby"
                   }
                ]
             }
          ]
       },
+    {
+        "Name": "Maestro",
+        "Groups": [
+            {
+                "Name": "Maestro",
+                "Examples": [
+                    {
+                        "ExampleNumber": 1,
+                        "ExampleName": "How to trigger a Maestro workflow",
+                        "ExampleDescription": "Trigger a workflow",
+                        "LinksToAPIMethod": [
+                            {
+                                "Path": "",
+                                "PathName": "WorkflowManagement::GetWorkflowDefinition"
+                            }
+                        ],
+                        "Forms": [
+                            {
+                                "Inputs": [
+                                    {
+                                        "InputName": "Instance name"
+                                    },
+                                    {
+                                        "InputName": "Signer email"
+                                    },
+                                    {
+                                        "InputName": "Signer name"
+                                    },
+                                    {
+                                        "InputName": "CC email"
+                                    },
+                                    {
+                                        "InputName": "CC name"
+                                    }
+                                ]
+                            }
+                        ],
+                        "RedirectsToOtherCodeExamples": [
+                            {
+                                "CodeExampleToRedirectTo": 8,
+                                "RedirectText": "<p>Prerequisite: Please first create a template to use in the workflow using <a {0}>Create a template</a></p>"
+                            }
+                        ],
+                        "CustomErrorTexts":[
+                           {
+                              "ErrorMessageCheck":"NO_ACTIVE_WORKFLOW_FOUND",
+                              "ErrorMessage":"<p>Problem: No active workflow found. Please create a new workflow and publish it on your <a href=\"https://apps-d.docusign.com/\">DocuSign account page</a></p>"
+                           }
+                        ],
+                        "ResultsPageText": "Workflow instance is created. Please check your email to complete the workflow.",
+                        "SkipForLanguages":"csharp;java;php;python;node;ruby"
+                    },
+                    {
+                        "ExampleNumber": 2,
+                        "ExampleName": "How to cancel a Maestro workflow instance",
+                        "ExampleDescription": "Cancel a workflow",
+                        "LinksToAPIMethod": [
+                            {
+                                "Path": "",
+                                "PathName": "WorkflowInstanceManagement::CancelWorkflowInstance"
+                            }
+                        ],
+                        "Forms": [
+                            {
+                                "Inputs": [
+                                    {
+                                        "InputName": "Workflow ID"
+                                    },
+                                    {
+                                        "InputName": "Instance ID"
+                                    }
+                                ]
+                            }
+                        ],
+                        "RedirectsToOtherCodeExamples": [
+                            {
+                                "CodeExampleToRedirectTo": 1,
+                                "RedirectText": "<p>Error: No in progress workflow instance found, please <a {0}>trigger a workflow</a></p>"
+                            }
+                        ],
+                        "ResultsPageText": "Workflow instance {0} was canceled.",
+                        "SkipForLanguages":"csharp;java;php;python;node;ruby"
+                    },
+                    {
+                        "ExampleNumber": 3,
+                        "ExampleName": "How to get the status of a Maestro workflow instance",
+                        "ExampleDescription": "Get status of a workflow",
+                        "LinksToAPIMethod": [
+                            {
+                                "Path": "",
+                                "PathName": "WorkflowInstanceManagement::CancelWorkflowInstance"
+                            }
+                        ],
+                        "Forms": [
+                            {
+                                "Inputs": [
+                                    {
+                                        "InputName": "Workflow ID"
+                                    },
+                                    {
+                                        "InputName": "Instance ID"
+                                    }
+                                ]
+                            }
+                        ],
+                        "RedirectsToOtherCodeExamples": [
+                            {
+                                "CodeExampleToRedirectTo": 1,
+                                "RedirectText": "<p>Error: No workflow instance found, please <a {0}>trigger a workflow</a></p>"
+                            }
+                        ],
+                        "ResultsPageText": "Workflow instance state: {0}",
+                        "SkipForLanguages":"csharp;java;php;python;node;ruby"
+                    }
+                ]
+            }
+        ]
+    },
       {
          "Name":"Rooms",
          "Groups":[
