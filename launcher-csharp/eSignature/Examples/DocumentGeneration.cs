@@ -122,6 +122,7 @@ namespace ESignature.Examples
                 Status = "created",
             };
         }
+
         //ds-snippet-end:eSign42Step2
 
         //ds-snippet-start:eSign42Step4
@@ -148,6 +149,7 @@ namespace ESignature.Examples
                 DateSignedTabs = new List<DateSigned> { dateSignedTabs },
             };
         }
+
         //ds-snippet-end:eSign42Step4
 
         //ds-snippet-start:eSign42Step3
@@ -169,6 +171,7 @@ namespace ESignature.Examples
                 Documents = new List<Document> { document },
             };
         }
+
         //ds-snippet-end:eSign42Step3
 
         //ds-snippet-start:eSign42Step5
@@ -188,6 +191,7 @@ namespace ESignature.Examples
                 TemplateId = templateId,
             };
         }
+
         //ds-snippet-end:eSign42Step5
 
         //ds-snippet-start:eSign42Step7
@@ -238,6 +242,7 @@ namespace ESignature.Examples
                 },
             };
         }
+
         //ds-snippet-end:eSign42Step7
     }
 }
