@@ -1,0 +1,111 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+resources:
+  repositories:
+  - repository: launcher-automation
+    type: github
+    name: docusign/launcher-automation
+    ref: main
+    endpoint: launcherAutomationServiceConnection
+
+pr:
+- master
+- releases/*
+
+pool:
+  name: launcher-automation-pool
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+- checkout: self
+- checkout: launcher-automation
+
+- script: dir $(Build.SourcesDirectory)
+
+- task: DownloadSecureFile@1
+  name: csharp_dockerfile
+  displayName: 'download Dockerfile'
+  inputs:
+    secureFile: 'csharp.Dockerfile'
+
+- script: |
+    echo "place csharp.Dockerfile"
+    echo $(csharp_dockerfile.secureFilePath)
+    cp $(csharp_Dockerfile.secureFilePath) code-examples-csharp-private/Dockerfile
+  displayName: 'place Dockerfile'
+
+- script: |
+    allure –-version
+    java --version
+    javac --version
+    mvn --version
+    docker --version
+
+- task: DownloadSecureFile@1
+  name: csharp_config_properties
+  displayName: 'download config.properties'
+  inputs:
+    secureFile: 'csharp.config.properties'
+
+
+- script: |
+    echo "place config.properties"
+    echo $(csharp_config_properties.secureFilePath)
+    cp $(csharp_config_properties.secureFilePath) launcher-automation/src/main/resources/config.properties
+  displayName: 'place config.properties'
+
+- task: DownloadSecureFile@1
+  name: csharp_appsettings
+  displayName: 'download appsettings.json'
+  inputs:
+    secureFile: 'csharp.appsettings.json'
+
+
+- script: |
+    echo "place appsettings.json"
+    cp $(csharp_appsettings.secureFilePath) code-examples-csharp-private/launcher-csharp/appsettings.json
+  displayName: 'place appsettings.json'
+
+
+- task: DownloadSecureFile@1
+  name: csharp_private_key
+  displayName: 'download private.key'
+  inputs:
+    secureFile: 'private.key'
+
+
+- script: |
+    echo "place private.key"
+    cp $(csharp_private_key.secureFilePath) code-examples-csharp-private/launcher-csharp/private.key
+  displayName: 'place private.key'
+
+- script: dir $(Build.SourcesDirectory)
+
+- script: dir $(Build.SourcesDirectory)/code-examples-csharp-private
+
+- task: Docker@2
+  displayName: Build csharp image
+  inputs:
+    command: build
+    repository: 'launcher-automation-csharp'
+    dockerfile: '$(Build.SourcesDirectory)/code-examples-csharp-private/Dockerfile'
+    buildContext: '$(Build.SourcesDirectory)/code-examples-csharp-private '
+    tags: |
+      latest
+
+- script: |
+    docker run -p 44333:44333 -d launcher-automation-csharp:latest
+  displayName: 'start csharp app'
+
+- script: |
+    cd launcher-automation
+    mvn clean test -DsuiteXmlFile="csharp_suite.xml"
+  displayName: 'C# app tests'
+
+- script: |
+    docker stop $(docker ps -a -q)
+    docker rm $(docker ps -a -q)
+  displayName: 'stop csharp app'
