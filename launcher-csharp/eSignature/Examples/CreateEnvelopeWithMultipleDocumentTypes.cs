@@ -28,11 +28,11 @@ namespace ESignature.Examples
         public static (bool statusOk, string envelopeId, string errorCode, string errorMessage, WebException webEx) CreateAndSendEnvelope(
             string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string accessToken, string basePath, string accountId)
         {
-            // Step 1. Make the envelope JSON request body
+            // Make the envelope JSON request body
             //ds-snippet-start:eSign10Step3
             dynamic envelope = MakeEnvelope(signerEmail, signerName, ccEmail, ccName);
 
-            // Step 2. Gather documents and their headeres
+            // Gather documents and their headeres
             // Read files from a local directory
             // The reads could raise an exception if the file is not available!
             dynamic doc1 = envelope["documents"][0];
@@ -64,11 +64,10 @@ namespace ESignature.Examples
                 },
             };
 
-            // Step 3. Create the multipart body
+            // Create the multipart body
             byte[] crlf = Encoding.ASCII.GetBytes("\r\n");
             byte[] boundary = Encoding.ASCII.GetBytes("multipartboundary_multipartboundary");
             byte[] hyphens = Encoding.ASCII.GetBytes("--");
-
             //ds-snippet-end:eSign10Step3
             //ds-snippet-start:eSign10Step2
             string uri = basePath
@@ -80,7 +79,6 @@ namespace ESignature.Examples
             request.ContentType = "multipart/form-data; boundary=" + Encoding.ASCII.GetString(boundary);
             request.Headers.Add("Authorization", "Bearer " + accessToken);
             //ds-snippet-end:eSign10Step2
-            //ds-snippet-start:eSign10Step3
 
             using (var buffer = new BinaryWriter(request.GetRequestStream(), Encoding.ASCII))
             {
@@ -120,7 +118,7 @@ namespace ESignature.Examples
                 buffer.Write(crlf);
                 buffer.Flush();
             }
-
+            //ds-snippet-start:eSign10Step4
             WebResponse response = null;
             WebException webEx = null;
             try
@@ -301,7 +299,7 @@ namespace ESignature.Examples
             };
 
             return envelopeDefinition;
-            //ds-snippet-end:eSign10Step3
+            //ds-snippet-end:eSign10Step4
         }
     }
 }
