@@ -30,7 +30,7 @@ namespace ESignature.Examples
         /// <returns>URL to embed in your application</returns>
         public static string SendEnvelopeUsingEmbeddedSending(string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string accessToken, string basePath, string accountId, string startingView, string returnUrl)
         {
-            //ds-snippet-start:eSign10Step2
+            //ds-snippet-start:eSign11Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
@@ -39,9 +39,9 @@ namespace ESignature.Examples
             EnvelopeDefinition env = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, docDocx, docPdf, "created");
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
             string envelopeId = results.EnvelopeId;
-            //ds-snippet-end:eSign10Step2
+            //ds-snippet-end:eSign11Step2
 
-            //ds-snippet-start:eSign10Step3
+            //ds-snippet-start:eSign11Step3
             // Step 3. create the sender view
             // Call the CreateSenderView API
             // Exceptions will be caught by the calling function
@@ -58,12 +58,12 @@ namespace ESignature.Examples
             {
                 redirectUrl = redirectUrl.Replace("send=1", "send=0");
             }
-            //ds-snippet-end:eSign10Step3
+            //ds-snippet-end:eSign11Step3
 
             return redirectUrl;
         }
 
-        //ds-snippet-start:eSign10Step2
+        //ds-snippet-start:eSign11Step2
         private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string envStatus)
         {
             // Data for this method
@@ -217,6 +217,6 @@ namespace ESignature.Examples
                 "        </body>\n" +
                 "    </html>");
         }
-        //ds-snippet-end:eSign10Step2
+        //ds-snippet-end:eSign11Step2
     }
 }
