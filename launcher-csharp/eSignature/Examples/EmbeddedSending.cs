@@ -30,16 +30,19 @@ namespace ESignature.Examples
         /// <returns>URL to embed in your application</returns>
         public static string SendEnvelopeUsingEmbeddedSending(string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string accessToken, string basePath, string accountId, string startingView, string returnUrl)
         {
+            //ds-snippet-start:eSign10Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
 
-            // Step 1. Make the envelope with "created" (draft) status
+            // Step 2. Make the envelope with "created" (draft) status
             EnvelopeDefinition env = MakeEnvelope(signerEmail, signerName, ccEmail, ccName, docDocx, docPdf, "created");
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
             string envelopeId = results.EnvelopeId;
+            //ds-snippet-end:eSign10Step2
 
-            // Step 2. create the sender view
+            //ds-snippet-start:eSign10Step3
+            // Step 3. create the sender view
             // Call the CreateSenderView API
             // Exceptions will be caught by the calling function
             ReturnUrlRequest viewRequest = new ReturnUrlRequest
@@ -55,10 +58,12 @@ namespace ESignature.Examples
             {
                 redirectUrl = redirectUrl.Replace("send=1", "send=0");
             }
+            //ds-snippet-end:eSign10Step3
 
             return redirectUrl;
         }
 
+        //ds-snippet-start:eSign10Step2
         private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string envStatus)
         {
             // Data for this method
@@ -212,5 +217,6 @@ namespace ESignature.Examples
                 "        </body>\n" +
                 "    </html>");
         }
+        //ds-snippet-end:eSign10Step2
     }
 }
