@@ -58,6 +58,7 @@ namespace ESignature.Examples
             {
                 redirectUrl = redirectUrl.Replace("send=1", "send=0");
             }
+
             //ds-snippet-end:eSign11Step3
 
             return redirectUrl;
@@ -217,6 +218,7 @@ namespace ESignature.Examples
                 "        </body>\n" +
                 "    </html>");
         }
+
         //ds-snippet-end:eSign11Step2
     }
 }
