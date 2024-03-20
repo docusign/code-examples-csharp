@@ -82,6 +82,7 @@ namespace ESignature.Examples
             {
                 EmailSubject = "Please sign this document set",
                 Documents = PrepareDocumentsForTemplate(docPdf, docDocx, docHtml),
+                EnforceSignerVisibility = "true",
             };
 
             Signer signer1 = PrepareSigner(
