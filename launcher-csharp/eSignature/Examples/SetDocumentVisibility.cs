@@ -81,7 +81,14 @@ namespace ESignature.Examples
             EnvelopeDefinition envelopeDefinition = new EnvelopeDefinition
             {
                 EmailSubject = "Please sign this document set",
-                Documents = PrepareDocumentsForTemplate(docPdf, docDocx, docHtml),
+                Documents = PrepareDocumentsForTemplate(
+                    signer1Email,
+                    signer1Name,
+                    ccEmail,
+                    ccName,
+                    docPdf,
+                    docDocx,
+                    docHtml),
                 EnforceSignerVisibility = "true",
             };
 
@@ -159,11 +166,24 @@ namespace ESignature.Examples
             };
         }
 
-        private static List<Document> PrepareDocumentsForTemplate(string docPdf, string docDocx, string docHtml)
+        private static List<Document> PrepareDocumentsForTemplate(
+            string signer1Email,
+            string signer1Name,
+            string ccEmail,
+            string ccName,
+            string docPdf,
+            string docDocx,
+            string docHtml)
         {
             byte[] pdfFileContentInBytes = System.IO.File.ReadAllBytes(docPdf);
             byte[] docxFileContentInBytes = System.IO.File.ReadAllBytes(docDocx);
-            byte[] htlmFileContentInBytes = System.IO.File.ReadAllBytes(docHtml);
+
+            string htmlFileContentsString = System.IO.File.ReadAllText(docHtml);
+            htmlFileContentsString = htmlFileContentsString.Replace("{USER_EMAIL}", signer1Email);
+            htmlFileContentsString = htmlFileContentsString.Replace("{USER_FULLNAME}", signer1Name);
+            htmlFileContentsString = htmlFileContentsString.Replace("{CC_EMAIL}", ccEmail);
+            htmlFileContentsString = htmlFileContentsString.Replace("{CC_NAME}", ccName);
+            byte[] htlmFileContentInBytes = System.Text.Encoding.UTF8.GetBytes(htmlFileContentsString);
 
             return new List<Document>
             {
