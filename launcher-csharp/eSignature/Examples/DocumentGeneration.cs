@@ -45,19 +45,31 @@ namespace ESignature.Examples
             DocuSignClient docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
+            //ds-snippet-start:eSign42Step2
             TemplatesApi templatesApi = new TemplatesApi(docuSignClient);
             TemplateSummary template = templatesApi.CreateTemplate(accountId, MakeTemplate());
             string templateId = template.TemplateId;
+            //ds-snippet-end:eSign42Step2
 
+            //ds-snippet-start:eSign42Step3
             templatesApi.UpdateDocument(accountId, templateId, DefaultId, AddDocumentTemplate(offerDocDocx));
+            //ds-snippet-end:eSign42Step3
 
+            //ds-snippet-start:eSign42Step4
             templatesApi.CreateTabs(accountId, templateId, DefaultId, PrepareTabs());
+            //ds-snippet-end:eSign42Step4
 
+            //ds-snippet-start:eSign42Step5
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary envelope = envelopesApi.CreateEnvelope(accountId, MakeEnvelope(candidateEmail, candidateName, templateId));
             string envelopeId = envelope.EnvelopeId;
+            //ds-snippet-end:eSign42Step5
 
+            //ds-snippet-start:eSign42Step6
             DocGenFormFieldResponse formFields = envelopesApi.GetEnvelopeDocGenFormFields(accountId, envelope.EnvelopeId);
+            //ds-snippet-end:eSign42Step6
+
+            //ds-snippet-start:eSign42Step7
             DocGenFormFieldRequest preparedFormFields = FormFields(
                 formFields.DocGenFormFields.FirstOrDefault()?.DocumentId,
                 candidateName,
@@ -70,7 +82,9 @@ namespace ESignature.Examples
                 accountId,
                 envelopeId,
                 preparedFormFields);
+            //ds-snippet-end:eSign42Step7
 
+            //ds-snippet-start:eSign42Step8
             EnvelopeUpdateSummary envelopeWithDocGen = envelopesApi.Update(
                 accountId,
                 envelopeId,
@@ -78,10 +92,12 @@ namespace ESignature.Examples
                 {
                     Status = "sent",
                 });
+            //ds-snippet-end:eSign42Step8
 
             return envelopeWithDocGen.EnvelopeId;
         }
 
+        //ds-snippet-start:eSign42Step2
         public static EnvelopeTemplate MakeTemplate()
         {
             Signer signer = new Signer
@@ -107,6 +123,9 @@ namespace ESignature.Examples
             };
         }
 
+        //ds-snippet-end:eSign42Step2
+
+        //ds-snippet-start:eSign42Step4
         public static TemplateTabs PrepareTabs()
         {
             SignHere signHere = new SignHere
@@ -131,6 +150,9 @@ namespace ESignature.Examples
             };
         }
 
+        //ds-snippet-end:eSign42Step4
+
+        //ds-snippet-start:eSign42Step3
         public static EnvelopeDefinition AddDocumentTemplate(string offerDocumentDocx)
         {
             string documentBase64 = Convert.ToBase64String(System.IO.File.ReadAllBytes(offerDocumentDocx));
@@ -150,6 +172,9 @@ namespace ESignature.Examples
             };
         }
 
+        //ds-snippet-end:eSign42Step3
+
+        //ds-snippet-start:eSign42Step5
         public static EnvelopeDefinition MakeEnvelope(string candidateEmail, string candidateName, string templateId)
         {
             TemplateRole signer = new TemplateRole
@@ -167,6 +192,9 @@ namespace ESignature.Examples
             };
         }
 
+        //ds-snippet-end:eSign42Step5
+
+        //ds-snippet-start:eSign42Step7
         public static DocGenFormFieldRequest FormFields(
             string documentId,
             string candidateName,
@@ -214,5 +242,7 @@ namespace ESignature.Examples
                 },
             };
         }
+
+        //ds-snippet-end:eSign42Step7
     }
 }

@@ -7,6 +7,7 @@
         ADMIN: 'admin',
         CONNECT: 'connect',
         MAESTRO: 'maestro'
+        WEBFORMS: 'webforms'
     };
 
     let processJSONData = function () {
@@ -128,6 +129,8 @@
                 return "con";
             case API_TYPES.MAESTRO:
                 return "mae";
+            case API_TYPES.WEBFORMS:
+                return "web";
         }
     }
 

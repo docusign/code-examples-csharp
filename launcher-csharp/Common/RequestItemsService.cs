@@ -166,6 +166,12 @@ namespace DocuSign.CodeExamples.Common
             set => this.cache.Set(this.GetKey("InstanceId"), value);
         }
 
+        public string WebFormsTemplateId
+        {
+            get => this.cache.Get<string>(this.GetKey("WebFormsTemplateId"));
+            set => this.cache.Set(this.GetKey("WebFormsTemplateId"), value);
+        }
+
         public string ClickwrapId
         {
             get => this.cache.Get<string>(this.GetKey("ClickwrapId"));
@@ -224,6 +230,7 @@ namespace DocuSign.CodeExamples.Common
                 BasePath = account.BaseUri,
                 RoomsApiBasePath = this.Configuration["DocuSign:RoomsApiEndpoint"],
                 AdminApiBasePath = this.Configuration["DocuSign:AdminApiEndpoint"],
+                WebFormsBasePath = this.Configuration["DocuSign:WebFormsBasePath"],
                 MaestroApiBasePath = this.Configuration["DocuSign:MaestroApiEndpoint"],
             };
         }
@@ -277,6 +284,10 @@ namespace DocuSign.CodeExamples.Common
             else if (eg.Contains(ExamplesApiType.Maestro.ToKeywordString()))
             {
                 currentApiType = ExamplesApiType.Maestro.ToString();
+            }
+            else if (eg.Contains(ExamplesApiType.WebForms.ToKeywordString()))
+            {
+                currentApiType = ExamplesApiType.WebForms.ToString();
             }
             else
             {

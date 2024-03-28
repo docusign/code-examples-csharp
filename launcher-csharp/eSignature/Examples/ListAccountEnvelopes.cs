@@ -32,7 +32,7 @@ namespace ESignature.Examples
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
 
             ListStatusChangesOptions options = new ListStatusChangesOptions();
-            options.fromDate = DateTime.Now.AddDays(-30).ToString("yyyy/MM/dd");
+            options.fromDate = DateTime.Now.AddDays(-30).ToString("yyyy-MM-dd");
 
             // Call the API method:
             EnvelopesInformation results = envelopesApi.ListStatusChanges(accountId, options);

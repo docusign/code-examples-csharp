@@ -25,10 +25,10 @@ namespace ESignature.Examples
         public static EnvelopeSummary PauseWorkflow(string recipient1Email, string recipient1Name, string recipient2Email, string recipient2Name, string accessToken, string basePath, string accountId)
         {
             // Construct your API headers
-            //ds-snippet-start:eSign325Step2
+            //ds-snippet-start:eSign32Step2
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-            //ds-snippet-end:eSign325Step2
+            //ds-snippet-end:eSign32Step2
 
             // Construct request body
             //ds-snippet-start:eSign32Step3

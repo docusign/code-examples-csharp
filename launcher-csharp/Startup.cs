@@ -7,6 +7,7 @@ namespace DocuSign.CodeExamples
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Security.Claims;
@@ -37,7 +38,7 @@ namespace DocuSign.CodeExamples
         {
             this.Configuration = configuration;
 
-            this.apiTypes.Add(ExamplesApiType.ESignature, new List<string> { "signature" });
+            this.apiTypes.Add(ExamplesApiType.ESignature, new List<string> { "signature", });
 
             this.apiTypes.Add(ExamplesApiType.Rooms, new List<string>
             {
@@ -78,6 +79,11 @@ namespace DocuSign.CodeExamples
                     "asset_group_account_read",
                     "asset_group_account_clone_write",
                     "asset_group_account_clone_read",
+            });
+
+            this.apiTypes.Add(ExamplesApiType.WebForms, new List<string>
+            {
+                "signature", "webforms_read", "webforms_instance_write", "webforms_instance_read",
             });
 
             this.apiTypes.Add(ExamplesApiType.Maestro, new List<string> { "signature", "aow_manage" });

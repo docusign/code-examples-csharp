@@ -264,3 +264,4 @@ __pycache__/
 appsettings.json
 private.key
 app.config
+web-form-config.json

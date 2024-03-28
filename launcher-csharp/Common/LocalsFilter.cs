@@ -98,6 +98,7 @@ namespace DocuSign.CodeExamples.Common
                         RoomsApiBasePath = this.configuration["DocuSign:RoomsApiEndpoint"],
                         AdminApiBasePath = this.configuration["DocuSign:AdminApiEndpoint"],
                         MaestroApiBasePath = this.configuration["DocuSign:MaestroApiEndpoint"],
+                        WebFormsBasePath = this.configuration["DocuSign:WebFormsBasePath"],
                     }
                     :
                     new Session
@@ -108,6 +109,7 @@ namespace DocuSign.CodeExamples.Common
                         RoomsApiBasePath = this.configuration["DocuSign:RoomsApiEndpoint"],
                         AdminApiBasePath = this.configuration["DocuSign:AdminApiEndpoint"],
                         MaestroApiBasePath = this.configuration["DocuSign:MaestroApiEndpoint"],
+                        WebFormsBasePath = this.configuration["DocuSign:WebFormsBasePath"],
                     };
 
                 this.requestItemsService.Session = locals.Session;
