@@ -224,8 +224,7 @@ namespace DocuSign.CodeExamples.Common
                 BasePath = account.BaseUri,
                 RoomsApiBasePath = this.Configuration["DocuSign:RoomsApiEndpoint"],
                 AdminApiBasePath = this.Configuration["DocuSign:AdminApiEndpoint"],
-                MaestroManageApiBasePath = this.Configuration["DocuSign:MaestroManageApiEndpoint"],
-                MaestroAuthApiBasePath = this.Configuration["DocuSign:MaestroAuthApiEndpoint"],
+                MaestroApiBasePath = this.Configuration["DocuSign:MaestroApiEndpoint"],
             };
         }
 

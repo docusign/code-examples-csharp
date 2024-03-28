@@ -73,9 +73,13 @@ namespace DocuSign.Maestro.Controllers
             {
                 var accessToken = this.RequestItemsService.User.AccessToken;
                 var accountId = this.RequestItemsService.Session.AccountId;
-                var docuSignClient = new DocuSignClient(this.RequestItemsService.Session.MaestroManageApiBasePath);
+                var docuSignClient = new DocuSignClient(this.RequestItemsService.Session.MaestroApiBasePath);
                 docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
-                var result = GetWorkflowService.GetWorkFlowInstance(docuSignClient, accountId, this.RequestItemsService.WorkflowId, this.RequestItemsService.InstanceId);
+                var result = GetWorkflowService.GetWorkFlowInstance(
+                    docuSignClient,
+                    accountId,
+                    this.RequestItemsService.WorkflowId,
+                    this.RequestItemsService.InstanceId);
 
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, result.InstanceState);

@@ -44,12 +44,17 @@ namespace DocuSign.CodeExamples.Common
         [Description("con")]
         Connect = 5,
 
+        /// <summary>
+        /// Web Forms API
+        /// </summary>
+        [Description("web")]
+        WebForms = 6,
 
         /// <summary>
         /// Maestro API
         /// </summary>
         [Description("mae")]
-        Maestro = 6,
+        Maestro = 7,
     }
 
     public static class ExamplesApiTypeExtensions

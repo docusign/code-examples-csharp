@@ -47,6 +47,9 @@ namespace DocuSign.CodeExamples.ESignature.Models
         [JsonProperty("CFRError")]
         public string CfrError { get; set; }
 
+        [JsonProperty("ContactSupportToEnableFeature")]
+        public string ContactSupportToEnableFeature { get; set; }
+
         [JsonProperty("LoginPage")]
         public LoginPage LoginPage { get; set; }
 

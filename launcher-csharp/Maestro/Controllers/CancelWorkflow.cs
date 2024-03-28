@@ -49,13 +49,17 @@ namespace DocuSign.Maestro.Controllers
 
                 var accessToken = this.RequestItemsService.User.AccessToken;
                 var accountId = this.RequestItemsService.Session.AccountId;
-                var docuSignClient = new DocuSignClient(this.RequestItemsService.Session.MaestroManageApiBasePath);
+                var docuSignClient = new DocuSignClient(this.RequestItemsService.Session.MaestroApiBasePath);
                 docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
                 bool isInProgressStatus = false;
                 if (this.RequestItemsService.InstanceId != null)
                 {
-                    var instance = GetWorkflowService.GetWorkFlowInstance(docuSignClient, accountId, this.RequestItemsService.WorkflowId, this.RequestItemsService.InstanceId);
-                    isInProgressStatus = instance.InstanceState == WorkflowInstance.WorkflowInstanceState.InProgress;
+                    var instance = GetWorkflowService.GetWorkFlowInstance(
+                        docuSignClient,
+                        accountId,
+                        this.RequestItemsService.WorkflowId,
+                        this.RequestItemsService.InstanceId);
+                    isInProgressStatus = instance.InstanceState == WorkflowInstanceState.InProgress;
                 }
 
                 this.ViewBag.WorkflowId = this.RequestItemsService.WorkflowId;
@@ -84,7 +88,7 @@ namespace DocuSign.Maestro.Controllers
             {
                 var accessToken = this.RequestItemsService.User.AccessToken;
                 var accountId = this.RequestItemsService.Session.AccountId;
-                var docuSignClient = new DocuSignClient(this.RequestItemsService.Session.MaestroManageApiBasePath);
+                var docuSignClient = new DocuSignClient(this.RequestItemsService.Session.MaestroApiBasePath);
                 docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
                 var result = CancelWorkflowService.CancelWorkflow(docuSignClient, accountId, this.RequestItemsService.InstanceId);
 

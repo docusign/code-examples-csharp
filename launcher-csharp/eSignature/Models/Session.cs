@@ -16,8 +16,6 @@ namespace DocuSign.CodeExamples.Models
 
         public string AdminApiBasePath { get; set; }
 
-        public string MaestroManageApiBasePath { get; set; }
-
-        public string MaestroAuthApiBasePath { get; set; }
+        public string MaestroApiBasePath { get; set; }
     }
 }

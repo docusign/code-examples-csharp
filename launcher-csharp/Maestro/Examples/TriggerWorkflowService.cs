@@ -10,6 +10,7 @@ namespace DocuSign.WebForms.Examples
     using DocuSign.Maestro.Api;
     using DocuSign.Maestro.Client;
     using DocuSign.Maestro.Model;
+    using Newtonsoft.Json.Linq;
 
     public static class TriggerWorkflowService
     {
@@ -17,6 +18,34 @@ namespace DocuSign.WebForms.Examples
         {
             var maestroApi = new WorkflowManagementApi(docuSignClient);
             return maestroApi.GetWorkflowDefinition(accountId, workflowId);
+        }
+
+        public static WorkflowDefinitionList GetWorkFlowDefinitions(DocuSignClient docuSignClient, string accountId)
+        {
+            var maestroApi = new WorkflowManagementApi(docuSignClient);
+            var options = new WorkflowManagementApi.GetWorkflowDefinitionsOptions { status = "active" };
+            return maestroApi.GetWorkflowDefinitions(accountId, options);
+        }
+
+        public static string PublishWorkFlow(DocuSignClient docuSignClient, string accountId, string workflowId)
+        {
+            try
+            {
+                var maestroApi = new WorkflowManagementApi(docuSignClient);
+                maestroApi.PublishOrUnPublishWorkflowDefinition(accountId, workflowId, new DeployRequest());
+                return string.Empty;
+            }
+            catch (ApiException exception)
+            {
+                if (exception.ErrorContent.Contains("Consent required"))
+                {
+                    return (string)JObject.Parse(exception.ErrorContent)["consentUrl"];
+                }
+                else
+                {
+                    throw;
+                }
+            }
         }
 
         public static TriggerWorkflowViaPostResponse TriggerWorkflow(DocuSignClient docuSignClient, string accountId, Uri triggerUrl, WorkflowTriggerModel model)
