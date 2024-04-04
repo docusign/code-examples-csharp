@@ -12,8 +12,10 @@ namespace DocuSign.WebForms.Examples
     {
         public static WorkflowInstance GetWorkFlowInstance(DocuSignClient docuSignClient, string accountId, string workflowId, string instanceId)
         {
+            //ds-snippet-start:Maestro3Step3
             var maestroApi = new WorkflowInstanceManagementApi(docuSignClient);
             return maestroApi.GetWorkflowInstance(accountId, workflowId, instanceId);
+            //ds-snippet-start:Maestro3Step3
         }
     }
 }

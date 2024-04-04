@@ -73,8 +73,10 @@ namespace DocuSign.Maestro.Controllers
             {
                 var accessToken = this.RequestItemsService.User.AccessToken;
                 var accountId = this.RequestItemsService.Session.AccountId;
+                //ds-snippet-start:Maestro3Step2
                 var docuSignClient = new DocuSignClient(this.RequestItemsService.Session.MaestroApiBasePath);
                 docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+                //ds-snippet-end:Maestro3Step2
                 var result = GetWorkflowService.GetWorkFlowInstance(
                     docuSignClient,
                     accountId,

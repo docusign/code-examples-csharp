@@ -88,8 +88,10 @@ namespace DocuSign.Maestro.Controllers
             {
                 var accessToken = this.RequestItemsService.User.AccessToken;
                 var accountId = this.RequestItemsService.Session.AccountId;
+                //ds-snippet-start:Maestro2Step2
                 var docuSignClient = new DocuSignClient(this.RequestItemsService.Session.MaestroApiBasePath);
                 docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+                //ds-snippet-end:Maestro2Step2
                 var result = CancelWorkflowService.CancelWorkflow(docuSignClient, accountId, this.RequestItemsService.InstanceId);
 
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;

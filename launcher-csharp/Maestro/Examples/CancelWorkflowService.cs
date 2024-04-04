@@ -12,8 +12,10 @@ namespace DocuSign.WebForms.Examples
     {
         public static CancelResponse CancelWorkflow(DocuSignClient docuSignClient, string accountId, string instanceId)
         {
+            //ds-snippet-start:Maestro2Step3
             var maestroApi = new WorkflowInstanceManagementApi(docuSignClient);
             return maestroApi.CancelWorkflowInstance(accountId, instanceId);
+            //ds-snippet-end:Maestro2Step3
         }
     }
 }

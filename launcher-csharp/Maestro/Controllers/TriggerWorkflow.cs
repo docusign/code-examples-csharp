@@ -56,8 +56,10 @@ namespace DocuSign.Maestro.Controllers
 
             try
             {
+                //ds-snippet-start:Maestro1Step2
                 var docuSignManageClient = new DocuSignClient(this.RequestItemsService.Session.MaestroApiBasePath);
                 docuSignManageClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+                //ds-snippet-end:Maestro1Step2
                 var workflows = TriggerWorkflowService.GetWorkFlowDefinitions(docuSignManageClient, accountId);
 
                 if (workflows.Count > 0)
