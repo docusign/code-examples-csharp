@@ -22,11 +22,11 @@ namespace DocuSign.WebForms.Examples
 
         public static WorkflowDefinitionList GetWorkFlowDefinitions(DocuSignClient docuSignClient, string accountId)
         {
-            //ds-snippet-start:Maestro2Step3
+            //ds-snippet-start:Maestro1Step3
             var maestroApi = new WorkflowManagementApi(docuSignClient);
             var options = new WorkflowManagementApi.GetWorkflowDefinitionsOptions { status = "active" };
             return maestroApi.GetWorkflowDefinitions(accountId, options);
-            //ds-snippet-end:Maestro2Step3
+            //ds-snippet-end:Maestro1Step3
         }
 
         public static string PublishWorkFlow(DocuSignClient docuSignClient, string accountId, string workflowId)
@@ -52,7 +52,7 @@ namespace DocuSign.WebForms.Examples
 
         public static TriggerWorkflowViaPostResponse TriggerWorkflow(DocuSignClient docuSignClient, string accountId, Uri triggerUrl, WorkflowTriggerModel model)
         {
-            //ds-snippet-start:Maestro2Step4
+            //ds-snippet-start:Maestro1Step4
             var maestroApi = new WorkflowTriggerApi(docuSignClient);
             var payload = new TriggerPayload
             {
@@ -74,10 +74,10 @@ namespace DocuSign.WebForms.Examples
                 mtid = uriParameters["mtid"],
                 mtsec = uriParameters["mtsec"],
             };
-            //ds-snippet-end:Maestro2Step4
-            //ds-snippet-start:Maestro2Step5
+            //ds-snippet-end:Maestro1Step4
+            //ds-snippet-start:Maestro1Step5
             return maestroApi.TriggerWorkflow(accountId, payload, options);
-            //ds-snippet-end:Maestro2Step5
+            //ds-snippet-end:Maestro1Step5
         }
     }
 }
