@@ -49,6 +49,12 @@ namespace DocuSign.CodeExamples.Common
         /// </summary>
         [Description("web")]
         WebForms = 6,
+
+        /// <summary>
+        /// Maestro API
+        /// </summary>
+        [Description("mae")]
+        Maestro = 7,
     }
 
     public static class ExamplesApiTypeExtensions
