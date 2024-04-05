@@ -229,13 +229,48 @@ namespace ESignature.Examples
                             },
                             new DocGenFormField
                             {
-                                Name = "Salary",
-                                Value = salary,
+                                Name = "Start_Date",
+                                Value = startDate,
                             },
                             new DocGenFormField
                             {
-                                Name = "Start_Date",
-                                Value = startDate,
+                                Name = "Compensation_Package",
+                                Type = "TableRow",
+                                RowValues = new List<DocGenFormFieldRowValue>
+                                {
+                                    new DocGenFormFieldRowValue
+                                    {
+                                        DocGenFormFieldList = new List<DocGenFormField>
+                                        {
+                                            new DocGenFormField
+                                            {
+                                                Name = "Compensation_Component",
+                                                Value = "Salary",
+                                            },
+                                            new DocGenFormField
+                                            {
+                                                Name = "Details",
+                                                Value = salary,
+                                            },
+                                        },
+                                    },
+                                    new DocGenFormFieldRowValue
+                                    {
+                                        DocGenFormFieldList = new List<DocGenFormField>
+                                        {
+                                            new DocGenFormField
+                                            {
+                                                Name = "Compensation_Component",
+                                                Value = "Bonus",
+                                            },
+                                            new DocGenFormField
+                                            {
+                                                Name = "Details",
+                                                Value = "You will be eligible for a bonus of up to 20 percent based on your performance.",
+                                            },
+                                        },
+                                    },
+                                },
                             },
                         },
                     },
