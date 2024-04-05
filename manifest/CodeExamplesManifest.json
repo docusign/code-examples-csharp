@@ -1963,6 +1963,12 @@
                                 ]
                             }
                         ],
+                        "AdditionalPage": [
+                		            {
+                                    "Name": "publish_workflow",
+                                    "ResultsPageText": "Please open <a href=\"{0}\" target=\"_blank\">the following page</a> to publish the workflow."
+                                }
+                        ],
                         "RedirectsToOtherCodeExamples": [
                             {
                                 "CodeExampleToRedirectTo": 8,
