@@ -138,7 +138,7 @@ namespace ESignature.Examples
 
             DateSigned dateSignedTabs = new DateSigned
             {
-                AnchorString = "Date",
+                AnchorString = "Date Signed",
                 AnchorUnits = "pixels",
                 AnchorYOffset = "-22",
             };
