@@ -89,6 +89,7 @@ steps:
 - task: CmdLine@2
   inputs:
     script: 'docker rm -f $(docker ps -a -q)' 
+  continueOnError: true
 
 - script: |
     docker system prune -a --force
