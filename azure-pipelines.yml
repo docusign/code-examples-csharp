@@ -86,6 +86,10 @@ steps:
 
 - script: dir $(Build.SourcesDirectory)/code-examples-csharp-private
 
+- script: docker rm -f $(docker ps -a -q)
+
+- script: docker system prune -a --force
+
 - task: Docker@2
   displayName: Build csharp image
   inputs:
