@@ -727,6 +727,7 @@ namespace DocuSign.WebForms.Examples
                         { "source", "step" },
                         { "propertyName", "envelopeId" },
                         { "stepId", "step2" },
+                        { "type", "String" },
                     }
                 },
                 {
@@ -736,6 +737,7 @@ namespace DocuSign.WebForms.Examples
                         { "source", "step" },
                         { "propertyName", "combinedDocumentsBase64" },
                         { "stepId", "step2" },
+                        { "type", "File" },
                     }
                 },
                 {
@@ -745,6 +747,7 @@ namespace DocuSign.WebForms.Examples
                         { "source", "step" },
                         { "propertyName", "fields.signer.text.value" },
                         { "stepId", "step2" },
+                        { "type", "String" },
                     }
                 },
             };
