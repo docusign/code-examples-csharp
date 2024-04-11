@@ -86,9 +86,13 @@ steps:
 
 - script: dir $(Build.SourcesDirectory)/code-examples-csharp-private
 
-- script: docker rm -f $(docker ps -a -q)
+- task: CmdLine@2
+  inputs:
+    script: 'docker rm -f $(docker ps -a -q)' 
 
-- script: docker system prune -a --force
+- script: |
+    docker system prune -a --force
+  displayName: "cleanup docker files"
 
 - task: Docker@2
   displayName: Build csharp image
