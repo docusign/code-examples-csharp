@@ -7,6 +7,7 @@
     int jobTitleIndex = 3;
     int salaryIndex = 4;
     int startDateIndex = 5;
+    int rsusIndex = 6;
 }
 
 <h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
@@ -97,6 +98,18 @@
                id="salary" 
                placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[salaryIndex].InputPlaceholder"
                name="salary"
+               required />
+    </div>
+
+    <div class="form-group">
+        <label for="rsus">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[rsusIndex].InputName)
+        </label>
+        <input type="number"
+               class="form-control"
+               id="rsus"
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[rsusIndex].InputPlaceholder"
+               name="rsus"
                required />
     </div>
 

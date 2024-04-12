@@ -27,6 +27,7 @@ namespace ESignature.Examples
         /// <param name="managerName">Manager name.</param>
         /// <param name="jobTitle">Job title.</param>
         /// <param name="salary">Salary for potential candidate.</param>
+        /// <param name="rsus">Restricted stock units (RSUs) for potential candidate.</param>
         /// <param name="startDate">Start date of the offer.</param>
         /// <param name="offerDocDocx">String of bytes representing the offer document (pdf).</param>
         /// <returns>EnvelopeId for the new envelope.</returns>
@@ -39,6 +40,7 @@ namespace ESignature.Examples
             string managerName,
             string jobTitle,
             string salary,
+            int rsus,
             DateTime startDate,
             string offerDocDocx)
         {
@@ -76,6 +78,7 @@ namespace ESignature.Examples
                 managerName,
                 jobTitle,
                 salary,
+                rsus.ToString(),
                 startDate.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
 
             envelopesApi.UpdateEnvelopeDocGenFormFields(
@@ -201,6 +204,7 @@ namespace ESignature.Examples
             string managerName,
             string jobTitle,
             string salary,
+            string rsus,
             string startDate)
         {
             return new DocGenFormFieldRequest
@@ -250,7 +254,7 @@ namespace ESignature.Examples
                                             new DocGenFormField
                                             {
                                                 Name = "Details",
-                                                Value = salary,
+                                                Value = "$" + salary,
                                             },
                                         },
                                     },
@@ -266,7 +270,23 @@ namespace ESignature.Examples
                                             new DocGenFormField
                                             {
                                                 Name = "Details",
-                                                Value = "You will be eligible for a bonus of up to 20 percent based on your performance.",
+                                                Value = "20%",
+                                            },
+                                        },
+                                    },
+                                    new DocGenFormFieldRowValue
+                                    {
+                                        DocGenFormFieldList = new List<DocGenFormField>
+                                        {
+                                            new DocGenFormField
+                                            {
+                                                Name = "Compensation_Component",
+                                                Value = "RSUs",
+                                            },
+                                            new DocGenFormField
+                                            {
+                                                Name = "Details",
+                                                Value = rsus,
                                             },
                                         },
                                     },
