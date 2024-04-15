@@ -106,6 +106,7 @@
             @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[rsusIndex].InputName)
         </label>
         <input type="number"
+               min="0"
                class="form-control"
                id="rsus"
                placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[rsusIndex].InputPlaceholder"
