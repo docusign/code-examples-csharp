@@ -27,6 +27,7 @@ namespace ESignature.Examples
         /// <param name="managerName">Manager name.</param>
         /// <param name="jobTitle">Job title.</param>
         /// <param name="salary">Salary for potential candidate.</param>
+        /// <param name="rsus">Restricted stock units (RSUs) for potential candidate.</param>
         /// <param name="startDate">Start date of the offer.</param>
         /// <param name="offerDocDocx">String of bytes representing the offer document (pdf).</param>
         /// <returns>EnvelopeId for the new envelope.</returns>
@@ -39,6 +40,7 @@ namespace ESignature.Examples
             string managerName,
             string jobTitle,
             string salary,
+            int rsus,
             DateTime startDate,
             string offerDocDocx)
         {
@@ -76,6 +78,7 @@ namespace ESignature.Examples
                 managerName,
                 jobTitle,
                 salary,
+                rsus.ToString(),
                 startDate.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
 
             envelopesApi.UpdateEnvelopeDocGenFormFields(
@@ -138,7 +141,7 @@ namespace ESignature.Examples
 
             DateSigned dateSignedTabs = new DateSigned
             {
-                AnchorString = "Date",
+                AnchorString = "Date Signed",
                 AnchorUnits = "pixels",
                 AnchorYOffset = "-22",
             };
@@ -201,6 +204,7 @@ namespace ESignature.Examples
             string managerName,
             string jobTitle,
             string salary,
+            string rsus,
             string startDate)
         {
             return new DocGenFormFieldRequest
@@ -229,13 +233,64 @@ namespace ESignature.Examples
                             },
                             new DocGenFormField
                             {
-                                Name = "Salary",
-                                Value = salary,
+                                Name = "Start_Date",
+                                Value = startDate,
                             },
                             new DocGenFormField
                             {
-                                Name = "Start_Date",
-                                Value = startDate,
+                                Name = "Compensation_Package",
+                                Type = "TableRow",
+                                RowValues = new List<DocGenFormFieldRowValue>
+                                {
+                                    new DocGenFormFieldRowValue
+                                    {
+                                        DocGenFormFieldList = new List<DocGenFormField>
+                                        {
+                                            new DocGenFormField
+                                            {
+                                                Name = "Compensation_Component",
+                                                Value = "Salary",
+                                            },
+                                            new DocGenFormField
+                                            {
+                                                Name = "Details",
+                                                Value = "$" + salary,
+                                            },
+                                        },
+                                    },
+                                    new DocGenFormFieldRowValue
+                                    {
+                                        DocGenFormFieldList = new List<DocGenFormField>
+                                        {
+                                            new DocGenFormField
+                                            {
+                                                Name = "Compensation_Component",
+                                                Value = "Bonus",
+                                            },
+                                            new DocGenFormField
+                                            {
+                                                Name = "Details",
+                                                Value = "20%",
+                                            },
+                                        },
+                                    },
+                                    new DocGenFormFieldRowValue
+                                    {
+                                        DocGenFormFieldList = new List<DocGenFormField>
+                                        {
+                                            new DocGenFormField
+                                            {
+                                                Name = "Compensation_Component",
+                                                Value = "RSUs",
+                                            },
+                                            new DocGenFormField
+                                            {
+                                                Name = "Details",
+                                                Value = rsus,
+                                            },
+                                        },
+                                    },
+                                },
                             },
                         },
                     },

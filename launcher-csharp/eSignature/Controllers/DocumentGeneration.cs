@@ -32,6 +32,7 @@ namespace DocuSign.CodeExamples.Views
             string managerName,
             string jobTitle,
             string salary,
+            int rsus,
             DateTime startDate)
         {
             string accessToken = this.RequestItemsService.User.AccessToken;
@@ -57,6 +58,7 @@ namespace DocuSign.CodeExamples.Views
                     managerName,
                     jobTitle,
                     salary,
+                    rsus,
                     startDate,
                     this.Config.OfferDocDocx);
             }
