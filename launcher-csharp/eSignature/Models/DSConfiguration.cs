@@ -12,7 +12,7 @@ namespace DocuSign.CodeExamples.Models
         public string DocPdf = "World_Wide_Corp_lorem.pdf";
         public string DocumentTemplatePdf = "World_Wide_Corp_Web_Form.pdf";
         public string WebFormConfig = "web-form-config.json";
-        public string OfferDocDocx = "Offer_Letter_Demo.docx";
+        public string OfferDocDocx = "Offer_Letter_Dynamic_Table.docx";
         public string DocCsv = "UserData.csv";
         public string DocHtml = "doc_1.html";
         public string ExportUsersPath = @"..\..\..\ExportedUserData.csv";

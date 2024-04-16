@@ -148,6 +148,24 @@ namespace DocuSign.CodeExamples.Common
             set => this.cache.Set(this.GetKey("TemplateId"), value);
         }
 
+        public string WorkflowId
+        {
+            get => this.cache.Get<string>(this.GetKey("WorkflowId"));
+            set => this.cache.Set(this.GetKey("WorkflowId"), value);
+        }
+
+        public bool IsWorkflowPublished
+        {
+            get => this.cache.Get<bool>(this.GetKey("WorkflowPublished"));
+            set => this.cache.Set(this.GetKey("WorkflowPublished"), value);
+        }
+
+        public string InstanceId
+        {
+            get => this.cache.Get<string>(this.GetKey("InstanceId"));
+            set => this.cache.Set(this.GetKey("InstanceId"), value);
+        }
+
         public string WebFormsTemplateId
         {
             get => this.cache.Get<string>(this.GetKey("WebFormsTemplateId"));
@@ -213,6 +231,7 @@ namespace DocuSign.CodeExamples.Common
                 RoomsApiBasePath = this.Configuration["DocuSign:RoomsApiEndpoint"],
                 AdminApiBasePath = this.Configuration["DocuSign:AdminApiEndpoint"],
                 WebFormsBasePath = this.Configuration["DocuSign:WebFormsBasePath"],
+                MaestroApiBasePath = this.Configuration["DocuSign:MaestroApiEndpoint"],
             };
         }
 
@@ -261,6 +280,10 @@ namespace DocuSign.CodeExamples.Common
             else if (eg.Contains(ExamplesApiType.Connect.ToKeywordString()))
             {
                 currentApiType = ExamplesApiType.Connect.ToString();
+            }
+            else if (eg.Contains(ExamplesApiType.Maestro.ToKeywordString()))
+            {
+                currentApiType = ExamplesApiType.Maestro.ToString();
             }
             else if (eg.Contains(ExamplesApiType.WebForms.ToKeywordString()))
             {

@@ -85,6 +85,8 @@ namespace DocuSign.CodeExamples
             {
                 "signature", "webforms_read", "webforms_instance_write", "webforms_instance_read",
             });
+
+            this.apiTypes.Add(ExamplesApiType.Maestro, new List<string> { "signature", "aow_manage" });
         }
 
         public IConfiguration Configuration { get; }
@@ -264,6 +266,14 @@ namespace DocuSign.CodeExamples
             });
         }
 
+        private string UpdateRedirectUriScopes(string uri, List<string> wantedScopes)
+        {
+            const string pattern = @"(?:&|\?)scope=([^&]+)";
+
+            var encodedScopes = string.Join(" ", wantedScopes);
+            return Regex.Replace(uri, pattern, $"&scope={HttpUtility.UrlPathEncode(encodedScopes)}");
+        }
+
         private string? ExtractDefaultAccountValue(JsonElement obj, string key)
         {
             if (!obj.TryGetProperty("accounts", out var accounts))
@@ -313,14 +323,6 @@ namespace DocuSign.CodeExamples
             }
 
             return keyValue;
-        }
-
-        private string UpdateRedirectUriScopes(string uri, List<string> wantedScopes)
-        {
-            const string pattern = @"(?:&|\?)scope=([^&]+)";
-
-            var encodedScopes = string.Join(" ", wantedScopes);
-            return Regex.Replace(uri, pattern, $"&scope={HttpUtility.UrlPathEncode(encodedScopes)}");
         }
     }
 }

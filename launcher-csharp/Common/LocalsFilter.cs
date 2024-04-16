@@ -97,6 +97,7 @@ namespace DocuSign.CodeExamples.Common
                         BasePath = identity.FindFirst(x => x.Type.Equals("base_uri")).Value,
                         RoomsApiBasePath = this.configuration["DocuSign:RoomsApiEndpoint"],
                         AdminApiBasePath = this.configuration["DocuSign:AdminApiEndpoint"],
+                        MaestroApiBasePath = this.configuration["DocuSign:MaestroApiEndpoint"],
                         WebFormsBasePath = this.configuration["DocuSign:WebFormsBasePath"],
                     }
                     :
@@ -107,6 +108,7 @@ namespace DocuSign.CodeExamples.Common
                         BasePath = this.requestItemsService.Session.BasePath,
                         RoomsApiBasePath = this.configuration["DocuSign:RoomsApiEndpoint"],
                         AdminApiBasePath = this.configuration["DocuSign:AdminApiEndpoint"],
+                        MaestroApiBasePath = this.configuration["DocuSign:MaestroApiEndpoint"],
                         WebFormsBasePath = this.configuration["DocuSign:WebFormsBasePath"],
                     };
 

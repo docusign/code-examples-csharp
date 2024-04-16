@@ -17,5 +17,7 @@ namespace DocuSign.CodeExamples.Models
         public string RoomsApiBasePath { get; set; }
 
         public string AdminApiBasePath { get; set; }
+
+        public string MaestroApiBasePath { get; set; }
     }
 }
