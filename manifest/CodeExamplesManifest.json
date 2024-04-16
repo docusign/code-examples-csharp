@@ -184,8 +184,10 @@
                               {
                                  "InputName":"Start Date",
                                  "InputPlaceholder":"mm/dd/yyyy"
-                              }
-                           ]
+                              },
+                              {
+                                 "InputName": "RSUs"
+                              }                           ]
                         }
                      ],
                      "ResultsPageText":"The envelope has been created and sent!<br />Envelope ID {0}."
