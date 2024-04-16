@@ -1,6 +1,6 @@
 {
    "SupportingTexts":{
-      "HomePageText":"Run and explore DocuSign code examples with Authorization Code Grant or JWT Grant authentication",
+      "HomePageText":"Run and explore Docusign code examples with Authorization Code Grant or JWT Grant authentication",
       "ViewSourceFile":"View source file {0} on GitHub.",
       "APIMethodUsed":"API method used:",
       "APIMethodUsedPlural":"API methods used:",
@@ -15,9 +15,9 @@
       "CFRError":"This example is not compatible with your CFR Part 11 account. Please return to the homepage to run one of the examples that is compatible or authenticate with a different account.",
       "ContactSupportToEnableFeature": "Please contact <a href=\"https://support.docusign.com/\">support</a> to enable {0} in your account",
       "LoginPage":{
-         "LoginHeader":"<h1 class='display-4'>Please Authenticate with DocuSign</h1><label for='auth_type'>Please choose your authentication type</label>",
-         "LoginButton":"Authenticate with DocuSign",
-         "LoginHelperText":"You need to authenticate with DocuSign to continue your request."
+         "LoginHeader":"<h1 class='display-4'>Please Authenticate with Docusign</h1><label for='auth_type'>Please choose your authentication type</label>",
+         "LoginButton":"Authenticate with Docusign",
+         "LoginHelperText":"You need to authenticate with Docusign to continue your request."
       },
       "SelectAPIPage":{
          "SelectAPIHeader":"<h1 class='display-4'>Please choose an API type</h1><label for='api_type'>Please choose an API type</label>",
@@ -253,7 +253,7 @@
                      "ExampleNumber":1,
                      "CFREnabled":"NonCFR",
                      "ExampleName":"Request a signature through your app (embedded signing)",
-                     "ExampleDescription":"Sends an envelope, then uses embedded signing for the first signer. With embedded signing, DocuSign signing is initiated from your website.",
+                     "ExampleDescription":"Sends an envelope, then uses embedded signing for the first signer. With embedded signing, Docusign signing is initiated from your website.",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
@@ -284,7 +284,7 @@
                      "ExampleNumber":41,
                      "CFREnabled":"CFROnly",
                      "ExampleName":"Request a signature through your app (embedded signing) with a CFR Part 11 account",
-                     "ExampleDescription":"Sends an envelope, then uses embedded signing with recipient authentication by phone for the first signer. With embedded signing, DocuSign signing is initiated from your website.",
+                     "ExampleDescription":"Sends an envelope, then uses embedded signing with recipient authentication by phone for the first signer. With embedded signing, Docusign signing is initiated from your website.",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/getenvelopeworkflowdefinition/",
@@ -439,7 +439,7 @@
                      "CFREnabled":"NonCFR",
                      "ExampleName":"Send an envelope with an order form and payment field",
                      "ExampleDescription":"Anchor text (<a target='_blank' href=\"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/\">AutoPlace</a>) is used to position the fields in the documents.",
-                     "Notes":"<h5 style=\"color: purple;\">Note: This example will only work if the sender's DocuSign account is set up with a DocuSign payment gateway. Since the Payment Gateway ID is set in the configuration file, you will need to run your own instance of this project to set it.</h5>",
+                     "Notes":"<h5 style=\"color: purple;\">Note: This example will only work if the sender's Docusign account is set up with a Docusign payment gateway. Since the Payment Gateway ID is set in the configuration file, you will need to run your own instance of this project to set it.</h5>",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
@@ -566,7 +566,7 @@
                      "ExampleNumber":11,
                      "CFREnabled":"AllAccounts",
                      "ExampleName":"Embedded sending",
-                     "ExampleDescription":"An envelope will be created in draft mode. The DocuSign web tool (NDSE) will then be shown, enabling further updates to the envelope before it is sent.",
+                     "ExampleDescription":"An envelope will be created in draft mode. The Docusign web tool (NDSE) will then be shown, enabling further updates to the envelope before it is sent.",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
@@ -982,7 +982,7 @@
                      "ExampleNumber":10,
                      "CFREnabled":"AllAccounts",
                      "ExampleName":"Send an envelope using binary document transfer",
-                     "ExampleDescription":"<p>The envelope includes a pdf, Word, and HTML document.</p><p>Multipart data transfer is used to send the documents in binary format to DocuSign. Binary transfer is 33% more efficient than base64 encoding and is recommended for documents over 15M Bytes. Binary transfer is not yet supported by the SDK.</p>",
+                     "ExampleDescription":"<p>The envelope includes a pdf, Word, and HTML document.</p><p>Multipart data transfer is used to send the documents in binary format to Docusign. Binary transfer is 33% more efficient than base64 encoding and is recommended for documents over 15M Bytes. Binary transfer is not yet supported by the SDK.</p>",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
@@ -1066,7 +1066,7 @@
                      "CustomErrorTexts":[
                         {
                            "ErrorMessageCheck":"ACCOUNT_LACKS_PERMISSIONS",
-                           "ErrorMessage":"See <a href=\"https://developers.docusign.com/docs/esign-rest-api/how-to/set-document-visibility\"> How to set document visibility for envelope recipients</a> in the DocuSign Developer Center for instructions on how to enable document visibility in your developer account."
+                           "ErrorMessage":"See <a href=\"https://developers.docusign.com/docs/esign-rest-api/how-to/set-document-visibility\"> How to set document visibility for envelope recipients</a> in the Docusign Developer Center for instructions on how to enable document visibility in your developer account."
                         }
                      ],
                      "Forms":[
@@ -1455,8 +1455,8 @@
                   {
                      "ExampleNumber":43,
                      "CFREnabled":"AllAccounts",
-                     "ExampleName":"Share access to a DocuSign envelope inbox",
-                     "ExampleDescription":"Share envelope inbox access with an agent user and view the principal user's envelopes using the Shared Access view in the DocuSign UI",
+                     "ExampleName":"Share access to a Docusign envelope inbox",
+                     "ExampleDescription":"Share envelope inbox access with an agent user and view the principal user's envelopes using the Shared Access view in the Docusign UI",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/esign-rest-api/reference/users/users/create/",
@@ -1497,7 +1497,7 @@
                         },
                         {
                            "Name":"list_status_successful",
-                           "ResultsPageText":"<p>Go to the <a href=\"https://appdemo.docusign.com/documents\">Manage</a> tab in the agent's DocuSign developer account, select shared access in the upper left, then select the principal's account to view the principal's envelopes. For details, see <a target='_blank' href=\"https://developers.docusign.com/docs/esign-rest-api/how-to/shared-access/#step-4-expected-response\">How to share access to a DocuSign inbox</a>.</p><p>Results from Envelopes:listStatus method:</p>"
+                           "ResultsPageText":"<p>Go to the <a href=\"https://appdemo.docusign.com/documents\">Manage</a> tab in the agent's Docusign developer account, select shared access in the upper left, then select the principal's account to view the principal's envelopes. For details, see <a target='_blank' href=\"https://developers.docusign.com/docs/esign-rest-api/how-to/shared-access/#step-4-expected-response\">How to share access to a Docusign inbox</a>.</p><p>Results from Envelopes:listStatus method:</p>"
                         },
                         {
                            "Name":"list_status_unsuccessful",
@@ -1652,13 +1652,13 @@
                ]
             },
             {
-               "Name":"Embedded DocuSign web tool",
+               "Name":"Embedded Docusign web tool",
                "Examples":[
                   {
                      "ExampleNumber":12,
                      "CFREnabled":"AllAccounts",
-                     "ExampleName":"Embedded DocuSign web tool",
-                     "ExampleDescription":"Redirect the user to the DocuSign web tool.",
+                     "ExampleName":"Embedded Docusign web tool",
+                     "ExampleDescription":"Redirect the user to the Docusign web tool.",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createconsole/",
@@ -1822,7 +1822,7 @@
                   {
                      "ExampleNumber":4,
                      "ExampleName":"Get a list of elastic templates",
-                     "ExampleDescription":"Gets a list of elastic templates associated with a specific DocuSign user.",
+                     "ExampleDescription":"Gets a list of elastic templates associated with a specific Docusign user.",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwraps",
@@ -1872,7 +1872,7 @@
                   {
                      "ExampleNumber":1,
                      "ExampleName":"Validate HMAC signature",
-                     "ExampleDescription":"Demonstrates an example workflow for a client app receiving and validating a webhook (DocuSign Connect) message using HMAC security.",
+                     "ExampleDescription":"Demonstrates an example workflow for a client app receiving and validating a webhook (Docusign Connect) message using HMAC security.",
                      "Forms":[
                         {
                            "Inputs":[
@@ -1919,7 +1919,7 @@
                         },
                         {
                            "Name":"create_web_form",
-                           "ResultsPageText":"Go to your DocuSign account to create the Web Form. Go to 'Forms' in your developer account, select 'New,' and choose 'Upload web form.' Upload the JSON config file 'web-form-config.json' found under the demo_documents folder of this project. You will need to activate the web form before proceeding. Press Continue after doing so."
+                           "ResultsPageText":"Go to your Docusign account to create the Web Form. Go to 'Forms' in your developer account, select 'New,' and choose 'Upload web form.' Upload the JSON config file 'web-form-config.json' found under the demo_documents folder of this project. You will need to activate the web form before proceeding. Press Continue after doing so."
                         }
                      ],
                      "SkipForLanguages":"ruby"
@@ -1980,7 +1980,7 @@
                         "CustomErrorTexts":[
                            {
                               "ErrorMessageCheck":"NO_ACTIVE_WORKFLOW_FOUND",
-                              "ErrorMessage":"<p>Problem: No active workflow found. Please create a new workflow and publish it on your <a href=\"https://apps-d.docusign.com/\">DocuSign account page</a></p>"
+                              "ErrorMessage":"<p>Problem: No active workflow found. Please create a new workflow and publish it on your <a href=\"https://apps-d.docusign.com/\">Docusign account page</a></p>"
                            }
                         ],
                         "ResultsPageText": "Workflow instance is created. Please check your email to complete the workflow.",
@@ -2061,7 +2061,7 @@
                   {
                      "ExampleNumber":1,
                      "ExampleName":"Create a room with data",
-                     "ExampleDescription":"Demonstrates how to create a DocuSign room that contains populated data.",
+                     "ExampleDescription":"Demonstrates how to create a Docusign room that contains populated data.",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/rooms-api/reference/Rooms/Rooms/CreateRoom",
@@ -2087,7 +2087,7 @@
                   {
                      "ExampleNumber":2,
                      "ExampleName":"Create a room with a template",
-                     "ExampleDescription":"Demonstrates how to create a DocuSign room using a predefined template.",
+                     "ExampleDescription":"Demonstrates how to create a Docusign room using a predefined template.",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/rooms-api/reference/Rooms/Rooms/CreateRoom",
@@ -2104,7 +2104,7 @@
                      ],
                      "RedirectsToOtherCodeExamples":[
                         {
-                           "RedirectText":"<p>Problem: you don't have any templates. Please first create a form template using <a href='https://demo.rooms.docusign.com/admin/company/roomtemplates' target='_blank'>DocuSign Rooms.</a> <br />Thank you.</p>"
+                           "RedirectText":"<p>Problem: you don't have any templates. Please first create a form template using <a href='https://demo.rooms.docusign.com/admin/company/roomtemplates' target='_blank'>Docusign Rooms.</a> <br />Thank you.</p>"
                         }
                      ],
                      "Forms":[
@@ -2184,7 +2184,7 @@
                      "CustomErrorTexts":[
                         {
                            "ErrorMessageCheck":"FORMS_INTEGRATION_NOT_ENABLED",
-                           "ErrorMessage":"<p>Problem: This example is not available.</p><p>DocuSign Forms is not enabled for your DocuSign account. Please contact <a href='mailto:roomssandbox@docusign.com'>DocuSign Rooms Support</a> to enable Forms.</p>"
+                           "ErrorMessage":"<p>Problem: This example is not available.</p><p>Docusign Forms is not enabled for your Docusign account. Please contact <a href='mailto:roomssandbox@docusign.com'>Docusign Rooms Support</a> to enable Forms.</p>"
                         }
                      ],
                      "Forms":[
@@ -2277,7 +2277,7 @@
                   {
                      "ExampleNumber":7,
                      "ExampleName":"Create a form group",
-                     "ExampleDescription":"Demonstrates how to create a form group for your DocuSign Rooms for Real Estate account.",
+                     "ExampleDescription":"Demonstrates how to create a form group for your Docusign Rooms for Real Estate account.",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/rooms-api/how-to/create-form-group",
@@ -2299,7 +2299,7 @@
                   {
                      "ExampleNumber":8,
                      "ExampleName":"Grant office access to a form group",
-                     "ExampleDescription":"Demonstrates how to assign an office to a form group for your DocuSign Rooms for Real Estate account.",
+                     "ExampleDescription":"Demonstrates how to assign an office to a form group for your Docusign Rooms for Real Estate account.",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/rooms-api/how-to/access-form-group",
@@ -2343,7 +2343,7 @@
                   {
                      "ExampleNumber":9,
                      "ExampleName":"Assign a form to a form group",
-                     "ExampleDescription":"Demonstrates how to assign a form to a form group for your DocuSign Rooms for Real Estate account.",
+                     "ExampleDescription":"Demonstrates how to assign a form to a form group for your Docusign Rooms for Real Estate account.",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/rooms-api/how-to/assign-form-group",
@@ -2370,7 +2370,7 @@
                      "CustomErrorTexts":[
                         {
                            "ErrorMessageCheck":"Unhandled response type.",
-                           "ErrorMessage":"Response is empty and could not be cast to FormGroupFormToAssign. Please contact DocuSign support"
+                           "ErrorMessage":"Response is empty and could not be cast to FormGroupFormToAssign. Please contact Docusign support"
                         }
                      ],
                      "Forms":[
@@ -2473,7 +2473,7 @@
                   {
                      "ExampleNumber":2,
                      "ExampleName":"Create a new active user for CLM and eSignature",
-                     "ExampleDescription":"Demonstrates how to create a new DocuSign user (valid for both CLM and eSignature APIs) and activate their account automatically.",
+                     "ExampleDescription":"Demonstrates how to create a new Docusign user (valid for both CLM and eSignature APIs) and activate their account automatically.",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/getproductpermissionprofiles",
@@ -2490,7 +2490,7 @@
                      ],
                      "CustomErrorTexts":[
                         {
-                           "ErrorMessage":"You do not have any groups set in your DocuSign Admin. Please go to DocuSign Admin and create a group to use this code example."
+                           "ErrorMessage":"You do not have any groups set in your Docusign Admin. Please go to Docusign Admin and create a group to use this code example."
                         }
                      ],
                      "Forms":[
@@ -2519,7 +2519,7 @@
                                  "InputName":"CLM Permission Profile"
                               },
                               {
-                                 "InputName":"DocuSign Admin Group"
+                                 "InputName":"Docusign Admin Group"
                               }
                            ]
                         }
@@ -2582,8 +2582,8 @@
                   },
                   {
                      "ExampleNumber":6,
-                     "ExampleName":"Retrieve the user's DocuSign profile using an email address",
-                     "ExampleDescription":"Demonstrates how to obtain the user’s DocuSign profile information across all DocuSign accounts by specifying the user’s email address.",
+                     "ExampleName":"Retrieve the user's Docusign profile using an email address",
+                     "ExampleDescription":"Demonstrates how to obtain the user’s Docusign profile information across all Docusign accounts by specifying the user’s email address.",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/getuserprofiles",
@@ -2604,8 +2604,8 @@
                   },
                   {
                      "ExampleNumber":7,
-                     "ExampleName":"Retrieve the user's DocuSign profile using a User ID",
-                     "ExampleDescription":"Demonstrates how to obtain the user’s DocuSign profile information across all DocuSign accounts by specifying the user’s User ID.",
+                     "ExampleName":"Retrieve the user's Docusign profile using a User ID",
+                     "ExampleDescription":"Demonstrates how to obtain the user’s Docusign profile information across all Docusign accounts by specifying the user’s User ID.",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/getuserprofiles",
@@ -2662,7 +2662,7 @@
                   {
                      "ExampleNumber":9,
                      "ExampleName":"Delete user product permission profiles using an email address",
-                     "ExampleDescription":"Demonstrates how to list and delete DocuSign Admin user product permission profiles.",
+                     "ExampleDescription":"Demonstrates how to list and delete Docusign Admin user product permission profiles.",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/getuserproductpermissionprofilesbyemail",
