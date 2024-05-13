@@ -45,6 +45,25 @@ namespace ESignature.Examples
             // Step 3. create the sender view
             // Call the CreateSenderView API
             // Exceptions will be caught by the calling function
+            EnvelopeViewRequest viewRequest = PrepareViewRequest(startingView, returnUrl);
+
+            ViewUrl result1 = envelopesApi.CreateSenderView(accountId, envelopeId, viewRequest);
+
+            // Switch to Recipient and Documents view if requested by the user
+            string redirectUrl = result1.Url;
+            Console.WriteLine("startingView: " + startingView);
+            if ("recipient".Equals(startingView))
+            {
+                redirectUrl = redirectUrl.Replace("send=1", "send=0");
+            }
+
+            //ds-snippet-end:eSign11Step3
+
+            return redirectUrl;
+        }
+
+        private static EnvelopeViewRequest PrepareViewRequest(string startingView, string returnUrl)
+        {
             EnvelopeViewSettings viewSettings = new EnvelopeViewSettings
             {
                 StartingScreen = startingView,
@@ -82,20 +101,7 @@ namespace ESignature.Examples
                 ViewAccess = "envelope",
                 Settings = viewSettings,
             };
-
-            ViewUrl result1 = envelopesApi.CreateSenderView(accountId, envelopeId, viewRequest);
-
-            // Switch to Recipient and Documents view if requested by the user
-            string redirectUrl = result1.Url;
-            Console.WriteLine("startingView: " + startingView);
-            if ("recipient".Equals(startingView))
-            {
-                redirectUrl = redirectUrl.Replace("send=1", "send=0");
-            }
-
-            //ds-snippet-end:eSign11Step3
-
-            return redirectUrl;
+            return viewRequest;
         }
 
         //ds-snippet-start:eSign11Step2
