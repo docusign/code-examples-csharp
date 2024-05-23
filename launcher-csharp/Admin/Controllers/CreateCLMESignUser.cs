@@ -106,7 +106,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
 
             //ds-snippet-start:Admin2Step3
             var productPermissionProfileApi = new ProductPermissionProfilesApi(apiClient);
-            var productPermissionProfiles = productPermissionProfileApi.GetProductPermissionProfiles(organizationId, Guid.Parse(accountId));
+            var productPermissionProfiles = productPermissionProfileApi.GetProductPermissionProfiles(organizationId.Value, Guid.Parse(accountId));
             this.ViewBag.CLMPermissionProfiles = productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "CLM").PermissionProfiles;
             this.ViewBag.ESignPermissionProfiles = productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "ESign").PermissionProfiles;
             clmProductId = productPermissionProfiles.ProductPermissionProfiles.Find(x => x.ProductName == "CLM").ProductId;

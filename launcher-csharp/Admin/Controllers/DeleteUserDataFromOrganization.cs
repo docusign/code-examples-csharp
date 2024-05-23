@@ -17,7 +17,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
     using Newtonsoft.Json;
 
     [Area("Admin")]
-    [Route("Aeg010")]
+    [Route("aeg010")]
     public class DeleteUserDataFromOrganization : EgController
     {
         public DeleteUserDataFromOrganization(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
@@ -27,7 +27,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "Aeg010";
+        public override string EgName => "aeg010";
 
         [MustAuthenticate]
         [SetViewBag]
