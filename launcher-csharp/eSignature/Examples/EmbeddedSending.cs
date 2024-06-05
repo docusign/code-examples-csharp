@@ -41,14 +41,12 @@ namespace ESignature.Examples
             string envelopeId = results.EnvelopeId;
             //ds-snippet-end:eSign11Step2
 
-            //ds-snippet-start:eSign11Step3
             // Step 3. create the sender view
             // Call the CreateSenderView API
             // Exceptions will be caught by the calling function
-            ReturnUrlRequest viewRequest = new ReturnUrlRequest
-            {
-                ReturnUrl = returnUrl,
-            };
+            //ds-snippet-start:eSign11Step3
+            EnvelopeViewRequest viewRequest = PrepareViewRequest(startingView, returnUrl);
+
             ViewUrl result1 = envelopesApi.CreateSenderView(accountId, envelopeId, viewRequest);
 
             // Switch to Recipient and Documents view if requested by the user
@@ -63,6 +61,50 @@ namespace ESignature.Examples
 
             return redirectUrl;
         }
+
+        //ds-snippet-start:eSign11Step3
+        private static EnvelopeViewRequest PrepareViewRequest(string startingView, string returnUrl)
+        {
+            EnvelopeViewSettings viewSettings = new EnvelopeViewSettings
+            {
+                StartingScreen = startingView,
+                SendButtonAction = "send",
+                ShowBackButton = "false",
+                BackButtonAction = "previousPage",
+                ShowHeaderActions = "false",
+                ShowDiscardAction = "false",
+                LockToken = string.Empty,
+                RecipientSettings = new EnvelopeViewRecipientSettings
+                {
+                    ShowEditRecipients = "false",
+                    ShowContactsList = "false",
+                },
+                DocumentSettings = new EnvelopeViewDocumentSettings
+                {
+                    ShowEditDocuments = "false",
+                    ShowEditDocumentVisibility = "false",
+                    ShowEditPages = "false",
+                },
+                TaggerSettings = new EnvelopeViewTaggerSettings
+                {
+                    PaletteSections = "default",
+                    PaletteDefault = "custom",
+                },
+                TemplateSettings = new EnvelopeViewTemplateSettings
+                {
+                    ShowMatchingTemplatesPrompt = "true",
+                },
+            };
+
+            EnvelopeViewRequest viewRequest = new EnvelopeViewRequest
+            {
+                ReturnUrl = returnUrl,
+                ViewAccess = "envelope",
+                Settings = viewSettings,
+            };
+            return viewRequest;
+        }
+        //ds-snippet-end:eSign11Step3
 
         //ds-snippet-start:eSign11Step2
         private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string ccEmail, string ccName, string docDocx, string docPdf, string envStatus)
