@@ -50,7 +50,12 @@ namespace DocuSign.WebForms.Examples
             }
         }
 
-        public static TriggerWorkflowViaPostResponse TriggerWorkflow(DocuSignClient docuSignClient, string accountId, Uri triggerUrl, WorkflowTriggerModel model)
+        public static TriggerWorkflowViaPostResponse TriggerWorkflow(
+            DocuSignClient docuSignClient,
+            string accountId,
+            Uri triggerUrl,
+            WorkflowTriggerModel model,
+            string workflowId)
         {
             //ds-snippet-start:Maestro1Step4
             var maestroApi = new WorkflowTriggerApi(docuSignClient);
@@ -76,7 +81,7 @@ namespace DocuSign.WebForms.Examples
             };
             //ds-snippet-end:Maestro1Step4
             //ds-snippet-start:Maestro1Step5
-            return maestroApi.TriggerWorkflow(accountId, payload, options);
+            return maestroApi.TriggerWorkflow(accountId, workflowId, payload, options);
             //ds-snippet-end:Maestro1Step5
         }
     }
