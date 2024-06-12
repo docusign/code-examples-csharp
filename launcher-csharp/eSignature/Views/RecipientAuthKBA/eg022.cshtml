@@ -21,8 +21,6 @@
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
-    <p>@Html.Raw(ViewBag.CodeExampleText.Notes)</p>
-
     <div class="form-group">
         <label for="signerEmail">
             @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputName)
@@ -34,8 +32,7 @@
                name="signerEmail"
                aria-describedby="emailHelp"
                placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputPlaceholder" 
-               required
-               value="@ViewBag.Locals.DsConfig.SignerEmail">
+               required>
         <small id="emailHelp" class="form-text text-muted">
             @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)
         </small>
@@ -50,7 +47,6 @@
                id="signerName" 
                placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputPlaceholder" 
                name="signerName"
-               value="@ViewBag.Locals.DsConfig.SignerName" 
                required />
     </div>
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
