@@ -27,6 +27,15 @@ namespace DocuSign.CodeExamples.Controllers
         [SetViewBag]
         public IActionResult Create(string signerEmail, string signerName, string ccEmail, string ccName)
         {
+            if (signerEmail == this.Config.SignerEmail)
+            {
+                this.ViewBag.errorCode = "400";
+                this.ViewBag.errorMessage = this.LauncherTexts.ManifestStructure.SupportingTexts.IdenticalEmailsNotAllowedErrorMessage;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
+
+                return this.View("Error");
+            }
+
             try
             {
                 // Check the token with minimal buffer time.

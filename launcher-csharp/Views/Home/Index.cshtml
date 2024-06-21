@@ -6,18 +6,18 @@
     Boolean.TryParse(ViewData["showDoc"].ToString(), out showDoc);//ViewBag.ShowDoc;
     Layout = "_HomeLayout";
 }
-    <div class="jumbotron">
+<div class="jumbotron" style="background-color: #210058!important">
         <table>
             <tbody>
                 <tr>
                     <td>
-                        <h1 class="display-4">C# Launcher</h1>
+                    <h1 class="display-4" style="background-color: #210058!important">C# Launcher</h1>
                         <p class="Xlead">
                             @Html.Raw(ViewBag.SupportingTexts.HomePageText)
                         </p>
                     </td>
                     <td>
-                        <img src="/images/banner-code.PNG" />
+                        <img src="/images/header.PNG" />
                     </td>
                 </tr>
             </tbody>
