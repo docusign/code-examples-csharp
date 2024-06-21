@@ -50,6 +50,9 @@ namespace DocuSign.CodeExamples.ESignature.Models
         [JsonProperty("ContactSupportToEnableFeature")]
         public string ContactSupportToEnableFeature { get; set; }
 
+        [JsonProperty("IdenticalEmailsNotAllowedErrorMessage")]
+        public string IdenticalEmailsNotAllowedErrorMessage { get; set; }
+
         [JsonProperty("LoginPage")]
         public LoginPage LoginPage { get; set; }
 

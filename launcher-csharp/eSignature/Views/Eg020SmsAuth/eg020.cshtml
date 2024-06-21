@@ -51,8 +51,7 @@
                name="signerEmail"
                aria-describedby="emailHelp" 
                placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[emailInputNumber].InputPlaceholder" 
-               required
-               value="@ViewBag.Locals.DsConfig.SignerEmail">
+               required>
 
         <small id="emailHelp" class="form-text text-muted">
             @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)
@@ -68,7 +67,6 @@
                id="signerName" 
                placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[nameInputNumber].InputPlaceholder" 
                name="signerName"
-               value="@ViewBag.Locals.DsConfig.SignerName" 
                required>
     </div>
 

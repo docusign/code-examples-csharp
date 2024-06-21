@@ -14,6 +14,7 @@
       "WelcomeText":"Welcome {0} (Account: {1})",
       "CFRError":"This example is not compatible with your CFR Part 11 account. Please return to the homepage to run one of the examples that is compatible or authenticate with a different account.",
       "ContactSupportToEnableFeature": "Please contact <a href=\"https://support.docusign.com/\">support</a> to enable {0} in your account",
+      "IdenticalEmailsNotAllowedErrorMessage": "For recipient authentication you must specify a different recipient from the account owner (sender) in order to ensure recipient authentication is performed",
       "LoginPage":{
          "LoginHeader":"<h1 class='display-4'>Please Authenticate with Docusign</h1><label for='auth_type'>Please choose your authentication type</label>",
          "LoginButton":"Authenticate with Docusign",
@@ -187,7 +188,8 @@
                               },
                               {
                                  "InputName": "RSUs"
-                              }                           ]
+                              }
+                           ]
                         }
                      ],
                      "ResultsPageText":"The envelope has been created and sent!<br />Envelope ID {0}."
@@ -1520,7 +1522,7 @@
                      "CFREnabled":"AllAccounts",
                      "ExampleName":"Send an envelope with ID Verification Authentication",
                      "ExampleDescription":"Submit an envelope that requires verification of a government issued identity.",
-                     "Notes":"<p><b>Note:<b/> The access code for this example is the Signer Name.</p>",
+                     "Notes":"<b>Note:</b> The access code for this example is the Signer Name.",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
@@ -1554,7 +1556,7 @@
                      "CFREnabled":"AllAccounts",
                      "ExampleName":"Send an envelope with Recipient Knowledged Based Authentication",
                      "ExampleDescription":"Submit an envelope with multiple choice, public records based questions to provide multi-factor authentication.",
-                     "Notes":"<p><b>Note:<b/> The access code for this example is the Signer Name.</p>",
+                     "Notes":"<b>Note:</b> The access code for this example is the Signer Name.",
                      "LinksToAPIMethod":[
                         {
                            "Path":"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
@@ -1886,7 +1888,7 @@
                         }
                      ],
                      "ResultsPageText":"This value should match the value of your x-docusign-signature header: <br/>HMAC signature {0}",
-                     "SkipForLanguages":"bash;powershell;java;php"
+                     "SkipForLanguages":"bash;powershell"
                   }
                ]
             }
@@ -1982,8 +1984,7 @@
                               "ErrorMessage":"<p>Problem: No active workflow found. Please create a new workflow and publish it on your <a href=\"https://apps-d.docusign.com/\">Docusign account page</a></p>"
                            }
                         ],
-                        "ResultsPageText": "Workflow instance is created. Please check your email to complete the workflow.",
-                        "SkipForLanguages":"csharp;java;php;python;node;ruby"
+                        "ResultsPageText": "Workflow instance is created. Please check your email to complete the workflow."
                     },
                     {
                         "ExampleNumber": 2,
@@ -2013,8 +2014,7 @@
                                 "RedirectText": "<p>Error: No in progress workflow instance found, please <a {0}>trigger a workflow</a></p>"
                             }
                         ],
-                        "ResultsPageText": "Workflow instance {0} was canceled.",
-                        "SkipForLanguages":"csharp;java;php;python;node;ruby"
+                        "ResultsPageText": "Workflow instance {0} was canceled."
                     },
                     {
                         "ExampleNumber": 3,
@@ -2044,8 +2044,7 @@
                                 "RedirectText": "<p>Error: No workflow instance found, please <a {0}>trigger a workflow</a></p>"
                             }
                         ],
-                        "ResultsPageText": "Workflow instance state: {0}",
-                        "SkipForLanguages":"csharp;java;php;python;node;ruby"
+                        "ResultsPageText": "Workflow instance state: {0}"
                     }
                 ]
             }
@@ -2714,8 +2713,7 @@
                            ]
                         }
                      ],
-                     "ResultsPageText":"Results from DataDeletion:redactIndividualMembershipData method:",
-                     "SkipForLanguages":"java"
+                     "ResultsPageText":"Results from DataDeletion:redactIndividualMembershipData method:"
                   },
                   {
                      "ExampleNumber":11,
@@ -2737,8 +2735,7 @@
                            ]
                         }
                      ],
-                     "ResultsPageText":"Results from DataDeletion:redactIndividualUserData method:",
-                     "SkipForLanguages":"java"
+                     "ResultsPageText":"Results from DataDeletion:redactIndividualUserData method:"
                   },
                   {
                      "ExampleNumber":12,
