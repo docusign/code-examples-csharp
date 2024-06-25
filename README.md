@@ -2,7 +2,7 @@
 
 ### GitHub repo: [code-examples-csharp](./README.md)
 
-This GitHub repo includes code examples for the DocuSign Admin API, Click API, eSignature REST API, Monitor API, and Rooms API. To switch between API code examples, modify the `ExamplesAPI` setting from `ESignature` to `Admin`, `Click`, `Monitor`, or  `Rooms`, in the appsettings.json file. 
+This GitHub repo includes code examples for the Web Forms API, Maestro API, Docusign Admin API, Click API, eSignature REST API, Monitor API, and Rooms API. 
 
 
 ## Introduction
