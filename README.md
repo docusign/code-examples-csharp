@@ -2,7 +2,7 @@
 
 ### GitHub repo: [code-examples-csharp](./README.md)
 
-This GitHub repo includes code examples for the Web Forms API, Maestro API, Docusign Admin API, Click API, eSignature REST API, Monitor API, and Rooms API. 
+This GitHub repo includes code examples for the [Web Forms API](https://developers.docusign.com/docs/web-forms-api/), [Maestro API](https://developers.docusign.com/docs/maestro-api/), [Docusign Admin API](https://developers.docusign.com/docs/admin-api/), [Click API](https://developers.docusign.com/docs/click-api/), [eSignature REST API](https://developers.docusign.com/docs/esign-rest-api/), [Monitor API](https://developers.docusign.com/docs/monitor-api/), and [Rooms API](https://developers.docusign.com/docs/rooms-api/). 
 
 
 ## Introduction
