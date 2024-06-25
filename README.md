@@ -1,9 +1,6 @@
 # C# Launcher Code Examples
 
-```diff
-+ PLEASE! Share your feedback. 
-```
-[Quickstart survey](https://docs.google.com/forms/d/e/1FAIpQLScPa74hwhJwi7XWDDj4-XZVOQTF9jJWgbIFEpulXokCqYWT4A/viewform?usp=pp_url&entry.680551577=C%23).
+PLEASE! Share your feedback in a [two questions survey] (https://docs.google.com/forms/d/e/1FAIpQLScPa74hwhJwi7XWDDj4-XZVOQTF9jJWgbIFEpulXokCqYWT4A/viewform?usp=pp_url&entry.680551577=C%23).
 
 ### GitHub repo: [code-examples-csharp](./README.md)
 
