@@ -51,6 +51,6 @@ namespace DocuSign.CodeExamples.ESignature.Models
         public string EmailAddressOfUserToDelete { get; set; }
 
         [JsonProperty("UserIDOfUserToDelete")]
-        public string UserIdOfUserToDelete { get; set; }
+        public string UserIDOfUserToDelete { get; set; }
     }
 }

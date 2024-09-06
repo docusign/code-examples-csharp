@@ -71,8 +71,6 @@ async function loadWebform() {
   });
 
   webFormWidget.on('sessionEnd', (event) => {
-    //There are 3 sessionEnd types sessionTimeout, remoteSigningInitiated, signingResult
-
     // event = { type: 'sessionEnd', sessionEndType: 'sessionTimeout' };
     // event = {
     //   type: 'sessionEnd',

@@ -150,7 +150,8 @@ namespace DocuSign.Maestro.Controllers
                     docuSignManageClient,
                     accountId,
                     new Uri(workflow.TriggerUrl),
-                    model);
+                    model,
+                    this.RequestItemsService.WorkflowId);
 
                 this.RequestItemsService.InstanceId = result.InstanceId;
 
