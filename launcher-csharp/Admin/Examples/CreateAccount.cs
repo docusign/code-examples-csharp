@@ -19,19 +19,6 @@ namespace DocuSign.Admin.Examples
         private const string DefaultCountryCode = "US";
 
         /// <summary>
-        /// Helper method to configure DocuSign client with authorization headers.
-        /// </summary>
-        /// <param name="basePath">BasePath for API calls (URI)</param>
-        /// <param name="accessToken">Access Token for API call (OAuth)</param>
-        /// <returns>Configured DocuSignClient</returns>
-        private static DocuSignClient GetConfiguredClient(string basePath, string accessToken)
-        {
-            var docuSignClient = new DocuSignClient(basePath);
-            docuSignClient.Configuration.DefaultHeader[AuthorizationHeader] = BearerPrefix + accessToken;
-            return docuSignClient;
-        }
-
-        /// <summary>
         /// Get all plan items and return the first. Required scopes: organization_sub_account_read
         /// </summary>
         /// <param name="basePath">BasePath for API calls (URI)</param>
@@ -77,6 +64,19 @@ namespace DocuSign.Admin.Examples
             var subAccountRequest = BuildSubAccountRequest(email, firstName, lastName, subscriptionId, planId);
 
             return assetGroupApi.CreateAssetGroupAccount(orgId, subAccountRequest);
+        }
+
+        /// <summary>
+        /// Helper method to configure DocuSign client with authorization headers.
+        /// </summary>
+        /// <param name="basePath">BasePath for API calls (URI)</param>
+        /// <param name="accessToken">Access Token for API call (OAuth)</param>
+        /// <returns>Configured DocuSignClient</returns>
+        private static DocuSignClient GetConfiguredClient(string basePath, string accessToken)
+        {
+            var docuSignClient = new DocuSignClient(basePath);
+            docuSignClient.Configuration.DefaultHeader[AuthorizationHeader] = BearerPrefix + accessToken;
+            return docuSignClient;
         }
 
         /// <summary>
