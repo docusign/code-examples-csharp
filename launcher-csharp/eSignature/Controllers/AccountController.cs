@@ -116,7 +116,7 @@ namespace DocuSign.CodeExamples.Controllers
             }
             else if (apiType == ExamplesApiType.Admin)
             {
-                scopes += " user_read user_write organization_read account_read group_read permission_read identity_provider_read domain_read user_data_redact asset_group_account_read asset_group_account_clone_write asset_group_account_clone_read";
+                scopes += " user_read user_write organization_read account_read group_read permission_read identity_provider_read domain_read user_data_redact asset_group_account_read asset_group_account_clone_write asset_group_account_clone_read organization_sub_account_write organization_sub_account_read";
             }
             else if (apiType == ExamplesApiType.WebForms)
             {

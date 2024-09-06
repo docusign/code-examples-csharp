@@ -79,6 +79,8 @@ namespace DocuSign.CodeExamples
                     "asset_group_account_read",
                     "asset_group_account_clone_write",
                     "asset_group_account_clone_read",
+                    "organization_sub_account_write",
+                    "organization_sub_account_read",
             });
 
             this.apiTypes.Add(ExamplesApiType.WebForms, new List<string>
