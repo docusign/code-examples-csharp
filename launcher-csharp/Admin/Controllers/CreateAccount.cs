@@ -29,7 +29,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
         [SetViewBag]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CloneAccountData(
+        public ActionResult CreateAccountData(
             string email,
             string firstName,
             string lastName)

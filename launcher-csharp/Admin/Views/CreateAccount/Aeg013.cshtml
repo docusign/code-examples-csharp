@@ -11,30 +11,25 @@
 </p>
 
 
-<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" />
 
 <p>
     @Html.Raw(
-        @String.Format(
-            ViewBag.SupportingTexts.ViewSourceFile, 
+            @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile,
             "<a target='_blank' href=" + @ViewBag.source + ">CreateAccount.cs</a>"
             )
-        )
+            )
 </p>
 
-<form class="eg" asp-action="CloneAccountData" method="post" data-busy="form">
+<form class="eg" asp-action="CreateAccountData" method="post" data-busy="form">
     <div class="form-group">
         <label for="email">
             @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[emailInputNumber].InputName)
         </label>
 
-        <input type="email"
-               class="form-control"
-               id="email"
-               name="email"
-               aria-describedby="emailHelp"
-               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[emailInputNumber].InputPlaceholder"
-               required>
+        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
+            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[emailInputNumber].InputPlaceholder" required>
     </div>
 
     <div class="form-group">
@@ -42,12 +37,9 @@
             @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[firstNameInputNumber].InputName)
         </label>
 
-        <input type="text"
-               class="form-control"
-               id="firstName"
-               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[firstNameInputNumber].InputPlaceholder"
-               name="firstName"
-               required />
+        <input type="text" class="form-control" id="firstName"
+            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[firstNameInputNumber].InputPlaceholder"
+            name="firstName" required />
     </div>
 
     <div class="form-group">
@@ -55,12 +47,9 @@
             @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[lastNameInputNumber].InputName)
         </label>
 
-        <input type="text"
-               class="form-control"
-               id="lastName"
-               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[lastNameInputNumber].InputPlaceholder"
-               name="lastName"
-               required />
+        <input type="text" class="form-control" id="lastName"
+            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[lastNameInputNumber].InputPlaceholder"
+            name="lastName" required />
     </div>
 
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
