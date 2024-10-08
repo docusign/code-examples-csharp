@@ -158,53 +158,48 @@ namespace DocuSign.CodeExamples
                 options.TokenEndpoint = this.Configuration["DocuSign:TokenEndpoint"];
                 options.UserInformationEndpoint = this.Configuration["DocuSign:UserInformationEndpoint"];
 
-                foreach (var apiType in this.apiTypes)
-                {
-                    foreach (var scope in apiType.Value)
-                    {
-                        if (!options.Scope.Contains(scope.ToLower()))
-                        {
-                            options.Scope.Add(scope);
-                        }
-                    }
-                }
+                string codeVerifier = GenerateCodeVerifier();
+                string codeChallenge = GenerateCodeChallenge(codeVerifier);
 
-                options.SaveTokens = true;
-                options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "sub");
-                options.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
-                options.ClaimActions.MapJsonKey("accounts", "accounts");
-                options.ClaimActions.MapCustomJson("account_id", obj => this.ExtractDefaultAccountValue(obj, "account_id"));
-                options.ClaimActions.MapCustomJson("account_name", obj => this.ExtractDefaultAccountValue(obj, "account_name"));
-                options.ClaimActions.MapCustomJson("base_uri", obj => this.ExtractDefaultAccountValue(obj, "base_uri"));
-                options.ClaimActions.MapJsonKey("access_token", "access_token");
-                options.ClaimActions.MapJsonKey("refresh_token", "refresh_token");
-                options.ClaimActions.MapJsonKey("expires_in", "expires_in");
                 options.Events = new OAuthEvents
                 {
                     OnRedirectToAuthorizationEndpoint = redirectContext =>
                     {
                         List<string> scopesForCurrentApi = this.apiTypes.GetValueOrDefault(Enum.Parse<ExamplesApiType>(this.Configuration["API"]));
 
-                        redirectContext.RedirectUri = this.UpdateRedirectUriScopes(redirectContext.RedirectUri, scopesForCurrentApi);
+                        var redirectUri = this.UpdateRedirectUriScopes(redirectContext.RedirectUri, scopesForCurrentApi);
+
+                        var pkceQuery = $"&code_challenge={codeChallenge}&code_challenge_method=S256";
+                        redirectContext.RedirectUri = redirectUri + pkceQuery;
+
+                        redirectContext.HttpContext.Session.SetString("code_verifier", codeVerifier);
 
                         redirectContext.HttpContext.Response.Redirect(redirectContext.RedirectUri);
                         return Task.FromResult(0);
                     },
                     OnCreatingTicket = async context =>
                     {
-                        var request = new HttpRequestMessage(HttpMethod.Get, context.Options.UserInformationEndpoint);
-                        request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", context.AccessToken);
-                        var response = await context.Backchannel.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, context.HttpContext.RequestAborted);
-                        response.EnsureSuccessStatusCode();
-                        var user = JObject.Parse(await response.Content.ReadAsStringAsync());
-                        user.Add("access_token", context.AccessToken);
-                        user.Add("refresh_token", context.RefreshToken);
-                        user.Add("expires_in", DateTime.Now.Add(context.ExpiresIn.Value).ToString());
-                        using (JsonDocument payload = JsonDocument.Parse(user.ToString()))
+                        string codeVerifier = context.HttpContext.Session.GetString("code_verifier");
+
+                        var tokenRequestParams = new Dictionary<string, string>
                         {
-                            context.RunClaimActions(payload.RootElement);
-                        }
+                            { "grant_type", "authorization_code" },
+                            { "code", context.ProtocolMessage.Code },
+                            { "redirect_uri", context.Properties.RedirectUri },
+                            { "client_id", options.ClientId },
+                            { "code_verifier", codeVerifier },
+                        };
+
+                        var requestContent = new FormUrlEncodedContent(tokenRequestParams);
+                        var requestMessage = new HttpRequestMessage(HttpMethod.Post, options.TokenEndpoint)
+                        {
+                            Content = requestContent
+                        };
+                        var response = await context.Backchannel.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, context.HttpContext.RequestAborted);
+                        response.EnsureSuccessStatusCode();
+
+                        var payload = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+                        context.RunClaimActions(payload.RootElement);
                     },
                     OnRemoteFailure = context =>
                     {
@@ -264,6 +259,33 @@ namespace DocuSign.CodeExamples
                             name: "default",
                             pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private string GenerateCodeVerifier()
+        {
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                var bytes = new byte[32];
+                rng.GetBytes(bytes);
+                return Base64UrlEncode(bytes);
+            }
+        }
+
+        private string GenerateCodeChallenge(string codeVerifier)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                var hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(codeVerifier));
+                return Base64UrlEncode(hash);
+            }
+        }
+
+        private string Base64UrlEncode(byte[] input)
+        {
+            return Convert.ToBase64String(input)
+                .Replace("+", "-")
+                .Replace("/", "_")
+                .Replace("=", "");
         }
 
         private string UpdateRedirectUriScopes(string uri, List<string> wantedScopes)
