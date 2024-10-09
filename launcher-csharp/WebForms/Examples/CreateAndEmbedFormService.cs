@@ -134,7 +134,7 @@ namespace DocuSign.WebForms.Examples
                 },
                 SignHereTabs = new List<SignHere>
                 {
-                    new SignHere()  
+                    new SignHere()
                     {
                         DocumentId = "1",
                         TabLabel = "Signature",
