@@ -128,13 +128,13 @@ namespace DocuSign.WebForms.Examples
                         TabLabel = "Yes",
                         AnchorString = "/SMS/",
                         AnchorUnits = "pixels",
-                        AnchorXOffset = "20",
-                        AnchorYOffset = "10",
+                        AnchorXOffset = "0",
+                        AnchorYOffset = "0",
                     },
                 },
                 SignHereTabs = new List<SignHere>
                 {
-                    new SignHere()
+                    new SignHere()  
                     {
                         DocumentId = "1",
                         TabLabel = "Signature",
@@ -152,8 +152,8 @@ namespace DocuSign.WebForms.Examples
                         TabLabel = "FullName",
                         AnchorString = "/FullName/",
                         AnchorUnits = "pixels",
-                        AnchorXOffset = "20",
-                        AnchorYOffset = "10",
+                        AnchorXOffset = "0",
+                        AnchorYOffset = "0",
                     },
                     new Text()
                     {
@@ -161,8 +161,8 @@ namespace DocuSign.WebForms.Examples
                         TabLabel = "PhoneNumber",
                         AnchorString = "/PhoneNumber/",
                         AnchorUnits = "pixels",
-                        AnchorXOffset = "20",
-                        AnchorYOffset = "10",
+                        AnchorXOffset = "0",
+                        AnchorYOffset = "0",
                     },
                     new Text()
                     {
@@ -170,8 +170,8 @@ namespace DocuSign.WebForms.Examples
                         TabLabel = "Company",
                         AnchorString = "/Company/",
                         AnchorUnits = "pixels",
-                        AnchorXOffset = "20",
-                        AnchorYOffset = "10",
+                        AnchorXOffset = "0",
+                        AnchorYOffset = "0",
                     },
                     new Text()
                     {
@@ -179,8 +179,8 @@ namespace DocuSign.WebForms.Examples
                         TabLabel = "JobTitle",
                         AnchorString = "/Title/",
                         AnchorUnits = "pixels",
-                        AnchorXOffset = "20",
-                        AnchorYOffset = "10",
+                        AnchorXOffset = "0",
+                        AnchorYOffset = "0",
                     },
                 },
                 DateSignedTabs = new List<DateSigned>
@@ -191,8 +191,8 @@ namespace DocuSign.WebForms.Examples
                         TabLabel = "DateSigned",
                         AnchorString = "/Date/",
                         AnchorUnits = "pixels",
-                        AnchorXOffset = "20",
-                        AnchorYOffset = "10",
+                        AnchorXOffset = "0",
+                        AnchorYOffset = "0",
                     },
                 },
             };
@@ -204,7 +204,7 @@ namespace DocuSign.WebForms.Examples
 
             return new EnvelopeTemplate()
             {
-                Description = "Example template created via the API",
+                Description = "Example template created via the eSignature API",
                 Name = resultsTemplateName,
                 Shared = "false",
                 Documents = new List<Document> { document },
