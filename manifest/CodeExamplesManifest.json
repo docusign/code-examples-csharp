@@ -1921,7 +1921,7 @@
                         },
                         {
                            "Name":"create_web_form",
-                           "ResultsPageText":"Go to your Docusign account to create the Web Form. Go to 'Templates' in your developer account, select 'Start,' select 'Web Forms,' and choose 'Upload Web Form.' Upload the JSON config file 'web-form-config.json' found under the demo_documents folder of this project. You will need to activate the web form before proceeding. Press Continue after doing so."
+                           "ResultsPageText":"Go to your Docusign account to create the Web Form. Go to 'Templates' in your developer account, select 'Start,' select 'Web Forms,' and choose 'Upload Web Form.' Upload the JSON config file 'web-form-config.json' found under the {0} folder of this project. You will need to activate the web form before proceeding. Press Continue after doing so."
                         }
                      ]
                   }
