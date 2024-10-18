@@ -90,7 +90,7 @@ For a list of code examples that use the Web Forms API, see the [How-to guides o
 
    where {base_url} is the URL for the web app.
 
-1. [C# .NET Core](https://dotnet.microsoft.com/download/dotnet-core) 3.1 or later.
+1. [Microsoft .NET](https://dotnet.microsoft.com/en-us/download) 8.0 or later.
 1. [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/) with ASP.NET package
 
 
