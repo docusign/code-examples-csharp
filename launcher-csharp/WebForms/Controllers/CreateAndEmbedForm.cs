@@ -79,7 +79,7 @@ namespace DocuSign.CodeExamples.WebForms.Controllers
 
             this.ViewBag.CodeExampleText = this.CodeExampleText;
             this.ViewBag.Description = this.CodeExampleText.AdditionalPages
-                .First(x => x.Name == "create_web_form").ResultsPageText;
+                .First(x => x.Name == "create_web_form").ResultsPageText.Replace("{0}", "launcher-csharp");
 
             return this.View("embedForm");
         }

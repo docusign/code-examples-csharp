@@ -1890,40 +1890,40 @@
               "ResultsPageText": "This value should match the value of your x-docusign-signature header: <br/>HMAC signature {0}",
               "SkipForLanguages": "bash;powershell"
             }
-          ]
-        }
-      ]
-    },
-    {
-      "Name": "WebForms",
-      "Groups": [
-        {
-          "Name": "Web forms",
-          "Examples": [
+         ]
+      },
+      {
+         "Name":"WebForms",
+         "Groups":[
             {
-              "ExampleNumber": 1,
-              "ExampleName": "Create and embed an instance of a web form",
-              "ExampleDescription": "Creates an instance of a web form and embeds it on an HTML page.",
-              "LinksToAPIMethod": [
-                {
-                  "Path": "",
-                  "PathName": "WebForms:ListWebForms"
-                },
-                {
-                  "Path": "",
-                  "PathName": "WebForms:CreateInstance"
-                }
-              ],
-              "AdditionalPage": [
-                {
-                  "Name": "create_web_form_template",
-                  "ResultsPageText": "First the launcher will create a new template in your account that will be used to create the web form."
-                },
-                {
-                  "Name": "create_web_form",
-                  "ResultsPageText": "Go to your Docusign account to create the Web Form. Go to 'Templates' in your developer account, select 'Start,' select 'Web Forms,' and choose 'Upload Web Form.' Upload the JSON config file 'web-form-config.json' found under the demo_documents folder of this project. You will need to activate the web form before proceeding. Press Continue after doing so."
-                }
-              ]
+               "Name":"Web forms",
+               "Examples":[
+                  {
+                     "ExampleNumber":1,
+                     "ExampleName":"Create and embed an instance of a web form",
+                     "ExampleDescription":"Creates an instance of a web form and embeds it on an HTML page.",
+                     "LinksToAPIMethod":[
+                        {
+                           "Path":"",
+                           "PathName":"WebForms:ListWebForms"
+                        },
+                        {
+                           "Path":"",
+                           "PathName":"WebForms:CreateInstance"
+                        }
+                     ],
+                     "AdditionalPage":[
+                        {
+                           "Name":"create_web_form_template",
+                           "ResultsPageText":"First the launcher will create a new template in your account that will be used to create the web form."
+                        },
+                        {
+                           "Name":"create_web_form",
+                           "ResultsPageText":"Go to your Docusign account to create the Web Form. Go to 'Templates' in your developer account, select 'Start,' select 'Web Forms,' and choose 'Upload Web Form.' Upload the JSON config file 'web-form-config.json' found under the {0} folder of this project. You will need to activate the web form before proceeding. Press Continue after doing so."
+                        }
+                     ]
+                  }
+               ]
             }
           ]
         }
