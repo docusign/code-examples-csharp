@@ -11,10 +11,13 @@ namespace DocuSign.CodeExamples
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Security.Claims;
+    using System.Security.Cryptography;
+    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using System.Web;
+    using Azure.Core;
     using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Models;
     using DocuSign.Rooms.Api;
@@ -179,14 +182,17 @@ namespace DocuSign.CodeExamples
                 options.ClaimActions.MapJsonKey("access_token", "access_token");
                 options.ClaimActions.MapJsonKey("refresh_token", "refresh_token");
                 options.ClaimActions.MapJsonKey("expires_in", "expires_in");
+
                 options.Events = new OAuthEvents
                 {
                     OnRedirectToAuthorizationEndpoint = redirectContext =>
                     {
                         List<string> scopesForCurrentApi = this.apiTypes.GetValueOrDefault(Enum.Parse<ExamplesApiType>(this.Configuration["API"]));
-
                         redirectContext.RedirectUri = this.UpdateRedirectUriScopes(redirectContext.RedirectUri, scopesForCurrentApi);
 
+                        redirectContext.Options.UsePkce = this.Configuration["PkceFailed"] == null;
+
+                        this.Configuration["RedirectUrl"] = redirectContext.RedirectUri;
                         redirectContext.HttpContext.Response.Redirect(redirectContext.RedirectUri);
                         return Task.FromResult(0);
                     },
@@ -206,11 +212,28 @@ namespace DocuSign.CodeExamples
                             context.RunClaimActions(payload.RootElement);
                         }
                     },
-                    OnRemoteFailure = context =>
+                    OnRemoteFailure = async context =>
                     {
-                        context.HandleResponse();
-                        context.Response.Redirect("/Home/Error?message=" + context.Failure?.Message);
-                        return Task.FromResult(0);
+                        if (this.Configuration["PkceFailed"] != null)
+                        {
+                            context.HandleResponse();
+                            context.Response.Redirect("/Home/Error?message=" + context.Failure?.Message);
+                        }
+                        else
+                        {
+                            var redirectContext = new RedirectContext<OAuthOptions>(
+                                context.HttpContext,
+                                context.Scheme,
+                                options,
+                                context.Properties,
+                                this.Configuration["RedirectUrl"]);
+
+                            this.Configuration["PkceFailed"] = "true";
+
+                            await options.Events.OnRedirectToAuthorizationEndpoint(redirectContext);
+
+                            context.HandleResponse();
+                        }
                     },
                 };
             });
