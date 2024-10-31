@@ -30,10 +30,14 @@ namespace DocuSign.Admin.Examples
             string accessToken,
             Guid? orgId)
         {
+            //ds-snippet-start:Admin13Step2
             var docuSignClient = GetConfiguredClient(basePath, accessToken);
             var assetGroupApi = new ProvisionAssetGroupApi(docuSignClient);
+            //ds-snippet-end:Admin13Step2
 
+            //ds-snippet-start:Admin13Step3
             return assetGroupApi.GetOrganizationPlanItems(orgId).FirstOrDefault();
+            //ds-snippet-end:Admin13Step3
         }
 
         /// <summary>
@@ -61,9 +65,13 @@ namespace DocuSign.Admin.Examples
             var docuSignClient = GetConfiguredClient(basePath, accessToken);
             var assetGroupApi = new ProvisionAssetGroupApi(docuSignClient);
 
+            //ds-snippet-start:Admin13Step4
             var subAccountRequest = BuildSubAccountRequest(email, firstName, lastName, subscriptionId, planId);
+            //ds-snippet-end:Admin13Step4
 
+            //ds-snippet-start:Admin13Step5
             return assetGroupApi.CreateAssetGroupAccount(orgId, subAccountRequest);
+            //ds-snippet-end:Admin13Step5
         }
 
         /// <summary>
@@ -88,6 +96,7 @@ namespace DocuSign.Admin.Examples
         /// <param name="subscriptionId">Subscription Id (string)</param>
         /// <param name="planId">Plan Id (GUID)</param>
         /// <returns>Configured SubAccountCreateRequest object</returns>
+        //ds-snippet-start:Admin13Step4
         private static SubAccountCreateRequest BuildSubAccountRequest(
             string email,
             string firstName,
@@ -118,4 +127,6 @@ namespace DocuSign.Admin.Examples
             };
         }
     }
+
+    //ds-snippet-end:Admin13Step4
 }
