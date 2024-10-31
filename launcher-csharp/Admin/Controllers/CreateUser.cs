@@ -44,7 +44,7 @@ namespace DocuSign.CodeExamples.Admin.Controllers
             try
             {
                 // Call the Admin API to create a new user
-                var user = DocuSign.CodeExamples.Admin.Examples.CreateUser.CreateNewUser(
+                var user = Examples.CreateUser.CreateNewUser(
                     accessToken,
                     basePath,
                     Guid.Parse(accountId),
