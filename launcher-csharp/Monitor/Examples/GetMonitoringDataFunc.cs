@@ -34,7 +34,7 @@ namespace DocuSign.CodeExamples.Monitor.Examples
                 // Declare variables
                 //ds-snippet-start:Monitor1Step3
                 bool complete = false;
-                string cursorValue = "2024-01-01T00:00:00Z";
+                string cursorValue = string.Empty;
                 int limit = 2000; // Amount of records you want to read in one request
                 List<object> functionResult = new List<object>();
 
