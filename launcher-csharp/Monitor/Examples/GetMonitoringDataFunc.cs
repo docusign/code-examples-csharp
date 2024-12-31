@@ -33,9 +33,10 @@ namespace DocuSign.CodeExamples.Monitor.Examples
 
                 // Declare variables
                 //ds-snippet-start:Monitor1Step3
+                DateTime cursorDate = DateTime.UtcNow.AddYears(-1);
                 bool complete = false;
-                string cursorValue = string.Empty;
-                int limit = 100; // Amount of records you want to read in one request
+                string cursorValue = cursorDate.ToString("yyyy-MM-dd") + "T00:00:00Z";
+                int limit = 2000; // Amount of records you want to read in one request
                 List<object> functionResult = new List<object>();
 
                 DataSetApi dataSetApi = new DataSetApi(apiClient);
