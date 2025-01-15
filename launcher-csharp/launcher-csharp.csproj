@@ -40,7 +40,6 @@
     <PackageReference Include="DocuSign.Click" Version="2.0.0-rc1" />
     <PackageReference Include="DocuSign.eSign.dll" Version="8.0.0-rc2" />
     <PackageReference Include="DocuSign.Monitor" Version="2.0.0-rc3" />
-    <PackageReference Include="DocuSign.Maestro" Version="1.0.0-rc4" />
     <PackageReference Include="DocuSign.Rooms" Version="2.0.0-rc3" />
     <PackageReference Include="DocuSign.WebForms" Version="2.0.0-rc3" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
