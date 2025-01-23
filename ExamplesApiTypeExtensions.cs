@@ -55,6 +55,12 @@ namespace DocuSign.CodeExamples.Common
         /// </summary>
         [Description("mae")]
         Maestro = 7,
+
+        /// <summary>
+        /// Notary API
+        /// </summary>
+        [Description("neg")]
+        Notary = 8,
     }
 
     public static class ExamplesApiTypeExtensions

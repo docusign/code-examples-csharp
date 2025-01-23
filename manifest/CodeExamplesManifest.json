@@ -2694,6 +2694,43 @@
           ]
         }
       ]
+    },
+    {
+      "Name": "Notary",
+      "Groups": [
+        {
+          "Name": "Notary examples",
+          "Examples": [
+            {
+              "ExampleNumber": 1,
+              "CFREnabled": "AllAccounts",
+              "ExampleName": "Nan Send an envelope with a remote (email) signer and cc recipient",
+              "ExampleDescription": "The envelope includes a pdf, Word, and HTML document. Anchor text(<a target='_blank' href=\"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/\">AutoPlace</a>) is used to position the signing fields in the documents.",
+              "LinksToAPIMethod": [
+                {
+                  "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                  "PathName": "Envelopes:create"
+                }
+              ],
+              "Forms": [
+                {
+                  "Inputs": [
+                    {
+                      "InputName": "Signer Email",
+                      "InputPlaceholder": "pat@example.com"
+                    },
+                    {
+                      "InputName": "Signer Name",
+                      "InputPlaceholder": "Pat Johnson"
+                    }
+                  ]
+                }
+              ],
+              "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
+            }
+          ]
+        }
+      ]
     }
   ]
 }
