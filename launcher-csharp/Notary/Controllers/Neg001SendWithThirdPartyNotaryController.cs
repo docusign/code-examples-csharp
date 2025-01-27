@@ -46,7 +46,7 @@ namespace DocuSign.CodeExamples.Controllers
             var accountId = this.RequestItemsService.Session.AccountId;
             var envStatus = this.RequestItemsService.Status;
 
-            // Call the Examples API method to create and send an envelope via email
+            // Call the Examples API method to create and send an notary envelope via email
             var envelopeId = SendWithThirdPartyNotary.SendWithNotary(signerEmail, signerName, accessToken, basePath, accountId, envStatus);
 
             this.ViewBag.h1 = this.CodeExampleText.ExampleName;
