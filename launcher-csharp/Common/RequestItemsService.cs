@@ -289,6 +289,10 @@ namespace DocuSign.CodeExamples.Common
             {
                 currentApiType = ExamplesApiType.WebForms.ToString();
             }
+            else if (eg.Contains(ExamplesApiType.Notary.ToKeywordString()))
+            {
+                currentApiType = ExamplesApiType.Notary.ToString();
+            }
             else
             {
                 currentApiType = ExamplesApiType.ESignature.ToString();

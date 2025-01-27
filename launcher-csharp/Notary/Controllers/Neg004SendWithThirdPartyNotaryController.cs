@@ -1,4 +1,4 @@
-// <copyright file="Neg001SendWithThirdPartyNotaryController.cs" company="DocuSign">
+// <copyright file="Neg004SendWithThirdPartyNotaryController.cs" company="DocuSign">
 // Copyright (c) DocuSign. All rights reserved.
 // </copyright>
 
@@ -10,10 +10,10 @@ namespace DocuSign.CodeExamples.Controllers
     using Microsoft.AspNetCore.Mvc;
 
     [Area("Notary")]
-    [Route("neg001")]
-    public class Neg001SendWithThirdPartyNotaryController : EgController
+    [Route("neg004")]
+    public class Neg004SendWithThirdPartyNotaryController : EgController
     {
-        public Neg001SendWithThirdPartyNotaryController(DsConfiguration dsConfig,
+        public Neg004SendWithThirdPartyNotaryController(DsConfiguration dsConfig,
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService)
             : base(dsConfig, launcherTexts, requestItemsService)
@@ -22,7 +22,7 @@ namespace DocuSign.CodeExamples.Controllers
             this.ViewBag.title = this.CodeExampleText.ExampleName;
         }
 
-        public override string EgName => "neg001";
+        public override string EgName => "neg004";
 
         [HttpPost]
         [SetViewBag]
