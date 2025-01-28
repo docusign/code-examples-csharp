@@ -177,6 +177,15 @@ namespace DocuSign.CodeExamples.Examples
                     NotaryType = "remote",
                     NotarySourceType = "thirdparty",
                     NotaryThirdPartyPartner = "onenotary",
+                    RecipientSignatureProviders = new List<RecipientSignatureProvider>
+                    {
+                        new RecipientSignatureProvider
+                        {
+                            SealDocumentsWithTabsOnly = "false",
+                            SignatureProviderName = "ds_authority_idv",
+                            SignatureProviderOptions = new RecipientSignatureProviderOptions(),
+                        },
+                    },
                 },
             };
 
