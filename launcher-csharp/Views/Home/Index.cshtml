@@ -37,7 +37,6 @@
         <div id="filtered_code_examples" class="container" style="margin-top: 10px; padding-left: 0px;">
             @foreach(var api in ViewBag.APITexts)
             {
-
                 var linkToCodeExample = ((ApIs) api).Name.ToLower() == ExamplesApiType.ESignature.ToString().ToLower() ? ExamplesApiType.ESignature.ToKeywordString()
                     : ((ApIs) api).Name.ToLower() == ExamplesApiType.Click.ToString().ToLower()  ? ExamplesApiType.Click.ToKeywordString()
                     : ((ApIs) api).Name.ToLower() == ExamplesApiType.Monitor.ToString().ToLower()  ? ExamplesApiType.Monitor.ToKeywordString()
