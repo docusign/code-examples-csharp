@@ -15,15 +15,20 @@ namespace DocuSign.CodeExamples.Examples
     {
         public static string SendWithNotary(string signerEmail, string signerName, string accessToken, string basePath, string accountId, string envStatus)
         {
+            //ds-snippet-start:Notary4Step2
             EnvelopeDefinition env = MakeEnvelope(signerEmail, signerName, envStatus);
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:Notary4Step2
 
+            //ds-snippet-start:Notary4Step4
             var envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
             return results.EnvelopeId;
+            //ds-snippet-end:Notary4Step4
         }
 
+        //ds-snippet-start:Notary4Step3
         private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string envStatus)
         {
             var env = new EnvelopeDefinition
@@ -191,5 +196,6 @@ namespace DocuSign.CodeExamples.Examples
 
             return notaryRecipient;
         }
+        //ds-snippet-end:Notary4Step3
     }
 }
