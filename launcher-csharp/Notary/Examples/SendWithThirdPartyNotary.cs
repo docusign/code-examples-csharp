@@ -196,6 +196,7 @@ namespace DocuSign.CodeExamples.Examples
 
             return notaryRecipient;
         }
+
         //ds-snippet-end:Notary4Step3
     }
 }
