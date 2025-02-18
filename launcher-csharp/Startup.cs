@@ -92,6 +92,8 @@ namespace DocuSign.CodeExamples
             });
 
             this.apiTypes.Add(ExamplesApiType.Maestro, new List<string> { "signature", "aow_manage" });
+
+            this.apiTypes.Add(ExamplesApiType.Notary, new List<string> { "signature", "organization_read", "notary_read", "notary_write" });
         }
 
         public IConfiguration Configuration { get; }
@@ -288,6 +290,10 @@ namespace DocuSign.CodeExamples
                 endpoints.MapControllerRoute(
                             name: "default",
                             pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{area=Notary}/{controller=Home}/{action=Index}/{id?}");
             });
         }
 
