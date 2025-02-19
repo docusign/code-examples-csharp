@@ -33,7 +33,7 @@ namespace DocuSign.CodeExamples.Monitor.Examples
 
                 // Declare variables
                 //ds-snippet-start:Monitor1Step3
-                DateTime cursorDate = DateTime.UtcNow.AddYears(-1);
+                DateTime cursorDate = DateTime.UtcNow.AddDays(-1);
                 bool complete = false;
                 string cursorValue = cursorDate.ToString("yyyy-MM-dd") + "T00:00:00Z";
                 int limit = 2000; // Amount of records you want to read in one request
