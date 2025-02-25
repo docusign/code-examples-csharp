@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Linq;
+
+using System.Threading.Tasks;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -95,6 +97,12 @@ namespace DocuSign.QuickACG
                 options.ClaimActions.MapJsonKey("expires_in", "expires_in");
                 options.Events = new OAuthEvents
                 {
+                    OnRedirectToAuthorizationEndpoint = redirectContext =>
+                    {
+                        redirectContext.Options.UsePkce = this.Configuration["PkceFailed"] == null;
+                        redirectContext.HttpContext.Response.Redirect(redirectContext.RedirectUri);
+                        return Task.FromResult(0);
+                    },
                     OnCreatingTicket = async context =>
                     {
                         var request = new HttpRequestMessage(HttpMethod.Get, context.Options.UserInformationEndpoint);
@@ -113,12 +121,27 @@ namespace DocuSign.QuickACG
                         {
                             context.RunClaimActions(payload.RootElement);
                         }
-                    }
+                    },
+                    OnRemoteFailure = async context =>
+                    {
+                        var redirectContext = new RedirectContext<OAuthOptions>(
+                            context.HttpContext,
+                            context.Scheme,
+                            options,
+                            context.Properties,
+                            this.Configuration["RedirectUrl"]);
+
+                        this.Configuration["PkceFailed"] = "true";
+
+                        await options.Events.OnRedirectToAuthorizationEndpoint(redirectContext);
+
+                        context.HandleResponse();
+                    },
                 };
             });
         }
 
-        #nullable enable
+#nullable enable
         private string? ExtractDefaultAccountValue(JsonElement obj, string key)
         {
             if (!obj.TryGetProperty("accounts", out var accounts))
@@ -166,7 +189,7 @@ namespace DocuSign.QuickACG
 
             return keyValue;
         }
-        #nullable disable
+#nullable disable
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
