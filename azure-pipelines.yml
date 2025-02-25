@@ -107,7 +107,7 @@ steps:
     command: build
     repository: 'launcher-automation-csharp'
     dockerfile: '$(Build.SourcesDirectory)/code-examples-csharp-private/Dockerfile'
-    buildContext: '$(Build.SourcesDirectory)/code-examples-csharp-private '
+    buildContext: '$(Build.SourcesDirectory)/code-examples-csharp-private'
     tags: |
       latest
 
