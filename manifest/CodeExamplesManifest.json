@@ -2706,7 +2706,7 @@
           "Name": "Notary examples",
           "Examples": [
             {
-              "ExampleNumber": 1,
+              "ExampleNumber": 4,
               "CFREnabled": "AllAccounts",
               "ExampleName": "Send an envelope with third party notary",
               "ExampleDescription": "The envelope includes a HTML document. Anchor text(<a target='_blank' href=\"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/\">AutoPlace</a>) is used to position the signing fields in the documents.",
