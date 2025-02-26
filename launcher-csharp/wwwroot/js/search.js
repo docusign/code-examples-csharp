@@ -7,7 +7,8 @@
         ADMIN: 'admin',
         CONNECT: 'connect',
         MAESTRO: 'maestro',
-        WEBFORMS: 'webforms'
+        WEBFORMS: 'webforms',
+        NOTARY: 'notary'
     };
 
     let processJSONData = function () {
@@ -131,6 +132,8 @@
                 return "mae";
             case API_TYPES.WEBFORMS:
                 return "web";
+            case API_TYPES.NOTARY:
+                return "neg";
         }
     }
 

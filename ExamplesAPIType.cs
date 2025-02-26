@@ -49,6 +49,12 @@ namespace DocuSign.CodeExamples.Common
         /// </summary>
         [Description("web")]
         WebForms = 6,
+
+        /// <summary>
+        /// Notary API
+        /// </summary>
+        [Description("neg")]
+        Notary = 7
     }
 
     public static class ExamplesApiTypeExtensions

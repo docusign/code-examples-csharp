@@ -1922,6 +1922,10 @@
                     {
                         "Name":"create_web_form",
                         "ResultsPageText":"Go to your Docusign account to create the Web Form. Go to 'Templates' in your developer account, select 'Start,' select 'Web Forms,' and choose 'Upload Web Form.' Upload the JSON config file 'web-form-config.json' found under the {0} folder of this project. You will need to activate the web form before proceeding. Press Continue after doing so."
+                    },
+                    {
+                       "Name":"webforms_heading",
+                       "ResultsPageText": "The webform has been embedded below using the Docusign JS library."
                     }
                   ]
               }
@@ -2690,6 +2694,43 @@
                 }
               ],
               "ResultsPageText": "Results from ProvisionAssetGroup::createAssetGroupAccount method:"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Notary",
+      "Groups": [
+        {
+          "Name": "Notary examples",
+          "Examples": [
+            {
+              "ExampleNumber": 1,
+              "CFREnabled": "AllAccounts",
+              "ExampleName": "Send an envelope with third party notary",
+              "ExampleDescription": "The envelope includes a HTML document. Anchor text(<a target='_blank' href=\"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/\">AutoPlace</a>) is used to position the signing fields in the documents.",
+              "LinksToAPIMethod": [
+                {
+                  "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                  "PathName": "Envelopes:create"
+                }
+              ],
+              "Forms": [
+                {
+                  "Inputs": [
+                    {
+                      "InputName": "Signer Email",
+                      "InputPlaceholder": "pat@example.com"
+                    },
+                    {
+                      "InputName": "Signer Name",
+                      "InputPlaceholder": "Pat Johnson"
+                    }
+                  ]
+                }
+              ],
+              "ResultsPageText": "The envelope has been created and sent with third party Notary!<br />Envelope ID {0}."
             }
           ]
         }

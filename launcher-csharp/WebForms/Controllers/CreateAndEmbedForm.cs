@@ -117,6 +117,8 @@ namespace DocuSign.CodeExamples.WebForms.Controllers
                 accountId,
                 formId);
 
+            this.ViewBag.Description = this.CodeExampleText.AdditionalPages
+                    .First(x => x.Name == "webforms_heading").ResultsPageText;
             this.ViewBag.InstanceToken = form.InstanceToken;
             this.ViewBag.Url = form.FormUrl;
             this.ViewBag.IntegrationKey = this.configuration["DocuSign:ClientId"];
