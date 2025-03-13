@@ -122,6 +122,10 @@ namespace DocuSign.CodeExamples.Controllers
             {
                 scopes += " webforms_read webforms_instance_write webforms_instance_read";
             }
+            else if (apiType == ExamplesApiType.ConnectedFields)
+            {
+                scopes += " adm_store_unified_repo_read";
+            }
 
             return this.Configuration["DocuSign:AuthorizationEndpoint"] + "?response_type=code" +
                 "&scope=" + scopes +

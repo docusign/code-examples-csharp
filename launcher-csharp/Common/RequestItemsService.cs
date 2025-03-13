@@ -293,6 +293,10 @@ namespace DocuSign.CodeExamples.Common
             {
                 currentApiType = ExamplesApiType.Notary.ToString();
             }
+            else if (eg.Contains(ExamplesApiType.ConnectedFields.ToKeywordString()))
+            {
+                currentApiType = ExamplesApiType.ConnectedFields.ToString();
+            }
             else
             {
                 currentApiType = ExamplesApiType.ESignature.ToString();
