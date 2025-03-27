@@ -3,6 +3,7 @@
     int signerEmailInputNumber = 0;
     int signerNameInputNumber = 1;
     int extensionsInputNumber = 2;
+    var apps = Newtonsoft.Json.Linq.JArray.Parse(@ViewBag.ExtensionApps);
 }
 
 <h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
@@ -47,6 +48,21 @@
                name="signerName"
                value="@ViewBag.Locals.DsConfig.SignerName"
                required />
+    </div>
+    <div class="form-group">
+        <label for="apps">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[extensionsInputNumber].InputName)
+        </label>
+
+        <select id="appId" name="appId" class="form-control">
+            @foreach (var app in apps)
+            {
+                var appId = app["appId"];
+                var applicationName = app["tabs"]?[0]?["extensionData"]?["applicationName"];
+
+                <option value="@appId">@applicationName</option>
+            }
+        </select>
     </div>
     <input type="hidden" name="_csrf" value="<%- csrfToken %>">
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>

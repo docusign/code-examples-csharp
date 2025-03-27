@@ -130,6 +130,12 @@ namespace DocuSign.CodeExamples.Common
             set => this.cache.Set(this.GetKey("EnvelopeId"), value);
         }
 
+        public string ExtensionApps
+        {
+            get => this.cache.Get<string>(this.GetKey("ExtensionApps"));
+            set => this.cache.Set(this.GetKey("ExtensionApps"), value);
+        }
+
         public string DocumentId
         {
             get => this.cache.Get<string>(this.GetKey("DocumentId"));

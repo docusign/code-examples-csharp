@@ -4,14 +4,13 @@
 
 namespace DocuSign.CodeExamples.Controllers
 {
-    using System;
     using System.Linq;
     using DocuSign.CodeExamples.Common;
-    using DocuSign.CodeExamples.ConnectedFields.Models;
     using DocuSign.CodeExamples.Examples;
     using DocuSign.CodeExamples.Models;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.IdentityModel.Tokens;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
 
     [Area("ConnectedFields")]
     [Route("cf001")]
@@ -38,20 +37,22 @@ namespace DocuSign.CodeExamples.Controllers
                 return actionResult;
             }
 
-            Guid? organizationId = this.RequestItemsService.OrganizationId;
             string accessToken = this.RequestItemsService.User.AccessToken;
+            string accountId = this.RequestItemsService.Session.AccountId;
 
-            ExtensionApps extensionApps = SetConnectedFields.GetConnectedFieldsAsync(accessToken, this.RequestItemsService.User.AccountId).Result;
+            object extensionApps = SetConnectedFields.GetConnectedFieldsTabGroupsAsync(accountId, accessToken).Result;
+            object filteredExtensionApps = SetConnectedFields.FilterData((JArray)extensionApps);
+            var extensionAppsString = JsonConvert.SerializeObject(filteredExtensionApps);
 
-            var filteredExtensionApps = extensionApps.Applications.FindAll(extension => !extension.Tabs.Where(tabs => tabs.ExtensionData.ActionContract.Contains("Verify") == true).IsNullOrEmpty());
+            this.ViewBag.ExtensionApps = extensionAppsString;
+            this.RequestItemsService.ExtensionApps = extensionAppsString;
 
-            this.ViewBag.ExtensionApps = filteredExtensionApps;
             return this.View(this.EgName, this);
         }
 
         [HttpPost]
         [SetViewBag]
-        public IActionResult Create(string signerEmail, string signerName, string extensionName)
+        public IActionResult Create(string signerEmail, string signerName, string appId)
         {
             bool tokenOk = this.CheckToken(3);
             if (!tokenOk)
@@ -60,21 +61,25 @@ namespace DocuSign.CodeExamples.Controllers
                 return this.Redirect("/ds/mustAuthenticate");
             }
 
-            var accessToken = this.RequestItemsService.User.AccessToken;
-            var basePath = this.RequestItemsService.Session.BasePath + "/restapi";
-            var accountId = this.RequestItemsService.Session.AccountId;
+            JArray extensionApp = JArray.Parse(this.RequestItemsService.ExtensionApps);
+            JObject selectedApp = extensionApp.FirstOrDefault(app => (string)app["appId"] == appId) as JObject;
 
-            var envelopeId = SetConnectedFields.SendEnvelopeViaEmail(
+            string accessToken = this.RequestItemsService.User.AccessToken;
+            string basePath = this.RequestItemsService.Session.BasePath + "/restapi";
+            string accountId = this.RequestItemsService.Session.AccountId;
+
+            string envelopeId = SetConnectedFields.SendEnvelopeViaEmail(
+                basePath,
+                accessToken,
+                accountId,
                 signerEmail,
                 signerName,
-                null, // pass extension here
-                accessToken,
-                basePath,
-                accountId,
-                this.Config.DocPdf);
+                this.Config.DocPdf,
+                selectedApp);
 
             this.ViewBag.h1 = this.CodeExampleText.ExampleName;
             this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, envelopeId);
+
             return this.View("example_done");
         }
     }
