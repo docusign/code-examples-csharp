@@ -24,6 +24,8 @@ namespace DocuSign.CodeExamples
 
         string EnvelopeId { get; set; }
 
+        public string ExtensionApps { get; set; }
+
         public string DocumentId { get; set; }
 
         public string ClickwrapId { get; set; }

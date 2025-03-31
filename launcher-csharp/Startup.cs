@@ -94,6 +94,8 @@ namespace DocuSign.CodeExamples
             this.apiTypes.Add(ExamplesApiType.Maestro, new List<string> { "signature", "aow_manage" });
 
             this.apiTypes.Add(ExamplesApiType.Notary, new List<string> { "signature", "organization_read", "notary_read", "notary_write" });
+
+            this.apiTypes.Add(ExamplesApiType.ConnectedFields, new List<string> { "signature", "adm_store_unified_repo_read" });
         }
 
         public IConfiguration Configuration { get; }
