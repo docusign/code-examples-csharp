@@ -21,15 +21,20 @@ namespace DocuSign.CodeExamples.Examples
 
         public static async Task<object> GetConnectedFieldsTabGroupsAsync(string accountId, string accessToken)
         {
+            //ds-snippet-start:ConnectedFields1Step3
             var url = $"https://api-d.docusign.com/v1/accounts/{accountId}/connected-fields/tab-groups";
 
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
+            //ds-snippet-end:ConnectedFields1Step3
 
+            //ds-snippet-start:ConnectedFields1Step2
             requestMessage.Headers.Add("Authorization", $"Bearer {accessToken}");
             requestMessage.Headers.Add("Accept", "application/json");
+            //ds-snippet-end:ConnectedFields1Step2
 
             try
             {
+                //ds-snippet-start:ConnectedFields1Step3
                 var response = await Client.SendAsync(requestMessage);
                 response.EnsureSuccessStatusCode();
 
@@ -37,6 +42,7 @@ namespace DocuSign.CodeExamples.Examples
                 var data = JsonConvert.DeserializeObject<object>(body);
 
                 return data;
+                //ds-snippet-end:ConnectedFields1Step3
             }
             catch (HttpRequestException e)
             {
@@ -46,6 +52,7 @@ namespace DocuSign.CodeExamples.Examples
 
         public static JArray FilterData(JArray data)
         {
+            //ds-snippet-start:ConnectedFields1Step4
             var filteredData = data.Where(item =>
             {
                 var tabs = item["tabs"] as JArray;
@@ -68,6 +75,7 @@ namespace DocuSign.CodeExamples.Examples
 
                 return false;
             }).ToList();
+            //ds-snippet-end:ConnectedFields1Step4
 
             return new JArray(filteredData);
         }
@@ -81,15 +89,18 @@ namespace DocuSign.CodeExamples.Examples
             string docPdf,
             JObject selectedApp)
         {
+            //ds-snippet-start:ConnectedFields1Step6
             EnvelopeDefinition envelopeDefinition = MakeEnvelope(signerEmail, signerName, docPdf, selectedApp);
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
+            //ds-snippet-end:ConnectedFields1Step6
             return results.EnvelopeId;
         }
 
+        //ds-snippet-start:ConnectedFields1Step5
         public static EnvelopeDefinition MakeEnvelope(
             string signerEmail,
             string signerName,
@@ -209,5 +220,6 @@ namespace DocuSign.CodeExamples.Examples
             };
             return envelopeDefinition;
         }
+        //ds-snippet-end:ConnectedFields1Step5
     }
 }
