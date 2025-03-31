@@ -130,6 +130,12 @@ namespace DocuSign.CodeExamples.Common
             set => this.cache.Set(this.GetKey("EnvelopeId"), value);
         }
 
+        public string ExtensionApps
+        {
+            get => this.cache.Get<string>(this.GetKey("ExtensionApps"));
+            set => this.cache.Set(this.GetKey("ExtensionApps"), value);
+        }
+
         public string DocumentId
         {
             get => this.cache.Get<string>(this.GetKey("DocumentId"));
@@ -292,6 +298,10 @@ namespace DocuSign.CodeExamples.Common
             else if (eg.Contains(ExamplesApiType.Notary.ToKeywordString()))
             {
                 currentApiType = ExamplesApiType.Notary.ToString();
+            }
+            else if (eg.Contains(ExamplesApiType.ConnectedFields.ToKeywordString()))
+            {
+                currentApiType = ExamplesApiType.ConnectedFields.ToString();
             }
             else
             {

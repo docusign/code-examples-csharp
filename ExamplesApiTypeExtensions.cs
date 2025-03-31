@@ -61,6 +61,12 @@ namespace DocuSign.CodeExamples.Common
         /// </summary>
         [Description("neg")]
         Notary = 8,
+
+        /// <summary>
+        /// Connected Fields
+        /// </summary>")]
+        [Description("cf")]
+        ConnectedFields = 9,
     }
 
     public static class ExamplesApiTypeExtensions
