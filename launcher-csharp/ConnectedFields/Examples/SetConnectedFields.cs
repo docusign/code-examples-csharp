@@ -220,6 +220,7 @@ namespace DocuSign.CodeExamples.Examples
             };
             return envelopeDefinition;
         }
+
         //ds-snippet-end:ConnectedFields1Step5
     }
 }
