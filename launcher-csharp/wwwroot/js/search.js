@@ -8,7 +8,8 @@
         CONNECT: 'connect',
         MAESTRO: 'maestro',
         WEBFORMS: 'webforms',
-        NOTARY: 'notary'
+        NOTARY: 'notary',
+        CONNECTEDFIELDS: 'connectedfields',
     };
 
     let processJSONData = function () {
@@ -134,6 +135,8 @@
                 return "web";
             case API_TYPES.NOTARY:
                 return "neg";
+            case API_TYPES.CONNECTEDFIELDS:
+                return "cf";
         }
     }
 

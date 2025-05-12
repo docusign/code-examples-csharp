@@ -2706,7 +2706,7 @@
           "Name": "Notary examples",
           "Examples": [
             {
-              "ExampleNumber": 1,
+              "ExampleNumber": 4,
               "CFREnabled": "AllAccounts",
               "ExampleName": "Send an envelope with third party notary",
               "ExampleDescription": "The envelope includes a HTML document. Anchor text(<a target='_blank' href=\"https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/\">AutoPlace</a>) is used to position the signing fields in the documents.",
@@ -2734,6 +2734,51 @@
             }
           ]
         }
+      ]
+    },
+    {
+      "Name": "ConnectedFields",
+      "Groups": [
+         {
+            "Name": "Connected Fields",
+            "Examples":[
+               {
+                  "ExampleNumber": 1,
+                  "ExampleName": "Set connected fields",
+                  "ExampleDescription": "Demonstrates how to use an extension app to verify the fields in the document.",
+                  "LinksToAPIMethod":[
+                     {
+                        "Path":"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                        "PathName":"Envelopes:create"
+                     }
+                  ],
+                  "Forms": [
+                     {
+                        "Inputs": [
+                           {
+                              "InputName": "Signer Email",
+                              "InputPlaceholder": "pat@example.com"
+                           },
+                           {
+                              "InputName": "Signer Name",
+                              "InputPlaceholder": "Pat Johnson"
+                           },
+                           {
+                              "InputName": "Extension app for verification"
+                           }
+                        ]
+                     }
+                  ],
+                  "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}.!<br />When signing the envelope, ensure the connection to your data verification extension app is active.",
+                  "AdditionalPage":[
+                     {
+                        "Name":"no_verification_app",
+                        "ResultsPageText":"No data verification were found in the account. Please install a data verification app.<br />You can install a phone number verification extension app by copying the following link to your browser: <a href=\"https://apps.docusign.com/app-center/app/d16f398f-8b9a-4f94-b37c-af6f9c910c04\">https://apps.docusign.com/app-center/app/d16f398f-8b9a-4f94-b37c-af6f9c910c04</a>"
+                     }
+                  ]
+               }
+            ]
+         }
       ]
     }
   ]
