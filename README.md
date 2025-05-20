@@ -5,6 +5,14 @@
 >
 ### GitHub repo: [code-examples-csharp](./README.md)
 
+If you downloaded this project using the [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart/) tool, it may be configured in one of three ways:
+
+* **[JWT Grant remote signing example](#jwt-grant-remote-signing-project)**–demonstrates how to implement JSON Web Token authentication. It includes a single remote signing workflow.
+* **[Authorization Code Grant embedded signing example](#authorization-code-grant-embedded-signing-example)**–demonstrates how to implement Authorization Code Grant authentication. It includes a single embedded signing workflow.
+* **[Multiple code examples, Authorization Code Grant and JWT Grant](#installation-steps)**–includes the full range of examples and authentication types.
+
+***Installation and running instructions vary depending on the configuration. Follow the link that matches your project type to get started.***
+
 This GitHub repo includes code examples for the [Web Forms API](https://developers.docusign.com/docs/web-forms-api/), [Maestro API](https://developers.docusign.com/docs/maestro-api/), [Docusign Admin API](https://developers.docusign.com/docs/admin-api/), [Click API](https://developers.docusign.com/docs/click-api/), [eSignature REST API](https://developers.docusign.com/docs/esign-rest-api/), [Monitor API](https://developers.docusign.com/docs/monitor-api/), and [Rooms API](https://developers.docusign.com/docs/rooms-api/).
 
 
@@ -129,7 +137,7 @@ Also, in order to select JSON Web Token authentication in the launcher, in launc
 1. When prompted, log in to your Docusign developer account. If this is your first time using the app, select **ACCEPT** at the consent window.
 1. Select your desired code example.
 
-## Authorization Code Grant embedded signing example:
+## Authorization Code Grant embedded signing example
 1. Double click the Quick_ACG.csproj file in the Quick_ACG folder of your Quickstart project.
 1. Select the green Play IIS Express button.
 
