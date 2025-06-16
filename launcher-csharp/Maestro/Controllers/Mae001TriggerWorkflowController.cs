@@ -64,7 +64,7 @@ namespace DocuSign.CodeExamples.Controllers
                 if (workflowsList.Data != null || workflowsList.Data.Workflows.Count > 0)
                 {
                     var maestroWorkflow = workflowsList.Data.Workflows.FirstOrDefault(workflow =>
-                        workflow.Status == "active" && workflow.Name == "Example workflow - send invite to signers");
+                        workflow.Status == "active" && workflow.Name == "Example workflow - send invite to signer");
 
                     if (maestroWorkflow != null)
                     {
