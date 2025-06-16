@@ -7,77 +7,28 @@ namespace DocuSign.CodeExamples.Examples
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Net.Http;
     using System.Threading.Tasks;
     using DocuSign.eSign.Api;
     using DocuSign.eSign.Client;
     using DocuSign.eSign.Model;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
+    using Docusign.IAM.SDK;
+    using TabInfo = Docusign.IAM.SDK.Models.Components.TabInfo;
 
     public static class SetConnectedFields
     {
-        private static readonly HttpClient Client = new HttpClient();
-
-        public static async Task<object> GetConnectedFieldsTabGroupsAsync(string accountId, string accessToken)
+        public static async Task<List<TabInfo>> GetConnectedFieldsTabGroupsAsync(string basePath, string accountId, string accessToken)
         {
-            //ds-snippet-start:ConnectedFields1Step3
-            var url = $"https://api-d.docusign.com/v1/accounts/{accountId}/connected-fields/tab-groups";
-
-            var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
-            //ds-snippet-end:ConnectedFields1Step3
-
-            //ds-snippet-start:ConnectedFields1Step2
-            requestMessage.Headers.Add("Authorization", $"Bearer {accessToken}");
-            requestMessage.Headers.Add("Accept", "application/json");
-            //ds-snippet-end:ConnectedFields1Step2
-
-            try
-            {
-                //ds-snippet-start:ConnectedFields1Step3
-                var response = await Client.SendAsync(requestMessage);
-                response.EnsureSuccessStatusCode();
-
-                var body = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<object>(body);
-
-                return data;
-                //ds-snippet-end:ConnectedFields1Step3
-            }
-            catch (HttpRequestException e)
-            {
-                throw new Exception($"DocuSign API Request failed: {e.Message}");
-            }
+            var client = CreateAuthenticatedClient(basePath, accessToken);
+            return await client.ConnectedFields.TabInfo.GetConnectedFieldsTabGroupsAsync(accountId);
         }
 
-        public static JArray FilterData(JArray data)
+        public static List<TabInfo> FilterData(List<TabInfo> connectedFields)
         {
-            //ds-snippet-start:ConnectedFields1Step4
-            var filteredData = data.Where(item =>
-            {
-                var tabs = item["tabs"] as JArray;
-                if (tabs == null)
-                {
-                    return false;
-                }
-
-                foreach (var tab in tabs)
-                {
-                    var extensionData = tab["extensionData"];
-                    var tabLabel = tab["tabLabel"]?.ToString();
-
-                    if ((extensionData != null && extensionData["actionContract"]?.ToString().Contains("Verify") == true) ||
-                        (tabLabel != null && tabLabel.Contains("connecteddata")))
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
-            }).ToList();
-            //ds-snippet-end:ConnectedFields1Step4
-
-            return new JArray(filteredData);
+            return connectedFields
+                .Where(group => group.Tabs.Any(tab =>
+                    tab.ExtensionData?.ActionContract?.Contains("Verify") == true ||
+                    tab.TabLabel.Contains("connecteddata")))
+                .ToList();
         }
 
         public static string SendEnvelopeViaEmail(
@@ -87,7 +38,7 @@ namespace DocuSign.CodeExamples.Examples
             string signerEmail,
             string signerName,
             string docPdf,
-            JObject selectedApp)
+            TabInfo selectedApp)
         {
             //ds-snippet-start:ConnectedFields1Step6
             EnvelopeDefinition envelopeDefinition = MakeEnvelope(signerEmail, signerName, docPdf, selectedApp);
@@ -105,11 +56,8 @@ namespace DocuSign.CodeExamples.Examples
             string signerEmail,
             string signerName,
             string docPdf,
-            JObject selectedApp)
+            TabInfo selectedApp)
         {
-            var appId = selectedApp["appId"]?.ToString() ?? string.Empty;
-            JArray tabLabels = (JArray)selectedApp["tabs"];
-
             EnvelopeDefinition envelopeDefinition = new EnvelopeDefinition();
             envelopeDefinition.EmailSubject = "Please sign this document set";
             envelopeDefinition.Status = "sent";
@@ -147,32 +95,24 @@ namespace DocuSign.CodeExamples.Examples
                 },
             };
 
-            foreach (var tab in tabLabels)
+            foreach (var tab in selectedApp.Tabs)
             {
-                var connectionKey = tab["extensionData"]["connectionInstances"] != null ?
-                    tab["extensionData"]["connectionInstances"][0]?["connectionKey"]?.ToString() : string.Empty;
-                var connectionValue = tab["extensionData"]["connectionInstances"] != null ?
-                    tab["extensionData"]["connectionInstances"][0]?["connectionValue"]?.ToString() : string.Empty;
-                var extensionGroupId = tab["extensionData"]["extensionGroupId"]?.ToString() ?? string.Empty;
-                var publisherName = tab["extensionData"]["publisherName"]?.ToString() ?? string.Empty;
-                var applicationName = tab["extensionData"]["applicationName"]?.ToString() ?? string.Empty;
-                var actionName = tab["extensionData"]["actionName"]?.ToString() ?? string.Empty;
-                var actionInputKey = tab["extensionData"]["actionInputKey"]?.ToString() ?? string.Empty;
-                var actionContract = tab["extensionData"]["actionContract"]?.ToString() ?? string.Empty;
-                var extensionName = tab["extensionData"]["extensionName"]?.ToString() ?? string.Empty;
-                var extensionContract = tab["extensionData"]["extensionContract"]?.ToString() ?? string.Empty;
-                var requiredForExtension = tab["extensionData"]["requiredForExtension"]?.ToString() ?? string.Empty;
+                var extensionData = tab.ExtensionData;
+                var connectionKey = extensionData.ConnectionInstances != null ?
+                    extensionData.ConnectionInstances[0]?.ConnectionKey : string.Empty;
+                var connectionValue = extensionData.ConnectionInstances != null ?
+                    extensionData.ConnectionInstances[0]?.ConnectionValue : string.Empty;
 
                 var text = new Text
                 {
                     RequireInitialOnSharedChange = "false",
                     RequireAll = "false",
-                    Name = applicationName,
+                    Name = extensionData.ApplicationName,
                     Required = "false",
                     Locked = "false",
                     DisableAutoSize = "false",
                     MaxLength = "4000",
-                    TabLabel = tab["tabLabel"].ToString(),
+                    TabLabel = tab.TabLabel,
                     Font = "lucidaconsole",
                     FontColor = "black",
                     FontSize = "size9",
@@ -187,16 +127,16 @@ namespace DocuSign.CodeExamples.Examples
                     TabType = "text",
                     ExtensionData = new ExtensionData
                     {
-                        ExtensionGroupId = extensionGroupId,
-                        PublisherName = publisherName,
-                        ApplicationId = appId,
-                        ApplicationName = applicationName,
-                        ActionName = actionName,
-                        ActionContract = actionContract,
-                        ExtensionName = extensionName,
-                        ExtensionContract = extensionContract,
-                        RequiredForExtension = requiredForExtension,
-                        ActionInputKey = actionInputKey,
+                        ExtensionGroupId = extensionData.ExtensionGroupId,
+                        PublisherName = extensionData.PublisherName,
+                        ApplicationId = selectedApp.AppId,
+                        ApplicationName = extensionData.ApplicationName,
+                        ActionName = extensionData.ActionName,
+                        ActionContract = extensionData.ActionContract,
+                        ExtensionName = extensionData.ExtensionName,
+                        ExtensionContract = extensionData.ExtensionContract,
+                        RequiredForExtension = extensionData.RequiredForExtension.ToString(),
+                        ActionInputKey = extensionData.ActionInputKey,
                         ExtensionPolicy = "MustVerifyToSign",
                         ConnectionInstances = new List<ConnectionInstance>
                         {
@@ -222,5 +162,8 @@ namespace DocuSign.CodeExamples.Examples
         }
 
         //ds-snippet-end:ConnectedFields1Step5
+
+        private static IamClient CreateAuthenticatedClient(string basePath, string accessToken) =>
+            IamClient.Builder().WithServerUrl(basePath).WithAccessToken(accessToken).Build();
     }
 }

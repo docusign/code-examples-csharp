@@ -50,6 +50,14 @@ namespace DocuSign.CodeExamples.Authentication
                 });
             }
 
+            if (apiType == ExamplesApiType.Maestro)
+            {
+                scopes.AddRange(new List<string>
+                {
+                    "aow_manage",
+                });
+            }
+
             if (apiType == ExamplesApiType.Monitor)
             {
                 scopes.AddRange(new List<string>
@@ -85,6 +93,11 @@ namespace DocuSign.CodeExamples.Authentication
                 scopes.Add("webforms_read");
                 scopes.Add("webforms_instance_write");
                 scopes.Add("webforms_instance_read");
+            }
+
+            if (apiType == ExamplesApiType.Navigator)
+            {
+                scopes.Add("adm_store_unified_repo_read");
             }
 
             return docuSignClient.RequestJWTUserToken(

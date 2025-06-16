@@ -1890,46 +1890,46 @@
               "ResultsPageText": "This value should match the value of your x-docusign-signature header: <br/>HMAC signature {0}",
               "SkipForLanguages": "bash;powershell"
             }
-         ]
-      }
-    ]
-  },
-  {
-      "Name":"WebForms",
-      "Groups":[
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "WebForms",
+      "Groups": [
         {
-            "Name":"Web forms",
-            "Examples":[
-              {
-                  "ExampleNumber":1,
-                  "ExampleName":"Create and embed an instance of a web form",
-                  "ExampleDescription":"Creates an instance of a web form and embeds it on an HTML page.",
-                  "LinksToAPIMethod":[
-                    {
-                        "Path":"",
-                        "PathName":"WebForms:ListWebForms"
-                    },
-                    {
-                        "Path":"",
-                        "PathName":"WebForms:CreateInstance"
-                    }
-                  ],
-                  "AdditionalPage":[
-                    {
-                        "Name":"create_web_form_template",
-                        "ResultsPageText":"First the launcher will create a new template in your account that will be used to create the web form."
-                    },
-                    {
-                        "Name":"create_web_form",
-                        "ResultsPageText":"Go to your Docusign account to create the Web Form. Go to 'Templates' in your developer account, select 'Start,' select 'Web Forms,' and choose 'Upload Web Form.' Upload the JSON config file 'web-form-config.json' found under the {0} folder of this project. You will need to activate the web form before proceeding. Press Continue after doing so."
-                    },
-                    {
-                       "Name":"webforms_heading",
-                       "ResultsPageText": "The webform has been embedded below using the Docusign JS library."
-                    }
-                  ]
-              }
-            ]
+          "Name": "Web forms",
+          "Examples": [
+            {
+              "ExampleNumber": 1,
+              "ExampleName": "Create and embed an instance of a web form",
+              "ExampleDescription": "Creates an instance of a web form and embeds it on an HTML page.",
+              "LinksToAPIMethod": [
+                {
+                  "Path": "",
+                  "PathName": "WebForms:ListWebForms"
+                },
+                {
+                  "Path": "",
+                  "PathName": "WebForms:CreateInstance"
+                }
+              ],
+              "AdditionalPage": [
+                {
+                  "Name": "create_web_form_template",
+                  "ResultsPageText": "First the launcher will create a new template in your account that will be used to create the web form."
+                },
+                {
+                  "Name": "create_web_form",
+                  "ResultsPageText": "Go to your Docusign account to create the Web Form. Go to 'Templates' in your developer account, select 'Start,' select 'Web Forms,' and choose 'Upload Web Form.' Upload the JSON config file 'web-form-config.json' found under the {0} folder of this project. You will need to activate the web form before proceeding. Press Continue after doing so."
+                },
+                {
+                  "Name": "webforms_heading",
+                  "ResultsPageText": "The webform has been embedded below using the Docusign JS library."
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -2739,46 +2739,138 @@
     {
       "Name": "ConnectedFields",
       "Groups": [
-         {
-            "Name": "Connected Fields",
-            "Examples":[
-               {
-                  "ExampleNumber": 1,
-                  "ExampleName": "Set connected fields",
-                  "ExampleDescription": "Demonstrates how to use an extension app to verify the fields in the document.",
-                  "LinksToAPIMethod":[
-                     {
-                        "Path":"https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
-                        "PathName":"Envelopes:create"
-                     }
-                  ],
-                  "Forms": [
-                     {
-                        "Inputs": [
-                           {
-                              "InputName": "Signer Email",
-                              "InputPlaceholder": "pat@example.com"
-                           },
-                           {
-                              "InputName": "Signer Name",
-                              "InputPlaceholder": "Pat Johnson"
-                           },
-                           {
-                              "InputName": "Extension app for verification"
-                           }
-                        ]
-                     }
-                  ],
-                  "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}.!<br />When signing the envelope, ensure the connection to your data verification extension app is active.",
-                  "AdditionalPage":[
-                     {
-                        "Name":"no_verification_app",
-                        "ResultsPageText":"No data verification were found in the account. Please install a data verification app.<br />You can install a phone number verification extension app by copying the following link to your browser: <a href=\"https://apps.docusign.com/app-center/app/d16f398f-8b9a-4f94-b37c-af6f9c910c04\">https://apps.docusign.com/app-center/app/d16f398f-8b9a-4f94-b37c-af6f9c910c04</a>"
-                     }
+        {
+          "Name": "Connected Fields",
+          "Examples": [
+            {
+              "ExampleNumber": 1,
+              "ExampleName": "Set connected fields",
+              "ExampleDescription": "Demonstrates how to use an extension app to verify the fields in the document.",
+              "LinksToAPIMethod": [
+                {
+                  "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                  "PathName": "Envelopes:create"
+                }
+              ],
+              "Forms": [
+                {
+                  "Inputs": [
+                    {
+                      "InputName": "Signer Email",
+                      "InputPlaceholder": "pat@example.com"
+                    },
+                    {
+                      "InputName": "Signer Name",
+                      "InputPlaceholder": "Pat Johnson"
+                    },
+                    {
+                      "InputName": "Extension app for verification"
+                    }
                   ]
-               }
-            ]
-         }
+                }
+              ],
+              "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}.!<br />When signing the envelope, ensure the connection to your data verification extension app is active.",
+              "AdditionalPage": [
+                {
+                  "Name": "no_verification_app",
+                  "ResultsPageText": "No data verification were found in the account. Please install a data verification app.<br />You can install a phone number verification extension app by copying the following link to your browser: <a href=\"https://apps.docusign.com/app-center/app/d16f398f-8b9a-4f94-b37c-af6f9c910c04\">https://apps.docusign.com/app-center/app/d16f398f-8b9a-4f94-b37c-af6f9c910c04</a>"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Navigator",
+      "Groups": [
+        {
+          "Name": "Navigator",
+          "Examples": [
+            {
+              "ExampleNumber": 1,
+              "ExampleName": "List agreements",
+              "ExampleDescription": "Demonstrates how to get a list of agreements with the Navigator API",
+              "LinksToAPIMethod": [
+                {
+                  "Path": "https://developers.docusign.com/docs/navigator-api/reference/navigator/agreements/getagreementslist/",
+                  "PathName": "Agreements:getAgreementsList"
+                }
+              ],
+              "ResultsPageText": "List of agreements with the Navigator API:"
+            },
+            {
+              "ExampleNumber": 2,
+              "ExampleName": "Get single agreement",
+              "ExampleDescription": "Demonstrates how to get a specific agreement with the Navigator API",
+              "LinksToAPIMethod": [
+                {
+                  "Path": "https://developers.docusign.com/docs/navigator-api/reference/navigator/agreements/getagreement/",
+                  "PathName": "Agreements:getAgreement"
+                }
+              ],
+              "Forms": [
+                {
+                  "Inputs": [
+                    {
+                      "InputName": "Please select an agreement:"
+                    }
+                  ]
+                }
+              ],
+              "ResultsPageText": "Details for selected agreement:"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Maestro",
+      "Groups": [
+        {
+          "Name": "Maestro",
+          "Examples": [
+            {
+              "ExampleNumber": 1,
+              "ExampleName": "How to trigger a Maestro workflow",
+              "ExampleDescription": "Trigger a workflow",
+              "LinksToAPIMethod": [
+                {
+                  "Path": "https://developers.docusign.com/docs/maestro-api/reference/maestro/workflows/triggerworkflow/",
+                  "PathName": "Workflows:TriggerWorkflow"
+                }
+              ],
+              "Forms": [
+                {
+                  "Inputs": [
+                    {
+                      "InputName": "Instance name"
+                    },
+                    {
+                      "InputName": "Signer email"
+                    },
+                    {
+                      "InputName": "Signer name"
+                    },
+                    {
+                      "InputName": "CC email"
+                    },
+                    {
+                      "InputName": "CC name"
+                    }
+                  ]
+                }
+              ],
+              "CustomErrorTexts": [
+                {
+                  "ErrorMessageCheck": "NO_ACTIVE_WORKFLOW_FOUND",
+                  "ErrorMessage": "<p>Problem: No active workflow found. Please create a new workflow and publish it on your <a href=\"https://apps-d.docusign.com/\">DocuSign account page</a></p>"
+                }
+              ],
+              "ResultsPageText": "Workflow instance is created. Please sign the document."
+            }
+          ]
+        }
       ]
     }
   ]

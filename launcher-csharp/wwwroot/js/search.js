@@ -10,6 +10,7 @@
         WEBFORMS: 'webforms',
         NOTARY: 'notary',
         CONNECTEDFIELDS: 'connectedfields',
+        NAVIGATOR: 'navigator',
     };
 
     let processJSONData = function () {
@@ -137,6 +138,8 @@
                 return "neg";
             case API_TYPES.CONNECTEDFIELDS:
                 return "cf";
+            case API_TYPES.NAVIGATOR:
+                return "nav";
         }
     }
 

@@ -67,6 +67,12 @@ namespace DocuSign.CodeExamples.Common
         /// </summary>")]
         [Description("cf")]
         ConnectedFields = 9,
+
+        /// <summary>
+        /// Navigator
+        /// </summary>")]
+        [Description("nav")]
+        Navigator = 10,
     }
 
     public static class ExamplesApiTypeExtensions
