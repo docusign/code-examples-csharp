@@ -2823,55 +2823,6 @@
           ]
         }
       ]
-    },
-    {
-      "Name": "Maestro",
-      "Groups": [
-        {
-          "Name": "Maestro",
-          "Examples": [
-            {
-              "ExampleNumber": 1,
-              "ExampleName": "How to trigger a Maestro workflow",
-              "ExampleDescription": "Trigger a workflow",
-              "LinksToAPIMethod": [
-                {
-                  "Path": "https://developers.docusign.com/docs/maestro-api/reference/maestro/workflows/triggerworkflow/",
-                  "PathName": "Workflows:TriggerWorkflow"
-                }
-              ],
-              "Forms": [
-                {
-                  "Inputs": [
-                    {
-                      "InputName": "Instance name"
-                    },
-                    {
-                      "InputName": "Signer email"
-                    },
-                    {
-                      "InputName": "Signer name"
-                    },
-                    {
-                      "InputName": "CC email"
-                    },
-                    {
-                      "InputName": "CC name"
-                    }
-                  ]
-                }
-              ],
-              "CustomErrorTexts": [
-                {
-                  "ErrorMessageCheck": "NO_ACTIVE_WORKFLOW_FOUND",
-                  "ErrorMessage": "<p>Problem: No active workflow found. Please create a new workflow and publish it on your <a href=\"https://apps-d.docusign.com/\">DocuSign account page</a></p>"
-                }
-              ],
-              "ResultsPageText": "Workflow instance is created. Please sign the document."
-            }
-          ]
-        }
-      ]
     }
   ]
 }

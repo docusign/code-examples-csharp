@@ -50,14 +50,6 @@ namespace DocuSign.CodeExamples.Authentication
                 });
             }
 
-            if (apiType == ExamplesApiType.Maestro)
-            {
-                scopes.AddRange(new List<string>
-                {
-                    "aow_manage",
-                });
-            }
-
             if (apiType == ExamplesApiType.Monitor)
             {
                 scopes.AddRange(new List<string>

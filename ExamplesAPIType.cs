@@ -61,12 +61,6 @@ namespace DocuSign.CodeExamples.Common
         /// </summary>")]
         [Description("nav")]
         Navigator = 8,
-
-        /// <summary>
-        /// Maestro
-        /// </summary>")]
-        [Description("mae")]
-        Maestro = 9,
     }
 
     public static class ExamplesApiTypeExtensions
