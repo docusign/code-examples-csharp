@@ -36,13 +36,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DocuSign.Admin" Version="2.0.0-rc4" />
-    <PackageReference Include="DocuSign.Click" Version="2.0.0-rc1" />
-    <PackageReference Include="DocuSign.eSign.dll" Version="8.1.0-rc" />
-    <PackageReference Include="DocuSign.Monitor" Version="2.0.0-rc3" />
-    <PackageReference Include="DocuSign.Rooms" Version="2.0.0-rc3" />
-    <PackageReference Include="DocuSign.WebForms" Version="2.0.0-rc3" />
-    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="DocuSign.Admin" Version="2.0.2" />
+    <PackageReference Include="DocuSign.Click" Version="2.0.2" />
+    <PackageReference Include="DocuSign.eSign.dll" Version="8.2.0" />
+    <PackageReference Include="DocuSign.Monitor" Version="2.0.2" />
+    <PackageReference Include="DocuSign.Rooms" Version="2.0.2" />
+    <PackageReference Include="DocuSign.WebForms" Version="3.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.18" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.29">
       <PrivateAssets>all</PrivateAssets>
