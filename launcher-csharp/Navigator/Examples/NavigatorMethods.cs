@@ -14,6 +14,7 @@ namespace DocuSign.CodeExamples.Examples
         /// Lists all agreements for the specified account using the IAM client.
         /// </summary>
         /// <returns>AgreementsResponse</returns>
+        //ds-snippet-start:Navigator1Step3
         public static async Task<AgreementsResponse> ListAgreementsWithIamClient(
             string basePath, string accessToken, string accountId)
         {
@@ -21,10 +22,13 @@ namespace DocuSign.CodeExamples.Examples
             return await client.Navigator.Agreements.GetAgreementsListAsync(accountId);
         }
 
+        //ds-snippet-end:Navigator1Step3
+
         /// <summary>
         /// Retrieves a specific agreement by its ID using the IAM client.
         /// </summary>
         /// <returns>Agreement</returns>
+        //ds-snippet-start:Navigator2Step3
         public static async Task<Agreement> GetAgreementWithIamClient(
             string basePath, string accessToken, string accountId, string agreementId)
         {
@@ -32,9 +36,12 @@ namespace DocuSign.CodeExamples.Examples
             return await client.Navigator.Agreements.GetAgreementAsync(accountId, agreementId);
         }
 
+        //ds-snippet-end:Navigator2Step3
+
         /// <summary>
         /// Creates an authenticated IAM client.
         /// </summary>
+        //ds-snippet-start:NavigatorCsharpStep2
         private static IamClient CreateAuthenticatedClient(string basePath, string accessToken)
         {
             return IamClient.Builder()
@@ -42,5 +49,7 @@ namespace DocuSign.CodeExamples.Examples
                 .WithAccessToken(accessToken)
                 .Build();
         }
+
+        //ds-snippet-end:NavigatorCsharpStep2
     }
 }
