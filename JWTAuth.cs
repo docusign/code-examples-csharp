@@ -87,6 +87,11 @@ namespace DocuSign.CodeExamples.Authentication
                 scopes.Add("webforms_instance_read");
             }
 
+            if (apiType == ExamplesApiType.Navigator)
+            {
+                scopes.Add("adm_store_unified_repo_read");
+            }
+
             return docuSignClient.RequestJWTUserToken(
                 clientId,
                 impersonatedUserId,
