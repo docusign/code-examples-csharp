@@ -51,22 +51,22 @@ namespace DocuSign.CodeExamples.Common
         WebForms = 6,
 
         /// <summary>
-        /// Maestro API
-        /// </summary>
-        [Description("mae")]
-        Maestro = 7,
-
-        /// <summary>
         /// Notary API
         /// </summary>
         [Description("neg")]
-        Notary = 8,
+        Notary = 7,
 
         /// <summary>
         /// Connected Fields
         /// </summary>")]
         [Description("cf")]
-        ConnectedFields = 9,
+        ConnectedFields = 8,
+
+        /// <summary>
+        /// Navigator
+        /// </summary>")]
+        [Description("nav")]
+        Navigator = 9,
     }
 
     public static class ExamplesApiTypeExtensions

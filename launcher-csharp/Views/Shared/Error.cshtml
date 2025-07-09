@@ -15,7 +15,7 @@
     {
         <p>@Html.Raw(ViewBag.fixingInstructions)</p>
     }
-    
+
     @if (ViewBag.SupportMessage != null)
     {
         <p>@Html.Raw(ViewBag.SupportMessage) </p>
@@ -24,13 +24,15 @@
 else
 {
     <p>Error information:</p>
-    <p><pre>@ViewBag.err</pre></p>
+    <p>
+    <pre>@ViewBag.err</pre>
+    </p>
 
     @if (ViewBag.err != null)
     {
         <h3>Stack trace</h3>
         <p>
-            <pre>@ViewBag.err.StackTrace</pre>
+        <pre>@ViewBag.err.StackTrace</pre>
         </p>
     }
 }

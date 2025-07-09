@@ -6,10 +6,10 @@
         ROOMS: 'rooms',
         ADMIN: 'admin',
         CONNECT: 'connect',
-        MAESTRO: 'maestro',
         WEBFORMS: 'webforms',
         NOTARY: 'notary',
         CONNECTEDFIELDS: 'connectedfields',
+        NAVIGATOR: 'navigator',
     };
 
     let processJSONData = function () {
@@ -129,14 +129,14 @@
                 return "eg";
             case API_TYPES.CONNECT:
                 return "con";
-            case API_TYPES.MAESTRO:
-                return "mae";
             case API_TYPES.WEBFORMS:
                 return "web";
             case API_TYPES.NOTARY:
                 return "neg";
             case API_TYPES.CONNECTEDFIELDS:
                 return "cf";
+            case API_TYPES.NAVIGATOR:
+                return "nav";
         }
     }
 
