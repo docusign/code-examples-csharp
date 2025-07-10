@@ -23,17 +23,17 @@ namespace DocuSign.CodeExamples.Common
 
         private static Guid? organizationId;
 
-        #nullable enable
+#nullable enable
         private static string? authenticatedUserEmail;
-        #nullable disable
+#nullable disable
 
         private readonly IHttpContextAccessor httpContextAccessor;
 
         private readonly IMemoryCache cache;
 
-        #nullable enable
+#nullable enable
         private readonly string? id;
-        #nullable disable
+#nullable disable
 
         private OAuthToken authToken;
 
@@ -54,13 +54,13 @@ namespace DocuSign.CodeExamples.Common
 
         public IConfiguration Configuration { get; set; }
 
-        #nullable enable
+#nullable enable
         public string? EgName
         {
             get => this.cache.Get<string>(this.GetKey("EgName"));
             set => this.cache.Set(this.GetKey("EgName"), value);
         }
-        #nullable disable
+#nullable disable
 
         public Session Session
         {
@@ -68,13 +68,13 @@ namespace DocuSign.CodeExamples.Common
             set => this.cache.Set(this.GetKey("Session"), value);
         }
 
-        #nullable enable
+#nullable enable
         public User? User
         {
             get => this.cache.Get<User>(this.GetKey("User"));
             set => this.cache.Set(this.GetKey("User"), value);
         }
-        #nullable disable
+#nullable disable
 
         public Guid? OrganizationId
         {
@@ -304,6 +304,10 @@ namespace DocuSign.CodeExamples.Common
             else if (eg.Contains(ExamplesApiType.Navigator.ToKeywordString()))
             {
                 currentApiType = ExamplesApiType.Navigator.ToString();
+            }
+            else if (eg.Contains(ExamplesApiType.Maestro.ToKeywordString()))
+            {
+                currentApiType = ExamplesApiType.Maestro.ToString();
             }
             else
             {

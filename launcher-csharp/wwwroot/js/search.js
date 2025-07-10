@@ -8,6 +8,7 @@
         CONNECT: 'connect',
         WEBFORMS: 'webforms',
         NOTARY: 'notary',
+        MAESTRO: 'maestro',
         CONNECTEDFIELDS: 'connectedfields',
         NAVIGATOR: 'navigator',
     };
@@ -129,6 +130,8 @@
                 return "eg";
             case API_TYPES.CONNECT:
                 return "con";
+            case API_TYPES.MAESTRO:
+                return "mae";
             case API_TYPES.WEBFORMS:
                 return "web";
             case API_TYPES.NOTARY:

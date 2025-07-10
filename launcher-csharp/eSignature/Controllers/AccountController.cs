@@ -126,6 +126,10 @@ namespace DocuSign.CodeExamples.Controllers
             {
                 scopes += " adm_store_unified_repo_read";
             }
+            else if (apiType == ExamplesApiType.Maestro)
+            {
+                scopes += " aow_manage";
+            }
             else if (apiType == ExamplesApiType.Navigator)
             {
                 scopes += " adm_store_unified_repo_read";
