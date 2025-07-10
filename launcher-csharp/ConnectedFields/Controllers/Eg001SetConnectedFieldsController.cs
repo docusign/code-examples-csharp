@@ -38,7 +38,6 @@ namespace DocuSign.CodeExamples.Controllers
             string accessToken = this.RequestItemsService.User.AccessToken;
             string accountId = this.RequestItemsService.Session.AccountId;
             var basePath = this.RequestItemsService.Session.IamBasePath;
-
             var connectedFields = SetConnectedFields.GetConnectedFieldsTabGroupsAsync(
                 basePath,
                 accountId,

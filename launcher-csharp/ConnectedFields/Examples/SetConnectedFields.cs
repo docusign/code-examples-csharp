@@ -18,10 +18,13 @@ namespace DocuSign.CodeExamples.Examples
     {
         public static async Task<List<TabInfo>> GetConnectedFieldsTabGroupsAsync(string basePath, string accountId, string accessToken)
         {
+            //ds-snippet-start:ConnectedFields1Step3
             var client = CreateAuthenticatedClient(basePath, accessToken);
             return await client.ConnectedFields.TabInfo.GetConnectedFieldsTabGroupsAsync(accountId);
+            //ds-snippet-end:ConnectedFields1Step3
         }
 
+        //ds-snippet-start:ConnectedFields1Step4
         public static List<TabInfo> FilterData(List<TabInfo> connectedFields)
         {
             return connectedFields
@@ -30,6 +33,8 @@ namespace DocuSign.CodeExamples.Examples
                     tab.TabLabel.Contains("connecteddata")))
                 .ToList();
         }
+
+        //ds-snippet-end:ConnectedFields1Step4
 
         public static string SendEnvelopeViaEmail(
             string basePath,
@@ -163,7 +168,9 @@ namespace DocuSign.CodeExamples.Examples
 
         //ds-snippet-end:ConnectedFields1Step5
 
+        //ds-snippet-start:ConnectedFields1Step2
         private static IamClient CreateAuthenticatedClient(string basePath, string accessToken) =>
             IamClient.Builder().WithServerUrl(basePath).WithAccessToken(accessToken).Build();
+        //ds-snippet-end:ConnectedFields1Step2
     }
 }
