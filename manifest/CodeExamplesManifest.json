@@ -2797,7 +2797,8 @@
                   "PathName": "Agreements:getAgreementsList"
                 }
               ],
-              "ResultsPageText": "List of agreements with the Navigator API:"
+              "ResultsPageText": "List of agreements with the Navigator API:",
+              "SkipForLanguages": "php;python;ruby"
             },
             {
               "ExampleNumber": 2,
@@ -2818,7 +2819,8 @@
                   ]
                 }
               ],
-              "ResultsPageText": "Details for selected agreement:"
+              "ResultsPageText": "Details for selected agreement:",
+              "SkipForLanguages": "php;python;ruby"
             }
           ]
         }
