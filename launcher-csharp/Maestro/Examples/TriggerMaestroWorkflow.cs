@@ -5,11 +5,9 @@
 namespace DocuSign.CodeExamples.Examples
 {
     using System.Collections.Generic;
-    using System.Text.Json;
     using System.Threading.Tasks;
     using Docusign.IAM.SDK;
     using Docusign.IAM.SDK.Models.Components;
-    using Docusign.IAM.SDK.Models.Errors;
 
     public static class TriggerMaestroWorkflow
     {
@@ -30,7 +28,7 @@ namespace DocuSign.CodeExamples.Examples
         /// Triggers a specific Maestro workflow instance.
         /// </summary>
         /// <returns>Instance URL.</returns>
-        public static async Task<string> TriggerWorkflowInstance(
+        public static async Task<TriggerWorkflowSuccess> TriggerWorkflowInstance(
             string basePath,
             string accessToken,
             string accountId,
@@ -57,24 +55,10 @@ namespace DocuSign.CodeExamples.Examples
                 TriggerInputs = triggerInputs,
             };
 
-            try
-            {
-                var result = await client.Maestro.Workflows.TriggerWorkflowAsync(
-                    accountId,
-                    workflowId,
-                    triggerWorkflow);
-                return result.InstanceUrl;
-            }
-            catch (APIException ex)
-            {
-                if (ex.Body.Contains("instance_url"))
-                {
-                    using var doc = JsonDocument.Parse(ex.Body);
-                    return doc.RootElement.GetProperty("instance_url").GetString();
-                }
-
-                throw;
-            }
+            return await client.Maestro.Workflows.TriggerWorkflowAsync(
+                accountId,
+                workflowId,
+                triggerWorkflow);
         }
 
         /// <summary>

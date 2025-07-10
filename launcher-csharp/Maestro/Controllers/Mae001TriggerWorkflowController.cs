@@ -61,14 +61,14 @@ namespace DocuSign.CodeExamples.Controllers
                     accessToken,
                     accountId);
 
-                if (workflowsList.Data != null || workflowsList.Data.Workflows.Count > 0)
+                if (workflowsList.Data != null || workflowsList.Data.Count > 0)
                 {
-                    var maestroWorkflow = workflowsList.Data.Workflows.FirstOrDefault(workflow =>
+                    var maestroWorkflow = workflowsList.Data.FirstOrDefault(workflow =>
                         workflow.Status == "active" && workflow.Name == "Example workflow - send invite to signer");
 
                     if (maestroWorkflow != null)
                     {
-                        string instanceUrl = await TriggerMaestroWorkflow.TriggerWorkflowInstance(
+                        var instance = await TriggerMaestroWorkflow.TriggerWorkflowInstance(
                             basePath,
                             accessToken,
                             accountId,
@@ -79,8 +79,11 @@ namespace DocuSign.CodeExamples.Controllers
                             ccName,
                             instanceName);
 
+                        this.RequestItemsService.WorkflowId = maestroWorkflow.Id;
+                        this.RequestItemsService.InstanceId = instance.InstanceId;
+
                         this.ViewBag.h1 = this.CodeExampleText.ExampleName;
-                        this.ViewBag.Url = instanceUrl;
+                        this.ViewBag.Url = instance.InstanceUrl;
                         this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText);
 
                         return this.View("embed");

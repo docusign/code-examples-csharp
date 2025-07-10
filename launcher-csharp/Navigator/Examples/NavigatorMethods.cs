@@ -7,6 +7,7 @@ namespace DocuSign.CodeExamples.Examples
     using System.Threading.Tasks;
     using Docusign.IAM.SDK;
     using Docusign.IAM.SDK.Models.Components;
+    using Docusign.IAM.SDK.Models.Requests;
 
     public static class NavigatorMethods
     {
@@ -18,7 +19,10 @@ namespace DocuSign.CodeExamples.Examples
             string basePath, string accessToken, string accountId)
         {
             var client = CreateAuthenticatedClient(basePath, accessToken);
-            return await client.Navigator.Agreements.GetAgreementsListAsync(accountId);
+            return await client.Navigator.Agreements.GetAgreementsListAsync(new GetAgreementsListRequest
+            {
+                AccountId = accountId,
+            });
         }
 
         /// <summary>
