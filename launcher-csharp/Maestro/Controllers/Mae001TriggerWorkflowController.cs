@@ -4,6 +4,7 @@
 
 namespace DocuSign.CodeExamples.Controllers
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using DocuSign.CodeExamples.Common;
@@ -17,6 +18,8 @@ namespace DocuSign.CodeExamples.Controllers
     [Route("mae001")]
     public class Mae001TriggerWorkflowController : EgController
     {
+        private const string WorkflowName = "Example workflow - send invite to signer";
+
         public Mae001TriggerWorkflowController(DsConfiguration dsConfig,
             LauncherTexts launcherTexts,
             IRequestItemsService requestItemsService)
@@ -27,6 +30,96 @@ namespace DocuSign.CodeExamples.Controllers
         }
 
         public override string EgName => "mae001";
+
+        [MustAuthenticate]
+        [HttpGet]
+        public override IActionResult Get()
+        {
+            var actionResult = base.Get();
+            if (this.RequestItemsService.EgName == this.EgName)
+            {
+                return actionResult;
+            }
+
+            var basePath = this.RequestItemsService.Session.IamBasePath;
+            var accessToken = this.RequestItemsService.User.AccessToken;
+            var accountId = this.RequestItemsService.Session.AccountId;
+
+            try
+            {
+                if (this.RequestItemsService.WorkflowId == null)
+                {
+                    WorkflowsListSuccess workflowsList = TriggerMaestroWorkflow.GetMaestroWorkflow(
+                        basePath,
+                        accessToken,
+                        accountId).GetAwaiter().GetResult();
+
+                    if (workflowsList.Data != null || workflowsList.Data.Count > 0)
+                    {
+                        var maestroWorkflow = workflowsList.Data.FirstOrDefault(workflow => workflow.Name == WorkflowName);
+
+                        this.RequestItemsService.WorkflowId = maestroWorkflow?.Id;
+                    }
+                }
+
+                if (this.RequestItemsService.WorkflowId == null && this.RequestItemsService.TemplateId != null)
+                {
+                    var workflowId = TriggerMaestroWorkflow.CreateWorkflowAsync(
+                        accessToken,
+                        accountId,
+                        this.RequestItemsService.TemplateId,
+                        this.Config.MaestroWorkflowConfig).GetAwaiter().GetResult();
+                    this.RequestItemsService.WorkflowId = workflowId;
+
+                    var publishLink = TriggerMaestroWorkflow.PublishWorkflowAsync(
+                        accountId,
+                        workflowId,
+                        accessToken).GetAwaiter().GetResult();
+
+                    this.RequestItemsService.IsWorkflowPublished = true;
+                    this.ViewBag.ConsentLink = this.CodeExampleText.AdditionalPages[0].ResultsPageText
+                        .Replace("{0}", publishLink);
+                    this.ViewBag.WorkflowId = this.RequestItemsService.WorkflowId;
+                    this.ViewBag.TemplateId = this.RequestItemsService.TemplateId;
+
+                    return this.View("publishWorkflow");
+                }
+
+                if (this.RequestItemsService.IsWorkflowPublished)
+                {
+                    var publishLink = TriggerMaestroWorkflow.PublishWorkflowAsync(
+                        accountId,
+                        this.RequestItemsService.WorkflowId,
+                        accessToken).GetAwaiter().GetResult();
+
+                    if (publishLink != string.Empty)
+                    {
+                        this.ViewBag.ConsentLink = this.CodeExampleText.AdditionalPages[0].ResultsPageText
+                            .Replace("{0}", publishLink);
+
+                        this.ViewBag.WorkflowId = this.RequestItemsService.WorkflowId;
+                        this.ViewBag.TemplateId = this.RequestItemsService.TemplateId;
+                        return this.View("publishWorkflow");
+                    }
+
+                    this.RequestItemsService.IsWorkflowPublished = false;
+                }
+
+                this.ViewBag.WorkflowId = this.RequestItemsService.WorkflowId;
+                this.ViewBag.TemplateId = this.RequestItemsService.TemplateId;
+
+                return this.View("mae001");
+            }
+            catch (Exception apiException)
+            {
+                this.ViewBag.errorCode = string.Empty;
+                this.ViewBag.errorMessage = apiException.Message;
+                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
+                this.ViewBag.SupportMessage = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage;
+
+                return this.View("Error");
+            }
+        }
 
         [HttpPost]
         [SetViewBag]
@@ -53,48 +146,29 @@ namespace DocuSign.CodeExamples.Controllers
             string accessToken = this.RequestItemsService.User.AccessToken;
             string basePath = this.RequestItemsService.Session.IamBasePath;
             string accountId = this.RequestItemsService.Session.AccountId;
+            string workflowId = this.RequestItemsService.WorkflowId;
 
             try
             {
-                WorkflowsListSuccess workflowsList = await TriggerMaestroWorkflow.GetMaestroWorkflow(
+                var instance = await TriggerMaestroWorkflow.TriggerWorkflowInstance(
                     basePath,
                     accessToken,
-                    accountId);
+                    accountId,
+                    workflowId,
+                    signerEmail,
+                    signerName,
+                    ccEmail,
+                    ccName,
+                    instanceName);
 
-                if (workflowsList.Data != null || workflowsList.Data.Count > 0)
-                {
-                    var maestroWorkflow = workflowsList.Data.FirstOrDefault(workflow =>
-                        workflow.Status == "active" && workflow.Name == "Example workflow - send invite to signer");
+                this.RequestItemsService.WorkflowId = workflowId;
+                this.RequestItemsService.InstanceId = instance.InstanceId;
 
-                    if (maestroWorkflow != null)
-                    {
-                        var instance = await TriggerMaestroWorkflow.TriggerWorkflowInstance(
-                            basePath,
-                            accessToken,
-                            accountId,
-                            maestroWorkflow.Id,
-                            signerEmail,
-                            signerName,
-                            ccEmail,
-                            ccName,
-                            instanceName);
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                this.ViewBag.Url = instance.InstanceUrl;
+                this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText);
 
-                        this.RequestItemsService.WorkflowId = maestroWorkflow.Id;
-                        this.RequestItemsService.InstanceId = instance.InstanceId;
-
-                        this.ViewBag.h1 = this.CodeExampleText.ExampleName;
-                        this.ViewBag.Url = instance.InstanceUrl;
-                        this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText);
-
-                        return this.View("embed");
-                    }
-                }
-
-                this.ViewBag.errorCode = string.Empty;
-                this.ViewBag.SupportingTexts = this.LauncherTexts.ManifestStructure.SupportingTexts;
-                this.ViewBag.SupportMessage = this.CodeExampleText.CustomErrorTexts[0].ErrorMessage;
-
-                return this.View("Error");
+                return this.View("embed");
             }
             catch (APIException exception)
             {
