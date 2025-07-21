@@ -2803,7 +2803,8 @@
                   "PathName": "Agreements:getAgreementsList"
                 }
               ],
-              "ResultsPageText": "List of agreements with the Navigator API:"
+              "ResultsPageText": "List of agreements with the Navigator API:",
+              "SkipForLanguages": "php;python;ruby"
             },
             {
               "ExampleNumber": 2,
@@ -2824,7 +2825,8 @@
                   ]
                 }
               ],
-              "ResultsPageText": "Details for selected agreement:"
+              "ResultsPageText": "Details for selected agreement:",
+              "SkipForLanguages": "php;python;ruby"
             }
           ]
         }
@@ -2870,22 +2872,23 @@
               "AdditionalPage": [
                 {
                   "Name": "publish_workflow",
-                  "ResultsPageText": "Please open <a href=\"{0}\" target=\"_blank\">the following page</a> to publish the workflow."
+                  "ResultsPageText": "Please open <a href=\"{0}\" target=\"_blank\">this page</a> to publish the workflow."
                 }
               ],
               "RedirectsToOtherCodeExamples": [
                 {
                   "CodeExampleToRedirectTo": 8,
-                  "RedirectText": "<p>Prerequisite: Please first create a template to use in the workflow using <a {0}>Create a template</a></p>"
+                  "RedirectText": "<p>Prerequisite: Please create a template to use in the workflow by running the <a {0}>Create a template</a> example.</p>"
                 }
               ],
               "CustomErrorTexts": [
                 {
                   "ErrorMessageCheck": "NO_ACTIVE_WORKFLOW_FOUND",
-                  "ErrorMessage": "<p>Problem: No active workflow found. Please create a new workflow and publish it on your <a href=\"https://apps-d.docusign.com/\">DocuSign account page</a></p>"
+                  "ErrorMessage": "<p>Problem: No active workflow found. Please create a new workflow and publish it to your <a href=\"https://apps-d.docusign.com/\">Docusign account.</a></p>"
                 }
               ],
-              "ResultsPageText": "Workflow instance is created. Please sign the document."
+              "ResultsPageText": "Workflow instance is created. Please sign the document.",
+              "SkipForLanguages": "java;node;php;python;ruby"
             },
             {
               "ExampleNumber": 2,
@@ -2907,7 +2910,8 @@
                   "ErrorMessage": "Unable to pause workflow: {0}."
                 }
               ],
-              "ResultsPageText": "Workflow has been paused."
+              "ResultsPageText": "Workflow has been paused.",
+              "SkipForLanguages": "java;node;php;python;ruby"
             },
             {
               "ExampleNumber": 3,
@@ -2929,7 +2933,8 @@
                   "ErrorMessage": "Unable to resume workflow: {0}."
                 }
               ],
-              "ResultsPageText": "Workflow has been resumed."
+              "ResultsPageText": "Workflow has been resumed.",
+              "SkipForLanguages": "java;node;php;python;ruby"
             },
             {
               "ExampleNumber": 4,
@@ -2951,7 +2956,8 @@
                   "ErrorMessage": "Unable to retrieve workflow instance: {0}."
                 }
               ],
-              "ResultsPageText": "Workflow has been canceled."
+              "ResultsPageText": "Workflow has been canceled.",
+              "SkipForLanguages": "java;node;php;python;ruby"
             }
           ]
         }

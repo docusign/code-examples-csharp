@@ -10,6 +10,7 @@ namespace DocuSign.CodeExamples.Examples
 
     public static class ResumeWorkflow
     {
+        //ds-snippet-start:Maestro3Step3
         public static async Task<ResumeNewWorkflowInstancesSuccess> ResumeMaestroWorkflow(
             string basePath,
             string accessToken,
@@ -19,10 +20,12 @@ namespace DocuSign.CodeExamples.Examples
             var client = CreateAuthenticatedClient(basePath, accessToken);
             return await client.Maestro.Workflows.ResumePausedWorkflowAsync(accountId, workflowId);
         }
+        //ds-snippet-end:Maestro3Step3
 
         /// <summary>
         /// Creates an authenticated IAM client.
         /// </summary>
+        //ds-snippet-start:Maestro3Step2
         private static IamClient CreateAuthenticatedClient(string basePath, string accessToken)
         {
             return IamClient.Builder()
@@ -30,5 +33,6 @@ namespace DocuSign.CodeExamples.Examples
                 .WithAccessToken(accessToken)
                 .Build();
         }
+        //ds-snippet-end:Maestro3Step2
     }
 }

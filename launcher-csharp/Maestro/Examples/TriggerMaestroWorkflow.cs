@@ -27,10 +27,12 @@ namespace DocuSign.CodeExamples.Examples
             string basePath,
             string accessToken,
             string accountId)
+        //ds-snippet-start:Maestro1Step3
         {
             var client = CreateAuthenticatedClient(basePath, accessToken);
             return await client.Maestro.Workflows.GetWorkflowsListAsync(accountId, Status.Active);
         }
+        //ds-snippet-start:Maestro1Step3
 
         /// <summary>
         /// Triggers a specific Maestro workflow instance.
@@ -49,6 +51,7 @@ namespace DocuSign.CodeExamples.Examples
         {
             var client = CreateAuthenticatedClient(basePath, accessToken);
 
+            //ds-snippet-start:Maestro1Step4
             var triggerInputs = new Dictionary<string, TriggerInputs>
             {
                 { "signerName", CreateTriggerInput(signerName) },
@@ -56,7 +59,9 @@ namespace DocuSign.CodeExamples.Examples
                 { "ccName", CreateTriggerInput(ccName) },
                 { "ccEmail", CreateTriggerInput(ccEmail) },
             };
+            //ds-snippet-end:Maestro1Step4
 
+            //ds-snippet-start:Maestro1Step5
             var triggerWorkflow = new TriggerWorkflow
             {
                 InstanceName = instanceName,
@@ -67,6 +72,7 @@ namespace DocuSign.CodeExamples.Examples
                 accountId,
                 workflowId,
                 triggerWorkflow);
+            //ds-snippet-end:Maestro1Step5
         }
 
         /// <summary>
@@ -148,6 +154,7 @@ namespace DocuSign.CodeExamples.Examples
         /// <summary>
         /// Creates an authenticated IAM client.
         /// </summary>
+        //ds-snippet-start:Maestro1Step2
         private static IamClient CreateAuthenticatedClient(string basePath, string accessToken)
         {
             return IamClient.Builder()
@@ -155,7 +162,7 @@ namespace DocuSign.CodeExamples.Examples
                 .WithAccessToken(accessToken)
                 .Build();
         }
-
+        //ds-snippet-end:Maestro1Step2
         /// <summary>
         /// Creates a TriggerInputs object for string inputs.
         /// </summary>
