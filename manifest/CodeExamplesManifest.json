@@ -2867,6 +2867,18 @@
                   ]
                 }
               ],
+              "AdditionalPage": [
+                {
+                  "Name": "publish_workflow",
+                  "ResultsPageText": "Please open <a href=\"{0}\" target=\"_blank\">the following page</a> to publish the workflow."
+                }
+              ],
+              "RedirectsToOtherCodeExamples": [
+                {
+                  "CodeExampleToRedirectTo": 8,
+                  "RedirectText": "<p>Prerequisite: Please first create a template to use in the workflow using <a {0}>Create a template</a></p>"
+                }
+              ],
               "CustomErrorTexts": [
                 {
                   "ErrorMessageCheck": "NO_ACTIVE_WORKFLOW_FOUND",
