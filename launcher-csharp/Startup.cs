@@ -56,6 +56,8 @@ namespace DocuSign.CodeExamples
                     "room_forms",
             });
 
+            this.apiTypes.Add(ExamplesApiType.Maestro, new List<string> { "signature", "aow_manage" });
+
             this.apiTypes.Add(ExamplesApiType.Click, new List<string>
             {
                     "click.manage",

@@ -2775,6 +2775,12 @@
                   "Name": "no_verification_app",
                   "ResultsPageText": "No data verification were found in the account. Please install a data verification app.<br />You can install a phone number verification extension app by copying the following link to your browser: <a href=\"https://apps.docusign.com/app-center/app/d16f398f-8b9a-4f94-b37c-af6f9c910c04\">https://apps.docusign.com/app-center/app/d16f398f-8b9a-4f94-b37c-af6f9c910c04</a>"
                 }
+              ],
+              "CustomErrorTexts": [
+                {
+                  "ErrorMessageCheck": "NO_DATA_VERIFICATION_EXTENSIONS",
+                  "ErrorMessage": "<p>No data verification extension apps were found in the account. Please install a <a href=\"https://apps-d.docusign.com/app-center/app/d16f398f-8b9a-4f94-b37c-af6f9c910c04\">phone number verification app from the App Center</a>.</p>"
+                }
               ]
             }
           ]
@@ -2821,6 +2827,137 @@
               ],
               "ResultsPageText": "Details for selected agreement:",
               "SkipForLanguages": "php;python;ruby"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Maestro",
+      "Groups": [
+        {
+          "Name": "Maestro",
+          "Examples": [
+            {
+              "ExampleNumber": 1,
+              "ExampleName": "How to trigger a Maestro workflow",
+              "ExampleDescription": "Trigger a workflow",
+              "LinksToAPIMethod": [
+                {
+                  "Path": "https://developers.docusign.com/docs/maestro-api/reference/maestro/workflows/triggerworkflow/",
+                  "PathName": "Workflows:TriggerWorkflow"
+                }
+              ],
+              "Forms": [
+                {
+                  "Inputs": [
+                    {
+                      "InputName": "Instance name"
+                    },
+                    {
+                      "InputName": "Signer email"
+                    },
+                    {
+                      "InputName": "Signer name"
+                    },
+                    {
+                      "InputName": "CC email"
+                    },
+                    {
+                      "InputName": "CC name"
+                    }
+                  ]
+                }
+              ],
+              "AdditionalPage": [
+                {
+                  "Name": "publish_workflow",
+                  "ResultsPageText": "Please open <a href=\"{0}\" target=\"_blank\">this page</a> to publish the workflow."
+                }
+              ],
+              "RedirectsToOtherCodeExamples": [
+                {
+                  "CodeExampleToRedirectTo": 8,
+                  "RedirectText": "<p>Prerequisite: Please create a template to use in the workflow by running the <a {0}>Create a template</a> example.</p>"
+                }
+              ],
+              "CustomErrorTexts": [
+                {
+                  "ErrorMessageCheck": "NO_ACTIVE_WORKFLOW_FOUND",
+                  "ErrorMessage": "<p>Problem: No active workflow found. Please create a new workflow and publish it to your <a href=\"https://apps-d.docusign.com/\">Docusign account.</a></p>"
+                }
+              ],
+              "ResultsPageText": "Workflow instance is created. Please sign the document.",
+              "SkipForLanguages": "java;php;python;ruby"
+            },
+            {
+              "ExampleNumber": 2,
+              "ExampleName": "Pause a running workflow instance",
+              "ExampleDescription": "how to create an envelope where the workflow is paused before the envelope is sent to a second recipient",
+              "LinksToAPIMethod": [
+                {
+                  "Path": "https://developers.docusign.com/docs/maestro-api/reference/maestro/workflows/pausenewworkflowinstances/",
+                  "PathName": "Workflows:pauseNewWorkflowInstances"
+                }
+              ],
+              "CustomErrorTexts": [
+                {
+                  "ErrorMessageCheck": "NO_WORKFLOW_ID_FOUND",
+                  "ErrorMessage": "<p>Please run example 1 to create and trigger a worklow before running this example.</p>"
+                },
+                {
+                  "ErrorMessageCheck": "NO_WORKFLOW_ID_FOUND",
+                  "ErrorMessage": "Unable to pause workflow: {0}."
+                }
+              ],
+              "ResultsPageText": "Workflow has been paused.",
+              "SkipForLanguages": "java;php;python;ruby"
+            },
+            {
+              "ExampleNumber": 3,
+              "ExampleName": "Resume a paused workflow instance",
+              "ExampleDescription": "This example enables new workflow instances to be created",
+              "LinksToAPIMethod": [
+                {
+                  "Path": "https://developers.docusign.com/docs/maestro-api/reference/maestro/workflows/resumepausedworkflow/",
+                  "PathName": "Workflows:resumePausedWorkflow"
+                }
+              ],
+              "CustomErrorTexts": [
+                {
+                  "ErrorMessageCheck": "NO_WORKFLOW_ID_FOUND",
+                  "ErrorMessage": "<p>Please run example 1 to create and trigger a worklow before running this example.</p>"
+                },
+                {
+                  "ErrorMessageCheck": "NO_WORKFLOW_ID_FOUND",
+                  "ErrorMessage": "Unable to resume workflow: {0}."
+                }
+              ],
+              "ResultsPageText": "Workflow has been resumed.",
+              "SkipForLanguages": "java;php;python;ruby"
+            },
+            {
+              "ExampleNumber": 4,
+              "ExampleName": "Cancel a running workflow instance",
+              "ExampleDescription": "This example cancels a running Maestro workflow instance by its unique identifier (instanceId). Once canceled, the workflow instance will no longer continue executing any remaining steps.",
+              "LinksToAPIMethod": [
+                {
+                  "Path": "https://developers.docusign.com/docs/maestro-api/reference/maestro/workflowinstancemanagement/cancelworkflowinstance/",
+                  "PathName": "WorkflowInstanceManagement:cancelWorkflowInstance"
+                }
+              ],
+              "CustomErrorTexts": [
+                {
+                  "ErrorMessageCheck": "NO_WORKFLOW_ID_FOUND",
+                  "ErrorMessage": "<p>Please run example 1 to create and trigger a worklow before running this example.</p>"
+                },
+                {
+                  "ErrorMessageCheck": "NO_WORKFLOW_ID_FOUND",
+                  "ErrorMessage": "Unable to retrieve workflow instance: {0}."
+                }
+              ],
+              "ResultsPageText": "Workflow has been canceled.",
+              "SkipForLanguages": "java;php;python;ruby"
             }
           ]
         }

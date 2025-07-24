@@ -8,8 +8,6 @@
 @if (ViewBag.errorCode != null)
 {
     <p>Error information:</p>
-    <p>@ViewBag.errorCode: @ViewBag.errorMessage</p>
-    <p>@Html.Raw(ViewBag.errorInformation)</p>
 
     if (ViewBag.fixingInstructions != null)
     {
@@ -20,6 +18,9 @@
     {
         <p>@Html.Raw(ViewBag.SupportMessage) </p>
     }
+    
+    <p>@ViewBag.errorCode: @ViewBag.errorMessage</p>
+    <p>@Html.Raw(ViewBag.errorInformation)</p>
 }
 else
 {

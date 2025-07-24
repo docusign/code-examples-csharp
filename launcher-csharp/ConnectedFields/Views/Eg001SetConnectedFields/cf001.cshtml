@@ -23,40 +23,55 @@
     ">SetConnectedFields.cs</a>"))
 </p>
 
-<form class="eg" action="" method="post" data-busy="form">
-    <div class="form-group">
-        <label for="signerEmail">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputName)
-        </label>
-        <input type="email" class="form-control" id="signerEmail" name="signerEmail" aria-describedby="emailHelp"
-            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputPlaceholder"
-            required value="@ViewBag.Locals.DsConfig.SignerEmail" />
-        <small id="emailHelp"
-            class="form-text text-muted">@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)</small>
-    </div>
-    <div class="form-group">
-        <label for="signerName">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputName)
-        </label>
-        <input type="text" class="form-control" id="signerName"
-            placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputPlaceholder"
-            name="signerName" value="@ViewBag.Locals.DsConfig.SignerName" required />
-    </div>
-    <div class="form-group">
-        <label for="apps">
-            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[extensionsInputNumber].InputName)
-        </label>
+@if (apps.Count != 0)
+{
+    <form class="eg" action="" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="signerEmail">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputName)
+            </label>
+            <input type="email" class="form-control" id="signerEmail" name="signerEmail" aria-describedby="emailHelp"
+                   placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerEmailInputNumber].InputPlaceholder"
+                   required value="@ViewBag.Locals.DsConfig.SignerEmail"/>
+            <small id="emailHelp"
+                   class="form-text text-muted">@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)</small>
+        </div>
+        <div class="form-group">
+            <label for="signerName">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputName)
+            </label>
+            <input type="text" class="form-control" id="signerName"
+                   placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[signerNameInputNumber].InputPlaceholder"
+                   name="signerName" value="@ViewBag.Locals.DsConfig.SignerName" required/>
+        </div>
+        <div class="form-group">
+            <label for="apps">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[extensionsInputNumber].InputName)
+            </label>
 
-        <select id="appId" name="appId" class="form-control">
-            @foreach (var app in apps)
-            {
-                var appId = app.AppId;
-                var applicationName = app.Tabs?[0]?.ExtensionData?.ApplicationName;
+            <select id="appId" name="appId" class="form-control">
+                @foreach (var app in apps)
+                {
+                    var appId = app.AppId;
+                    var applicationName = app.Tabs?[0]?.ExtensionData?.ApplicationName;
 
-                <option value="@appId">@applicationName</option>
-            }
-        </select>
-    </div>
-    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
-</form>
+                    <option value="@appId">@applicationName</option>
+                }
+            </select>
+        </div>
+        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
+    </form>
+}
+else
+{
+    <p>
+        @Html.Raw(
+            ViewBag.CodeExampleText.CustomErrorTexts[0].ErrorMessage
+        )
+    </p>
+
+    <form class="eg" action="" method="get" data-busy="form">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+    </form>
+}

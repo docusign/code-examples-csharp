@@ -42,7 +42,7 @@
     <PackageReference Include="DocuSign.Monitor" Version="2.0.0-rc3" />
     <PackageReference Include="DocuSign.Rooms" Version="2.0.0-rc3" />
     <PackageReference Include="DocuSign.WebForms" Version="2.0.0-rc3" />
-    <PackageReference Include="Docusign.IAM.SDK" Version="1.0.0-beta.1" />
+    <PackageReference Include="Docusign.IAM.SDK" Version="1.0.0-beta.3" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.18" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.29">
