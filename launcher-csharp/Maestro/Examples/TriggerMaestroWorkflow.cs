@@ -33,7 +33,7 @@ namespace DocuSign.CodeExamples.Examples
             return await client.Maestro.Workflows.GetWorkflowsListAsync(accountId, Status.Active);
         }
 
-        //ds-snippet-start:Maestro1Step3
+        //ds-snippet-end:Maestro1Step3
 
         /// <summary>
         /// Triggers a specific Maestro workflow instance.
