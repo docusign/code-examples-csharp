@@ -20,6 +20,7 @@ namespace DocuSign.CodeExamples.Examples
             var client = CreateAuthenticatedClient(basePath, accessToken);
             return await client.Maestro.Workflows.ResumePausedWorkflowAsync(accountId, workflowId);
         }
+
         //ds-snippet-end:Maestro3Step3
 
         /// <summary>
@@ -33,6 +34,7 @@ namespace DocuSign.CodeExamples.Examples
                 .WithAccessToken(accessToken)
                 .Build();
         }
+
         //ds-snippet-end:Maestro3Step2
     }
 }

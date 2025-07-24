@@ -32,6 +32,7 @@ namespace DocuSign.CodeExamples.Examples
             var client = CreateAuthenticatedClient(basePath, accessToken);
             return await client.Maestro.Workflows.GetWorkflowsListAsync(accountId, Status.Active);
         }
+
         //ds-snippet-start:Maestro1Step3
 
         /// <summary>
@@ -162,7 +163,9 @@ namespace DocuSign.CodeExamples.Examples
                 .WithAccessToken(accessToken)
                 .Build();
         }
+
         //ds-snippet-end:Maestro1Step2
+
         /// <summary>
         /// Creates a TriggerInputs object for string inputs.
         /// </summary>

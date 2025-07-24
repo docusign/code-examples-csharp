@@ -21,6 +21,7 @@ namespace DocuSign.CodeExamples.Examples
             var client = CreateAuthenticatedClient(basePath, accessToken);
             return await client.Maestro.WorkflowInstanceManagement.CancelWorkflowInstanceAsync(accountId, workflowId, workflowInstanceId);
         }
+
         //ds-snippet-end:Maestro4Step3
 
         /// <summary>
@@ -34,6 +35,7 @@ namespace DocuSign.CodeExamples.Examples
                 .WithAccessToken(accessToken)
                 .Build();
         }
+
         //ds-snippet-end:Maestro4Step2
     }
 }
