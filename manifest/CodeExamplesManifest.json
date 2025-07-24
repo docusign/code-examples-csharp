@@ -2888,7 +2888,7 @@
                 }
               ],
               "ResultsPageText": "Workflow instance is created. Please sign the document.",
-              "SkipForLanguages": "java;node;php;python;ruby"
+              "SkipForLanguages": "java;php;python;ruby"
             },
             {
               "ExampleNumber": 2,
@@ -2911,7 +2911,7 @@
                 }
               ],
               "ResultsPageText": "Workflow has been paused.",
-              "SkipForLanguages": "java;node;php;python;ruby"
+              "SkipForLanguages": "java;php;python;ruby"
             },
             {
               "ExampleNumber": 3,
@@ -2934,7 +2934,7 @@
                 }
               ],
               "ResultsPageText": "Workflow has been resumed.",
-              "SkipForLanguages": "java;node;php;python;ruby"
+              "SkipForLanguages": "java;php;python;ruby"
             },
             {
               "ExampleNumber": 4,
@@ -2957,7 +2957,7 @@
                 }
               ],
               "ResultsPageText": "Workflow has been canceled.",
-              "SkipForLanguages": "java;node;php;python;ruby"
+              "SkipForLanguages": "java;php;python;ruby"
             }
           ]
         }
