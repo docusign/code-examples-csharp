@@ -1,5 +1,5 @@
-// <copyright file="Mae002PauseWorkflowController.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+// <copyright file="Mae002PauseWorkflowController.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples.Controllers

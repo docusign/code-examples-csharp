@@ -1,5 +1,5 @@
-﻿// <copyright file="CreateRemoteInstance.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+﻿// <copyright file="CreateRemoteInstance.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples.WebForms.Controllers

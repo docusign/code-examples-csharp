@@ -1,5 +1,5 @@
-﻿// <copyright file="CreateAndEmbedFormService.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+﻿// <copyright file="CreateAndEmbedFormService.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.WebForms.Examples

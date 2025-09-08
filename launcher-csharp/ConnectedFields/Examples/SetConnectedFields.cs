@@ -1,5 +1,5 @@
-// <copyright file="SetConnectedFields.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+// <copyright file="SetConnectedFields.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples.Examples
@@ -86,7 +86,7 @@ namespace DocuSign.CodeExamples.Examples
                 RoutingOrder = "1",
                 Tabs = new Tabs
                 {
-                   SignHereTabs = new List<SignHere>
+                    SignHereTabs = new List<SignHere>
                    {
                         new SignHere
                         {
@@ -96,7 +96,7 @@ namespace DocuSign.CodeExamples.Examples
                             AnchorXOffset = "20",
                         },
                    },
-                   TextTabs = new List<Text>(),
+                    TextTabs = new List<Text>(),
                 },
             };
 
