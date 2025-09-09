@@ -1,5 +1,5 @@
-// <copyright file="Neg004SendWithThirdPartyNotaryController.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+// <copyright file="Neg004SendWithThirdPartyNotaryController.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples.Controllers

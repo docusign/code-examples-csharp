@@ -1,5 +1,5 @@
-﻿// <copyright file="GrantOfficeAccessToFormGroup.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+﻿// <copyright file="GrantOfficeAccessToFormGroup.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.Rooms.Examples

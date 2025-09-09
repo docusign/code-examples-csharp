@@ -1,0 +1,21 @@
+﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" />
+
+<p>
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">CreateAndEmbedFormService.cs</a>"
+            )
+        )
+</p>
+
+
+<form class="eg" action="" method="post" data-busy="form">
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+</form>
+
