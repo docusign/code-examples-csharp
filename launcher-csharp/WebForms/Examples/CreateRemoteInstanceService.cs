@@ -17,6 +17,7 @@ namespace DocuSign.WebForms.Examples
     {
         public static WebFormSummaryList GetFormsByName(string basePath, string accessToken, string accountId, string templateName)
         {
+            //ds-snippet-start:WebForms2Step3
             var client = PrepareWebFormsClient(accessToken, basePath);
             FormManagementApi formManagementApi = new FormManagementApi(client);
 
@@ -25,6 +26,7 @@ namespace DocuSign.WebForms.Examples
                 search = templateName,
             };
             return formManagementApi.ListForms(accountId, listFormsOptions);
+            //ds-snippet-end:WebForms2Step3
         }
 
         public static void AddTemplateIdToForm(string fileLocation, string templateId)
@@ -54,6 +56,7 @@ namespace DocuSign.WebForms.Examples
                 { "JobTitle", "Programmer Writer" },
             };
 
+            //ds-snippet-start:WebForms2Step4
             var requestBody = new CreateInstanceRequestBody()
             {
                 SendOption = SendOption.Now,
@@ -68,9 +71,12 @@ namespace DocuSign.WebForms.Examples
                     },
                 },
             };
+            //ds-snippet-end:WebForms2Step4
 
+            //ds-snippet-start:WebForms2Step5
             FormInstanceManagementApi formManagementApi = new FormInstanceManagementApi(client);
             return formManagementApi.CreateInstance(accountId, formId, requestBody);
+            //ds-snippet-end:WebForms2Step5
         }
 
         public static List<EnvelopeTemplate> GetTemplatesByName(
@@ -222,9 +228,11 @@ namespace DocuSign.WebForms.Examples
 
         private static Client.DocuSignClient PrepareWebFormsClient(string accessToken, string basePath)
         {
+            //ds-snippet-start:WebForms2Step2
             var client = new Client.DocuSignClient(basePath);
             client.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             return client;
+            //ds-snippet-end:WebForms2Step2
         }
 
         private static DocuSignClient PrepareESignClient(string accessToken, string basePath)
