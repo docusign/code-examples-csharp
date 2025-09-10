@@ -1,5 +1,5 @@
-﻿// <copyright file="ExamplesApiTypeExtensions.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+﻿// <copyright file="ExamplesApiTypeExtensions.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples.Common
@@ -51,22 +51,28 @@ namespace DocuSign.CodeExamples.Common
         WebForms = 6,
 
         /// <summary>
-        /// Maestro API
-        /// </summary>
-        [Description("mae")]
-        Maestro = 7,
-
-        /// <summary>
         /// Notary API
         /// </summary>
         [Description("neg")]
-        Notary = 8,
+        Notary = 7,
 
         /// <summary>
         /// Connected Fields
         /// </summary>")]
         [Description("cf")]
-        ConnectedFields = 9,
+        ConnectedFields = 8,
+
+        /// <summary>
+        /// Navigator
+        /// </summary>")]
+        [Description("nav")]
+        Navigator = 9,
+
+        /// <summary>
+        /// Maestro
+        /// </summary>")]
+        [Description("mae")]
+        Maestro = 10,
     }
 
     public static class ExamplesApiTypeExtensions

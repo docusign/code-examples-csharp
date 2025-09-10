@@ -8,29 +8,32 @@
 @if (ViewBag.errorCode != null)
 {
     <p>Error information:</p>
-    <p>@ViewBag.errorCode: @ViewBag.errorMessage</p>
-    <p>@Html.Raw(ViewBag.errorInformation)</p>
 
     if (ViewBag.fixingInstructions != null)
     {
         <p>@Html.Raw(ViewBag.fixingInstructions)</p>
     }
-    
+
     @if (ViewBag.SupportMessage != null)
     {
         <p>@Html.Raw(ViewBag.SupportMessage) </p>
     }
+    
+    <p>@ViewBag.errorCode: @ViewBag.errorMessage</p>
+    <p>@Html.Raw(ViewBag.errorInformation)</p>
 }
 else
 {
     <p>Error information:</p>
-    <p><pre>@ViewBag.err</pre></p>
+    <p>
+    <pre>@ViewBag.err</pre>
+    </p>
 
     @if (ViewBag.err != null)
     {
         <h3>Stack trace</h3>
         <p>
-            <pre>@ViewBag.err.StackTrace</pre>
+        <pre>@ViewBag.err.StackTrace</pre>
         </p>
     }
 }

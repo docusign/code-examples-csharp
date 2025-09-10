@@ -1,5 +1,5 @@
-﻿// <copyright file="Startup.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+﻿// <copyright file="Startup.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 #nullable enable
@@ -56,6 +56,8 @@ namespace DocuSign.CodeExamples
                     "room_forms",
             });
 
+            this.apiTypes.Add(ExamplesApiType.Maestro, new List<string> { "signature", "aow_manage" });
+
             this.apiTypes.Add(ExamplesApiType.Click, new List<string>
             {
                     "click.manage",
@@ -91,11 +93,11 @@ namespace DocuSign.CodeExamples
                 "signature", "webforms_read", "webforms_instance_write", "webforms_instance_read",
             });
 
-            this.apiTypes.Add(ExamplesApiType.Maestro, new List<string> { "signature", "aow_manage" });
-
             this.apiTypes.Add(ExamplesApiType.Notary, new List<string> { "signature", "organization_read", "notary_read", "notary_write" });
 
             this.apiTypes.Add(ExamplesApiType.ConnectedFields, new List<string> { "signature", "adm_store_unified_repo_read" });
+
+            this.apiTypes.Add(ExamplesApiType.Navigator, new List<string> { "signature", "adm_store_unified_repo_read" });
         }
 
         public IConfiguration Configuration { get; }

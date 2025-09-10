@@ -1,5 +1,5 @@
-﻿// <copyright file="UpdateUserProductPermissionProfileByEmail.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+﻿// <copyright file="UpdateUserProductPermissionProfileByEmail.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.Admin.Examples

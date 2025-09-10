@@ -1,37 +1,39 @@
-﻿// <copyright file="RequestItemsService.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+﻿// <copyright file="RequestItemsService.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples.Common
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Security.Claims;
     using DocuSign.CodeExamples.Models;
     using DocuSign.eSign.Client;
+    using DocuSign.eSign.Client.Auth;
+    using Docusign.IAM.SDK.Models.Components;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Caching.Memory;
     using Microsoft.Extensions.Configuration;
     using static DocuSign.eSign.Client.Auth.OAuth;
-    using static DocuSign.eSign.Client.Auth.OAuth.UserInfo;
 
     public class RequestItemsService : IRequestItemsService
     {
-        private static Account account;
+        private static OAuth.UserInfo.Account account;
 
         private static Guid? organizationId;
 
-        #nullable enable
+#nullable enable
         private static string? authenticatedUserEmail;
-        #nullable disable
+#nullable disable
 
         private readonly IHttpContextAccessor httpContextAccessor;
 
         private readonly IMemoryCache cache;
 
-        #nullable enable
+#nullable enable
         private readonly string? id;
-        #nullable disable
+#nullable disable
 
         private OAuthToken authToken;
 
@@ -52,13 +54,13 @@ namespace DocuSign.CodeExamples.Common
 
         public IConfiguration Configuration { get; set; }
 
-        #nullable enable
+#nullable enable
         public string? EgName
         {
             get => this.cache.Get<string>(this.GetKey("EgName"));
             set => this.cache.Set(this.GetKey("EgName"), value);
         }
-        #nullable disable
+#nullable disable
 
         public Session Session
         {
@@ -66,13 +68,13 @@ namespace DocuSign.CodeExamples.Common
             set => this.cache.Set(this.GetKey("Session"), value);
         }
 
-        #nullable enable
+#nullable enable
         public User? User
         {
             get => this.cache.Get<User>(this.GetKey("User"));
             set => this.cache.Set(this.GetKey("User"), value);
         }
-        #nullable disable
+#nullable disable
 
         public Guid? OrganizationId
         {
@@ -110,7 +112,7 @@ namespace DocuSign.CodeExamples.Common
                 if (authenticatedUserEmail == null)
                 {
                     DocuSignClient.SetOAuthBasePath(this.Configuration["DocuSignJWT:AuthServer"]);
-                    UserInfo userInfo = DocuSignClient.GetUserInfo(this.User?.AccessToken);
+                    OAuth.UserInfo userInfo = DocuSignClient.GetUserInfo(this.User?.AccessToken);
 
                     authenticatedUserEmail = userInfo.Email;
                 }
@@ -130,9 +132,9 @@ namespace DocuSign.CodeExamples.Common
             set => this.cache.Set(this.GetKey("EnvelopeId"), value);
         }
 
-        public string ExtensionApps
+        public List<TabInfo> ExtensionApps
         {
-            get => this.cache.Get<string>(this.GetKey("ExtensionApps"));
+            get => this.cache.Get<List<TabInfo>>(this.GetKey("ExtensionApps"));
             set => this.cache.Set(this.GetKey("ExtensionApps"), value);
         }
 
@@ -287,10 +289,6 @@ namespace DocuSign.CodeExamples.Common
             {
                 currentApiType = ExamplesApiType.Connect.ToString();
             }
-            else if (eg.Contains(ExamplesApiType.Maestro.ToKeywordString()))
-            {
-                currentApiType = ExamplesApiType.Maestro.ToString();
-            }
             else if (eg.Contains(ExamplesApiType.WebForms.ToKeywordString()))
             {
                 currentApiType = ExamplesApiType.WebForms.ToString();
@@ -302,6 +300,14 @@ namespace DocuSign.CodeExamples.Common
             else if (eg.Contains(ExamplesApiType.ConnectedFields.ToKeywordString()))
             {
                 currentApiType = ExamplesApiType.ConnectedFields.ToString();
+            }
+            else if (eg.Contains(ExamplesApiType.Navigator.ToKeywordString()))
+            {
+                currentApiType = ExamplesApiType.Navigator.ToString();
+            }
+            else if (eg.Contains(ExamplesApiType.Maestro.ToKeywordString()))
+            {
+                currentApiType = ExamplesApiType.Maestro.ToString();
             }
             else
             {
@@ -316,10 +322,10 @@ namespace DocuSign.CodeExamples.Common
             return string.Format("{0}_{1}", this.id, key);
         }
 
-        private Account GetAccountInfo(OAuthToken authToken)
+        private OAuth.UserInfo.Account GetAccountInfo(OAuthToken authToken)
         {
             DocuSignClient.SetOAuthBasePath(this.Configuration["DocuSignJWT:AuthServer"]);
-            UserInfo userInfo = DocuSignClient.GetUserInfo(authToken.access_token);
+            OAuth.UserInfo userInfo = DocuSignClient.GetUserInfo(authToken.access_token);
             var accounts = userInfo.Accounts;
 
             var targetAccountIdString = this.Configuration["DocuSign:TargetAccountId"];

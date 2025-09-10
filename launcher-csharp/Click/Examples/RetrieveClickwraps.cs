@@ -1,5 +1,5 @@
-﻿// <copyright file="RetrieveClickwraps.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+﻿// <copyright file="RetrieveClickwraps.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.Click.Examples

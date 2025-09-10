@@ -1,5 +1,5 @@
-﻿// <copyright file="AccountController.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+﻿// <copyright file="AccountController.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples.Controllers
@@ -123,6 +123,14 @@ namespace DocuSign.CodeExamples.Controllers
                 scopes += " webforms_read webforms_instance_write webforms_instance_read";
             }
             else if (apiType == ExamplesApiType.ConnectedFields)
+            {
+                scopes += " adm_store_unified_repo_read";
+            }
+            else if (apiType == ExamplesApiType.Maestro)
+            {
+                scopes += " aow_manage";
+            }
+            else if (apiType == ExamplesApiType.Navigator)
             {
                 scopes += " adm_store_unified_repo_read";
             }

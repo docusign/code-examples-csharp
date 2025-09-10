@@ -1,5 +1,5 @@
-﻿// <copyright file="GlobalSuppressions.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+﻿// <copyright file="GlobalSuppressions.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 using System.Diagnostics.CodeAnalysis;

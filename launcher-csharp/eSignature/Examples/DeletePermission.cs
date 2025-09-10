@@ -1,5 +1,5 @@
-﻿// <copyright file="DeletePermission.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+﻿// <copyright file="DeletePermission.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace ESignature.Examples

@@ -1,5 +1,5 @@
-﻿// <copyright file="ExamplesAPIType.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+﻿// <copyright file="ExamplesAPIType.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples.Common
@@ -54,7 +54,19 @@ namespace DocuSign.CodeExamples.Common
         /// Notary API
         /// </summary>
         [Description("neg")]
-        Notary = 7
+        Notary = 7,
+
+        /// <summary>
+        /// Navigator
+        /// </summary>")]
+        [Description("nav")]
+        Navigator = 8,
+
+        /// <summary>
+        /// Maestro
+        /// </summary>")]
+        [Description("mae")]
+        Maestro = 9,
     }
 
     public static class ExamplesApiTypeExtensions

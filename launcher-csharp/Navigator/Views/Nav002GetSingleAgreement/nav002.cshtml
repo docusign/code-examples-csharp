@@ -1,0 +1,41 @@
+﻿@{
+    int formNumber = 0;
+    int agreementsInputNumber = 0;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+@if (ViewBag.showDoc == true)
+{
+    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
+}
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" />
+
+<p>
+    @Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">NavigatorMethods.cs</a>"))
+</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="agrementsData">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[agreementsInputNumber].InputName)
+        </label>
+
+        <select class="custom-select" id="agrementsData"
+                name="agreementId">
+
+            @foreach (var agreement in ViewBag.Agreements.Data) {
+                <option value=@Html.Raw(agreement.Id)>
+                    @Html.Raw(agreement.FileName)
+                </option>
+            }
+        </select>
+    </div>
+    
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+</form>

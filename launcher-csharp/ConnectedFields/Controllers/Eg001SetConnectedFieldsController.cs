@@ -1,5 +1,5 @@
-// <copyright file="Eg001SetConnectedFieldsController.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+// <copyright file="Eg001SetConnectedFieldsController.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples.Controllers
@@ -9,8 +9,6 @@ namespace DocuSign.CodeExamples.Controllers
     using DocuSign.CodeExamples.Examples;
     using DocuSign.CodeExamples.Models;
     using Microsoft.AspNetCore.Mvc;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
 
     [Area("ConnectedFields")]
     [Route("cf001")]
@@ -39,13 +37,15 @@ namespace DocuSign.CodeExamples.Controllers
 
             string accessToken = this.RequestItemsService.User.AccessToken;
             string accountId = this.RequestItemsService.Session.AccountId;
+            var basePath = this.RequestItemsService.Session.IamBasePath;
+            var connectedFields = SetConnectedFields.GetConnectedFieldsTabGroupsAsync(
+                basePath,
+                accountId,
+                accessToken).Result;
+            var filteredConnectedFields = SetConnectedFields.FilterData(connectedFields);
 
-            object extensionApps = SetConnectedFields.GetConnectedFieldsTabGroupsAsync(accountId, accessToken).Result;
-            object filteredExtensionApps = SetConnectedFields.FilterData((JArray)extensionApps);
-            var extensionAppsString = JsonConvert.SerializeObject(filteredExtensionApps);
-
-            this.ViewBag.ExtensionApps = extensionAppsString;
-            this.RequestItemsService.ExtensionApps = extensionAppsString;
+            this.ViewBag.ExtensionApps = filteredConnectedFields;
+            this.RequestItemsService.ExtensionApps = filteredConnectedFields;
 
             return this.View(this.EgName, this);
         }
@@ -61,8 +61,8 @@ namespace DocuSign.CodeExamples.Controllers
                 return this.Redirect("/ds/mustAuthenticate");
             }
 
-            JArray extensionApp = JArray.Parse(this.RequestItemsService.ExtensionApps);
-            JObject selectedApp = extensionApp.FirstOrDefault(app => (string)app["appId"] == appId) as JObject;
+            var extensionApp = this.RequestItemsService.ExtensionApps;
+            var selectedApp = extensionApp.FirstOrDefault(tab => tab.AppId == appId);
 
             string accessToken = this.RequestItemsService.User.AccessToken;
             string basePath = this.RequestItemsService.Session.BasePath + "/restapi";

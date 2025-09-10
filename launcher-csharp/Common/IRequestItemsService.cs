@@ -1,11 +1,13 @@
-﻿// <copyright file="IRequestItemsService.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+﻿// <copyright file="IRequestItemsService.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples
 {
     using System;
+    using System.Collections.Generic;
     using DocuSign.CodeExamples.Models;
+    using Docusign.IAM.SDK.Models.Components;
     using Microsoft.Extensions.Configuration;
 
     public interface IRequestItemsService
@@ -24,7 +26,7 @@ namespace DocuSign.CodeExamples
 
         string EnvelopeId { get; set; }
 
-        public string ExtensionApps { get; set; }
+        public List<TabInfo> ExtensionApps { get; set; }
 
         public string DocumentId { get; set; }
 
