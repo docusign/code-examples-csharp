@@ -1,0 +1,10 @@
+﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+
+<p>
+    @ViewBag.Description
+</p>
+
+<form class="eg" asp-action="CreateInstance" method="post" data-busy="form">
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+</form>
+

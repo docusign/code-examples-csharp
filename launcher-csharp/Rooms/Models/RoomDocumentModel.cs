@@ -1,5 +1,5 @@
-﻿// <copyright file="RoomDocumentModel.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+﻿// <copyright file="RoomDocumentModel.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples.Rooms.Models

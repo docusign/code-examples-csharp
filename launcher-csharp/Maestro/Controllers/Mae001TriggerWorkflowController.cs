@@ -1,5 +1,5 @@
-// <copyright file="Mae001TriggerWorkflowController.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+// <copyright file="Mae001TriggerWorkflowController.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples.Controllers

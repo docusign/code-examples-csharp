@@ -1,5 +1,5 @@
-﻿// <copyright file="ImportUser.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+﻿// <copyright file="ImportUser.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples.Admin.Controllers

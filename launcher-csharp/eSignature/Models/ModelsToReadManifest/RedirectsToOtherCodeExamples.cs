@@ -1,5 +1,5 @@
-﻿// <copyright file="RedirectsToOtherCodeExamples.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+﻿// <copyright file="RedirectsToOtherCodeExamples.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples.ESignature.Models

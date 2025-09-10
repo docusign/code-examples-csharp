@@ -1,5 +1,5 @@
-﻿// <copyright file="CreateClickwrap.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+﻿// <copyright file="CreateClickwrap.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples.Click.Controllers
