@@ -60,7 +60,7 @@ namespace DocuSign.WebForms.Examples
             {
                 ClientUserId = "1234-5678-abcd-ijkl",
                 FormValues = formValues,
-                ExpirationOffset = 3600,
+                ExpirationOffset = 24,
             };
             //ds-snippet-end:WebForms1Step4
 
