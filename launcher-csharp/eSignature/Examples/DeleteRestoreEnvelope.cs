@@ -33,6 +33,7 @@ namespace ESignature.Examples
             docusignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             FoldersApi foldersApi = new FoldersApi(docusignClient);
+
             var foldersRequest = new FoldersRequest
             {
                 FromFolderId = fromFolderId,
