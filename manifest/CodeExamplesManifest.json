@@ -39,7 +39,11 @@
       "AGREED": "AGREED",
       "SaveAgentActivationCode": "Save this code. You'll need it when activating the new agent.",
       "EmailAddressOfUserToDelete": "The email address of the user whose data will be deleted. Note that this email address should be associated with a user that has been closed for 24 hours.",
-      "UserIDOfUserToDelete": "The user ID of the user whose data will be deleted. Note that this ID should be associated with a user that has been closed for 24 hours."
+      "UserIDOfUserToDelete": "The user ID of the user whose data will be deleted. Note that this ID should be associated with a user that has been closed for 24 hours.",
+      "SubmitButtonDeleteText": "Delete",
+      "SubmitButtonRestoreText": "Restore",
+      "DefaultEnvelopeId": "If example 2 was executed, the envelope ID saved after it will be used by default. Alternatively, a different ID can be specified.",
+      "EnvelopeWillBeRestored": "Envelope {0} will be restored."
     }
   },
   "APIs": [
@@ -1683,6 +1687,36 @@
                 }
               ],
               "ResultsPageText": "NDSE view URL: {0}."
+            }
+          ]
+        },
+        {
+          "ExampleNumber": 45,
+          "CFREnabled": "NonCFR",
+          "ExampleName": "Delete and Restore an Envelope",
+          "ExampleDescription": "Moves an Envelope to a recycling bin. Then restores it by moving it to the Sent folder.",
+          "Notes": "<b>Note:</b> To know your envelope ID, see <a target='_blank' href=\"https://support.docusign.com/s/articles/Where-do-I-find-my-envelope-ID\">Locate a Docusign envelope ID</a>.",
+          "LinksToAPIMethod": [
+            {
+              "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/folders/folders/moveenvelopes/",
+              "PathName": "Folders:moveEnvelopes"
+            }
+          ],
+          "Forms": [
+            {
+              "Inputs": [
+                {
+                  "InputName": "Envelope ID",
+                  "InputPlaceholder": "12345678-1234-1234-1234-123456789012"
+                }
+              ]
+            }
+          ],
+          "ResultsPageText": "Envelope is restored to the <a target='_blank' href=\"https://apps-d.docusign.com/send/documents?view=sent\">Sent</a> folder",
+          "AdditionalPage": [
+            {
+              "Name": "envelope_is_deleted",
+              "ResultsPageText": "Envelope is deleted and available in the <a target='_blank' href=\"https://apps-d.docusign.com/send/documents?view=deleted\">Deleted</a> folder."
             }
           ]
         }

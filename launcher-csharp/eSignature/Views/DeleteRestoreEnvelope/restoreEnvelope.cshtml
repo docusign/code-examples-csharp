@@ -1,0 +1,15 @@
+﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+
+<p>
+    @Html.Raw(string.Format(ViewBag.SupportingTexts.HelpingTexts.EnvelopeWillBeRestored, ViewBag.EnvelopeId))
+</p>
+
+<form class="eg" asp-area="eSignature" asp-controller="DeleteRestoreEnvelope" asp-action="RestoreEnvelopeAction" method="post" data-busy="form">
+    <button type="submit" class="btn btn-primary">
+        @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.SubmitButtonRestoreText)
+    </button>
+</form>
