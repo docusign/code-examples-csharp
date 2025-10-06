@@ -79,7 +79,7 @@ namespace ESignature.Examples
 
                 if (folder.Folders != null && !folder.Folders.Count.Equals(0))
                 {
-                    Folder nestedFolder = GetFolderIdByName(folder.Folders, targetName);
+                    Folder nestedFolder = GetFolderByName(folder.Folders, targetName);
                     if (nestedFolder != null)
                     {
                         return nestedFolder;
