@@ -1,4 +1,9 @@
-﻿<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+﻿@{
+    int formNumber = 0;
+    int folderNameInputNumber = 1;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
 <p>
     @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
 </p>
@@ -9,6 +14,20 @@
 </p>
 
 <form class="eg" asp-area="eSignature" asp-controller="DeleteRestoreEnvelope" asp-action="RestoreEnvelopeAction" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="folderName">
+            @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[folderNameInputNumber].InputName)
+        </label>
+
+        <input type="text"
+               class="form-control"
+               id="folderName"
+               name="folderName"
+               placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[folderNameInputNumber].InputPlaceholder"
+               required
+               value="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[folderNameInputNumber].InputPlaceholder">
+    </div>
+    
     <button type="submit" class="btn btn-primary">
         @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.SubmitButtonRestoreText)
     </button>

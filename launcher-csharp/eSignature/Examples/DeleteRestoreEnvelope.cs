@@ -42,5 +42,39 @@ namespace ESignature.Examples
 
             return foldersApi.MoveEnvelopes(accountId, folderId, foldersRequest);
         }
+
+        public static FoldersResponse GetFolders(
+            string accessToken,
+            string basePath,
+            string accountId)
+        {
+            var docusignClient = new DocuSignClient(basePath);
+            docusignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+
+            FoldersApi foldersApi = new FoldersApi(docusignClient);
+            return foldersApi.List(accountId);
+        }
+
+        public static Folder GetFolderIdByName(List<Folder> folders, string targetName)
+        {
+            foreach (Folder folder in folders)
+            {
+                if (folder.Name.Equals(targetName))
+                {
+                    return folder;
+                }
+
+                if (folder.Folders != null && !folder.Folders.Count.Equals(0))
+                {
+                    Folder nestedFolder = GetFolderIdByName(folder.Folders, targetName);
+                    if (nestedFolder != null)
+                    {
+                        return nestedFolder;
+                    }
+                }
+            }
+
+            return null;
+        }
     }
 }

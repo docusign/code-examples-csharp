@@ -8,6 +8,7 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
     using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.Controllers;
     using DocuSign.CodeExamples.Models;
+    using DocuSign.eSign.Model;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
 
@@ -17,7 +18,7 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
     {
         private const string DeleteFolderId = "recyclebin";
 
-        private const string RestoreFolderId = "sentitems";
+        private const string SentItemsFolderName = "Sent Items";
 
         public DeleteRestoreEnvelope(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
             : base(config, launcherTexts, requestItemsService)
@@ -61,9 +62,11 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
             this.ViewBag.h1 = this.CodeExampleText.ExampleName;
             this.ViewBag.ConfirmAdditionalLink = nameof(this.GetRestoreEnvelope);
             this.ViewBag.OnlyConfirmAdditionalLink = true;
-            this.ViewBag.message = this.CodeExampleText.AdditionalPages
-                .FirstOrDefault(x => x.Name.Equals("envelope_is_deleted"))
-                ?.ResultsPageText;
+            this.ViewBag.message = string.Format(
+                this.CodeExampleText.AdditionalPages
+                    .FirstOrDefault(x => x.Name.Equals("envelope_is_deleted"))
+                    ?.ResultsPageText,
+                envelopeId);
 
             return this.View("example_done");
         }
@@ -75,9 +78,10 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
         [HttpPost]
         [Route("RestoreEnvelopeAction")]
         [SetViewBag]
-        public IActionResult RestoreEnvelopeAction()
+        public IActionResult RestoreEnvelopeAction(string folderName)
         {
             bool tokenOk = this.CheckToken(3);
+            folderName = folderName ?? SentItemsFolderName;
 
             if (!tokenOk)
             {
@@ -89,16 +93,38 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
             string accessToken = this.RequestItemsService.User.AccessToken;
             string accountId = this.RequestItemsService.Session.AccountId;
 
+            FoldersResponse availableFolders = global::ESignature.Examples.DeleteRestoreEnvelope.GetFolders(
+                accessToken,
+                basePath,
+                accountId);
+            Folder folder = global::ESignature.Examples.DeleteRestoreEnvelope.GetFolderIdByName(
+                availableFolders.Folders,
+                folderName);
+
+            if (folder == null)
+            {
+                this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                this.ViewBag.message = string.Format(this.CodeExampleText.AdditionalPages[1].ResultsPageText, folderName);
+                this.ViewBag.ConfirmAdditionalLink = nameof(this.GetRestoreEnvelope);
+                this.ViewBag.OnlyConfirmAdditionalLink = true;
+
+                return this.View("example_done");
+            }
+
             global::ESignature.Examples.DeleteRestoreEnvelope.MoveEnvelopeToFolder(
                 accessToken,
                 basePath,
                 accountId,
                 this.RequestItemsService.EnvelopeId,
-                RestoreFolderId,
+                folder.FolderId,
                 DeleteFolderId);
 
             this.ViewBag.h1 = this.CodeExampleText.ExampleName;
-            this.ViewBag.message = this.CodeExampleText.ResultsPageText;
+            this.ViewBag.message = string.Format(
+                this.CodeExampleText.ResultsPageText,
+                this.RequestItemsService.EnvelopeId,
+                folder.Type,
+                folderName);
 
             return this.View("example_done");
         }
