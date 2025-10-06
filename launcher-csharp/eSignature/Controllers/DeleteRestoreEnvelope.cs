@@ -97,7 +97,7 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
                 accessToken,
                 basePath,
                 accountId);
-            Folder folder = global::ESignature.Examples.DeleteRestoreEnvelope.GetFolderIdByName(
+            Folder folder = global::ESignature.Examples.DeleteRestoreEnvelope.GetFolderByName(
                 availableFolders.Folders,
                 folderName);
 

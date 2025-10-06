@@ -43,6 +43,13 @@ namespace ESignature.Examples
             return foldersApi.MoveEnvelopes(accountId, folderId, foldersRequest);
         }
 
+        /// <summary>
+        /// Gets the list of folders
+        /// </summary>
+        /// <param name="accessToken">Access Token for API call (OAuth)</param>
+        /// <param name="basePath">BasePath for API calls (URI)</param>
+        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
+        /// <returns>The folders response</returns>
         public static FoldersResponse GetFolders(
             string accessToken,
             string basePath,
@@ -55,7 +62,13 @@ namespace ESignature.Examples
             return foldersApi.List(accountId);
         }
 
-        public static Folder GetFolderIdByName(List<Folder> folders, string targetName)
+        /// <summary>
+        /// Gets folder by name
+        /// </summary>
+        /// <param name="folders">List of folders to search</param>
+        /// <param name="targetName">Name of the folder to find</param>
+        /// <returns>The folder</returns>
+        public static Folder GetFolderByName(List<Folder> folders, string targetName)
         {
             foreach (Folder folder in folders)
             {
