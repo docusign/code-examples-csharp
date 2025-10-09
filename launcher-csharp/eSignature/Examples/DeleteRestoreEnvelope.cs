@@ -11,6 +11,35 @@ namespace ESignature.Examples
 
     public class DeleteRestoreEnvelope
     {
+        private const string DeleteFolderId = "recyclebin";
+
+        /// <summary>
+        /// Delete envelope
+        /// </summary>
+        /// <param name="accessToken">Access Token for API call (OAuth)</param>
+        /// <param name="basePath">BasePath for API calls (URI)</param>
+        /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
+        /// <param name="envelopeId">Envelope ID</param>
+        /// <returns>The folders response</returns>
+        public static FoldersResponse DeleteEnvelope(
+            string accessToken,
+            string basePath,
+            string accountId,
+            string envelopeId)
+        {
+            var docusignClient = new DocuSignClient(basePath);
+            docusignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+
+            FoldersApi foldersApi = new FoldersApi(docusignClient);
+
+            var foldersRequest = new FoldersRequest
+            {
+                EnvelopeIds = new List<string> { envelopeId },
+            };
+
+            return foldersApi.MoveEnvelopes(accountId, DeleteFolderId, foldersRequest);
+        }
+
         /// <summary>
         /// Moves envelope to a different folder
         /// </summary>

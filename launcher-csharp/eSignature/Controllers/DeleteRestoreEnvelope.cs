@@ -16,8 +16,6 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
     [Route("Eg045")]
     public class DeleteRestoreEnvelope : EgController
     {
-        private const string DeleteFolderId = "recyclebin";
-
         private const string SentItemsFolderName = "Sent Items";
 
         public DeleteRestoreEnvelope(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
@@ -52,12 +50,11 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
 
             this.RequestItemsService.EnvelopeId = envelopeId;
 
-            global::ESignature.Examples.DeleteRestoreEnvelope.MoveEnvelopeToFolder(
+            global::ESignature.Examples.DeleteRestoreEnvelope.DeleteEnvelope(
                 accessToken,
                 basePath,
                 accountId,
-                envelopeId,
-                DeleteFolderId);
+                envelopeId);
 
             this.ViewBag.h1 = this.CodeExampleText.ExampleName;
             this.ViewBag.ConfirmAdditionalLink = nameof(this.GetRestoreEnvelope);
