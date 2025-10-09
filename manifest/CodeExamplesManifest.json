@@ -2915,7 +2915,7 @@
                 }
               ],
               "ResultsPageText": "Workflow instance is created. Please sign the document.",
-              "SkipForLanguages": "java;php;python;ruby"
+              "SkipForLanguages": "php;python;ruby"
             },
             {
               "ExampleNumber": 2,
