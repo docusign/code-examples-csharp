@@ -2938,7 +2938,7 @@
                 }
               ],
               "ResultsPageText": "Workflow has been paused.",
-              "SkipForLanguages": "java;php;python;ruby"
+              "SkipForLanguages": "php;python;ruby"
             },
             {
               "ExampleNumber": 3,
@@ -2961,7 +2961,7 @@
                 }
               ],
               "ResultsPageText": "Workflow has been resumed.",
-              "SkipForLanguages": "java;php;python;ruby"
+              "SkipForLanguages": "php;python;ruby"
             },
             {
               "ExampleNumber": 4,
@@ -2984,7 +2984,7 @@
                 }
               ],
               "ResultsPageText": "Workflow has been canceled.",
-              "SkipForLanguages": "java;php;python;ruby"
+              "SkipForLanguages": "php;python;ruby"
             }
           ]
         }
