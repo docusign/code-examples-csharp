@@ -16,6 +16,8 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
     [Route("Eg045")]
     public class DeleteRestoreEnvelope : EgController
     {
+        private const string DeleteFolderId = "recyclebin";
+
         private const string SentItemsFolderName = "Sent Items";
 
         public DeleteRestoreEnvelope(DsConfiguration config, LauncherTexts launcherTexts, IRequestItemsService requestItemsService)
