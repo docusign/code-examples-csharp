@@ -27,17 +27,22 @@ namespace ESignature.Examples
             string accountId,
             string envelopeId)
         {
+            //ds-snippet-start:eSign45Step2
             var docusignClient = new DocuSignClient(basePath);
             docusignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+            //ds-snippet-end:eSign45Step2
 
             FoldersApi foldersApi = new FoldersApi(docusignClient);
-
+            //ds-snippet-start:eSign45Step3
             var foldersRequest = new FoldersRequest
             {
                 EnvelopeIds = new List<string> { envelopeId },
             };
-
+            //ds-snippet-end:eSign45Step3
+            //ds-snippet-start:eSign45Step4
             return foldersApi.MoveEnvelopes(accountId, DeleteFolderId, foldersRequest);
+            //ds-snippet-end:eSign45Step4
+
         }
 
         /// <summary>
@@ -62,14 +67,15 @@ namespace ESignature.Examples
             docusignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             FoldersApi foldersApi = new FoldersApi(docusignClient);
-
             var foldersRequest = new FoldersRequest
             {
                 FromFolderId = fromFolderId,
                 EnvelopeIds = new List<string> { envelopeId },
             };
 
+            //ds-snippet-start:eSign45Step6
             return foldersApi.MoveEnvelopes(accountId, folderId, foldersRequest);
+            //ds-snippet-end:eSign45Step6
         }
 
         /// <summary>
@@ -106,6 +112,7 @@ namespace ESignature.Examples
                     return folder;
                 }
 
+                //ds-snippet-start:eSign45Step5
                 if (folder.Folders != null && !folder.Folders.Count.Equals(0))
                 {
                     Folder nestedFolder = GetFolderByName(folder.Folders, targetName);
@@ -114,6 +121,8 @@ namespace ESignature.Examples
                         return nestedFolder;
                     }
                 }
+
+                //ds-snippet-end:eSign45Step5
             }
 
             return null;
