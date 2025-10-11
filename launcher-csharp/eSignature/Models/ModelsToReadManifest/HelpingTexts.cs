@@ -20,6 +20,18 @@ namespace DocuSign.CodeExamples.ESignature.Models
         [JsonProperty("AccessCodeText")]
         public string AccessCodeText { get; set; }
 
+        [JsonProperty("SubmitButtonDeleteText")]
+        public string SubmitButtonDeleteText { get; set; }
+
+        [JsonProperty("SubmitButtonRestoreText")]
+        public string SubmitButtonRestoreText { get; set; }
+
+        [JsonProperty("EnvelopeWillBeRestored")]
+        public string EnvelopeWillBeRestored { get; set; }
+
+        [JsonProperty("DefaultEnvelopeId")]
+        public string DefaultEnvelopeId { get; set; }
+
         [JsonProperty("CountryCodeText")]
         public string CountryCodeText { get; set; }
 

@@ -1,0 +1,48 @@
+﻿@using System.Text.RegularExpressions;
+@{
+    int formNumber = 0;
+    int envelopeIdInputNumber = 0;
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+@if (ViewBag.showDoc == true)
+{
+    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
+}
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" /> 
+
+<p>
+    @Html.Raw(
+        @String.Format(
+            ViewBag.SupportingTexts.ViewSourceFile, 
+            "<a target='_blank' href=" + @ViewBag.source + ">DeleteRestoreEnvelope.cs</a>"
+        )
+    )
+</p>
+
+<form class="eg" asp-area="eSignature" asp-controller="DeleteRestoreEnvelope" asp-action="DeleteEnvelopeAction" data-busy="form">
+    <div class="form-group">
+    <label for="envelopeId">
+        @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[envelopeIdInputNumber].InputName)
+    </label>
+
+    <input type="text"
+           class="form-control"
+           id="envelopeId"
+           name="envelopeId"
+           placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[envelopeIdInputNumber].InputPlaceholder"
+           required
+           value="@ViewBag.EnvelopeId">
+
+    <small id="envelopeIdHelp" class="form-text text-muted">@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.DefaultEnvelopeId)</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.SubmitButtonDeleteText)
+    </button>
+</form>
