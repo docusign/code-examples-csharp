@@ -42,7 +42,6 @@ namespace ESignature.Examples
             //ds-snippet-start:eSign45Step4
             return foldersApi.MoveEnvelopes(accountId, DeleteFolderId, foldersRequest);
             //ds-snippet-end:eSign45Step4
-
         }
 
         /// <summary>
