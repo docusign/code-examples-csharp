@@ -1,5 +1,5 @@
-﻿// <copyright file="ExamplesAPIType.cs" company="DocuSign">
-// Copyright (c) DocuSign. All rights reserved.
+﻿// <copyright file="ExamplesAPIType.cs" company="Docusign">
+// Copyright (c) Docusign. All rights reserved.
 // </copyright>
 
 namespace DocuSign.CodeExamples.Common
@@ -61,7 +61,7 @@ namespace DocuSign.CodeExamples.Common
         /// </summary>")]
         [Description("nav")]
         Navigator = 8,
-        
+
         /// <summary>
         /// Maestro
         /// </summary>")]

@@ -47,9 +47,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DocuSign.Admin" Version="2.0.0" />
-    <PackageReference Include="DocuSign.eSign.dll" Version="8.1.0-rc" />
-    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="DocuSign.Admin" Version="2.0.2" />
+    <PackageReference Include="DocuSign.eSign.dll" Version="8.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10">
       <PrivateAssets>all</PrivateAssets>

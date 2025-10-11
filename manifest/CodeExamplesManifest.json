@@ -39,7 +39,11 @@
       "AGREED": "AGREED",
       "SaveAgentActivationCode": "Save this code. You'll need it when activating the new agent.",
       "EmailAddressOfUserToDelete": "The email address of the user whose data will be deleted. Note that this email address should be associated with a user that has been closed for 24 hours.",
-      "UserIDOfUserToDelete": "The user ID of the user whose data will be deleted. Note that this ID should be associated with a user that has been closed for 24 hours."
+      "UserIDOfUserToDelete": "The user ID of the user whose data will be deleted. Note that this ID should be associated with a user that has been closed for 24 hours.",
+      "SubmitButtonDeleteText": "Delete",
+      "SubmitButtonRestoreText": "Restore",
+      "DefaultEnvelopeId": "If example 2 was executed, the envelope ID saved after it will be used by default. Alternatively, a different ID can be specified.",
+      "EnvelopeWillBeRestored": "Envelope {0} will be restored."
     }
   },
   "APIs": [
@@ -1685,6 +1689,44 @@
               "ResultsPageText": "NDSE view URL: {0}."
             }
           ]
+        },
+        {
+          "ExampleNumber": 45,
+          "CFREnabled": "NonCFR",
+          "ExampleName": "Delete and undelete an Envelope",
+          "ExampleDescription": "Moves an Envelope to a recycle bin. Then undelete it by moving it to the other folder.",
+          "Notes": "<b>Note:</b> To know your envelope ID, see <a target='_blank' href=\"https://support.docusign.com/s/articles/Where-do-I-find-my-envelope-ID\">Locate a Docusign envelope ID</a>.",
+          "LinksToAPIMethod": [
+            {
+              "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/folders/folders/moveenvelopes/",
+              "PathName": "Folders:moveEnvelopes"
+            }
+          ],
+          "Forms": [
+            {
+              "Inputs": [
+                {
+                  "InputName": "Envelope ID",
+                  "InputPlaceholder": "12345678-1234-1234-1234-123456789012"
+                },
+                {
+                  "InputName": "Name of the folder to undelete the envelope to (e.g., 'Sent Items')",
+                  "InputPlaceholder": "Sent Items"
+                }
+              ]
+            }
+          ],
+          "ResultsPageText": "Envelope with ID \"{0}\" is undeleted to the <a target='_blank' href=\"https://apps-d.docusign.com/send/documents?view={1}\">{2}</a> folder",
+          "AdditionalPage": [
+            {
+              "Name": "envelope_is_deleted",
+              "ResultsPageText": "Envelope with ID \"{0}\" is deleted and available in the <a target='_blank' href=\"https://apps-d.docusign.com/send/documents?view=deleted\">Deleted</a> folder.<br/>To undelete the Envelope, press Continue and follow instructions"
+            },
+            {
+              "Name": "folder_does_not_exist",
+              "ResultsPageText": "ERROR: Could not find a folder with the name \"{0}\". Please check the spelling."
+            }
+          ]
         }
       ]
     },
@@ -2915,7 +2957,7 @@
                 }
               ],
               "ResultsPageText": "Workflow instance is created. Please sign the document.",
-              "SkipForLanguages": "php;python;ruby"
+              "SkipForLanguages": "java;php;python;ruby"
             },
             {
               "ExampleNumber": 2,
@@ -2938,7 +2980,7 @@
                 }
               ],
               "ResultsPageText": "Workflow has been paused.",
-              "SkipForLanguages": "php;python;ruby"
+              "SkipForLanguages": "java;php;python;ruby"
             },
             {
               "ExampleNumber": 3,
@@ -2961,7 +3003,7 @@
                 }
               ],
               "ResultsPageText": "Workflow has been resumed.",
-              "SkipForLanguages": "php;python;ruby"
+              "SkipForLanguages": "java;php;python;ruby"
             },
             {
               "ExampleNumber": 4,
@@ -2984,7 +3026,7 @@
                 }
               ],
               "ResultsPageText": "Workflow has been canceled.",
-              "SkipForLanguages": "php;python;ruby"
+              "SkipForLanguages": "java;php;python;ruby"
             }
           ]
         }
