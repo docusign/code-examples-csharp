@@ -162,6 +162,18 @@ namespace DocuSign.CodeExamples.Common
             set => this.cache.Set(this.GetKey("WorkflowId"), value);
         }
 
+        public string WorkspaceId
+        {
+            get => this.cache.Get<string>(this.GetKey("WorkspaceId"));
+            set => this.cache.Set(this.GetKey("WorkspaceId"), value);
+        }
+
+        public string WorkspaceDocumentId
+        {
+            get => this.cache.Get<string>(this.GetKey("WorkspaceDocumentId"));
+            set => this.cache.Set(this.GetKey("WorkspaceDocumentId"), value);
+        }
+
         public bool IsWorkflowPublished
         {
             get => this.cache.Get<bool>(this.GetKey("WorkflowPublished"));
@@ -308,6 +320,10 @@ namespace DocuSign.CodeExamples.Common
             else if (eg.Contains(ExamplesApiType.Maestro.ToKeywordString()))
             {
                 currentApiType = ExamplesApiType.Maestro.ToString();
+            }
+            else if (eg.Contains(ExamplesApiType.Workspaces.ToKeywordString()))
+            {
+                currentApiType = ExamplesApiType.Workspaces.ToString();
             }
             else
             {

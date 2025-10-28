@@ -134,6 +134,10 @@ namespace DocuSign.CodeExamples.Controllers
             {
                 scopes += " adm_store_unified_repo_read";
             }
+            else if (apiType == ExamplesApiType.Workspaces)
+            {
+                scopes += " impersonation dtr.company.read dtr.rooms.read dtr.rooms.write dtr.documents.write";
+            }
 
             return this.Configuration["DocuSign:AuthorizationEndpoint"] + "?response_type=code" +
                 "&scope=" + scopes +

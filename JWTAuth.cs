@@ -58,6 +58,18 @@ namespace DocuSign.CodeExamples.Authentication
                 });
             }
 
+            if (apiType == ExamplesApiType.Workspaces)
+            {
+                scopes.AddRange(new List<string>
+                {
+                    "impersonation",
+                    "dtr.company.read",
+                    "dtr.rooms.read",
+                    "dtr.rooms.write",
+                    "dtr.documents.write",
+                });
+            }
+
             if (apiType == ExamplesApiType.Monitor)
             {
                 scopes.AddRange(new List<string>

@@ -1,0 +1,98 @@
+﻿@{
+    int formNumber = 0;
+    int documentNameInputNumber = 0;
+    int documentPathInputNumber = 1;
+
+    string redirectToCodeExample = string.Format(
+        ViewBag.CodeExampleText.RedirectsToOtherCodeExamples[0].RedirectText,
+        string.Format("href=\"work00{0}\"", ViewBag.CodeExampleText.RedirectsToOtherCodeExamples[0].CodeExampleToRedirectTo)
+    );
+    string helperText = string.Format(
+        ViewBag.SupportingTexts.HelpingTexts.SelectPDFFileFromFolder,
+        "code-examples-csharp/launcher-csharp/"
+    );
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+@if (ViewBag.showDoc == true)
+{
+    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
+}
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" />
+
+<p>
+    @Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">AddDocumentToWorkspace.cs</a>"))
+</p>
+
+@if (ViewBag.WorkspaceIdOk)
+{
+    <form id="uploadForm" class="eg" action="" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="documentName">@ViewBag.CodeExampleText.Forms[formNumber].Inputs[documentNameInputNumber].InputName</label>
+            <input type="text" class="form-control" id="documentName"
+                   placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[documentNameInputNumber].InputPlaceholder"
+                   name="documentName" required />
+            <small id="nameError" class="form-text text-muted validation-error"></small>
+            <small id="emailHelp" class="form-text text-muted">@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.SpecifyNameWithExtension)</small>
+        </div>
+
+        <div class="form-group">
+            <label for="documentPath">@ViewBag.CodeExampleText.Forms[formNumber].Inputs[documentPathInputNumber].InputName</label>
+            <input type="file" accept=".pdf" class="form-control" id="documentPath"
+                   placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[documentPathInputNumber].InputPlaceholder"
+                   name="documentPath" required />
+            <small id="pathError" class="form-text text-muted validation-error"></small>
+            <small id="emailHelp" class="form-text text-muted">@helperText</small>
+        </div>
+
+        <input type="hidden" name="_csrf" value="csrfToken" />
+
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('uploadForm');
+        form.addEventListener('submit', function (event) {
+            const docNameInput = document.getElementById('documentName');
+            const fileInput = document.getElementById('documentPath');
+            const nameErrorEl = document.getElementById('nameError');
+            const pathErrorEl = document.getElementById('pathError');
+            const documentName = docNameInput.value.trim();
+            const file = fileInput.files[0];
+            // Validate documentName ends with .pdf
+            if (!documentName.toLowerCase().endsWith(".pdf")) {
+                nameErrorEl.textContent = 'Document name must contain .pdf extension';
+                event.preventDefault();
+                event.stopImmediatePropagation();
+            } else {
+                nameErrorEl.textContent = ''; // clear any previous errors
+            }
+            // Check extension
+            const isPdf = file.name.toLowerCase().endsWith('.pdf');
+            const isPdfMime = file.type === 'application/pdf';
+            if (!isPdf || !isPdfMime) {
+                fileInput.value = ''; // reset file input
+                pathErrorEl.textContent = 'Invalid file type. Please upload a PDF file.';
+                event.preventDefault();
+                event.stopImmediatePropagation();
+            } else {
+                pathErrorEl.textContent = ''; // clear any previous errors
+            }
+        }, true);
+    </script>
+}
+else
+{
+    @Html.Raw(
+        redirectToCodeExample
+    )
+
+    <form class="eg" action="work001" method="get">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+    </form>
+}
