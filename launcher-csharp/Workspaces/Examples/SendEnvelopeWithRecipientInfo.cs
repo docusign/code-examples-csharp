@@ -19,20 +19,27 @@ namespace DocuSign.CodeExamples.Examples
             string documentId,
             string workspaceId)
         {
+            //ds-snippet-start:Workspaces3Step2
             var client = CreateAuthenticatedClient(accessToken);
+            //ds-snippet-end:Workspaces3Step2
 
+            //ds-snippet-start:Workspaces3Step3
             var workspaceEnvelopeForCreate = new WorkspaceEnvelopeForCreate
             {
                 EnvelopeName = "Example Workspace Envelope",
                 DocumentIds = new List<string> { documentId },
             };
+            //ds-snippet-end:Workspaces3Step3
 
+            //ds-snippet-start:Workspaces3Step4
             return await client.Workspaces.Workspaces.CreateWorkspaceEnvelopeAsync(
                 accountId,
                 workspaceId,
                 workspaceEnvelopeForCreate);
+            //ds-snippet-end:Workspaces3Step4
         }
 
+        //ds-snippet-start:Workspaces3Step5
         public static async Task<EnvelopeUpdateSummary> SendEnvelopeAsync(
             string basePath,
             string accessToken,
@@ -97,6 +104,7 @@ namespace DocuSign.CodeExamples.Examples
             return envelopeDefinition;
         }
 
+        //ds-snippet-end:Workspaces3Step5
         private static IamClient CreateAuthenticatedClient(string accessToken)
         {
             return IamClient.Builder()
