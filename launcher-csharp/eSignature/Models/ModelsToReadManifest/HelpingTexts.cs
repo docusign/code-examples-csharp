@@ -64,5 +64,11 @@ namespace DocuSign.CodeExamples.ESignature.Models
 
         [JsonProperty("UserIDOfUserToDelete")]
         public string UserIDOfUserToDelete { get; set; }
+
+        [JsonProperty("SelectPDFFileFromFolder")]
+        public string SelectPDFFileFromFolder { get; set; }
+
+        [JsonProperty("SpecifyNameWithExtension")]
+        public string SpecifyNameWithExtension { get; set; }
     }
 }

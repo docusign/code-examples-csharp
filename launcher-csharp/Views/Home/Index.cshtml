@@ -46,6 +46,7 @@
                     : ((ApIs) api).Name.ToLower() == ExamplesApiType.Notary.ToString().ToLower() ? ExamplesApiType.Notary.ToKeywordString()
                     : ((ApIs) api).Name.ToLower() == ExamplesApiType.ConnectedFields.ToString().ToLower() ? ExamplesApiType.ConnectedFields.ToKeywordString()
                     : ((ApIs) api).Name.ToLower() == ExamplesApiType.Navigator.ToString().ToLower() ? ExamplesApiType.Navigator.ToKeywordString()
+                    : ((ApIs) api).Name.ToLower() == ExamplesApiType.Workspaces.ToString().ToLower() ? ExamplesApiType.Workspaces.ToKeywordString()
                     : ExamplesApiType.Admin.ToKeywordString();
 
                 @foreach(var exampleGroup in api.Groups)

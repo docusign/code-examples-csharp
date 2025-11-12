@@ -73,6 +73,12 @@ namespace DocuSign.CodeExamples.Common
         /// </summary>")]
         [Description("mae")]
         Maestro = 10,
+
+        /// <summary>
+        /// Workflows
+        /// </summary>")]
+        [Description("work")]
+        Workspaces = 11,
     }
 
     public static class ExamplesApiTypeExtensions
