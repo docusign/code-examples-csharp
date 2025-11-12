@@ -39,7 +39,7 @@ namespace DocuSign.CodeExamples.Examples
             //ds-snippet-end:Workspaces3Step4
         }
 
-        //ds-snippet-start:Workspaces3Step5
+        //ds-snippet-start:Workspaces3Step6
         public static async Task<EnvelopeUpdateSummary> SendEnvelopeAsync(
             string basePath,
             string accessToken,
@@ -65,6 +65,9 @@ namespace DocuSign.CodeExamples.Examples
                 });
         }
 
+        //ds-snippet-end:Workspaces3Step6
+
+        //ds-snippet-start:Workspaces3Step5
         private static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName)
         {
             var signHere = new SignHere
