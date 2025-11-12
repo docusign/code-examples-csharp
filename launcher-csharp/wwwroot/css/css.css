@@ -17,6 +17,10 @@
         pointer-events: none;
     }
 
+form .form-group .validation-error {
+    color: red !important;
+}
+
 .jumbotron {
     background: #000 !important;
     padding-top: 0 !important;

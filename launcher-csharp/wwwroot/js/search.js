@@ -11,6 +11,7 @@
         MAESTRO: 'maestro',
         CONNECTEDFIELDS: 'connectedfields',
         NAVIGATOR: 'navigator',
+        WORKSPACES: 'workspaces',
     };
 
     let processJSONData = function () {
@@ -140,6 +141,8 @@
                 return "cf";
             case API_TYPES.NAVIGATOR:
                 return "nav";
+            case API_TYPES.WORKSPACES:
+                return "work";
         }
     }
 

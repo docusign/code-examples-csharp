@@ -43,7 +43,9 @@
       "SubmitButtonDeleteText": "Delete",
       "SubmitButtonRestoreText": "Restore",
       "DefaultEnvelopeId": "If example 2 was executed, the envelope ID saved after it will be used by default. Alternatively, a different ID can be specified.",
-      "EnvelopeWillBeRestored": "Envelope {0} will be restored."
+      "EnvelopeWillBeRestored": "Envelope {0} will be restored.",
+      "SpecifyNameWithExtension": "Note: Specify the document name with .pdf extension",
+      "SelectPDFFileFromFolder": "Note: Select a PDF file from the following folder {0}"
     }
   },
   "APIs": [
@@ -3027,6 +3029,105 @@
               ],
               "ResultsPageText": "Workflow has been canceled.",
               "SkipForLanguages": "php;python;ruby"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Workspaces",
+      "Groups": [
+        {
+          "Name": "Workspaces",
+          "Examples": [
+            {
+              "ExampleNumber": 1,
+              "ExampleName": "Create a workspace",
+              "ExampleDescription": "Creates a workspace",
+              "LinksToAPIMethod": [
+                {
+                  "Path": "https://developers.docusign.com/docs/workspaces-api/reference/workspaces/workspaces/createworkspace/",
+                  "PathName": "Workspaces:createWorkspace"
+                }
+              ],
+              "Forms": [
+                {
+                  "Inputs": [
+                    {
+                      "InputName": "Workspace name"
+                    }
+                  ]
+                }
+              ],
+              "ResultsPageText": "Workspace created. ID: {0}"
+            },
+            {
+              "ExampleNumber": 2,
+              "ExampleName": "Add a document to a Workspace",
+              "ExampleDescription": "Adds a document to a Workspace",
+              "LinksToAPIMethod": [
+                {
+                  "Path": "https://developers.docusign.com/docs/workspaces-api/reference/workspaces/workspacedocuments/addworkspacedocument/",
+                  "PathName": "WorkspaceDocuments:addWorkspaceDocument"
+                }
+              ],
+              "RedirectsToOtherCodeExamples": [
+                {
+                  "CodeExampleToRedirectTo": 1,
+                  "RedirectText": "<p>Prerequisite: Please create a workspace before running this example using <a {0}>Create a workspace</a>.</p>"
+                }
+              ],
+              "Forms": [
+                {
+                  "Inputs": [
+                    {
+                      "InputName": "Document name"
+                    },
+                    {
+                      "InputName": "Document path"
+                    }
+                  ]
+                }
+              ],
+              "ResultsPageText": "Document added! ID: {0}"
+            },
+            {
+              "ExampleNumber": 3,
+              "ExampleName": "Send a Workspace Envelope with Recipient Info",
+              "ExampleDescription": "Sends a Workspace Envelope with Recipient Info",
+              "LinksToAPIMethod": [
+                {
+                  "Path": "https://developers.docusign.com/docs/workspaces-api/reference/workspaces/workspaces/createworkspaceenvelope/",
+                  "PathName": "Workspaces:createWorkspaceEnvelope"
+                },
+                {
+                  "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/update/",
+                  "PathName": "Envelopes:update"
+                }
+              ],
+              "RedirectsToOtherCodeExamples": [
+                {
+                  "CodeExampleToRedirectTo": 1,
+                  "RedirectText": "<p>Prerequisite: Please create a workspace before running this example using <a {0}>Create a workspace</a>.</p>"
+                },
+                {
+                  "CodeExampleToRedirectTo": 2,
+                  "RedirectText": "<p>Prerequisite: Please create a document in the workspace before running this example using <a {0}>Add a document to a Workspace</a>.</p>"
+                }
+              ],
+              "Forms": [
+                {
+                  "Inputs": [
+                    {
+                      "InputName": "Signer email"
+                    },
+                    {
+                      "InputName": "Signer name"
+                    }
+                  ]
+                }
+              ],
+              "ResultsPageText": "The workspace envelope has been created and sent!<br />Envelope ID {0}."
             }
           ]
         }

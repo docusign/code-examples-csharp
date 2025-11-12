@@ -58,6 +58,15 @@ namespace DocuSign.CodeExamples
 
             this.apiTypes.Add(ExamplesApiType.Maestro, new List<string> { "signature", "aow_manage" });
 
+            this.apiTypes.Add(ExamplesApiType.Workspaces, new List<string>
+            {
+                "signature",
+                "dtr.company.read",
+                "dtr.rooms.read",
+                "dtr.rooms.write",
+                "dtr.documents.write",
+            });
+
             this.apiTypes.Add(ExamplesApiType.Click, new List<string>
             {
                     "click.manage",
