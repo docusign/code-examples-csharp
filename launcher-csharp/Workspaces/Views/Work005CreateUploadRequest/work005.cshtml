@@ -1,0 +1,73 @@
+﻿@{
+    int formNumber = 0;
+    int assigneeEmailInputNumber = 0;
+    
+    string noWorkspaceRedirect = string.Format(
+        ViewBag.CodeExampleText.RedirectsToOtherCodeExamples[0].RedirectText,
+        string.Format("href=\"work00{0}\"", ViewBag.CodeExampleText.RedirectsToOtherCodeExamples[0].CodeExampleToRedirectTo)
+    );
+    
+    string noCreatorIdRedirect = string.Format(
+        ViewBag.CodeExampleText.RedirectsToOtherCodeExamples[1].RedirectText,
+        string.Format("href=\"work00{0}\"", ViewBag.CodeExampleText.RedirectsToOtherCodeExamples[1].CodeExampleToRedirectTo)
+    );
+}
+
+<h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
+<p>
+    @Html.Raw(ViewBag.CodeExampleText.ExampleDescription)
+</p>
+
+@if (ViewBag.showDoc == true)
+{
+    <p><a target='_blank' href='<%= documentation %>'>Documentation</a> about this example</p>
+}
+
+<partial name="../../../Views/Shared/LinkToMethodView" model="ViewBag.CodeExampleText" />
+
+<p>
+    @Html.Raw(@String.Format(ViewBag.SupportingTexts.ViewSourceFile, "<a target='_blank' href=" + @ViewBag.source + ">CreateUploadRequest.cs</a>"))
+</p>
+
+@if (ViewBag.WorkspaceIdOk == false)
+{
+    @Html.Raw(
+        noWorkspaceRedirect
+    )
+
+    <form class="eg" action="work001" method="get">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+    </form>
+} 
+else if (ViewBag.CreatorIdOk == false)
+{
+    @Html.Raw(
+        noCreatorIdRedirect
+    )
+
+    <form class="eg" action="work001" method="get">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+    </form>
+}
+else
+{
+    <form class="eg" action="" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="assigneeEmail">
+                @Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].Inputs[assigneeEmailInputNumber].InputName)
+            </label>
+            <input type="email"
+                   class="form-control"
+                   id="assigneeEmail"
+                   name="assigneeEmail"
+                   aria-describedby="emailHelp"
+                   placeholder="@ViewBag.CodeExampleText.Forms[formNumber].Inputs[assigneeEmailInputNumber].InputPlaceholder"
+                   required
+                   value="@ViewBag.Locals.DsConfig.SignerEmail"/>
+            <small id="emailHelp" class="form-text text-muted">@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.EmailWontBeShared)</small>
+        </div>
+        
+        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+        <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
+    </form>
+}

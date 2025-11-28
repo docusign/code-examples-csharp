@@ -168,6 +168,12 @@ namespace DocuSign.CodeExamples.Common
             set => this.cache.Set(this.GetKey("WorkspaceId"), value);
         }
 
+        public string CreatorId
+        {
+            get => this.cache.Get<string>(this.GetKey("CreatorId"));
+            set => this.cache.Set(this.GetKey("CreatorId"), value);
+        }
+
         public string WorkspaceDocumentId
         {
             get => this.cache.Get<string>(this.GetKey("WorkspaceDocumentId"));

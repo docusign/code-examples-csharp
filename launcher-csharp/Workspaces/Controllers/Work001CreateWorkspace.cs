@@ -45,6 +45,7 @@ namespace DocuSign.CodeExamples.Controllers
                 workspaceName);
 
             this.RequestItemsService.WorkspaceId = createWorkspaceResponse.Result.WorkspaceId;
+            this.RequestItemsService.CreatorId = createWorkspaceResponse.Result.CreatedByUserId;
 
             this.ViewBag.h1 = this.CodeExampleText.ExampleName;
             this.ViewBag.message = string.Format(

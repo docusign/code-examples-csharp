@@ -44,6 +44,8 @@ namespace DocuSign.CodeExamples
 
         public string WorkspaceId { get; set; }
 
+        public string CreatorId { get; set; }
+
         public string WorkspaceDocumentId { get; set; }
 
         public bool IsWorkflowPublished { get; set; }
