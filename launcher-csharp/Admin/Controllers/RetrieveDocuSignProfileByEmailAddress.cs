@@ -38,12 +38,13 @@ namespace DocuSign.CodeExamples.Admin.Controllers
                 string accessToken = this.RequestItemsService.User.AccessToken;
                 string basePath = this.RequestItemsService.Session.AdminApiBasePath;
 
-                UsersDrilldownResponse profileWithSearchedEmail = DocuSign.Admin.Examples.RetrieveDocuSignProfileByEmailAddress.
+                ApiResponse<UsersDrilldownResponse> profileWithSearchedEmail = DocuSign.Admin.Examples.RetrieveDocuSignProfileByEmailAddress.
                     GetDocuSignProfileByEmailAdress(basePath, accessToken, organizationId, email);
+                this.GetHttpInfo(profileWithSearchedEmail.Headers);
 
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = this.CodeExampleText.ResultsPageText;
-                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(profileWithSearchedEmail, Formatting.Indented);
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(profileWithSearchedEmail.Data, Formatting.Indented);
 
                 return this.View("example_done");
             }

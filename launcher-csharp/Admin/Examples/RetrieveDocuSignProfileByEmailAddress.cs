@@ -19,7 +19,7 @@ namespace DocuSign.Admin.Examples
         /// <param name="orgId">DocuSign Organization Id (GUID)</param>
         /// <param name="email">Email adress (string)</param>
         /// <returns>DocuSign profile, that has the searched email</returns>
-        public static UsersDrilldownResponse GetDocuSignProfileByEmailAdress(
+        public static ApiResponse<UsersDrilldownResponse> GetDocuSignProfileByEmailAdress(
             string basePath,
             string accessToken,
             Guid? orgId,
@@ -37,7 +37,7 @@ namespace DocuSign.Admin.Examples
                 email = email,
             };
 
-            UsersDrilldownResponse userWithSearchedEmail = usersApi.GetUserDSProfilesByEmail(orgId, retrieveUserOptions);
+            ApiResponse<UsersDrilldownResponse> userWithSearchedEmail = usersApi.GetUserDSProfilesByEmailWithHttpInfo(orgId, retrieveUserOptions);
             //ds-snippet-end:Admin6Step3
             return userWithSearchedEmail;
         }

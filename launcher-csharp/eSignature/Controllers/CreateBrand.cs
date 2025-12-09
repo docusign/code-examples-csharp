@@ -51,8 +51,9 @@ namespace DocuSign.CodeExamples.Controllers
             {
                 // Call the Examples API method to create a new brand
                 var results = global::ESignature.Examples.CreateBrand.Create(brandName, defaultBrandLanguage, accessToken, basePath, accountId);
+                this.GetHttpInfo(results.Headers);
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;
-                this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, results.Brands[0].BrandId);
+                this.ViewBag.message = string.Format(this.CodeExampleText.ResultsPageText, results.Data.Brands[0].BrandId);
             }
             catch (ApiException apiException)
             {

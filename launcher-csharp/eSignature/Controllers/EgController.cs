@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Text.RegularExpressions;
     using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.ESignature.Models;
@@ -144,6 +145,17 @@ namespace DocuSign.CodeExamples.Controllers
         protected bool CheckToken(int bufferMin = 60)
         {
             return this.RequestItemsService.CheckToken(bufferMin);
+        }
+
+        protected void GetHttpInfo(IDictionary<string, string> headers)
+        {
+            headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
         }
     }
 }

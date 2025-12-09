@@ -45,11 +45,12 @@ namespace DocuSign.CodeExamples.Click.Controllers
 
                 // Call the Click API to activate a clickwrap
                 var clickWrap = DocuSign.Click.Examples.ActivateClickwrap.Update(clickwrapId, clickwrapVersion, basePath, accessToken, accountId);
+                this.GetHttpInfo(clickWrap.Headers);
 
                 // Show results
                 this.ViewBag.h1 = this.CodeExampleText.ExampleName;
                 this.ViewBag.message = this.CodeExampleText.ResultsPageText;
-                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(clickWrap, Formatting.Indented);
+                this.ViewBag.Locals.Json = JsonConvert.SerializeObject(clickWrap.Data, Formatting.Indented);
 
                 return this.View("example_done");
             }
@@ -73,10 +74,12 @@ namespace DocuSign.CodeExamples.Click.Controllers
             var accountId = this.RequestItemsService.Session.AccountId;
 
             var inactiveClickwraps = DocuSign.Click.Examples.ActivateClickwrap.GetClickwrapsByStatus(basePath, accessToken, accountId, "inactive");
+            this.GetHttpInfo(inactiveClickwraps.Headers);
             var draftClickwraps = DocuSign.Click.Examples.ActivateClickwrap.GetClickwrapsByStatus(basePath, accessToken, accountId, "draft");
-            inactiveClickwraps.Clickwraps.AddRange(draftClickwraps.Clickwraps);
+            this.GetHttpInfo(draftClickwraps.Headers);
+            inactiveClickwraps.Data.Clickwraps.AddRange(draftClickwraps.Data.Clickwraps);
 
-            this.ViewBag.ClickwrapsData = inactiveClickwraps;
+            this.ViewBag.ClickwrapsData = inactiveClickwraps.Data;
             this.ViewBag.AccountId = this.RequestItemsService.Session.AccountId;
         }
     }

@@ -19,7 +19,7 @@ namespace ESignature.Examples
         /// <param name="basePath">BasePath for API calls (URI)</param>
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// <returns>A brand</returns>
-        public static BrandsResponse Create(string brandName, string defaultBrandLanguage, string accessToken, string basePath, string accountId)
+        public static ApiResponse<BrandsResponse> Create(string brandName, string defaultBrandLanguage, string accessToken, string basePath, string accountId)
         {
             // Construct your API headers
             //ds-snippet-start:eSign28Step2
@@ -40,7 +40,7 @@ namespace ESignature.Examples
             //ds-snippet-start:eSign28Step4
             AccountsApi accountsApi = new AccountsApi(docuSignClient);
 
-            return accountsApi.CreateBrand(accountId, newBrand);
+            return accountsApi.CreateBrandWithHttpInfo(accountId, newBrand);
             //ds-snippet-end:eSign28Step4
         }
     }
