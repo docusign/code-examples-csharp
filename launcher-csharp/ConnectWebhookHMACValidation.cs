@@ -13,7 +13,7 @@ namespace ESignature.Examples
         /// <summary>
         /// Validates the payload that was recevied in the body (raw content) of the Connect webhook message
         /// </summary>
-        /// <param name="secret">HMAC key from the Conenct page in DocuSign</param>
+        /// <param name="secret">HMAC key from the Connect page in DocuSign</param>
         /// <param name="payload">Raw Content of the webhook message without wrapping or formatting</param>
         /// <param name="verify">Value of the x-docusign-signature-1 header of the webhook request</param>
         /// <returns>True if the payload was verified with the secret</returns>
