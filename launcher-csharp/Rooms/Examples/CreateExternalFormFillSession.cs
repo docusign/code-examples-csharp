@@ -4,6 +4,7 @@
 
 namespace DocuSign.Rooms.Examples
 {
+    using System;
     using DocuSign.Rooms.Api;
     using DocuSign.Rooms.Client;
     using DocuSign.Rooms.Model;
@@ -32,7 +33,17 @@ namespace DocuSign.Rooms.Examples
             //ds-snippet-end:Rooms6Step2
 
             // Call the Rooms API to get Room Documents
-            return roomsApi.GetDocuments(accountId, roomId);
+            var response = roomsApi.GetDocumentsWithHttpInfo(accountId, roomId);
+
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            return response.Data;
         }
 
         /// <summary>
@@ -53,7 +64,17 @@ namespace DocuSign.Rooms.Examples
             var roomsApi = new RoomsApi(apiClient);
 
             // Call the Rooms API to get the list of rooms
-            return roomsApi.GetRooms(accountId);
+            var response = roomsApi.GetRoomsWithHttpInfo(accountId);
+
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            return response.Data;
         }
 
         /// <summary>
@@ -80,9 +101,17 @@ namespace DocuSign.Rooms.Examples
 
             // Call the Rooms API to create external form fill session
             //ds-snippet-start:Rooms6Step4
-            var url = externalFormFillSessionsApi.CreateExternalFormFillSession(accountId, sessionForCreate);
+            var url = externalFormFillSessionsApi.CreateExternalFormFillSessionWithHttpInfo(accountId, sessionForCreate);
 
-            return url;
+            url.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            url.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            return url.Data;
             //ds-snippet-end:Rooms6Step4
         }
     }

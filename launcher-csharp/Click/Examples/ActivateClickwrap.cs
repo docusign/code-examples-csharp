@@ -4,6 +4,7 @@
 
 namespace DocuSign.Click.Examples
 {
+    using System;
     using DocuSign.Click.Api;
     using DocuSign.Click.Client;
     using DocuSign.Click.Model;
@@ -19,7 +20,7 @@ namespace DocuSign.Click.Examples
         /// <param name="accessToken">Access Token for API call (OAuth)</param>
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// <returns>The summary response of the activated clickwrap</returns>
-        public static ApiResponse<ClickwrapVersionSummaryResponse> Update(string clickwrapId, string clickwrapVersion, string basePath, string accessToken, string accountId)
+        public static ClickwrapVersionSummaryResponse Update(string clickwrapId, string clickwrapVersion, string basePath, string accessToken, string accountId)
         {
             //ds-snippet-start:Click2Step2
             var docuSignClient = new DocuSignClient(basePath);
@@ -32,7 +33,17 @@ namespace DocuSign.Click.Examples
             //ds-snippet-end:Click2Step3
 
             //ds-snippet-start:Click2Step4
-            return clickAccountApi.UpdateClickwrapVersionWithHttpInfo(accountId, clickwrapId, clickwrapVersion, clickwrapRequest);
+            var response = clickAccountApi.UpdateClickwrapVersionWithHttpInfo(accountId, clickwrapId, clickwrapVersion, clickwrapRequest);
+
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            return response.Data;
             //ds-snippet-end:Click2Step4
         }
 
@@ -57,7 +68,7 @@ namespace DocuSign.Click.Examples
         /// <param name="accountId">Account id</param>
         /// <param name="status">Status</param>
         /// <returns>ClickwrapVersionsResponse</returns>
-        public static ApiResponse<ClickwrapVersionsResponse> GetClickwrapsByStatus(string basePath, string accessToken, string accountId, string status)
+        public static ClickwrapVersionsResponse GetClickwrapsByStatus(string basePath, string accessToken, string accountId, string status)
         {
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
@@ -65,7 +76,17 @@ namespace DocuSign.Click.Examples
             var options = new AccountsApi.GetClickwrapsOptions();
             options.status = status;
 
-            return clickAccountApi.GetClickwrapsWithHttpInfo(accountId, options);
+            var response = clickAccountApi.GetClickwrapsWithHttpInfo(accountId, options);
+
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            return response.Data;
         }
     }
 }

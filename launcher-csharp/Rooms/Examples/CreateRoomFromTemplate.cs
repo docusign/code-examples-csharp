@@ -4,6 +4,7 @@
 
 namespace DocuSign.Rooms.Examples
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using DocuSign.Rooms.Api;
@@ -31,7 +32,17 @@ namespace DocuSign.Rooms.Examples
             var roomTemplatesApi = new RoomTemplatesApi(apiClient);
 
             // Call the Rooms API to create a room
-            return roomTemplatesApi.GetRoomTemplates(accountId);
+            var response = roomTemplatesApi.GetRoomTemplatesWithHttpInfo(accountId);
+
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            return response.Data;
             //ds-snippet-end:Rooms2Step3
         }
 
@@ -60,8 +71,17 @@ namespace DocuSign.Rooms.Examples
             //ds-snippet-end:Rooms2Step2
 
             // Obtain Role
-            var clientRole = rolesApi.GetRoles(accountId, new RolesApi.GetRolesOptions { filter = "Default Admin" }).Roles.First();
+            var roles = rolesApi.GetRolesWithHttpInfo(accountId, new RolesApi.GetRolesOptions { filter = "Default Admin" });
 
+            roles.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            roles.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            var clientRole = roles.Data.Roles.FirstOrDefault();
             // Construct the request body for your room
             //ds-snippet-start:Rooms2Step4
             var newRoom = BuildRoom(model, clientRole, templateId);
@@ -69,7 +89,17 @@ namespace DocuSign.Rooms.Examples
 
             // Call the Rooms API to create a room
             //ds-snippet-start:Rooms2Step5
-            return roomsApi.CreateRoom(accountId, newRoom);
+            var response = roomsApi.CreateRoomWithHttpInfo(accountId, newRoom);
+
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            return response.Data;
             //ds-snippet-end:Rooms2Step5
         }
 

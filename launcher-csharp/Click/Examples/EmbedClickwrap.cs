@@ -4,6 +4,7 @@
 
 namespace DocuSign.Click.Examples
 {
+    using System;
     using System.Collections.Generic;
     using DocuSign.Click.Api;
     using DocuSign.Click.Client;
@@ -36,6 +37,13 @@ namespace DocuSign.Click.Examples
             var userAgreementRequest = BuildUpdateClickwrapHasAgreedRequest(fullName, email, company, title, date);
 
             var response = clickAccountApi.CreateHasAgreedWithHttpInfo(accountId, clickwrapId, userAgreementRequest);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
             if (response.StatusCode == 201)
             {
                 return response.Data;
@@ -66,7 +74,17 @@ namespace DocuSign.Click.Examples
             var options = new AccountsApi.GetClickwrapsOptions();
             options.status = "active";
 
-            return clickAccountApi.GetClickwraps(accountId, options);
+            var response = clickAccountApi.GetClickwrapsWithHttpInfo(accountId, options);
+
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            return response.Data;
         }
 
         private static UserAgreementRequest BuildUpdateClickwrapHasAgreedRequest(string fullName, string email, string company, string title, string date)

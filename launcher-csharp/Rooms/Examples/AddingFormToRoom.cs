@@ -35,24 +35,48 @@ namespace DocuSign.Rooms.Examples
 
             // Get Forms Libraries
             //ds-snippet-start:Rooms4Step3
-            FormLibrarySummaryList formLibraries = formLibrariesApi.GetFormLibraries(accountId);
+            ApiResponse<FormLibrarySummaryList> formLibraries = formLibrariesApi.GetFormLibrariesWithHttpInfo(accountId);
+
+            formLibraries.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            formLibraries.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
 
             // Get Forms
-            FormSummaryList forms = new FormSummaryList(new List<FormSummary>());
-            if (formLibraries.FormsLibrarySummaries.Any())
+            ApiResponse<FormSummaryList> forms = null;
+            if (formLibraries.Data.FormsLibrarySummaries.Any())
             {
-                forms = formLibrariesApi.GetFormLibraryForms(
+                forms = formLibrariesApi.GetFormLibraryFormsWithHttpInfo(
                     accountId,
-                    formLibraries.FormsLibrarySummaries.First().FormsLibraryId);
+                    formLibraries.Data.FormsLibrarySummaries.First().FormsLibraryId);
             }
+
+            forms.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            forms.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
 
             //ds-snippet-end:Rooms4Step3
 
             // Get Rooms
-            RoomSummaryList rooms = roomsApi.GetRooms(accountId);
+            ApiResponse<RoomSummaryList> rooms = roomsApi.GetRoomsWithHttpInfo(accountId);
+
+            rooms.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            rooms.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
 
             // Call the Rooms API to create a room
-            return (forms, rooms);
+            return (forms.Data, rooms.Data);
         }
 
         /// <summary>
@@ -78,7 +102,16 @@ namespace DocuSign.Rooms.Examples
 
             // Call the Rooms API to get room field data
             //ds-snippet-start:Rooms4Step4
-            return roomsApi.AddFormToRoom(accountId, roomId, new FormForAdd(formId));
+            var response = roomsApi.AddFormToRoomWithHttpInfo(accountId, roomId, new FormForAdd(formId));
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            return response.Data;
             //ds-snippet-end:Rooms4Step4
         }
     }

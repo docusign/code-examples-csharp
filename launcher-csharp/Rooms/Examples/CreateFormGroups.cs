@@ -4,6 +4,7 @@
 
 namespace DocuSign.Rooms.Examples
 {
+    using System;
     using DocuSign.Rooms.Api;
     using DocuSign.Rooms.Client;
     using DocuSign.Rooms.Model;
@@ -37,7 +38,17 @@ namespace DocuSign.Rooms.Examples
 
             // Call the Rooms API to create form group
             //ds-snippet-start:Rooms7Step4
-            return formGroupsApi.CreateFormGroup(accountId, formGroupForCreate);
+            var response = formGroupsApi.CreateFormGroupWithHttpInfo(accountId, formGroupForCreate);
+
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            return response.Data;
             //ds-snippet-end:Rooms7Step4
         }
     }
