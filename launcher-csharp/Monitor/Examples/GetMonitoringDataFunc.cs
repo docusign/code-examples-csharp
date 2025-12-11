@@ -54,6 +54,14 @@ namespace DocuSign.CodeExamples.Monitor.Examples
 
                     var cursoredResult = dataSetApi.GetStreamWithHttpInfo("2.0", "monitor", options);
 
+                    cursoredResult.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+                    cursoredResult.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+                    DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+                    Console.WriteLine("API calls remaining: " + remaining);
+                    Console.WriteLine("Next Reset: " + resetDate);
+
                     string endCursor = cursoredResult.Data.EndCursor;
 
                     // If the endCursor from the response is the same as the one that you already have,
