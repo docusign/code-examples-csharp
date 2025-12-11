@@ -24,6 +24,17 @@ namespace DocuSign.CodeExamples.Examples
 
         //ds-snippet-end:Maestro4Step3
 
+        public static async Task<WorkflowInstance> GetWorkflowInstanceStatus(
+            string basePath,
+            string accessToken,
+            string accountId,
+            string workflowId,
+            string workflowInstanceId)
+        {
+            var client = CreateAuthenticatedClient(basePath, accessToken);
+            return await client.Maestro.WorkflowInstanceManagement.GetWorkflowInstanceAsync(accountId, workflowId, workflowInstanceId);
+        }
+
         /// <summary>
         /// Creates an authenticated IAM client.
         /// </summary>
