@@ -4,6 +4,7 @@
 
 namespace ESignature.Examples
 {
+    using System;
     using System.Collections.Generic;
     using DocuSign.CodeExamples.Models;
     using DocuSign.eSign.Api;
@@ -29,7 +30,14 @@ namespace ESignature.Examples
 
             //ds-snippet-start:eSign6Step3
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
-            EnvelopeDocumentsResult results = envelopesApi.ListDocuments(accountId, envelopeId);
+            var results = envelopesApi.ListDocumentsWithHttpInfo(accountId, envelopeId);
+            results.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            results.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:eSign6Step3
 
             List<EnvelopeDocItem> envelopeDocItems = new List<EnvelopeDocItem>
@@ -38,7 +46,7 @@ namespace ESignature.Examples
                 new EnvelopeDocItem { Name = "Zip archive", Type = "zip", DocumentId = "archive" },
             };
 
-            foreach (EnvelopeDocument doc in results.EnvelopeDocuments)
+            foreach (EnvelopeDocument doc in results.Data.EnvelopeDocuments)
             {
                 envelopeDocItems.Add(new EnvelopeDocItem
                 {

@@ -4,6 +4,7 @@
 
 namespace ESignature.Examples
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Net;
@@ -141,6 +142,14 @@ namespace ESignature.Examples
                     res = reader.ReadToEnd();
                 }
             }
+
+            string remaining = ((HttpWebResponse)response).Headers.Get("X-RateLimit-Remaining");
+            string reset = ((HttpWebResponse)response).Headers.Get("X-RateLimit-Reset");
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
 
             HttpStatusCode code = ((HttpWebResponse)response).StatusCode;
             dynamic obj = JsonConvert.DeserializeObject(res);

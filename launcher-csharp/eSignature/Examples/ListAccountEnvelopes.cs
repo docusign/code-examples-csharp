@@ -35,9 +35,16 @@ namespace ESignature.Examples
             options.fromDate = DateTime.Now.AddDays(-30).ToString("yyyy-MM-dd");
 
             // Call the API method:
-            EnvelopesInformation results = envelopesApi.ListStatusChanges(accountId, options);
+            var results = envelopesApi.ListStatusChangesWithHttpInfo(accountId, options);
+            results.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            results.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:eSign3Step2
-            return results;
+            return results.Data;
         }
     }
 }

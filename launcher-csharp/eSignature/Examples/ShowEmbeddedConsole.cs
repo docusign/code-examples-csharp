@@ -4,6 +4,7 @@
 
 namespace ESignature.Examples
 {
+    using System;
     using DocuSign.eSign.Api;
     using DocuSign.eSign.Client;
     using DocuSign.eSign.Model;
@@ -40,9 +41,16 @@ namespace ESignature.Examples
             // Step 1. create the NDSE view
             // Call the CreateSenderView API
             // Exceptions will be caught by the calling function
-            ViewUrl results = envelopesApi.CreateConsoleView(accountId, viewRequest);
+            var results = envelopesApi.CreateConsoleViewWithHttpInfo(accountId, viewRequest);
+            results.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            results.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:eSign12Step2
-            string redirectUrl = results.Url;
+            string redirectUrl = results.Data.Url;
             return redirectUrl;
         }
 

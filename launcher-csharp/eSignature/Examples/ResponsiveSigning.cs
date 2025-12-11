@@ -32,15 +32,29 @@ namespace ESignature.Examples
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
-            EnvelopeSummary envelopeSummary = envelopesApi.CreateEnvelope(accountId, envelope);
+            var envelopeSummary = envelopesApi.CreateEnvelopeWithHttpInfo(accountId, envelope);
+            envelopeSummary.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            envelopeSummary.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:eSign38Step3
-            string envelopeId = envelopeSummary.EnvelopeId;
+            string envelopeId = envelopeSummary.Data.EnvelopeId;
 
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, returnUrl, signerClientId, pingUrl);
 
-            ViewUrl viewUrl = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
+            var viewUrl = envelopesApi.CreateRecipientViewWithHttpInfo(accountId, envelopeId, viewRequest);
+            viewUrl.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            viewUrl.Headers.TryGetValue("X-RateLimit-Reset", out reset);
 
-            return viewUrl.Url;
+            resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            return viewUrl.Data.Url;
         }
 
         private static RecipientViewRequest MakeRecipientViewRequest(

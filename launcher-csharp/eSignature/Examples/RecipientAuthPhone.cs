@@ -21,7 +21,7 @@ namespace ESignature.Examples
         /// <param name="accessToken">Access Token for API call (OAuth)</param>
         /// <param name="basePath">BasePath for API calls (URI)</param>
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
-        /// <param name="countryAreaCode">Country code for the phone number used to verify the recipient/param>
+        /// <param name="countryAreaCode">Country code for the phone number used to verify the recipient</param>
         /// <param name="phoneNumber">Phone number used to verify the recipient</param>
         /// <param name="docPdf">String of bytes representing the document (pdf)</param>
         /// <returns>EnvelopeId for the new envelope</returns>
@@ -35,8 +35,16 @@ namespace ESignature.Examples
 
             //ds-snippet-start:eSign20Step3
             var accountsApi = new AccountsApi(docuSignClient);
-            AccountIdentityVerificationResponse response = accountsApi.GetAccountIdentityVerification(accountId);
-            var phoneAuthWorkflow = response.IdentityVerification.FirstOrDefault(x => x.DefaultName == "Phone Authentication");
+            var response = accountsApi.GetAccountIdentityVerificationWithHttpInfo(accountId);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            var phoneAuthWorkflow = response.Data.IdentityVerification.FirstOrDefault(x => x.DefaultName == "Phone Authentication");
             //ds-snippet-end:eSign20Step3
 
             if (phoneAuthWorkflow == null)
@@ -124,10 +132,17 @@ namespace ESignature.Examples
             // Call the eSignature REST API
             //ds-snippet-start:eSign20Step5
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+            var results = envelopesApi.CreateEnvelopeWithHttpInfo(accountId, env);
+            results.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            results.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:eSign20Step5
 
-            return results.EnvelopeId;
+            return results.Data.EnvelopeId;
         }
     }
 }

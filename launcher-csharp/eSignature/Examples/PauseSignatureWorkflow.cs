@@ -4,6 +4,7 @@
 
 namespace ESignature.Examples
 {
+    using System;
     using System.Collections.Generic;
     using DocuSign.eSign.Api;
     using DocuSign.eSign.Client;
@@ -40,7 +41,16 @@ namespace ESignature.Examples
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             //ds-snippet-end:eSign32Step4
 
-            return envelopesApi.CreateEnvelope(accountId, envelope);
+            var response = envelopesApi.CreateEnvelopeWithHttpInfo(accountId, envelope);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            return response.Data;
         }
 
         //ds-snippet-start:eSign32Step3

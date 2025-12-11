@@ -32,10 +32,17 @@ namespace DocuSign.Admin.Examples
 
             //ds-snippet-start:Admin7Step3
             var usersApi = new UsersApi(apiClient);
-            var recentlyModifiedUsers = usersApi.GetUserDSProfile(orgId, userId);
+            var recentlyModifiedUsers = usersApi.GetUserDSProfileWithHttpInfo(orgId, userId);
+            recentlyModifiedUsers.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            recentlyModifiedUsers.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:Admin7Step3
 
-            return recentlyModifiedUsers;
+            return recentlyModifiedUsers.Data;
         }
     }
 }

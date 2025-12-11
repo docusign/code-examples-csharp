@@ -4,6 +4,7 @@
 
 namespace ESignature.Examples
 {
+    using System;
     using System.Linq;
     using DocuSign.eSign.Api;
     using DocuSign.eSign.Client;
@@ -30,13 +31,33 @@ namespace ESignature.Examples
 
             // Construct the request body
             //ds-snippet-start:eSign26Step3
-            var permission = accountsApi.ListPermissions(accountId).PermissionProfiles.
+            var response = accountsApi.ListPermissionsWithHttpInfo(accountId);
+
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            var permission = response.Data.PermissionProfiles.
                 FirstOrDefault(profile => profile.PermissionProfileId == profileId);
             //ds-snippet-end:eSign26Step3
 
             // Call the eSignature REST API
             //ds-snippet-start:eSign26Step4
-            return accountsApi.UpdatePermissionProfile(accountId, profileId, permission);
+            var permissionProfile = accountsApi.UpdatePermissionProfileWithHttpInfo(accountId, profileId, permission);
+
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            return permissionProfile.Data;
             //ds-snippet-end:eSign26Step4
         }
 

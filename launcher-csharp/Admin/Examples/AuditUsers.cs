@@ -35,19 +35,34 @@ namespace DocuSign.Admin.Examples
                 lastModifiedSince = DateTime.Today.AddDays(tenDaysAgo).ToString("yyyy-MM-dd"),
             };
 
-            var recentlyModifiedUsers = usersApi.GetUsers(orgId, getUsersOptions);
+            var recentlyModifiedUsers = usersApi.GetUsersWithHttpInfo(orgId, getUsersOptions);
+            recentlyModifiedUsers.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            recentlyModifiedUsers.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:Admin5Step3
 
             //ds-snippet-start:Admin5Step5
             var usersData = new List<UserDrilldownResponse>();
             //ds-snippet-end:Admin5Step5
             //ds-snippet-start:Admin5Step4
-            foreach (var user in recentlyModifiedUsers.Users)
+            foreach (var user in recentlyModifiedUsers.Data.Users)
             {
                 var getUserProfilesOptions = new UsersApi.GetUserProfilesOptions { email = user.Email };
                 //ds-snippet-end:Admin5Step4
                 //ds-snippet-start:Admin5Step5
-                usersData.AddRange(usersApi.GetUserProfiles(orgId, getUserProfilesOptions).Users);
+                var users = usersApi.GetUserProfilesWithHttpInfo(orgId, getUserProfilesOptions);
+                users.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+                users.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+                resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+                usersData.AddRange(users.Data.Users);
                 //ds-snippet-end:Admin5Step5
             }
 

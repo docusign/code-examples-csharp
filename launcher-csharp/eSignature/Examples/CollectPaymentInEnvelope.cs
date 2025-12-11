@@ -59,9 +59,17 @@ namespace ESignature.Examples
             // Step 2. call Envelopes::create API method
             // Exceptions will be caught by the calling function
             //ds-snippet-start:eSign14Step4
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
+            var results = envelopesApi.CreateEnvelopeWithHttpInfo(accountId, envelope);
+            results.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            results.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
             //ds-snippet-end:eSign14Step4
-            return results.EnvelopeId;
+            return results.Data.EnvelopeId;
         }
 
         //ds-snippet-start:eSign14Step3

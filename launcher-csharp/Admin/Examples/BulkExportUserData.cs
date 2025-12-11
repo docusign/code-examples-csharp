@@ -41,7 +41,14 @@ namespace DocuSign.CodeExamples.Admin.Examples
                 Type = "organization_memberships_export",
             };
 
-            var exportResponse = bulkExportsApi.CreateUserListExport(organizationId, organizationExportRequest);
+            var exportResponse = bulkExportsApi.CreateUserListExportWithHttpInfo(organizationId, organizationExportRequest);
+            exportResponse.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            exportResponse.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:Admin3Step3
 
             //ds-snippet-start:Admin3Step4
@@ -49,21 +56,28 @@ namespace DocuSign.CodeExamples.Admin.Examples
 
             while (retryCount >= 0)
             {
-                if (exportResponse.Results != null)
+                if (exportResponse.Data.Results != null)
                 {
-                    GetUserData(accessToken, exportResponse.Results.FirstOrDefault().Url, filePath);
+                    GetUserData(accessToken, exportResponse.Data.Results.FirstOrDefault().Url, filePath);
                     break;
                 }
                 else
                 {
                     --retryCount;
                     System.Threading.Thread.Sleep(5000);
-                    exportResponse = bulkExportsApi.GetUserListExport(organizationId, exportResponse.Id);
+                    exportResponse = bulkExportsApi.GetUserListExportWithHttpInfo(organizationId, exportResponse.Data.Id);
+                    exportResponse.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+                    exportResponse.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+                    resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+                    Console.WriteLine("API calls remaining: " + remaining);
+                    Console.WriteLine("Next Reset: " + resetDate);
                 }
             }
 
             //ds-snippet-end:Admin3Step4
-            return exportResponse;
+            return exportResponse.Data;
         }
 
         /// <summary>
@@ -92,6 +106,13 @@ namespace DocuSign.CodeExamples.Admin.Examples
                 request.AllowWriteStreamBuffering = false;
 
                 response = (HttpWebResponse)request.GetResponse();
+                string remaining = response.Headers.Get("X-RateLimit-Remaining");
+                string reset = response.Headers.Get("X-RateLimit-Reset");
+
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
 
                 Stream stream = response.GetResponseStream();
 

@@ -49,31 +49,67 @@ namespace ESignature.Examples
 
             //ds-snippet-start:eSign42Step2
             TemplatesApi templatesApi = new TemplatesApi(docuSignClient);
-            TemplateSummary template = templatesApi.CreateTemplate(accountId, MakeTemplate());
-            string templateId = template.TemplateId;
+            var template = templatesApi.CreateTemplateWithHttpInfo(accountId, MakeTemplate());
+            template.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            template.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            string templateId = template.Data.TemplateId;
             //ds-snippet-end:eSign42Step2
 
             //ds-snippet-start:eSign42Step3
-            templatesApi.UpdateDocument(accountId, templateId, DefaultId, AddDocumentTemplate(offerDocDocx));
+            var updateDocumentResponse = templatesApi.UpdateDocumentWithHttpInfo(accountId, templateId, DefaultId, AddDocumentTemplate(offerDocDocx));
+            updateDocumentResponse.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            updateDocumentResponse.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:eSign42Step3
 
             //ds-snippet-start:eSign42Step4
-            templatesApi.CreateTabs(accountId, templateId, DefaultId, PrepareTabs());
+            var createTabsResponse = templatesApi.CreateTabsWithHttpInfo(accountId, templateId, DefaultId, PrepareTabs());
+            createTabsResponse.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            createTabsResponse.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:eSign42Step4
 
             //ds-snippet-start:eSign42Step5
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
-            EnvelopeSummary envelope = envelopesApi.CreateEnvelope(accountId, MakeEnvelope(candidateEmail, candidateName, templateId));
-            string envelopeId = envelope.EnvelopeId;
+            var envelopeResponse = envelopesApi.CreateEnvelopeWithHttpInfo(accountId, MakeEnvelope(candidateEmail, candidateName, templateId));
+            envelopeResponse.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            envelopeResponse.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+            string envelopeId = envelopeResponse.Data.EnvelopeId;
             //ds-snippet-end:eSign42Step5
 
             //ds-snippet-start:eSign42Step6
-            DocGenFormFieldResponse formFields = envelopesApi.GetEnvelopeDocGenFormFields(accountId, envelope.EnvelopeId);
+            var formFieldsResponse = envelopesApi.GetEnvelopeDocGenFormFieldsWithHttpInfo(accountId, envelopeResponse.Data.EnvelopeId);
+            formFieldsResponse.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            formFieldsResponse.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:eSign42Step6
 
             //ds-snippet-start:eSign42Step7
             DocGenFormFieldRequest preparedFormFields = FormFields(
-                formFields.DocGenFormFields.FirstOrDefault()?.DocumentId,
+                formFieldsResponse.Data.DocGenFormFields.FirstOrDefault()?.DocumentId,
                 candidateName,
                 managerName,
                 jobTitle,
@@ -81,23 +117,37 @@ namespace ESignature.Examples
                 rsus.ToString(),
                 startDate.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
 
-            envelopesApi.UpdateEnvelopeDocGenFormFields(
+            var updateEnvelopeDocGenFormFields = envelopesApi.UpdateEnvelopeDocGenFormFieldsWithHttpInfo(
                 accountId,
                 envelopeId,
                 preparedFormFields);
+            updateEnvelopeDocGenFormFields.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            updateEnvelopeDocGenFormFields.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:eSign42Step7
 
             //ds-snippet-start:eSign42Step8
-            EnvelopeUpdateSummary envelopeWithDocGen = envelopesApi.Update(
+            var envelopeWithDocGen = envelopesApi.UpdateWithHttpInfo(
                 accountId,
                 envelopeId,
                 new Envelope
                 {
                     Status = "sent",
                 });
+            envelopeWithDocGen.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            envelopeWithDocGen.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:eSign42Step8
 
-            return envelopeWithDocGen.EnvelopeId;
+            return envelopeWithDocGen.Data.EnvelopeId;
         }
 
         //ds-snippet-start:eSign42Step2

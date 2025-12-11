@@ -61,9 +61,16 @@ namespace ESignature.Examples
             //ds-snippet-end:eSign40Step2
 
             //ds-snippet-start:eSign40Step4
-            EnvelopeSummary envelopeSummary = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
+            var envelopeSummary = envelopesApi.CreateEnvelopeWithHttpInfo(accountId, envelopeDefinition);
+            envelopeSummary.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            envelopeSummary.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:eSign40Step4
-            return envelopeSummary.EnvelopeId;
+            return envelopeSummary.Data.EnvelopeId;
         }
 
         //ds-snippet-start:eSign40Step3

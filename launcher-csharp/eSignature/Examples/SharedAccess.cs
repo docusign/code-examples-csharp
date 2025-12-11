@@ -39,11 +39,18 @@ namespace ESignature.Examples
 
             try
             {
-                var informationList = usersApi.List(accountId, callListOptions);
+                var informationList = usersApi.ListWithHttpInfo(accountId, callListOptions);
+                informationList.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+                informationList.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
 
-                if (int.Parse(informationList.ResultSetSize) > 0)
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+
+                if (int.Parse(informationList.Data.ResultSetSize) > 0)
                 {
-                    userInformation = informationList.Users.First(user => user.UserStatus == "Active");
+                    userInformation = informationList.Data.Users.First(user => user.UserStatus == "Active");
                 }
             }
             catch (ApiException apiException)
@@ -77,10 +84,17 @@ namespace ESignature.Examples
                 },
             };
 
-            var userSummary = usersApi.Create(accountId, newUser);
+            var userSummary = usersApi.CreateWithHttpInfo(accountId, newUser);
+            userSummary.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            userSummary.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:eSign43Step3
 
-            return userSummary;
+            return userSummary.Data;
         }
 
         public static EnvelopesInformation GetEnvelopesListStatus(
@@ -102,10 +116,17 @@ namespace ESignature.Examples
                 fromDate = date,
             };
 
-            var envelopes = envelopesApi.ListStatusChanges(accountId, option);
+            var envelopes = envelopesApi.ListStatusChangesWithHttpInfo(accountId, option);
+            envelopes.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            envelopes.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:eSign43Step5
 
-            return envelopes;
+            return envelopes.Data;
         }
 
         public static void CreateUserAuthorization(
@@ -125,15 +146,29 @@ namespace ESignature.Examples
             {
                 permissions = managePermission,
             };
-            UserAuthorizations userAuthorizations = accountApi.GetAgentUserAuthorizations(accountId, agentUserId, options);
+            var userAuthorizations = accountApi.GetAgentUserAuthorizationsWithHttpInfo(accountId, agentUserId, options);
+            userAuthorizations.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            userAuthorizations.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
 
-            if (userAuthorizations.Authorizations == null || userAuthorizations.Authorizations.Count == 0)
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            if (userAuthorizations.Data.Authorizations == null || userAuthorizations.Data.Authorizations.Count == 0)
             {
                 var authRequest = new UserAuthorizationCreateRequest(
                     Permission: managePermission,
                     AgentUser: new AuthorizationUser(AccountId: accountId, UserId: agentUserId));
 
-                accountApi.CreateUserAuthorization(accountId, userId, authRequest);
+                var createUserAuthorization = accountApi.CreateUserAuthorizationWithHttpInfo(accountId, userId, authRequest);
+                createUserAuthorization.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+                createUserAuthorization.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+                resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
             }
 
             //ds-snippet-end:eSign43Step4

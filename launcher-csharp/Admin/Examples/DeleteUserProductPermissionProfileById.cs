@@ -48,7 +48,16 @@ namespace DocuSign.Admin.Examples
             //ds-snippet-end:Admin9Step4
 
             //ds-snippet-start:Admin9Step5
-            return productPermissionProfilesApi.RemoveUserProductPermission(orgId, accountId, userProductProfileDeleteRequest);
+            var response = productPermissionProfilesApi.RemoveUserProductPermissionWithHttpInfo(orgId, accountId, userProductProfileDeleteRequest);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+
+            return response.Data;
             //ds-snippet-end:Admin9Step5
         }
 
@@ -79,7 +88,15 @@ namespace DocuSign.Admin.Examples
                 email = emailAddress,
             };
 
-            return productPermissionProfileApi.GetUserProductPermissionProfilesByEmail(orgId, accountId, getUserProductPermission);
+            var response = productPermissionProfileApi.GetUserProductPermissionProfilesByEmailWithHttpInfo(orgId, accountId, getUserProductPermission);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+            return response.Data;
             //ds-snippet-end:Admin9Step3
         }
     }

@@ -37,8 +37,15 @@ namespace DocuSign.Admin.Examples
                 email = emailAddress,
             };
 
-            UsersDrilldownResponse profiles = usersApi.GetUserDSProfilesByEmail(organizationId, getProfilesOptions);
-            var user = profiles.Users?[0];
+            var profiles = usersApi.GetUserDSProfilesByEmailWithHttpInfo(organizationId, getProfilesOptions);
+            profiles.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            profiles.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+            var user = profiles.Data.Users?[0];
 
             var organizationsApi = new OrganizationsApi(docusignClient);
 
@@ -57,7 +64,15 @@ namespace DocuSign.Admin.Examples
             //ds-snippet-end:Admin11Step3
 
             //ds-snippet-start:Admin11Step4
-            return organizationsApi.RedactIndividualUserData(organizationId, userRedactionRequest);
+            var response = organizationsApi.RedactIndividualUserDataWithHttpInfo(organizationId, userRedactionRequest);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
+            return response.Data;
             //ds-snippet-end:Admin11Step4
         }
     }

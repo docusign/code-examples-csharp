@@ -51,10 +51,17 @@ namespace DocuSign.Admin.Examples
             //ds-snippet-end:Admin2Step5
 
             //ds-snippet-start:Admin2Step6
-            AddUserResponse response = usersApi.AddOrUpdateUser(orgId, accountId, newMultiProductUserAddRequest);
+            var response = usersApi.AddOrUpdateUserWithHttpInfo(orgId, accountId, newMultiProductUserAddRequest);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:Admin2Step6
 
-            return response;
+            return response.Data;
         }
     }
 }

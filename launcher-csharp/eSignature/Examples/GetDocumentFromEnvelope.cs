@@ -4,6 +4,7 @@
 
 namespace ESignature.Examples
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -33,7 +34,14 @@ namespace ESignature.Examples
 
             // Step 1. EnvelopeDocuments::get.
             // Exceptions will be caught by the calling function
-            Stream results = envelopesApi.GetDocument(accountId, envelopeId, documentId);
+            var results = envelopesApi.GetDocumentWithHttpInfo(accountId, envelopeId, documentId);
+            results.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            results.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+
+            Console.WriteLine("API calls remaining: " + remaining);
+            Console.WriteLine("Next Reset: " + resetDate);
 
             // Step 2. Look up the document from the list of documents
             EnvelopeDocItem docItem = documents.FirstOrDefault(d => documentId.Equals(d.DocumentId));
@@ -74,7 +82,7 @@ namespace ESignature.Examples
                 mimetype = "application/octet-stream";
             }
 
-            return (results, mimetype, docName);
+            return (results.Data, mimetype, docName);
         }
 
         public class EnvelopeDocItem
