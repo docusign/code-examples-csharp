@@ -16,6 +16,7 @@ namespace DocuSign.CodeExamples.Controllers
     public class Mae004CancelWorkflowInstanceController : EgController
     {
         private const int StatusCode = 500;
+        private const string InProgress = "In Progress";
 
         public Mae004CancelWorkflowInstanceController(DsConfiguration dsConfig,
             LauncherTexts launcherTexts,
@@ -69,6 +70,20 @@ namespace DocuSign.CodeExamples.Controllers
 
             try
             {
+                var workflowInstance = CancelWorkflowInstance.GetWorkflowInstanceStatus(
+                    basePath,
+                    accessToken,
+                    accountId,
+                    workflowId,
+                    workflowInstanceId).Result;
+
+                if (workflowInstance.WorkflowStatus != null && !workflowInstance.WorkflowStatus.Equals(InProgress))
+                {
+                    this.ViewBag.h1 = this.CodeExampleText.ExampleName;
+                    this.ViewBag.message = this.CodeExampleText.CustomErrorTexts[2].ErrorMessage;
+                    return this.View("example_done");
+                }
+
                 var cancelWorkflowInstanceResponse = CancelWorkflowInstance.CancelInstanceMaestroWorkflow(
                     basePath,
                     accessToken,
