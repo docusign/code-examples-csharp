@@ -36,7 +36,18 @@ namespace DocuSign.Admin.Examples
             //ds-snippet-end:Admin13Step2
 
             //ds-snippet-start:Admin13Step3
-            return assetGroupApi.GetOrganizationPlanItems(orgId).FirstOrDefault();
+            var response = assetGroupApi.GetOrganizationPlanItemsWithHttpInfo(orgId);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data.FirstOrDefault();
             //ds-snippet-end:Admin13Step3
         }
 
@@ -70,7 +81,18 @@ namespace DocuSign.Admin.Examples
             //ds-snippet-end:Admin13Step4
 
             //ds-snippet-start:Admin13Step5
-            return assetGroupApi.CreateAssetGroupAccount(orgId, subAccountRequest);
+            var response = assetGroupApi.CreateAssetGroupAccountWithHttpInfo(orgId, subAccountRequest);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
             //ds-snippet-end:Admin13Step5
         }
 

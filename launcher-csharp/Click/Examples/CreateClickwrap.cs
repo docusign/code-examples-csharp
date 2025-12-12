@@ -33,7 +33,19 @@ namespace DocuSign.Click.Examples
             //ds-snippet-end:Click1Step3
 
             //ds-snippet-start:Click1Step4
-            return clickAccountApi.CreateClickwrap(accountId, clickwrapRequest);
+            var response = clickAccountApi.CreateClickwrapWithHttpInfo(accountId, clickwrapRequest);
+
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
             //ds-snippet-end:Click1Step4
         }
 

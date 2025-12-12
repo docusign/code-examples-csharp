@@ -54,10 +54,21 @@ namespace DocuSign.Admin.Examples
             //ds-snippet-end:Admin8Step3
 
             //ds-snippet-start:Admin8Step4
-            return productPermissionProfilesApi.AddUserProductPermissionProfilesByEmail(
+            var response = productPermissionProfilesApi.AddUserProductPermissionProfilesByEmailWithHttpInfo(
                 orgId,
                 accountId,
                 userProductPermissionProfilesRequest);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
             //ds-snippet-end:Admin8Step4
         }
 
@@ -79,7 +90,18 @@ namespace DocuSign.Admin.Examples
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             var productPermissionProfileApi = new ProductPermissionProfilesApi(apiClient);
-            return productPermissionProfileApi.GetProductPermissionProfiles(orgId, accountId);
+            var response = productPermissionProfileApi.GetProductPermissionProfilesWithHttpInfo(orgId, accountId);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
         }
     }
 }

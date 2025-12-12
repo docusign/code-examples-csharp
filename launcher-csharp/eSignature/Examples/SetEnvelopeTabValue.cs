@@ -176,8 +176,18 @@ namespace ESignature.Examples
             // Call the eSignature REST API
             //ds-snippet-start:eSign16Step4
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelopeAttributes);
-            string envelopeId = results.EnvelopeId;
+            var results = envelopesApi.CreateEnvelopeWithHttpInfo(accountId, envelopeAttributes);
+            results.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            results.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            string envelopeId = results.Data.EnvelopeId;
             //ds-snippet-end:eSign16Step4
 
             // Create the View Request
@@ -213,7 +223,17 @@ namespace ESignature.Examples
             // NOTE: The pings will only be sent if the pingUrl is an HTTPS address
             viewRequest.PingUrl = pingUrl; // Optional setting
 
-            ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, results.EnvelopeId, viewRequest);
+            var viewUrl = envelopesApi.CreateRecipientViewWithHttpInfo(accountId, results.Data.EnvelopeId, viewRequest);
+            viewUrl.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            viewUrl.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
             //ds-snippet-end:eSign16Step5
 
             // ***********
@@ -221,7 +241,7 @@ namespace ESignature.Examples
             // ***********
             // State can be stored/recovered using the framework's session or a
             // query parameter on the return URL (see the makeRecipientViewRequest method)
-            return (envelopeId, results1.Url);
+            return (envelopeId, viewUrl.Data.Url);
         }
     }
 }

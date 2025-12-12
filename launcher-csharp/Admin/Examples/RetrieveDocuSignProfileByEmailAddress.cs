@@ -37,9 +37,19 @@ namespace DocuSign.Admin.Examples
                 email = email,
             };
 
-            UsersDrilldownResponse userWithSearchedEmail = usersApi.GetUserDSProfilesByEmail(orgId, retrieveUserOptions);
+            var userWithSearchedEmail = usersApi.GetUserDSProfilesByEmailWithHttpInfo(orgId, retrieveUserOptions);
+            userWithSearchedEmail.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            userWithSearchedEmail.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
             //ds-snippet-end:Admin6Step3
-            return userWithSearchedEmail;
+            return userWithSearchedEmail.Data;
         }
     }
 }

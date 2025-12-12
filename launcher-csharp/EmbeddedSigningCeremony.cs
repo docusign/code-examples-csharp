@@ -46,20 +46,39 @@ namespace ESignature.Examples
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
-            string envelopeId = results.EnvelopeId;
+            var results = envelopesApi.CreateEnvelopeWithHttpInfo(accountId, envelope);
+            results.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            results.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            string envelopeId = results.Data.EnvelopeId;
             //ds-snippet-end:eSign1Step3
 
             //ds-snippet-start:eSign1Step5
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, returnUrl, signerClientId, pingUrl);
 
             // call the CreateRecipientView API
-            ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
+            var viewUrl = envelopesApi.CreateRecipientViewWithHttpInfo(accountId, envelopeId, viewRequest);
+            viewUrl.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            viewUrl.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
 
             // Don't use an iFrame!
             // State can be stored/recovered using the framework's session or a
             // query parameter on the returnUrl (see the makeRecipientViewRequest method)
-            string redirectUrl = results1.Url;
+            string redirectUrl = viewUrl.Data.Url;
 
             // returning both the envelopeId as well as the url to be used for embedded signing
             return (envelopeId, redirectUrl);

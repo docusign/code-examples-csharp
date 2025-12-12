@@ -23,8 +23,19 @@ namespace DocuSign.CodeExamples.Examples
 
             //ds-snippet-start:Notary4Step4
             var envelopesApi = new EnvelopesApi(docuSignClient);
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
-            return results.EnvelopeId;
+            ApiResponse<EnvelopeSummary> results = envelopesApi.CreateEnvelopeWithHttpInfo(accountId, env);
+
+            results.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            results.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return results.Data.EnvelopeId;
             //ds-snippet-end:Notary4Step4
         }
 

@@ -4,6 +4,7 @@
 
 namespace DocuSign.Rooms.Examples
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using DocuSign.Rooms.Api;
@@ -35,7 +36,19 @@ namespace DocuSign.Rooms.Examples
             //ds-snippet-end:Rooms1Step2
 
             // Obtain Role
-            var clientRole = rolesApi.GetRoles(accountId, new RolesApi.GetRolesOptions { filter = "Default Admin" }).Roles.First();
+            var roles = rolesApi.GetRolesWithHttpInfo(accountId, new RolesApi.GetRolesOptions { filter = "Default Admin" });
+
+            roles.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            roles.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            var clientRole = roles.Data.Roles.FirstOrDefault();
 
             // Construct the request body for your room
             //ds-snippet-start:Rooms1Step3
@@ -44,7 +57,19 @@ namespace DocuSign.Rooms.Examples
 
             // Call the Rooms API to create a room
             //ds-snippet-start:Rooms1Step4
-            return roomsApi.CreateRoom(accountId, newRoom);
+            var response = roomsApi.CreateRoomWithHttpInfo(accountId, newRoom);
+
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
             //ds-snippet-end:Rooms1Step4
         }
 

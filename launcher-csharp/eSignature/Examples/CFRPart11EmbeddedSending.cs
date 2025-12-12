@@ -31,9 +31,19 @@ namespace ESignature.Examples
             // Call the eSignature REST API
             AccountsApi accountsApi = new AccountsApi(docuSignClient);
 
-            var accountSettingsInformation = accountsApi.ListSettings(accountId);
+            var response = accountsApi.ListSettingsWithHttpInfo(accountId);
 
-            return accountSettingsInformation.Require21CFRpt11Compliance == "true";
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data.Require21CFRpt11Compliance == "true";
         }
 
         /// <summary>
@@ -57,8 +67,18 @@ namespace ESignature.Examples
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             var accountsApi = new AccountsApi(docuSignClient);
-            AccountIdentityVerificationResponse response = accountsApi.GetAccountIdentityVerification(accountId);
-            var phoneAuthWorkflow = response.IdentityVerification.FirstOrDefault(x => x.DefaultName == "SMS for access & signatures");
+            var response = accountsApi.GetAccountIdentityVerificationWithHttpInfo(accountId);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            var phoneAuthWorkflow = response.Data.IdentityVerification.FirstOrDefault(x => x.DefaultName == "SMS for access & signatures");
             //ds-snippet-end:eSign41Step2
 
             if (phoneAuthWorkflow == null)
@@ -156,10 +176,21 @@ namespace ESignature.Examples
 
             // call the CreateRecipientView API
             //ds-snippet-start:eSign41Step6
-            ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, results.EnvelopeId, viewRequest);
+            var results1 = envelopesApi.CreateRecipientViewWithHttpInfo(accountId, results.EnvelopeId, viewRequest);
+
+            results1.Headers.TryGetValue("X-RateLimit-Remaining", out string remainingTime);
+            results1.Headers.TryGetValue("X-RateLimit-Reset", out string resetTime);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDateTime = DateTimeOffset.FromUnixTimeSeconds(long.Parse(resetTime)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDateTime);
+            }
+
             //ds-snippet-end:eSign41Step6
 
-            return results1.Url;
+            return results1.Data.Url;
         }
 
         //ds-snippet-start:eSign41Step5

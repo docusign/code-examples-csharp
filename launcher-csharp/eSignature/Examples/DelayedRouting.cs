@@ -17,8 +17,8 @@ namespace ESignature.Examples
         /// </summary>
         /// <param name="signer1Email">Email address for the signer.</param>
         /// <param name="signer1Name">Full name of the signer.</param>
-        /// <param name="signer2Email">Email address for the signer.</param>
-        /// <param name="signer2Name">Full name of the signer.</param>
+        /// <param name="signer2Email">Email address for the second signer.</param>
+        /// <param name="signer2Name">Full name of the second signer.</param>
         /// <param name="accessToken">Access Token for API call (OAuth).</param>
         /// <param name="basePath">BasePath for API calls (URI).</param>
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
@@ -32,10 +32,20 @@ namespace ESignature.Examples
 
             //ds-snippet-start:eSign36Step3
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+            var results = envelopesApi.CreateEnvelopeWithHttpInfo(accountId, env);
+            results.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            results.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
             //ds-snippet-end:eSign36Step3
 
-            return results.EnvelopeId;
+            return results.Data.EnvelopeId;
         }
 
         private static EnvelopeDefinition MakeEnvelope(string signer1Email, string signer1Name, string signer2Email, string signer2Name, string docPdf, int delay)

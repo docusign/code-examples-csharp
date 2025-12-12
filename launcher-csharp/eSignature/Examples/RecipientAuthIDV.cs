@@ -4,6 +4,7 @@
 
 namespace ESignature.Examples
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using DocuSign.eSign.Api;
@@ -32,8 +33,18 @@ namespace ESignature.Examples
             // Retreive the workflow ID
             //ds-snippet-start:eSign23Step3
             var accountsApi = new AccountsApi(docuSignClient);
-            AccountIdentityVerificationResponse response = accountsApi.GetAccountIdentityVerification(accountId);
-            var phoneAuthWorkflow = response.IdentityVerification.FirstOrDefault(x => x.DefaultName == "DocuSign ID Verification");
+            var response = accountsApi.GetAccountIdentityVerificationWithHttpInfo(accountId);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            var phoneAuthWorkflow = response.Data.IdentityVerification.FirstOrDefault(x => x.DefaultName == "DocuSign ID Verification");
             //ds-snippet-end:eSign23Step3
 
             if (phoneAuthWorkflow == null)
@@ -110,9 +121,19 @@ namespace ESignature.Examples
             // Call the eSignature REST API
             //ds-snippet-start:eSign23Step5
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+            var results = envelopesApi.CreateEnvelopeWithHttpInfo(accountId, env);
+            results.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            results.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
             //ds-snippet-end:eSign23Step5
-            return results.EnvelopeId;
+            return results.Data.EnvelopeId;
         }
     }
 }

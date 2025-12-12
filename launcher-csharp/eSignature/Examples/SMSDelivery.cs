@@ -39,9 +39,19 @@ namespace ESignature.Examples
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
 
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, env);
+            var results = envelopesApi.CreateEnvelopeWithHttpInfo(accountId, env);
+            results.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            results.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
             //ds-snippet-end:eSign37Step3
-            return results.EnvelopeId;
+            return results.Data.EnvelopeId;
         }
 
         //ds-snippet-start:eSign37Step2

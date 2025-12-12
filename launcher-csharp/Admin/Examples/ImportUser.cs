@@ -36,7 +36,18 @@ namespace DocuSign.CodeExamples.Admin.Examples
 
             var bytes = Encoding.UTF8.GetBytes(csvFileData);
 
-            return bulkImportsApi.CreateBulkImportAddUsersRequest(organizationId, bytes);
+            var response = bulkImportsApi.CreateBulkImportAddUsersRequestWithHttpInfo(organizationId, bytes);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
             //ds-snippet-end:Admin4Step3
         }
 
@@ -55,7 +66,18 @@ namespace DocuSign.CodeExamples.Admin.Examples
             apiClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
             var bulkImportsApi = new BulkImportsApi(apiClient);
 
-            return bulkImportsApi.GetBulkUserImportRequest(organizationId, importId);
+            var response = bulkImportsApi.GetBulkUserImportRequestWithHttpInfo(organizationId, importId);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
             //ds-snippet-end:Admin4Step4
         }
     }

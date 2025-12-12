@@ -31,15 +31,37 @@ namespace DocuSign.Rooms.Examples
 
             // Call the Rooms API to get offices
             //ds-snippet-start:Rooms8Step3
-            var offices = officesApi.GetOffices(accountId);
+            var offices = officesApi.GetOfficesWithHttpInfo(accountId);
+
+            offices.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            offices.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
             //ds-snippet-end:Rooms8Step3
 
             // Call the Rooms API to get form groups
             //ds-snippet-start:Rooms8Step4
-            var formGroups = formGroupsApi.GetFormGroups(accountId);
+            var formGroups = formGroupsApi.GetFormGroupsWithHttpInfo(accountId);
+
+            formGroups.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            formGroups.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDateTime = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDateTime);
+            }
+
             //ds-snippet-end:Rooms8Step4
 
-            return (offices, formGroups);
+            return (offices.Data, formGroups.Data);
         }
 
         /// <summary>
@@ -50,7 +72,6 @@ namespace DocuSign.Rooms.Examples
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// <param name="formGroupId">The Id of the specified form group</param>
         /// <param name="officeId">The Id of the specified office</param>
-        /// <returns></returns>
         public static void GrantAccess(
             string basePath,
             string accessToken,
@@ -67,7 +88,18 @@ namespace DocuSign.Rooms.Examples
 
             // Call the Rooms API to grant office access to a form group
             //ds-snippet-start:Rooms8Step5
-            formGroupsApi.GrantOfficeAccessToFormGroup(accountId, new Guid(formGroupId), officeId);
+            var response = formGroupsApi.GrantOfficeAccessToFormGroupWithHttpInfo(accountId, new Guid(formGroupId), officeId);
+
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
             //ds-snippet-end:Rooms8Step5
         }
     }

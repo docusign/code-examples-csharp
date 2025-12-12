@@ -56,7 +56,18 @@ namespace DocuSign.CodeExamples.Admin.Examples
                 lastName,
                 userName);
 
-            return usersApi.CreateUser(organizationId, newUserRequest);
+            var response = usersApi.CreateUserWithHttpInfo(organizationId, newUserRequest);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
             //ds-snippet-end:Admin1Step6
         }
 
@@ -80,9 +91,19 @@ namespace DocuSign.CodeExamples.Admin.Examples
 
             //ds-snippet-start:Admin1Step4
             var dsGroupsApi = new GroupsApi(docuSignClient);
-            var groups = dsGroupsApi.ListGroups(accountId);
+            var groups = dsGroupsApi.ListGroupsWithHttpInfo(accountId);
+            groups.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            groups.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
             //ds-snippet-end:Admin1Step4
-            return (permissionProfiles, groups);
+            return (permissionProfiles, groups.Data);
         }
 
         /// <summary>

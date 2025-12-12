@@ -4,6 +4,7 @@
 
 namespace DocuSign.Click.Examples
 {
+    using System;
     using DocuSign.Click.Api;
     using DocuSign.Click.Client;
     using DocuSign.Click.Model;
@@ -26,7 +27,19 @@ namespace DocuSign.Click.Examples
             //ds-snippet-start:Click4Step3
             var clickAccountApi = new AccountsApi(docuSignClient);
 
-            return clickAccountApi.GetClickwraps(accountId);
+            var response = clickAccountApi.GetClickwrapsWithHttpInfo(accountId);
+
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
             //ds-snippet-end:Click4Step3
         }
     }

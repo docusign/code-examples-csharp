@@ -4,6 +4,7 @@
 
 namespace ESignature.Examples
 {
+    using System;
     using System.Collections.Generic;
     using DocuSign.eSign.Api;
     using DocuSign.eSign.Client;
@@ -167,9 +168,19 @@ namespace ESignature.Examples
             // Call the eSignature REST API
             //ds-snippet-start:eSign17Step5
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelopeAttributes);
+            var results = envelopesApi.CreateEnvelopeWithHttpInfo(accountId, envelopeAttributes);
+            results.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            results.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
             //ds-snippet-end:eSign17Step5
-            string envelopeId = results.EnvelopeId;
+            string envelopeId = results.Data.EnvelopeId;
 
             // Create the View Request
             //ds-snippet-start:eSign17Step6
@@ -204,14 +215,23 @@ namespace ESignature.Examples
             // NOTE: The pings will only be sent if the pingUrl is an HTTPS address
             viewRequest.PingUrl = pingUrl; // Optional setting
 
-            ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, results.EnvelopeId, viewRequest);
+            var results1 = envelopesApi.CreateRecipientViewWithHttpInfo(accountId, results.Data.EnvelopeId, viewRequest);
+            results.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            results.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
 
             // ***********
             // Don't use an iframe with embedded signing requests!
             // ***********
             // State can be stored/recovered using the framework's session or a
             // query parameter on the return URL (see the makeRecipientViewRequest method)
-            return (envelopeId, results1.Url);
+            return (envelopeId, results1.Data.Url);
             //ds-snippet-end:eSign17Step6
         }
     }

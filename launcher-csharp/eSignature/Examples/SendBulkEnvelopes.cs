@@ -24,8 +24,8 @@ namespace ESignature.Examples
         /// <param name="signer1Email"> The cc recipient's email</param>
         /// <param name="signer2Name"> The signers recipient's name.</param>
         /// <param name="signer2Email"> The signers recipient's email</param>
-        /// <param name="carbonCopy2Name">The cc recipient's name</param>
-        /// <param name="carbonCopy2Email"> The cc recipient's email</param>
+        /// <param name="carbonCopy2Name">The second cc recipient's name</param>
+        /// <param name="carbonCopy2Email"> The second cc recipient's email</param>
         /// <param name="docDocx">The document</param>
         /// <returns>The status of sending</returns>
         public static BulkSendBatchStatus GetStatus(string signer1Name, string signer1Email, string carbonCopy1Name, string carbonCopy1Email, string signer2Name, string signer2Email, string carbonCopy2Name, string carbonCopy2Email, string accessToken, string basePath, string accountId, string docDocx, string envelopeIdStamping, string emailSubject)
@@ -39,7 +39,17 @@ namespace ESignature.Examples
             //ds-snippet-start:eSign31Step3
             var sendingList = MakeBulkSendList(signer1Name, signer1Email, carbonCopy1Name, carbonCopy1Email, signer2Name, signer2Email, carbonCopy2Name, carbonCopy2Email);
 
-            var createBulkListResult = bulkEnvelopesApi.CreateBulkSendList(accountId, sendingList);
+            var createBulkListResult = bulkEnvelopesApi.CreateBulkSendListWithHttpInfo(accountId, sendingList);
+            createBulkListResult.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            createBulkListResult.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
             //ds-snippet-end:eSign31Step3
 
             //ds-snippet-start:eSign31Step4
@@ -123,7 +133,7 @@ namespace ESignature.Examples
                             Name = "mailingListId",
                             Required = "false",
                             Show = "false",
-                            Value = createBulkListResult.ListId, // Adding the BULK_LIST_ID as an Envelope Custom Field
+                            Value = createBulkListResult.Data.ListId, // Adding the BULK_LIST_ID as an Envelope Custom Field
                         },
                     },
             };
@@ -131,14 +141,35 @@ namespace ESignature.Examples
             //ds-snippet-end:eSign31Step5
 
             //ds-snippet-start:eSign31Step6
-            var bulkRequestResult = bulkEnvelopesApi.CreateBulkSendRequest(accountId, createBulkListResult.ListId, new BulkSendRequest { EnvelopeOrTemplateId = envelopeResults.EnvelopeId });
+            var bulkRequestResult = bulkEnvelopesApi.CreateBulkSendRequestWithHttpInfo(accountId, createBulkListResult.Data.ListId, new BulkSendRequest { EnvelopeOrTemplateId = envelopeResults.EnvelopeId });
+            bulkRequestResult.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            bulkRequestResult.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
             //ds-snippet-end:eSign31Step6
 
             // TODO: instead of waiting 10 seconds, consider using the Asynchrnous method
             System.Threading.Thread.Sleep(10000);
 
             //ds-snippet-start:eSign31Step7
-            return bulkEnvelopesApi.GetBulkSendBatchStatus(accountId, bulkRequestResult.BatchId);
+            var getBulkSendBatchStatus = bulkEnvelopesApi.GetBulkSendBatchStatusWithHttpInfo(accountId, bulkRequestResult.Data.BatchId);
+            bulkRequestResult.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            bulkRequestResult.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return getBulkSendBatchStatus.Data;
             //ds-snippet-end:eSign31Step7
         }
 
