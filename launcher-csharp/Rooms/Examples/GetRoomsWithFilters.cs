@@ -4,6 +4,7 @@
 
 namespace DocuSign.Rooms.Examples
 {
+    using System;
     using DocuSign.Rooms.Api;
     using DocuSign.Rooms.Client;
     using DocuSign.Rooms.Model;
@@ -35,14 +36,25 @@ namespace DocuSign.Rooms.Examples
 
             // Call the Rooms API to get room field data
             //ds-snippet-start:Rooms5Step4
-            var rooms = roomsApi.GetRooms(accountId, new RoomsApi.GetRoomsOptions
+            var rooms = roomsApi.GetRoomsWithHttpInfo(accountId, new RoomsApi.GetRoomsOptions
             {
                 fieldDataChangedStartDate = fieldDataChangedStartDate,
                 fieldDataChangedEndDate = fieldDataChangedEndDate,
             });
+
+            rooms.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            rooms.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
             //ds-snippet-end:Rooms5Step4
 
-            return rooms;
+            return rooms.Data;
         }
     }
 }

@@ -29,18 +29,27 @@ namespace ESignature.Examples
             TemplatesApi templatesApi = new TemplatesApi(docuSignClient);
             TemplatesApi.ListTemplatesOptions options = new TemplatesApi.ListTemplatesOptions();
             options.searchText = "Example Signer and CC template v2";
-            EnvelopeTemplateResults results = templatesApi.ListTemplates(accountId, options);
+            var results = templatesApi.ListTemplatesWithHttpInfo(accountId, options);
+            results.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            results.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
 
             string templateId;
             string resultsTemplateName;
             bool createdNewTemplate;
 
             // Step 2. Process results
-            if (int.Parse(results.ResultSetSize) > 0)
+            if (int.Parse(results.Data.ResultSetSize) > 0)
             {
                 // Found the template! Record its id
-                templateId = results.EnvelopeTemplates[0].TemplateId;
-                resultsTemplateName = results.EnvelopeTemplates[0].Name;
+                templateId = results.Data.EnvelopeTemplates[0].TemplateId;
+                resultsTemplateName = results.Data.EnvelopeTemplates[0].Name;
                 createdNewTemplate = false;
             }
             else
@@ -49,13 +58,33 @@ namespace ESignature.Examples
                 EnvelopeTemplate templateReqObject = MakeTemplate(templateName, documentPdf);
 
                 //ds-snippet-start:eSign8Step3
-                TemplateSummary template = templatesApi.CreateTemplate(accountId, templateReqObject);
+                var template = templatesApi.CreateTemplateWithHttpInfo(accountId, templateReqObject);
+                template.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+                template.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+                if (reset != null && remaining != null)
+                {
+                    DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                    Console.WriteLine("API calls remaining: " + remaining);
+                    Console.WriteLine("Next Reset: " + resetDate);
+                }
+
                 //ds-snippet-end:eSign8Step3
 
                 // Retrieve the new template Name / TemplateId
-                EnvelopeTemplateResults templateResults = templatesApi.ListTemplates(accountId, options);
-                templateId = templateResults.EnvelopeTemplates[0].TemplateId;
-                resultsTemplateName = templateResults.EnvelopeTemplates[0].Name;
+                var templateResults = templatesApi.ListTemplatesWithHttpInfo(accountId, options);
+                templateResults.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+                templateResults.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+                if (reset != null && remaining != null)
+                {
+                    DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                    Console.WriteLine("API calls remaining: " + remaining);
+                    Console.WriteLine("Next Reset: " + resetDate);
+                }
+
+                templateId = templateResults.Data.EnvelopeTemplates[0].TemplateId;
+                resultsTemplateName = templateResults.Data.EnvelopeTemplates[0].Name;
                 createdNewTemplate = true;
             }
 

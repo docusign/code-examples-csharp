@@ -4,6 +4,7 @@
 
 namespace ESignature.Examples
 {
+    using System;
     using DocuSign.eSign.Api;
     using DocuSign.eSign.Client;
     using DocuSign.eSign.Model;
@@ -32,7 +33,18 @@ namespace ESignature.Examples
 
             // Call the eSignature REST API
             //ds-snippet-start:eSign24Step4
-            return accountsApi.CreatePermissionProfile(accountId, newPermissionProfile);
+            var permissionProfiles = accountsApi.CreatePermissionProfileWithHttpInfo(accountId, newPermissionProfile);
+            permissionProfiles.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            permissionProfiles.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return permissionProfiles.Data;
             //ds-snippet-end:eSign24Step4
         }
 

@@ -4,6 +4,7 @@
 
 namespace ESignature.Examples
 {
+    using System;
     using DocuSign.eSign.Api;
     using DocuSign.eSign.Client;
     using DocuSign.eSign.Model;
@@ -25,7 +26,18 @@ namespace ESignature.Examples
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
-            return envelopesApi.GetEnvelope(accountId, envelopeId);
+            var getEnvelopeReponse = envelopesApi.GetEnvelopeWithHttpInfo(accountId, envelopeId);
+            getEnvelopeReponse.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            getEnvelopeReponse.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return getEnvelopeReponse.Data;
             //ds-snippet-end:eSign4Step2
         }
     }

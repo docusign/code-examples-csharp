@@ -53,17 +53,39 @@ namespace ESignature.Examples
 
             // Step 2. call Envelopes::create API method
             // Exceptions will be caught by the calling function
-            EnvelopeSummary results = envelopesApi.CreateEnvelope(accountId, envelope);
-            string envelopeId = results.EnvelopeId;
+            var results = envelopesApi.CreateEnvelopeWithHttpInfo(accountId, envelope);
+
+            results.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            results.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            string envelopeId = results.Data.EnvelopeId;
             Console.WriteLine("Envelope was created. EnvelopeId " + envelopeId);
             //ds-snippet-end:eSign13Step3
 
             // Step 3. create the recipient view, the Signing Ceremony
             //ds-snippet-start:eSign13Step4
             RecipientViewRequest viewRequest = MakeRecipientViewRequest(signerEmail, signerName, returnUrl, signerClientId);
-            ViewUrl results1 = envelopesApi.CreateRecipientView(accountId, envelopeId, viewRequest);
+            var results1 = envelopesApi.CreateRecipientViewWithHttpInfo(accountId, envelopeId, viewRequest);
+
+            results1.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            results1.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
             //ds-snippet-end:eSign13Step4
-            return results1.Url;
+            return results1.Data.Url;
         }
 
         public static RecipientViewRequest MakeRecipientViewRequest(

@@ -33,23 +33,43 @@ namespace DocuSign.Rooms.Examples
             var formLibrariesApi = new FormLibrariesApi(apiClient);
 
             //ds-snippet-start:Rooms9Step3
-            FormLibrarySummaryList formLibraries = formLibrariesApi.GetFormLibraries(accountId);
+            ApiResponse<FormLibrarySummaryList> formLibraries = formLibrariesApi.GetFormLibrariesWithHttpInfo(accountId);
 
-            FormSummaryList forms = new FormSummaryList();
-            if (formLibraries.FormsLibrarySummaries.Any())
+            formLibraries.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            formLibraries.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
             {
-                forms = formLibrariesApi.GetFormLibraryForms(
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            ApiResponse<FormSummaryList> forms = null;
+            if (formLibraries.Data.FormsLibrarySummaries.Any())
+            {
+                forms = formLibrariesApi.GetFormLibraryFormsWithHttpInfo(
                     accountId,
-                    formLibraries.FormsLibrarySummaries.First().FormsLibraryId);
+                    formLibraries.Data.FormsLibrarySummaries.First().FormsLibraryId);
+            }
+
+            forms.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
+            forms.Headers.TryGetValue("X-RateLimit-Reset", out reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
             }
 
             //ds-snippet-end:Rooms9Step3
 
             //ds-snippet-start:Rooms9Step4
-            FormGroupSummaryList formGroups = formGroupsApi.GetFormGroups(accountId);
+            ApiResponse<FormGroupSummaryList> formGroups = formGroupsApi.GetFormGroupsWithHttpInfo(accountId);
             //ds-snippet-end:Rooms9Step4
 
-            return (forms, formGroups);
+            return (forms.Data, formGroups.Data);
         }
 
         /// <summary>
@@ -60,7 +80,7 @@ namespace DocuSign.Rooms.Examples
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made.</param>
         /// <param name="formGroupId">The Id of the specified form group.</param>
         /// <param name="formToAssign">The form to be assigned to form group.</param>
-        /// <returns>The form to be assigned to form group.</returns>
+        /// <returns>The response to assigning a form to form group.</returns>
         public static FormGroupFormToAssign AssignForm(
             string basePath,
             string accessToken,
@@ -75,7 +95,19 @@ namespace DocuSign.Rooms.Examples
 
             // Call the Rooms API to assign form to form group
             //ds-snippet-start:Rooms9Step6
-            return formGroupsApi.AssignFormGroupForm(accountId, new Guid(formGroupId), formToAssign);
+            var response = formGroupsApi.AssignFormGroupFormWithHttpInfo(accountId, new Guid(formGroupId), formToAssign);
+
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
             //ds-snippet-end:Rooms9Step6
         }
     }

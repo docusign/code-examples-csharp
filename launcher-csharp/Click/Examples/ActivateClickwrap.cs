@@ -4,6 +4,7 @@
 
 namespace DocuSign.Click.Examples
 {
+    using System;
     using DocuSign.Click.Api;
     using DocuSign.Click.Client;
     using DocuSign.Click.Model;
@@ -32,7 +33,19 @@ namespace DocuSign.Click.Examples
             //ds-snippet-end:Click2Step3
 
             //ds-snippet-start:Click2Step4
-            return clickAccountApi.UpdateClickwrapVersion(accountId, clickwrapId, clickwrapVersion, clickwrapRequest);
+            var response = clickAccountApi.UpdateClickwrapVersionWithHttpInfo(accountId, clickwrapId, clickwrapVersion, clickwrapRequest);
+
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
             //ds-snippet-end:Click2Step4
         }
 
@@ -65,7 +78,19 @@ namespace DocuSign.Click.Examples
             var options = new AccountsApi.GetClickwrapsOptions();
             options.status = status;
 
-            return clickAccountApi.GetClickwraps(accountId, options);
+            var response = clickAccountApi.GetClickwrapsWithHttpInfo(accountId, options);
+
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
         }
     }
 }

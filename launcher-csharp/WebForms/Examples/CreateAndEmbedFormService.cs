@@ -21,7 +21,18 @@ namespace DocuSign.WebForms.Examples
             FormManagementApi formManagementApi = new FormManagementApi(docuSignClient);
             FormManagementApi.ListFormsOptions listFormsOptions = new FormManagementApi.ListFormsOptions();
             listFormsOptions.search = "Web Form Example Template";
-            return formManagementApi.ListForms(accountId, listFormsOptions);
+            var response = formManagementApi.ListFormsWithHttpInfo(accountId, listFormsOptions);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
             //ds-snippet-end:WebForms1Step3
         }
 
@@ -66,7 +77,18 @@ namespace DocuSign.WebForms.Examples
 
             //ds-snippet-start:WebForms1Step5
             FormInstanceManagementApi formManagementApi = new FormInstanceManagementApi(docuSignClient);
-            return formManagementApi.CreateInstance(accountId, formId, options);
+            var response = formManagementApi.CreateInstanceWithHttpInfo(accountId, formId, options);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
             //ds-snippet-end:WebForms1Step5
         }
 
@@ -80,10 +102,20 @@ namespace DocuSign.WebForms.Examples
             var listTemplateOptions = new TemplatesApi.ListTemplatesOptions();
             listTemplateOptions.searchText = templateName;
 
-            EnvelopeTemplateResults templates = templatesApi.ListTemplates(accountId, listTemplateOptions);
+            var templates = templatesApi.ListTemplatesWithHttpInfo(accountId, listTemplateOptions);
+            templates.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            templates.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
             //ds-snippet-end:WebForms1Step3
 
-            return templates.EnvelopeTemplates;
+            return templates.Data.EnvelopeTemplates;
         }
 
         public static TemplateSummary CreateTemplate(
@@ -96,9 +128,18 @@ namespace DocuSign.WebForms.Examples
 
             EnvelopeTemplate templateReqObject = PrepareEnvelopeTemplate(templateName, documentPdf);
 
-            TemplateSummary template = templatesApi.CreateTemplate(accountId, templateReqObject);
+            var template = templatesApi.CreateTemplateWithHttpInfo(accountId, templateReqObject);
+            template.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            template.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
 
-            return template;
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return template.Data;
         }
 
         public static EnvelopeTemplate PrepareEnvelopeTemplate(string resultsTemplateName, string documentPdf)

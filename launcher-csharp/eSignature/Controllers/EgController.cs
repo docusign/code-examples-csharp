@@ -5,6 +5,7 @@
 namespace DocuSign.CodeExamples.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Text.RegularExpressions;
     using DocuSign.CodeExamples.Common;
     using DocuSign.CodeExamples.ESignature.Models;

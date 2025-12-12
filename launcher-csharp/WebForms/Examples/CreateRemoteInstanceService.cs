@@ -25,7 +25,18 @@ namespace DocuSign.WebForms.Examples
             {
                 search = templateName,
             };
-            return formManagementApi.ListForms(accountId, listFormsOptions);
+            var response = formManagementApi.ListFormsWithHttpInfo(accountId, listFormsOptions);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
             //ds-snippet-end:WebForms2Step3
         }
 
@@ -75,7 +86,18 @@ namespace DocuSign.WebForms.Examples
 
             //ds-snippet-start:WebForms2Step5
             FormInstanceManagementApi formManagementApi = new FormInstanceManagementApi(client);
-            return formManagementApi.CreateInstance(accountId, formId, requestBody);
+            var response = formManagementApi.CreateInstanceWithHttpInfo(accountId, formId, requestBody);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
             //ds-snippet-end:WebForms2Step5
         }
 
@@ -93,9 +115,18 @@ namespace DocuSign.WebForms.Examples
                 searchText = templateName,
             };
 
-            EnvelopeTemplateResults templates = templatesApi.ListTemplates(accountId, options);
+            var templates = templatesApi.ListTemplatesWithHttpInfo(accountId, options);
+            templates.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            templates.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
 
-            return templates.EnvelopeTemplates;
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return templates.Data.EnvelopeTemplates;
         }
 
         public static TemplateSummary CreateTemplate(
@@ -110,7 +141,18 @@ namespace DocuSign.WebForms.Examples
 
             EnvelopeTemplate envelopeTemplate = PrepareEnvelopeTemplate(templateName, documentPdf);
 
-            return templatesApi.CreateTemplate(accountId, envelopeTemplate);
+            var response = templatesApi.CreateTemplateWithHttpInfo(accountId, envelopeTemplate);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
         }
 
         public static EnvelopeTemplate PrepareEnvelopeTemplate(string resultsTemplateName, string documentPdf)

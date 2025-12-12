@@ -4,6 +4,7 @@
 
 namespace ESignature.Examples
 {
+    using System;
     using System.Collections.Generic;
     using DocuSign.eSign.Api;
     using DocuSign.eSign.Client;
@@ -40,7 +41,18 @@ namespace ESignature.Examples
             };
             //ds-snippet-end:eSign45Step3
             //ds-snippet-start:eSign45Step4
-            return foldersApi.MoveEnvelopes(accountId, DeleteFolderId, foldersRequest);
+            var response = foldersApi.MoveEnvelopesWithHttpInfo(accountId, DeleteFolderId, foldersRequest);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
             //ds-snippet-end:eSign45Step4
         }
 
@@ -73,7 +85,18 @@ namespace ESignature.Examples
             };
 
             //ds-snippet-start:eSign45Step6
-            return foldersApi.MoveEnvelopes(accountId, folderId, foldersRequest);
+            var response = foldersApi.MoveEnvelopesWithHttpInfo(accountId, folderId, foldersRequest);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
             //ds-snippet-end:eSign45Step6
         }
 
@@ -93,7 +116,18 @@ namespace ESignature.Examples
             docusignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
 
             FoldersApi foldersApi = new FoldersApi(docusignClient);
-            return foldersApi.List(accountId);
+            var response = foldersApi.ListWithHttpInfo(accountId);
+            response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
+            response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
+
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
+
+            return response.Data;
         }
 
         /// <summary>
