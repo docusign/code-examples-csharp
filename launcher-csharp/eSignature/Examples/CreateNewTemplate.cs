@@ -33,10 +33,12 @@ namespace ESignature.Examples
             results.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
             results.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
 
-            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
-
-            Console.WriteLine("API calls remaining: " + remaining);
-            Console.WriteLine("Next Reset: " + resetDate);
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
 
             string templateId;
             string resultsTemplateName;
@@ -60,10 +62,13 @@ namespace ESignature.Examples
                 template.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
                 template.Headers.TryGetValue("X-RateLimit-Reset", out reset);
 
-                resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                if (reset != null && remaining != null)
+                {
+                    DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                    Console.WriteLine("API calls remaining: " + remaining);
+                    Console.WriteLine("Next Reset: " + resetDate);
+                }
 
-                Console.WriteLine("API calls remaining: " + remaining);
-                Console.WriteLine("Next Reset: " + resetDate);
                 //ds-snippet-end:eSign8Step3
 
                 // Retrieve the new template Name / TemplateId
@@ -71,10 +76,12 @@ namespace ESignature.Examples
                 templateResults.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
                 templateResults.Headers.TryGetValue("X-RateLimit-Reset", out reset);
 
-                resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
-
-                Console.WriteLine("API calls remaining: " + remaining);
-                Console.WriteLine("Next Reset: " + resetDate);
+                if (reset != null && remaining != null)
+                {
+                    DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                    Console.WriteLine("API calls remaining: " + remaining);
+                    Console.WriteLine("Next Reset: " + resetDate);
+                }
 
                 templateId = templateResults.Data.EnvelopeTemplates[0].TemplateId;
                 resultsTemplateName = templateResults.Data.EnvelopeTemplates[0].Name;

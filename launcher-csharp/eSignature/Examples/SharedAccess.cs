@@ -44,9 +44,11 @@ namespace ESignature.Examples
                 informationList.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
 
                 DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
-
-                Console.WriteLine("API calls remaining: " + remaining);
-                Console.WriteLine("Next Reset: " + resetDate);
+                if (reset != null && remaining != null)
+                {
+                    Console.WriteLine("API calls remaining: " + remaining);
+                    Console.WriteLine("Next Reset: " + resetDate);
+                }
 
                 if (int.Parse(informationList.Data.ResultSetSize) > 0)
                 {
@@ -88,10 +90,13 @@ namespace ESignature.Examples
             userSummary.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
             userSummary.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
 
-            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
 
-            Console.WriteLine("API calls remaining: " + remaining);
-            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:eSign43Step3
 
             return userSummary.Data;
@@ -120,10 +125,13 @@ namespace ESignature.Examples
             envelopes.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
             envelopes.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
 
-            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
 
-            Console.WriteLine("API calls remaining: " + remaining);
-            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:eSign43Step5
 
             return envelopes.Data;
@@ -150,10 +158,12 @@ namespace ESignature.Examples
             userAuthorizations.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
             userAuthorizations.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
 
-            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
-
-            Console.WriteLine("API calls remaining: " + remaining);
-            Console.WriteLine("Next Reset: " + resetDate);
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
 
             if (userAuthorizations.Data.Authorizations == null || userAuthorizations.Data.Authorizations.Count == 0)
             {
@@ -165,10 +175,12 @@ namespace ESignature.Examples
                 createUserAuthorization.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
                 createUserAuthorization.Headers.TryGetValue("X-RateLimit-Reset", out reset);
 
-                resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
-
-                Console.WriteLine("API calls remaining: " + remaining);
-                Console.WriteLine("Next Reset: " + resetDate);
+                if (reset != null && remaining != null)
+                {
+                    DateTime resetDateTime = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                    Console.WriteLine("API calls remaining: " + remaining);
+                    Console.WriteLine("Next Reset: " + resetDateTime);
+                }
             }
 
             //ds-snippet-end:eSign43Step4

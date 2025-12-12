@@ -39,8 +39,11 @@ namespace ESignature.Examples
 
             DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
 
-            Console.WriteLine("API calls remaining: " + remaining);
-            Console.WriteLine("Next Reset: " + resetDate);
+            if (reset != null && remaining != null)
+            {
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
 
             return result.Data.EnvelopeId;
             //ds-snippet-end:eSign9Step3

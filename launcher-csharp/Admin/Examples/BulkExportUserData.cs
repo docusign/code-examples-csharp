@@ -45,10 +45,13 @@ namespace DocuSign.CodeExamples.Admin.Examples
             exportResponse.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
             exportResponse.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
 
-            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
 
-            Console.WriteLine("API calls remaining: " + remaining);
-            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:Admin3Step3
 
             //ds-snippet-start:Admin3Step4
@@ -69,10 +72,12 @@ namespace DocuSign.CodeExamples.Admin.Examples
                     exportResponse.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
                     exportResponse.Headers.TryGetValue("X-RateLimit-Reset", out reset);
 
-                    resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
-
-                    Console.WriteLine("API calls remaining: " + remaining);
-                    Console.WriteLine("Next Reset: " + resetDate);
+                    if (reset != null && remaining != null)
+                    {
+                        DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                        Console.WriteLine("API calls remaining: " + remaining);
+                        Console.WriteLine("Next Reset: " + resetDate);
+                    }
                 }
             }
 
@@ -109,10 +114,12 @@ namespace DocuSign.CodeExamples.Admin.Examples
                 string remaining = response.Headers.Get("X-RateLimit-Remaining");
                 string reset = response.Headers.Get("X-RateLimit-Reset");
 
-                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
-
-                Console.WriteLine("API calls remaining: " + remaining);
-                Console.WriteLine("Next Reset: " + resetDate);
+                if (reset != null && remaining != null)
+                {
+                    DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                    Console.WriteLine("API calls remaining: " + remaining);
+                    Console.WriteLine("Next Reset: " + resetDate);
+                }
 
                 Stream stream = response.GetResponseStream();
 

@@ -41,10 +41,12 @@ namespace ESignature.Examples
             results.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
             results.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
 
-            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
-
-            Console.WriteLine("API calls remaining: " + remaining);
-            Console.WriteLine("Next Reset: " + resetDate);
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
 
             string envelopeId = results.Data.EnvelopeId;
             //ds-snippet-end:eSign11Step2
@@ -59,10 +61,13 @@ namespace ESignature.Examples
             result1.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
             result1.Headers.TryGetValue("X-RateLimit-Reset", out reset);
 
-            resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
 
-            Console.WriteLine("API calls remaining: " + remaining);
-            Console.WriteLine("Next Reset: " + resetDate);
             // Switch to Recipient and Documents view if requested by the user
             string redirectUrl = result1.Data.Url;
             Console.WriteLine("startingView: " + startingView);

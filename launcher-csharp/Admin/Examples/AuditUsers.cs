@@ -39,10 +39,13 @@ namespace DocuSign.Admin.Examples
             recentlyModifiedUsers.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
             recentlyModifiedUsers.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
 
-            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
 
-            Console.WriteLine("API calls remaining: " + remaining);
-            Console.WriteLine("Next Reset: " + resetDate);
             //ds-snippet-end:Admin5Step3
 
             //ds-snippet-start:Admin5Step5
@@ -58,10 +61,13 @@ namespace DocuSign.Admin.Examples
                 users.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
                 users.Headers.TryGetValue("X-RateLimit-Reset", out reset);
 
-                resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                if (reset != null && remaining != null)
+                {
+                    DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                    Console.WriteLine("API calls remaining: " + remaining);
+                    Console.WriteLine("Next Reset: " + resetDate);
+                }
 
-                Console.WriteLine("API calls remaining: " + remaining);
-                Console.WriteLine("Next Reset: " + resetDate);
                 usersData.AddRange(users.Data.Users);
                 //ds-snippet-end:Admin5Step5
             }

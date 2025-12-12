@@ -37,10 +37,12 @@ namespace DocuSign.Rooms.Examples
             response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
             response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
 
-            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
-
-            Console.WriteLine("API calls remaining: " + remaining);
-            Console.WriteLine("Next Reset: " + resetDate);
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
 
             return response.Data;
             //ds-snippet-end:Rooms2Step3
@@ -76,10 +78,12 @@ namespace DocuSign.Rooms.Examples
             roles.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
             roles.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
 
-            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
-
-            Console.WriteLine("API calls remaining: " + remaining);
-            Console.WriteLine("Next Reset: " + resetDate);
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
 
             var clientRole = roles.Data.Roles.FirstOrDefault();
             // Construct the request body for your room
@@ -94,10 +98,12 @@ namespace DocuSign.Rooms.Examples
             response.Headers.TryGetValue("X-RateLimit-Remaining", out remaining);
             response.Headers.TryGetValue("X-RateLimit-Reset", out reset);
 
-            resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
-
-            Console.WriteLine("API calls remaining: " + remaining);
-            Console.WriteLine("Next Reset: " + resetDate);
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
 
             return response.Data;
             //ds-snippet-end:Rooms2Step5

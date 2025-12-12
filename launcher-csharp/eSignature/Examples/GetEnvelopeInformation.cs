@@ -30,10 +30,12 @@ namespace ESignature.Examples
             getEnvelopeReponse.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
             getEnvelopeReponse.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
 
-            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
-
-            Console.WriteLine("API calls remaining: " + remaining);
-            Console.WriteLine("Next Reset: " + resetDate);
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
 
             return getEnvelopeReponse.Data;
             //ds-snippet-end:eSign4Step2

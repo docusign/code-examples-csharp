@@ -36,10 +36,12 @@ namespace ESignature.Examples
             response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
             response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
 
-            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
-
-            Console.WriteLine("API calls remaining: " + remaining);
-            Console.WriteLine("Next Reset: " + resetDate);
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
 
             return response.Data.Require21CFRpt11Compliance == "true";
         }
@@ -69,10 +71,12 @@ namespace ESignature.Examples
             response.Headers.TryGetValue("X-RateLimit-Remaining", out string remaining);
             response.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
 
-            DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
-
-            Console.WriteLine("API calls remaining: " + remaining);
-            Console.WriteLine("Next Reset: " + resetDate);
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDate);
+            }
 
             var phoneAuthWorkflow = response.Data.IdentityVerification.FirstOrDefault(x => x.DefaultName == "SMS for access & signatures");
             //ds-snippet-end:eSign41Step2
@@ -177,10 +181,13 @@ namespace ESignature.Examples
             results1.Headers.TryGetValue("X-RateLimit-Remaining", out string remainingTime);
             results1.Headers.TryGetValue("X-RateLimit-Reset", out string resetTime);
 
-            DateTime resetDateTime = DateTimeOffset.FromUnixTimeSeconds(long.Parse(resetTime)).UtcDateTime;
+            if (reset != null && remaining != null)
+            {
+                DateTime resetDateTime = DateTimeOffset.FromUnixTimeSeconds(long.Parse(resetTime)).UtcDateTime;
+                Console.WriteLine("API calls remaining: " + remaining);
+                Console.WriteLine("Next Reset: " + resetDateTime);
+            }
 
-            Console.WriteLine("API calls remaining: " + remainingTime);
-            Console.WriteLine("Next Reset: " + resetDateTime);
             //ds-snippet-end:eSign41Step6
 
             return results1.Data.Url;

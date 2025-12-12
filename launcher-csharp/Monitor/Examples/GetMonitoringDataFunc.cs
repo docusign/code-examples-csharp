@@ -58,9 +58,11 @@ namespace DocuSign.CodeExamples.Monitor.Examples
                     cursoredResult.Headers.TryGetValue("X-RateLimit-Reset", out string reset);
 
                     DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(reset)).UtcDateTime;
-
-                    Console.WriteLine("API calls remaining: " + remaining);
-                    Console.WriteLine("Next Reset: " + resetDate);
+                    if (reset != null && remaining != null)
+                    {
+                        Console.WriteLine("API calls remaining: " + remaining);
+                        Console.WriteLine("Next Reset: " + resetDate);
+                    }
 
                     string endCursor = cursoredResult.Data.EndCursor;
 
