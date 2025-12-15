@@ -19,9 +19,12 @@ namespace DocuSign.CodeExamples.Examples
             string creatorId,
             string assigneeEmail)
         {
+            //ds-snippet-start:Workspaces5Step2
             var client = CreateAuthenticatedClient(accessToken);
             var dueDate = DateTime.Now.AddDays(7);
+            //ds-snippet-end:Workspaces5Step2
 
+            //ds-snippet-start:Workspaces5Step3
             var createUploadRequest = new CreateWorkspaceUploadRequestBody()
             {
                 Name = $"Upload Request example {dueDate}",
@@ -44,12 +47,15 @@ namespace DocuSign.CodeExamples.Examples
                 },
                 Status = WorkspaceUploadRequestStatus.Draft,
             };
+            //ds-snippet-end:Workspaces5Step3
 
+            //ds-snippet-start:Workspaces5Step4
             return await client.Workspaces.WorkspaceUploadRequest.CreateWorkspaceUploadRequestAsync(
                 accountId,
                 workspaceId,
                 createUploadRequest);
         }
+        //ds-snippet-end:Workspaces5Step4
 
         private static IamClient CreateAuthenticatedClient(string accessToken)
         {
