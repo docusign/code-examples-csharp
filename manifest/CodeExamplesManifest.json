@@ -3132,6 +3132,43 @@
                 }
               ],
               "ResultsPageText": "The workspace envelope has been created and sent!<br />Envelope ID {0}."
+            },
+            {
+              "ExampleNumber": 5,
+              "ExampleName": "Create a workspace upload request",
+              "ExampleDescription": "Creates a workspace upload request",
+              "LinksToAPIMethod": [
+                {
+                  "Path": "https://developers.docusign.com/docs/workspaces-api/reference/workspaces/workspaceuploadrequest/createworkspaceuploadrequest/",
+                  "PathName": "Workspaces:createWorkspaceUploadRequest"
+                }
+              ],
+              "RedirectsToOtherCodeExamples": [
+                {
+                  "CodeExampleToRedirectTo": 1,
+                  "RedirectText": "<p>Prerequisite: Please create a workspace before running this example using <a {0}>Create a workspace</a>.</p>"
+                },
+                {
+                  "CodeExampleToRedirectTo": 1,
+                  "RedirectText": "<p>Prerequisite: No creator ID was recorded. Please run the <a {0}>Create Workspace</a> before running this code example.</p>"
+                }
+              ],
+              "CustomErrorTexts": [
+                {
+                  "ErrorMessageCheck": "UPLOAD_REQUEST_NOT_CREATED",
+                  "ErrorMessage": "Failed to create Workspace upload request."
+                }
+              ],
+              "Forms": [
+                {
+                  "Inputs": [
+                    {
+                      "InputName": "Assignee email"
+                    }
+                  ]
+                }
+              ],
+              "ResultsPageText": "Workspace upload request created! ID: {0}."
             }
           ]
         }
