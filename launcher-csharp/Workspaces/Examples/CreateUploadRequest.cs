@@ -55,6 +55,7 @@ namespace DocuSign.CodeExamples.Examples
                 workspaceId,
                 createUploadRequest);
         }
+
         //ds-snippet-end:Workspaces5Step4
 
         private static IamClient CreateAuthenticatedClient(string accessToken)
