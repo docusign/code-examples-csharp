@@ -251,6 +251,72 @@
                 }
               ],
               "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
+            },
+            {
+              "ExampleNumber": 46,
+              "CFREnabled": "NonCFR",
+              "ExampleName": "Request a signature by multiple delivery channels",
+              "ExampleDescription": "Sends a signature request via email and an SMS or WhatsApp message.",
+              "LinksToAPIMethod": [
+                {
+                  "Path": "https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/",
+                  "PathName": "Envelopes::create"
+                }
+              ],
+              "Forms": [
+                {
+                  "Inputs": [
+                    {
+                      "InputName": "Additional delivery Method:"
+                    },
+                    {
+                      "InputName": "SMS"
+                    },
+                    {
+                      "InputName": "WhatsApp"
+                    },
+                    {
+                      "InputName": "Signer Name",
+                      "InputPlaceholder": "Pat Johnson"
+                    },
+                    {
+                      "InputName": "Signer email",
+                      "InputPlaceholder": "pat@example.com"
+                    },
+                    {
+                      "InputName": "Signer Country Code",
+                      "InputPlaceholder": "1"
+                    },
+                    {
+                      "InputName": "Signer Phone Number",
+                      "InputPlaceholder": "4155551212"
+                    },
+                    {
+                      "InputName": "CC Name",
+                      "InputPlaceholder": "Pat Johnson"
+                    },
+                    {
+                      "InputName": "CC email",
+                      "InputPlaceholder": "pat@example.com"
+                    },
+                    {
+                      "InputName": "CC Country Code",
+                      "InputPlaceholder": "1"
+                    },
+                    {
+                      "InputName": "CC Phone Number",
+                      "InputPlaceholder": "4155551212"
+                    }
+                  ]
+                }
+              ],
+              "CustomErrorTexts": [
+                {
+                  "ErrorMessageCheck": "ACCOUNT_LACKS_PERMISSIONS",
+                  "ErrorMessage": "ACCOUNT_LACKS_PERMISSIONS: This Account lacks sufficient permissions. Account lacks permission to send Envelopes over SMS.<br />Please contact <a href=\"https://developers.docusign.com/support\">Support</a> to enable multi-channel delivery in your account."
+                }
+              ],
+              "ResultsPageText": "The envelope has been created and sent!<br />Envelope ID {0}."
             }
           ]
         },
