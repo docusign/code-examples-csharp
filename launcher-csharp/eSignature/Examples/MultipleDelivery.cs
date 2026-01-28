@@ -21,6 +21,7 @@ namespace ESignature.Examples
         /// <param name="accountId">The DocuSign Account ID (GUID or short version) for which the APIs call would be made</param>
         /// <param name="envelopeDefinition">Definition of the prepared envelope.</param>
         /// <returns>EnvelopeId for the new envelope.</returns>
+        //ds-snippet-start:eSign46Step3
         public static string SendRequestByMultipleChannels(
             string accessToken,
             string basePath,
@@ -45,6 +46,8 @@ namespace ESignature.Examples
             return results.Data.EnvelopeId;
         }
 
+        //ds-snippet-end:eSign46Step3
+
         /// <summary>
         /// Prepares an envelope definition would include two documents and add a signer and cc recipients to be notified via multiple delivery channels (Email and SMS or WhatsApp).
         /// </summary>
@@ -61,6 +64,7 @@ namespace ESignature.Examples
         /// <param name="envStatus">Status to set the envelope to.</param>
         /// <param name="deliveryMethod">SMS or WhatsApp</param>
         /// <returns>EnvelopeId for the new envelope.</returns>
+        //ds-snippet-start:eSign46Step2
         public static EnvelopeDefinition MakeEnvelope(
             string signerName,
             string signerEmail,
@@ -183,6 +187,8 @@ namespace ESignature.Examples
 
             return env;
         }
+
+        //ds-snippet-end:eSign46Step2
 
         private static byte[] Document1(string signerPhone, string signerName, string ccPhone, string ccName)
         {
