@@ -255,7 +255,7 @@
             {
               "ExampleNumber": 46,
               "CFREnabled": "NonCFR",
-              "ExampleName": "Request a signature by multiple delivery channels",
+              "ExampleName": "Request a signature by multiple delivery methods",
               "ExampleDescription": "Sends a signature request via email and an SMS or WhatsApp message.",
               "LinksToAPIMethod": [
                 {
