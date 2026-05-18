@@ -16,6 +16,8 @@ namespace DocuSign.CodeExamples.Models
         public string OfferDocDocx = "Offer_Letter_Dynamic_Table.docx";
         public string DocCsv = "UserData.csv";
         public string DocHtml = "doc_1.html";
+        public string DocTxt = "Welcome.txt";
+        public string DocJpg = "Id.jpg";
         public string ExportUsersPath = @"..\..\..\ExportedUserData.csv";
         public string GithubExampleUrl = "https://github.com/docusign/code-examples-csharp/blob/master/launcher-csharp";
         public string Documentation = null;

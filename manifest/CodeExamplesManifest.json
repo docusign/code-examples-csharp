@@ -2898,6 +2898,33 @@
               ],
               "ResultsPageText": "Details for selected agreement:",
               "SkipForLanguages": "php;python;ruby"
+            },
+            {
+              "ExampleNumber": 3,
+              "ExampleName": "Create Bulk upload job",
+              "ExampleDescription": "Demonstrates how to create a Bulk upload job, upload documents and mark the job as complete",
+              "LinksToAPIMethod": [
+                {
+                  "Path": "https://developers.docusign.com/docs/navigator-api/reference/navigator/bulkjob/createbulkuploadjob/",
+                  "PathName": "BulkJob:createBulkUploadJob"
+                },
+                {
+                  "Path": "https://developers.docusign.com/docs/navigator-api/reference/navigator/bulkjob/uploadcompletebulkjob/",
+                  "PathName": "BulkJob:uploadCompleteBulkJob"
+                }
+              ],
+              "AdditionalPage": [
+                {
+                  "Name": "upload_documents",
+                  "ResultsPageText": "The documents have been uploaded. Press Continue to mark the job as complete."
+                },
+                {
+                  "Name": "job_completed",
+                  "ResultsPageText": "The Bulk upload job has been completed. Please check your Docusign account for the uploaded documents."
+                }
+              ],
+              "ResultsPageText": "The Bulk upload job has been created. Press Continue to upload documents",
+              "SkipForLanguages": "php;python;ruby"
             }
           ]
         }

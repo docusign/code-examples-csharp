@@ -18,7 +18,8 @@ namespace DocuSign.CodeExamples.Examples
             string workflowId)
         {
             var client = CreateAuthenticatedClient(basePath, accessToken);
-            return await client.Maestro.Workflows.ResumePausedWorkflowAsync(accountId, workflowId);
+            // return await client.Maestro.Workflows.ResumePausedWorkflowAsync(accountId, workflowId);
+            return null;
         }
 
         //ds-snippet-end:Maestro3Step3

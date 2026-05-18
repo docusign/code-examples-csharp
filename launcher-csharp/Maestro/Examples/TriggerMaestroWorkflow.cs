@@ -30,7 +30,8 @@ namespace DocuSign.CodeExamples.Examples
         //ds-snippet-start:Maestro1Step3
         {
             var client = CreateAuthenticatedClient(basePath, accessToken);
-            return await client.Maestro.Workflows.GetWorkflowsListAsync(accountId, Status.Active);
+            // return await client.Maestro.Workflows.GetWorkflowsListAsync(accountId, Status.Active);
+            return null;
         }
 
         //ds-snippet-end:Maestro1Step3
@@ -69,11 +70,12 @@ namespace DocuSign.CodeExamples.Examples
                 TriggerInputs = triggerInputs,
             };
 
-            return await client.Maestro.Workflows.TriggerWorkflowAsync(
+            /* return await client.Maestro.Workflows.TriggerWorkflowAsync(
                 accountId,
                 workflowId,
-                triggerWorkflow);
+                triggerWorkflow); */
             //ds-snippet-end:Maestro1Step5
+            return null;
         }
 
         /// <summary>

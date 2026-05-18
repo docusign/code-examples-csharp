@@ -20,7 +20,7 @@ namespace DocuSign.CodeExamples.Examples
             string basePath, string accessToken, string accountId)
         {
             var client = CreateAuthenticatedClient(basePath, accessToken);
-            return await client.Navigator.Agreements.GetAgreementsListAsync(new GetAgreementsListRequest
+            return await client.AgreementManager.Agreements.GetAgreementsListAsync(new GetAgreementsListRequest
             {
                 AccountId = accountId,
             });
@@ -37,7 +37,7 @@ namespace DocuSign.CodeExamples.Examples
             string basePath, string accessToken, string accountId, string agreementId)
         {
             var client = CreateAuthenticatedClient(basePath, accessToken);
-            return await client.Navigator.Agreements.GetAgreementAsync(accountId, agreementId);
+            return await client.AgreementManager.Agreements.GetAgreementAsync(accountId, agreementId);
         }
 
         //ds-snippet-end:Navigator2Step3
