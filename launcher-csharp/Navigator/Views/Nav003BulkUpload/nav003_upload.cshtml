@@ -2,6 +2,6 @@
 <p>@Html.Raw(ViewBag.message)</p>
 
 <form class="eg" action="/nav003/upload" method="post" data-busy="form">
-    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
 </form>

@@ -52,6 +52,7 @@ namespace DocuSign.CodeExamples.Controllers
 
         [MustAuthenticate]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [SetViewBag]
         [Route("create")]
         public async Task<IActionResult> Create()
@@ -90,6 +91,7 @@ namespace DocuSign.CodeExamples.Controllers
 
         [MustAuthenticate]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [SetViewBag]
         [Route("upload")]
         public async Task<IActionResult> Upload()
@@ -133,6 +135,7 @@ namespace DocuSign.CodeExamples.Controllers
 
         [MustAuthenticate]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [SetViewBag]
         [Route("complete")]
         public async Task<IActionResult> Complete()
