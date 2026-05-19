@@ -15,6 +15,8 @@ namespace DocuSign.CodeExamples.Examples
 
     public class BulkUpload
     {
+        //ds-snippet-start:Navigator3Step2
+
         public static async Task<BulkJob> CreateBulkUpload(string basePath, string accessToken, string accountId, string jobName)
         {
             var client = IamClient.Builder()
@@ -32,6 +34,9 @@ namespace DocuSign.CodeExamples.Examples
             return await client.AgreementManager.BulkJob.CreateBulkUploadJobAsync(bulkUploadJob, accountId);
         }
 
+        //ds-snippet-end:Navigator3Step2
+
+        //ds-snippet-start:Navigator3Step3
         public static async Task UploadDocuments(string[] uploadUrls, string[] filePaths)
         {
             var httpClient = new HttpClient();
@@ -80,6 +85,9 @@ namespace DocuSign.CodeExamples.Examples
             }
         }
 
+        //ds-snippet-end:Navigator3Step3
+
+        //ds-snippet-start:Navigator3Step4
         public static async Task<BulkJob> CompleteBulkUploadJob(string basePath, string accessToken, string accountId, string jobId)
         {
             var client = IamClient.Builder()
@@ -89,6 +97,8 @@ namespace DocuSign.CodeExamples.Examples
 
             return await client.AgreementManager.BulkJob.UploadCompleteBulkJobAsync(accountId, jobId);
         }
+
+        //ds-snippet-end:Navigator3Step4
 
         private static string GetContentType(string filename)
         {
