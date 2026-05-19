@@ -1,0 +1,7 @@
+﻿<h2>@ViewBag.h1</h2>
+<p>@Html.Raw(ViewBag.message)</p>
+
+<form class="eg" action="/nav003/complete" method="post" data-busy="form">
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
+</form>

@@ -106,7 +106,7 @@ namespace DocuSign.CodeExamples
 
             this.apiTypes.Add(ExamplesApiType.ConnectedFields, new List<string> { "signature", "adm_store_unified_repo_read" });
 
-            this.apiTypes.Add(ExamplesApiType.Navigator, new List<string> { "signature", "adm_store_unified_repo_read" });
+            this.apiTypes.Add(ExamplesApiType.Navigator, new List<string> { "signature", "adm_store_unified_repo_read", "document_uploader_write", "document_uploader_read" });
         }
 
         public IConfiguration Configuration { get; }
