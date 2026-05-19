@@ -110,6 +110,8 @@ namespace DocuSign.CodeExamples.Authentication
             if (apiType == ExamplesApiType.Navigator)
             {
                 scopes.Add("adm_store_unified_repo_read");
+                scopes.Add("document_uploader_write");
+                scopes.Add("document_uploader_read");
             }
 
             return docuSignClient.RequestJWTUserToken(

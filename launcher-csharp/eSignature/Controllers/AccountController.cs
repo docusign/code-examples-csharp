@@ -132,7 +132,7 @@ namespace DocuSign.CodeExamples.Controllers
             }
             else if (apiType == ExamplesApiType.Navigator)
             {
-                scopes += " adm_store_unified_repo_read";
+                scopes += " adm_store_unified_repo_read document_uploader_write document_uploader_read";
             }
             else if (apiType == ExamplesApiType.Workspaces)
             {

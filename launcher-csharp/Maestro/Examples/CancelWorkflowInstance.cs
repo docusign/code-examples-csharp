@@ -19,7 +19,7 @@ namespace DocuSign.CodeExamples.Examples
             string workflowInstanceId)
         {
             var client = CreateAuthenticatedClient(basePath, accessToken);
-            return await client.Maestro.WorkflowInstanceManagement.CancelWorkflowInstanceAsync(accountId, workflowId, workflowInstanceId);
+            return await client.WorkflowBuilder.WorkflowInstanceManagement.CancelWorkflowInstanceAsync(workflowInstanceId, accountId, workflowId);
         }
 
         //ds-snippet-end:Maestro4Step3
@@ -32,7 +32,7 @@ namespace DocuSign.CodeExamples.Examples
             string workflowInstanceId)
         {
             var client = CreateAuthenticatedClient(basePath, accessToken);
-            return await client.Maestro.WorkflowInstanceManagement.GetWorkflowInstanceAsync(accountId, workflowId, workflowInstanceId);
+            return await client.WorkflowBuilder.WorkflowInstanceManagement.GetWorkflowInstanceAsync(workflowInstanceId, accountId, workflowId);
         }
 
         /// <summary>
