@@ -6,11 +6,10 @@ namespace ESignature.Examples
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using DocuSign.eSign.Api;
     using DocuSign.eSign.Client;
     using DocuSign.eSign.Model;
-    using Org.BouncyCastle.Asn1;
-    using static System.Net.WebRequestMethods;
 
     /// <summary>
     /// Used to generate an envelope and allow user to sign it directly from the app without having to open an email.
@@ -29,6 +28,8 @@ namespace ESignature.Examples
         /// <param name="docPdf">String of bytes representing the document (pdf)</param>
         /// <param name="returnUrl">URL user will be redirected to after they sign</param>
         /// <param name="pingUrl">URL that DocuSign will be able to ping to incdicate signing session is active</param>
+        /// <param name="countryCode">Country code for identity verification</param>
+        /// <param name="phoneNumber">Phone number for identity verification</param>
         /// <returns>The envelopeId (GUID) of the resulting Envelope and the URL for the embedded signing</returns>
         public static (string, string) SendEnvelopeWithFocusedView(
             string signerEmail,
@@ -39,13 +40,48 @@ namespace ESignature.Examples
             string accountId,
             string docPdf,
             string returnUrl,
-            string pingUrl = null)
+            string pingUrl = null,
+            string countryCode = null,
+            string phoneNumber = null)
         {
             //ds-snippet-start:eSign44Step3
-            EnvelopeDefinition envelope = MakeEnvelope(signerEmail, signerName, signerClientId, docPdf);
-
             var docuSignClient = new DocuSignClient(basePath);
             docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + accessToken);
+
+            string workflowId = null;
+            if (!string.IsNullOrWhiteSpace(phoneNumber))
+            {
+                var accountsApi = new AccountsApi(docuSignClient);
+                var identityVerificationResponse = accountsApi.GetAccountIdentityVerificationWithHttpInfo(accountId);
+                identityVerificationResponse.Headers.TryGetValue("X-RateLimit-Remaining", out string identityRemaining);
+                identityVerificationResponse.Headers.TryGetValue("X-RateLimit-Reset", out string identityReset);
+
+                if (identityReset != null && identityRemaining != null)
+                {
+                    DateTime resetDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(identityReset)).UtcDateTime;
+                    Console.WriteLine("API calls remaining: " + identityRemaining);
+                    Console.WriteLine("Next Reset: " + resetDate);
+                }
+
+                var phoneAuthWorkflow = identityVerificationResponse.Data.IdentityVerification
+                    .FirstOrDefault(x => x.DefaultName == "Phone Authentication");
+
+                if (phoneAuthWorkflow == null)
+                {
+                    throw new ApiException(0, "IDENTITY_WORKFLOW_INVALID_ID");
+                }
+
+                workflowId = phoneAuthWorkflow.WorkflowId;
+            }
+
+            EnvelopeDefinition envelope = MakeEnvelope(
+                signerEmail,
+                signerName,
+                signerClientId,
+                docPdf,
+                countryCode,
+                phoneNumber,
+                workflowId);
 
             EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
             var results = envelopesApi.CreateEnvelopeWithHttpInfo(accountId, envelope);
@@ -146,33 +182,43 @@ namespace ESignature.Examples
         //ds-snippet-end:eSign44Step4
 
         //ds-snippet-start:eSign44Step2
-        public static EnvelopeDefinition MakeEnvelope(string signerEmail, string signerName, string signerClientId, string docPdf)
+        public static EnvelopeDefinition MakeEnvelope(
+            string signerEmail,
+            string signerName,
+            string signerClientId,
+            string docPdf,
+            string countryCode = null,
+            string phoneNumber = null,
+            string workflowId = null)
         {
             // Data for this method:
             // signerEmail
             // signerName
             // signerClientId -- class global
             // Config.docPdf
+            // countryCode (optional)
+            // phoneNumber (optional)
+            // workflowId (optional)
             byte[] buffer = System.IO.File.ReadAllBytes(docPdf);
 
             EnvelopeDefinition envelopeDefinition = new EnvelopeDefinition();
             envelopeDefinition.EmailSubject = "Please sign this document";
-            Document doc1 = new Document();
+            Document doc = new Document();
 
-            string doc1b64 = Convert.ToBase64String(buffer);
+            string docb64 = Convert.ToBase64String(buffer);
 
-            doc1.DocumentBase64 = doc1b64;
-            doc1.Name = "Lorem Ipsum"; // Can be different from the actual file name
-            doc1.FileExtension = "pdf";
-            doc1.DocumentId = "3";
+            doc.DocumentBase64 = docb64;
+            doc.Name = "Lorem Ipsum"; // Can be different from the actual file name
+            doc.FileExtension = "pdf";
+            doc.DocumentId = "3";
 
             // The order in the docs array determines the order in the envelope
-            envelopeDefinition.Documents = new List<Document> { doc1 };
+            envelopeDefinition.Documents = new List<Document> { doc };
 
             // Create a signer recipient to sign the document, identified by name and email
             // We set the clientUserId to enable embedded signing for the recipient
             // We're setting the parameters via the object creation
-            Signer signer1 = new Signer
+            Signer signer = new Signer
             {
                 Email = signerEmail,
                 Name = signerName,
@@ -180,30 +226,34 @@ namespace ESignature.Examples
                 RecipientId = "1",
             };
 
-            // Create signHere fields (also known as tabs) on the documents,
-            // We're using anchor (autoPlace) positioning
-            //
-            // The DocuSign platform searches throughout your envelope's
-            // documents for matching anchor strings
-            SignHere signHere1 = new SignHere
+            if (!string.IsNullOrWhiteSpace(phoneNumber))
             {
-                AnchorString = "/sn1/",
-                AnchorUnits = "pixels",
-                AnchorXOffset = "10",
-                AnchorYOffset = "20",
-            };
-
-            // Tabs are set per recipient / signer
-            Tabs signer1Tabs = new Tabs
-            {
-                SignHereTabs = new List<SignHere> { signHere1 },
-            };
-            signer1.Tabs = signer1Tabs;
+                signer.IdentityVerification = new RecipientIdentityVerification
+                {
+                    WorkflowId = workflowId,
+                    InputOptions = new List<RecipientIdentityInputOption>
+                    {
+                        new RecipientIdentityInputOption
+                        {
+                            Name = "phone_number_list",
+                            ValueType = "PhoneNumberList",
+                            PhoneNumberList = new List<RecipientIdentityPhoneNumber>
+                            {
+                                new RecipientIdentityPhoneNumber
+                                {
+                                    CountryCode = countryCode,
+                                    Number = phoneNumber,
+                                },
+                            },
+                        },
+                    },
+                };
+            }
 
             // Add the recipient to the envelope object
             Recipients recipients = new Recipients
             {
-                Signers = new List<Signer> { signer1 },
+                Signers = new List<Signer> { signer },
             };
             envelopeDefinition.Recipients = recipients;
 

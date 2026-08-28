@@ -476,6 +476,19 @@
                       "InputPlaceholder": "Pat Johnson"
                     }
                   ]
+                },
+                {
+                  "FormName": "<h5>SMS Verification (Optional)</h5></p>",
+                  "Inputs": [
+                    {
+                      "InputName": "Signer country code",
+                      "InputPlaceholder": "1"
+                    },
+                    {
+                      "InputName": "Signer phone number",
+                      "InputPlaceholder": "4155551212"
+                    }
+                  ]
                 }
               ],
               "ResultsPageText": "The document has been embedded with focused view.",
