@@ -36,8 +36,9 @@ namespace DocuSign.CodeExamples.Views
         public override string EgName => "eg044";
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [SetViewBag]
-        public IActionResult Create(string signerEmail, string signerName)
+        public IActionResult Create(string signerEmail, string signerName, string countryCode, string phoneNumber)
         {
             // Data for this method
             // signerEmail
@@ -48,6 +49,8 @@ namespace DocuSign.CodeExamples.Views
             string accessToken = this.RequestItemsService.User.AccessToken;
             string basePath = this.RequestItemsService.Session.BasePath + "/restapi";
             string accountId = this.RequestItemsService.Session.AccountId;
+            countryCode = string.IsNullOrWhiteSpace(countryCode) ? null : countryCode;
+            phoneNumber = string.IsNullOrWhiteSpace(phoneNumber) ? null : phoneNumber;
             string docPDF;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
@@ -81,7 +84,9 @@ namespace DocuSign.CodeExamples.Views
                 accountId,
                 docPDF,
                 this.dsReturnUrl,
-                this.dsPingUrl);
+                this.dsPingUrl,
+                countryCode,
+                phoneNumber);
 
             // Save for future use within the example launcher
             this.RequestItemsService.EnvelopeId = result.Item1;

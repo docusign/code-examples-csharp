@@ -1,7 +1,10 @@
 ﻿@{
     int formNumber = 0;
+    int phoneAuthFormNumber = 1;
     int signerEmailInputNumber = 0;
     int signerNameInputNumber = 1;
+    int countryCodeInputNumber = 0;
+    int phoneNumberInputNumber = 1;
 }
 
 <h4>@Html.Raw(ViewBag.CodeExampleText.ExampleName)</h4>
@@ -50,6 +53,34 @@
             value="@ViewBag.Locals.DsConfig.SignerName"
             required />
     </div>
+
+    <br />
+
+    @if (ViewBag.CodeExampleText.Forms.Count > phoneAuthFormNumber && ViewBag.CodeExampleText.Forms[phoneAuthFormNumber].FormName != null)
+    {
+        @Html.Raw(ViewBag.CodeExampleText.Forms[phoneAuthFormNumber].FormName)
+    }
+
+    <div class="form-group">
+        <label for="countryCode">@ViewBag.CodeExampleText.Forms[phoneAuthFormNumber].Inputs[countryCodeInputNumber].InputName</label>
+        <input type="text"
+            class="form-control"
+            id="countryCode"
+            name="countryCode"
+            placeholder="@ViewBag.CodeExampleText.Forms[phoneAuthFormNumber].Inputs[countryCodeInputNumber].InputPlaceholder" />
+    </div>
+
+    <div class="form-group">
+        <label for="phoneNumber">@ViewBag.CodeExampleText.Forms[phoneAuthFormNumber].Inputs[phoneNumberInputNumber].InputName</label>
+        <input type="text"
+            class="form-control"
+            id="phoneNumber"
+            name="phoneNumber"
+            aria-describedby="phoneHelp"
+            placeholder="@ViewBag.CodeExampleText.Forms[phoneAuthFormNumber].Inputs[phoneNumberInputNumber].InputPlaceholder" />
+        <small id="phoneHelp" class="form-text text-muted">Provide a phone number to enable phone authentication for the signer.</small>
+    </div>
+
     <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>
