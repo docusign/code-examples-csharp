@@ -26,6 +26,7 @@ namespace DocuSign.CodeExamples.Controllers
 
         [SetViewBag]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(string signerEmail, string signerName, string brandId)
         {
             // Check the token with minimal buffer time.

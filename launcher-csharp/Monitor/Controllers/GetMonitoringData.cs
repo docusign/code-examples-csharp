@@ -33,6 +33,7 @@ namespace DocuSign.CodeExamples.Controllers
         [MustAuthenticate]
         [SetViewBag]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create()
         {
             // Obtain your JWT authentication token

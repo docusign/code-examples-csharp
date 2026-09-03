@@ -121,7 +121,7 @@
                 @Html.DropDownList("brandId", new SelectList(ViewBag.Brands, "BrandId", "BrandName"), new { @class = "form-control" })
             }
         </div>
-        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+        @Html.AntiForgeryToken()
 
         @if (ViewBag.Brands != null)
         {

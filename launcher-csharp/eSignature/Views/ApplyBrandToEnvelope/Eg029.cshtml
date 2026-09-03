@@ -91,7 +91,7 @@
         }
     </div>
 
-    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    @Html.AntiForgeryToken()
     @if (ViewBag.Brands != null)
     {
         @:<button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>

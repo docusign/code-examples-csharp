@@ -26,6 +26,7 @@ namespace DocuSign.CodeExamples.Controllers
         public override string EgName => "work001";
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [SetViewBag]
         public IActionResult Create(string workspaceName)
         {

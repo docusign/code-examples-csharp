@@ -33,6 +33,7 @@
 else
 {
    <form class="eg" action="" method="post" data-busy="form">
+       @Html.AntiForgeryToken()
         <div class="form-group">
             <label for="instanceName">
                 @Html.Raw(ViewBag.CodeExampleText.Forms[0].Inputs[0].InputName)

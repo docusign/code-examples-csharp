@@ -34,6 +34,12 @@ namespace DocuSign.CodeExamples.Controllers
             this.Configuration["FirstLaunch"] = "false";
             this.Configuration["API"] = this.Configuration["APIPlanned"];
 
+            // Prevent open redirects: only allow redirecting to local URLs.
+            if (!this.Url.IsLocalUrl(returnUrl))
+            {
+                returnUrl = "/";
+            }
+
             if (this.Configuration["API"] != this.requestItemsService.IdentifyApiOfCodeExample(this.requestItemsService.EgName))
             {
                 this.requestItemsService.EgName = string.Empty;

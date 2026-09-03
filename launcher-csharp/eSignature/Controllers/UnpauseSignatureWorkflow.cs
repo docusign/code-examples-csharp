@@ -24,6 +24,7 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
         public override string EgName => "Eg033";
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [SetViewBag]
         public IActionResult Update()
         {

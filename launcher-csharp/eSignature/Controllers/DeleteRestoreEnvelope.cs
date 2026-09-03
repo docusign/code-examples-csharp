@@ -34,6 +34,7 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
         /// </summary>
         /// <returns>IActionResult</returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Route("DeleteEnvelopeAction")]
         [SetViewBag]
         public IActionResult DeleteEnvelopeAction(string envelopeId)
@@ -75,6 +76,7 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
         /// </summary>
         /// <returns>IActionResult</returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Route("RestoreEnvelopeAction")]
         [SetViewBag]
         public IActionResult RestoreEnvelopeAction(string folderName)

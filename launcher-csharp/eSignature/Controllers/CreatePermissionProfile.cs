@@ -27,6 +27,7 @@ namespace DocuSign.CodeExamples.Controllers
         public PermissionProfileModel ProfileModel { get; set; }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [SetViewBag]
         [Route("Create")]
         public IActionResult Create(PermissionProfileModel permissionProfileModel)

@@ -24,7 +24,7 @@
     <p>@Html.Raw(ViewBag.CodeExampleText.Forms[formNumber].FormName)</p>
 
     <form class="eg" action="" method="post" data-busy="form">
-        <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
+        @Html.AntiForgeryToken()
         <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.ContinueButton)</button>
     </form>
 

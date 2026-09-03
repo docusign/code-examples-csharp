@@ -126,7 +126,16 @@ namespace DocuSign.CodeExamples.Controllers
                 }
 
                 this.RequestItemsService.EgName = null;
-                return this.Redirect(egName);
+
+                // Prevent open redirects: egName is a relative example id (e.g. "eg001").
+                // Normalize to an app-relative path and only allow local URLs.
+                var redirectTarget = "~/" + egName;
+                if (!this.Url.IsLocalUrl(redirectTarget))
+                {
+                    return this.RedirectToAction("Index");
+                }
+
+                return this.LocalRedirect(redirectTarget);
             }
 
             this.ViewBag.APITexts = this.LauncherTexts.ManifestStructure.ApIs;

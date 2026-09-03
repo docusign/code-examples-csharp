@@ -117,6 +117,18 @@
         return null;
     }
 
+    function getSafeUrl(url) {
+        const value = String(url);
+        // Block script-bearing schemes (javascript:, data:, vbscript:); allow http(s)
+        // and relative URLs. encodeURI escapes meta-characters so the value cannot be
+        // reinterpreted as markup.
+        if (/^\s*(javascript|data|vbscript):/i.test(value)) {
+            return "#";
+        }
+
+        return encodeURI(value);
+    }
+
     function getLinkForApiType(apiName) {
         switch (apiName) {
             case API_TYPES.ADMIN:
@@ -155,7 +167,13 @@
 
                 element.Groups.forEach(
                     group => {
-                        $("#filtered_code_examples").append("<h2>" + group.Name + "</h2>");
+                        // Build nodes with native DOM APIs (textContent / setAttribute) so that
+                        // manifest content is never parsed or reinterpreted as HTML (prevents DOM XSS).
+                        const container = document.getElementById("filtered_code_examples");
+
+                        const heading = document.createElement("h2");
+                        heading.textContent = group.Name;
+                        container.appendChild(heading);
 
                         group.Examples.forEach(
                             example => {
@@ -164,50 +182,52 @@
                                         ((example.CFREnabled == "AllAccounts") ||
                                             ((cfrPart11 == "True") && (example.CFREnabled == "CFROnly")) ||
                                             ((cfrPart11 != "True") && (example.CFREnabled == "NonCFR")))) {
-                                        $("#filtered_code_examples").append(
-                                            "<h4 id="
-                                            + "example".concat("0".repeat(3 - example.ExampleNumber.toString().length)).concat(example.ExampleNumber) + ">"
-                                            + "<a href = "
-                                            + linkToCodeExample.concat("0".repeat(3 - example.ExampleNumber.toString().length)).concat(example.ExampleNumber)
-                                            + " >"
-                                            + example.ExampleName
-                                            + "</a ></h4 >"
-                                        );
+                                        let paddedNumber = "0".repeat(3 - example.ExampleNumber.toString().length).concat(example.ExampleNumber);
 
-                                        $("#filtered_code_examples").append("<p>" + example.ExampleDescription + "</p>");
+                                        const exampleLink = document.createElement("a");
+                                        exampleLink.setAttribute("href", getSafeUrl(linkToCodeExample.concat(paddedNumber)));
+                                        exampleLink.textContent = example.ExampleName;
+                                        const exampleHeading = document.createElement("h4");
+                                        exampleHeading.setAttribute("id", "example".concat(paddedNumber));
+                                        exampleHeading.appendChild(exampleLink);
+                                        container.appendChild(exampleHeading);
 
-                                        $("#filtered_code_examples").append("<p>");
+                                        const description = document.createElement("p");
+                                        description.innerHTML = DOMPurify.sanitize(example.ExampleDescription);
+                                        container.appendChild(description);
+
+                                        const methodsParagraph = document.createElement("p");
                                         if (example.LinksToAPIMethod.length !== 0) {
                                             if (example.LinksToAPIMethod.length == 1) {
-                                                $("#filtered_code_examples").append(processJSONData().SupportingTexts.APIMethodUsed);
+                                                methodsParagraph.appendChild(document.createTextNode(processJSONData().SupportingTexts.APIMethodUsed));
                                             }
                                             else {
-                                                $("#filtered_code_examples").append(processJSONData().SupportingTexts.APIMethodUsedPlural);
+                                                methodsParagraph.appendChild(document.createTextNode(processJSONData().SupportingTexts.APIMethodUsedPlural));
                                             }
 
                                             for (let index = 0; index < example.LinksToAPIMethod.length; index++) {
-                                                $("#filtered_code_examples").append(
-                                                    " <a target='_blank' href='"
-                                                    + example.LinksToAPIMethod[index].Path
-                                                    + "'>"
-                                                    + example.LinksToAPIMethod[index].PathName
-                                                    + "</a>"
-                                                );
+                                                methodsParagraph.appendChild(document.createTextNode(" "));
+                                                const methodLink = document.createElement("a");
+                                                methodLink.setAttribute("target", "_blank");
+                                                methodLink.setAttribute("href", getSafeUrl(example.LinksToAPIMethod[index].Path));
+                                                methodLink.textContent = example.LinksToAPIMethod[index].PathName;
+                                                methodsParagraph.appendChild(methodLink);
 
+                                                const separator = document.createElement("span");
                                                 if (index + 1 === example.LinksToAPIMethod.length) {
-                                                    $("#filtered_code_examples").append("<span></span>");
+                                                    separator.textContent = "";
                                                 }
                                                 else if (index + 1 === example.LinksToAPIMethod.length - 1) {
-                                                    $("#filtered_code_examples").append("<span> and </span>");
+                                                    separator.textContent = " and ";
                                                 }
                                                 else {
-                                                    $("#filtered_code_examples").append("<span>, </span>");
+                                                    separator.textContent = ", ";
                                                 }
-
+                                                methodsParagraph.appendChild(separator);
                                             }
                                         }
 
-                                        $("#filtered_code_examples").append("</p> ");
+                                        container.appendChild(methodsParagraph);
                                     }
                                 }
                             }
@@ -219,7 +239,7 @@
     }
 
     let textCouldNotBeFound = function () {
-        $("#filtered_code_examples").append(processJSONData().SupportingTexts.SearchFailed);
+        $("#filtered_code_examples").append(DOMPurify.sanitize(processJSONData().SupportingTexts.SearchFailed));
     }
 
     return {

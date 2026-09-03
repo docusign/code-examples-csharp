@@ -24,6 +24,7 @@ namespace DocuSign.CodeExamples.Controllers
         public override string EgName => "eg028";
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [SetViewBag]
         public IActionResult Create(string brandName, string defaultBrandLanguage)
         {

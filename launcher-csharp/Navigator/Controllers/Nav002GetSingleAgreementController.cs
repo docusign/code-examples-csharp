@@ -48,6 +48,7 @@ namespace DocuSign.CodeExamples.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [SetViewBag]
         public async Task<IActionResult> Create(string agreementId)
         {

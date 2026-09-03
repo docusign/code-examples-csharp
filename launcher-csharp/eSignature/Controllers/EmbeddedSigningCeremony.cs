@@ -32,6 +32,7 @@ namespace DocuSign.CodeExamples.Views
         public override string EgName => Convert.ToBoolean(this.Config.QuickAcg) ? "quickEmbeddedSigning" : "eg001";
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [SetViewBag]
         public IActionResult Create(string signerEmail, string signerName)
         {

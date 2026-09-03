@@ -22,7 +22,27 @@ namespace DocuSign.CodeExamples.Examples
             var client = CreateAuthenticatedClient(accessToken);
             //ds-snippet-end:Workspaces2Step2
 
-            byte[] fileBytes = File.ReadAllBytes(documentPath);
+            // Guard against path traversal: only allow reading a file that already exists
+            // directly under the application's base directory. The path passed to the file
+            // API is taken from the trusted directory listing (not from user input); the
+            // user-supplied value is used solely to select a matching file name.
+            string requestedName = Path.GetFileName(documentPath);
+            string fullPath = null;
+            foreach (var candidate in Directory.EnumerateFiles(Directory.GetCurrentDirectory()))
+            {
+                if (string.Equals(Path.GetFileName(candidate), requestedName, System.StringComparison.Ordinal))
+                {
+                    fullPath = candidate;
+                    break;
+                }
+            }
+
+            if (fullPath == null)
+            {
+                throw new System.ArgumentException("Invalid document path.", nameof(documentPath));
+            }
+
+            byte[] fileBytes = File.ReadAllBytes(fullPath);
 
             //ds-snippet-start:Workspaces2Step3
             var addWorkspaceDocumentRequest = new AddWorkspaceDocumentRequest

@@ -36,6 +36,7 @@
 </p>
 
 <form action="" class="eg" method="post" data-busy="form">
+    @Html.AntiForgeryToken()
 
     <b>@Html.Raw(ViewBag.CodeExampleText.Forms[firstFormNumber].FormName)</b>
     <div class="row">

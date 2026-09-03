@@ -33,6 +33,7 @@
 
 @if (ViewBag.pausedEnvelopeOk) {
 <form action="" class="eg" method="post" data-busy="form">
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>
 }else {

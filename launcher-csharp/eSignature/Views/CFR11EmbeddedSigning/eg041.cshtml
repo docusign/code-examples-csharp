@@ -84,7 +84,7 @@
             @Html.Raw(ViewBag.SupportingTexts.HelpingTexts.PhoneNumberWontBeShared)
         </small>
     </div>
-    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>
 

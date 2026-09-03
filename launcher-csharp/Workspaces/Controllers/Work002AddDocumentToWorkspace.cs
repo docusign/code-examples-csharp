@@ -41,6 +41,7 @@ namespace DocuSign.CodeExamples.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [SetViewBag]
         public IActionResult Create(string documentName, string documentPath)
         {

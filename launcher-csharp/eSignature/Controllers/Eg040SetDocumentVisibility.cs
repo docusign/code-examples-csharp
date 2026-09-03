@@ -25,6 +25,7 @@ namespace DocuSign.CodeExamples.Views
         public override string EgName => "Eg040";
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [SetViewBag]
         public IActionResult Create(
             string signer1Email,

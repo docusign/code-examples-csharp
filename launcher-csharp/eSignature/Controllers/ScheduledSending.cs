@@ -24,6 +24,7 @@ namespace DocuSign.CodeExamples.ESignature.Controllers
         public override string EgName => "Eg035";
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [SetViewBag]
         public IActionResult Create(string signerEmail, string signerName, DateTime resumeDate)
         {

@@ -27,6 +27,7 @@ namespace DocuSign.CodeExamples.Controllers
         public override string EgName => "nav001";
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [SetViewBag]
         public async Task<IActionResult> Create(string signerEmail, string signerName)
         {

@@ -81,6 +81,6 @@
         <small id="phoneHelp" class="form-text text-muted">Provide a phone number to enable phone authentication for the signer.</small>
     </div>
 
-    <input type="hidden" name="_csrf" value="@ViewBag.csrfToken">
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

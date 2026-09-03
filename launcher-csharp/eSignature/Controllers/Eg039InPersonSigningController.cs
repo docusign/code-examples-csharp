@@ -31,6 +31,7 @@ namespace DocuSign.CodeExamples.Views
         private string DsReturnUrl { get; set; }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [SetViewBag]
         public IActionResult Create(string signerName)
         {

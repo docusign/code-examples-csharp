@@ -56,6 +56,6 @@
         <small id="emailHelp" class="form-text text-muted">@Html.Raw(ViewBag.SupportingTexts.HelpingTexts.ChooseDateInTheFuture)</small>
     </div>
 
-    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">@Html.Raw(ViewBag.SupportingTexts.SubmitButton)</button>
 </form>

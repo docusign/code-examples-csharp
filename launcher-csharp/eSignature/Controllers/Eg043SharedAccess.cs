@@ -37,6 +37,7 @@ namespace DocuSign.CodeExamples.Views
         public override string EgName => "Eg043";
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [SetViewBag]
         public IActionResult Create(string agentEmail, string agentName, string activationCode)
         {
